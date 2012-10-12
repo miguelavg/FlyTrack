@@ -29,7 +29,7 @@ public class Parametro implements Serializable {
     private String valorUnico;
     @ManyToOne
     @JoinColumn(name = "idPadre")
-    private Parametro parametro;
+    private Parametro padre;
 
     public Parametro() {
     }
@@ -62,11 +62,11 @@ public class Parametro implements Serializable {
         this.valorUnico = valorUnico;
     }
 
-    public Parametro getParametro() {
-        return parametro;
+    public Parametro getPadre() {
+        return padre;
     }
 
-    public void setParametro(Parametro parametro) {
-        this.parametro = parametro;
+    public void setPadre(Parametro padre) {
+        this.padre = padre;
     }
 }

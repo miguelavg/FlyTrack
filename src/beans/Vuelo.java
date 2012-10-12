@@ -43,7 +43,7 @@ public class Vuelo implements Serializable {
     private Aeropuerto destino;
     @OneToMany(mappedBy = "vuelo")
     private List<Incidencia> incidencias;
-    @OneToMany(mappedBy = "escalas")
+    @OneToMany(mappedBy = "vuelo")
     private List<Escala> escalas;
 
     public Vuelo() {
