@@ -4,6 +4,8 @@
  */
 package flytrack;
 
+import controllers.CTest;
+
 /**
  *
  * @author miguelavg
@@ -14,6 +16,7 @@ public class FlyTrack {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        CTest cTest = new CTest();
+        cTest.chevere();
     }
 }
