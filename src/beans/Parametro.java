@@ -1,13 +1,22 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /*
  * To change this template, choose Tools | Templates
@@ -19,6 +28,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Parametro")
+@NamedQueries({
+    @NamedQuery(name = "Parametros",
+    query = "from Parametro"),
+    @NamedQuery(name = "ParametrosXTipoXValorUnico",
+    query = "from Parametro p where p.tipo = :tipo and p.valorUnico = :valorUnico"),
+    @NamedQuery(name = "ParametrosXTipo",
+    query = "from Parametro p where p.tipo = :tipo")
+})
+@FilterDefs({
+    @FilterDef(name = "ParametroHijosXTipo",
+    parameters =
+    @ParamDef(name = "tipo", type = "string"))
+})
 public class Parametro implements Serializable {
 
     @Id
@@ -30,6 +52,11 @@ public class Parametro implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idPadre")
     private Parametro padre;
+    @OneToMany(mappedBy = "padre")
+    @Filters({
+        @Filter(name = "Parametro_HijosXTipo", condition = "tipo = :tipo")
+    })
+    private List<Parametro> hijos;
 
     public Parametro() {
     }
@@ -68,5 +95,13 @@ public class Parametro implements Serializable {
 
     public void setPadre(Parametro padre) {
         this.padre = padre;
+    }
+
+    public List<Parametro> getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(List<Parametro> hijos) {
+        this.hijos = hijos;
     }
 }

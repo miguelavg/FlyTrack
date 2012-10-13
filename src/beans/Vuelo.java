@@ -28,6 +28,7 @@ public class Vuelo implements Serializable {
     private int idVuelo;
     private double alquiler;
     private int capacidad;
+    private int capacidadUsada;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaSalida;
     @Temporal(TemporalType.TIMESTAMP)
@@ -71,6 +72,14 @@ public class Vuelo implements Serializable {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public int getCapacidadUsada() {
+        return capacidadUsada;
+    }
+
+    public void setCapacidadUsada(int capacidadUsada) {
+        this.capacidadUsada = capacidadUsada;
     }
 
     public Date getFechaSalida() {

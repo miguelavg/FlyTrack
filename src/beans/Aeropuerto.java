@@ -12,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
@@ -19,6 +24,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Aeropuerto")
+@NamedQueries({
+    @NamedQuery(name = "Aeropuertos",
+    query = "from Aeropuerto"),
+    @NamedQuery(name = "AeropuertosXPais",
+    query = "from Aeropuerto a where a.pais = :pais"),
+    @NamedQuery(name = "ParametrosXCiudad",
+    query = "from Aeropuerto a where a.ciudad = :ciudad")
+})
+@FilterDefs({
+    @FilterDef(name = "ParametroHijosXTipo",
+    parameters =
+    @ParamDef(name = "tipo", type = "string"))
+})
 public class Aeropuerto implements Serializable {
 
     @Id

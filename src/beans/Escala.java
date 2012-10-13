@@ -33,7 +33,7 @@ public class Escala implements Serializable {
     @JoinColumn(name = "idVuelo")
     private Vuelo vuelo;
     @ManyToOne
-    @JoinColumn(name = "Envio")
+    @JoinColumn(name = "idEnvio")
     private Envio envio;
 
     public Escala() {
