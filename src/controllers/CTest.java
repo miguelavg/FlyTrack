@@ -30,22 +30,18 @@ public class CTest {
     public void chevere() {
         try {
 
-            //Transaction tx = s.beginTransaction();
-
-            Query q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "PAIS");
-            //q.setParameter("valorUnico", "PER");
-
-            List<Parametro> paises = q.list();
-
-
-
-
+            Transaction tx = s.beginTransaction();
+            Query q;            
+            q = s.getNamedQuery("Aeropuertos").setFirstResult(0).setMaxResults(1);
+            
+            Aeropuerto aeropuerto = (Aeropuerto) q.uniqueResult(); //List<Aeropuerto> aeropuertos = q.list();
+  
+            //for(Aeropuerto aeropuerto : aeropuertos){
+                System.out.println(aeropuerto.getNombre());
+            //}
+            
             s.close();
-            for (Parametro pais : paises) {
-                System.out.println(pais.getHijos().size());
-            }
-            //tx.commit();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {

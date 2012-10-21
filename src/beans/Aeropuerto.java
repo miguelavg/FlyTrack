@@ -7,6 +7,8 @@ package beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,11 +28,11 @@ import org.hibernate.annotations.ParamDef;
 @Table(name = "Aeropuerto")
 @NamedQueries({
     @NamedQuery(name = "Aeropuertos",
-    query = "from Aeropuerto"),
+    query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "AeropuertosXPais",
-    query = "from Aeropuerto a where a.pais = :pais"),
+    query = "from Aeropuerto a where a.pais = :pais and estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "ParametrosXCiudad",
-    query = "from Aeropuerto a where a.ciudad = :ciudad")
+    query = "from Aeropuerto a where a.ciudad = :ciudad and estado.valorUnico = 'ACTV'")
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",
@@ -40,6 +42,7 @@ import org.hibernate.annotations.ParamDef;
 public class Aeropuerto implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAeropuerto;
     private String nombre;
     private int almacen;
@@ -67,10 +70,6 @@ public class Aeropuerto implements Serializable {
 
     public int getIdAeropuerto() {
         return idAeropuerto;
-    }
-
-    public void setIdAeropuerto(int idAeropuerto) {
-        this.idAeropuerto = idAeropuerto;
     }
 
     public String getNombre() {

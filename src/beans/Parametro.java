@@ -30,11 +30,17 @@ import org.hibernate.annotations.ParamDef;
 @Table(name = "Parametro")
 @NamedQueries({
     @NamedQuery(name = "Parametros",
-    query = "from Parametro"),
+    query = "from Parametro where estado = true"),
     @NamedQuery(name = "ParametrosXTipoXValorUnico",
-    query = "from Parametro p where p.tipo = :tipo and p.valorUnico = :valorUnico"),
+    query = "from Parametro where tipo = :tipo and valorUnico = :valorUnico"),
     @NamedQuery(name = "ParametrosXTipo",
-    query = "from Parametro p where p.tipo = :tipo")
+    query = "from Parametro where tipo = :tipo and estado = true"),
+    @NamedQuery(name = "ParametrosAdmin",
+    query = "from Parametro"),
+    @NamedQuery(name = "ParametrosAdminXTipoXValorUnico",
+    query = "from Parametro p where tipo = :tipo and valorUnico = :valorUnico"),
+    @NamedQuery(name = "ParametrosAdminXTipo",
+    query = "from Parametro where tipo = :tipo")
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",
@@ -49,12 +55,13 @@ public class Parametro implements Serializable {
     private String tipo;
     private String valor;
     private String valorUnico;
+    private boolean estado;
     @ManyToOne
     @JoinColumn(name = "idPadre")
     private Parametro padre;
     @OneToMany(mappedBy = "padre")
     @Filters({
-        @Filter(name = "Parametro_HijosXTipo", condition = "tipo = :tipo")
+        @Filter(name = "ParametroHijosXTipo", condition = "tipo = :tipo and estado = true")
     })
     private List<Parametro> hijos;
 
@@ -87,6 +94,14 @@ public class Parametro implements Serializable {
 
     public void setValorUnico(String valorUnico) {
         this.valorUnico = valorUnico;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public Parametro getPadre() {
