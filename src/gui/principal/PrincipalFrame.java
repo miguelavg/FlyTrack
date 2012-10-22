@@ -8,12 +8,12 @@ package gui.principal;
  *
  * @author ronald
  */
-public class Principal extends javax.swing.JFrame {
+public class PrincipalFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form Principal
+     * Creates new form PrincipalFrame
      */
-    public Principal() {
+    public PrincipalFrame() {
         initComponents();
     }
 
@@ -40,6 +40,8 @@ public class Principal extends javax.swing.JFrame {
         administracionButton = new javax.swing.JButton();
         administracionButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        administracionButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,33 +74,58 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Administración");
 
         administracionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Configuration.png"))); // NOI18N
+        administracionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionButtonActionPerformed(evt);
+            }
+        });
 
         administracionButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel6.setText("Salir");
 
+        administracionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte48x48.png"))); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        jLabel7.setText("Reportes");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(administracionButton1)
-                    .addComponent(aeropuertoButton)
-                    .addComponent(envioButton)
-                    .addComponent(vueloButton)
-                    .addComponent(simulacionButton)
-                    .addComponent(administracionButton))
-                .addGap(36, 36, 36)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD:src/gui/principal/Principal.java
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel2))
+=======
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(administracionButton2)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(administracionButton1)
+                            .addComponent(aeropuertoButton)
+                            .addComponent(envioButton)
+                            .addComponent(vueloButton)
+                            .addComponent(simulacionButton)
+                            .addComponent(administracionButton))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))))
+>>>>>>> fef3e9ef15d63e731fc7d648ebd5cc24c4c2b3dd:src/gui/principal/PrincipalFrame.java
                 .addGap(163, 163, 163))
         );
         jPanel1Layout.setVerticalGroup(
@@ -127,15 +154,25 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(56, 56, 56)
                         .addComponent(jLabel1)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD:src/gui/principal/Principal.java
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(administracionButton1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                    .addComponent(administracionButton2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(administracionButton1)
+>>>>>>> fef3e9ef15d63e731fc7d648ebd5cc24c4c2b3dd:src/gui/principal/PrincipalFrame.java
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                        .addGap(12, 12, 12)))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,6 +192,12 @@ public class Principal extends javax.swing.JFrame {
     private void aeropuertoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_aeropuertoButtonActionPerformed
+
+    private void administracionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButtonActionPerformed
+        // TODO add your handling code here:
+        MenuAdministracionFrame menuAdmin = new MenuAdministracionFrame();
+        menuAdmin.setVisible(true);
+    }//GEN-LAST:event_administracionButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,13 +220,13 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -193,13 +236,14 @@ public class Principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new Principal().setVisible(true);
+                new PrincipalFrame().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton administracionButton;
     private javax.swing.JButton administracionButton1;
+    private javax.swing.JButton administracionButton2;
     private javax.swing.JButton aeropuertoButton;
     private javax.swing.JButton envioButton;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -209,6 +253,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton simulacionButton;
     private javax.swing.JButton vueloButton;
