@@ -56,12 +56,12 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel3.setText("Aeropuertos");
+        jLabel3.setText("Vuelos");
 
         vueloButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel4.setText("Vuelos");
+        jLabel4.setText("Aeropuertos");
 
         simulacionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simulacion48x48.png"))); // NOI18N
 

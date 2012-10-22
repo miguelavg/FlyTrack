@@ -142,7 +142,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Georgia" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Aeropuertos"/>
+            <Property name="text" type="java.lang.String" value="Vuelos"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="vueloButton">
@@ -157,7 +157,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Georgia" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vuelos"/>
+            <Property name="text" type="java.lang.String" value="Aeropuertos"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="simulacionButton">
