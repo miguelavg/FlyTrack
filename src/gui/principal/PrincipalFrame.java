@@ -8,12 +8,12 @@ package gui.principal;
  *
  * @author ronald
  */
-public class Principal extends javax.swing.JFrame {
+public class PrincipalFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form Principal
+     * Creates new form PrincipalFrame
      */
-    public Principal() {
+    public PrincipalFrame() {
         initComponents();
     }
 
@@ -74,6 +74,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Administración");
 
         administracionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Configuration.png"))); // NOI18N
+        administracionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionButtonActionPerformed(evt);
+            }
+        });
 
         administracionButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
 
@@ -173,6 +178,12 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_aeropuertoButtonActionPerformed
 
+    private void administracionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButtonActionPerformed
+        // TODO add your handling code here:
+        MenuAdministracionFrame menuAdmin = new MenuAdministracionFrame();
+        menuAdmin.setVisible(true);
+    }//GEN-LAST:event_administracionButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -194,13 +205,13 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -210,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new Principal().setVisible(true);
+                new PrincipalFrame().setVisible(true);
             }
         });
     }
