@@ -174,7 +174,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Monto");
+        jLabel8.setText("Monto:");
 
         a_origen5.setText("100 S/.");
         a_origen5.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +199,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("# paquetes");
+        jLabel9.setText("# paquetes:");
 
         a_origen6.setText("1");
         a_origen6.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +217,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("# doc. pago");
+        jLabel11.setText("# doc. pago:");
 
         a_origen7.setText("13331");
         a_origen7.addActionListener(new java.awt.event.ActionListener() {

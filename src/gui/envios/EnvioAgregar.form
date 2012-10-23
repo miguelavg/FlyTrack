@@ -393,7 +393,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Monto"/>
+            <Property name="text" type="java.lang.String" value="Monto:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="a_origen5">
@@ -428,7 +428,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="# paquetes"/>
+            <Property name="text" type="java.lang.String" value="# paquetes:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="a_origen6">
@@ -459,7 +459,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="# doc. pago"/>
+            <Property name="text" type="java.lang.String" value="# doc. pago:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="a_origen7">
