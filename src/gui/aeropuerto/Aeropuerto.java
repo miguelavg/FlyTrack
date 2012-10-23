@@ -156,6 +156,11 @@ public class Aeropuerto extends javax.swing.JFrame {
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
         jButton6.setText("Agregar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -242,6 +247,11 @@ public class Aeropuerto extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        Aeropuerto_Agregar MiVentana = new Aeropuerto_Agregar(); //llamamos a la clase y creamos un objeto llamado MiVentana
+        MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
+        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
+        MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
+    
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
@@ -250,11 +260,20 @@ public class Aeropuerto extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+       Aeropuerto_Modificar MiVentana = new Aeropuerto_Modificar(); //llamamos a la clase y creamos un objeto llamado MiVentana
+        MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
+        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
+        MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
+    
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6MouseClicked
 
     /**
      * @param args the command line arguments
