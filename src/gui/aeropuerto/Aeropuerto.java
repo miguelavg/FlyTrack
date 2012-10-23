@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.principal;
+package gui.aeropuerto;
 
 /**
  *
@@ -71,7 +71,7 @@ public class Aeropuerto extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Pais:");
+        jLabel2.setText("País:");
 
         jLabel3.setText("Ciudad:");
 
@@ -85,7 +85,12 @@ public class Aeropuerto extends javax.swing.JFrame {
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Peru" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Perú" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lima" }));
 
@@ -159,13 +164,13 @@ public class Aeropuerto extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Jorge Chavez", "Lima", "Peru", "Activo", "500", "400", "500", "200"},
+                {"Jorge Chavez", "Lima", "Perú", "Activo", "500", "400", "500", "200"},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Ciudad", "Pais", "Estado", "X", "Y", "Capacidad max de almacenamiento", "Capacidad actual de almacenamiento"
+                "Nombre", "Ciudad", "País", "Estado", "X", "Y", "Capacidad max de almacenamiento", "Capacidad actual de almacenamiento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -246,6 +251,10 @@ public class Aeropuerto extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
      * @param args the command line arguments
