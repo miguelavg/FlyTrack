@@ -4,6 +4,9 @@
  */
 package gui.principal;
 
+import gui.administracion.Rol;
+import gui.administracion.Usuario;
+
 /**
  *
  * @author ronald
@@ -41,6 +44,11 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         tarifaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa48x48.png"))); // NOI18N
 
         simulacionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
+        simulacionButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulacionButton2ActionPerformed(evt);
+            }
+        });
 
         simulacionButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
 
@@ -53,6 +61,11 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         jLabel4.setText("Parámetros");
 
         tarifaButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
+        tarifaButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarifaButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,9 +103,8 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
                     .addComponent(tarifaButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addContainerGap())
@@ -113,6 +125,18 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tarifaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarifaButton1ActionPerformed
+        // TODO add your handling code here:
+        Usuario usuarioframe = new Usuario();
+        usuarioframe.setVisible(true);
+    }//GEN-LAST:event_tarifaButton1ActionPerformed
+
+    private void simulacionButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton2ActionPerformed
+        // TODO add your handling code here:
+        Rol rolframe = new Rol();
+        rolframe.setVisible(true);
+    }//GEN-LAST:event_simulacionButton2ActionPerformed
 
     /**
      * @param args the command line arguments
