@@ -4,7 +4,7 @@
  */
 package gui.principal;
 
-import gui.administracion.Rol;
+import gui.administracion.Perfil;
 import gui.administracion.Usuario;
 
 /**
@@ -134,8 +134,8 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
 
     private void simulacionButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton2ActionPerformed
         // TODO add your handling code here:
-        Rol rolframe = new Rol();
-        rolframe.setVisible(true);
+        Perfil perfilframe = new Perfil();
+        perfilframe.setVisible(true);
     }//GEN-LAST:event_simulacionButton2ActionPerformed
 
     /**
