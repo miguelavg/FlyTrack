@@ -4,6 +4,13 @@
  */
 package gui.principal;
 
+import beans.Vuelo;
+import gui.Clientes.Clientes;
+import gui.aeropuerto.Aeropuerto;
+import gui.envios.Envio;
+import gui.reporte.ReporteFrame;
+import gui.vuelos.Vuelos;
+
 /**
  *
  * @author ronald
@@ -42,10 +49,17 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         administracionButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        administracionButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         envioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
+        envioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                envioButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel2.setText("Envíos");
@@ -61,11 +75,21 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jLabel3.setText("Vuelos");
 
         vueloButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
+        vueloButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vueloButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel4.setText("Aeropuertos");
 
         simulacionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simulacion48x48.png"))); // NOI18N
+        simulacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulacionButtonActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel5.setText("Simulación");
@@ -86,9 +110,24 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jLabel6.setText("Salir");
 
         administracionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte48x48.png"))); // NOI18N
+        administracionButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel7.setText("Reportes");
+
+        jLabel8.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        jLabel8.setText("Clientes");
+
+        administracionButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
+        administracionButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,6 +136,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(94, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(administracionButton3)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(administracionButton2)
                         .addGap(36, 36, 36)
@@ -141,17 +184,22 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(54, 54, 54)
                         .addComponent(jLabel4)
-                        .addGap(38, 38, 38)
+                        .addGap(45, 45, 45)
                         .addComponent(jLabel5)
-                        .addGap(56, 56, 56)
+                        .addGap(49, 49, 49)
                         .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(administracionButton3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(administracionButton2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(administracionButton1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -176,6 +224,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void aeropuertoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoButtonActionPerformed
         // TODO add your handling code here:
+        Aeropuerto aeropuerto = new Aeropuerto();
+        aeropuerto.setVisible(true);
     }//GEN-LAST:event_aeropuertoButtonActionPerformed
 
     private void administracionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButtonActionPerformed
@@ -183,6 +233,36 @@ public class PrincipalFrame extends javax.swing.JFrame {
         MenuAdministracionFrame menuAdmin = new MenuAdministracionFrame();
         menuAdmin.setVisible(true);
     }//GEN-LAST:event_administracionButtonActionPerformed
+
+    private void envioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioButtonActionPerformed
+        // TODO add your handling code here:
+        Envio envio = new Envio();
+        envio.setVisible(true);
+    }//GEN-LAST:event_envioButtonActionPerformed
+
+    private void vueloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vueloButtonActionPerformed
+        // TODO add your handling code here:
+        Vuelos vuelo = new Vuelos();
+        vuelo.setVisible(true);
+    }//GEN-LAST:event_vueloButtonActionPerformed
+
+    private void simulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButtonActionPerformed
+        // TODO add your handling code here:
+        //Simulacion simulacion = new Simulacion();
+        //simulacion.setVisible(true);
+    }//GEN-LAST:event_simulacionButtonActionPerformed
+
+    private void administracionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton3ActionPerformed
+        // TODO add your handling code here:
+        Clientes clientes = new Clientes();
+        clientes.setVisible(true);
+    }//GEN-LAST:event_administracionButton3ActionPerformed
+
+    private void administracionButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton2ActionPerformed
+        // TODO add your handling code here:
+        ReporteFrame reporteFrame = new ReporteFrame();
+        reporteFrame.setVisible(true);
+    }//GEN-LAST:event_administracionButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +309,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JButton administracionButton;
     private javax.swing.JButton administracionButton1;
     private javax.swing.JButton administracionButton2;
+    private javax.swing.JButton administracionButton3;
     private javax.swing.JButton aeropuertoButton;
     private javax.swing.JButton envioButton;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -239,6 +320,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton simulacionButton;
     private javax.swing.JButton vueloButton;

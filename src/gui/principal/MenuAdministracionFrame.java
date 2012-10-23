@@ -39,7 +39,7 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tarifaButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tarifaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa48x48.png"))); // NOI18N
 
