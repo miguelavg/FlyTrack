@@ -4,7 +4,9 @@
  */
 package gui.principal;
 
+import gui.administracion.Parametro;
 import gui.administracion.Perfil;
+import gui.administracion.TarifaFrame;
 import gui.administracion.Usuario;
 
 /**
@@ -42,6 +44,11 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tarifaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa48x48.png"))); // NOI18N
+        tarifaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarifaButtonActionPerformed(evt);
+            }
+        });
 
         simulacionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
         simulacionButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +58,11 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         });
 
         simulacionButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
+        simulacionButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulacionButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Tarifas");
 
@@ -137,6 +149,18 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         Perfil perfilframe = new Perfil();
         perfilframe.setVisible(true);
     }//GEN-LAST:event_simulacionButton2ActionPerformed
+
+    private void tarifaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarifaButtonActionPerformed
+        // TODO add your handling code here:
+        TarifaFrame tarifa = new TarifaFrame();
+        tarifa.setVisible(true);
+    }//GEN-LAST:event_tarifaButtonActionPerformed
+
+    private void simulacionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton3ActionPerformed
+        // TODO add your handling code here:
+        Parametro parametro = new Parametro();
+        parametro.setVisible(true);
+    }//GEN-LAST:event_simulacionButton3ActionPerformed
 
     /**
      * @param args the command line arguments
