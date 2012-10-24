@@ -15,7 +15,7 @@
     </Container>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -112,7 +112,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/perfil48x48.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Rol"/>
+            <Property name="text" type="java.lang.String" value="Perfil"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -258,21 +258,13 @@
                                   <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jCheckBox7" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jCheckBox9" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="jCheckBox10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBox9" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox11" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -304,18 +296,13 @@
                           <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jCheckBox6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jCheckBox7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jCheckBox8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jCheckBox9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCheckBox10" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -332,62 +319,53 @@
         <Component class="javax.swing.JCheckBox" name="jCheckBox1">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="jCheckBox1"/>
+            <Property name="text" type="java.lang.String" value="Aeropuerto"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox2">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="jCheckBox2"/>
+            <Property name="text" type="java.lang.String" value="Crear"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox3">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="jCheckBox3"/>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jCheckBox4"/>
+            <Property name="text" type="java.lang.String" value="Envios"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jCheckBox5"/>
+            <Property name="text" type="java.lang.String" value="Generar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jCheckBox6"/>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="Vuelos"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox7">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="jCheckBox7"/>
+            <Property name="text" type="java.lang.String" value="Crear"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox8">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="jCheckBox8"/>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBox9">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="jCheckBox9"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox10">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jCheckBox10"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox11">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jCheckBox11"/>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
         </Component>
       </SubComponents>
