@@ -249,7 +249,7 @@ public class Aeropuerto extends javax.swing.JFrame {
         // TODO add your handling code here:
         Aeropuerto_Agregar MiVentana = new Aeropuerto_Agregar(); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
-        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
+        MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
         MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -262,7 +262,7 @@ public class Aeropuerto extends javax.swing.JFrame {
         // TODO add your handling code here:
        Aeropuerto_Modificar MiVentana = new Aeropuerto_Modificar(); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
-        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
+        MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
         MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     
     }//GEN-LAST:event_jButton7ActionPerformed
