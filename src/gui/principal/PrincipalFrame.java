@@ -105,6 +105,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         });
 
         administracionButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
+        administracionButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel6.setText("Salir");
@@ -263,6 +268,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         ReporteFrame reporteFrame = new ReporteFrame();
         reporteFrame.setVisible(true);
     }//GEN-LAST:event_administracionButton2ActionPerformed
+
+    private void administracionButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton1ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_administracionButton1ActionPerformed
 
     /**
      * @param args the command line arguments

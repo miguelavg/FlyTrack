@@ -254,7 +254,7 @@ public class Clientes extends javax.swing.JFrame {
         ClientesAgregar MiVentana = new ClientesAgregar(); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
-        MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
+        //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -262,7 +262,7 @@ public class Clientes extends javax.swing.JFrame {
         ClientesModificar MiVentana = new ClientesModificar(); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
-        MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
+        //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     
     }//GEN-LAST:event_jButton7ActionPerformed
 

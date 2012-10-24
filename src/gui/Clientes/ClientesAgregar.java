@@ -49,6 +49,7 @@ public class ClientesAgregar extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clientes Agregar");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
