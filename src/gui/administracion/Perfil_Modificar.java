@@ -49,21 +49,19 @@ public class Perfil_Modificar extends javax.swing.JFrame {
         jCheckBox7 = new javax.swing.JCheckBox();
         jCheckBox8 = new javax.swing.JCheckBox();
         jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jCheckBox11 = new javax.swing.JCheckBox();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         jScrollPane2.setViewportView(jTree1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
-        jLabel1.setText("Rol");
+        jLabel1.setText("Perfil");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,32 +140,29 @@ public class Perfil_Modificar extends javax.swing.JFrame {
         jLabel5.setText("Permisos");
 
         jCheckBox1.setSelected(true);
-        jCheckBox1.setText("jCheckBox1");
+        jCheckBox1.setText("Aeropuerto");
 
         jCheckBox2.setSelected(true);
-        jCheckBox2.setText("jCheckBox2");
+        jCheckBox2.setText("Crear");
 
         jCheckBox3.setSelected(true);
-        jCheckBox3.setText("jCheckBox3");
+        jCheckBox3.setText("Modificar");
 
-        jCheckBox4.setText("jCheckBox4");
+        jCheckBox4.setText("Envios");
 
-        jCheckBox5.setText("jCheckBox5");
+        jCheckBox5.setText("Generar");
 
-        jCheckBox6.setText("jCheckBox6");
+        jCheckBox6.setSelected(true);
+        jCheckBox6.setText("Vuelos");
 
         jCheckBox7.setSelected(true);
-        jCheckBox7.setText("jCheckBox7");
+        jCheckBox7.setText("Crear");
 
         jCheckBox8.setSelected(true);
-        jCheckBox8.setText("jCheckBox8");
+        jCheckBox8.setText("Modificar");
 
         jCheckBox9.setSelected(true);
-        jCheckBox9.setText("jCheckBox9");
-
-        jCheckBox10.setText("jCheckBox10");
-
-        jCheckBox11.setText("jCheckBox11");
+        jCheckBox9.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -193,17 +188,11 @@ public class Perfil_Modificar extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCheckBox7)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCheckBox9)
-                                            .addComponent(jCheckBox8)))
-                                    .addComponent(jCheckBox10))
+                                    .addComponent(jCheckBox9)
+                                    .addComponent(jCheckBox8))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jCheckBox6)
-                                .addGap(99, 99, 99)
-                                .addComponent(jCheckBox11)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,17 +216,13 @@ public class Perfil_Modificar extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBox5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox6)
-                            .addComponent(jCheckBox11))
+                        .addComponent(jCheckBox6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBox7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBox8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox10)))
+                        .addComponent(jCheckBox9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -320,8 +305,6 @@ public class Perfil_Modificar extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
