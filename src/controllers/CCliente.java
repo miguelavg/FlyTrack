@@ -18,7 +18,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class CCliente {
     public void agregarCliente(String Nombre,String Apellidos, String correo, 
-            String telefono,String direccion, String celular,String NumeroDoc, 
+            String telefono,String NumeroDoc, 
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
         
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -57,8 +57,6 @@ public class CCliente {
             ClienteBE.seteMail( correo);
             ClienteBE.setCiudad(Ciudad);
             ClienteBE.setPais(Pais);
-            ClienteBE.setDireccion(direccion);
-            ClienteBE.setCelular(celular);
             
             int i = (Integer)s.save(ClienteBE);
             
