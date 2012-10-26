@@ -8,12 +8,12 @@ package gui.envios;
  *
  * @author miguelavg
  */
-public class Envio extends javax.swing.JFrame {
+public class EnvioDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form Envio
      */
-    public Envio() {
+    public EnvioDialog() {
         initComponents();
     }
 
@@ -55,18 +55,21 @@ public class Envio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Envíos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(770, 601));
+        setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         setMinimumSize(new java.awt.Dimension(770, 601));
-        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        setName("envioDialog"); // NOI18N
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setName("tituloPanel"); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
         jLabel1.setText("Envíos");
         jLabel1.setAutoscrolls(true);
+        jLabel1.setName("tituloLabel"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,6 +92,7 @@ public class Envio extends javax.swing.JFrame {
 
         a_origen.setEditable(false);
         a_origen.setText("Jorge Chávez, Lima");
+        a_origen.setName("origenText"); // NOI18N
         a_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 a_origenActionPerformed(evt);
@@ -113,6 +117,7 @@ public class Envio extends javax.swing.JFrame {
 
         a_origen1.setEditable(false);
         a_origen1.setText("John F. Kennedy, NY");
+        a_origen1.setName("destinoText"); // NOI18N
         a_origen1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 a_origen1ActionPerformed(evt);
@@ -132,6 +137,7 @@ public class Envio extends javax.swing.JFrame {
 
         a_origen3.setEditable(false);
         a_origen3.setText("Luis Alberto Spinetta");
+        a_origen3.setName("clienteText"); // NOI18N
         a_origen3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 a_origen3ActionPerformed(evt);
@@ -141,6 +147,7 @@ public class Envio extends javax.swing.JFrame {
         jLabel5.setText("Cliente:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Registrado", "En vuelo", "En escala", "Espera", "Recogido" }));
+        jComboBox1.setName("estadoCombo"); // NOI18N
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -151,6 +158,7 @@ public class Envio extends javax.swing.JFrame {
 
         a_origen2.setEditable(false);
         a_origen2.setText("Jorge Chávez, Lima");
+        a_origen2.setName("actualText"); // NOI18N
         a_origen2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 a_origen2ActionPerformed(evt);
@@ -176,6 +184,7 @@ public class Envio extends javax.swing.JFrame {
 
         a_origen4.setEditable(false);
         a_origen4.setText("112");
+        a_origen4.setName("numEnvioText"); // NOI18N
         a_origen4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 a_origen4ActionPerformed(evt);
@@ -430,20 +439,20 @@ public class Envio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Envio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EnvioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Envio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EnvioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Envio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EnvioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Envio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EnvioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Envio().setVisible(true);
+                new EnvioDialog().setVisible(true);
             }
         });
     }

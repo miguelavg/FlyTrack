@@ -15,26 +15,68 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
  * @author miguelavg
  */
 @Entity
-@Table(name = "Envio")
+@Table(name = "Envios")
+@NamedQueries({
+    @NamedQuery(name = "Envios",
+    query = "from Envios order by fechaRecojo desc"),})
+@FilterDefs({
+    @FilterDef(name = "EnviosXOrigen",
+    parameters =
+    @ParamDef(name = ":idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXDestino",
+    parameters =
+    @ParamDef(name = ":idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXActual",
+    parameters =
+    @ParamDef(name = ":idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXEstado",
+    parameters =
+    @ParamDef(name = ":idEstado", type = "integer")),
+    @FilterDef(name = "EnviosXCliente",
+    parameters =
+    @ParamDef(name = ":idCliente", type = "integer")),
+    @FilterDef(name = "EnviosXNumEnvio",
+    parameters =
+    @ParamDef(name = ":numEnvio", type = "integer"))
+})
+@Filters({
+    @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "EnviosXDestino", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "EnviosXActual", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "EnviosXEstado", condition = "Estado = :idEstado"),
+    @Filter(name = "EnviosXCliente", condition = "idRemitente = :idCliente or idDestinatario = :idCliente"),
+    @Filter(name = "EnviosXNumEnvio", condition = "idEnvio = :numEnvio")
+})
 public class Envio implements Serializable {
 
     @Id
     private int idEnvio;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaEntrada;
+    private Date fechaRegistro;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaSalida;
+    private Date fechaRecojo;
     private int numPaquetes;
     private double monto;
+    private int numDocVenta;
     @ManyToOne
     @JoinColumn(name = "Moneda")
     private Parametro moneda;
+    @ManyToOne
+    @JoinColumn(name = "TipoDocVenta")
+    private Parametro tipoDocVenta;
     @ManyToOne
     @JoinColumn(name = "Estado")
     private Parametro estado;
@@ -67,20 +109,20 @@ public class Envio implements Serializable {
         this.idEnvio = idEnvio;
     }
 
-    public Date getFechaEntrada() {
-        return fechaEntrada;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFechaEntrada(Date fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
+    public void setFechaRegistro(Date fechaEntrada) {
+        this.fechaRegistro = fechaEntrada;
     }
 
-    public Date getFechaSalida() {
-        return fechaSalida;
+    public Date getFechaRecojo() {
+        return fechaRecojo;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
-        this.fechaSalida = fechaSalida;
+    public void setFechaRecojo(Date fechaSalida) {
+        this.fechaRecojo = fechaSalida;
     }
 
     public int getNumPaquetes() {
@@ -161,5 +203,21 @@ public class Envio implements Serializable {
 
     public void setEscalas(List<Escala> escalas) {
         this.escalas = escalas;
+    }
+
+    public int getNumDocVenta() {
+        return numDocVenta;
+    }
+
+    public void setNumDocVenta(int numDocVenta) {
+        this.numDocVenta = numDocVenta;
+    }
+
+    public Parametro getTipoDocVenta() {
+        return tipoDocVenta;
+    }
+
+    public void setTipoDocVenta(Parametro tipoDocVenta) {
+        this.tipoDocVenta = tipoDocVenta;
     }
 }
