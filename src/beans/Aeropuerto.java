@@ -57,7 +57,7 @@ public class Aeropuerto implements Serializable {
     @JoinColumn(name = "Estado")
     private Parametro estado;
     @OneToMany(mappedBy = "origen")
-    private List<Vuelo> vuelosSalida;
+    private List<Vuelo> vuelosSalida;   
     @OneToMany(mappedBy = "destino")
     private List<Vuelo> vuelosLlegada;
     @OneToMany(mappedBy = "actual")
