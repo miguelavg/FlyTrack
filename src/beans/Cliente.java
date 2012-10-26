@@ -28,6 +28,8 @@ public class Cliente implements Serializable {
     private String numDoc;
     private String telefono;
     private String eMail;
+    private String Celular;
+    private String Direccion;
     @ManyToOne
     @JoinColumn(name = "TipoDoc")
     private Parametro tipoDoc;
@@ -45,6 +47,7 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
+    
     public int getIdCliente() {
         return idCliente;
     }

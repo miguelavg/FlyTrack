@@ -6,7 +6,7 @@ package gui.principal;
 
 import beans.Vuelo;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
-import gui.Clientes.Clientes;
+import gui.clientes.Clientes;
 import gui.aeropuerto.Aeropuerto;
 import gui.envios.Envio;
 import gui.reporte.ReporteFrame;
