@@ -5,7 +5,7 @@
 package gui.principal;
 
 import beans.Vuelo;
-import gui.clientes.Clientes;
+import gui.Clientes.Clientes;
 import gui.aeropuerto.Aeropuerto;
 import gui.envios.Envio;
 import gui.reporte.ReporteFrame;
