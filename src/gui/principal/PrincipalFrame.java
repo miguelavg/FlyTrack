@@ -5,11 +5,13 @@
 package gui.principal;
 
 import beans.Vuelo;
+import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import gui.Clientes.Clientes;
 import gui.aeropuerto.Aeropuerto;
 import gui.envios.Envio;
 import gui.reporte.ReporteFrame;
 import gui.vuelos.Vuelos;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,6 +23,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
      * Creates new form PrincipalFrame
      */
     public PrincipalFrame() {
+        try {
+        UIManager.setLookAndFeel(new GTKLookAndFeel());
+    } catch (Exception e) { }
+        
         initComponents();
     }
 
