@@ -93,7 +93,7 @@ public class Aeropuerto_Modificar extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

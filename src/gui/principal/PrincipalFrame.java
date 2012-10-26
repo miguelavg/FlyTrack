@@ -5,11 +5,13 @@
 package gui.principal;
 
 import beans.Vuelo;
+import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import gui.Clientes.Clientes;
 import gui.aeropuerto.Aeropuerto;
 import gui.envios.Envio;
 import gui.reporte.ReporteFrame;
 import gui.vuelos.Vuelos;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,6 +23,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
      * Creates new form PrincipalFrame
      */
     public PrincipalFrame() {
+        try {
+        UIManager.setLookAndFeel(new GTKLookAndFeel());
+    } catch (Exception e) { }
+        
         initComponents();
     }
 
@@ -37,10 +43,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         envioButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        aeropuertoButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        vueloButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         simulacionButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -51,8 +53,13 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         administracionButton3 = new javax.swing.JButton();
+        administracionButton4 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FlyTrack");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         envioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
         envioButton.addActionListener(new java.awt.event.ActionListener() {
@@ -63,26 +70,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel2.setText("Envíos");
-
-        aeropuertoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aeropuerto48x48.png"))); // NOI18N
-        aeropuertoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aeropuertoButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel3.setText("Vuelos");
-
-        vueloButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
-        vueloButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vueloButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel4.setText("Aeropuertos");
 
         simulacionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simulacion48x48.png"))); // NOI18N
         simulacionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -134,83 +121,101 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
+        administracionButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/seguridad48x48.png"))); // NOI18N
+        administracionButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        jLabel9.setText("Seguridad");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(administracionButton3)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(envioButton)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(administracionButton4)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(administracionButton)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(administracionButton2)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(administracionButton1)
-                            .addComponent(aeropuertoButton)
-                            .addComponent(envioButton)
-                            .addComponent(vueloButton)
-                            .addComponent(simulacionButton)
-                            .addComponent(administracionButton))
+                        .addComponent(administracionButton1)
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))))
-                .addGap(163, 163, 163))
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(simulacionButton)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel5)))
+                .addGap(217, 217, 217))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(administracionButton)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel1)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(envioButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(vueloButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(aeropuertoButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(simulacionButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(administracionButton))
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel9))
+                    .addComponent(administracionButton4))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel2)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel3)
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel4)
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel5)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2))
+                    .addComponent(envioButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(simulacionButton)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel5)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(administracionButton3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(administracionButton2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(administracionButton2)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(administracionButton1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)))
-                .addGap(23, 23, 23))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,12 +232,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aeropuertoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoButtonActionPerformed
-        // TODO add your handling code here:
-        Aeropuerto aeropuerto = new Aeropuerto();
-        aeropuerto.setVisible(true);
-    }//GEN-LAST:event_aeropuertoButtonActionPerformed
-
     private void administracionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButtonActionPerformed
         // TODO add your handling code here:
         MenuAdministracionFrame menuAdmin = new MenuAdministracionFrame();
@@ -244,12 +243,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         Envio envio = new Envio();
         envio.setVisible(true);
     }//GEN-LAST:event_envioButtonActionPerformed
-
-    private void vueloButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vueloButtonActionPerformed
-        // TODO add your handling code here:
-        Vuelos vuelo = new Vuelos();
-        vuelo.setVisible(true);
-    }//GEN-LAST:event_vueloButtonActionPerformed
 
     private void simulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButtonActionPerformed
         // TODO add your handling code here:
@@ -273,6 +266,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_administracionButton1ActionPerformed
+
+    private void administracionButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton4ActionPerformed
+        // TODO add your handling code here:
+        MenuSeguridadFrame menuSeguridad = new MenuSeguridadFrame();
+        menuSeguridad.setVisible(true);
+    }//GEN-LAST:event_administracionButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,19 +319,17 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JButton administracionButton1;
     private javax.swing.JButton administracionButton2;
     private javax.swing.JButton administracionButton3;
-    private javax.swing.JButton aeropuertoButton;
+    private javax.swing.JButton administracionButton4;
     private javax.swing.JButton envioButton;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton simulacionButton;
-    private javax.swing.JButton vueloButton;
     // End of variables declaration//GEN-END:variables
 }
