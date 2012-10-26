@@ -7,6 +7,8 @@ package beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,14 +24,15 @@ import javax.persistence.Table;
 public class Cliente implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCliente;
     private String nombres;
     private String apellidos;
     private String numDoc;
     private String telefono;
     private String eMail;
-    private String Celular;
-    private String Direccion;
+    //private String Celular;
+    //private String Direccion;
     @ManyToOne
     @JoinColumn(name = "TipoDoc")
     private Parametro tipoDoc;

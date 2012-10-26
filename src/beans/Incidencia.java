@@ -7,6 +7,8 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,13 +25,14 @@ import javax.persistence.TemporalType;
 public class Incidencia implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idIncidencia;
     private String descripcion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @ManyToOne
-    @JoinColumn(name = "Tipo")
-    private Parametro tipo;
+    @JoinColumn(name = "Estado")
+    private Parametro estado;
     @ManyToOne
     @JoinColumn(name = "idVuelo")
     private Vuelo vuelo;
@@ -61,12 +64,12 @@ public class Incidencia implements Serializable {
         this.fecha = fecha;
     }
 
-    public Parametro getTipo() {
-        return tipo;
+    public Parametro getEstado() {
+        return estado;
     }
 
-    public void setTipo(Parametro tipo) {
-        this.tipo = tipo;
+    public void setEstado(Parametro estado) {
+        this.estado = estado;
     }
 
     public Vuelo getVuelo() {

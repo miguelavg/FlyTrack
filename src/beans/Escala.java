@@ -7,6 +7,8 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +25,9 @@ import javax.persistence.TemporalType;
 public class Escala implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEscala;
+    private int numEscala;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
     @ManyToOne
@@ -77,5 +81,13 @@ public class Escala implements Serializable {
 
     public void setEnvio(Envio envio) {
         this.envio = envio;
+    }
+
+    public int getNumEscala() {
+        return numEscala;
+    }
+
+    public void setNumEscala(int numEscala) {
+        this.numEscala = numEscala;
     }
 }

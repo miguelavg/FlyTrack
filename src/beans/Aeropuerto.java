@@ -45,8 +45,10 @@ public class Aeropuerto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAeropuerto;
     private String nombre;
-    private int almacen;
-    private int almacenUsado;
+    private int capacidadMax;
+    private int capacidadActual;
+    private int coordX;
+    private int coordY;
     @ManyToOne
     @JoinColumn(name = "Pais")
     private Parametro pais;
@@ -80,20 +82,20 @@ public class Aeropuerto implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getAlmacen() {
-        return almacen;
+    public int getCapacidadMax() {
+        return capacidadMax;
     }
 
-    public void setAlmacen(int almacen) {
-        this.almacen = almacen;
+    public void setCapacidadMax(int capacidadMax) {
+        this.capacidadMax = capacidadMax;
     }
 
-    public int getAlmacenUsado() {
-        return almacenUsado;
+    public int getCapacidadActual() {
+        return capacidadActual;
     }
 
-    public void setAlmacenUsado(int almacenUsado) {
-        this.almacenUsado = almacenUsado;
+    public void setCapacidadActual(int capacidadActual) {
+        this.capacidadActual = capacidadActual;
     }
 
     public Parametro getPais() {
@@ -151,4 +153,21 @@ public class Aeropuerto implements Serializable {
     public void setTarifas(List<Tarifa> tarifas) {
         this.tarifas = tarifas;
     }
+
+    public int getCoordX() {
+        return coordX;
+    }
+
+    public void setCoordX(int coordX) {
+        this.coordX = coordX;
+    }
+
+    public int getCoordY() {
+        return coordY;
+    }
+
+    public void setCoordY(int coordY) {
+        this.coordY = coordY;
+    }
+    
 }

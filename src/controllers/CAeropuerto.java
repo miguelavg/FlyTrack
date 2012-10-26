@@ -30,8 +30,8 @@ public class CAeropuerto {
             Aeropuerto a = new Aeropuerto();
             
             a.setNombre("Arturo Merino Benítez");
-            a.setAlmacen(500);
-            a.setAlmacenUsado(0);
+            a.setCapacidadMax(500);
+            a.setCapacidadActual(0);
             
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico").setFirstResult(0);

@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,10 +27,11 @@ import javax.persistence.TemporalType;
 public class Vuelo implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVuelo;
-    private double alquiler;
-    private int capacidad;
-    private int capacidadUsada;
+    private double costoAlquiler;
+    private int capacidadMax;
+    private int capacidadActual;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaSalida;
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,27 +62,27 @@ public class Vuelo implements Serializable {
     }
 
     public double getAlquiler() {
-        return alquiler;
+        return costoAlquiler;
     }
 
     public void setAlquiler(double alquiler) {
-        this.alquiler = alquiler;
+        this.costoAlquiler = alquiler;
     }
 
-    public int getCapacidad() {
-        return capacidad;
+    public int getCapacidadMax() {
+        return capacidadMax;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public void setCapacidadMax(int capacidadMax) {
+        this.capacidadMax = capacidadMax;
     }
 
-    public int getCapacidadUsada() {
-        return capacidadUsada;
+    public int getCapacidadActual() {
+        return capacidadActual;
     }
 
-    public void setCapacidadUsada(int capacidadUsada) {
-        this.capacidadUsada = capacidadUsada;
+    public void setCapacidadActual(int capacidadActual) {
+        this.capacidadActual = capacidadActual;
     }
 
     public Date getFechaSalida() {
