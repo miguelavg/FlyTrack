@@ -142,13 +142,13 @@ public class MenuSeguridadFrame extends javax.swing.JFrame {
 
     private void simulacionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton3ActionPerformed
         // TODO add your handling code here:
-        gui.administracion.Parametro parametro = new gui.administracion.Parametro();
+        gui.administracion.ParametroFrame parametro = new gui.administracion.ParametroFrame();
         parametro.setVisible(true);
     }//GEN-LAST:event_simulacionButton3ActionPerformed
 
     private void tarifaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarifaButton1ActionPerformed
         // TODO add your handling code here:
-        Usuario usuarioframe = new Usuario();
+        UsuarioFrame usuarioframe = new UsuarioFrame();
         usuarioframe.setVisible(true);
     }//GEN-LAST:event_tarifaButton1ActionPerformed
 
