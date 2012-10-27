@@ -136,7 +136,7 @@ public class MenuSeguridadFrame extends javax.swing.JFrame {
 
     private void simulacionButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton2ActionPerformed
         // TODO add your handling code here:
-        Perfil perfilframe = new Perfil();
+        PerfilFrame perfilframe = new PerfilFrame();
         perfilframe.setVisible(true);
     }//GEN-LAST:event_simulacionButton2ActionPerformed
 
