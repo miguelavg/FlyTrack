@@ -26,7 +26,7 @@ public class Contrasena implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "idUsuario")
-    private Usuario idUsuario;
+    private Usuario usuario;
             
     private String text;
     
@@ -83,13 +83,13 @@ public class Contrasena implements Serializable {
       this.text=text;
       }    
       
-      public Usuario getIdUsuario() {
-      return idUsuario;
-      }
-
-      public void setIdUsuario(Usuario idUsuario) {
-      this.idUsuario = idUsuario;
-      }
+//      public Usuario getIdUsuario() {
+//      return idUsuario;
+//      }
+//
+//      public void setIdUsuario(Usuario idUsuario) {
+//      this.idUsuario = idUsuario;
+//      }
       
       public Parametro getEstado() {
       return estado;

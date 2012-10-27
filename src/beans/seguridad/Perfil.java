@@ -20,44 +20,46 @@ import javax.persistence.ManyToOne;
 public class Perfil implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-      private int idPerfil;
-      private String nombre;
-      private String descripcion;
-      
-     @ManyToOne
-     @JoinColumn(name = "Estado")
-     private Parametro estado;       
-     
-      public int getIdPerfil(){
-      return idPerfil;
-      }    
-      
-      public void setIdPerfil(int idPerfil){
-      this.idPerfil=idPerfil;
-      }   
-      
-      public String getNombre(){
-      return nombre;
-      }    
-      
-      public void setNombre(String nombre){
-      this.nombre=nombre;
-      }   
-      
-      public String getDescripcion(){
-      return descripcion;
-      }    
-      
-      public void setDescripcion(String descripcion){
-      this.descripcion=descripcion;
-      }   
-      
-      public Parametro getEstado() {
-      return estado;
-      }
+    private int idPerfil;
+    
+    private String nombre;
+    
+    private String descripcion;
 
-      public void setEstado(Parametro estado) {
-      this.estado = estado;
-      }
-     
+    @ManyToOne
+    @JoinColumn(name = "Estado")
+    private Parametro estado;       
+
+    public int getIdPerfil(){
+    return idPerfil;
+    }    
+
+    public void setIdPerfil(int idPerfil){
+    this.idPerfil=idPerfil;
+    }   
+
+    public String getNombre(){
+    return nombre;
+    }    
+
+    public void setNombre(String nombre){
+    this.nombre=nombre;
+    }   
+
+    public String getDescripcion(){
+    return descripcion;
+    }    
+
+    public void setDescripcion(String descripcion){
+    this.descripcion=descripcion;
+    }   
+
+    public Parametro getEstado() {
+    return estado;
+    }
+
+    public void setEstado(Parametro estado) {
+    this.estado = estado;
+    }
+
 }
