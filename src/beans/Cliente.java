@@ -138,4 +138,7 @@ public class Cliente implements Serializable {
     public void setEnviosRemitidos(List<Envio> enviosRemitidos) {
         this.enviosRemitidos = enviosRemitidos;
     }
+    
+   
 }
+

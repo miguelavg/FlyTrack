@@ -6,6 +6,7 @@ package controllers;
 
 import beans.Cliente;
 import beans.Parametro;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,6 +25,7 @@ public class CCliente {
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
+        
         try {
             Transaction tx = s.beginTransaction();
             Query q;
@@ -33,10 +35,7 @@ public class CCliente {
             
             Cliente ClienteBE = new Cliente(); 
 //            
-//            q = s.getNamedQuery("ParametrosXTipoValorUnico").setFirstResult(0);
-//            q.setParameter("tipo", "TIPO_DOCUMENTO");
-//            q.setParameter("valorUnico",""+TipoDoc.toString()+"");
-//            pTipoDoc = (Parametro) q.uniqueResult();
+            
 //            
 //            q = s.getNamedQuery("ParametrosXTipoValorUnico").setFirstResult(0);
 //            q.setParameter("tipo", "CIUDAD");

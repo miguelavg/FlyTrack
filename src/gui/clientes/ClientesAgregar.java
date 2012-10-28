@@ -3,9 +3,19 @@
  * and open the template in the editor.
  */
 package gui.clientes;
-
+import javax.swing.*;
+import javax.swing.plaf.basic.*;
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
 import beans.Parametro;
 import controllers.CCliente;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
@@ -13,12 +23,18 @@ import controllers.CCliente;
  */
 public class ClientesAgregar extends javax.swing.JFrame {
     CCliente ClienteBL = new CCliente();
+    List<Parametro> ListaTipoDoc ;
     
     /**
      * Creates new form ClientesModificar
      */
     public ClientesAgregar() {
+        
         initComponents();
+        
+        llenarcombos(); 
+        
+        txtNombres.setText("joao se la come");
     }
 
     /**
@@ -231,7 +247,32 @@ public class ClientesAgregar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void llenarcombos(){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("ParametrosXTipo");
+            q.setParameter("tipo", "TIPO_DOC");
+            ListaTipoDoc = q.list();
+//                        
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+        for (int i=0;i<ListaTipoDoc.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
+            
+            cboTipoDoc.addItem(TipoDocBE);
+        }
+    }
+    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         ClienteBL.agregarCliente(txtNombres.getText(),txtApellidos.getText(),txtCorreo.getText(),
@@ -276,6 +317,8 @@ public class ClientesAgregar extends javax.swing.JFrame {
                 new ClientesAgregar().setVisible(true);
             }
         });
+        
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Ciudad;
