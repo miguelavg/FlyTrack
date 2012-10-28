@@ -36,7 +36,8 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "ParametrosXTipo",
     query = "from Parametro where tipo = :tipo and estado = true"),
     @NamedQuery(name = "ParametrosAdmin",
-    query = "from Parametro")
+    query = "from Parametro"),
+        
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",
@@ -114,5 +115,10 @@ public class Parametro implements Serializable {
 
     public void setHijos(List<Parametro> hijos) {
         this.hijos = hijos;
+    }
+    
+    @Override
+    public String toString(){
+        return valor;
     }
 }
