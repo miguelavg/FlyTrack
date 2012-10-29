@@ -28,10 +28,10 @@ import org.hibernate.annotations.ParamDef;
  * @author miguelavg
  */
 @Entity
-@Table(name = "Envios")
+@Table(name = "Envio")
 @NamedQueries({
     @NamedQuery(name = "Envios",
-    query = "from Envios order by fechaRecojo desc"),})
+    query = "from Envio order by fechaRecojo desc"),})
 @FilterDefs({
     @FilterDef(name = "EnviosXOrigen",
     parameters =

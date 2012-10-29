@@ -5,10 +5,13 @@
 package beans.seguridad;
 
 import beans.Cliente;
+import beans.seguridad.Perfil;
+import beans.seguridad.Usuario;
 import beans.Parametro;
-import gui.aeropuerto.Aeropuerto;
+import beans.Aeropuerto;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +19,40 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
  * @author joao
  */
+@Entity
+@Table(name = "Usuario")
+//@NamedQueries({
+//    @NamedQuery(name = "Usuario",
+//    query = "from Usuario  "),})
+//
+//@FilterDefs({
+//    @FilterDef(name = "EnviosXOrigen",
+//    parameters =
+//    @ParamDef(name = ":idAeropuerto", type = "integer"))
+//})
+//@Filters({
+//    @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto")
+//})
+
+//select C.nombres, C.Apellidos,P.nombre, A.nombre, ,C.CorreoElectronico, U.estado,C.TipoDoc, C.NumDoc     
+//from cliente C, usuario U, perfil P, aeropuerto A 
+//where C.idcliente=U.idcliente and U.idPerfil=P.idPerfil and U.idAeropuerto=A.idAeropuerto
+//and C.Nombres like nombres and C.Apellidos like apellidos and C.NumDoc like numdoc and C.TipoDoc like tipodoc       
+// 
+
 public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +92,13 @@ public class Usuario implements Serializable{
     @OneToMany(mappedBy="usuario")
     private List<Contrasena> contrasenias;
     
+    public List<Contrasena> getContrasenias() {
+        return contrasenias;
+    }
+
+    public void setContrasenias(List<Contrasena> contrasenias) {
+        this.contrasenias = contrasenias;
+    }
     
       public int getIdUsuario(){
       return idUsuario;
@@ -68,7 +107,16 @@ public class Usuario implements Serializable{
       public void setIdUsuario(int idUsuario){
       this.idUsuario=idUsuario;
       }    
-    
+
+      public Perfil getPerfil() {
+      return perfil;
+      }
+
+      public void setPerfil(Perfil perfil) {
+      this.perfil = perfil;
+      }
+      
+      
 //      public String getNombres(){
 //      return nombres;
 //      }    
