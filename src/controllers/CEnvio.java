@@ -71,9 +71,8 @@ public class CEnvio {
             List<Vuelo> vuelos = q.list();
             
             
-            Recocido recocido = new Recocido(envio, vuelos, temperaturaInicial, temperaturaFinal, k, alfaSA, alfaGrasp, pParada, intentos);
-            //ArrayList<Escala> escalas = 
-                    recocido.simular();
+            //Recocido recocido = new Recocido(envio, vuelos, temperaturaInicial, temperaturaFinal, k, alfaSA, alfaGrasp, pParada, intentos);
+            //recocido.simular();
 
 
         } catch (Exception e) {

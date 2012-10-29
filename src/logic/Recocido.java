@@ -8,6 +8,6 @@ package logic;
  *
  * @author miguelavg
  */
-public class recocido {
+public class Recocido {
     
 }
