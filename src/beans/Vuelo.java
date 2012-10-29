@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  *
@@ -24,6 +26,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Vuelo")
+@NamedQueries({
+    @NamedQuery(name = "Vuelos",
+    query = "from Vuelo where estado.valorUnico = 'ACTV'"),
+    @NamedQuery(name = "VuelosXFecha",
+    query = "from Vuelo where :fechaRegistro < fechaSalida")
+})
 public class Vuelo implements Serializable {
 
     @Id
