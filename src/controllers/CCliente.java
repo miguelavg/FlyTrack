@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-
+import org.hibernate.Filter;
 /**
  *
  * @author jugox
@@ -68,6 +68,39 @@ public class CCliente {
         finally {
             s.close();
         }
+    }
+    
+    public List<Cliente> Buscar(String Nombre, String Apellido, String tipodoc, Integer numdoc)
+    {
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        List<Cliente> ListaClientes;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+
+            
+           q = s.getNamedQuery("Clientes");
+           Filter f = s.enableFilter("ClientesxNombre");
+           f.setParameter("nombres",Nombre);
+//           Filter f2 = s.enableFilter("ClientesxApellido");
+//           f2.setParameter("apellidos","Solorzano");
+           ListaClientes= q.list();
+           
+           
+           return ListaClientes;
+                      
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+        
     }
           
 }

@@ -257,7 +257,9 @@ public class ClientesAgregar extends javax.swing.JFrame {
             q = s.getNamedQuery("ParametrosXTipo");
             q.setParameter("tipo", "TIPO_DOC");
             ListaTipoDoc = q.list();
-//                        
+//               
+            
+            
             }
         catch(Exception e){
             System.out.println(e.getMessage());
