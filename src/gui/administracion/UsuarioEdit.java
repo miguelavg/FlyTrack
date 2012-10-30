@@ -4,8 +4,12 @@
  */
 package gui.administracion;
 
+import beans.Aeropuerto;
+import beans.Cliente;
 import beans.Parametro;
+import beans.seguridad.Perfil;
 import controllers.CUsuario;
+import gui.clientes.ClientesPopUp;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,6 +25,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
     CUsuario CUsuario = new CUsuario();
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaEstado ;
+            List<Perfil> ListaPerfiles ;
+        Cliente  ClienteAux ;
     /**
      * Creates new form UsuarioEdit
      */
@@ -33,10 +39,23 @@ public class UsuarioEdit extends javax.swing.JDialog {
         return idusuario;
     }
     
+    Integer bandera=-1;
+    public void setBandera(Integer bandera) {
+        this.bandera = bandera;
+    }
+
+    public Integer getBandera() {
+        return bandera;
+    }
+    
+    
+    
+    
     public UsuarioEdit() {
         initComponents();
        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
+        llenarcomboPerfiles();
     }
 
     /**
@@ -58,6 +77,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox();
         cboPerfil = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        txtLogIn = new javax.swing.JTextField();
+        lblCliente = new javax.swing.JLabel();
+        txtCliente = new javax.swing.JTextField();
+        btnBuscarClientes = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -99,11 +123,28 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel6.setText("Estado:");
 
+        jLabel7.setText("LogIn:");
+
+        txtLogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLogInActionPerformed(evt);
+            }
+        });
+
+        lblCliente.setText("Cliente:");
+
+        btnBuscarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClientesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,11 +156,23 @@ public class UsuarioEdit extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,14 +186,24 @@ public class UsuarioEdit extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnGuardar.setText("Guardar");
@@ -164,8 +227,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -242,12 +305,67 @@ public class UsuarioEdit extends javax.swing.JDialog {
         }
     }
     
+    public void llenarcomboPerfiles(){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("Perfil");
+            ListaPerfiles = q.list();
+//                        
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+        for (int i=0;i<ListaPerfiles.size();i++)
+        {
+            Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
+            
+            cboPerfil.addItem(CPerfil);
+        }
+    }
+    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
+        Aeropuerto aeropuerto;  // aeropuerto.getIdAeropuerto()
+        
+//    if (bandera==0){
+//        //insertar
+//        
+//        CUsuario.agregarUsuario(perfil, 
+//                aeropuerto,
+//                //txtAeropuerto.getText(), 
+// //               idcliente, 
+//                ClienteAux,
+//                txtLogIn.getText(),
+//                (Parametro)cboEstado.getSelectedItem() , 
+//                0,
+//                false);     
+//    }
+    if (bandera==1){
+        //modificar
+        txtCliente.setVisible(false);
+        //getidusuario()
+        //CUsuario.modificarUsuario(idusuario, null, null, null, null, null);
+
+        //        CUsuario.agregarUsuario(txtPerfil.getText(), 
+//                txtAeropuerto.getText(), 
+// //               idcliente, 
+//                login   txtLogIn.getText(),
+//                (Parametro)cboEstado.getSelectedItem());     
+    }
+        
+        
 //        CUsuario.agregarUsuario(txtPerfil.getText(), 
 //                txtAeropuerto.getText(), 
 // //               idcliente, 
-//                login,
+//                login   txtLogIn.getText(),
 //                (Parametro)cboEstado.getSelectedItem() , 
 //                numAcceso,
 //                primerAcceso); 
@@ -264,6 +382,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.setVisible (false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLogInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLogInActionPerformed
+
+    private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
+        // TODO add your handling code here:
+        ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true);
+        usuarioClientesPopUp.setVisible(true);
+        ClienteAux=usuarioClientesPopUp.showDialog();
+       txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
+    }//GEN-LAST:event_btnBuscarClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,6 +430,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cboEstado;
@@ -309,8 +440,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblCliente;
     private javax.swing.JTextField txtAeropuerto;
+    private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtLogIn;
     // End of variables declaration//GEN-END:variables
 }
