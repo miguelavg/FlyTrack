@@ -9,20 +9,56 @@ package gui.clientes;
  *
  * @author jugox
  */
+import beans.Cliente;
+import beans.Parametro;
 import controllers.CCliente;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
 public class Clientes extends javax.swing.JFrame {
 
     /**
      * Creates new form Clientes
      */
     CCliente ClienteBL = new CCliente();
+    List<Parametro> ListaTipoDoc;
     public Clientes() {
         initComponents();
-        
+        llenarcombos();
     }
     
-
+    public void llenarcombos(){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("ParametrosXTipo");
+            q.setParameter("tipo", "TIPO_DOC");
+            ListaTipoDoc = q.list();
+//              
+            
+            
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+        for (int i=0;i<ListaTipoDoc.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
+            
+            cboTipoDoc.addItem(TipoDocBE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +82,7 @@ public class Clientes extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        ClienteTabla = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnCargaMas = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -145,24 +181,15 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        ClienteTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Apellido", "Teléfono", "Email", "Tipo Doc.", "Num. Doc."
             }
         ));
-        jScrollPane2.setViewportView(tblClientes);
+        jScrollPane2.setViewportView(ClienteTabla);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
         btnAgregar.setText("Agregar");
@@ -271,6 +298,27 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        //Parametro TipoDoc=(Parametro)(cboTipoDoc.getSelectedItem());
+        List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText()
+                ,txtNumDoc.getText(),null);
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
+       Object[] datos = new Object[9];
+       for (int i = 0; i < listaClientes.size(); i++) {
+           datos[0] = listaClientes.get(i).getNombres();
+           datos[1] = listaClientes.get(i).getApellidos();
+           datos[2] = listaClientes.get(i).getTelefono();
+           datos[3] = listaClientes.get(i).geteMail();
+           
+           datos[4] = listaClientes.get(i).getTipoDoc();
+           datos[5] = listaClientes.get(i).getNumDoc();
+           
+           
+           dtm.addRow(datos);
+       }
+
+
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -294,6 +342,7 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -329,6 +378,7 @@ public class Clientes extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ClienteTabla;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCargaMas;
@@ -345,7 +395,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumDoc;
