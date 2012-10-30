@@ -34,7 +34,9 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "AeropuertosXPais",
     query = "from Aeropuerto a where a.pais = :pais and estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "ParametrosXCiudad",
-    query = "from Aeropuerto a where a.ciudad = :ciudad and estado.valorUnico = 'ACTV'")
+    query = "from Aeropuerto a where a.ciudad = :ciudad and estado.valorUnico = 'ACTV'"),
+    @NamedQuery(name = "AeropuertosxID",  
+    query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")    
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",

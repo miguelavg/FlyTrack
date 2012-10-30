@@ -5,7 +5,10 @@
 package controllers;
 
 import beans.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,14 +49,14 @@ public class CEnvio {
             String remitente,
             String destinatario,
             float monto,
-            Parametro Moneda,
+            Parametro moneda,
             int numEnvio,
             int numPaq,
             Parametro docPago,
             int numDocPago,
             float impuesto,        
             String fechaRegistro,
-            String fechaRocojo
+            String fechaRecojo
             ) {
       
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -76,33 +79,61 @@ public class CEnvio {
             q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
             q.setParameter("idaero", Integer.parseInt(aDestino));
             a = (Aeropuerto) q.uniqueResult();
-            e.setOrigen(a);
+            e.setDestino(a);
             
             q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
             q.setParameter("idaero", Integer.parseInt(aActual));
             a = (Aeropuerto) q.uniqueResult();
-            e.setOrigen(a);
-            
+            e.setActual(a);
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
             q.setParameter("valorUnico", registrado.getValorUnico());
-            q.setParameter("tipo", "CIUDAD");
+            q.setParameter("tipo", registrado.getTipo());
             p = (Parametro) q.uniqueResult();
             e.setEstado(p);
             
-            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
-            q.setParameter("idaero", Integer.parseInt(aActual));
-            a = (Aeropuerto) q.uniqueResult();
-            e.setOrigen(a);
+            q = s.getNamedQuery("ClienteXID").setFirstResult(0);
+            q.setParameter("idcliente", Integer.parseInt(remitente));
+            e.setRemitente((Cliente) q.uniqueResult());
+            
+            q = s.getNamedQuery("ClienteXID").setFirstResult(0);
+            q.setParameter("idcliente", Integer.parseInt(destinatario));
+            e.setDestinatario((Cliente) q.uniqueResult());
+            
+            e.setMonto(monto*(1+impuesto));
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "CHI");
-            q.setParameter("tipo", "PAIS");
+            q.setParameter("valorUnico", moneda.getValorUnico());
+            q.setParameter("tipo", moneda.getTipo());
             p = (Parametro) q.uniqueResult();
-            a.setCiudad(p);
+            e.setMoneda(p);
             
-            int i = (Integer)s.save(a);
+            e.setNumPaquetes(numPaq);
             
-            System.out.println(i);
+            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
+            q.setParameter("valorUnico", docPago.getValorUnico());
+            q.setParameter("tipo", docPago.getTipo());
+            p = (Parametro) q.uniqueResult();
+            e.setTipoDocVenta(p);
+            
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaRegistroDate = null;
+            Date fechaRecojoDate = null;
+            try {
+
+                fechaRegistroDate= formatoDelTexto.parse(fechaRegistro);
+                fechaRecojoDate= formatoDelTexto.parse(fechaRecojo);
+
+            } catch (ParseException ex) {
+
+                ex.printStackTrace();
+
+            }
+            e.setFechaRegistro(fechaRegistroDate);
+            e.setFechaRecojo(fechaRecojoDate);
+            numEnvio = (Integer)s.save(e);
+            e.setIdEnvio(numEnvio);
+            numDocPago = numEnvio;
+            e.setNumDocVenta(numDocPago);
             
             tx.commit();
         } catch (Exception e) {
