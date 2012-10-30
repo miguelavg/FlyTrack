@@ -13,8 +13,10 @@ import beans.Cliente;
 import beans.Parametro;
 import controllers.CCliente;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,11 +54,11 @@ public class Clientes extends javax.swing.JFrame {
         finally {
             s.close();
         }
-        for (int i=0;i<ListaTipoDoc.size();i++)
+        for (Parametro p : ListaTipoDoc)
         {
-            Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
+            //Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
             
-            cboTipoDoc.addItem(TipoDocBE);
+            cboTipoDoc.addItem(p);
         }
     }
     /**
@@ -120,8 +122,6 @@ public class Clientes extends javax.swing.JFrame {
 
         txtNumDoc.setText("txtNumDoc");
 
-        cboTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DNI" }));
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -135,27 +135,25 @@ public class Clientes extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(30, 30, 30)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNombre)
-                    .addComponent(cboTipoDoc, 0, 130, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboTipoDoc, 0, 185, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(26, 26, 26)
-                        .addComponent(txtNumDoc))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(58, 58, 58)
-                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38))
+                    .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(txtNumDoc))
+                .addGap(142, 142, 142))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
+                .addGap(299, 299, 299)
                 .addComponent(btnBuscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -174,9 +172,9 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtNumDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -186,10 +184,13 @@ public class Clientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Teléfono", "Email", "Tipo Doc.", "Num. Doc."
+                "Id", "Nombre", "Apellido", "Teléfono", "Email", "Tipo Doc.", "Num. Doc."
             }
         ));
         jScrollPane2.setViewportView(ClienteTabla);
+        ClienteTabla.getColumnModel().getColumn(0).setMinWidth(0);
+        ClienteTabla.getColumnModel().getColumn(0).setPreferredWidth(0);
+        ClienteTabla.getColumnModel().getColumn(0).setMaxWidth(0);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
         btnAgregar.setText("Agregar");
@@ -222,16 +223,15 @@ public class Clientes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCargaMas, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,10 +256,10 @@ public class Clientes extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(287, 287, 287)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(223, 223, 223))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,21 +274,21 @@ public class Clientes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -298,21 +298,30 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        //Parametro TipoDoc=(Parametro)(cboTipoDoc.getSelectedItem());
-        List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText()
-                ,txtNumDoc.getText(),null);
+//        DefaultComboBoxModel dtcbotipodoc = (DefaultComboBoxModel) this.cboTipoDoc.getModel();
+        Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
+        List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
+        
         
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-       Object[] datos = new Object[9];
+        
+        for (int i=0; i<dtm.getRowCount()-1; i++){
+            dtm.removeRow(i);
+        }
+       
+        TableColumn column = null;
+        column= ClienteTabla.getColumnModel().getColumn(0);
+        column.setMaxWidth(0);
+        Object[] datos = new Object[9];
        for (int i = 0; i < listaClientes.size(); i++) {
-           datos[0] = listaClientes.get(i).getNombres();
-           datos[1] = listaClientes.get(i).getApellidos();
-           datos[2] = listaClientes.get(i).getTelefono();
-           datos[3] = listaClientes.get(i).geteMail();
            
-           datos[4] = listaClientes.get(i).getTipoDoc();
-           datos[5] = listaClientes.get(i).getNumDoc();
-           
+           datos[0] = listaClientes.get(i).getIdCliente();
+           datos[1] = listaClientes.get(i).getNombres();
+           datos[2] = listaClientes.get(i).getApellidos();
+           datos[3] = listaClientes.get(i).getTelefono();
+           datos[4] = listaClientes.get(i).geteMail();           
+           datos[5] = listaClientes.get(i).getTipoDoc();
+           datos[6] = listaClientes.get(i).getNumDoc();           
            
            dtm.addRow(datos);
        }
@@ -323,7 +332,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        ClientesAgregar clienteAgregarGUI = new ClientesAgregar(); //llamamos a la clase y creamos un objeto llamado MiVentana
+        ClientesEdit clienteAgregarGUI = new ClientesEdit(); //llamamos a la clase y creamos un objeto llamado MiVentana
         clienteAgregarGUI.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         //le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
@@ -331,7 +340,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnCargaMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMasActionPerformed
         // TODO add your handling code here:
-        ClientesAgregar MiVentana = new ClientesAgregar(); //llamamos a la clase y creamos un objeto llamado MiVentana
+        ClientesEdit MiVentana = new ClientesEdit(); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
@@ -340,6 +349,11 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
+        ClientesEdit MiVentana = new ClientesEdit();
+        Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     

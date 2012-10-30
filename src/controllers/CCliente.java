@@ -70,7 +70,7 @@ public class CCliente {
         }
     }
     
-    public List<Cliente> Buscar(String Nombre, String Apellido, String tipodoc, Integer numdoc)
+    public List<Cliente> Buscar(String Nombre, String Apellido, Parametro tipodoc, String numdoc)
     {
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
@@ -82,10 +82,27 @@ public class CCliente {
 
             
            q = s.getNamedQuery("Clientes");
-           Filter f = s.enableFilter("ClientesxNombre");
-           f.setParameter("nombres",Nombre);
-//           Filter f2 = s.enableFilter("ClientesxApellido");
-//           f2.setParameter("apellidos","Solorzano");
+           if (!Nombre.equals(""))
+           {
+             Filter f = s.enableFilter("ClientesXNombre");
+             f.setParameter("nombres","%"+Nombre+"%");
+           }
+           if (!Apellido.equals("")){
+                Filter f2 = s.enableFilter("ClientesXApellido");
+                f2.setParameter("apellidos",Apellido);
+
+           }
+           if (tipodoc.getIdParametro()!=0){
+                Filter f3 = s.enableFilter("ClientesXTipoDoc");
+                f3.setParameter("tipodoc",tipodoc.getIdParametro());
+           }
+           if (!numdoc.equals("")){
+                Filter f4 = s.enableFilter("ClientesXNumDoc");
+                f4.setParameter("numdoc",numdoc);
+
+           }
+           
+           
            ListaClientes= q.list();
            
            
