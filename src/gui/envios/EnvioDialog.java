@@ -9,6 +9,7 @@ import beans.Envio;
 import beans.Cliente;
 import beans.Parametro;
 import controllers.CEnvio;
+import gui.aeropuerto.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.ArrayList;
 import java.util.List;
@@ -387,10 +388,24 @@ public class EnvioDialog extends javax.swing.JDialog {
 
     private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
         // TODO add your handling code here:
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        a_origen = aeropuertoPU.showDialog();
+
+        if (a_origen != null) {
+            
+            txt_origen.setText(a_origen.getNombre());
+        }
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
         // TODO add your handling code here:
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        a_destino = aeropuertoPU.showDialog();
+
+        if (a_destino != null) {
+            
+            txt_destino.setText(a_destino.getNombre());
+        }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
     private void txt_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_destinoActionPerformed
@@ -421,6 +436,13 @@ public class EnvioDialog extends javax.swing.JDialog {
 
     private void btn_actualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualActionPerformed
         // TODO add your handling code here:
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        a_actual = aeropuertoPU.showDialog();
+
+        if (a_actual != null) {
+            
+            txt_actual.setText(a_actual.getNombre());
+        }
     }//GEN-LAST:event_btn_actualActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed

@@ -9,7 +9,9 @@ import beans.Cliente;
 import beans.Parametro;
 import beans.seguridad.Perfil;
 import controllers.CUsuario;
+import gui.aeropuerto.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import java.util.HashSet;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,6 +29,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     List<Parametro> ListaEstado ;
             List<Perfil> ListaPerfiles ;
         Cliente  ClienteAux ;
+            Aeropuerto AeropuertoAux;
     /**
      * Creates new form UsuarioEdit
      */
@@ -73,7 +76,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtAeropuerto = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnBuscarAeropuerto = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox();
         cboPerfil = new javax.swing.JComboBox();
@@ -119,7 +122,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         txtAeropuerto.setText("Jorge Chávez, Lima");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAeropuertoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Estado:");
 
@@ -154,7 +162,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscarAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +203,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBuscarAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +295,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
             Query q;
             
             q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "ESTADO_TARIFA");
+            q.setParameter("tipo", "ESTADO_USUARIO");
             ListaEstado = q.list();
 //                        
             }
@@ -333,28 +341,48 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
-        Aeropuerto aeropuerto;  // aeropuerto.getIdAeropuerto()
-        
-//    if (bandera==0){
-//        //insertar
+//        Aeropuerto aeropuerto=new  Aeropuerto() ;  // aeropuerto.getIdAeropuerto()
+//        Parametro param= new Parametro();
 //        
-//        CUsuario.agregarUsuario(perfil, 
-//                aeropuerto,
-//                //txtAeropuerto.getText(), 
-// //               idcliente, 
-//                ClienteAux,
-//                txtLogIn.getText(),
-//                (Parametro)cboEstado.getSelectedItem() , 
-//                0,
-//                false);     
-//    }
+//        aeropuerto.setNombre("Aeropuerto 01");
+//        aeropuerto.setCiudad(param.);
+//        aeropuerto.setPais(3);
+//        aeropuerto.setEstado(estado);
+//        aeropuerto.setCapacidadActual(ABORT);
+//        aeropuerto.setCapacidadMax(WIDTH);
+//        aeropuerto.setCoordX(WIDTH);
+//        aeropuerto.setCoordY(WIDTH);
+        
+        
+    if (bandera==0){
+        //insertar
+        
+        CUsuario.agregarUsuario(perfil, 
+                AeropuertoAux,
+                //aeropuerto,
+                //txtAeropuerto.getText(), 
+ //               idcliente, 
+                ClienteAux,
+                txtLogIn.getText(),
+                (Parametro)cboEstado.getSelectedItem() , 
+                0,
+                false);     
+    }
     if (bandera==1){
         //modificar
         txtCliente.setVisible(false);
         //getidusuario()
-        //CUsuario.modificarUsuario(idusuario, null, null, null, null, null);
+//        CUsuario.modificarUsuario(idusuario, 
+//                perfil, 
+//                aeropuerto, 
+//                ClienteAux, txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem());
 
-        //        CUsuario.agregarUsuario(txtPerfil.getText(), 
+//                CUsuario.agregarUsuario(
+//                        ClienteAux.getIdCliente(),
+//                        perfil,
+//                        aeropuerto,
+//                        ClienteAux
+//                        txtPerfil.getText(), 
 //                txtAeropuerto.getText(), 
 // //               idcliente, 
 //                login   txtLogIn.getText(),
@@ -395,6 +423,13 @@ public class UsuarioEdit extends javax.swing.JDialog {
        txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
 
+    private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
+        // TODO add your handling code here:
+        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
+        usuarioAeropuertoPopUp.setVisible(true);
+         AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
+    }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -430,12 +465,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarAeropuerto;
     private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cboEstado;
     private javax.swing.JComboBox cboPerfil;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
