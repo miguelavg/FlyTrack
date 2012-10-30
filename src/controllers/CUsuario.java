@@ -7,8 +7,10 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
+import java.util.Arrays;
 import java.util.List;
 import org.hibernate.Filter;
 import org.hibernate.Query;
@@ -55,10 +57,10 @@ public class CUsuario {
         
     }
     
-    public boolean verificarContrasenia(String user, String pass){
+    public boolean verificarContrasenia(String user, char[] pass){
 
         //El usuario exista y este activo
-        //
+        //la contrasenia pasada es la activa del usuario
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
@@ -69,8 +71,19 @@ public class CUsuario {
             q.setParameter("login", user);
             Usuario usuario = (Usuario)q.uniqueResult();
             
-            System.out.println("Login :"+ usuario.getLogIn());
+            if(usuario == null) return Boolean.FALSE; //si el usuario no existe
             
+            //el usuario ya se ha detectado
+            Query q2 = s.getNamedQuery("ContraseniaActivaXUsuario").setMaxResults(1);
+            q2.setParameter("usuario", usuario);
+            Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
+            
+            if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
+                //si no tiene contrasenia activa o la contrasena activa es diferente a la ingresada
+                return Boolean.TRUE;
+            else 
+                return Boolean.FALSE;
+                        
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -80,6 +93,18 @@ public class CUsuario {
         }
 
         return true;
+    }
+    
+    private boolean passwordCorrecta(char[] passBD, char[] passRead){
+        boolean correcto = Boolean.TRUE;
+        if(passBD.length != passRead.length){
+            correcto = Boolean.FALSE;
+        }
+        else{
+            correcto = Arrays.equals(passRead, passBD);
+        }
+        Arrays.fill(passBD, '0');
+        return correcto;
     }
     
      public List<Usuario> Buscar(Integer idperfil, Integer idaeropuerto,Integer idcliente,  String Login, Integer Estado)
