@@ -7,6 +7,7 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import java.util.HashSet;
@@ -57,32 +58,7 @@ public class CUsuario {
         
     }
     
-    public boolean verificarContrasenia(String user, String pass){
-
-        //El usuario exista y este activo
-        //
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        
-        try{
-         
-            Transaction tx = s.beginTransaction();
-            Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
-            q.setParameter("login", user);
-            Usuario usuario = (Usuario)q.uniqueResult();
-            
-            System.out.println("Login :"+ usuario.getLogIn());
-            
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-
-        return true;
-    }
+    
     
      public List<Usuario> Buscar(Integer idperfil, Integer idaeropuerto,Integer idcliente,Integer Estado)
     {
