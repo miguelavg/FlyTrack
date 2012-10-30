@@ -124,7 +124,7 @@
                       <Group type="102" attributes="0">
                           <Component id="txtAeropuerto" min="-2" pref="185" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="btnBuscarAeropuerto" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                       <Component id="cboPerfil" min="-2" pref="185" max="-2" attributes="0"/>
                   </Group>
@@ -177,7 +177,7 @@
                                   <Component id="txtLogIn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jButton2" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnBuscarAeropuerto" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="txtAeropuerto" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -212,12 +212,15 @@
             <Property name="text" type="java.lang.String" value="Jorge Ch&#xe1;vez, Lima"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnBuscarAeropuerto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/buscar.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarAeropuertoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>

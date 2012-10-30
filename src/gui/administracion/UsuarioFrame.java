@@ -29,6 +29,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
     List<Parametro> ListaEstado ;
     List<Perfil> ListaPerfiles ;
     Cliente  ClienteAux ;
+    Aeropuerto AeropuertoAux;
     /**
      * Creates new form UsuarioFrame
      */
@@ -355,8 +356,10 @@ public void llenarcomboPerfiles(){
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
 
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(0);
         //usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
@@ -370,7 +373,7 @@ public void llenarcomboPerfiles(){
                 //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
         
           
-        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), 1,ClienteAux.getIdCliente(),estado.getIdParametro());
+        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), AeropuertoAux.getIdAeropuerto(),ClienteAux.getIdCliente(),estado.getIdParametro());
         //cboEstado.getSelectedItem());
         
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
@@ -400,7 +403,11 @@ public void llenarcomboPerfiles(){
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
+        
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
@@ -416,9 +423,11 @@ public void llenarcomboPerfiles(){
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
 
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
+        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
         // TODO add your handling code here:
-//        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
-//        usuarioAeropuertoPopUp.setVisible(true);
+        usuarioAeropuertoPopUp.setVisible(true);
+         AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
+         txtAeropuerto.setText(AeropuertoAux.getNombre());
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
     /**

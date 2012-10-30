@@ -101,18 +101,21 @@ public class CUsuario {
                 Parametro estado){
         
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
+        Session s = sf.openSession( );
         
         try {
             Transaction tx = s.beginTransaction();
             Query q;
             
-            Usuario CUsuario = (Usuario)s.load(Usuario.class, idUsuario);
+            //Usuario CUsuario = (Usuario)s.load(Usuario.class, idUsuario);\
+            Usuario CUsuario = new Usuario();
+            CUsuario.setIdUsuario(idUsuario);
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
             CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
+            
             
             s.update(CUsuario);
             tx.commit();
