@@ -174,7 +174,7 @@ public class CCliente {
            {
              Filter f = s.enableFilter("ClientesXNombre");
              f.setParameter("nombres","%"+Nombre+"%");
-           }
+           }    
            if (!Apellido.equals("")){
                 Filter f2 = s.enableFilter("ClientesXApellido");
                 f2.setParameter("apellidos","%"+Apellido+"%");

@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  *
@@ -23,6 +25,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Contrasena")
+@NamedQueries({
+    @NamedQuery(
+        name = "ContraseniaActivaXUsuario",
+        query = "from Contrasena where usuario = :usuario and estado.valorUnico = 'ACTV'"
+    )
+})
 public class Contrasena implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +40,7 @@ public class Contrasena implements Serializable {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
             
-    private String text;
+    private char[] text;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActivacion;
@@ -71,36 +79,28 @@ public class Contrasena implements Serializable {
         this.fechaCaducidad = fechaCaducidad;
     }
     
-      public int getIdContrasena(){
-      return idContrasena;
-      }    
-      
-      public void setIdContrasena(int idContrasena){
-      this.idContrasena=idContrasena;
-      }    
-      
-      public String getText(){
-      return text;
-      }    
-      
-      public void setText(String text){
-      this.text=text;
-      }    
-      
-//      public Usuario getIdUsuario() {
-//      return idUsuario;
-//      }
-//
-//      public void setIdUsuario(Usuario idUsuario) {
-//      this.idUsuario = idUsuario;
-//      }
-      
-      public Parametro getEstado() {
-      return estado;
-      }
+    public int getIdContrasena(){
+    return idContrasena;
+    }    
 
-      public void setEstado(Parametro estado) {
-      this.estado = estado;
-      }
+    public void setIdContrasena(int idContrasena){
+    this.idContrasena=idContrasena;
+    }    
+
+    public char[] getText(){
+    return text;
+    }    
+
+    public Parametro getEstado() {
+    return estado;
+    }
+
+    public void setEstado(Parametro estado) {
+    this.estado = estado;
+    }
+
+  public Usuario getUsuario() {
+      return usuario;
+  }
         
 }

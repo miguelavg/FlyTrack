@@ -6,6 +6,7 @@ package gui.principal;
 
 import gui.administracion.*;
 import gui.aeropuerto.*;
+import gui.clientes.ClientesPopUp;
 import gui.vuelos.*;
 
 /**
@@ -99,10 +100,10 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
                         .addComponent(tarifaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(aeropuertoButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -123,8 +124,9 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
 
     private void aeropuertoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoButtonActionPerformed
         // TODO add your handling code here:
-        Aeropuerto aeropuerto = new Aeropuerto();
+        AeropuertoPopup aeropuerto = new AeropuertoPopup(this,true);
         aeropuerto.setVisible(true);
+       
     }//GEN-LAST:event_aeropuertoButtonActionPerformed
 
     /**

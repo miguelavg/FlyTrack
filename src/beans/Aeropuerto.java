@@ -29,20 +29,52 @@ import org.hibernate.annotations.ParamDef;
 @Entity
 @Table(name = "Aeropuerto")
 @NamedQueries({
+    @NamedQuery(name = "Aero",
+    query = "from Aeropuerto "),
+    
     @NamedQuery(name = "Aeropuertos",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
+    
     @NamedQuery(name = "AeropuertosXPais",
     query = "from Aeropuerto a where a.pais = :pais and estado.valorUnico = 'ACTV'"),
-    @NamedQuery(name = "ParametrosXCiudad",
+  
+    @NamedQuery(name = "ParametrosXCiudad",        
     query = "from Aeropuerto a where a.ciudad = :ciudad and estado.valorUnico = 'ACTV'"),
+    
     @NamedQuery(name = "AeropuertosxID",  
-    query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")    
+    query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")   
+        
+        
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",
     parameters =
-    @ParamDef(name = "tipo", type = "string"))
+    @ParamDef(name = "tipo", type = "string")),
+        
+    @FilterDef(name = "AeropuertoxPais",
+    parameters =
+    @ParamDef(name = "Pais", type = "integer")),
+    
+    @FilterDef(name = "AeropuertoxEstado",
+    parameters =
+    @ParamDef(name = "Estado", type = "integer")),
+    
+    @FilterDef(name = "AeropuertoxCiudad",
+    parameters =
+    @ParamDef(name = "Ciudad", type = "integer")),
+                      
 })
+@Filters({
+    
+    @Filter(name = "AeropuertoxPais", condition = "UPPER(pais) = UPPER(:Pais)"),
+    
+    @Filter(name = "AeropuertoxEstado", condition = "estado = :Estado"),
+    
+    @Filter(name = "AeropuertoxCiudad", condition = "UPPER(ciudad) = UPPER(:Ciudad)"),
+      
+})
+
+
 public class Aeropuerto implements Serializable {
 
     @Id
