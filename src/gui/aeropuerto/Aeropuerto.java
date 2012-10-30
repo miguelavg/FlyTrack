@@ -16,9 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Aeropuerto extends javax.swing.JFrame {
 
-     private CAeropuerto Caeropuerto = new CAeropuerto();
+  
      private List<Parametro> ListatipoPar; 
      private List<Parametro> ListatipoEst; 
+     private List<Parametro> ListatipoHijo;
     /**
      * Creates new form Aeropuerto
      */
@@ -170,16 +171,7 @@ public class Aeropuerto extends javax.swing.JFrame {
 
         tbl_aeropuerto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Jorge Chavez", "Lima", "Perú", "Activo", "500", "400", "500", "200"},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Ciudad", "País", "Estado", "X", "Y", "Capacidad max de almacenamiento", "Capacidad actual de almacenamiento"
@@ -251,22 +243,22 @@ public class Aeropuerto extends javax.swing.JFrame {
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
         
-        List<Aeropuerto> listaAeropuertos = CAeropuerto.Buscar(cbm_Pais.getSelectedItem().toString(),
-                cbm_ciudad.getSelectedItem().toString(),cbm_estado.getSelectedItem().toString());
+        List<beans.Aeropuerto> listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
+                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
         
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
         Object[] datos = new Object[9];
         
         for (int i = 0; i < listaAeropuertos.size(); i++) {
             
-           datos[0] = listaAeropuertos.get(i).getNombres();
-           datos[1] = listaAeropuertos.get(i).getApellidos();
-           datos[2] = listaAeropuertos.get(i).getTelefono();
-           datos[3] = listaAeropuertos.get(i).geteMail();
+           datos[0] = listaAeropuertos.get(i).getNombre();
+           datos[1] = listaAeropuertos.get(i).getCiudad();
+           datos[2] = listaAeropuertos.get(i).getPais();
+           datos[3] = listaAeropuertos.get(i).getCoordX();
+           datos[4] = listaAeropuertos.get(i).getCoordY();
            
-           datos[4] = listaAeropuertos.get(i).getTipoDoc();
-           datos[5] = listaAeropuertos.get(i).getNumDoc();
-           
+           datos[5] = listaAeropuertos.get(i).getCapacidadMax();
+           datos[6] = listaAeropuertos.get(i).getCapacidadActual();
            
            dtm.addRow(datos);
        }
@@ -299,7 +291,7 @@ public class Aeropuerto extends javax.swing.JFrame {
         // TODO add your handling code here:
         cbm_ciudad.removeAllItems();
         
-        List<Parametro> ListatipoHijo;
+       
         
          ListatipoHijo = ListatipoPar.get(cbm_Pais.getSelectedIndex()).getHijos();
             for (int i=0;i<ListatipoHijo.size();i++)
@@ -317,8 +309,10 @@ public class Aeropuerto extends javax.swing.JFrame {
     private void llenarComboPais(){
       
         
-        ListatipoPar = Caeropuerto.llenarComboPais();
+      ListatipoPar = CAeropuerto.llenarComboPais();
+        
       for (int i=0;i<ListatipoPar.size();i++)
+          
         {
             Parametro TipoDocBE =(Parametro)ListatipoPar.get(i);
             
@@ -328,7 +322,7 @@ public class Aeropuerto extends javax.swing.JFrame {
      private void llenarComboEstado(){
       
         
-        ListatipoEst = Caeropuerto.llenarComboEstado();
+        ListatipoEst = CAeropuerto.llenarComboEstado();
       for (int i=0;i<ListatipoEst.size();i++)
         {
             Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);

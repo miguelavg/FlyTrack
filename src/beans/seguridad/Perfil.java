@@ -13,6 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 
 /**
@@ -21,6 +28,34 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Perfil")
+@NamedQueries({
+    @NamedQuery(name = "Perfil",
+    query = "from Perfil")})
+
+@FilterDefs({
+    @FilterDef(name = "PerfilxIdperfil",
+    parameters =
+    @ParamDef(name = "idperfil", type = "integer")),
+    @FilterDef(name = "PerfilxNombre",
+    parameters =
+    @ParamDef(name = "nombre", type = "string")),
+    @FilterDef(name = "PerfilxDescripcion",
+    parameters =
+    @ParamDef(name = "descripcion", type = "string")),
+    @FilterDef(name = "PerfilxEstado",
+    parameters =
+    @ParamDef(name = "estado", type = "integer"))    
+
+})
+@Filters({
+    @Filter(name = "PerfilxIdperfil", condition = "idperfil = :idperfil"),
+    @Filter(name = "PerfilxNombre", condition = "nombre = :nombre"),
+    @Filter(name = "PerfilxDescripcion", condition = "descripcion = :descripcion"),
+    @Filter(name = "PerfilxEstado", condition = "estado = :estado"), 
+})
+
+
+
 
 public class Perfil implements Serializable  {
     @Id

@@ -5,12 +5,10 @@
 package controllers;
 
 import beans.Aeropuerto;
+import beans.Cliente;
 import beans.Parametro;
 import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
@@ -19,8 +17,8 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class CAeropuerto {
     
-    List<Parametro> ListaTipoDoc;
-     List<Parametro> ListaTipoEst;
+    static List<Parametro> ListaTipoDoc;
+    static List<Parametro> ListaTipoEst;
     
     public void agregarAeropuerto() {
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -69,7 +67,7 @@ public class CAeropuerto {
         }
     }
     
-      public List<Parametro> llenarComboPais(){
+      public static List<Parametro> llenarComboPais(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         try {
@@ -95,14 +93,60 @@ public class CAeropuerto {
         
     }
       
-     public List<Aeropuerto> Buscar() {
-                  
+     public static List<Aeropuerto> BuscarAeropuerto(Integer Pais,Integer Ciudad,Integer Estado) {
+         
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        List<Aeropuerto> ListaAeropuertos;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+
+            
+           q = s.getNamedQuery("Aero");
+           
+           if (!Pais.equals(""))
+           {
+             Filter f = s.enableFilter("AeropuertoxPais");
+             f.setParameter("Pais",Pais);
+           }
+           if (!Ciudad.equals("")){
+                Filter f2 = s.enableFilter("AeropuertoxCiudad");
+                f2.setParameter("Ciudad",Ciudad);
+
+           }
+       
+           if (!Estado.equals("")){
+                Filter f4 = s.enableFilter("AeropuertoxEstado");
+                
+                
+                
+                f4.setParameter("Estado",Estado);
+
+           }
+           
+           
+           ListaAeropuertos= q.list();
+           
+           
+           return ListaAeropuertos;
+                      
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;      
      
      }
              
       
       
-       public List<Parametro> llenarComboEstado(){
+       public static List<Parametro> llenarComboEstado(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         try {
