@@ -81,7 +81,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         numPaqEnvioText = new javax.swing.JTextField();
         monedaEnvioCombobox = new javax.swing.JComboBox();
         guardarEnvioButton = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        monitoreoButton = new javax.swing.JButton();
         impuestoFactEnvio = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -132,7 +132,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        aeropuertoOrigenEnvioText.setEditable(false);
         aeropuertoOrigenEnvioText.setText("1");
         aeropuertoOrigenEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,11 +298,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world.png"))); // NOI18N
-        jButton12.setText("Monitorear");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        monitoreoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world.png"))); // NOI18N
+        monitoreoButton.setText("Monitorear");
+        monitoreoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                monitoreoButtonActionPerformed(evt);
             }
         });
 
@@ -401,7 +400,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(monitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -434,7 +433,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(monitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -670,9 +669,13 @@ public class EnvioAgregar extends javax.swing.JDialog {
         
     }//GEN-LAST:event_guardarEnvioButtonActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void monitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitoreoButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
+        MonitoreoFrame monitoreoDialog = new  MonitoreoFrame();
+        monitoreoDialog.setVisible(true);
+        
+        
+    }//GEN-LAST:event_monitoreoButtonActionPerformed
 
     private void impuestoFactEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impuestoFactEnvioActionPerformed
         // TODO add your handling code here:
@@ -732,7 +735,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JButton guardarEnvioButton;
     private javax.swing.JTextField impuestoFactEnvio;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -761,6 +763,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox monedaEnvioCombobox;
+    private javax.swing.JButton monitoreoButton;
     private javax.swing.JTextField montoEnvioText;
     private javax.swing.JTextField numDocPagoEnvioText;
     private javax.swing.JTextField numPaqEnvioText;
