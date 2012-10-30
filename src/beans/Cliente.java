@@ -32,7 +32,7 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "Clientes",
     query = "from Cliente "),
     @NamedQuery(name = "ClienteXID",
-    query = "from Cliente where idcliente = :idcliente ")
+    query = "from Cliente where idCliente = :idcliente ")
 })
 @FilterDefs({
     @FilterDef(name = "ClientesXNombre",
@@ -43,7 +43,7 @@ import org.hibernate.annotations.ParamDef;
     parameters =
     @ParamDef(name = "apellidos", type = "string")),
     
-    @FilterDef(name = "ClientesXNumeroDoc",
+    @FilterDef(name = "ClientesXNumDoc",
     parameters =
     @ParamDef(name = "numdoc", type = "string")),
     
