@@ -8,7 +8,7 @@ package gui.envios;
  *
  * @author ronald
  */
-public class MonitoreoFrame extends javax.swing.JFrame {
+public class MonitoreoFrame extends javax.swing.JDialog {
 
     /**
      * Creates new form MonitoreoFrame
@@ -30,6 +30,7 @@ public class MonitoreoFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monitoreo Envio");
+        setModal(true);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
 
