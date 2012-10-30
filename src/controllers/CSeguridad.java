@@ -107,11 +107,14 @@ public class CSeguridad {
             Usuario usuarioAux = (Usuario)q.uniqueResult(); 
             
             if(usuarioAux.getEstado().getValorUnico().equals("ACTV")){
-            
                 q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
                 q.setParameter("tipo", usuarioAux.getEstado().getTipo());
                 q.setParameter("valorUnico", "INCT");
                 Parametro p = (Parametro) q.uniqueResult();
+                usuarioAux.setEstado(p);
+                
+                s.update(usuarioAux);
+                tx.commit();
             }
         }
         catch(Exception e){
