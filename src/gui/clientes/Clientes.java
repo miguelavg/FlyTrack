@@ -34,6 +34,8 @@ public class Clientes extends javax.swing.JFrame {
         llenarcombos();
     }
     
+    
+    
     public void llenarcombos(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
@@ -301,8 +303,7 @@ public class Clientes extends javax.swing.JFrame {
 //        DefaultComboBoxModel dtcbotipodoc = (DefaultComboBoxModel) this.cboTipoDoc.getModel();
         Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
         List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
-        
-        
+                
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
         
         for (int i=0; i<dtm.getRowCount()-1; i++){
@@ -313,7 +314,7 @@ public class Clientes extends javax.swing.JFrame {
         column= ClienteTabla.getColumnModel().getColumn(0);
         column.setMaxWidth(0);
         Object[] datos = new Object[9];
-       for (int i = 0; i < listaClientes.size(); i++) {
+        for (int i = 0; i < listaClientes.size(); i++) {
            
            datos[0] = listaClientes.get(i).getIdCliente();
            datos[1] = listaClientes.get(i).getNombres();
@@ -352,6 +353,7 @@ public class Clientes extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
         ClientesEdit MiVentana = new ClientesEdit();
         Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        
         MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
         
     }//GEN-LAST:event_btnModificarActionPerformed

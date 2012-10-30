@@ -4,6 +4,9 @@
  */
 package gui.envios;
 
+import beans.Cliente;
+import gui.clientes.ClientesPopUp;
+
 /**
  *
  * @author miguelavg
@@ -13,6 +16,7 @@ public class EnvioDialog extends javax.swing.JDialog {
     /**
      * Creates new form Envio
      */
+    public int idCliente=-1;
     public EnvioDialog() {
         initComponents();
     }
@@ -384,6 +388,9 @@ public class EnvioDialog extends javax.swing.JDialog {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        ClientesPopUp ClientePU = new ClientesPopUp(this,true);
+        Cliente result = ClientePU.showDialog();
+        a_origen3.setText(result.getNombres()+ " " + result.getApellidos());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void a_origen3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origen3ActionPerformed

@@ -94,6 +94,28 @@ public class CCliente {
         
         return null;
     }
+    public Cliente BuscarXid(int id){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        Cliente cliente= new Cliente();
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("ClienteXID").setMaxResults(1);
+            q.setParameter("idcliente", id);
+            cliente=(Cliente)q.uniqueResult();
+            return cliente;
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+    }
     public List<Cliente> Buscar(String Nombre, String Apellido, Parametro tipodoc, String numdoc)
     {
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();

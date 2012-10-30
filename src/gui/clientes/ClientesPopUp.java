@@ -7,6 +7,7 @@ package gui.clientes;
 import beans.Cliente;
 import beans.Parametro;
 import controllers.CCliente;
+import gui.envios.EnvioDialog;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -21,7 +22,8 @@ public class ClientesPopUp extends javax.swing.JDialog {
      * Creates new form ClientesPopUp
      */
     CCliente ClienteBL = new CCliente();
-    public ClientesPopUp(java.awt.Frame parent, boolean modal) {
+    Cliente cliente ;
+    public ClientesPopUp(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         
         initComponents();
@@ -41,7 +43,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
     
         Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
         List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
-//        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
 ////        
 //        for (int i=0; i<dtm.getRowCount()-1; i++){
 //            dtm.removeRow(i);
@@ -75,8 +77,9 @@ public class ClientesPopUp extends javax.swing.JDialog {
         cboTipoDoc = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        ClienteTabla2 = new javax.swing.JTable();
+        ClienteTabla = new javax.swing.JTable();
         btnAgregar2 = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -153,7 +156,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        ClienteTabla2.setModel(new javax.swing.table.DefaultTableModel(
+        ClienteTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -161,13 +164,23 @@ public class ClientesPopUp extends javax.swing.JDialog {
                 "Id", "Nombre", "Apellido", "Teléfono", "Email", "Tipo Doc.", "Num. Doc."
             }
         ));
-        jScrollPane4.setViewportView(ClienteTabla2);
+        jScrollPane4.setViewportView(ClienteTabla);
+        ClienteTabla.getColumnModel().getColumn(0).setMinWidth(0);
+        ClienteTabla.getColumnModel().getColumn(0).setPreferredWidth(0);
+        ClienteTabla.getColumnModel().getColumn(0).setMaxWidth(0);
 
         btnAgregar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
         btnAgregar2.setText("Agregar");
         btnAgregar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregar2ActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
             }
         });
 
@@ -178,11 +191,15 @@ public class ClientesPopUp extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(303, 303, 303)
+                .addComponent(btnSeleccionar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,8 +207,10 @@ public class ClientesPopUp extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(btnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSeleccionar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,8 +230,8 @@ public class ClientesPopUp extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -265,7 +284,21 @@ public class ClientesPopUp extends javax.swing.JDialog {
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana
     }//GEN-LAST:event_btnAgregar2ActionPerformed
 
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        // TODO add your handling code here:
+        Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        cliente = ClienteBL.BuscarXid(id);
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+    public Cliente showDialog(){
+        setVisible(true);
+        
+        
+        return cliente;
+    }
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -295,7 +328,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ClientesPopUp dialog = new ClientesPopUp(new javax.swing.JFrame(), true);
+                ClientesPopUp dialog = new ClientesPopUp(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -308,27 +341,16 @@ public class ClientesPopUp extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ClienteTabla;
-    private javax.swing.JTable ClienteTabla1;
-    private javax.swing.JTable ClienteTabla2;
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnAgregar1;
     private javax.swing.JButton btnAgregar2;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCargaMas;
-    private javax.swing.JButton btnCargaMas1;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnModificar1;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox cboTipoDoc;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
