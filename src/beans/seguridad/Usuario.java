@@ -35,18 +35,33 @@ import org.hibernate.annotations.ParamDef;
 @Entity
 @Table(name = "Usuario")
 @NamedQueries({
-    @NamedQuery(name = "UsuarioXLogin",
-        query="from Usuario where login = :login")
-//    @NamedQuery(name = "Usuario",
-//    query = "from Usuario  "),})
-//
-//@FilterDefs({
-//    @FilterDef(name = "EnviosXOrigen",
-//    parameters =
-//    @ParamDef(name = ":idAeropuerto", type = "integer"))
-//})
-//@Filters({
-//    @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto")
+    @NamedQuery(name = "Usuario",
+    query = "from Usuario")})
+
+@FilterDefs({
+    @FilterDef(name = "UsuarioxIdperfil",
+    parameters =
+    @ParamDef(name = ":idperfil", type = "integer")),
+    @FilterDef(name = "UsuarioxIdaeropuerto",
+    parameters =
+    @ParamDef(name = ":idaeropuerto", type = "integer")),
+    @FilterDef(name = "UsuarioxIdcliente",
+    parameters =
+    @ParamDef(name = ":idcliente", type = "integer")),
+    @FilterDef(name = "UsuarioxLogin",
+    parameters =
+    @ParamDef(name = ":login", type = "string")),
+    @FilterDef(name = "UsuarioxEstado",
+    parameters =
+    @ParamDef(name = ":estado", type = "integer"))    
+
+})
+@Filters({
+    @Filter(name = "UsuarioxIdperfil", condition = "idPerfil = :idperfil"),
+    @Filter(name = "UsuarioxIdaeropuerto", condition = "idAeropuerto = :idaeropuerto"),
+    @Filter(name = "UsuarioxIdcliente", condition = "idCliente = :idcliente"),
+    @Filter(name = "UsuarioxLogin", condition = "Login = :login"),
+    @Filter(name = "UsuarioxEstado", condition = "Estado = :estado"),    
 })
 
 //select C.nombres, C.Apellidos,P.nombre, A.nombre, ,C.CorreoElectronico, U.estado,C.TipoDoc, C.NumDoc     
@@ -89,7 +104,6 @@ public class Usuario implements Serializable{
     private Parametro estado;
     
     private int numAcceso;
-    
     private boolean primerAcceso;
     
     @OneToMany(mappedBy="usuario")
