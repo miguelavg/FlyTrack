@@ -44,19 +44,19 @@ import org.hibernate.annotations.ParamDef;
 @FilterDefs({
     @FilterDef(name = "UsuarioxIdperfil",
     parameters =
-    @ParamDef(name = ":idperfil", type = "integer")),
+    @ParamDef(name = "idperfil", type = "integer")),
     @FilterDef(name = "UsuarioxIdaeropuerto",
     parameters =
-    @ParamDef(name = ":idaeropuerto", type = "integer")),
+    @ParamDef(name = "idaeropuerto", type = "integer")),
     @FilterDef(name = "UsuarioxIdcliente",
     parameters =
-    @ParamDef(name = ":idcliente", type = "integer")),
+    @ParamDef(name = "idcliente", type = "integer")),
     @FilterDef(name = "UsuarioxLogin",
     parameters =
-    @ParamDef(name = ":login", type = "string")),
+    @ParamDef(name = "login", type = "string")),
     @FilterDef(name = "UsuarioxEstado",
     parameters =
-    @ParamDef(name = ":estado", type = "integer"))    
+    @ParamDef(name = "estado", type = "integer"))    
 
 })
 @Filters({

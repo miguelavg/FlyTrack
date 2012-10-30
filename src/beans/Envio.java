@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,15 +32,15 @@ import org.hibernate.annotations.ParamDef;
 @Entity
 @Table(name = "Envio")
 @NamedQueries({
-    @NamedQuery(name = "Envios", query = "from Envio order by fechaRecojo desc")
+    @NamedQuery(name = "Envios", query = "from Envio order by fechaRegistro desc")
     })
 @FilterDefs({
-    @FilterDef(name = "EnviosXOrigen", parameters = @ParamDef(name = ":idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXDestino", parameters = @ParamDef(name = ":idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXActual", parameters = @ParamDef(name = ":idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXEstado", parameters = @ParamDef(name = ":idEstado", type = "integer")),
-    @FilterDef(name = "EnviosXCliente", parameters = @ParamDef(name = ":idCliente", type = "integer")),
-    @FilterDef(name = "EnviosXNumEnvio",parameters = @ParamDef(name = ":numEnvio", type = "integer"))
+    @FilterDef(name = "EnviosXOrigen", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXDestino", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXActual", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXEstado", parameters = @ParamDef(name = "idEstado", type = "integer")),
+    @FilterDef(name = "EnviosXCliente", parameters = @ParamDef(name = "idCliente", type = "integer")),
+    @FilterDef(name = "EnviosXNumEnvio",parameters = @ParamDef(name = "numEnvio", type = "integer"))
 })
 @Filters({
     @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto"),
@@ -51,6 +53,7 @@ import org.hibernate.annotations.ParamDef;
 public class Envio implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEnvio;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
