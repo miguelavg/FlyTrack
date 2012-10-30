@@ -22,7 +22,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 
 public class CUsuario {
-        public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
+    public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
                 Parametro estado,Integer numAcceso, boolean PrimerAcceso){
         
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -51,5 +51,32 @@ public class CUsuario {
         finally {
             s.close();
         }
+        
+    }
+    
+    public boolean verificarContrasenia(String user, String pass){
+
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        
+        try{
+         
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("UsuarioXLogin").setFirstResult(0);
+            q.setParameter("login", user);
+            Usuario usuario = (Usuario)q.uniqueResult();
+            
+            System.out.println("Login :"+ usuario.getLogIn());
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+
+        return true;
     }
 }

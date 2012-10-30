@@ -37,6 +37,8 @@ import org.hibernate.annotations.ParamDef;
     query = "from Parametro where tipo = :tipo and estado = true"),
     @NamedQuery(name = "ParametrosAdmin",
     query = "from Parametro"),
+    @NamedQuery(name = "ParametrosAeropuerto",
+    query = "from Parametro where tipo = :tipo")
         
 })
 @FilterDefs({
