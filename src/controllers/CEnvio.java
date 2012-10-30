@@ -4,81 +4,101 @@
  */
 package controllers;
 
-import beans.Envio;
-import beans.Escala;
-import beans.Parametro;
-import beans.Vuelo;
+import beans.*;
 import java.util.ArrayList;
-import java.util.List;
-import logic.Recocido;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
- * @author miguelavg
+ * @author ronald
  */
 public class CEnvio {
-
-    public boolean calcularRuta(Envio envio) {
+    public ArrayList<Parametro> llenarCombo(String tipo){
+        
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
-
+        ArrayList<Parametro>  p = null;
         try {
-            Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
-            Parametro p;
-            
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "temperatura_inicial");
-            p = (Parametro) q.uniqueResult();
-            double temperaturaInicial = Double.parseDouble(p.getValor());
-            
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "temperatura_final");
-            p = (Parametro) q.uniqueResult();
-            double temperaturaFinal = Double.parseDouble(p.getValor());
-            
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "k_sa");
-            p = (Parametro) q.uniqueResult();
-            int k = Integer.parseInt(p.getValor());
-            
-                      
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "alfa_sa");
-            p = (Parametro) q.uniqueResult();
-            double alfaSA = Double.parseDouble(p.getValor());
-            
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "alfa_grasp");
-            p = (Parametro) q.uniqueResult();
-            double alfaGrasp = Integer.parseInt(p.getValor());
-            
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "porcentaje_parada");
-            p = (Parametro) q.uniqueResult();
-            double pParada = Double.parseDouble(p.getValor());
-            
-            q.setParameter("tipo", "SA_PARAM");
-            q.setParameter("valorUnico", "num_intentos");
-            p = (Parametro) q.uniqueResult();
-            int intentos = Integer.parseInt(p.getValor());
-            
-            q = s.getNamedQuery("VuelosXFecha");
-            q.setParameter("fechaRegistro", envio.getFechaRegistro());
-            List<Vuelo> vuelos = q.list();
             
             
-            //Recocido recocido = new Recocido(envio, vuelos, temperaturaInicial, temperaturaFinal, k, alfaSA, alfaGrasp, pParada, intentos);
-            //recocido.simular();
-
-
+            Query q; 
+            q = s.getNamedQuery("ParametrosXTipo");
+           
+            q.setParameter("tipo", tipo);
+            p = (ArrayList<Parametro>) q.list();
+            
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         } finally {
             s.close();
         }
-        return false;
+        return p;
+    }
+    public Envio agregarEnvio(
+            String aOrigen,
+            String aDestino,
+            String aActual,
+            String registrado,
+            String remitente,
+            String destinatario,
+            float monto,
+            String Moneda,
+            int numEnvio,
+            int numPaq,
+            String docPago,
+            int numDocPago,
+            float impuesto,        
+            String fechaRegistro,
+            String fechaRocojo
+            ) {
+      
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        try {
+            
+            Transaction tx = s.beginTransaction();
+            Query q;
+            Parametro p;
+            Envio e = new Envio();
+            
+            Aeropuerto a = new Aeropuerto();
+            
+            a.setNombre("Arturo Merino Benítez");
+            a.setCapacidadMax(500);
+            a.setCapacidadActual(0);
+            
+            
+            q = s.getNamedQuery("Aeropuerto").setFirstResult(0);
+            q.setParameter("idaeropuerto", aOrigen);
+            a = (Aeropuerto) q.uniqueResult();
+            //a.setEstado(p);
+            
+            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
+            q.setParameter("valorUnico", "SANTIAGO");
+            q.setParameter("tipo", "CIUDAD");
+            p = (Parametro) q.uniqueResult();
+            a.setCiudad(p);
+            
+            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
+            q.setParameter("valorUnico", "CHI");
+            q.setParameter("tipo", "PAIS");
+            p = (Parametro) q.uniqueResult();
+            a.setCiudad(p);
+            
+            int i = (Integer)s.save(a);
+            
+            System.out.println(i);
+            
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return null;
     }
 }
