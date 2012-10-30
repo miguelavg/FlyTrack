@@ -43,7 +43,7 @@ import org.hibernate.annotations.ParamDef;
     parameters =
     @ParamDef(name = "apellidos", type = "string")),
     
-    @FilterDef(name = "ClientesXNumeroDoc",
+    @FilterDef(name = "ClientesXNumDoc",
     parameters =
     @ParamDef(name = "numdoc", type = "string")),
     

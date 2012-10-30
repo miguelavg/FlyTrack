@@ -69,7 +69,31 @@ public class CCliente {
             s.close();
         }
     }
-    
+    public List<Parametro> BuscarTipoDoc(){
+        
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        List<Parametro> Lista;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("ParametrosXTipo");
+            q.setParameter("tipo", "TIPO_DOC");
+            Lista = q.list();
+            if (Lista.size()>0){
+               return Lista; 
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+    }
     public List<Cliente> Buscar(String Nombre, String Apellido, Parametro tipodoc, String numdoc)
     {
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
