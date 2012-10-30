@@ -10,6 +10,7 @@ import beans.Parametro;
 import beans.seguridad.Usuario;
 import beans.seguridad.Perfil;
 import controllers.CUsuario;
+import gui.aeropuerto.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +27,8 @@ public class UsuarioFrame extends javax.swing.JDialog {
     CUsuario CUsuario = new CUsuario();
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaEstado ;
-        List<Perfil> ListaPerfiles ;
+    List<Perfil> ListaPerfiles ;
+    Cliente  ClienteAux ;
     /**
      * Creates new form UsuarioFrame
      */
@@ -34,6 +36,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         initComponents();
         //llenarcomboTipoDoc();  
         llenarcomboEstado();
+        llenarcomboPerfiles();
     }
 
     /**
@@ -51,13 +54,14 @@ public class UsuarioFrame extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtAeropuerto = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnBuscarAeropuerto = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox();
         btnBuscar = new javax.swing.JButton();
         cboPerfil = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         btnBuscarClientes = new javax.swing.JButton();
+        txtCliente = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -99,7 +103,12 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         txtAeropuerto.setText("Jorge Chávez, Lima");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAeropuertoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Estado:");
 
@@ -130,56 +139,59 @@ public class UsuarioFrame extends javax.swing.JDialog {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(203, 203, 203)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22))))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnBuscarAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscarAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -247,7 +259,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +270,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -297,7 +309,7 @@ public void llenarcomboEstado(){
             Query q;
             
             q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "ESTADO_TARIFA");
+            q.setParameter("tipo", "ESTADO_USUARIO");
             ListaEstado = q.list();
 //                        
             }
@@ -346,47 +358,68 @@ public void llenarcomboPerfiles(){
         
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
         usuarioAgregarGUI.setVisible(true);
-        usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
+        usuarioAgregarGUI.setBandera(0);
+        //usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-         //TODO add your handling code here:
-//        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
-//        Aeropuerto aeropuerto;
-//        
-//                List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), aeropuerto.getIdAeropuerto(),idcliente, login, cboEstado.getSelectedItem());
-//        
-//        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
-//       Object[] datos = new Object[9];
-//       for (int i = 0; i < listaUsuarios.size(); i++) {
-//           datos[0] = listaUsuarios.get(i).getIdCliente().getNombres();
-//           datos[1] = listaUsuarios.get(i).getIdCliente().getApellidos();
-//           datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
-//           datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
-//           datos[4] = listaUsuarios.get(i).getIdCliente().geteMail();
-//           datos[5] = listaUsuarios.get(i).getEstado();
-//           datos[6] = listaUsuarios.get(i).getIdCliente().getTipoDoc();
-//           datos[7] = listaUsuarios.get(i).getIdCliente().getNumDoc();
-//           
-//           dtm.addRow(datos);
-//       }
+        // TODO add your handling code here:
+        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
+        Parametro estado=(Parametro)cboEstado.getSelectedItem();
+                //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
+        
+          
+        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), 1,ClienteAux.getIdCliente(),estado.getIdParametro());
+        //cboEstado.getSelectedItem());
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        
+        int filas=dtm.getRowCount();
+        
+        for (int i=filas-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
+        
+       Object[] datos = new Object[9];
+       for (int i = 0; i < listaUsuarios.size(); i++) {
+           datos[0] = listaUsuarios.get(i).getIdCliente().getNombres();
+           datos[1] = listaUsuarios.get(i).getIdCliente().getApellidos();
+           datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
+           datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
+           datos[4] = listaUsuarios.get(i).getIdCliente().geteMail();
+           datos[5] = listaUsuarios.get(i).getEstado();
+           datos[6] = listaUsuarios.get(i).getIdCliente().getTipoDoc();
+           datos[7] = listaUsuarios.get(i).getIdCliente().getNumDoc();
+           
+           dtm.addRow(datos);
+       }
 
         //mostrarListaAlerta(listaAlerta);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-                UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
         usuarioAgregarGUI.setVisible(true);
+        usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
-//        // TODO add your handling code here:
-//        ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true); 
-//        usuarioClientesPopUp.setVisible(true);
+        // TODO add your handling code here:
+        ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true); 
+        usuarioClientesPopUp.setVisible(true);
+        ClienteAux=usuarioClientesPopUp.showDialog();
+        txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
+        
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
+
+    private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
+        // TODO add your handling code here:
+//        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
+//        usuarioAeropuertoPopUp.setVisible(true);
+    }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,11 +459,11 @@ public void llenarcomboPerfiles(){
     private javax.swing.JTable UsuarioTabla;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarAeropuerto;
     private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox cboEstado;
     private javax.swing.JComboBox cboPerfil;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -441,5 +474,6 @@ public void llenarcomboPerfiles(){
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtAeropuerto;
+    private javax.swing.JTextField txtCliente;
     // End of variables declaration//GEN-END:variables
 }

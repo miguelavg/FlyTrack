@@ -10,8 +10,9 @@ import beans.Parametro;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Filter;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -39,7 +40,7 @@ public class CUsuario {
             
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            //CUsuario.setIdCliente(cliente);
+            CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
             CUsuario.setNumAcceso(numAcceso);
@@ -59,7 +60,7 @@ public class CUsuario {
     
     
     
-     public List<Usuario> Buscar(Integer idperfil, Integer idaeropuerto,Integer idcliente,  String Login, Integer Estado)
+     public List<Usuario> Buscar(Integer idperfil, Integer idaeropuerto,Integer idcliente,Integer Estado)
     {
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
@@ -75,8 +76,8 @@ public class CUsuario {
            f2.setParameter("idaeropuerto",idaeropuerto);
            Filter f3 = s.enableFilter("UsuarioxIdcliente");
            f3.setParameter("idcliente",idcliente);
-           Filter f4 = s.enableFilter("UsuarioxLogin");
-           f4.setParameter("login",Login);
+//           Filter f4 = s.enableFilter("UsuarioxLogin");
+//           f4.setParameter("login",Login);
            Filter f5 = s.enableFilter("UsuarioxEstado");
            f5.setParameter("estado",Estado);
            ListaUsuarios= q.list();
@@ -93,6 +94,35 @@ public class CUsuario {
         }
         
         return null;
+        
+    }
+     
+         public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
+                Parametro estado){
+        
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            Usuario CUsuario = (Usuario)s.load(Usuario.class, idUsuario);
+            CUsuario.setPerfil(perfil);
+            CUsuario.setIdAeropuerto(aeropuerto);
+            CUsuario.setIdCliente(cliente);
+            CUsuario.setLogIn(LogIn);
+            CUsuario.setEstado(estado);
+            
+            s.update(CUsuario);
+            tx.commit();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
         
     }
     

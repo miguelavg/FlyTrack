@@ -4,17 +4,32 @@
  */
 package gui.aeropuerto;
 
+import beans.Parametro;
+import controllers.CAeropuerto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jorge
  */
-public class AeropuertoPopup extends javax.swing.JFrame {
-
+public class AeropuertoPopup extends javax.swing.JDialog {
+ 
+    private CAeropuerto Caeropuerto = new CAeropuerto();
+    
+    private List<Parametro> ListatipoPar; 
+    private List<Parametro> ListatipoEst; 
+    private List<Parametro> ListatipoHijo;
+    private beans.Aeropuerto ObjAero = new beans.Aeropuerto();
+    
+     List<beans.Aeropuerto> listaAeropuertos;
     /**
      * Creates new form AeropuertoPopup
      */
     public AeropuertoPopup() {
         initComponents();
+        llenarComboPais();
+        
     }
 
     /**
@@ -30,13 +45,13 @@ public class AeropuertoPopup extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox4 = new javax.swing.JComboBox();
+        btn_buscar = new javax.swing.JButton();
+        cbm_Pais = new javax.swing.JComboBox();
+        cbm_ciudad = new javax.swing.JComboBox();
+        cbm_estado = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_aeropuerto = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,27 +63,32 @@ public class AeropuertoPopup extends javax.swing.JFrame {
 
         jLabel4.setText("Estado:");
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
-        jButton5.setText("Buscar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_buscarActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Perú" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        cbm_Pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Perú" }));
+        cbm_Pais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cbm_PaisMouseReleased(evt);
+            }
+        });
+        cbm_Pais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                cbm_PaisActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lima" }));
+        cbm_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lima" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo" }));
+        cbm_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
+                cbm_estadoActionPerformed(evt);
             }
         });
 
@@ -84,12 +104,12 @@ public class AeropuertoPopup extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbm_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbm_ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -101,39 +121,35 @@ public class AeropuertoPopup extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbm_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbm_ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_aeropuerto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Jorge Chavez", "Lima", "Perú", "Activo", "500", "400", "500", "200"},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Ciudad", "País", "Estado", "X", "Y", "Capacidad max de almacenamiento", "Capacidad actual de almacenamiento"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbl_aeropuerto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_aeropuertoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_aeropuerto);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -180,18 +196,78 @@ public class AeropuertoPopup extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+          listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
+                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
+        Object[] datos = new Object[9];
+        
+        for (int i = 0; i < listaAeropuertos.size(); i++) {
+            
+           datos[0] = listaAeropuertos.get(i).getNombre();
+           datos[1] = listaAeropuertos.get(i).getCiudad();
+           datos[2] = listaAeropuertos.get(i).getPais();
+           datos[3] = listaAeropuertos.get(i).getCoordX();
+           datos[4] = listaAeropuertos.get(i).getCoordY();
+           
+           datos[5] = listaAeropuertos.get(i).getCapacidadMax();
+           datos[6] = listaAeropuertos.get(i).getCapacidadActual();
+           
+           dtm.addRow(datos);
+       }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_cbm_PaisActionPerformed
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_cbm_estadoActionPerformed
 
+    private void cbm_PaisMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbm_PaisMouseReleased
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cbm_PaisMouseReleased
+
+    private void tbl_aeropuertoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_aeropuertoMouseClicked
+        // TODO add your handling code here:
+        
+        
+         ObjAero = listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());
+         
+         this.dispose();
+        
+    }//GEN-LAST:event_tbl_aeropuertoMouseClicked
+
+   
+            
+            
+    private void llenarComboPais(){
+        List<Parametro> ListatipoPar; 
+        
+        ListatipoPar = Caeropuerto.llenarComboPais();
+      for (int i=0;i<ListatipoPar.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListatipoPar.get(i);
+            
+            cbm_Pais.addItem(TipoDocBE);
+        }
+     }
+    
+     private void llenarComboEstado(){
+      
+        
+        ListatipoEst = CAeropuerto.llenarComboEstado();
+      for (int i=0;i<ListatipoEst.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
+            
+            cbm_estado.addItem(TipoDocBE);
+        }
+     }
     /**
      * @param args the command line arguments
      */
@@ -234,16 +310,16 @@ public class AeropuertoPopup extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JButton btn_buscar;
+    private javax.swing.JComboBox cbm_Pais;
+    private javax.swing.JComboBox cbm_ciudad;
+    private javax.swing.JComboBox cbm_estado;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_aeropuerto;
     // End of variables declaration//GEN-END:variables
 }
