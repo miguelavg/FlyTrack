@@ -51,13 +51,17 @@ public class Parametro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idParametro;
-    private String tipo;
-    private String valor;
-    private String valorUnico;
-    private boolean estado;
+    
     @ManyToOne
     @JoinColumn(name = "idPadre")
     private Parametro padre;
+    
+    
+    private String valor;
+    private String valorUnico;
+    private String tipo;
+    private boolean estado;
+    
     @OneToMany(mappedBy = "padre")
     @Filters({
         @Filter(name = "ParametroHijosXTipo", condition = "tipo = :tipo and estado = true")

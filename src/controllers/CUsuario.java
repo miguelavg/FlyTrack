@@ -63,8 +63,7 @@ public class CUsuario {
         try{
          
             Transaction tx = s.beginTransaction();
-            Query q;
-            q = s.getNamedQuery("UsuarioXLogin").setFirstResult(0);
+            Query q = s.getNamedQuery("LoginUsuario").setFirstResult(0);
             q.setParameter("login", user);
             Usuario usuario = (Usuario)q.uniqueResult();
             
