@@ -5,6 +5,8 @@
 package flytrack;
 
 import controllers.CTest;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -16,7 +18,9 @@ public class FlyTrack {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CTest cTest = new CTest();
-        cTest.chevere();
+        ArrayList<Date> lista = new ArrayList<Date>();
+        for(int i = 0; i < 10; i++){
+            System.out.println(new Date().getTime());
+        }
     }
 }
