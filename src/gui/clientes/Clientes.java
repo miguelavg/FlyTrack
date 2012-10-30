@@ -22,7 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-public class Clientes extends javax.swing.JFrame {
+public class Clientes extends javax.swing.JDialog {
 
     /**
      * Creates new form Clientes
@@ -115,12 +115,6 @@ public class Clientes extends javax.swing.JFrame {
         jLabel4.setText("Apellido:");
 
         jLabel5.setText("Número Doc:");
-
-        txtNombre.setText("Claudio");
-
-        txtApellido.setText("Pizarro Taipe");
-
-        txtNumDoc.setText("txtNumDoc");
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -304,9 +298,9 @@ public class Clientes extends javax.swing.JFrame {
         
         
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-        
-        for (int i=0; i<dtm.getRowCount()-1; i++){
-            dtm.removeRow(i);
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
         }
        
         TableColumn column = null;
@@ -332,7 +326,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        ClientesEdit clienteAgregarGUI = new ClientesEdit(); //llamamos a la clase y creamos un objeto llamado MiVentana
+        ClientesEdit clienteAgregarGUI = new ClientesEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         clienteAgregarGUI.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         //le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
@@ -340,9 +334,9 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnCargaMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMasActionPerformed
         // TODO add your handling code here:
-        ClientesEdit MiVentana = new ClientesEdit(); //llamamos a la clase y creamos un objeto llamado MiVentana
-        MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
-        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
+//        ClientesEdit MiVentana = new ClientesEdit(); //llamamos a la clase y creamos un objeto llamado MiVentana
+//        MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
+//        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     
     }//GEN-LAST:event_btnCargaMasActionPerformed
@@ -350,13 +344,39 @@ public class Clientes extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-        ClientesEdit MiVentana = new ClientesEdit();
+        
+        
+        
         Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        ClientesEdit MiVentana = new ClientesEdit(this,true,id);        
         MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        MiVentana.showDialog();
+        cargartabla();
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    public void cargartabla(){
     
+        List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
+        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
+        Object[] datos = new Object[9];
+       for (int i = 0; i < ListaClientes.size(); i++) {
+           
+           datos[0] = ListaClientes.get(i).getIdCliente();
+           datos[1] = ListaClientes.get(i).getNombres();
+           datos[2] = ListaClientes.get(i).getApellidos();
+           datos[3] = ListaClientes.get(i).getTelefono();
+           datos[4] = ListaClientes.get(i).geteMail();           
+           datos[5] = ListaClientes.get(i).getTipoDoc();
+           datos[6] = ListaClientes.get(i).getNumDoc();           
+           
+           dtm.addRow(datos);
+       }
+    }
     /**
      * @param args the command line arguments
      */

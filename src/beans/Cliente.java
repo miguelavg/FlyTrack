@@ -56,7 +56,7 @@ import org.hibernate.annotations.ParamDef;
     
     @Filter(name = "ClientesXNombre", condition = "UPPER(Nombres) like UPPER(:nombres)"),
     
-    @Filter(name = "ClientesXApellido", condition = "UPPER(Apellidos) like UPPER(%:apellidos%)"),
+    @Filter(name = "ClientesXApellido", condition = "UPPER(Apellidos) like UPPER(:apellidos)"),
     
     @Filter(name = "ClientesXNumDoc", condition = "Numdoc = :numdoc"),
     
