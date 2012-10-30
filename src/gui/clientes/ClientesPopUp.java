@@ -23,9 +23,11 @@ public class ClientesPopUp extends javax.swing.JDialog {
     CCliente ClienteBL = new CCliente();
     public ClientesPopUp(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        llenarcombos();
+        
         initComponents();
+        llenarcombos();
         cargartabla();
+        
     }
 
     /**
@@ -38,9 +40,9 @@ public class ClientesPopUp extends javax.swing.JDialog {
     public void cargartabla(){
     
         Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
-        List<Cliente> ListaClientes=ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
-        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-//        
+        List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
+//        DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
+////        
 //        for (int i=0; i<dtm.getRowCount()-1; i++){
 //            dtm.removeRow(i);
 //        }
@@ -69,8 +71,8 @@ public class ClientesPopUp extends javax.swing.JDialog {
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         txtNumDoc = new javax.swing.JTextField();
-        cboTipoDoc = new javax.swing.JComboBox();
         btnBuscar = new javax.swing.JButton();
+        cboTipoDoc = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         ClienteTabla2 = new javax.swing.JTable();
@@ -220,7 +222,6 @@ public class ClientesPopUp extends javax.swing.JDialog {
         for (Parametro p : ListaTipoDoc)
         {
             //Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
-            
             cboTipoDoc.addItem(p);
         }
     }

@@ -116,7 +116,7 @@ public class CCliente {
                 f2.setParameter("apellidos",Apellido);
 
            }
-           if (tipodoc.getIdParametro()!=0){
+           if (tipodoc!=null && tipodoc.getIdParametro()!=0){
                 Filter f3 = s.enableFilter("ClientesXTipoDoc");
                 f3.setParameter("tipodoc",tipodoc.getIdParametro());
            }
