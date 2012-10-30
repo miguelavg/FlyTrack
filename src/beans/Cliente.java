@@ -14,6 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
@@ -21,16 +28,43 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Cliente")
+@NamedQueries({
+    @NamedQuery(name = "Clientes",
+    query = "from Cliente "),
+    @NamedQuery(name = "ClienteXID",
+    query = "from Cliente where idcliente = :idcliente ")
+})
+@FilterDefs({
+    @FilterDef(name = "ClientesxNombre",
+    parameters =
+    @ParamDef(name = "nombres", type = "string")),
+    @FilterDef(name = "ClientesxApellido",
+    parameters =
+    @ParamDef(name = "apellidos", type = "string")),
+    @FilterDef(name = "ClientesxNumeroDoc",
+    parameters =
+    @ParamDef(name = "numdoc", type = "string")),
+    @FilterDef(name = "ClientesxTipoDoc",
+    parameters =
+    @ParamDef(name = "tipodoc", type = "string"))
+        
+})
+@Filters({
+    @Filter(name = "ClientesXNombre", condition = "Nombres = :nombres"),
+    @Filter(name = "ClientesXApellido", condition = "Apellidos = :apellidos"),
+    
+})
+
 public class Cliente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCliente;
-    private String nombres;
-    private String apellidos;
-    private String numDoc;
-    private String telefono;
-    private String eMail;
+    private String Nombres;
+    private String Apellidos;
+    private String NumDoc;
+    private String Telefono;
+    private String CorreoElectronico;
     //private String Celular;
     //private String Direccion;
     @ManyToOne
@@ -60,43 +94,43 @@ public class Cliente implements Serializable {
     }
 
     public String getNombres() {
-        return nombres;
+        return Nombres;
     }
 
     public void setNombres(String nombres) {
-        this.nombres = nombres;
+        this.Nombres = nombres;
     }
 
     public String getApellidos() {
-        return apellidos;
+        return Apellidos;
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.Apellidos = apellidos;
     }
 
     public String getNumDoc() {
-        return numDoc;
+        return NumDoc;
     }
 
     public void setNumDoc(String numDoc) {
-        this.numDoc = numDoc;
+        this.NumDoc = numDoc;
     }
 
     public String getTelefono() {
-        return telefono;
+        return Telefono;
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        this.Telefono = telefono;
     }
 
     public String geteMail() {
-        return eMail;
+        return CorreoElectronico;
     }
 
     public void seteMail(String eMail) {
-        this.eMail = eMail;
+        this.CorreoElectronico = eMail;
     }
 
     public Parametro getTipoDoc() {

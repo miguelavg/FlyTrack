@@ -4,12 +4,21 @@
  */
 package gui.principal;
 
+import controllers.CUsuario;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.security.*;
+        
 /**
  *
  * @author msolorzano
  */
 public class Login extends javax.swing.JFrame {
 
+    public static String userAnteriorIntentoLogin = "";
+    public static int numIntentosFallidos = 0;
+    
     /**
      * Creates new form Login
      */
@@ -28,10 +37,11 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        btnLogin = new javax.swing.JButton();
+        lblOlvidoPass = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
+        txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -48,67 +58,123 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setMinimumSize(new java.awt.Dimension(120, 30));
         jLabel2.setPreferredSize(new java.awt.Dimension(120, 30));
 
-        jTextField1.setMaximumSize(new java.awt.Dimension(120, 30));
-        jTextField1.setMinimumSize(new java.awt.Dimension(120, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(120, 30));
+        txtUser.setMaximumSize(new java.awt.Dimension(120, 30));
+        txtUser.setMinimumSize(new java.awt.Dimension(120, 30));
+        txtUser.setPreferredSize(new java.awt.Dimension(120, 30));
 
-        jTextField2.setMaximumSize(new java.awt.Dimension(120, 30));
-        jTextField2.setMinimumSize(new java.awt.Dimension(120, 30));
-        jTextField2.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnLogin.setText("Login");
+        btnLogin.setMaximumSize(new java.awt.Dimension(120, 30));
+        btnLogin.setMinimumSize(new java.awt.Dimension(120, 30));
+        btnLogin.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Login");
-        jButton1.setMaximumSize(new java.awt.Dimension(120, 30));
-        jButton1.setMinimumSize(new java.awt.Dimension(120, 30));
-        jButton1.setPreferredSize(new java.awt.Dimension(120, 30));
+        lblOlvidoPass.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblOlvidoPass.setText("Olvido su contraseña");
+        lblOlvidoPass.setMaximumSize(new java.awt.Dimension(150, 20));
+        lblOlvidoPass.setMinimumSize(new java.awt.Dimension(150, 20));
+        lblOlvidoPass.setName("2"); // NOI18N
+        lblOlvidoPass.setPreferredSize(new java.awt.Dimension(150, 20));
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jLabel3.setText("Olvido su contraseña");
-        jLabel3.setMaximumSize(new java.awt.Dimension(150, 20));
-        jLabel3.setMinimumSize(new java.awt.Dimension(150, 20));
-        jLabel3.setName("2"); // NOI18N
-        jLabel3.setPreferredSize(new java.awt.Dimension(150, 20));
+        lblError.setForeground(new java.awt.Color(255, 0, 0));
+        lblError.setText("Usuario y/o Constraseña No Válidos");
+
+        txtPass.setMaximumSize(new java.awt.Dimension(120, 30));
+        txtPass.setMinimumSize(new java.awt.Dimension(120, 30));
+        txtPass.setPreferredSize(new java.awt.Dimension(120, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblError)
+                        .addGap(22, 22, 22)))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
+                .addComponent(lblError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
+
+        lblError.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        String usuario = txtUser.getText();
+        String password = txtPass.getPassword().toString();
+        String passwordMD5 = "";
+        try {
+            byte[] passwordBytes = password.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.reset();
+            passwordMD5 = md.digest(passwordBytes).toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Verificar si la constrasenia del usuario es la activa o no
+            //manejar el numero de intentos fallidos aqui
+        CUsuario usuarioController = new CUsuario();
+        if(usuarioController.verificarContrasenia(usuario, passwordMD5)){
+            lblError.setVisible(Boolean.FALSE);
+            
+        }
+        else{
+            
+            lblError.setVisible(Boolean.TRUE);
+            if(usuario.equals(userAnteriorIntentoLogin))
+            {
+                numIntentosFallidos++;
+            }
+            else{
+                numIntentosFallidos = 1;
+            }
+            userAnteriorIntentoLogin = usuario;
+            //Solo incremento si el usuario que ha intentado logearse es igual al
+            //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
+            // Si llega al limite de intentos fallidos se bloquea la cuenta
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,11 +211,12 @@ public class Login extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblOlvidoPass;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

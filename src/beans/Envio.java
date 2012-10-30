@@ -28,29 +28,17 @@ import org.hibernate.annotations.ParamDef;
  * @author miguelavg
  */
 @Entity
-@Table(name = "Envios")
+@Table(name = "Envio")
 @NamedQueries({
-    @NamedQuery(name = "Envios",
-    query = "from Envios order by fechaRecojo desc"),})
+    @NamedQuery(name = "Envios", query = "from Envio order by fechaRecojo desc")
+    })
 @FilterDefs({
-    @FilterDef(name = "EnviosXOrigen",
-    parameters =
-    @ParamDef(name = ":idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXDestino",
-    parameters =
-    @ParamDef(name = ":idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXActual",
-    parameters =
-    @ParamDef(name = ":idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXEstado",
-    parameters =
-    @ParamDef(name = ":idEstado", type = "integer")),
-    @FilterDef(name = "EnviosXCliente",
-    parameters =
-    @ParamDef(name = ":idCliente", type = "integer")),
-    @FilterDef(name = "EnviosXNumEnvio",
-    parameters =
-    @ParamDef(name = ":numEnvio", type = "integer"))
+    @FilterDef(name = "EnviosXOrigen", parameters = @ParamDef(name = ":idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXDestino", parameters = @ParamDef(name = ":idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXActual", parameters = @ParamDef(name = ":idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXEstado", parameters = @ParamDef(name = ":idEstado", type = "integer")),
+    @FilterDef(name = "EnviosXCliente", parameters = @ParamDef(name = ":idCliente", type = "integer")),
+    @FilterDef(name = "EnviosXNumEnvio",parameters = @ParamDef(name = ":numEnvio", type = "integer"))
 })
 @Filters({
     @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto"),
