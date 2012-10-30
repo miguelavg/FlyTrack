@@ -42,14 +42,14 @@ public class CEnvio {
             String aOrigen,
             String aDestino,
             String aActual,
-            String registrado,
+            Parametro registrado,
             String remitente,
             String destinatario,
             float monto,
-            String Moneda,
+            Parametro Moneda,
             int numEnvio,
             int numPaq,
-            String docPago,
+            Parametro docPago,
             int numDocPago,
             float impuesto,        
             String fechaRegistro,
@@ -65,23 +65,34 @@ public class CEnvio {
             Parametro p;
             Envio e = new Envio();
             
-            Aeropuerto a = new Aeropuerto();
-            
-            a.setNombre("Arturo Merino Benítez");
-            a.setCapacidadMax(500);
-            a.setCapacidadActual(0);
+            Aeropuerto a = null;
             
             
-            q = s.getNamedQuery("Aeropuerto").setFirstResult(0);
-            q.setParameter("idaeropuerto", aOrigen);
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aOrigen));
             a = (Aeropuerto) q.uniqueResult();
-            //a.setEstado(p);
+            e.setOrigen(a);
+            
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aDestino));
+            a = (Aeropuerto) q.uniqueResult();
+            e.setOrigen(a);
+            
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aActual));
+            a = (Aeropuerto) q.uniqueResult();
+            e.setOrigen(a);
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "SANTIAGO");
+            q.setParameter("valorUnico", registrado.getValorUnico());
             q.setParameter("tipo", "CIUDAD");
             p = (Parametro) q.uniqueResult();
-            a.setCiudad(p);
+            e.setEstado(p);
+            
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aActual));
+            a = (Aeropuerto) q.uniqueResult();
+            e.setOrigen(a);
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
             q.setParameter("valorUnico", "CHI");
