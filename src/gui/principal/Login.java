@@ -181,7 +181,7 @@ public class Login extends javax.swing.JFrame {
             //Solo incremento si el usuario que ha intentado logearse es igual al
             //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
             // Si llega al limite de intentos fallidos se bloquea la cuenta
-            
+            int maxIntentosFallidos ;
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

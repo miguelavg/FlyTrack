@@ -70,4 +70,18 @@ public class CSeguridad {
         return correcto;
     }
     
+    public static void getMaxIntentosFallidos(){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        
+        try{
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally{
+            s.close();
+        }
+    }
 }
