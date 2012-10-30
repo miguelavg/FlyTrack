@@ -359,7 +359,7 @@ public void llenarcomboPerfiles(){
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
         Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(0);
         //usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
@@ -407,7 +407,7 @@ public void llenarcomboPerfiles(){
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
         Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
