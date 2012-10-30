@@ -57,13 +57,15 @@ public class CUsuario {
     
     public boolean verificarContrasenia(String user, String pass){
 
+        //El usuario exista y este activo
+        //
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
         try{
          
             Transaction tx = s.beginTransaction();
-            Query q = s.getNamedQuery("LoginUsuario").setFirstResult(0);
+            Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
             q.setParameter("login", user);
             Usuario usuario = (Usuario)q.uniqueResult();
             
