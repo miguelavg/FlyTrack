@@ -4,6 +4,7 @@
  */
 package gui.administracion;
 
+import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
 import beans.seguridad.Usuario;
@@ -56,7 +57,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
         cboPerfil = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnBuscarClientes = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -112,7 +113,12 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         jLabel7.setText("Cliente:");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClientesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,14 +142,14 @@ public class UsuarioFrame extends javax.swing.JDialog {
                                 .addGap(203, 203, 203)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -170,7 +176,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -345,8 +351,11 @@ public void llenarcomboPerfiles(){
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        //        List<Usuario> listaUsuarios = CUsuario.Buscar(cboPerfil.getSelectedItem(), idaeropuerto,idcliente, login, cboEstado.getSelectedItem());
+         //TODO add your handling code here:
+//        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
+//        Aeropuerto aeropuerto;
+//        
+//                List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), aeropuerto.getIdAeropuerto(),idcliente, login, cboEstado.getSelectedItem());
 //        
 //        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
 //       Object[] datos = new Object[9];
@@ -363,7 +372,7 @@ public void llenarcomboPerfiles(){
 //           dtm.addRow(datos);
 //       }
 
-      //  mostrarListaAlerta(listaAlerta);
+        //mostrarListaAlerta(listaAlerta);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -372,6 +381,12 @@ public void llenarcomboPerfiles(){
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
+//        // TODO add your handling code here:
+//        ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true); 
+//        usuarioClientesPopUp.setVisible(true);
+    }//GEN-LAST:event_btnBuscarClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,11 +426,11 @@ public void llenarcomboPerfiles(){
     private javax.swing.JTable UsuarioTabla;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox cboEstado;
     private javax.swing.JComboBox cboPerfil;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
