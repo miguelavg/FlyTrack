@@ -5,7 +5,10 @@
 package controllers;
 
 import beans.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,18 +45,18 @@ public class CEnvio {
             String aOrigen,
             String aDestino,
             String aActual,
-            String registrado,
+            Parametro registrado,
             String remitente,
             String destinatario,
             float monto,
-            String Moneda,
+            Parametro moneda,
             int numEnvio,
             int numPaq,
-            String docPago,
+            Parametro docPago,
             int numDocPago,
             float impuesto,        
             String fechaRegistro,
-            String fechaRocojo
+            String fechaRecojo
             ) {
       
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -65,33 +68,72 @@ public class CEnvio {
             Parametro p;
             Envio e = new Envio();
             
-            Aeropuerto a = new Aeropuerto();
-            
-            a.setNombre("Arturo Merino Benítez");
-            a.setCapacidadMax(500);
-            a.setCapacidadActual(0);
+            Aeropuerto a = null;
             
             
-            q = s.getNamedQuery("Aeropuerto").setFirstResult(0);
-            q.setParameter("idaeropuerto", aOrigen);
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aOrigen));
             a = (Aeropuerto) q.uniqueResult();
-            //a.setEstado(p);
+            e.setOrigen(a);
+            
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aDestino));
+            a = (Aeropuerto) q.uniqueResult();
+            e.setDestino(a);
+            
+            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
+            q.setParameter("idaero", Integer.parseInt(aActual));
+            a = (Aeropuerto) q.uniqueResult();
+            e.setActual(a);
+            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
+            q.setParameter("valorUnico", registrado.getValorUnico());
+            q.setParameter("tipo", registrado.getTipo());
+            p = (Parametro) q.uniqueResult();
+            e.setEstado(p);
+            
+            q = s.getNamedQuery("ClienteXID").setFirstResult(0);
+            q.setParameter("idcliente", Integer.parseInt(remitente));
+            e.setRemitente((Cliente) q.uniqueResult());
+            
+            q = s.getNamedQuery("ClienteXID").setFirstResult(0);
+            q.setParameter("idcliente", Integer.parseInt(destinatario));
+            e.setDestinatario((Cliente) q.uniqueResult());
+            
+            e.setMonto(monto*(1+impuesto));
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "SANTIAGO");
-            q.setParameter("tipo", "CIUDAD");
+            q.setParameter("valorUnico", moneda.getValorUnico());
+            q.setParameter("tipo", moneda.getTipo());
             p = (Parametro) q.uniqueResult();
-            a.setCiudad(p);
+            e.setMoneda(p);
+            
+            e.setNumPaquetes(numPaq);
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "CHI");
-            q.setParameter("tipo", "PAIS");
+            q.setParameter("valorUnico", docPago.getValorUnico());
+            q.setParameter("tipo", docPago.getTipo());
             p = (Parametro) q.uniqueResult();
-            a.setCiudad(p);
+            e.setTipoDocVenta(p);
             
-            int i = (Integer)s.save(a);
-            
-            System.out.println(i);
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaRegistroDate = null;
+            Date fechaRecojoDate = null;
+            try {
+
+                fechaRegistroDate= formatoDelTexto.parse(fechaRegistro);
+                fechaRecojoDate= formatoDelTexto.parse(fechaRecojo);
+
+            } catch (ParseException ex) {
+
+                ex.printStackTrace();
+
+            }
+            e.setFechaRegistro(fechaRegistroDate);
+            e.setFechaRecojo(fechaRecojoDate);
+            numEnvio = (Integer)s.save(e);
+            e.setIdEnvio(numEnvio);
+            numDocPago = numEnvio;
+            e.setNumDocVenta(numDocPago);
             
             tx.commit();
         } catch (Exception e) {
