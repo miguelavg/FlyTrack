@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import beans.Parametro;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.Filter;
 
 /**
  *
@@ -70,12 +72,47 @@ public class CSeguridad {
         return correcto;
     }
     
-    public static void getMaxIntentosFallidos(){
+    public static int getMaxIntentosFallidos(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
         try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("ParametrosSeguridad").setMaxResults(1);
+            q.setParameter("valorUnico", "NUM_INTENTOS_FALLIDOS");
+            Parametro p = (Parametro) q.uniqueResult();
+            return Integer.parseInt(p.getValor());
+        }
+        catch(NumberFormatException nfe){
+            System.out.println(nfe.getMessage());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally{
+            s.close();
+        }
+        return 0;
+    }
+    
+    public static void bloquearCuenta(String usuario){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        
+        try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("Usuario");
+            Filter f = s.enableFilter("UsuarioxLogin");
+            f.setParameter("login", usuario);
+            Usuario usuarioAux = (Usuario)q.uniqueResult(); 
             
+            if(usuarioAux.getEstado().getValorUnico().equals("ACTV")){
+            
+                q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
+                q.setParameter("tipo", usuarioAux.getEstado().getTipo());
+                q.setParameter("valorUnico", "INCT");
+                Parametro p = (Parametro) q.uniqueResult();
+            }
         }
         catch(Exception e){
             System.out.println(e.getMessage());

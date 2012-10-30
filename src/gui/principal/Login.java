@@ -19,6 +19,7 @@ public class Login extends javax.swing.JFrame {
 
     public static String userAnteriorIntentoLogin = "";
     public static int numIntentosFallidos = 0;
+    public static int numMaxIntentosFallidos = CSeguridad.getMaxIntentosFallidos();
     
     /**
      * Creates new form Login
@@ -181,7 +182,9 @@ public class Login extends javax.swing.JFrame {
             //Solo incremento si el usuario que ha intentado logearse es igual al
             //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
             // Si llega al limite de intentos fallidos se bloquea la cuenta
-            int maxIntentosFallidos ;
+            if(numIntentosFallidos >= numMaxIntentosFallidos){
+                CSeguridad.bloquearCuenta(usuario);
+            }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

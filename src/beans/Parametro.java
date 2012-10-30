@@ -32,7 +32,7 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "Parametros",
     query = "from Parametro where estado = true"),
     @NamedQuery(name = "ParametrosXTipoXValorUnico",
-    query = "from Parametro where tipo = :tipo and valorUnico = :valorUnico"),
+    query = "from Parametro where tipo = :tipo and valorUnico = :valorUnico and estado = true"),
     @NamedQuery(name = "ParametrosXTipo",
     query = "from Parametro where tipo = :tipo and estado = true"),
     @NamedQuery(name = "ParametrosAdmin",
@@ -40,7 +40,7 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "ParametrosAeropuerto",
     query = "from Parametro where tipo = :tipo"),
     @NamedQuery(name = "ParametrosSeguridad",
-    query = "from Parametro where tipo = 'SEGURIDAD'")
+    query = "from Parametro where tipo = 'SEGURIDAD' and valorUnico = :valorUnico and estado = true")
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",
