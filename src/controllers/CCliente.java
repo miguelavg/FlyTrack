@@ -18,6 +18,48 @@ import org.hibernate.Filter;
  * @author jugox
  */
 public class CCliente {
+    
+    public void ModificarCliente(int idCliente,String Nombre, String Apellidos, String correo, 
+            String telefono,String NumeroDoc, 
+            Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
+    
+        
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+//            Parametro pTipoDoc;            
+//            Parametro pCiudad;            
+//            Parametro pPais;
+            
+            Cliente ClienteBE = new Cliente(); 
+            ClienteBE.setIdCliente(idCliente);
+            ClienteBE.setTipoDoc(TipoDoc);
+            ClienteBE.setApellidos(Apellidos);
+            ClienteBE.setNombres(Nombre);
+            ClienteBE.setNumDoc(NumeroDoc);
+            ClienteBE.setTelefono(telefono);
+            ClienteBE.seteMail( correo);
+            ClienteBE.setCiudad(Ciudad);
+            ClienteBE.setPais(Pais);
+            
+            s.update(ClienteBE);
+            
+            tx.commit();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+//      
+        
+    }
     public void agregarCliente(String Nombre,String Apellidos, String correo, 
             String telefono,String NumeroDoc, 
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
@@ -135,7 +177,7 @@ public class CCliente {
            }    
            if (!Apellido.equals("")){
                 Filter f2 = s.enableFilter("ClientesXApellido");
-                f2.setParameter("apellidos",Apellido);
+                f2.setParameter("apellidos","%"+Apellido+"%");
 
            }
            if (tipodoc!=null && tipodoc.getIdParametro()!=0){

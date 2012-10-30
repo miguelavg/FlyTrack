@@ -44,10 +44,10 @@ public class ClientesPopUp extends javax.swing.JDialog {
         Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
         List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-////        
-//        for (int i=0; i<dtm.getRowCount()-1; i++){
-//            dtm.removeRow(i);
-//        }
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
         Object[] datos = new Object[9];
        for (int i = 0; i < ListaClientes.size(); i++) {
            
@@ -252,17 +252,18 @@ public class ClientesPopUp extends javax.swing.JDialog {
         List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
 
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-
-        for (int i=0; i<dtm.getRowCount()-1; i++){
-            dtm.removeRow(i);
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
         }
 
         TableColumn column = null;
         column= ClienteTabla.getColumnModel().getColumn(0);
         column.setMaxWidth(0);
-        Object[] datos = new Object[9];
+        
         for (int i = 0; i < listaClientes.size(); i++) {
 
+            Object[] datos = new Object[7];
             datos[0] = listaClientes.get(i).getIdCliente();
             datos[1] = listaClientes.get(i).getNombres();
             datos[2] = listaClientes.get(i).getApellidos();
@@ -278,8 +279,10 @@ public class ClientesPopUp extends javax.swing.JDialog {
 
     private void btnAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2ActionPerformed
         // TODO add your handling code here:
-        ClientesEdit clienteAgregarGUI = new ClientesEdit(); //llamamos a la clase y creamos un objeto llamado MiVentana
-        clienteAgregarGUI.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
+        ClientesEdit clienteAgregarGUI = new ClientesEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
+        int result = clienteAgregarGUI.showDialog();
+        cargartabla();
+//        clienteAgregarGUI.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         //le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana
     }//GEN-LAST:event_btnAgregar2ActionPerformed
