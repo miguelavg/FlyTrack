@@ -4,12 +4,14 @@
  */
 package gui.principal;
 
+import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CSeguridad;
 import controllers.CUsuario;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.security.*;
+import javax.swing.UIManager;
         
 /**
  *
@@ -25,6 +27,9 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+        try {
+        UIManager.setLookAndFeel(new GTKLookAndFeel());
+    } catch (Exception e) { }
         initComponents();
     }
 

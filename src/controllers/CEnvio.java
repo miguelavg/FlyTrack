@@ -5,8 +5,6 @@
 package controllers;
 
 import beans.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,12 +45,12 @@ public class CEnvio {
     }
 
     public Envio agregarEnvio(
-            String aOrigen,
-            String aDestino,
-            String aActual,
+            Aeropuerto aOrigen,
+            Aeropuerto aDestino,
+            Aeropuerto aActual,
             Parametro registrado,
-            String remitente,
-            String destinatario,
+            Cliente remitente,
+            Cliente destinatario,
             float monto,
             Parametro moneda,
             int numEnvio,
@@ -72,39 +70,22 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             Query q;
             Parametro p;
+            
 
-            Aeropuerto a = null;
-
-
-            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
-            q.setParameter("idaero", Integer.parseInt(aOrigen));
-            a = (Aeropuerto) q.uniqueResult();
-            e.setOrigen(a);
-
-            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
-            q.setParameter("idaero", Integer.parseInt(aDestino));
-            a = (Aeropuerto) q.uniqueResult();
-            e.setDestino(a);
-
-            q = s.getNamedQuery("AeropuertosxID").setFirstResult(0);
-            q.setParameter("idaero", Integer.parseInt(aActual));
-            a = (Aeropuerto) q.uniqueResult();
-            e.setActual(a);
+            e.setOrigen(aOrigen);
+            e.setDestino(aDestino);
+            e.setActual(aActual);
+            
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
             q.setParameter("valorUnico", registrado.getValorUnico());
             q.setParameter("tipo", registrado.getTipo());
             p = (Parametro) q.uniqueResult();
             e.setEstado(p);
 
-            q = s.getNamedQuery("ClienteXID").setFirstResult(0);
-            q.setParameter("idcliente", Integer.parseInt(remitente));
-            e.setRemitente((Cliente) q.uniqueResult());
-
-            q = s.getNamedQuery("ClienteXID").setFirstResult(0);
-            q.setParameter("idcliente", Integer.parseInt(destinatario));
-            e.setDestinatario((Cliente) q.uniqueResult());
-
-            e.setMonto(monto * (1 + impuesto));
+            
+            e.setRemitente(remitente);
+            e.setDestinatario(destinatario);
+            e.setMonto(numPaq * monto * (1 + impuesto));
 
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
             q.setParameter("valorUnico", moneda.getValorUnico());
@@ -120,19 +101,8 @@ public class CEnvio {
             p = (Parametro) q.uniqueResult();
             e.setTipoDocVenta(p);
 
-            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-            Date fechaRegistroDate = null;
+            Date fechaRegistroDate = new Date();
             Date fechaRecojoDate = null;
-            try {
-
-                fechaRegistroDate = formatoDelTexto.parse(fechaRegistro);
-                fechaRecojoDate = formatoDelTexto.parse(fechaRecojo);
-
-            } catch (ParseException ex) {
-
-                ex.printStackTrace();
-
-            }
             e.setFechaRegistro(fechaRegistroDate);
             e.setFechaRecojo(fechaRecojoDate);
 
@@ -293,5 +263,22 @@ public class CEnvio {
         } catch (Exception e) {
             return false;
         }
+    }
+    public Tarifa calcularTarifa(Aeropuerto origen, Aeropuerto destino){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        Tarifa tarifa = null;
+        try {
+            Query q = s.getNamedQuery("Tarifa").setMaxResults(1);
+            Parametro p;
+            q.setParameter("idorigen", origen.getIdAeropuerto());
+            q.setParameter("iddestino", destino.getIdAeropuerto());
+            tarifa = (Tarifa) q.uniqueResult();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return tarifa;
     }
 }
