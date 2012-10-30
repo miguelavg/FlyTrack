@@ -26,7 +26,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     /**
      * Creates new form AeropuertoPopup
      */
-    public AeropuertoPopup() {
+    public AeropuertoPopup(javax.swing.JDialog parent, boolean modal) {
         initComponents();
         llenarComboPais();
         
