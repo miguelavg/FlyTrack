@@ -254,8 +254,14 @@ public class Aeropuerto extends javax.swing.JFrame {
           List<beans.Aeropuerto> listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
                 ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
         
+          
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
         Object[] datos = new Object[9];
+        
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
         
         for (int i = 0; i < listaAeropuertos.size(); i++) {
             
