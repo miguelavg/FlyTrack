@@ -4,6 +4,7 @@
  */
 package gui.principal;
 
+import controllers.CUsuario;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,10 +38,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
-        txtPass = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         lblOlvidoPass = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
+        txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -60,10 +61,6 @@ public class Login extends javax.swing.JFrame {
         txtUser.setMaximumSize(new java.awt.Dimension(120, 30));
         txtUser.setMinimumSize(new java.awt.Dimension(120, 30));
         txtUser.setPreferredSize(new java.awt.Dimension(120, 30));
-
-        txtPass.setMaximumSize(new java.awt.Dimension(120, 30));
-        txtPass.setMinimumSize(new java.awt.Dimension(120, 30));
-        txtPass.setPreferredSize(new java.awt.Dimension(120, 30));
 
         btnLogin.setText("Login");
         btnLogin.setMaximumSize(new java.awt.Dimension(120, 30));
@@ -85,6 +82,10 @@ public class Login extends javax.swing.JFrame {
         lblError.setForeground(new java.awt.Color(255, 0, 0));
         lblError.setText("Usuario y/o Constraseña No Válidos");
 
+        txtPass.setMaximumSize(new java.awt.Dimension(120, 30));
+        txtPass.setMinimumSize(new java.awt.Dimension(120, 30));
+        txtPass.setPreferredSize(new java.awt.Dimension(120, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,9 +100,9 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(70, 70, 70)
                             .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -138,8 +139,8 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         String usuario = txtUser.getText();
-        String password = txtPass.getText();
-        String passwordMD5;
+        String password = txtPass.getPassword().toString();
+        String passwordMD5 = "";
         try {
             byte[] passwordBytes = password.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -153,21 +154,26 @@ public class Login extends javax.swing.JFrame {
         
         //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
-        
-        //Sino 
-        lblError.setVisible(Boolean.TRUE);
-        if(usuario.equals(userAnteriorIntentoLogin))
-        {
-            numIntentosFallidos++;
+        CUsuario usuarioController = new CUsuario();
+        if(usuarioController.verificarContrasenia(usuario, passwordMD5)){
+            lblError.setVisible(Boolean.FALSE);
+            
         }
         else{
-            numIntentosFallidos = 1;
+            
+            lblError.setVisible(Boolean.TRUE);
+            if(usuario.equals(userAnteriorIntentoLogin))
+            {
+                numIntentosFallidos++;
+            }
+            else{
+                numIntentosFallidos = 1;
+            }
+            userAnteriorIntentoLogin = usuario;
+            //Solo incremento si el usuario que ha intentado logearse es igual al
+            //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
+            // Si llega al limite de intentos fallidos se bloquea la cuenta
         }
-        userAnteriorIntentoLogin = usuario;
-        //Solo incremento si el usuario que ha intentado logearse es igual al
-        //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
-        // Si llega al limite de intentos fallidos se bloquea la cuenta
-        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -210,7 +216,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblOlvidoPass;
-    private javax.swing.JTextField txtPass;
+    private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

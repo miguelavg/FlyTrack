@@ -34,7 +34,9 @@ import org.hibernate.annotations.ParamDef;
  */
 @Entity
 @Table(name = "Usuario")
-//@NamedQueries({
+@NamedQueries({
+    @NamedQuery(name = "UsuarioXLogin",
+        query="from Usuario where login = :login")
 //    @NamedQuery(name = "Usuario",
 //    query = "from Usuario  "),})
 //
@@ -45,7 +47,7 @@ import org.hibernate.annotations.ParamDef;
 //})
 //@Filters({
 //    @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto")
-//})
+})
 
 //select C.nombres, C.Apellidos,P.nombre, A.nombre, ,C.CorreoElectronico, U.estado,C.TipoDoc, C.NumDoc     
 //from cliente C, usuario U, perfil P, aeropuerto A 
