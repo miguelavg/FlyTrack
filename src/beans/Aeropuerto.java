@@ -22,7 +22,7 @@ import org.hibernate.annotations.ParamDef;
 
 /**
  *
- * @author miguelavg
+ * @author jorgeCastañon
  */
 @Entity
 @Table(name = "Aeropuerto")
