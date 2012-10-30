@@ -23,6 +23,5 @@
     <mapping class="beans.seguridad.Perfil"/>
     <mapping class="beans.seguridad.Contrasena"/>
     <mapping class="beans.seguridad.Accion"/>
-    <import class="logic.VueloLite"/>
   </session-factory>
 </hibernate-configuration>

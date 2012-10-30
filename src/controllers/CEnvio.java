@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import logic.Recocido;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -131,6 +133,9 @@ public class CEnvio {
             }
             e.setFechaRegistro(fechaRegistroDate);
             e.setFechaRecojo(fechaRecojoDate);
+            
+            calcularRuta(e);
+            
             numEnvio = (Integer)s.save(e);
             e.setIdEnvio(numEnvio);
             numDocPago = numEnvio;
@@ -143,5 +148,89 @@ public class CEnvio {
             s.close();
         }
         return e;
+    }
+    
+        public boolean calcularRuta(Envio envio) {
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+
+        try {
+            Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
+            Parametro p;
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "temperatura_inicial");
+            p = (Parametro) q.uniqueResult();
+            double temperaturaInicial = Double.parseDouble(p.getValor());
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "temperatura_final");
+            p = (Parametro) q.uniqueResult();
+            double temperaturaFinal = Double.parseDouble(p.getValor());
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "k_sa");
+            p = (Parametro) q.uniqueResult();
+            int k = Integer.parseInt(p.getValor());
+                 
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "alfa_sa");
+            p = (Parametro) q.uniqueResult();
+            double alfaSA = Double.parseDouble(p.getValor());
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "alfa_grasp");
+            p = (Parametro) q.uniqueResult();
+            double alfaGrasp = Integer.parseInt(p.getValor());
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "porcentaje_parada");
+            p = (Parametro) q.uniqueResult();
+            double pParada = Double.parseDouble(p.getValor());
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "num_intentos");
+            p = (Parametro) q.uniqueResult();
+            int intentos = Integer.parseInt(p.getValor());
+            
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "costo_almacen_usd_hora");
+            p = (Parametro) q.uniqueResult();
+            double costoAlmacen = Double.parseDouble(p.getValor());
+            
+            q = s.getNamedQuery("VuelosXFecha");
+            q.setParameter("fechaRegistro", envio.getFechaRegistro());
+            List<Vuelo> vuelos = q.list();
+            
+            Recocido recocido = new Recocido(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, envio, vuelos, costoAlmacen);
+            ArrayList<Vuelo> solucion = recocido.simular();
+            ArrayList<Escala> escalas = new ArrayList<Escala>();
+            Escala e;
+            int i = 1;
+            Date fecha = envio.getFechaRegistro();
+            
+            q.setParameter("tipo", "ESTADO_ESCALA");
+            q.setParameter("valorUnico", "ACTV");
+            p = (Parametro) q.uniqueResult();
+            
+            for(Vuelo v : solucion){
+                e = new Escala();
+                e.setEnvio(envio);
+                e.setVuelo(v);
+                e.setNumEscala(i);
+                e.setFechaInicio(fecha);
+                e.setEstado(p);
+                fecha = v.getFechaLlegada();
+                i++;
+                
+                envio.getEscalas().add(e);
+            }
+            
+            return true;
+        } catch (Exception e) {
+        } finally {
+            s.close();
+        }
+        return false;
     }
 }

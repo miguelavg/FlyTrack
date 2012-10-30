@@ -30,9 +30,7 @@ import org.hibernate.annotations.NamedQuery;
     @NamedQuery(name = "Vuelos",
     query = "from Vuelo where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "VuelosXFecha",
-    query = "from Vuelo where :fechaRegistro < fechaSalida"), 
-    @NamedQuery(name = "VuelosHistoricos",
-    query = "select new logic.VueloLite(v.origen, v.destino, avg(v.capacidadActual/v.capacidadMax)) from Vuelo v where :fecha < v.fechaSalida group by v.origen, v.destino")
+    query = "from Vuelo where :fechaRegistro < fechaSalida")
 })
 public class Vuelo implements Serializable {
 
