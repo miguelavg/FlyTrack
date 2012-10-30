@@ -2,14 +2,7 @@ package beans;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
@@ -58,7 +51,7 @@ public class Parametro implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idPadre")
     private Parametro padre;
-    @OneToMany(mappedBy = "padre")
+    @OneToMany(mappedBy = "padre", fetch = FetchType.EAGER)
     @Filters({
         @Filter(name = "ParametroHijosXTipo", condition = "tipo = :tipo and estado = true")
     })
