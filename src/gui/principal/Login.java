@@ -4,6 +4,7 @@
  */
 package gui.principal;
 
+import controllers.CSeguridad;
 import controllers.CUsuario;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -141,7 +142,8 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usuario = txtUser.getText();
         char[] password = txtPass.getPassword();
-//        String passwordMD5 = "";
+
+        //        String passwordMD5 = "";
 //        try {
 //            byte[] passwordBytes = password.getBytes("UTF-8");
 //            MessageDigest md = MessageDigest.getInstance("MD5");
@@ -155,8 +157,8 @@ public class Login extends javax.swing.JFrame {
         
         //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
-        CUsuario usuarioController = new CUsuario();
-        if(usuarioController.verificarContrasenia(usuario, password)){
+        if(CSeguridad.verificarContrasenia(usuario, password)){
+            //VERIFICACION EXITOSA
             lblError.setVisible(Boolean.FALSE);
             
             PrincipalFrame pf = new PrincipalFrame();
@@ -166,6 +168,7 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
         }
         else{
+            //VERIFICACION FALLO
             lblError.setVisible(Boolean.TRUE);
             if(usuario.equals(userAnteriorIntentoLogin))
             {
@@ -178,6 +181,7 @@ public class Login extends javax.swing.JFrame {
             //Solo incremento si el usuario que ha intentado logearse es igual al
             //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
             // Si llega al limite de intentos fallidos se bloquea la cuenta
+            
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
