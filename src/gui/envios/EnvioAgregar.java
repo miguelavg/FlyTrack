@@ -4,6 +4,10 @@
  */
 package gui.envios;
 
+import beans.*;
+import controllers.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author miguelavg
@@ -15,8 +19,23 @@ public class EnvioAgregar extends javax.swing.JDialog {
      */
     public EnvioAgregar() {
         initComponents();
+        llenarCombo();
     }
-
+    public void llenarCombo(){
+        ArrayList<Parametro> lp1 =  new CEnvio().llenarCombo("ESTADO_ENVIO");
+        ArrayList<Parametro> lp2 =  new CEnvio().llenarCombo("TIPO_MONEDA");
+        ArrayList<Parametro> lp3 =  new CEnvio().llenarCombo("TIPO_DOC_PAGO_ENVIO");
+        
+        for(Parametro p: lp1){
+            this.estadoEnvioCombobox.addItem(p);
+        }
+        for(Parametro p: lp2){
+            this.monedaEnvioCombobox.addItem(p);
+        }
+        for(Parametro p: lp3){
+            this.docPagoEnvioCombobox.addItem(p);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +73,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         docPagoEnvioCombobox = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
-        numDocPagoText = new javax.swing.JTextField();
+        numDocPagoEnvioText = new javax.swing.JTextField();
         regresarEnvioButton = new javax.swing.JButton();
         numeroEnvioText = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -65,6 +84,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
         jButton12 = new javax.swing.JButton();
         impuestoFactEnvio = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        fechaRegistroEnvioText = new javax.swing.JTextField();
+        fechaRecojoEnvioText = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -109,14 +132,15 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        aeropuertoOrigenEnvioText.setText("Jorge Chávez, Lima");
+        aeropuertoOrigenEnvioText.setEditable(false);
+        aeropuertoOrigenEnvioText.setText("1");
         aeropuertoOrigenEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aeropuertoOrigenEnvioTextActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Origen:");
+        jLabel2.setText("Airport Origen:");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -125,14 +149,14 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        aeropuertoDestinoEnvioText.setText("John F. Kennedy, NY");
+        aeropuertoDestinoEnvioText.setText("2");
         aeropuertoDestinoEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aeropuertoDestinoEnvioTextActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Destino:");
+        jLabel3.setText("Airport Destino:");
 
         jLabel4.setText("Estado:");
 
@@ -143,7 +167,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        remitenteEnvioText.setText("Luis Alberto Spinetta");
+        remitenteEnvioText.setText("1");
         remitenteEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 remitenteEnvioTextActionPerformed(evt);
@@ -152,7 +176,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel5.setText("Remitente:");
 
-        estadoEnvioCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Registrado", "En vuelo", "En escala", "Espera", "Recogido" }));
         estadoEnvioCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estadoEnvioComboboxActionPerformed(evt);
@@ -161,7 +184,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel6.setText("Actual:");
 
-        aeropuertoActualEnvioText.setText("Jorge Chávez, Lima");
+        aeropuertoActualEnvioText.setText("3");
         aeropuertoActualEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aeropuertoActualEnvioTextActionPerformed(evt);
@@ -185,7 +208,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        destinatarioEnvioText.setText("Charly García");
+        destinatarioEnvioText.setText("2");
         destinatarioEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 destinatarioEnvioTextActionPerformed(evt);
@@ -221,7 +244,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel10.setText("Doc. pago:");
 
-        docPagoEnvioCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Factura", "Boleta" }));
         docPagoEnvioCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 docPagoEnvioComboboxActionPerformed(evt);
@@ -230,10 +252,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel11.setText("Num. doc. pago");
 
-        numDocPagoText.setText("13331");
-        numDocPagoText.addActionListener(new java.awt.event.ActionListener() {
+        numDocPagoEnvioText.setText("13331");
+        numDocPagoEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numDocPagoTextActionPerformed(evt);
+                numDocPagoEnvioTextActionPerformed(evt);
             }
         });
 
@@ -263,7 +285,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        monedaEnvioCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nuevos Soles", "Dólares", "Euros" }));
         monedaEnvioCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 monedaEnvioComboboxActionPerformed(evt);
@@ -286,7 +307,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
+        impuestoFactEnvio.setEditable(false);
         impuestoFactEnvio.setText("0.19");
+        impuestoFactEnvio.setEnabled(false);
         impuestoFactEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 impuestoFactEnvioActionPerformed(evt);
@@ -294,6 +317,26 @@ public class EnvioAgregar extends javax.swing.JDialog {
         });
 
         jLabel14.setText("Num. envío:");
+
+        jLabel15.setText("Fecha Registro");
+
+        fechaRegistroEnvioText.setEditable(false);
+        fechaRegistroEnvioText.setText("12/10/2012");
+        fechaRegistroEnvioText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaRegistroEnvioTextActionPerformed(evt);
+            }
+        });
+
+        fechaRecojoEnvioText.setEditable(false);
+        fechaRecojoEnvioText.setText("15/10/2012");
+        fechaRecojoEnvioText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaRecojoEnvioTextActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Fecha Recojo");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -303,82 +346,85 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(aeropuertoOrigenEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(197, 197, 197)
+                                .addComponent(guardarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(6, 6, 6))
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(197, 197, 197))
-                                            .addComponent(guardarEnvioButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(numDocPagoText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(estadoEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(monedaEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(numPaqEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(aeropuertoDestinoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(regresarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(docPagoEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(numeroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(numeroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(aeropuertoActualEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(estadoEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(monedaEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(numPaqEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(remitenteEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(aeropuertoDestinoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(regresarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(aeropuertoOrigenEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(destinatarioEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 24, Short.MAX_VALUE))))
+                                .addComponent(aeropuertoActualEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(remitenteEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(destinatarioEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,16 +483,26 @@ public class EnvioAgregar extends javax.swing.JDialog {
                         .addComponent(docPagoEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(numDocPagoText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(regresarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                    .addComponent(regresarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -471,7 +527,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -479,7 +535,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -500,10 +556,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -521,9 +577,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_regresarEnvioButtonActionPerformed
 
-    private void numDocPagoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numDocPagoTextActionPerformed
+    private void numDocPagoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numDocPagoEnvioTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_numDocPagoTextActionPerformed
+    }//GEN-LAST:event_numDocPagoEnvioTextActionPerformed
 
     private void docPagoEnvioComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docPagoEnvioComboboxActionPerformed
         // TODO add your handling code here:
@@ -591,7 +647,26 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void guardarEnvioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEnvioButtonActionPerformed
         // TODO add your handling code here:
+        CEnvio cenvio = new CEnvio();
+        beans.Envio env = null;
         
+        env =   cenvio.agregarEnvio(
+                    aeropuertoOrigenEnvioText.getText(),
+                    aeropuertoDestinoEnvioText.getText(),
+                    aeropuertoActualEnvioText.getText(),
+                    estadoEnvioCombobox.getSelectedItem().toString(),
+                    remitenteEnvioText.getText(),
+                    destinatarioEnvioText.getText(),
+                    Float.parseFloat(montoEnvioText.getText()),
+                    monedaEnvioCombobox.getSelectedItem().toString(),
+                    Integer.parseInt(numeroEnvioText.getText()),
+                    Integer.parseInt(numPaqEnvioText.getText()),
+                    docPagoEnvioCombobox.getSelectedItem().toString(),
+                    Integer.parseInt(numDocPagoEnvioText.getText()),
+                    Float.parseFloat(impuestoFactEnvio.getText()),
+                    this.fechaRegistroEnvioText.getText(),
+                    this.fechaRecojoEnvioText.getText()
+                );
         
     }//GEN-LAST:event_guardarEnvioButtonActionPerformed
 
@@ -602,6 +677,14 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private void impuestoFactEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impuestoFactEnvioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_impuestoFactEnvioActionPerformed
+
+    private void fechaRegistroEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaRegistroEnvioTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaRegistroEnvioTextActionPerformed
+
+    private void fechaRecojoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaRecojoEnvioTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaRecojoEnvioTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -644,6 +727,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JTextField destinatarioEnvioText;
     private javax.swing.JComboBox docPagoEnvioCombobox;
     private javax.swing.JComboBox estadoEnvioCombobox;
+    private javax.swing.JTextField fechaRecojoEnvioText;
+    private javax.swing.JTextField fechaRegistroEnvioText;
     private javax.swing.JButton guardarEnvioButton;
     private javax.swing.JTextField impuestoFactEnvio;
     private javax.swing.JButton jButton10;
@@ -660,6 +745,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -675,7 +762,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox monedaEnvioCombobox;
     private javax.swing.JTextField montoEnvioText;
-    private javax.swing.JTextField numDocPagoText;
+    private javax.swing.JTextField numDocPagoEnvioText;
     private javax.swing.JTextField numPaqEnvioText;
     private javax.swing.JTextField numeroEnvioText;
     private javax.swing.JButton regresarEnvioButton;
