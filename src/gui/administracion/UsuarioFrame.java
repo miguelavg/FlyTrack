@@ -356,8 +356,10 @@ public void llenarcomboPerfiles(){
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
 
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(0);
         //usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
@@ -401,7 +403,11 @@ public void llenarcomboPerfiles(){
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
+        
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
