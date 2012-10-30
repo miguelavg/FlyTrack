@@ -29,6 +29,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
     List<Parametro> ListaEstado ;
     List<Perfil> ListaPerfiles ;
     Cliente  ClienteAux ;
+    Aeropuerto AeropuertoAux;
     /**
      * Creates new form UsuarioFrame
      */
@@ -370,7 +371,7 @@ public void llenarcomboPerfiles(){
                 //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
         
           
-        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), 1,ClienteAux.getIdCliente(),estado.getIdParametro());
+        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), AeropuertoAux.getIdAeropuerto(),ClienteAux.getIdCliente(),estado.getIdParametro());
         //cboEstado.getSelectedItem());
         
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
@@ -416,9 +417,11 @@ public void llenarcomboPerfiles(){
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
 
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
+        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
         // TODO add your handling code here:
-//        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
-//        usuarioAeropuertoPopUp.setVisible(true);
+        usuarioAeropuertoPopUp.setVisible(true);
+         AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
+         txtAeropuerto.setText(AeropuertoAux.getNombre());
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
     /**
