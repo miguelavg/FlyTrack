@@ -89,6 +89,7 @@ public class Usuario implements Serializable{
     private Parametro estado;
     
     private int numAcceso;
+    
     private boolean primerAcceso;
     
     @OneToMany(mappedBy="usuario")
