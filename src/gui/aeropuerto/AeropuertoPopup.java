@@ -32,6 +32,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
        super(parent, modal);
         initComponents();
         llenarComboPais();
+        llenarComboEstado();
         
     }
     
