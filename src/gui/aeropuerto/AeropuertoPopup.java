@@ -4,8 +4,10 @@
  */
 package gui.aeropuerto;
 
+import beans.Cliente;
 import beans.Parametro;
 import controllers.CAeropuerto;
+import gui.clientes.ClientesPopUp;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,13 +22,14 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     private List<Parametro> ListatipoPar; 
     private List<Parametro> ListatipoEst; 
     private List<Parametro> ListatipoHijo;
-    private beans.Aeropuerto ObjAero = new beans.Aeropuerto();
+    private beans.Aeropuerto objAero = new beans.Aeropuerto();
     
      List<beans.Aeropuerto> listaAeropuertos;
     /**
      * Creates new form AeropuertoPopup
      */
-    public AeropuertoPopup() {
+    public AeropuertoPopup(javax.swing.JDialog parent, boolean modal) {
+       super(parent, modal);
         initComponents();
         llenarComboPais();
         
@@ -53,7 +56,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_aeropuerto = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -235,13 +238,13 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     private void tbl_aeropuertoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_aeropuertoMouseClicked
         // TODO add your handling code here:
         
-        
-         ObjAero = listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());
+      //  beans.Aeropuerto ObjAero = new beans.Aeropuerto();
+        objAero = listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());
          
-         this.dispose();
         
     }//GEN-LAST:event_tbl_aeropuertoMouseClicked
 
+   
    
             
             
@@ -268,6 +271,13 @@ public class AeropuertoPopup extends javax.swing.JDialog {
             cbm_estado.addItem(TipoDocBE);
         }
      }
+     
+     public beans.Aeropuerto showDialog(){
+        setVisible(true);
+        
+        
+        return objAero;
+    }
     /**
      * @param args the command line arguments
      */
@@ -305,7 +315,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new AeropuertoPopup().setVisible(true);
+                new AeropuertoPopup(new javax.swing.JDialog(), true).setVisible(true);
+
+            
             }
         });
     }
