@@ -61,12 +61,13 @@ public class CEnvio {
       
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
+        
+        Envio e = new Envio();
         try {
             
             Transaction tx = s.beginTransaction();
             Query q;
             Parametro p;
-            Envio e = new Envio();
             
             Aeropuerto a = null;
             
@@ -134,13 +135,13 @@ public class CEnvio {
             e.setIdEnvio(numEnvio);
             numDocPago = numEnvio;
             e.setNumDocVenta(numDocPago);
-            
+            //s.saveOrUpdate(e);
             tx.commit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         } finally {
             s.close();
         }
-        return null;
+        return e;
     }
 }

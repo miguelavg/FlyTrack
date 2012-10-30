@@ -35,23 +35,32 @@ import org.hibernate.annotations.ParamDef;
     query = "from Cliente where idcliente = :idcliente ")
 })
 @FilterDefs({
-    @FilterDef(name = "ClientesxNombre",
+    @FilterDef(name = "ClientesXNombre",
     parameters =
     @ParamDef(name = "nombres", type = "string")),
-    @FilterDef(name = "ClientesxApellido",
+    
+    @FilterDef(name = "ClientesXApellido",
     parameters =
     @ParamDef(name = "apellidos", type = "string")),
-    @FilterDef(name = "ClientesxNumeroDoc",
+    
+    @FilterDef(name = "ClientesXNumeroDoc",
     parameters =
     @ParamDef(name = "numdoc", type = "string")),
-    @FilterDef(name = "ClientesxTipoDoc",
+    
+    @FilterDef(name = "ClientesXTipoDoc",
     parameters =
-    @ParamDef(name = "tipodoc", type = "string"))
+    @ParamDef(name = "tipodoc", type = "integer"))
         
 })
 @Filters({
-    @Filter(name = "ClientesXNombre", condition = "Nombres = :nombres"),
-    @Filter(name = "ClientesXApellido", condition = "Apellidos = :apellidos"),
+    
+    @Filter(name = "ClientesXNombre", condition = "UPPER(Nombres) like UPPER(:nombres)"),
+    
+    @Filter(name = "ClientesXApellido", condition = "UPPER(Apellidos) like UPPER(%:apellidos%)"),
+    
+    @Filter(name = "ClientesXNumDoc", condition = "Numdoc = :numdoc"),
+    
+    @Filter(name = "ClientesXTipoDoc", condition = "tipodoc = :tipodoc"),
     
 })
 
