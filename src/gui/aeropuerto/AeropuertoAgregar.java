@@ -109,14 +109,11 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
         jLabel4.setText("País:");
 
-        cbm_pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Perú" }));
         cbm_pais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_paisActionPerformed(evt);
             }
         });
-
-        cbm_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lima" }));
 
         cbm_estado.setEnabled(false);
         cbm_estado.addActionListener(new java.awt.event.ActionListener() {
@@ -253,11 +250,11 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
         beans.Aeropuerto objAeropuerto = new beans.Aeropuerto();
         
-        objAeropuerto.setCapacidadActual(ABORT);
-        objAeropuerto.setCapacidadMax(WIDTH);
-        objAeropuerto.setCiudad(null);
-        objAeropuerto.setCoordX(WIDTH);
-        objAeropuerto.setCoordY(WIDTH);
+        objAeropuerto.setCapacidadActual(5565);
+        objAeropuerto.setCapacidadMax(45454);
+        objAeropuerto.setCiudad(ListatipoEst.get(cbm_pais.getSelectedIndex()));
+        objAeropuerto.setCoordX(324);
+        objAeropuerto.setCoordY(323);
         objAeropuerto.setEstado(ListatipoEst.get(cbm_estado.getSelectedIndex()));
         objAeropuerto.setNombre(txt_Nombre.getText());
         objAeropuerto.setPais(ListatipoEst.get(cbm_pais.getSelectedIndex()));
