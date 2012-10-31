@@ -20,52 +20,120 @@ public class CAeropuerto {
     static List<Parametro> ListaTipoDoc;
     static List<Parametro> ListaTipoEst;
     
-    public void agregarAeropuerto() {
+    public void ModificarCliente(int idCliente,String Nombre, String Apellidos, String correo, 
+            String telefono,String NumeroDoc, 
+            Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
+    
+        
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
+        
         try {
-            
             Transaction tx = s.beginTransaction();
             Query q;
-            Parametro p;
+//            Parametro pTipoDoc;            
+//            Parametro pCiudad;            
+//            Parametro pPais;
             
-            Aeropuerto a = new Aeropuerto();
+            Cliente ClienteBE = new Cliente(); 
+            ClienteBE.setIdCliente(idCliente);
+            ClienteBE.setTipoDoc(TipoDoc);
+            ClienteBE.setApellidos(Apellidos);
+            ClienteBE.setNombres(Nombre);
+            ClienteBE.setNumDoc(NumeroDoc);
+            ClienteBE.setTelefono(telefono);
+            ClienteBE.seteMail( correo);
+            ClienteBE.setCiudad(Ciudad);
+            ClienteBE.setPais(Pais);
             
-            a.setNombre("Arturo Merino Benítez");
-            a.setCapacidadMax(500);
-            a.setCapacidadActual(0);
-            
-            
-            q = s.getNamedQuery("ParametrosXTipoXValorUnico").setFirstResult(0);
-            q.setParameter("valorUnico", "ACTV");
-            q.setParameter("tipo", "ESTADO_AEROPUERTO");
-            p = (Parametro) q.uniqueResult();
-            a.setEstado(p);
-            
-            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "SANTIAGO");
-            q.setParameter("tipo", "CIUDAD");
-            p = (Parametro) q.uniqueResult();
-            a.setCiudad(p);
-            
-            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "CHI");
-            q.setParameter("tipo", "PAIS");
-            p = (Parametro) q.uniqueResult();
-            a.setCiudad(p);
-            
-            int i = (Integer)s.save(a);
-            
-            System.out.println(i);
+            s.update(ClienteBE);
             
             tx.commit();
-        } catch (Exception e) {
+            
+        }
+        catch(Exception e){
             System.out.println(e.getMessage());
-        } finally {
+                }
+        finally {
+            s.close();
+        }
+//      
+        
+    }
+    public static void agregarAeropuerto(Aeropuerto ObjAeropuerto){
+        
+        
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+//            Parametro pTipoDoc;            
+//            Parametro pCiudad;            
+//            Parametro pPais;
+            
+            int i = (Integer)s.save(ObjAeropuerto);
+            
+            tx.commit();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
             s.close();
         }
     }
+    
+//    public void agregarAeropuerto() {
+//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+//        Session s = sf.openSession();
+//        
+//        try {
+//            
+//            Transaction tx = s.beginTransaction();
+//            Query q;
+//            Parametro p;
+//            
+//            Aeropuerto a = new Aeropuerto();
+//            
+//            a.setNombre("Arturo Merino Benítez");
+//            a.setCapacidadMax(500);
+//            a.setCapacidadActual(0);
+//            
+//            
+//            q = s.getNamedQuery("ParametrosXTipoXValorUnico").setFirstResult(0);
+//            q.setParameter("valorUnico", "ACTV");
+//            q.setParameter("tipo", "ESTADO_AEROPUERTO");
+//            p = (Parametro) q.uniqueResult();
+//            a.setEstado(p);
+//            
+//            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
+//            q.setParameter("valorUnico", "SANTIAGO");
+//            q.setParameter("tipo", "CIUDAD");
+//            p = (Parametro) q.uniqueResult();
+//            a.setCiudad(p);
+//            
+//            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
+//            q.setParameter("valorUnico", "CHI");
+//            q.setParameter("tipo", "PAIS");
+//            p = (Parametro) q.uniqueResult();
+//            a.setCiudad(p);
+//            
+//            int i = (Integer)s.save(a);
+//            
+//            System.out.println(i);
+//            
+//            tx.commit();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            s.close();
+//        }
+//    }
     
       public static List<Parametro> llenarComboPais(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -171,4 +239,6 @@ public class CAeropuerto {
         return ListaTipoEst;
         
     }
+       
+  
 }
