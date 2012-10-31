@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
 
 /**
  *
@@ -24,10 +22,6 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @Table(name = "Tarifa")
-@NamedQueries({
-    @NamedQuery(name = "Tarifa",
-    query = "from Tarifa where idOrigen = :idorigen and idDestino = :iddestino")
-})
 public class Tarifa implements Serializable {
 
     @Id
