@@ -48,7 +48,7 @@ public class CEnvio {
             Aeropuerto aOrigen,
             Aeropuerto aDestino,
             Aeropuerto aActual,
-            Parametro registrado,
+            String estado,
             Cliente remitente,
             Cliente destinatario,
             float monto,
@@ -77,8 +77,8 @@ public class CEnvio {
             e.setActual(aActual);
             
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", registrado.getValorUnico());
-            q.setParameter("tipo", registrado.getTipo());
+            q.setParameter("valorUnico", "PROG");
+            q.setParameter("tipo", "ESTADO_ENVIO");
             p = (Parametro) q.uniqueResult();
             e.setEstado(p);
 
@@ -112,7 +112,7 @@ public class CEnvio {
             e.setIdEnvio(numEnvio);
             numDocPago = numEnvio;
             e.setNumDocVenta(numDocPago);
-            //s.saveOrUpdate(e);
+            s.saveOrUpdate(e);
             tx.commit();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

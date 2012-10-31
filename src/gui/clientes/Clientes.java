@@ -116,6 +116,8 @@ public class Clientes extends javax.swing.JDialog {
 
         jLabel5.setText("Número Doc:");
 
+        cboTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -293,7 +295,15 @@ public class Clientes extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
 //        DefaultComboBoxModel dtcbotipodoc = (DefaultComboBoxModel) this.cboTipoDoc.getModel();
-        Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
+        Parametro TipoDoc;
+        if(cboTipoDoc.getSelectedIndex()!=0){
+        
+            TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
+            
+        }
+        else {
+            TipoDoc=null;
+        }
         List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
         
         
@@ -327,7 +337,8 @@ public class Clientes extends javax.swing.JDialog {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         ClientesEdit clienteAgregarGUI = new ClientesEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
-        clienteAgregarGUI.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
+        int result = clienteAgregarGUI.showDialog();
+        cargartabla();//le decimos al compilador que queremos que se vea la ventana
         //le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     }//GEN-LAST:event_btnAgregarActionPerformed
