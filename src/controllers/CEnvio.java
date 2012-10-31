@@ -24,7 +24,7 @@ public class CEnvio {
 
     public ArrayList<Parametro> llenarCombo(String tipo) {
 
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         ArrayList<Parametro> p = null;
         try {
@@ -61,7 +61,7 @@ public class CEnvio {
             String fechaRegistro,
             String fechaRecojo) {
 
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
 
         Envio e = new Envio();
@@ -123,7 +123,7 @@ public class CEnvio {
     }
 
     public boolean calcularRuta(Envio envio) {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
 
         try {
@@ -153,7 +153,7 @@ public class CEnvio {
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "alfa_grasp");
             p = (Parametro) q.uniqueResult();
-            double alfaGrasp = Integer.parseInt(p.getValor());
+            double alfaGrasp = Double.parseDouble(p.getValor());
 
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "porcentaje_parada");
@@ -207,7 +207,7 @@ public class CEnvio {
     }
 
     public List<Envio> buscar(Aeropuerto actual, Aeropuerto origen, Aeropuerto destino, Parametro estado, Cliente cliente, String numEnvio) {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Envio> envios = null;
         
@@ -265,7 +265,7 @@ public class CEnvio {
         }
     }
     public Tarifa calcularTarifa(Aeropuerto origen, Aeropuerto destino){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Tarifa tarifa = null;
         try {
