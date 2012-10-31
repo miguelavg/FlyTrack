@@ -106,7 +106,8 @@ public class CSeguridad {
             f.setParameter("login", usuario);
             Usuario usuarioAux = (Usuario)q.uniqueResult(); 
             
-            if(usuarioAux.getEstado().getValorUnico().equals("ACTV")){
+            if( usuarioAux != null && 
+                usuarioAux.getEstado().getValorUnico().equals("ACTV")){
                 q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
                 q.setParameter("tipo", usuarioAux.getEstado().getTipo());
                 q.setParameter("valorUnico", "INCTV");
