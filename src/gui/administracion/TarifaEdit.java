@@ -4,8 +4,13 @@
  */
 package gui.administracion;
 
+import beans.Aeropuerto;
+import beans.Parametro;
+import beans.Tarifa;
 import controllers.CTarifa;
+import gui.aeropuerto.AeropuertoPopup;
 import gui.clientes.ClientesEdit;
+import java.util.List;
 
 /**
  *
@@ -17,9 +22,14 @@ public class TarifaEdit extends javax.swing.JDialog {
      * Creates new form TarifaEdit
      */
     CTarifa TarifaBL = new CTarifa();
+    Aeropuerto AeroOri;
+    Aeropuerto AeroDes;
+    List<Parametro> ListaMonedas;
+    List<Parametro> ListaEstadoTarifa;
     public TarifaEdit(javax.swing.JDialog parent, boolean modal,int id) {
         super(parent, modal);
         initComponents();
+        cargarcombos();
         
     }
 
@@ -35,22 +45,22 @@ public class TarifaEdit extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        a_origen = new javax.swing.JTextField();
+        txtAeroOri = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        a_origen1 = new javax.swing.JTextField();
+        txtAeroDes = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        a_origen2 = new javax.swing.JTextField();
+        txtMonto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        a_origen5 = new javax.swing.JTextField();
+        txtFechaAct = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        a_origen6 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        txtFechaDes = new javax.swing.JTextField();
+        cboMoneda = new javax.swing.JComboBox();
+        cboEstado = new javax.swing.JComboBox();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
@@ -83,10 +93,9 @@ public class TarifaEdit extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        a_origen.setText("Manco Capac, Juliaca");
-        a_origen.addActionListener(new java.awt.event.ActionListener() {
+        txtAeroOri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                a_origenActionPerformed(evt);
+                txtAeroOriActionPerformed(evt);
             }
         });
 
@@ -106,10 +115,9 @@ public class TarifaEdit extends javax.swing.JDialog {
             }
         });
 
-        a_origen1.setText("John F. Kennedy, NY");
-        a_origen1.addActionListener(new java.awt.event.ActionListener() {
+        txtAeroDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                a_origen1ActionPerformed(evt);
+                txtAeroDesActionPerformed(evt);
             }
         });
 
@@ -117,10 +125,9 @@ public class TarifaEdit extends javax.swing.JDialog {
 
         jLabel6.setText("Monto:");
 
-        a_origen2.setText("300");
-        a_origen2.addActionListener(new java.awt.event.ActionListener() {
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                a_origen2ActionPerformed(evt);
+                txtMontoActionPerformed(evt);
             }
         });
 
@@ -130,23 +137,19 @@ public class TarifaEdit extends javax.swing.JDialog {
 
         jLabel9.setText("Fecha Activacion:");
 
-        a_origen5.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaAct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                a_origen5ActionPerformed(evt);
+                txtFechaActActionPerformed(evt);
             }
         });
 
         jLabel10.setText("Fecha Desactivacion:");
 
-        a_origen6.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                a_origen6ActionPerformed(evt);
+                txtFechaDesActionPerformed(evt);
             }
         });
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Soles", "Dolares", "Euros", " " }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -160,11 +163,11 @@ public class TarifaEdit extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
-                                .addComponent(a_origen2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(48, 48, 48)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,7 +176,7 @@ public class TarifaEdit extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(a_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAeroOri, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -182,13 +185,13 @@ public class TarifaEdit extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(a_origen1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAeroDes, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(a_origen5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(a_origen6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtFechaAct, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFechaDes, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,31 +202,36 @@ public class TarifaEdit extends javax.swing.JDialog {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(a_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAeroOri, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(a_origen1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtAeroDes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(a_origen2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(a_origen5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaAct, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(a_origen6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaDes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jButton4.setText("Guardar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Cancelar");
 
@@ -263,33 +271,69 @@ public class TarifaEdit extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void a_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origenActionPerformed
+    public void cargarcombos(){
+        ListaMonedas=TarifaBL.ListarMonedas();
+        ListaEstadoTarifa=TarifaBL.ListarEstadoMonedas();
+        
+        for (int i=0;i<ListaMonedas.size();i++)
+        {
+            Parametro Moneda =(Parametro)ListaMonedas.get(i);
+            
+            cboMoneda.addItem(Moneda);
+        }
+        for (int i=0;i<ListaEstadoTarifa.size();i++)
+        {
+            Parametro EstadoTarifa =(Parametro)ListaEstadoTarifa.get(i);
+            
+            cboEstado.addItem(EstadoTarifa);
+        }
+        
+    }
+    private void txtAeroOriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroOriActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_a_origenActionPerformed
+    }//GEN-LAST:event_txtAeroOriActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        AeropuertoPopup AeropuertoPU = new AeropuertoPopup(this, true);
+        AeroOri = AeropuertoPU.showDialog();
+
+        if (AeroOri != null) {
+            txtAeroOri.setText(AeroOri.getNombre()+ ", "+AeroOri.getCiudad().getValor());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        AeropuertoPopup AeropuertoPU = new AeropuertoPopup(this, true);
+        AeroDes = AeropuertoPU.showDialog();
+
+        if (AeroDes != null) {
+            txtAeroDes.setText(AeroDes.getNombre()+ ", "+AeroDes.getCiudad().getValor());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void a_origen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origen1ActionPerformed
+    private void txtAeroDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroDesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_a_origen1ActionPerformed
+    }//GEN-LAST:event_txtAeroDesActionPerformed
 
-    private void a_origen2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origen2ActionPerformed
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_a_origen2ActionPerformed
+    }//GEN-LAST:event_txtMontoActionPerformed
 
-    private void a_origen5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origen5ActionPerformed
+    private void txtFechaActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_a_origen5ActionPerformed
+    }//GEN-LAST:event_txtFechaActActionPerformed
 
-    private void a_origen6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origen6ActionPerformed
+    private void txtFechaDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_a_origen6ActionPerformed
+    }//GEN-LAST:event_txtFechaDesActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
     public int showDialog(){
             setVisible(true);
             return 1;
@@ -338,17 +382,12 @@ public class TarifaEdit extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField a_origen;
-    private javax.swing.JTextField a_origen1;
-    private javax.swing.JTextField a_origen2;
-    private javax.swing.JTextField a_origen5;
-    private javax.swing.JTextField a_origen6;
+    private javax.swing.JComboBox cboEstado;
+    private javax.swing.JComboBox cboMoneda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -359,5 +398,10 @@ public class TarifaEdit extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtAeroDes;
+    private javax.swing.JTextField txtAeroOri;
+    private javax.swing.JTextField txtFechaAct;
+    private javax.swing.JTextField txtFechaDes;
+    private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 }
