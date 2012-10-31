@@ -97,6 +97,29 @@ public class CUsuario {
         
     }
      
+         public Usuario BuscarXid(int id){
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+          Usuario CUsuario = new Usuario();
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
+            q.setParameter("idusuario", id);
+            CUsuario=(Usuario)q.uniqueResult();
+            return CUsuario;
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+    }
+     
          public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
                 Parametro estado){
         
@@ -115,7 +138,8 @@ public class CUsuario {
             CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-            
+            CUsuario.setNumAcceso(0);
+            CUsuario.setPrimerAcceso(false);
             
             s.update(CUsuario);
             tx.commit();
