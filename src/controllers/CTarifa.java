@@ -4,8 +4,14 @@
  */
 package controllers;
 
+import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.Tarifa;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,10 +24,59 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class CTarifa {
     
-    public void agregarCliente(String Nombre,String Apellidos, String correo, 
-            String telefono,String NumeroDoc, 
-            Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
+    public List<Parametro> ListarMonedas(){
+         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        List<Parametro> Lista;
         
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("ParametrosXTipo");
+            q.setParameter("tipo", "TIPO_MONEDA");
+            Lista = q.list();
+            if (Lista.size()>0){
+               return Lista; 
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+    }
+    
+    public List<Parametro> ListarEstadoMonedas(){
+         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+        List<Parametro> Lista;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("ParametrosXTipo");
+            q.setParameter("tipo", "ESTADO_TARIFA");
+            Lista = q.list();
+            if (Lista.size()>0){
+               return Lista; 
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+    }
+    
+    public void agregarTarifa(Aeropuerto AeroOri,Aeropuerto AeroDes, String monto, Parametro Moneda, Parametro Estado,String FechaAct, String FechaDes)
+    {
+                    
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
@@ -33,7 +88,7 @@ public class CTarifa {
 //            Parametro pCiudad;            
 //            Parametro pPais;
             
-            Cliente ClienteBE = new Cliente(); 
+            Tarifa TarifaBE = new Tarifa(); 
 //            
             
 //            
@@ -47,17 +102,31 @@ public class CTarifa {
 //            q.setParameter("valorUnico", ""+Pais.toString()+"");
 //            pPais = (Parametro) q.uniqueResult();
             
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
             
-            ClienteBE.setTipoDoc(TipoDoc);
-            ClienteBE.setApellidos(Apellidos);
-            ClienteBE.setNombres(Nombre);
-            ClienteBE.setNumDoc(NumeroDoc);
-            ClienteBE.setTelefono(telefono);
-            ClienteBE.seteMail( correo);
-            ClienteBE.setCiudad(Ciudad);
-            ClienteBE.setPais(Pais);
+            Date fechaact = null;
+            Date fechades=null;
+            try {
+
+                fechaact = formatoDelTexto.parse(FechaAct);
+                fechades = formatoDelTexto.parse(FechaDes);
+
+            } catch (ParseException ex) {
+
+                ex.printStackTrace();
+
+            }
             
-            int i = (Integer)s.save(ClienteBE);
+            
+            TarifaBE.setOrigen(AeroOri);
+            TarifaBE.setDestino(AeroDes);
+            TarifaBE.setMoneda(Moneda);
+            TarifaBE.setEstado(Estado);
+            TarifaBE.setMonto(Double.parseDouble(monto));
+            TarifaBE.setFechaActivacion(fechaact);
+            TarifaBE.setFechaDesactivacion(fechades);
+                        
+            int i = (Integer)s.save(TarifaBE);
             
             tx.commit();
             

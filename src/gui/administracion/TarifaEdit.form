@@ -126,12 +126,12 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel6" min="-2" pref="120" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="a_origen2" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="txtMonto" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel8" min="-2" pref="120" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBox2" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="cboEstado" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
@@ -144,7 +144,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="a_origen" min="-2" pref="185" max="-2" attributes="0"/>
+                          <Component id="txtAeroOri" min="-2" pref="185" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -155,16 +155,16 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="a_origen1" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                              <Component id="txtAeroDes" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="a_origen5" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
-                                  <Component id="a_origen6" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="txtFechaAct" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="txtFechaDes" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jComboBox3" min="-2" pref="185" max="-2" attributes="0"/>
+                      <Component id="cboMoneda" min="-2" pref="185" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -178,32 +178,32 @@
                       <Component id="jButton2" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="a_origen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtAeroOri" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="a_origen1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtAeroDes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="a_origen2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtMonto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jComboBox3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="cboMoneda" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="a_origen5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtFechaAct" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="cboEstado" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="a_origen6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtFechaDes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
@@ -211,12 +211,9 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="a_origen">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Manco Capac, Juliaca"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtAeroOri">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_origenActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAeroOriActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -244,12 +241,9 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="a_origen1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="John F. Kennedy, NY"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtAeroDes">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_origen1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAeroDesActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -262,12 +256,9 @@
             <Property name="text" type="java.lang.String" value="Monto:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="a_origen2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="300"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtMonto">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_origen2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMontoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -285,9 +276,9 @@
             <Property name="text" type="java.lang.String" value="Fecha Activacion:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="a_origen5">
+        <Component class="javax.swing.JTextField" name="txtFechaAct">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_origen5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaActActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -295,31 +286,22 @@
             <Property name="text" type="java.lang.String" value="Fecha Desactivacion:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="a_origen6">
+        <Component class="javax.swing.JTextField" name="txtFechaDes">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_origen6ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaDesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox3">
+        <Component class="javax.swing.JComboBox" name="cboMoneda">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Soles"/>
-                <StringItem index="1" value="Dolares"/>
-                <StringItem index="2" value="Euros"/>
-                <StringItem index="3" value=" "/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
+        <Component class="javax.swing.JComboBox" name="cboEstado">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Activo"/>
-                <StringItem index="1" value="Inactivo"/>
-                <StringItem index="2" value=" "/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
@@ -329,6 +311,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton5">
       <Properties>
