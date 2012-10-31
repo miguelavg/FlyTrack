@@ -43,9 +43,9 @@ import org.hibernate.annotations.ParamDef;
     @FilterDef(name = "EnviosXNumEnvio",parameters = @ParamDef(name = "numEnvio", type = "integer"))
 })
 @Filters({
-    @Filter(name = "EnviosXOrigen", condition = "idOrigen = :idAeropuerto"),
-    @Filter(name = "EnviosXDestino", condition = "idDestino = :idAeropuerto"),
-    @Filter(name = "EnviosXActual", condition = "idActual = :idAeropuerto"),
+    @Filter(name = "EnviosXOrigen", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "EnviosXDestino", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "EnviosXActual", condition = "idAeropuerto = :idAeropuerto"),
     @Filter(name = "EnviosXEstado", condition = "Estado = :idEstado"),
     @Filter(name = "EnviosXCliente", condition = "idRemitente = :idCliente or idDestinatario = :idCliente"),
     @Filter(name = "EnviosXNumEnvio", condition = "idEnvio = :numEnvio")

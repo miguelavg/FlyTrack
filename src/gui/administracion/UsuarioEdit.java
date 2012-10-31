@@ -8,6 +8,7 @@ import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
 import beans.seguridad.Perfil;
+import beans.seguridad.Usuario;
 import controllers.CUsuario;
 import gui.aeropuerto.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
@@ -24,7 +25,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
  * @author joao
  */
 public class UsuarioEdit extends javax.swing.JDialog {
-    CUsuario CUsuario = new CUsuario();
+    CUsuario Usuario = new CUsuario();
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaEstado ;
             List<Perfil> ListaPerfiles ;
@@ -54,11 +55,17 @@ public class UsuarioEdit extends javax.swing.JDialog {
     
     
     
-    public UsuarioEdit() {
+    public UsuarioEdit(javax.swing.JDialog parent, boolean modal,int id) {
+        super(parent, modal);
         initComponents();
+         idusuario=id;
        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
+        if (idusuario!=-1){
+        cargarcampos();
+        }
+        
     }
 
     /**
@@ -130,6 +137,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
         });
 
         jLabel6.setText("Estado:");
+
+        cboPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboPerfilActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("LogIn:");
 
@@ -287,6 +300,39 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        }
 //    }
     
+    public void cargarcampos(){
+    
+        Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
+         
+           txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
+           txtLogIn.setText(UsuarioBE.getLogIn());
+           txtCliente.setText(UsuarioBE.getIdCliente().getNombres()+" "+UsuarioBE.getIdCliente().getApellidos());
+           
+           
+           for(int i=0;i<cboPerfil.getItemCount();i++){
+               Perfil Perfil = (Perfil)cboPerfil.getItemAt(i);
+               if (Perfil.getIdPerfil()==UsuarioBE.getPerfil().getIdPerfil())
+               {
+               cboPerfil.setSelectedIndex(i);
+               break;
+               
+               }
+           }
+           
+           for(int i=0;i<cboEstado.getItemCount();i++){
+               Parametro estado = (Parametro)cboEstado.getItemAt(i);
+               if (estado.getIdParametro()==UsuarioBE.getEstado().getIdParametro())
+               {
+               cboEstado.setSelectedIndex(i);
+               break;
+               
+               }
+           }
+//           
+//           cboPais.setSelectedItem(ClienteBE.getPais());
+//           cboTipoDoc.setSelectedItem(ClienteBE.getTipoDoc());    
+    }
+    
     public void llenarcomboEstado(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
@@ -352,12 +398,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        aeropuerto.setCapacidadMax(WIDTH);
 //        aeropuerto.setCoordX(WIDTH);
 //        aeropuerto.setCoordY(WIDTH);
-        
-        
-    if (bandera==0){
-        //insertar
-        
-        CUsuario.agregarUsuario(perfil, 
+        if (idusuario==-1){
+                Usuario.agregarUsuario(perfil, 
                 AeropuertoAux,
                 //aeropuerto,
                 //txtAeropuerto.getText(), 
@@ -366,16 +408,15 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 txtLogIn.getText(),
                 (Parametro)cboEstado.getSelectedItem() , 
                 0,
-                false);     
-    }
-    if (bandera==1){
-        //modificar
+                false); 
+        }
+        else{
         txtCliente.setVisible(false);
         //getidusuario()
-//        CUsuario.modificarUsuario(idusuario, 
-//                perfil, 
-//                aeropuerto, 
-//                ClienteAux, txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem());
+        Usuario.modificarUsuario(idusuario, 
+                perfil, 
+                AeropuertoAux, 
+                ClienteAux, txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem());
 
 //                CUsuario.agregarUsuario(
 //                        ClienteAux.getIdCliente(),
@@ -387,9 +428,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 // //               idcliente, 
 //                login   txtLogIn.getText(),
 //                (Parametro)cboEstado.getSelectedItem());     
-    }
-        
-        
+            
+        }        
 //        CUsuario.agregarUsuario(txtPerfil.getText(), 
 //                txtAeropuerto.getText(), 
 // //               idcliente, 
@@ -430,6 +470,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
          AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
+    private void cboPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPerfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboPerfilActionPerformed
+    public int showDialog(){
+        setVisible(true);
+              
+        return 1;
+    }
     /**
      * @param args the command line arguments
      */
@@ -460,7 +508,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UsuarioEdit().setVisible(true);
+                UsuarioEdit dialog = new UsuarioEdit(new javax.swing.JDialog(), true,-1);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

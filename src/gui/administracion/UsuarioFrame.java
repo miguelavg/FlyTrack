@@ -218,10 +218,13 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombres", "Apellidos", "Perfil", "Aeropuerto", "Email", "Estado", "Tipo de Documento", "Nro de Documento"
+                "Nombres", "Apellidos", "Perfil", "Aeropuerto", "Email", "Estado", "Tipo de Documento", "Nro de Documento", "IdUsuario"
             }
         ));
         jScrollPane1.setViewportView(UsuarioTabla);
+        UsuarioTabla.getColumnModel().getColumn(8).setMinWidth(0);
+        UsuarioTabla.getColumnModel().getColumn(8).setPreferredWidth(0);
+        UsuarioTabla.getColumnModel().getColumn(8).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -356,12 +359,17 @@ public void llenarcomboPerfiles(){
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
 
-        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
-        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
-        
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         usuarioAgregarGUI.setVisible(true);
-        usuarioAgregarGUI.setBandera(0);
+        
+        
+//        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+//        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
+//        
+//        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
+//        usuarioAgregarGUI.setVisible(true);
+//        usuarioAgregarGUI.setBandera(0);
+//        usuarioAgregarGUI.showDialog();
         //usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
         
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -394,6 +402,7 @@ public void llenarcomboPerfiles(){
            datos[5] = listaUsuarios.get(i).getEstado();
            datos[6] = listaUsuarios.get(i).getIdCliente().getTipoDoc();
            datos[7] = listaUsuarios.get(i).getIdCliente().getNumDoc();
+           datos[8] = listaUsuarios.get(i).getIdUsuario();
            
            dtm.addRow(datos);
        }
@@ -407,10 +416,11 @@ public void llenarcomboPerfiles(){
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
         Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(); 
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
         usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
+        usuarioAgregarGUI.showDialog();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
