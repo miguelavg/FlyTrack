@@ -124,7 +124,7 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
 
     private void aeropuertoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoButtonActionPerformed
         // TODO add your handling code here:
-        AeropuertoPopup aeropuerto = new AeropuertoPopup(this,true);
+        Aeropuerto aeropuerto = new Aeropuerto();
         aeropuerto.setVisible(true);
        
     }//GEN-LAST:event_aeropuertoButtonActionPerformed
