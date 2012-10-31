@@ -7,6 +7,7 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
@@ -29,7 +30,7 @@ public class CUsuario {
     public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
                 Parametro estado,Integer numAcceso, boolean PrimerAcceso){
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         try {
@@ -62,7 +63,7 @@ public class CUsuario {
     
      public List<Usuario> Buscar(Integer idperfil, Integer idaeropuerto,Integer idcliente,Integer Estado)
     {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Usuario> ListaUsuarios;
         
@@ -81,8 +82,7 @@ public class CUsuario {
            Filter f5 = s.enableFilter("UsuarioxEstado");
            f5.setParameter("estado",Estado);
            ListaUsuarios= q.list();
-           
-           
+
            return ListaUsuarios;
                       
         }
@@ -94,11 +94,10 @@ public class CUsuario {
         }
         
         return null;
-        
     }
      
          public Usuario BuscarXid(int id){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
           Usuario CUsuario = new Usuario();
         
@@ -123,7 +122,7 @@ public class CUsuario {
          public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
                 Parametro estado){
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession( );
         
         try {
@@ -152,5 +151,4 @@ public class CUsuario {
         }
         
     }
-    
 }
