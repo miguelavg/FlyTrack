@@ -133,19 +133,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombre">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Claudio"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pizarro Taipe"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumDoc">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="txtNumDoc"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
@@ -161,7 +152,9 @@
         <Component class="javax.swing.JComboBox" name="cboTipoDoc">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="1">
+                <StringItem index="0" value="Seleccionar"/>
+              </StringArray>
             </Property>
           </Properties>
         </Component>

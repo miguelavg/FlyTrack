@@ -41,7 +41,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
     
     public void cargartabla(){
     
-        Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
+//        Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
         List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
         int rows=dtm.getRowCount();
@@ -93,12 +93,6 @@ public class ClientesPopUp extends javax.swing.JDialog {
 
         jLabel5.setText("Número Doc:");
 
-        txtNombre.setText("Claudio");
-
-        txtApellido.setText("Pizarro Taipe");
-
-        txtNumDoc.setText("txtNumDoc");
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +100,8 @@ public class ClientesPopUp extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
+
+        cboTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -248,7 +244,16 @@ public class ClientesPopUp extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         //        DefaultComboBoxModel dtcbotipodoc = (DefaultComboBoxModel) this.cboTipoDoc.getModel();
-        Parametro TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
+        Parametro TipoDoc;
+        if(cboTipoDoc.getSelectedIndex()!=0){
+        
+            TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
+            
+        }
+        else {
+            TipoDoc=null;
+        }
+        
         List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
 
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
