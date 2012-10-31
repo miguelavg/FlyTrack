@@ -47,7 +47,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         administracionButton = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         administracionButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -61,11 +61,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setTitle("FlyTrack");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         envioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
         envioButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,15 +92,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel6.setText("Salir");
+        jLabel6.setText("Cerrar Sesión");
 
         administracionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte48x48.png"))); // NOI18N
         administracionButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +145,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(administracionButton3)
@@ -174,7 +169,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel5))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnSalir)
+                        .addComponent(btnCerrar)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel6)))
                 .addGap(300, 300, 300))
@@ -220,8 +215,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCerrar))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         jLabel3.setText("Copyleft (l). Todos los derechos compartidos.");
@@ -278,22 +273,18 @@ public class PrincipalFrame extends javax.swing.JFrame {
         reporteFrame.setVisible(true);
     }//GEN-LAST:event_administracionButton2ActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
+        Login login = new Login();
+        login.setVisible(Boolean.TRUE);
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void administracionButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton4ActionPerformed
         // TODO add your handling code here:
         MenuSeguridadFrame menuSeguridad = new MenuSeguridadFrame();
         menuSeguridad.setVisible(true);
     }//GEN-LAST:event_administracionButton4ActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        Login login = new Login();
-        login.setVisible(Boolean.TRUE);
-    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -341,7 +332,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JButton administracionButton2;
     private javax.swing.JButton administracionButton3;
     private javax.swing.JButton administracionButton4;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton envioButton;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
