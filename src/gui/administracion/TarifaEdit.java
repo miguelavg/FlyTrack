@@ -4,17 +4,23 @@
  */
 package gui.administracion;
 
+import controllers.CTarifa;
+import gui.clientes.ClientesEdit;
+
 /**
  *
  * @author joao
  */
-public class TarifaEdit extends javax.swing.JFrame {
+public class TarifaEdit extends javax.swing.JDialog {
 
     /**
      * Creates new form TarifaEdit
      */
-    public TarifaEdit() {
+    CTarifa TarifaBL = new CTarifa();
+    public TarifaEdit(javax.swing.JDialog parent, boolean modal,int id) {
+        super(parent, modal);
         initComponents();
+        
     }
 
     /**
@@ -48,7 +54,7 @@ public class TarifaEdit extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -284,7 +290,10 @@ public class TarifaEdit extends javax.swing.JFrame {
     private void a_origen6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_origen6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_a_origen6ActionPerformed
-
+    public int showDialog(){
+            setVisible(true);
+            return 1;
+    }
     /**
      * @param args the command line arguments
      */
@@ -315,7 +324,16 @@ public class TarifaEdit extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TarifaEdit().setVisible(true);
+                TarifaEdit dialog = new TarifaEdit(new javax.swing.JDialog(), true,-1);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+                
+                
             }
         });
     }

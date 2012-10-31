@@ -61,8 +61,17 @@ public class CAeropuerto {
 //      
         
     }
-    public static void agregarAeropuerto(Aeropuerto ObjAeropuerto){
-        
+    public static void agregarAeropuerto(
+                int Capacidad,
+                int CapacidadAct,
+                Parametro Ciudad,
+                int X,
+                int Y,
+                Parametro Estado,
+                String Nombre,
+                Parametro Pais){
+               
+               
         
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
@@ -75,7 +84,20 @@ public class CAeropuerto {
 //            Parametro pCiudad;            
 //            Parametro pPais;
             
-            int i = (Integer)s.save(ObjAeropuerto);
+ 
+            Aeropuerto objAeropuerto = new Aeropuerto();
+               
+               objAeropuerto.setCapacidadMax(Capacidad);
+               objAeropuerto.setCapacidadActual(CapacidadAct);
+               objAeropuerto.setCiudad(Ciudad);
+               objAeropuerto.setCoordX(X);
+               objAeropuerto.setCoordY(Y);
+               objAeropuerto.setEstado(Estado);
+               objAeropuerto.setNombre(Nombre);
+               objAeropuerto.setPais(Pais);
+      
+            
+            int i = (Integer)s.save(objAeropuerto);
             
             tx.commit();
             

@@ -250,18 +250,18 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
         beans.Aeropuerto objAeropuerto = new beans.Aeropuerto();
         
-        objAeropuerto.setCapacidadActual(5565);
-        objAeropuerto.setCapacidadMax(45454);
-        objAeropuerto.setCiudad(ListatipoEst.get(cbm_pais.getSelectedIndex()));
-        objAeropuerto.setCoordX(324);
-        objAeropuerto.setCoordY(323);
-        objAeropuerto.setEstado(ListatipoEst.get(cbm_estado.getSelectedIndex()));
-        objAeropuerto.setNombre(txt_Nombre.getText());
-        objAeropuerto.setPais(ListatipoEst.get(cbm_pais.getSelectedIndex()));
-        
+         
 
-        CAeropuerto.agregarAeropuerto(objAeropuerto);
-        
+        CAeropuerto.agregarAeropuerto(
+                Integer.parseInt(txt_capacidad.getText()),
+                0,
+                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()),
+                Integer.parseInt(txt_X.getText()),
+                Integer.parseInt(txt_Y.getText()),
+                ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                txt_Nombre.getText(),
+                ListatipoPar.get(cbm_pais.getSelectedIndex()));
+     
         this.dispose();
         
         
