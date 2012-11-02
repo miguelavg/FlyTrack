@@ -142,7 +142,7 @@ public class MenuSeguridadFrame extends javax.swing.JFrame {
 
     private void simulacionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton3ActionPerformed
         // TODO add your handling code here:
-        gui.administracion.ParametroFrame parametro = new gui.administracion.ParametroFrame();
+        gui.administracion.ParametroDialog parametro = new gui.administracion.ParametroDialog();
         parametro.setVisible(true);
     }//GEN-LAST:event_simulacionButton3ActionPerformed
 
