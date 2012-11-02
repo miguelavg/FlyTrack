@@ -4,7 +4,7 @@
  */
 package flytrack;
 
-import gui.principal.PrincipalFrame;
+import gui.principal.Login;
 
 
 /**
@@ -17,7 +17,7 @@ public class FlyTrack {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        PrincipalFrame principal = new PrincipalFrame();
-        principal.setVisible(true);
+        Login login = new Login();
+        login.setVisible(true);
     }
 }
