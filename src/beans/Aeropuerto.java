@@ -31,50 +31,37 @@ import org.hibernate.annotations.ParamDef;
 @NamedQueries({
     @NamedQuery(name = "Aero",
     query = "from Aeropuerto "),
-    
     @NamedQuery(name = "Aeropuertos",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
-    
     @NamedQuery(name = "AeropuertosXPais",
     query = "from Aeropuerto a where a.pais = :pais and estado.valorUnico = 'ACTV'"),
-  
-    @NamedQuery(name = "ParametrosXCiudad",        
+    @NamedQuery(name = "ParametrosXCiudad",
     query = "from Aeropuerto a where a.ciudad = :ciudad and estado.valorUnico = 'ACTV'"),
-    
-    @NamedQuery(name = "AeropuertosxID",  
-    query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")   
-        
-        
+    @NamedQuery(name = "AeropuertosxID",
+    query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")
 })
 @FilterDefs({
     @FilterDef(name = "ParametroHijosXTipo",
     parameters =
     @ParamDef(name = "tipo", type = "string")),
-        
     @FilterDef(name = "AeropuertoxPais",
     parameters =
     @ParamDef(name = "Pais", type = "integer")),
-    
     @FilterDef(name = "AeropuertoxEstado",
     parameters =
     @ParamDef(name = "Estado", type = "integer")),
-    
     @FilterDef(name = "AeropuertoxCiudad",
     parameters =
     @ParamDef(name = "Ciudad", type = "integer")),
-                      
+    @FilterDef(name = "VuelosXAeropuerto", parameters = {
+        @ParamDef(name = "upper", type = "date"),
+        @ParamDef(name = "lower", type = "date")
+    })
 })
 @Filters({
-    
     @Filter(name = "AeropuertoxPais", condition = "UPPER(pais) = UPPER(:Pais)"),
-    
     @Filter(name = "AeropuertoxEstado", condition = "estado = :Estado"),
-    
-    @Filter(name = "AeropuertoxCiudad", condition = "UPPER(ciudad) = UPPER(:Ciudad)"),
-      
-})
-
-
+    @Filter(name = "AeropuertoxCiudad", condition = "UPPER(ciudad) = UPPER(:Ciudad)"),})
 public class Aeropuerto implements Serializable {
 
     @Id
@@ -95,7 +82,7 @@ public class Aeropuerto implements Serializable {
     @JoinColumn(name = "Estado")
     private Parametro estado;
     @OneToMany(mappedBy = "origen")
-    private List<Vuelo> vuelosSalida;   
+    private List<Vuelo> vuelosSalida;
     @OneToMany(mappedBy = "destino")
     private List<Vuelo> vuelosLlegada;
     @OneToMany(mappedBy = "actual")
@@ -205,5 +192,4 @@ public class Aeropuerto implements Serializable {
     public void setCoordY(int coordY) {
         this.coordY = coordY;
     }
-    
 }

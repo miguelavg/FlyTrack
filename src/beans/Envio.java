@@ -7,6 +7,7 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -86,7 +87,7 @@ public class Envio implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idDestinatario")
     private Cliente destinatario;
-    @OneToMany(mappedBy = "envio")
+    @OneToMany(mappedBy = "envio", cascade={CascadeType.ALL})
     private List<Escala> escalas;
 
     public Envio() {
