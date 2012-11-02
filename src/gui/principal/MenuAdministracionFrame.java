@@ -7,6 +7,7 @@ package gui.principal;
 import gui.administracion.tarifas.TarifaFrame;
 import gui.administracion.vuelos.Vuelos;
 import gui.administracion.aeropuertos.Aeropuerto;
+import gui.administracion.tipocambio.TipoCambioDialog;
 import gui.clientes.ClientesPopUp;
 import gui.seguridad.parametros.ParametroDialog;
 
@@ -14,7 +15,7 @@ import gui.seguridad.parametros.ParametroDialog;
  *
  * @author ronald
  */
-public class MenuAdministracionFrame extends javax.swing.JFrame {
+public class MenuAdministracionFrame extends javax.swing.JDialog {
 
     /**
      * Creates new form MenuAdministracionFrame
@@ -42,6 +43,7 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
         tarifaButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
 
         tarifaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa48x48.png"))); // NOI18N
         tarifaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -161,8 +163,8 @@ public class MenuAdministracionFrame extends javax.swing.JFrame {
 
     private void tarifaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarifaButton1ActionPerformed
         // TODO add your handling code here:
-        ParametroDialog parametroDialog = new ParametroDialog();
-        parametroDialog.setVisible(true);
+        TipoCambioDialog tipoCambioDialog = new TipoCambioDialog();
+        tipoCambioDialog.setVisible(true);
     }//GEN-LAST:event_tarifaButton1ActionPerformed
 
     /**
