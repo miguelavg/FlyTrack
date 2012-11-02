@@ -355,7 +355,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+          // TODO add your handling code here:
         Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
 
         if (idusuario==-1){
@@ -373,10 +373,15 @@ public class UsuarioEdit extends javax.swing.JDialog {
         else{
         txtCliente.setVisible(false);
         //getidusuario()
+        Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
+        
         Usuario.modificarUsuario(idusuario, 
                 perfil, 
-                AeropuertoAux, 
-                ClienteAux, txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem());
+                UsuarioBE.getIdAeropuerto(),
+                //AeropuertoAux, 
+                UsuarioBE.getIdCliente(),
+                //ClienteAux, 
+                txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem());
 
 //                CUsuario.agregarUsuario(
 //                        ClienteAux.getIdCliente(),
