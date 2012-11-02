@@ -52,9 +52,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         return bandera;
     }
     
-    
-    
-    
     public UsuarioEdit(javax.swing.JDialog parent, boolean modal,int id) {
         super(parent, modal);
         initComponents();
@@ -274,31 +271,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//    public void llenarcomboTipoDoc(){
-//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-//        Session s = sf.openSession();
-//        try {
-//            Transaction tx = s.beginTransaction();
-//            Query q;
-//            
-//            q = s.getNamedQuery("ParametrosXTipo");
-//            q.setParameter("tipo", "TIPO_DOC");
-//            ListaTipoDoc = q.list();
-////                        
-//            }
-//        catch(Exception e){
-//            System.out.println(e.getMessage());
-//                }
-//        finally {
-//            s.close();
-//        }
-//        for (int i=0;i<ListaTipoDoc.size();i++)
-//        {
-//            Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
-//            
-//            cboTipoDoc.addItem(TipoDocBE);
-//        }
-//    }
     
     public void cargarcampos(){
     
@@ -328,9 +300,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                
                }
            }
-//           
-//           cboPais.setSelectedItem(ClienteBE.getPais());
-//           cboTipoDoc.setSelectedItem(ClienteBE.getTipoDoc());    
+
     }
     
     public void llenarcomboEstado(){
@@ -387,17 +357,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
-//        Aeropuerto aeropuerto=new  Aeropuerto() ;  // aeropuerto.getIdAeropuerto()
-//        Parametro param= new Parametro();
-//        
-//        aeropuerto.setNombre("Aeropuerto 01");
-//        aeropuerto.setCiudad(param.);
-//        aeropuerto.setPais(3);
-//        aeropuerto.setEstado(estado);
-//        aeropuerto.setCapacidadActual(ABORT);
-//        aeropuerto.setCapacidadMax(WIDTH);
-//        aeropuerto.setCoordX(WIDTH);
-//        aeropuerto.setCoordY(WIDTH);
+
         if (idusuario==-1){
                 Usuario.agregarUsuario(perfil, 
                 AeropuertoAux,
@@ -468,6 +428,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
         usuarioAeropuertoPopUp.setVisible(true);
          AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
+         txtAeropuerto.setText(AeropuertoAux.getNombre());
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
     private void cboPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPerfilActionPerformed

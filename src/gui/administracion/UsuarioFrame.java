@@ -279,31 +279,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//public void llenarcomboTipoDoc(){
-//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-//        Session s = sf.openSession();
-//        try {
-//            Transaction tx = s.beginTransaction();
-//            Query q;
-//            
-//            q = s.getNamedQuery("ParametrosXTipo");
-//            q.setParameter("tipo", "TIPO_DOC");
-//            ListaTipoDoc = q.list();
-////                        
-//            }
-//        catch(Exception e){
-//            System.out.println(e.getMessage());
-//                }
-//        finally {
-//            s.close();
-//        }
-//        for (int i=0;i<ListaTipoDoc.size();i++)
-//        {
-//            Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
-//            
-//            cboTipoDoc.addItem(TipoDocBE);
-//        }
-//    }
+
     
 public void llenarcomboEstado(){
         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
@@ -361,17 +337,7 @@ public void llenarcomboPerfiles(){
 
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         usuarioAgregarGUI.setVisible(true);
-        
-        
-//        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
-//        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
-//        
-//        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
-//        usuarioAgregarGUI.setVisible(true);
-//        usuarioAgregarGUI.setBandera(0);
-//        usuarioAgregarGUI.showDialog();
-        //usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
-        
+     
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
