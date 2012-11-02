@@ -116,7 +116,7 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         pnl_titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbl_titulo.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
+        lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tipocambio48x48.png"))); // NOI18N
         lbl_titulo.setText("Tipos de cambio");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
