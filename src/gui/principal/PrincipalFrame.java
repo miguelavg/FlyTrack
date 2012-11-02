@@ -11,6 +11,7 @@ import gui.administracion.aeropuertos.Aeropuerto;
 import gui.envios.EnvioDialog;
 import gui.reportes.ReporteFrame;
 import gui.administracion.vuelos.Vuelos;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 /**
@@ -28,6 +29,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     } catch (Exception e) { }
         
         initComponents();
+        setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagenes/logo.png")).getImage());
     }
 
     /**
