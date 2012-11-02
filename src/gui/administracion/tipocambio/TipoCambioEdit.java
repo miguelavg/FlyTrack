@@ -4,11 +4,13 @@
  */
 package gui.administracion.tipocambio;
 
-import gui.seguridad.parametros.*;
 import beans.Parametro;
+import beans.TipoCambio;
 import controllers.CParametro;
+import controllers.CTipoCambio;
 import gui.ErrorDialog;
-import javax.swing.JOptionPane;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,43 +21,57 @@ public class TipoCambioEdit extends javax.swing.JDialog {
     /**
      * Creates new form TipoCambioEdit
      */
-    public TipoCambioEdit(Parametro parametro, javax.swing.JDialog parent, boolean modal) {
+    public TipoCambioEdit(TipoCambio tipoCambio, javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.isNuevo = true;
-        this.parametro = null;
-        
-        if (parametro != null) {
-            this.txt_valor.setText(parametro.getValor());
-            this.txt_valorUnico.setText(parametro.getValorUnico());
-            this.txt_tipo.setText(parametro.getTipo());
-            this.padre = parametro.getPadre();
+        this.tipoCambio = null;
+       
+        if (tipoCambio != null) {
+            this.txt_tipocambio.setText(Double.toString(tipoCambio.getTipoCambio()));
+            llenarCombos(tipoCambio.getMonedaOrigen(), tipoCambio.getMonedaDestino());
+            this.txt_fecha.setText(tipoCambio.getFechaActualizacion().toString());
 
-            if (parametro.getPadre() == null) {
-                this.txt_padre.setText("");
-            } else {
-                this.txt_padre.setText(parametro.getPadre().getValor() + " : " + parametro.getPadre().getTipo());
-            }
-
-            this.cb_estado.setSelected(parametro.isEstado());
-            this.parametro = parametro;
+            this.tipoCambio = tipoCambio;
             this.isNuevo = false;
-            this.txt_tipo.setEnabled(false);
-            this.txt_valorUnico.setEnabled(false);
         } else {
-            this.parametro = new Parametro();
+            this.tipoCambio = new TipoCambio();
+            llenarCombos(null, null);
         }
     }
-    private Parametro parametro;
-    private Parametro padre;
+    private TipoCambio tipoCambio;
+    private Parametro monedaOrigen;
+    private Parametro monedaDestino;
     private boolean isNuevo;
 
-    public Parametro showDialog() {
+    public TipoCambio showDialog() {
         setVisible(true);
         if (this.isNuevo) {
-            return this.parametro;
+            return this.tipoCambio;
         } else {
             return null;
+        }
+    }
+
+    private void llenarCombos(Parametro origen, Parametro destino) {
+        CParametro cparametro = new CParametro();
+        List<Parametro> monedas = cparametro.buscar(null, null, "TIPO_MONEDA", null);
+
+        if (monedas == null) {
+            return;
+        }
+
+        for (Parametro p : monedas) {
+            this.cmb_origen.addItem(p);
+            this.cmb_destino.addItem(p);
+            
+            if(origen != null && p.getIdParametro() == origen.getIdParametro()){
+                this.cmb_origen.setSelectedItem(p);
+            }
+            
+            if(destino != null && p.getIdParametro() == destino.getIdParametro()){
+                this.cmb_destino.setSelectedItem(p);
+            }
         }
     }
 
@@ -73,19 +89,16 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         pnl_titulo = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lbl_padre = new javax.swing.JLabel();
-        lbl_estado = new javax.swing.JLabel();
-        lbl_valor = new javax.swing.JLabel();
-        txt_valorUnico = new javax.swing.JTextField();
-        txt_padre = new javax.swing.JTextField();
-        lbl_valorUnico = new javax.swing.JLabel();
-        lbl_tipo = new javax.swing.JLabel();
-        txt_valor = new javax.swing.JTextField();
-        cb_estado = new javax.swing.JCheckBox();
-        btn_padre1 = new javax.swing.JButton();
+        lbl_fecha = new javax.swing.JLabel();
+        lbl_tipocambio = new javax.swing.JLabel();
+        txt_fecha = new javax.swing.JTextField();
+        lbl_monedaDestino = new javax.swing.JLabel();
+        lbl_monedaOrigen = new javax.swing.JLabel();
+        txt_tipocambio = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
-        txt_tipo = new javax.swing.JTextField();
+        cmb_origen = new javax.swing.JComboBox();
+        cmb_destino = new javax.swing.JComboBox();
 
         btn_padre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btn_padre.addActionListener(new java.awt.event.ActionListener() {
@@ -97,22 +110,22 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Parámetros");
+        setTitle("Tipos de cambio");
 
         pnl_titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbl_titulo.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
-        lbl_titulo.setText("Parametros");
+        lbl_titulo.setText("Tipos de cambio");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
         pnl_tituloLayout.setHorizontalGroup(
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_tituloLayout.createSequentialGroup()
-                .addGap(282, 282, 282)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_tituloLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_titulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(205, 205, 205))
         );
         pnl_tituloLayout.setVerticalGroup(
             pnl_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,31 +137,16 @@ public class TipoCambioEdit extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lbl_padre.setText("Padre:");
+        lbl_fecha.setText("Fecha actualiz.:");
 
-        lbl_estado.setText("Estado:");
+        lbl_tipocambio.setText("Tipo de cambio:");
 
-        lbl_valor.setText("Valor:");
+        txt_fecha.setEditable(false);
+        txt_fecha.setEnabled(false);
 
-        txt_padre.setEditable(false);
+        lbl_monedaDestino.setText("Moneda destino:");
 
-        lbl_valorUnico.setText("Valor Único:");
-
-        lbl_tipo.setText("Tipo:");
-
-        cb_estado.setSelected(true);
-        cb_estado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_estadoActionPerformed(evt);
-            }
-        });
-
-        btn_padre1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        btn_padre1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_padre1ActionPerformed(evt);
-            }
-        });
+        lbl_monedaOrigen.setText("Moneda origen:");
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.png"))); // NOI18N
         btn_guardar.setText("Guardar");
@@ -166,6 +164,15 @@ public class TipoCambioEdit extends javax.swing.JDialog {
             }
         });
 
+        cmb_origen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cmb_origen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_origenActionPerformed(evt);
+            }
+        });
+
+        cmb_destino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -174,31 +181,23 @@ public class TipoCambioEdit extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbl_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbl_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txt_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_padre1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbl_tipocambio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(txt_tipocambio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_monedaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cb_estado)
-                    .addComponent(txt_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmb_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbl_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbl_monedaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmb_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(232, 232, 232)
@@ -212,30 +211,21 @@ public class TipoCambioEdit extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_valorUnico)
-                            .addComponent(lbl_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_padre1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cb_estado)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(lbl_tipocambio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_tipocambio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmb_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_monedaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_monedaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,15 +264,23 @@ public class TipoCambioEdit extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        CParametro cparametro = new CParametro();
-        String error_message = cparametro.validar(this.parametro, isNuevo, this.txt_valor.getText(), this.txt_valorUnico.getText(), this.txt_tipo.getText());
+        monedaOrigen = null;
+        monedaDestino = null;
+        if (cmb_origen.getSelectedIndex() > 0) {
+            monedaOrigen = (Parametro) cmb_origen.getSelectedItem();
+        }
+        if (cmb_destino.getSelectedIndex() > 0) {
+            monedaDestino = (Parametro) cmb_destino.getSelectedItem();
+        }
+
+        CTipoCambio ctipocambio = new CTipoCambio();
+        String error_message = ctipocambio.validar(this.tipoCambio, isNuevo, this.txt_tipocambio.getText(), this.monedaOrigen, this.monedaDestino);
         if (error_message == null || error_message.isEmpty()) {
-            this.parametro.setValor(txt_valor.getText());
-            this.parametro.setValorUnico(txt_valorUnico.getText());
-            this.parametro.setTipo(txt_tipo.getText());
-            this.parametro.setEstado(cb_estado.isSelected());
-            this.parametro.setPadre(this.padre);
-            cparametro.guardar(this.parametro);
+            this.tipoCambio.setTipoCambio(Double.parseDouble(this.txt_tipocambio.getText()));
+            this.tipoCambio.setMonedaOrigen(this.monedaOrigen);
+            this.tipoCambio.setMonedaDestino(this.monedaDestino);
+            this.tipoCambio.setFechaActualizacion(new Date());
+            ctipocambio.guardar(this.tipoCambio);
             this.setVisible(false);
             this.dispose();
         } else {
@@ -290,21 +288,9 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
-    private void btn_padre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_padre1ActionPerformed
+    private void cmb_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_origenActionPerformed
         // TODO add your handling code here:
-        ParametroPopup parametroPopup = new ParametroPopup(this, true);
-        padre = parametroPopup.showDialog();
-
-        if (padre != null) {
-            txt_padre.setText(padre.getValor() + " : " + padre.getTipo());
-        } else {
-            txt_padre.setText("");
-        }
-    }//GEN-LAST:event_btn_padre1ActionPerformed
-
-    private void cb_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_estadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_estadoActionPerformed
+    }//GEN-LAST:event_cmb_origenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,21 +329,18 @@ public class TipoCambioEdit extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_padre;
-    private javax.swing.JButton btn_padre1;
     private javax.swing.JButton btn_regresar;
-    private javax.swing.JCheckBox cb_estado;
+    private javax.swing.JComboBox cmb_destino;
+    private javax.swing.JComboBox cmb_origen;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JLabel lbl_estado;
-    private javax.swing.JLabel lbl_padre;
-    private javax.swing.JLabel lbl_tipo;
+    private javax.swing.JLabel lbl_fecha;
+    private javax.swing.JLabel lbl_monedaDestino;
+    private javax.swing.JLabel lbl_monedaOrigen;
+    private javax.swing.JLabel lbl_tipocambio;
     private javax.swing.JLabel lbl_titulo;
-    private javax.swing.JLabel lbl_valor;
-    private javax.swing.JLabel lbl_valorUnico;
     private javax.swing.JPanel pnl_titulo;
-    private javax.swing.JTextField txt_padre;
-    private javax.swing.JTextField txt_tipo;
-    private javax.swing.JTextField txt_valor;
-    private javax.swing.JTextField txt_valorUnico;
+    private javax.swing.JTextField txt_fecha;
+    private javax.swing.JTextField txt_tipocambio;
     // End of variables declaration//GEN-END:variables
 }

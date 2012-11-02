@@ -123,7 +123,7 @@ public class ParametroEdit extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lbl_padre.setText("Padre:");
+        lbl_padre.setText("Padre (opcional):");
 
         lbl_estado.setText("Estado:");
 

@@ -14,6 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
@@ -21,6 +28,28 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "TipoCambio")
+@NamedQueries({
+    @NamedQuery(name = "TiposCambio",
+    query = "from TipoCambio"),
+    @NamedQuery(name = "TiposCambioXId",
+    query = "from TipoCambio where idTipoCambio = :id"),
+    @NamedQuery(name = "TiposCambioXMoneda",
+    query = "from TipoCambio where monedaOrigen.idParametro = :idMoneda"),
+    @NamedQuery(name = "TiposCambioXMonedas",
+    query = "from TipoCambio where monedaOrigen.idParametro = :idMonedaOrigen and monedaDestino.idParametro = :idMonedaDestino")
+})
+@FilterDefs({
+    @FilterDef(name = "TiposCambioXOrigen",
+    parameters =
+    @ParamDef(name = "idMoneda", type = "integer")),
+    @FilterDef(name = "TiposCambioXDestino",
+    parameters =
+    @ParamDef(name = "idMoneda", type = "integer"))
+})
+@Filters({
+    @Filter(name = "TiposCambioXOrigen", condition = "MonedaOrigen = :idMoneda"),
+    @Filter(name = "TiposCambioXDestino", condition = "MonedaDestino = :idMoneda")
+})
 public class TipoCambio implements Serializable {
 
     @Id

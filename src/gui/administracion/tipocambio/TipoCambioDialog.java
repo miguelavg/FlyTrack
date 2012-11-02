@@ -4,9 +4,10 @@
  */
 package gui.administracion.tipocambio;
 
-import gui.seguridad.parametros.*;
 import beans.Parametro;
+import beans.TipoCambio;
 import controllers.CParametro;
+import controllers.CTipoCambio;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,38 +22,48 @@ public class TipoCambioDialog extends javax.swing.JDialog {
      */
     public TipoCambioDialog() {
         initComponents();
+        llenarCombos();
     }
-    private Parametro padre;
-
-    private void llenarLineaTabla(Parametro p, DefaultTableModel dtm) {
-        Object[] datos = new Object[6];
-        datos[0] = p.getIdParametro();
-        datos[1] = p.getValor();
-        datos[2] = p.getValorUnico();
-        datos[3] = p.getTipo();
-        if (p.getPadre() == null) {
-            datos[4] = "";
-        } else {
-            datos[4] = p.getPadre() + " : " + p.getPadre().getTipo();
+    private Parametro origen;
+    private Parametro destino;
+    
+    private void llenarCombos(){
+        CParametro cparametro = new CParametro();
+        List<Parametro> monedas =  cparametro.buscar(null, null, "TIPO_MONEDA", null);        
+        
+        if (monedas == null) {
+            return;
         }
+        
+        for(Parametro p: monedas){
+            this.cmb_origen.addItem(p);
+            this.cmb_destino.addItem(p);
+        }
+    }
 
-        datos[5] = p.isEstado() ? "Activo" : "Inactivo";
+    private void llenarLineaTabla(TipoCambio t, DefaultTableModel dtm) {
+        Object[] datos = new Object[5];
+        datos[0] = t.getIdTipoCambio();
+        datos[1] = t.getMonedaOrigen().getValor();
+        datos[2] = t.getMonedaDestino().getValor();
+        datos[3] = t.getTipoCambio();
+        datos[4] = t.getFechaActualizacion();
         dtm.addRow(datos);
     }
 
-    private void llenarTablaParametro(List<Parametro> params) {
-        DefaultTableModel dtm = (DefaultTableModel) tbl_parametros.getModel();
+    private void llenarTablaParametro(List<TipoCambio> tipos) {
+        DefaultTableModel dtm = (DefaultTableModel) tbl_tiposcambio.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
             dtm.removeRow(0);
         }
 
-        if (params == null) {
+        if (tipos == null) {
             return;
         }
 
-        for (Parametro p : params) {
-            llenarLineaTabla(p, dtm);
+        for (TipoCambio t : tipos) {
+            llenarLineaTabla(t, dtm);
         }
     }
 
@@ -72,22 +83,17 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         btn_modificar = new javax.swing.JButton();
         btn_agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_parametros = new javax.swing.JTable() {
+        tbl_tiposcambio = new javax.swing.JTable() {
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;
             }
         };
         jPanel3 = new javax.swing.JPanel();
-        lbl_valorUnico = new javax.swing.JLabel();
-        lbl_valor = new javax.swing.JLabel();
-        lbl_tipo = new javax.swing.JLabel();
-        lbl_padre = new javax.swing.JLabel();
-        txt_valor = new javax.swing.JTextField();
-        txt_valorUnico = new javax.swing.JTextField();
-        txt_padre = new javax.swing.JTextField();
-        txt_tipo = new javax.swing.JTextField();
+        lbl_moneda = new javax.swing.JLabel();
         btn_buscar = new javax.swing.JButton();
-        btn_padre = new javax.swing.JButton();
+        cmb_origen = new javax.swing.JComboBox();
+        lbl_destino = new javax.swing.JLabel();
+        cmb_destino = new javax.swing.JComboBox();
 
         btn_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btn_cliente.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +103,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Parámetros");
+        setTitle("Tipos de cambio");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -108,7 +114,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
         lbl_titulo.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
-        lbl_titulo.setText("Parametros");
+        lbl_titulo.setText("Tipos de cambio");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
@@ -145,19 +151,19 @@ public class TipoCambioDialog extends javax.swing.JDialog {
             }
         });
 
-        tbl_parametros.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_tiposcambio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Valor", "Valor Unico", "Tipo", " Padre", "Estado"
+                "Id", "Moneda origen", "Moneda destino", "Tipo de cambio", "Fecha de actualización"
             }
         ));
-        tbl_parametros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tbl_parametros);
-        tbl_parametros.getColumnModel().getColumn(0).setMinWidth(0);
-        tbl_parametros.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tbl_parametros.getColumnModel().getColumn(0).setMaxWidth(0);
+        tbl_tiposcambio.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tbl_tiposcambio);
+        tbl_tiposcambio.getColumnModel().getColumn(0).setMinWidth(0);
+        tbl_tiposcambio.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tbl_tiposcambio.getColumnModel().getColumn(0).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -188,15 +194,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lbl_valorUnico.setText("Valor único:");
-
-        lbl_valor.setText("Valor:");
-
-        lbl_tipo.setText("Tipo:");
-
-        lbl_padre.setText("Padre:");
-
-        txt_padre.setEditable(false);
+        lbl_moneda.setText("Moneda origen:");
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btn_buscar.setText("Buscar");
@@ -206,10 +204,19 @@ public class TipoCambioDialog extends javax.swing.JDialog {
             }
         });
 
-        btn_padre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        btn_padre.addActionListener(new java.awt.event.ActionListener() {
+        cmb_origen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cmb_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_padreActionPerformed(evt);
+                cmb_origenActionPerformed(evt);
+            }
+        });
+
+        lbl_destino.setText("Moneda destino:");
+
+        cmb_destino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cmb_destino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_destinoActionPerformed(evt);
             }
         });
 
@@ -221,29 +228,15 @@ public class TipoCambioDialog extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lbl_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lbl_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbl_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lbl_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lbl_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cmb_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmb_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(276, 276, 276)
+                        .addGap(274, 274, 274)
                         .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -252,18 +245,10 @@ public class TipoCambioDialog extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_valorUnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_padre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -276,9 +261,11 @@ public class TipoCambioDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnl_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(pnl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -298,70 +285,67 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        CParametro cparametro = new CParametro();
-        List<Parametro> parametros = cparametro.buscar(txt_valor.getText(), txt_valorUnico.getText(), txt_tipo.getText(), this.padre);
-        llenarTablaParametro(parametros);
+        origen = null;
+        destino = null;
+        if (cmb_origen.getSelectedIndex() > 0) {
+            origen = (Parametro) cmb_origen.getSelectedItem();
+        }
+        if (cmb_destino.getSelectedIndex() > 0) {
+            destino = (Parametro) cmb_destino.getSelectedItem();
+        }
+        CTipoCambio ctipocambio = new CTipoCambio();
+        List<TipoCambio> tipos = ctipocambio.buscar(this.origen, this.destino);
+        llenarTablaParametro(tipos);
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_clienteActionPerformed
 
-    private void btn_padreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_padreActionPerformed
-        // TODO add your handling code here:
-        ParametroPopup parametroPopup = new ParametroPopup(this, true);
-        padre = parametroPopup.showDialog();
-
-        if (padre != null) {
-            txt_padre.setText(padre.getValor() + " : " + padre.getTipo());
-        } else {
-            txt_padre.setText("");
-        }
-    }//GEN-LAST:event_btn_padreActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        CParametro cparametro = new CParametro();
-        List<Parametro> parametros = cparametro.buscar(null, null, null, null);
-        llenarTablaParametro(parametros);
+        CTipoCambio ctipocambio = new CTipoCambio();
+        List<TipoCambio> tipos = ctipocambio.buscar(null, null);
+        llenarTablaParametro(tipos);
     }//GEN-LAST:event_formWindowOpened
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
-        TipoCambioEdit parametroEdit = new TipoCambioEdit(null, this, true);
-        Parametro nParametro = parametroEdit.showDialog();
+        TipoCambioEdit tipoCambioEdit = new TipoCambioEdit(null, this, true);
+        TipoCambio nTipoCambio = tipoCambioEdit.showDialog();
 
-        if (nParametro != null) {
-            llenarLineaTabla(nParametro, (DefaultTableModel) tbl_parametros.getModel());
+        if (nTipoCambio != null) {
+            llenarLineaTabla(nTipoCambio, (DefaultTableModel) tbl_tiposcambio.getModel());
         }
 
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        CParametro cparametro = new CParametro();
-        int fila = tbl_parametros.getSelectedRow();
+        CTipoCambio ctipocambio = new CTipoCambio();
+        int fila = tbl_tiposcambio.getSelectedRow();
         if (fila > -1) {
-            int id = (Integer) tbl_parametros.getValueAt(fila, 0);
-            Parametro parametro = cparametro.buscarId(id);
+            int id = (Integer) tbl_tiposcambio.getValueAt(fila, 0);
+            TipoCambio tipoCambio = ctipocambio.buscarId(id);
 
-            TipoCambioEdit parametroEdit = new TipoCambioEdit(parametro, this, true);
+            TipoCambioEdit parametroEdit = new TipoCambioEdit(tipoCambio, this, true);
             parametroEdit.showDialog();
 
-            tbl_parametros.setValueAt(parametro.getValor(), fila, 1);
-            tbl_parametros.setValueAt(parametro.getValorUnico(), fila, 2);
-            tbl_parametros.setValueAt(parametro.getTipo(), fila, 3);
-
-            if (parametro.getPadre() == null) {
-                tbl_parametros.setValueAt("", fila, 4);
-            } else {
-                tbl_parametros.setValueAt(parametro.getPadre() + " : " + parametro.getPadre().getTipo(), fila, 4);
-            }
-            
-            tbl_parametros.setValueAt(parametro.isEstado() ? "Activo" : "Inactivo", fila, 5);
+            tbl_tiposcambio.setValueAt(tipoCambio.getMonedaOrigen().getValor(), fila, 1);
+            tbl_tiposcambio.setValueAt(tipoCambio.getMonedaDestino().getValor(), fila, 2);
+            tbl_tiposcambio.setValueAt(tipoCambio.getTipoCambio(), fila, 3);
+            tbl_tiposcambio.setValueAt(tipoCambio.getFechaActualizacion(), fila, 4);
         }
 
     }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void cmb_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_origenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_origenActionPerformed
+
+    private void cmb_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_destinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_destinoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,20 +386,15 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cliente;
     private javax.swing.JButton btn_modificar;
-    private javax.swing.JButton btn_padre;
+    private javax.swing.JComboBox cmb_destino;
+    private javax.swing.JComboBox cmb_origen;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_padre;
-    private javax.swing.JLabel lbl_tipo;
+    private javax.swing.JLabel lbl_destino;
+    private javax.swing.JLabel lbl_moneda;
     private javax.swing.JLabel lbl_titulo;
-    private javax.swing.JLabel lbl_valor;
-    private javax.swing.JLabel lbl_valorUnico;
     private javax.swing.JPanel pnl_titulo;
-    private javax.swing.JTable tbl_parametros;
-    private javax.swing.JTextField txt_padre;
-    private javax.swing.JTextField txt_tipo;
-    private javax.swing.JTextField txt_valor;
-    private javax.swing.JTextField txt_valorUnico;
+    private javax.swing.JTable tbl_tiposcambio;
     // End of variables declaration//GEN-END:variables
 }

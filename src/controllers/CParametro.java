@@ -28,23 +28,23 @@ public class CParametro {
             Query q = s.getNamedQuery("ParametrosAdmin");
 
             if (valor != null && !valor.isEmpty()) {
-                Filter f_actual = s.enableFilter("ParametrosXValor");
-                f_actual.setParameter("valor", "%" + valor + "%");
+                Filter f_valor = s.enableFilter("ParametrosXValor");
+                f_valor.setParameter("valor", "%" + valor + "%");
             }
 
             if (valorUnico != null && !valorUnico.isEmpty()) {
-                Filter f_origen = s.enableFilter("ParametrosXValorUnico");
-                f_origen.setParameter("valorUnico", "%" + valorUnico + "%");
+                Filter f_valorUnico = s.enableFilter("ParametrosXValorUnico");
+                f_valorUnico.setParameter("valorUnico", "%" + valorUnico + "%");
             }
 
             if (tipo != null && !tipo.isEmpty()) {
-                Filter f_destino = s.enableFilter("ParametrosXTipo");
-                f_destino.setParameter("tipo", "%" + tipo + "%");
+                Filter f_tipo = s.enableFilter("ParametrosXTipo");
+                f_tipo.setParameter("tipo", "%" + tipo + "%");
             }
 
             if (padre != null) {
-                Filter f_estado = s.enableFilter("ParametrosXPadre");
-                f_estado.setParameter("idPadre", padre.getIdParametro());
+                Filter f_padre = s.enableFilter("ParametrosXPadre");
+                f_padre.setParameter("idPadre", padre.getIdParametro());
             }
 
             params = q.list();
@@ -70,17 +70,17 @@ public class CParametro {
             List<Parametro> params = q.list();
 
             if (valor == null || valor.isEmpty() || valorUnico == null || valorUnico.isEmpty() || tipo == null || tipo.isEmpty()) {
-                error_message = error_message + buscarError("ERROR_FT001") + "\n";
+                error_message = error_message + CError.buscarError("ERROR_FT001") + "\n";
             }
 
 
             if (params.size() > 0) {
                 p = params.get(0);
                 if (isNuevo) {
-                    error_message = error_message + buscarError("ERROR_FT002") + "\n";
+                    error_message = error_message + CError.buscarError("ERROR_FT002") + "\n";
                 } else {
                     if (parametro.getIdParametro() != p.getIdParametro()) {
-                        error_message = error_message + buscarError("ERROR_FT002") + "\n";
+                        error_message = error_message + CError.buscarError("ERROR_FT002") + "\n";
                     }
                 }
             }
@@ -127,21 +127,4 @@ public class CParametro {
         return parametro;
     }
 
-    public String buscarError(String error_code) {
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
-        String error_message = "";
-        try {
-            Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
-            q.setParameter("tipo", "ERROR_MSG");
-            q.setParameter("valorUnico", error_code);
-            Parametro error = (Parametro) q.uniqueResult();
-            error_message = error.getValor();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            s.close();
-        }
-        return error_message;
-    }
 }

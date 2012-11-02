@@ -211,7 +211,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbl_padre">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Padre:"/>
+            <Property name="text" type="java.lang.String" value="Padre (opcional):"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_estado">
