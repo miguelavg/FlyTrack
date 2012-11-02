@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import beans.Sesion;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import java.util.List;
@@ -22,7 +23,7 @@ public class CPerfil {
     
          public List<Perfil> Buscar(Integer idperfil, String nombre,String descripcion,Integer Estado)
     {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Perfil> ListaPerfiles;
         

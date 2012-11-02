@@ -7,9 +7,9 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
 import java.util.List;
 import org.hibernate.*;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
@@ -25,7 +25,7 @@ public class CAeropuerto {
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
     
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         
@@ -73,7 +73,7 @@ public class CAeropuerto {
                
                
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         
@@ -111,7 +111,7 @@ public class CAeropuerto {
     }
     
 //    public void agregarAeropuerto() {
-//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+//        SessionFactory sf = Sesion.getSessionFactory();
 //        Session s = sf.openSession();
 //        
 //        try {
@@ -158,7 +158,7 @@ public class CAeropuerto {
 //    }
     
       public static List<Parametro> llenarComboPais(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         try {
             Transaction tx = s.beginTransaction();
@@ -185,7 +185,7 @@ public class CAeropuerto {
       
      public static List<Aeropuerto> BuscarAeropuerto(Integer Pais,Integer Ciudad,Integer Estado) {
          
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Aeropuerto> ListaAeropuertos;
         
@@ -237,7 +237,7 @@ public class CAeropuerto {
       
       
        public static List<Parametro> llenarComboEstado(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         try {
             Transaction tx = s.beginTransaction();

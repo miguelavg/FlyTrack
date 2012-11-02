@@ -7,6 +7,7 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
 import beans.Tarifa;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class CTarifa {
     
     public List<Parametro> ListarMonedas(){
-         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Parametro> Lista;
         
@@ -50,7 +51,7 @@ public class CTarifa {
     }
     
     public List<Parametro> ListarEstadoMonedas(){
-         SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Parametro> Lista;
         
@@ -77,7 +78,7 @@ public class CTarifa {
     public void agregarTarifa(Aeropuerto AeroOri,Aeropuerto AeroDes, String monto, Parametro Moneda, Parametro Estado,String FechaAct, String FechaDes)
     {
                     
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         

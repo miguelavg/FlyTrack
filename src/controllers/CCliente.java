@@ -6,6 +6,7 @@ package controllers;
 
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -24,7 +25,7 @@ public class CCliente {
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
     
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         
@@ -64,7 +65,7 @@ public class CCliente {
             String telefono,String NumeroDoc, 
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         
@@ -113,7 +114,7 @@ public class CCliente {
     }
     public List<Parametro> BuscarTipoDoc(){
         
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Parametro> Lista;
         
@@ -137,7 +138,7 @@ public class CCliente {
         return null;
     }
     public Cliente BuscarXid(int id){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Cliente cliente= new Cliente();
         
@@ -160,7 +161,7 @@ public class CCliente {
     }
     public List<Cliente> Buscar(String Nombre, String Apellido, Parametro tipodoc, String numdoc)
     {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Cliente> ListaClientes;
         

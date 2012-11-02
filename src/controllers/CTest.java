@@ -21,7 +21,7 @@ public class CTest {
     private Session s;
 
     public CTest() {
-        this.sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        this.sf = Sesion.getSessionFactory();
         this.s = sf.openSession();
     }
 
