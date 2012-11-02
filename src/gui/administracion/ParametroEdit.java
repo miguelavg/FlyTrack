@@ -6,6 +6,7 @@ package gui.administracion;
 
 import beans.Parametro;
 import controllers.CParametro;
+import gui.ErrorDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -95,12 +96,13 @@ public class ParametroEdit extends javax.swing.JDialog {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Parámetros");
 
         pnl_titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbl_titulo.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
-        lbl_titulo.setText("Parametro");
+        lbl_titulo.setText("Parametros");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
@@ -283,7 +285,7 @@ public class ParametroEdit extends javax.swing.JDialog {
             this.setVisible(false);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Se produjeron los siguientes errores:\n" + error_message, "Error",  JOptionPane.ERROR_MESSAGE);
+            ErrorDialog.mostrarError(error_message, this);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
 

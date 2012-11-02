@@ -71,7 +71,11 @@ public class ParametroDialog extends javax.swing.JDialog {
         btn_modificar = new javax.swing.JButton();
         btn_agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_parametros = new javax.swing.JTable();
+        tbl_parametros = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         jPanel3 = new javax.swing.JPanel();
         lbl_valorUnico = new javax.swing.JLabel();
         lbl_valor = new javax.swing.JLabel();
@@ -92,6 +96,7 @@ public class ParametroDialog extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Parámetros");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -102,7 +107,7 @@ public class ParametroDialog extends javax.swing.JDialog {
 
         lbl_titulo.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
-        lbl_titulo.setText("Parametro");
+        lbl_titulo.setText("Parametros");
 
         javax.swing.GroupLayout pnl_tituloLayout = new javax.swing.GroupLayout(pnl_titulo);
         pnl_titulo.setLayout(pnl_tituloLayout);
@@ -147,6 +152,7 @@ public class ParametroDialog extends javax.swing.JDialog {
                 "Id", "Valor", "Valor Unico", "Tipo", " Padre", "Estado"
             }
         ));
+        tbl_parametros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_parametros);
         tbl_parametros.getColumnModel().getColumn(0).setMinWidth(0);
         tbl_parametros.getColumnModel().getColumn(0).setPreferredWidth(0);

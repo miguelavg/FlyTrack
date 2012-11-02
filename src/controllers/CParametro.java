@@ -68,19 +68,19 @@ public class CParametro {
             q.setParameter("valorUnico", valorUnico);
             q.setParameter("tipo", tipo);
             List<Parametro> params = q.list();
-            
-            if(valor == null || valor.isEmpty() || valorUnico == null || valorUnico.isEmpty() || tipo == null || tipo.isEmpty()){
-                error_message = error_message + "Los campos Valor, Valor único y Tipo son obligatorios.\n";
+
+            if (valor == null || valor.isEmpty() || valorUnico == null || valorUnico.isEmpty() || tipo == null || tipo.isEmpty()) {
+                error_message = error_message + buscarError("ERROR_FT001") + "\n";
             }
-                
+
 
             if (params.size() > 0) {
                 p = params.get(0);
                 if (isNuevo) {
-                    error_message = error_message + "Ya existe un parámetro con la misma combinación Valor único y Tipo.\n";
+                    error_message = error_message + buscarError("ERROR_FT002") + "\n";
                 } else {
                     if (parametro.getIdParametro() != p.getIdParametro()) {
-                        error_message = error_message + "Ya existe un parámetro con la misma combinación Valor único y Tipo.\n";
+                        error_message = error_message + buscarError("ERROR_FT002") + "\n";
                     }
                 }
             }
@@ -93,8 +93,8 @@ public class CParametro {
 
         return error_message;
     }
-    
-    public boolean guardar(Parametro parametro){
+
+    public boolean guardar(Parametro parametro) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         boolean siGuardo = true;
@@ -110,8 +110,8 @@ public class CParametro {
         }
         return siGuardo;
     }
-    
-    public Parametro buscarId(int id){
+
+    public Parametro buscarId(int id) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Parametro parametro = null;
@@ -125,5 +125,23 @@ public class CParametro {
             s.close();
         }
         return parametro;
+    }
+
+    public String buscarError(String error_code) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        try {
+            Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
+            q.setParameter("tipo", "ERROR_MSG");
+            q.setParameter("valorUnico", error_code);
+            Parametro error = (Parametro) q.uniqueResult();
+            error_message = error.getValor();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return error_message;
     }
 }

@@ -75,7 +75,11 @@ public class ParametroPopup extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btn_seleccionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_parametros = new javax.swing.JTable();
+        tbl_parametros = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         jPanel3 = new javax.swing.JPanel();
         lbl_valorUnico = new javax.swing.JLabel();
         lbl_valor = new javax.swing.JLabel();
@@ -93,6 +97,7 @@ public class ParametroPopup extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar parámetro");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -117,6 +122,7 @@ public class ParametroPopup extends javax.swing.JDialog {
                 "Id", "Valor", "Valor Unico", "Tipo", " Padre", "Estado"
             }
         ));
+        tbl_parametros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_parametros);
         tbl_parametros.getColumnModel().getColumn(0).setMinWidth(0);
         tbl_parametros.getColumnModel().getColumn(0).setPreferredWidth(0);
