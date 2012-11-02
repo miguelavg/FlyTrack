@@ -70,17 +70,17 @@ public class CParametro {
             List<Parametro> params = q.list();
 
             if (valor == null || valor.isEmpty() || valorUnico == null || valorUnico.isEmpty() || tipo == null || tipo.isEmpty()) {
-                error_message = error_message + CError.buscarError("ERROR_FT001") + "\n";
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
 
             if (params.size() > 0) {
                 p = params.get(0);
                 if (isNuevo) {
-                    error_message = error_message + CError.buscarError("ERROR_FT002") + "\n";
+                    error_message = error_message + CValidator.buscarError("ERROR_FT002") + "\n";
                 } else {
                     if (parametro.getIdParametro() != p.getIdParametro()) {
-                        error_message = error_message + CError.buscarError("ERROR_FT002") + "\n";
+                        error_message = error_message + CValidator.buscarError("ERROR_FT002") + "\n";
                     }
                 }
             }

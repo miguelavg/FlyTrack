@@ -77,7 +77,7 @@ public class CTipoCambio {
         try {
 
             if (monedaOrigen == null || monedaDestino == null || vTipoCambio == null || vTipoCambio.isEmpty()) {
-                error_message = error_message + CError.buscarError("ERROR_FT001") + "\n";
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
             if (monedaOrigen != null && monedaDestino != null) {
@@ -89,18 +89,18 @@ public class CTipoCambio {
                 if (tipos.size() > 0) {
                     t = tipos.get(0);;
                     if (isNuevo) {
-                        error_message = error_message + CError.buscarError("ERROR_FT003") + "\n";
+                        error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
                     } else {
                         if (t.getIdTipoCambio() != tipoCambio.getIdTipoCambio()) {
-                            error_message = error_message + CError.buscarError("ERROR_FT003") + "\n";
+                            error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
                         }
                     }
                 }
 
             }
 
-            if (!CError.isDouble(vTipoCambio)) {
-                error_message = error_message + CError.buscarError("ERROR_FT004") + "\n";
+            if (!CValidator.isDouble(vTipoCambio)) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT004") + "\n";
             }
 
         } catch (Exception e) {

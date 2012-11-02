@@ -5,9 +5,13 @@
 package gui.administracion.tipocambio;
 
 import beans.Parametro;
+import beans.Sesion;
 import beans.TipoCambio;
 import controllers.CParametro;
 import controllers.CTipoCambio;
+import controllers.CValidator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,16 +30,16 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     }
     private Parametro origen;
     private Parametro destino;
-    
-    private void llenarCombos(){
+
+    private void llenarCombos() {
         CParametro cparametro = new CParametro();
-        List<Parametro> monedas =  cparametro.buscar(null, null, "TIPO_MONEDA", null);        
-        
+        List<Parametro> monedas = cparametro.buscar(null, null, "TIPO_MONEDA", null);
+
         if (monedas == null) {
             return;
         }
-        
-        for(Parametro p: monedas){
+
+        for (Parametro p : monedas) {
             this.cmb_origen.addItem(p);
             this.cmb_destino.addItem(p);
         }
@@ -46,8 +50,8 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         datos[0] = t.getIdTipoCambio();
         datos[1] = t.getMonedaOrigen().getValor();
         datos[2] = t.getMonedaDestino().getValor();
-        datos[3] = t.getTipoCambio();
-        datos[4] = t.getFechaActualizacion();
+        datos[3] = CValidator.formatNumber(t.getTipoCambio());
+        datos[4] = CValidator.formatDate(t.getFechaActualizacion());
         dtm.addRow(datos);
     }
 
@@ -330,11 +334,11 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
             TipoCambioEdit parametroEdit = new TipoCambioEdit(tipoCambio, this, true);
             parametroEdit.showDialog();
-
+            
             tbl_tiposcambio.setValueAt(tipoCambio.getMonedaOrigen().getValor(), fila, 1);
             tbl_tiposcambio.setValueAt(tipoCambio.getMonedaDestino().getValor(), fila, 2);
-            tbl_tiposcambio.setValueAt(tipoCambio.getTipoCambio(), fila, 3);
-            tbl_tiposcambio.setValueAt(tipoCambio.getFechaActualizacion(), fila, 4);
+            tbl_tiposcambio.setValueAt(CValidator.formatNumber(tipoCambio.getTipoCambio()), fila, 3);
+            tbl_tiposcambio.setValueAt(CValidator.formatDate(tipoCambio.getFechaActualizacion()), fila, 4);
         }
 
     }//GEN-LAST:event_btn_modificarActionPerformed

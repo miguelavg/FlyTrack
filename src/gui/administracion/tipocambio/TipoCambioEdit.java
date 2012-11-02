@@ -8,6 +8,7 @@ import beans.Parametro;
 import beans.TipoCambio;
 import controllers.CParametro;
 import controllers.CTipoCambio;
+import controllers.CValidator;
 import gui.ErrorDialog;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +29,9 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         this.tipoCambio = null;
        
         if (tipoCambio != null) {
-            this.txt_tipocambio.setText(Double.toString(tipoCambio.getTipoCambio()));
+            this.txt_tipocambio.setText(CValidator.formatNumber(tipoCambio.getTipoCambio()));
             llenarCombos(tipoCambio.getMonedaOrigen(), tipoCambio.getMonedaDestino());
-            this.txt_fecha.setText(tipoCambio.getFechaActualizacion().toString());
+            this.txt_fecha.setText(CValidator.formatDate(tipoCambio.getFechaActualizacion()));
 
             this.tipoCambio = tipoCambio;
             this.isNuevo = false;
