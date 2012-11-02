@@ -6,7 +6,7 @@ package gui.envios;
 
 import beans.*;
 import controllers.*;
-import gui.aeropuerto.AeropuertoPopup;
+import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.administracion;
+package gui.seguridad.usuarios;
 
 import beans.Aeropuerto;
 import beans.Cliente;
@@ -10,7 +10,7 @@ import beans.Parametro;
 import beans.seguridad.Usuario;
 import beans.seguridad.Perfil;
 import controllers.CUsuario;
-import gui.aeropuerto.AeropuertoPopup;
+import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

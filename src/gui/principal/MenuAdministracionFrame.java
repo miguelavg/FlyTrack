@@ -4,10 +4,10 @@
  */
 package gui.principal;
 
-import gui.administracion.*;
-import gui.aeropuerto.*;
+import gui.administracion.tarifas.TarifaFrame;
+import gui.administracion.vuelos.Vuelos;
+import gui.administracion.aeropuertos.Aeropuerto;
 import gui.clientes.ClientesPopUp;
-import gui.vuelos.*;
 
 /**
  *

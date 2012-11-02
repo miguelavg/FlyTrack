@@ -7,10 +7,10 @@ package gui.principal;
 import beans.Vuelo;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import gui.clientes.Clientes;
-import gui.aeropuerto.Aeropuerto;
+import gui.administracion.aeropuertos.Aeropuerto;
 import gui.envios.EnvioDialog;
-import gui.reporte.ReporteFrame;
-import gui.vuelos.Vuelos;
+import gui.reportes.ReporteFrame;
+import gui.administracion.vuelos.Vuelos;
 import javax.swing.UIManager;
 
 /**

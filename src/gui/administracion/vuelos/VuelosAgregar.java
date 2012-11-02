@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.vuelos;
+package gui.administracion.vuelos;
 
 import java.awt.Component;
 import java.awt.Window;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.aeropuerto;
+package gui.administracion.aeropuertos;
 
 import beans.Parametro;
 import controllers.CAeropuerto;
