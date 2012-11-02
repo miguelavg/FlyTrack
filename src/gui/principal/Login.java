@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.security.*;
 import javax.swing.UIManager;
+import java.awt.Toolkit;
         
 /**
  *
@@ -51,6 +52,8 @@ public class Login extends javax.swing.JFrame {
         txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Flytrack: Log in");
+        setIconImage(Toolkit.getDefaultToolkit().getImage("/imagenes/logo.png"));
         setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
