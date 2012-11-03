@@ -6,13 +6,9 @@ package gui.principal;
 
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CSeguridad;
-import controllers.CUsuario;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.security.*;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-        
+
 /**
  *
  * @author msolorzano
@@ -22,15 +18,17 @@ public class Login extends javax.swing.JFrame {
     public static String userAnteriorIntentoLogin = "";
     public static int numIntentosFallidos = 0;
     public static int numMaxIntentosFallidos = CSeguridad.getMaxIntentosFallidos();
-    
+
     /**
      * Creates new form Login
      */
     public Login() {
         try {
-        UIManager.setLookAndFeel(new GTKLookAndFeel());
-    } catch (Exception e) { }
+            UIManager.setLookAndFeel(new GTKLookAndFeel());
+        } catch (Exception e) {
+        }
         initComponents();
+        setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagenes/logo.png")).getImage());
     }
 
     /**
@@ -51,6 +49,7 @@ public class Login extends javax.swing.JFrame {
         txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Flytrack: Log in");
         setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,34 +145,31 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usuario = txtUser.getText();
         char[] password = txtPass.getPassword();
-        
+
         //Verificar si la constrasenia del usuario es la activa o no
-            //manejar el numero de intentos fallidos aqui
-        if(CSeguridad.verificarContrasenia(usuario, password)){
+        //manejar el numero de intentos fallidos aqui
+        if (CSeguridad.verificarContrasenia(usuario, password)) {
             //VERIFICACION EXITOSA
             lblError.setVisible(Boolean.FALSE);
-            
+
             PrincipalFrame pf = new PrincipalFrame();
             pf.setVisible(Boolean.TRUE);
-            
+
             this.setVisible(Boolean.FALSE);
             this.dispose();
-        }
-        else{
+        } else {
             //VERIFICACION FALLO
             lblError.setVisible(Boolean.TRUE);
-            if(usuario.equals(userAnteriorIntentoLogin))
-            {
+            if (usuario.equals(userAnteriorIntentoLogin)) {
                 numIntentosFallidos++;
-            }
-            else{
+            } else {
                 numIntentosFallidos = 1;
             }
             userAnteriorIntentoLogin = usuario;
             //Solo incremento si el usuario que ha intentado logearse es igual al
             //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
             // Si llega al limite de intentos fallidos se bloquea la cuenta
-            if(numIntentosFallidos >= numMaxIntentosFallidos){
+            if (numIntentosFallidos >= numMaxIntentosFallidos) {
                 //CSeguridad.bloquearCuenta(usuario);
                 lblError.setText("Cuenta bloqueada: Supero el numero maximo de intentos fallidos");
             }
