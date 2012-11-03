@@ -381,7 +381,7 @@ public class PerfilEdit extends javax.swing.JDialog {
 
         Perfil PerfilBE=Perfil.BuscarXid(idperfil);    
        // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
-        Perfil.modificarPerfil(idperfil, PerfilBE.getNombre(),PerfilBE.getDescripcion() ,PerfilBE.getEstado() );
+        Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
 
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

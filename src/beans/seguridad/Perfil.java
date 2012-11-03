@@ -71,7 +71,7 @@ public class Perfil implements Serializable  {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "Estado")
+    @JoinColumn(name = "estado")
     private Parametro estado;       
 
     public int getIdPerfil(){
