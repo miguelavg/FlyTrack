@@ -4,19 +4,61 @@
  */
 package gui.seguridad.perfiles;
 
+import beans.Parametro;
+import beans.seguridad.Perfil;
+import beans.seguridad.Usuario;
+import controllers.CPerfil;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import gui.seguridad.perfiles.PerfilEdit;
 /**
  *
  * @author msolorzano
  */
-public class PerfilFrame extends javax.swing.JFrame {
-
+public class PerfilFrame extends javax.swing.JDialog {
+    CPerfil CPerfil = new CPerfil();
     /**
      * Creates new form PerfilFrame
      */
     public PerfilFrame() {
         initComponents();
+        
+        llenarTabla();
     }
 
+    
+    public void llenarTabla(){
+          
+        List<Perfil> listaPerfiles = CPerfil.Buscar();
+        //cboEstado.getSelectedItem());
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
+        
+        int filas=dtm.getRowCount();
+        
+        for (int i=filas-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
+        
+       Object[] datos = new Object[4];
+       for (int i = 0; i < listaPerfiles.size(); i++) {
+           datos[0] = listaPerfiles.get(i).getNombre();
+           datos[1] = listaPerfiles.get(i).getDescripcion();
+           datos[2] = listaPerfiles.get(i).getEstado();
+           datos[3] = listaPerfiles.get(i).getIdPerfil();
+           
+           dtm.addRow(datos);
+       } 
+        
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,10 +71,10 @@ public class PerfilFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        PerfilTabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,34 +104,39 @@ public class PerfilFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
-        jButton2.setText("Modificar");
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        PerfilTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Administrador", "Este perfil se encargara de la administracion completa de toda la informacion.", "Activado"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nombre", "Descripcion", "Estado"
+                "Nombre", "Descripcion", "Estado", "idPerfil"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        PerfilTabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                PerfilTablaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(PerfilTabla);
+        PerfilTabla.getColumnModel().getColumn(3).setMinWidth(0);
+        PerfilTabla.getColumnModel().getColumn(3).setPreferredWidth(0);
+        PerfilTabla.getColumnModel().getColumn(3).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -100,9 +147,9 @@ public class PerfilFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -110,8 +157,8 @@ public class PerfilFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -141,16 +188,30 @@ public class PerfilFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void PerfilTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerfilTablaMouseClicked
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_PerfilTablaMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        PerfilEdit perfilModificar = new PerfilEdit();
-        perfilModificar.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+//        PerfilEdit perfilModificar = new PerfilEdit();
+//        perfilModificar.setVisible(true);
+        PerfilEdit perfilAgregarGUI = new PerfilEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
+        perfilAgregarGUI.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+         DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
+        Integer id=(Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
+        
+        PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
+        PerfilAgregarGUI.setVisible(true);
+        PerfilAgregarGUI.setBandera(1);
+        PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
+        PerfilAgregarGUI.showDialog();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,12 +248,12 @@ public class PerfilFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTable PerfilTabla;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
