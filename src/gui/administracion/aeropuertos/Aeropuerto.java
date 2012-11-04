@@ -8,6 +8,7 @@ import beans.Cliente;
 import beans.Parametro;
 import controllers.CAeropuerto;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -15,12 +16,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author joao
  */
-public class Aeropuerto extends javax.swing.JFrame {
+public class Aeropuerto extends javax.swing.JDialog {
 
   
-     private List<Parametro> ListatipoPar; 
-     private List<Parametro> ListatipoEst; 
-     private List<Parametro> ListatipoHijo;
+    private List<Parametro> ListatipoPar; 
+    private List<Parametro> ListatipoEst; 
+    private List<Parametro> ListatipoHijo;
+    private beans.Aeropuerto objAero = new beans.Aeropuerto();
+    
+     List<beans.Aeropuerto> listaAeropuertos;
     /**
      * Creates new form Aeropuerto
      */
@@ -131,7 +135,7 @@ public class Aeropuerto extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(335, 335, 335)
                 .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +255,7 @@ public class Aeropuerto extends javax.swing.JFrame {
 
     
      private void llenarGrillaAero() {
-          List<beans.Aeropuerto> listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
+        listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
                 ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
         
           
@@ -296,11 +300,19 @@ public class Aeropuerto extends javax.swing.JFrame {
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-       AeropuertoModificar MiVentana = new AeropuertoModificar(); //llamamos a la clase y creamos un objeto llamado MiVentana
-        MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
-        MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
-        MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
-    
+        if (this.tbl_aeropuerto.getSelectedRow() != -1 ) {
+            listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());  
+            
+            AeropuertoModificar MiVentana = new AeropuertoModificar(this,true,listaAeropuertos.get(tbl_aeropuerto.getSelectedRow())); //llamamos a la clase y creamos un objeto llamado MiVentana
+            MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
+            llenarGrillaAero();
+        }
+        else {
+          JOptionPane.showMessageDialog(null, "Debes seleccionar un Aeropuerto",
+            "Advertencia", 1);
+        
+        }
+        
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
