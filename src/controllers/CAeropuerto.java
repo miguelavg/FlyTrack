@@ -7,7 +7,6 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
-import beans.Sesion;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -26,7 +25,7 @@ public class CAeropuerto {
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
     
         
-        SessionFactory sf = Sesion.getSessionFactory();
+        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
         Session s = sf.openSession();
         
         
