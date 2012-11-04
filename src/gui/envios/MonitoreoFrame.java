@@ -4,13 +4,16 @@
  */
 package gui.envios;
 
+import beans.Aeropuerto;
 import beans.Envio;
 import beans.Escala;
 import beans.Parametro;
 import beans.Vuelo;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 
 /**
  *
@@ -26,45 +29,61 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         this.envio = envio;
 
     }
-    
     private Envio envio;
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        
-        if (envio == null){
+
+        if (envio == null) {
             return;
         }
-        
-        if(envio.getEscalas() == null){
+
+        if (envio.getEscalas() == null) {
             return;
         }
-        
-        for(Escala e : envio.getEscalas()){
+
+        for (Escala e : envio.getEscalas()) {
             Vuelo v = e.getVuelo();
-           
-            if(v == null){
+
+            if (v == null) {
                 continue;
             }
-            
+
             Parametro p = v.getEstado();
-            
-            if(p == null){
+
+            if (p == null) {
                 continue;
             }
-            
-            if(p.getValorUnico().equals("CAN"));
-            
-            
-            
+
+            if (p.getValorUnico().equals("CAN")) {
+                g.setColor(Color.RED);
+            }
+
+            if (p.getValorUnico().equals("FIN")) {
+                g.setColor(Color.BLUE);
+            }
+
+            if (p.getValorUnico().equals("PROG") || p.getValorUnico().equals("RET")) {
+                g.setColor(Color.YELLOW);
+            }
+
+            if (p.getValorUnico().equals("VUE")) {
+                g.setColor(Color.GREEN);
+            }
+
+            Aeropuerto o = v.getOrigen();
+            Aeropuerto d = v.getDestino();
+
+            if (o != null && d != null) {
+                Graphics2D g2 = (Graphics2D) g;
+                Stroke stroke = new BasicStroke(2.0f);
+                g2.setStroke(stroke);
+                g2.drawLine(o.getCoordX(), o.getCoordY(), d.getCoordX(), d.getCoordY());
+            }
+
         }
-        
-        g.setColor(Color.RED);
-        g.drawLine(0, 0, 100, 100);
-        g.setColor(Color.BLUE);
-        g.drawLine(100, 100, 200, 200);
-        System.out.println("Dibujando ");
+
         g.dispose();
     }
 
