@@ -6,7 +6,6 @@ package flytrack;
 
 import gui.principal.Login;
 
-
 /**
  *
  * @author miguelavg
@@ -19,5 +18,6 @@ public class FlyTrack {
     public static void main(String[] args) {
         Login login = new Login();
         login.setVisible(true);
+        
     }
 }

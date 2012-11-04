@@ -12,6 +12,7 @@ package gui.clientes;
 import beans.Cliente;
 import beans.Parametro;
 import controllers.CCliente;
+import controllers.CParametro;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -28,6 +29,7 @@ public class Clientes extends javax.swing.JDialog {
      * Creates new form Clientes
      */
     CCliente ClienteBL = new CCliente();
+    CParametro ParametroBL = new CParametro();
     List<Parametro> ListaTipoDoc;
     public Clientes() {
         initComponents();
@@ -35,25 +37,10 @@ public class Clientes extends javax.swing.JDialog {
     }
     
     public void llenarcombos(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "TIPO_DOC");
-            ListaTipoDoc = q.list();
-//              
-            
-            
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
+        
+         ListaTipoDoc=ParametroBL.buscar("", null, "TIPO_DOC", null);
+        
+        
         for (Parametro p : ListaTipoDoc)
         {
             //Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);

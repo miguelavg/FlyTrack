@@ -15,8 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
@@ -26,7 +31,39 @@ import org.hibernate.annotations.NamedQuery;
 @Table(name = "Tarifa")
 @NamedQueries({
     @NamedQuery(name = "Tarifa",
-    query = "from Tarifa where origen.idAeropuerto = :idorigen and destino.idAeropuerto = :iddestino")
+    query = "from Tarifa where origen.idAeropuerto = :idorigen and destino.idAeropuerto = :iddestino"),
+    @NamedQuery(name = "Tarifas",
+    query = "from Tarifa"   
+        )
+})
+@FilterDefs({
+    @FilterDef(name = "TarifaxAeroOri",
+    parameters =
+    @ParamDef(name = "idaero", type = "integer")),
+    
+    @FilterDef(name = "TarifaxAeroDes",
+    parameters =
+    @ParamDef(name = "idaero", type = "integer")),
+    
+    @FilterDef(name = "TarifaMayorA",
+    parameters =
+    @ParamDef(name = "tarifa", type = "double")),
+    
+    @FilterDef(name = "TarifaMenorA",
+    parameters =
+    @ParamDef(name = "tarifa", type = "double"))
+        
+})
+@Filters({
+    
+    @Filter(name = "TarifaxAeroOri", condition = "idOrigen = :idaero"),
+    
+    @Filter(name = "TarifaxAeroDes", condition = "idDestino = :idaero"),
+    
+    @Filter(name = "TarifaMayorA", condition = "monto > :tarifa"),
+    
+    @Filter(name = "TarifaMenorA", condition = "monto < :tarifa"),
+    
 })
 public class Tarifa implements Serializable {
 

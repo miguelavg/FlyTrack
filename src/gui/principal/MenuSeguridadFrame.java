@@ -10,7 +10,7 @@ import gui.seguridad.usuarios.UsuarioFrame;
  *
  * @author ronald
  */
-public class MenuSeguridadFrame extends javax.swing.JFrame {
+public class MenuSeguridadFrame extends javax.swing.JDialog {
 
     /**
      * Creates new form MenuSeguridadFrame
@@ -38,6 +38,7 @@ public class MenuSeguridadFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
