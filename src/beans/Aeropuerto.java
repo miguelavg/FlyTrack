@@ -101,6 +101,10 @@ public class Aeropuerto implements Serializable {
         return nombre;
     }
 
+    public void setIdAeropuerto(int id) {
+        this.idAeropuerto = id;
+    }
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
