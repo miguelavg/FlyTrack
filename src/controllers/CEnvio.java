@@ -220,7 +220,7 @@ public class CEnvio {
             
        //   Recuperar los promedios de los vuelos históricos
             
-            q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v group by v.origen, v.destino where :lower < fechaSalida AND fechaSalida < :upper");
+            q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v where :lower < fechaSalida AND fechaSalida < :upper group by v.origen, v.destino order by 1 ,2");
             q.setParameter("upper", envio.getFechaRegistro());
             q.setParameter("lower", pasado);
             
