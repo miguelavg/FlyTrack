@@ -4,6 +4,14 @@
  */
 package gui.envios;
 
+import beans.Envio;
+import beans.Escala;
+import beans.Parametro;
+import beans.Vuelo;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 /**
  *
  * @author ronald
@@ -13,8 +21,51 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     /**
      * Creates new form MonitoreoFrame
      */
-    public MonitoreoFrame() {
+    public MonitoreoFrame(Envio envio) {
         initComponents();
+        this.envio = envio;
+
+    }
+    
+    private Envio envio;
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        
+        if (envio == null){
+            return;
+        }
+        
+        if(envio.getEscalas() == null){
+            return;
+        }
+        
+        for(Escala e : envio.getEscalas()){
+            Vuelo v = e.getVuelo();
+           
+            if(v == null){
+                continue;
+            }
+            
+            Parametro p = v.getEstado();
+            
+            if(p == null){
+                continue;
+            }
+            
+            if(p.getValorUnico().equals("CAN"));
+            
+            
+            
+        }
+        
+        g.setColor(Color.RED);
+        g.drawLine(0, 0, 100, 100);
+        g.setColor(Color.BLUE);
+        g.drawLine(100, 100, 200, 200);
+        System.out.println("Dibujando ");
+        g.dispose();
     }
 
     /**
@@ -30,7 +81,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monitoreo Envio");
+        setMaximumSize(new java.awt.Dimension(1024, 582));
+        setMinimumSize(new java.awt.Dimension(1024, 582));
         setModal(true);
+        setPreferredSize(new java.awt.Dimension(1024, 582));
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
 
@@ -39,15 +94,15 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -83,7 +138,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MonitoreoFrame().setVisible(true);
+                new MonitoreoFrame(null).setVisible(true);
             }
         });
     }

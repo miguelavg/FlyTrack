@@ -735,7 +735,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_guardarEnvioButtonActionPerformed
 
     private void monitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitoreoButtonActionPerformed
-        MonitoreoFrame monitoreoDialog = new  MonitoreoFrame();
+        MonitoreoFrame monitoreoDialog = new  MonitoreoFrame(null);
         monitoreoDialog.setVisible(true);
     }//GEN-LAST:event_monitoreoButtonActionPerformed
 
