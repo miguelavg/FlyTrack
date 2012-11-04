@@ -4,6 +4,7 @@
  */
 package gui.principal;
 
+import beans.Sesion;
 import beans.Vuelo;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import gui.clientes.Clientes;
@@ -19,7 +20,7 @@ import javax.swing.UIManager;
  * @author ronald
  */
 public class PrincipalFrame extends javax.swing.JFrame {
-
+       
     /**
      * Creates new form PrincipalFrame
      */
@@ -351,4 +352,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton simulacionButton;
     // End of variables declaration//GEN-END:variables
+
+    private Sesion sesionActiva;
+
+    
+    public Sesion getSesionActiva() {
+        return sesionActiva;
+    }
+
+    public void setSesionActiva(Sesion sesionActiva) {
+        this.sesionActiva = sesionActiva;
+    }
 }
