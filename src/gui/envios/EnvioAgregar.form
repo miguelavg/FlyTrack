@@ -18,7 +18,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Env&#xed;os"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Default Cursor"/>
+      <Color id="Cursor predeterminado"/>
     </Property>
     <Property name="modalityType" type="java.awt.Dialog$ModalityType" editor="org.netbeans.modules.form.editors.EnumEditor">
       <Value id="APPLICATION_MODAL"/>
@@ -392,6 +392,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="remitenteEnvioText">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remitenteEnvioTextActionPerformed"/>
           </Events>
@@ -442,6 +445,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="destinatarioEnvioText">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="destinatarioEnvioTextActionPerformed"/>
           </Events>

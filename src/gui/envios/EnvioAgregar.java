@@ -161,6 +161,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
+        remitenteEnvioText.setEditable(false);
         remitenteEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 remitenteEnvioTextActionPerformed(evt);
@@ -196,6 +197,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
+        destinatarioEnvioText.setEditable(false);
         destinatarioEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 destinatarioEnvioTextActionPerformed(evt);
