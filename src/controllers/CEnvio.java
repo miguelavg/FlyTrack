@@ -196,17 +196,20 @@ public class CEnvio {
             cal.setTimeInMillis(iPasado);            
             Date pasado = cal.getTime();
             
-            Filter f_vuelos = s.enableFilter("VuelosXAeropuerto");
-            f_vuelos.setParameter("lower", envio.getFechaRegistro());
-            f_vuelos.setParameter("upper", futuro);
+            Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalida");
+            f_vuelos_s.setParameter("lower", envio.getFechaRegistro());
+            f_vuelos_s.setParameter("upper", futuro);
+            
+            Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
+            f_vuelos_l.setParameter("lower", envio.getFechaRegistro());
+            f_vuelos_l.setParameter("upper", futuro);
 
        //   Consultar los aeropuertos con sus vuelos de salida
             
             for (Aeropuerto a : aeros) {
                 
-                for(Vuelo v : a.getVuelosSalida()){
-                    v.getEscalas().size();
-                }
+                a.getVuelosSalida().size();
+                a.getVuelosLlegada().size();
                 
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
@@ -216,7 +219,8 @@ public class CEnvio {
                 }
             }
             
-            s.disableFilter("VuelosXAeropuerto");
+            s.disableFilter("VuelosXAeropuertoSalida");
+            s.disableFilter("VuelosXAeropuertoLlegada");
             
        //   Recuperar los promedios de los vuelos históricos
             

@@ -12,11 +12,13 @@ import java.util.Date;
  */
 public class MovimientoAlmacen {
     private Date fecha;
+    private int cantidad;
     private String tipo;
 
-    public MovimientoAlmacen(Date fecha, String tipo) {
+    public MovimientoAlmacen(Date fecha, String tipo, int cantidad) {
         this.fecha = fecha;
         this.tipo = tipo;
+        this.cantidad = cantidad;
     }
 
     public Date getFecha() {
@@ -33,6 +35,14 @@ public class MovimientoAlmacen {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
 }

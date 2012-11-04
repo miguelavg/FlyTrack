@@ -9,6 +9,8 @@ import beans.Envio;
 import beans.Parametro;
 import beans.Vuelo;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -110,10 +112,47 @@ public class Recocido {
     private double boltzmann(double dEnergia, double temperatura) {
         return Math.exp(-1 * (dEnergia / temperatura));
     }
-    
-    private int getMax(Aeropuerto a){
+
+    public class CustomComparator implements Comparator<MovimientoAlmacen> {
+
+        @Override
+        public int compare(MovimientoAlmacen m1, MovimientoAlmacen m2) {
+            if (m1.getFecha().before(m2.getFecha())) {
+                return -1;
+            }
+            if (m1.getFecha().after(m2.getFecha())) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    private int getMax(Aeropuerto a, Date in, Date out) {
+        int actual = a.getCapacidadActual();
+        int max = actual;
         
-        return 0;
+        ArrayList<MovimientoAlmacen> moves = new ArrayList<MovimientoAlmacen>();
+        for (Vuelo v : a.getVuelosSalida()) {
+            moves.add(new MovimientoAlmacen(v.getFechaSalida(), "O", v.getCapacidadActual()));
+        }
+        for (Vuelo v : a.getVuelosLlegada()) {
+            moves.add(new MovimientoAlmacen(v.getFechaLlegada(), "I", v.getCapacidadActual()));
+        }
+        Collections.sort(moves, new CustomComparator());
+
+        for(MovimientoAlmacen m : moves){
+            if(m.getTipo().equals("I")){
+                actual = actual + m.getCantidad();
+            }
+            if(m.getTipo().equals("O")){
+                actual = actual - m.getCantidad();
+            }
+            if(max < actual){
+                max = actual;
+            }
+        }
+        
+        return max;
     }
 
     private ArrayList<Vuelo> liteGrasp(Aeropuerto aOrigen, Aeropuerto aDestino, Date fecha, double alfa) {
@@ -144,9 +183,8 @@ public class Recocido {
                 for (int i = 0; i < aActual.getVuelosSalida().size(); i++) {
                     Vuelo vuelo = aActual.getVuelosSalida().get(i);
 
-                    if (vuelo.getFechaSalida().after(dActual)
-                            && vuelo.getCapacidadMax() > vuelo.getCapacidadActual()
-                            && aDestino.getCapacidadMax() > aDestino.getCapacidadActual() + vuelo.getCapacidadActual()) {
+                    if (vuelo.getCapacidadMax() > vuelo.getCapacidadActual()
+                            && getMax(aOrigen, dActual, vuelo.getFechaSalida()) < aOrigen.getCapacidadMax()) {
                         posibles.add(vuelo);
                         ArrayList<Vuelo> wrap = new ArrayList<Vuelo>();
                         wrap.add(vuelo);
