@@ -159,6 +159,36 @@ public class CCliente {
         
         return null;
     }
+    public String ValidarDocumento(Parametro tipodoc, String numero){
+        String error="";
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Cliente cliente=null;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("ClientexIdentidad").setMaxResults(1);
+            q.setParameter("tipodoc", tipodoc);
+            q.setParameter("numdoc", numero);
+            
+            cliente=(Cliente)q.uniqueResult();
+            
+                       }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        if (cliente!=null){
+            error="Ya existe un cliente registrado con ese número de documento";
+        }
+        
+        return error;
+    }
     public List<Cliente> Buscar(String Nombre, String Apellido, Parametro tipodoc, String numdoc)
     {
         SessionFactory sf = Sesion.getSessionFactory();

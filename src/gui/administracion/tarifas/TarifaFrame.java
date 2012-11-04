@@ -420,6 +420,15 @@ public class TarifaFrame extends javax.swing.JDialog {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) this.tablaTarifa.getModel();
+        
+        
+        
+        Integer id=(Integer)tablaTarifa.getValueAt(tablaTarifa.getSelectedRow(), 0);
+        TarifaEdit MiVentana = new TarifaEdit(this,true,id);        
+        //MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+        MiVentana.showDialog();
+        llenartabla();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

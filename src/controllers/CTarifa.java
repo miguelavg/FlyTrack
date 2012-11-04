@@ -195,6 +195,80 @@ public class CTarifa {
         
     }
     
+    public Tarifa BuscarXid(int id){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Tarifa tarifa= new Tarifa();
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("TarifaxId").setMaxResults(1);
+            q.setParameter("id", id);
+            tarifa=(Tarifa)q.uniqueResult();
+            return tarifa;
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        return null;
+    }
+    public void ModificarTarifa(int idTarifa,Aeropuerto AeroOri,Aeropuerto AeroDes,String monto,
+           String FechaAct,String FechaDes
+                    ,Parametro Moneda,Parametro Estado){
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+
+            Tarifa TarifaBE = new Tarifa(); 
+
+            
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
+            
+            Date fechaact = null;
+            Date fechades=null;
+            try {
+
+                fechaact = formatoDelTexto.parse(FechaAct);
+                fechades = formatoDelTexto.parse(FechaDes);
+
+            } catch (ParseException ex) {
+
+                ex.printStackTrace();
+
+            }
+            
+            TarifaBE.setIdTarifa(idTarifa);
+            TarifaBE.setOrigen(AeroOri);
+            TarifaBE.setDestino(AeroDes);
+            TarifaBE.setMoneda(Moneda);
+            TarifaBE.setEstado(Estado);
+            TarifaBE.setMonto(Double.parseDouble(monto));
+            TarifaBE.setFechaActivacion(fechaact);
+            TarifaBE.setFechaDesactivacion(fechades);
+                        
+            int i = (Integer)s.save(TarifaBE);
+            
+            tx.commit();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+        
+    }
     public void agregarTarifa(Aeropuerto AeroOri,Aeropuerto AeroDes, String monto, Parametro Moneda, Parametro Estado,String FechaAct, String FechaDes)
     {
                     
