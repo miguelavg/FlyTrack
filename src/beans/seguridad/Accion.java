@@ -19,59 +19,41 @@ import javax.persistence.Table;
  *
  * @author joao
  */
+
 @Entity
 @Table(name = "Accion")
 public class Accion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-      private int idAccion;
-    
-      @ManyToOne
-      @JoinColumn(name = "idAccionPadre")
-      private Parametro AccionPadre;
+    private int idAccion;
 
-      @ManyToOne
-      @JoinColumn(name = "Nivel")
-      private Parametro nivel;
+    @ManyToOne
+    @JoinColumn(name = "idAccionPadre")
+    private Accion AccionPadre;
 
-      private String nombre;
-      
-      public Accion() {
-      } 
-      
-      public int getIdAccion(){
-      return idAccion;
-      }    
-      
-      public void setIdAccion(int accion){
-      this.idAccion=accion;
-      }    
-      
-      public Parametro getIdAccionPadre() {
-      return AccionPadre;
-      }
+    private int nivel;
 
-      public void setidAccionPadre(Parametro AccionPadre) {
-      this.AccionPadre = AccionPadre;
-      }
+    private String nombre;
       
-      public Parametro getNivel() {
-      return nivel;
-      }
+    public int getIdAccion(){
+        return idAccion;
+    }    
 
-      public void setNivel(Parametro nivel) {
-      this.nivel = nivel;
-      }
-      
-            
-      public String getNombre(){
-      return nombre;
-      }    
-      
-      public void setNombre(String nombre){
-      this.nombre=nombre;
-      }    
-      
-      
+    public Accion getIdAccionPadre() {
+        return AccionPadre;
+    }
+
+    public Integer getNivel() {
+        return nivel;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }    
+
+    public void setNombre(String nombre){
+        this.nombre=nombre;
+    }    
+
 }
 
