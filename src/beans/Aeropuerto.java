@@ -82,6 +82,9 @@ public class Aeropuerto implements Serializable {
     @JoinColumn(name = "Estado")
     private Parametro estado;
     @OneToMany(mappedBy = "origen")
+    @Filters({
+        @Filter(name = "VuelosXAeropuerto", condition = ":lower < fechaSalida AND fechaSalida < :upper")
+    })
     private List<Vuelo> vuelosSalida;
     @OneToMany(mappedBy = "destino")
     private List<Vuelo> vuelosLlegada;

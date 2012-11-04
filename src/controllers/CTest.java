@@ -5,11 +5,16 @@
 package controllers;
 
 import beans.*;
+import java.util.ArrayList;
+import java.util.List;
+import logic.VueloLite;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.criterion.Projections;
 
 /**
  *
@@ -17,26 +22,22 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class CTest {
 
-    private SessionFactory sf;
-    private Session s;
-
-    public CTest() {
-        this.sf = Sesion.getSessionFactory();
-        this.s = sf.openSession();
-    }
-
-    public void chevere() {
+    public static void chevere() {
         try {
+            SessionFactory sf = Sesion.getSessionFactory();
+            Session s = sf.openSession();
 
-            Transaction tx = s.beginTransaction();
-            Query q;            
-            q = s.getNamedQuery("Aeropuertos").setFirstResult(0).setMaxResults(1);
             
-            Aeropuerto aeropuerto = (Aeropuerto) q.uniqueResult(); //List<Aeropuerto> aeropuertos = q.list();
-  
-            //for(Aeropuerto aeropuerto : aeropuertos){
-                System.out.println(aeropuerto.getNombre());
-            //}
+            Query q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v group by v.origen, v.destino");
+            List<Object[]> lista = q.list();
+            ArrayList<VueloLite> vuelosL = new ArrayList <VueloLite>();
+            for(Object[] o : lista){
+                vuelosL.add(new VueloLite((Integer)o[0], (Integer)o[1], (Double)o[2]));
+            }
+            
+            for(VueloLite v : vuelosL){
+                System.out.println(v.getDestino() + " " + v.getOrigen() + " " + v.getpLleno());
+            }
             
             s.close();
 

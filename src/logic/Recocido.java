@@ -29,11 +29,11 @@ public class Recocido {
     private int intentos;                       // intentos de malos grasp
     private double costoAlmacen;
     private Envio envio;                        // envío a realizar
-    private List<Aeropuerto> aeropuertos;            // todos los vuelos
     private ArrayList<Vuelo> solucion;          // ruta solución
     private ArrayList<Vuelo> alterado;          // ruta alterada
+    private ArrayList<VueloLite> vuelosLite;    // histórico
 
-    public Recocido(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, Envio envio, List<Aeropuerto> aeropuertos, double costoAlmacen) {
+    public Recocido(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, Envio envio, double costoAlmacen, ArrayList<VueloLite> vuelosLite) {
         this.kSA = kSA;
         this.temperaturaInicial = temperaturaInicial;
         this.temperatura = temperaturaInicial;
@@ -43,8 +43,8 @@ public class Recocido {
         this.pParada = pParada;
         this.intentos = intentos;
         this.envio = envio;
-        this.aeropuertos = aeropuertos;
         this.costoAlmacen = costoAlmacen;
+        this.vuelosLite = vuelosLite;
     }
 
     private double enfriamiento() {

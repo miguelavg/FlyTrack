@@ -4,19 +4,17 @@
  */
 package logic;
 
-import beans.Aeropuerto;
-
 /**
  *
  * @author miguelavg
  */
 public class VueloLite {
 
-    private Aeropuerto origen;
-    private Aeropuerto destino;
+    private int origen;
+    private int destino;
     private double pLleno;
 
-    public VueloLite(Aeropuerto origen, Aeropuerto destino, double pLleno) {
+    public VueloLite(int origen, int destino, double pLleno) {
         this.origen = origen;
         this.destino = destino;
         this.pLleno = pLleno;
@@ -25,19 +23,19 @@ public class VueloLite {
     public VueloLite() {
     }
 
-    public Aeropuerto getOrigen() {
+    public int getOrigen() {
         return origen;
     }
 
-    public void setOrigen(Aeropuerto origen) {
+    public void setOrigen(int origen) {
         this.origen = origen;
     }
 
-    public Aeropuerto getDestino() {
+    public int getDestino() {
         return destino;
     }
 
-    public void setDestino(Aeropuerto destino) {
+    public void setDestino(int destino) {
         this.destino = destino;
     }
 
