@@ -4,7 +4,8 @@
  */
 package gui.principal;
 
-import gui.administracion.*;
+import gui.seguridad.perfiles.PerfilFrame;
+import gui.seguridad.usuarios.UsuarioFrame;
 /**
  *
  * @author ronald
@@ -142,7 +143,7 @@ public class MenuSeguridadFrame extends javax.swing.JFrame {
 
     private void simulacionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton3ActionPerformed
         // TODO add your handling code here:
-        gui.administracion.ParametroFrame parametro = new gui.administracion.ParametroFrame();
+        gui.seguridad.parametros.ParametroDialog parametro = new gui.seguridad.parametros.ParametroDialog();
         parametro.setVisible(true);
     }//GEN-LAST:event_simulacionButton3ActionPerformed
 

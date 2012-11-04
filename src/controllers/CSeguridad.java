@@ -5,6 +5,7 @@
 package controllers;
 
 import beans.Parametro;
+import beans.Sesion;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
 import java.util.Arrays;
@@ -23,7 +24,7 @@ public class CSeguridad {
     
     public static boolean verificarContrasenia(String user, char[] pass){
 
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         try{
@@ -73,7 +74,7 @@ public class CSeguridad {
     }
     
     public static int getMaxIntentosFallidos(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         try{
@@ -96,7 +97,7 @@ public class CSeguridad {
     }
     
     public static void bloquearCuenta(String usuario){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
         try{

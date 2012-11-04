@@ -30,7 +30,11 @@ import org.hibernate.annotations.ParamDef;
 @Table(name = "Perfil")
 @NamedQueries({
     @NamedQuery(name = "Perfil",
-    query = "from Perfil")})
+    query = "from Perfil"),
+    @NamedQuery(name = "PerfilxId",
+    query = "from Perfil where idPerfil = :idperfil ")
+
+})
 
 @FilterDefs({
     @FilterDef(name = "PerfilxIdperfil",
@@ -67,7 +71,7 @@ public class Perfil implements Serializable  {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "Estado")
+    @JoinColumn(name = "estado")
     private Parametro estado;       
 
     public int getIdPerfil(){

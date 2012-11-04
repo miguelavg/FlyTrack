@@ -21,21 +21,21 @@ import org.hibernate.cfg.AnnotationConfiguration;
  * @author ronald
  */
 public class CEnvio {
-
+    
     public ArrayList<Parametro> llenarCombo(String tipo) {
-
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         ArrayList<Parametro> p = null;
         try {
-
-
+            
+            
             Query q;
             q = s.getNamedQuery("ParametrosXTipo");
-
+            
             q.setParameter("tipo", tipo);
             p = (ArrayList<Parametro>) q.list();
-
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -43,7 +43,7 @@ public class CEnvio {
         }
         return p;
     }
-
+    
     public Envio agregarEnvio(
             Aeropuerto aOrigen,
             Aeropuerto aDestino,
@@ -60,18 +60,18 @@ public class CEnvio {
             float impuesto,
             String fechaRegistro,
             String fechaRecojo) {
-
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-
+        
         Envio e = new Envio();
         try {
-
+            
             Transaction tx = s.beginTransaction();
             Query q;
             Parametro p;
             
-
+            
             e.setOrigen(aOrigen);
             e.setDestino(aDestino);
             e.setActual(aActual);
@@ -81,33 +81,33 @@ public class CEnvio {
             q.setParameter("tipo", "ESTADO_ENVIO");
             p = (Parametro) q.uniqueResult();
             e.setEstado(p);
-
+            
             
             e.setRemitente(remitente);
             e.setDestinatario(destinatario);
             e.setMonto(numPaq * monto * (1 + impuesto));
-
+            
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
             q.setParameter("valorUnico", moneda.getValorUnico());
             q.setParameter("tipo", moneda.getTipo());
             p = (Parametro) q.uniqueResult();
             e.setMoneda(p);
-
+            
             e.setNumPaquetes(numPaq);
-
+            
             q = s.getNamedQuery("ParametrosXTipoXValorUnico");
             q.setParameter("valorUnico", docPago.getValorUnico());
             q.setParameter("tipo", docPago.getTipo());
             p = (Parametro) q.uniqueResult();
             e.setTipoDocVenta(p);
-
+            
             Date fechaRegistroDate = new Date();
             Date fechaRecojoDate = null;
             e.setFechaRegistro(fechaRegistroDate);
             e.setFechaRecojo(fechaRecojoDate);
-
+            
             calcularRuta(e);
-
+            
             numEnvio = (Integer) s.save(e);
             e.setIdEnvio(numEnvio);
             numDocPago = numEnvio;
@@ -121,70 +121,84 @@ public class CEnvio {
         }
         return e;
     }
-
+    
     public boolean calcularRuta(Envio envio) {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-
+        
         try {
             Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             Parametro p;
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "temperatura_inicial");
             p = (Parametro) q.uniqueResult();
             double temperaturaInicial = Double.parseDouble(p.getValor());
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "temperatura_final");
             p = (Parametro) q.uniqueResult();
             double temperaturaFinal = Double.parseDouble(p.getValor());
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "k_sa");
             p = (Parametro) q.uniqueResult();
             int k = Integer.parseInt(p.getValor());
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "alfa_sa");
             p = (Parametro) q.uniqueResult();
             double alfaSA = Double.parseDouble(p.getValor());
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "alfa_grasp");
             p = (Parametro) q.uniqueResult();
-            double alfaGrasp = Integer.parseInt(p.getValor());
-
+            double alfaGrasp = Double.parseDouble(p.getValor());
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "porcentaje_parada");
             p = (Parametro) q.uniqueResult();
             double pParada = Double.parseDouble(p.getValor());
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "num_intentos");
             p = (Parametro) q.uniqueResult();
             int intentos = Integer.parseInt(p.getValor());
-
+            
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "costo_almacen_usd_hora");
             p = (Parametro) q.uniqueResult();
             double costoAlmacen = Double.parseDouble(p.getValor());
-
-            q = s.getNamedQuery("VuelosXFecha");
-            q.setParameter("fechaRegistro", envio.getFechaRegistro());
-            List<Vuelo> vuelos = q.list();
-
-            Recocido recocido = new Recocido(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, envio, vuelos, costoAlmacen);
+            
+            q = s.getNamedQuery("Aeropuertos");
+            //q.setParameter("fechaRegistro", envio.getFechaRegistro());
+            //List<Vuelo> vuelos = q.list();
+            List<Aeropuerto> aeros = q.list();
+            
+            for (Aeropuerto a : aeros) {
+                a.getVuelosSalida().size();
+                if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
+                    envio.setOrigen(a);
+                }
+                if (a.getIdAeropuerto() == envio.getDestino().getIdAeropuerto()) {
+                    envio.setDestino(a);
+                }
+            }
+            
+            Recocido recocido = new Recocido(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, envio, aeros, costoAlmacen);
             ArrayList<Vuelo> solucion = recocido.simular();
             ArrayList<Escala> escalas = new ArrayList<Escala>();
             Escala e;
             int i = 1;
             Date fecha = envio.getFechaRegistro();
-
+            
+            q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             q.setParameter("tipo", "ESTADO_ESCALA");
             q.setParameter("valorUnico", "ACTV");
             p = (Parametro) q.uniqueResult();
-
+            
+            envio.setEscalas(escalas);
+            
             for (Vuelo v : solucion) {
                 e = new Escala();
                 e.setEnvio(envio);
@@ -194,20 +208,21 @@ public class CEnvio {
                 e.setEstado(p);
                 fecha = v.getFechaLlegada();
                 i++;
-
+                
                 envio.getEscalas().add(e);
             }
-
+            
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         } finally {
             s.close();
         }
         return false;
     }
-
+    
     public List<Envio> buscar(Aeropuerto actual, Aeropuerto origen, Aeropuerto destino, Parametro estado, Cliente cliente, String numEnvio) {
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Envio> envios = null;
         
@@ -219,33 +234,33 @@ public class CEnvio {
                 f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
             }
             
-            if (actual != null){
+            if (actual != null) {
                 Filter f_actual = s.enableFilter("EnviosXActual");
                 f_actual.setParameter("idAeropuerto", actual.getIdAeropuerto());
             }
             
-            if (origen != null){
+            if (origen != null) {
                 Filter f_origen = s.enableFilter("EnviosXOrigen");
                 f_origen.setParameter("idAeropuerto", origen.getIdAeropuerto());
             }
             
-            if (destino != null){
+            if (destino != null) {
                 Filter f_destino = s.enableFilter("EnviosXDestino");
                 f_destino.setParameter("idAeropuerto", origen.getIdAeropuerto());
             }
             
-            if (estado != null){
+            if (estado != null) {
                 Filter f_estado = s.enableFilter("EnviosXEstado");
                 f_estado.setParameter("idEstado", estado.getIdParametro());
             }
             
-            if (cliente != null){
+            if (cliente != null) {
                 Filter f_destino = s.enableFilter("EnviosXCliente");
                 f_destino.setParameter("idCliente", cliente.getIdCliente());
             }
             
             envios = q.list();
- 
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -253,9 +268,9 @@ public class CEnvio {
         }
         
         return envios;
-
+        
     }
-
+    
     public boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
@@ -264,8 +279,9 @@ public class CEnvio {
             return false;
         }
     }
-    public Tarifa calcularTarifa(Aeropuerto origen, Aeropuerto destino){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+
+    public Tarifa calcularTarifa(Aeropuerto origen, Aeropuerto destino) {
+        SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Tarifa tarifa = null;
         try {

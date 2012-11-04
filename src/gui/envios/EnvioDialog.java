@@ -9,7 +9,7 @@ import beans.Envio;
 import beans.Cliente;
 import beans.Parametro;
 import controllers.CEnvio;
-import gui.aeropuerto.AeropuertoPopup;
+import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.ArrayList;
 import java.util.List;
