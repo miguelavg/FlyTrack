@@ -21,7 +21,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
      private List<Parametro> ListatipoPar; 
      private List<Parametro> ListatipoEst; 
      private List<Parametro> ListatipoHijo;
-    public AeropuertoAgregar(javax.swing.JFrame parent, boolean modal) {
+    public AeropuertoAgregar(javax.swing.JDialog parent, boolean modal) {
         super(parent, true);
         initComponents();
         llenarComboPais();
@@ -356,7 +356,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AeropuertoAgregar(new javax.swing.JFrame(), true).setVisible(true);
+                new AeropuertoAgregar(new javax.swing.JDialog(), true).setVisible(true);
             }
         });
     }
