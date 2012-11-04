@@ -4,6 +4,7 @@
  */
 package gui.principal;
 
+import beans.Sesion;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CSeguridad;
 import java.awt.event.KeyEvent;
@@ -53,11 +54,6 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Flytrack: Log in");
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("User");
@@ -171,7 +167,11 @@ public class Login extends javax.swing.JFrame {
             //VERIFICACION EXITOSA
             lblError.setVisible(Boolean.FALSE);
 
+            Sesion sesionIniciada = new Sesion();
+            sesionIniciada.crearSesion();
+            
             PrincipalFrame pf = new PrincipalFrame();
+            pf.setSesionActiva(sesionIniciada);
             pf.setVisible(Boolean.TRUE);
 
             this.setVisible(Boolean.FALSE);
@@ -194,12 +194,6 @@ public class Login extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            btnLogin.doClick();
-    }//GEN-LAST:event_formKeyPressed
 
     private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
         // TODO add your handling code here:
