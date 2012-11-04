@@ -9,6 +9,8 @@ import beans.Envio;
 import beans.Parametro;
 import beans.Vuelo;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -27,13 +29,13 @@ public class Recocido {
     private double alfaGrasp;                   // coeficiente de relajación del grasp construcción
     private double pParada;                     // porcentaje de malas iteraciones para parar
     private int intentos;                       // intentos de malos grasp
-    private double costoAlmacen;
+    private double vCostoAlmacen;
     private Envio envio;                        // envío a realizar
-    private List<Aeropuerto> aeropuertos;            // todos los vuelos
     private ArrayList<Vuelo> solucion;          // ruta solución
     private ArrayList<Vuelo> alterado;          // ruta alterada
+    private ArrayList<VueloLite> vuelosLite;    // histórico
 
-    public Recocido(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, Envio envio, List<Aeropuerto> aeropuertos, double costoAlmacen) {
+    public Recocido(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, Envio envio, double vCostoAlmacen, ArrayList<VueloLite> vuelosLite) {
         this.kSA = kSA;
         this.temperaturaInicial = temperaturaInicial;
         this.temperatura = temperaturaInicial;
@@ -43,13 +45,31 @@ public class Recocido {
         this.pParada = pParada;
         this.intentos = intentos;
         this.envio = envio;
-        this.aeropuertos = aeropuertos;
-        this.costoAlmacen = costoAlmacen;
+        this.vCostoAlmacen = vCostoAlmacen;
+        this.vuelosLite = vuelosLite;
     }
 
     private double enfriamiento() {
         this.temperatura = this.alfaSA * this.temperatura;
         return this.temperatura;
+    }
+
+    private double buscarHistorico(int idOrigen, int idDestino) {
+
+        int lo = 0;
+        int hi = vuelosLite.size() - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            VueloLite v = vuelosLite.get(mid);
+            if ((idOrigen < v.getOrigen()) || (idOrigen == v.getOrigen() && idDestino < v.getDestino())) {
+                hi = mid - 1;
+            } else if ((idOrigen > v.getOrigen()) || (idOrigen == v.getOrigen() && idDestino > v.getDestino())) {
+                lo = mid + 1;
+            } else {
+                return vuelosLite.get(mid).getpLleno();
+            }
+        }
+        return 0;
     }
 
     private int estadoEnergia(ArrayList<Vuelo> vuelos, Date llegada) {
@@ -70,10 +90,11 @@ public class Recocido {
                 vuelo = vuelos.get(i);
                 milisec = vuelo.getFechaSalida().getTime() - llegada.getTime();
 
-                iCostoAlmacen = this.costoAlmacen * (double) milisec / (60 * 60000);
+                iCostoAlmacen = this.vCostoAlmacen * (double) milisec / (60 * 60000);
                 costoAlmacen = costoAlmacen + iCostoAlmacen;
 
-                pLleno = 0.9; // 0.8 + rnd.nextDouble() * 0.2;
+                pLleno = buscarHistorico(envio.getOrigen().getIdAeropuerto(), envio.getDestino().getIdAeropuerto());
+
                 pCapacidad = Math.max(pLleno * vuelo.getCapacidadMax(), vuelo.getCapacidadActual());
 
                 iCostoEnvio = (double) vuelo.getAlquiler() / pCapacidad;
@@ -90,6 +111,48 @@ public class Recocido {
 
     private double boltzmann(double dEnergia, double temperatura) {
         return Math.exp(-1 * (dEnergia / temperatura));
+    }
+
+    public class CustomComparator implements Comparator<MovimientoAlmacen> {
+
+        @Override
+        public int compare(MovimientoAlmacen m1, MovimientoAlmacen m2) {
+            if (m1.getFecha().before(m2.getFecha())) {
+                return -1;
+            }
+            if (m1.getFecha().after(m2.getFecha())) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    private int getMax(Aeropuerto a, Date in, Date out) {
+        int actual = a.getCapacidadActual();
+        int max = actual;
+        
+        ArrayList<MovimientoAlmacen> moves = new ArrayList<MovimientoAlmacen>();
+        for (Vuelo v : a.getVuelosSalida()) {
+            moves.add(new MovimientoAlmacen(v.getFechaSalida(), "O", v.getCapacidadActual()));
+        }
+        for (Vuelo v : a.getVuelosLlegada()) {
+            moves.add(new MovimientoAlmacen(v.getFechaLlegada(), "I", v.getCapacidadActual()));
+        }
+        Collections.sort(moves, new CustomComparator());
+
+        for(MovimientoAlmacen m : moves){
+            if(m.getTipo().equals("I")){
+                actual = actual + m.getCantidad();
+            }
+            if(m.getTipo().equals("O")){
+                actual = actual - m.getCantidad();
+            }
+            if(max < actual){
+                max = actual;
+            }
+        }
+        
+        return max;
     }
 
     private ArrayList<Vuelo> liteGrasp(Aeropuerto aOrigen, Aeropuerto aDestino, Date fecha, double alfa) {
@@ -120,9 +183,8 @@ public class Recocido {
                 for (int i = 0; i < aActual.getVuelosSalida().size(); i++) {
                     Vuelo vuelo = aActual.getVuelosSalida().get(i);
 
-                    if (vuelo.getFechaSalida().after(dActual)
-                            && vuelo.getCapacidadMax() > vuelo.getCapacidadActual()
-                            && aDestino.getCapacidadMax() > aDestino.getCapacidadActual() + vuelo.getCapacidadActual()) {
+                    if (vuelo.getCapacidadMax() > vuelo.getCapacidadActual()
+                            && getMax(aOrigen, dActual, vuelo.getFechaSalida()) < aOrigen.getCapacidadMax()) {
                         posibles.add(vuelo);
                         ArrayList<Vuelo> wrap = new ArrayList<Vuelo>();
                         wrap.add(vuelo);

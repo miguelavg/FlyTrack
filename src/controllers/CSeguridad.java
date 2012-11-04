@@ -29,8 +29,8 @@ public class CSeguridad {
         
         try{
             
-            /*1. Se busca la existencia del nombre del nombre de usuario y de existir
-             verificar que este activado*/
+            //-Existe usuario
+            //-Usuario activo
             Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
             q.setParameter("login", user);
@@ -38,14 +38,13 @@ public class CSeguridad {
             
             if(usuario == null) return Boolean.FALSE; //si el usuario no existe
             
-            /*2. Detectado el usuario se busca su contrasenia activa en este momento
-             para verificar si tiene o no alguna activa*/
+            //-Existe contrasenia
+            //-Contrasenia activa
             Query q2 = s.getNamedQuery("ContraseniaActivaXUsuario").setMaxResults(1);
             q2.setParameter("usuario", usuario);
             Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
             
             if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
-                //si no tiene contrasenia activa o la contrasena activa es diferente a la ingresada
                 return Boolean.TRUE;
             else 
                 return Boolean.FALSE;
@@ -83,9 +82,6 @@ public class CSeguridad {
             q.setParameter("valorUnico", "NUM_INTENTOS_FALLIDOS");
             Parametro p = (Parametro) q.uniqueResult();
             return Integer.parseInt(p.getValor());
-        }
-        catch(NumberFormatException nfe){
-            System.out.println(nfe.getMessage());
         }
         catch(Exception e){
             System.out.println(e.getMessage());

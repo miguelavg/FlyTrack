@@ -4,6 +4,7 @@
  */
 package beans;
 
+import beans.seguridad.Usuario;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
@@ -38,4 +39,11 @@ public class Sesion {
     public static void closeSessionFactory(){
         sessionFactory.close();
     }
+    
+    private Usuario usuario;
+    
+    public static void crearSesion(){
+        
+    }
+    
 }
