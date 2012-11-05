@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.*;
 import beans.Parametro;
 import controllers.CCliente;
+import controllers.CParametro;
+import controllers.CValidator;
+import gui.ErrorDialog;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -24,9 +27,11 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class ClientesEdit extends javax.swing.JDialog {
     CCliente ClienteBL = new CCliente();
+    CParametro ParametroBL = new CParametro();
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaCiudades;
     List<Parametro> ListaPaises;
+   
     int idCliente=-1;
     /**
      * Creates new form ClientesModificar
@@ -103,9 +108,20 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         });
 
+        cboTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         jLabel8.setText("Correo");
 
         jLabel11.setText("País");
+
+        cboCiudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
+        cboPais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cboPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboPaisActionPerformed(evt);
+            }
+        });
 
         Ciudad.setText("Ciudad");
 
@@ -245,12 +261,14 @@ public class ClientesEdit extends javax.swing.JDialog {
     
            Cliente ClienteBE=ClienteBL.BuscarXid(idCliente);
            txtNombres.setText(ClienteBE.getNombres());
+           txtNombres.setEditable(false);
            txtApellidos.setText(ClienteBE.getApellidos());
+           txtApellidos.setEditable(false);
            txtCorreo.setText(ClienteBE.geteMail());
            txtNumeroDoc.setText(ClienteBE.getNumDoc());
            txtTelefono.setText(ClienteBE.getTelefono());
            
-           for(int i=0;i<cboCiudad.getItemCount();i++){
+           for(int i=1;i<cboCiudad.getItemCount();i++){
                Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
                if (ciudad.getIdParametro()==ClienteBE.getCiudad().getIdParametro())
                {
@@ -262,7 +280,7 @@ public class ClientesEdit extends javax.swing.JDialog {
            
            cboPais.setSelectedItem(ClienteBE.getPais());
            
-           for(int i=0;i<cboPais.getItemCount();i++){
+           for(int i=1;i<cboPais.getItemCount();i++){
                Parametro pais = (Parametro)cboPais.getItemAt(i);
                if (pais.getIdParametro()==ClienteBE.getPais().getIdParametro())
                {
@@ -272,16 +290,17 @@ public class ClientesEdit extends javax.swing.JDialog {
                }
            }
            
-           for(int i=0;i<cboTipoDoc.getItemCount();i++){
+           for(int i=1;i<cboTipoDoc.getItemCount();i++){
                Parametro tipodoc = (Parametro)cboTipoDoc.getItemAt(i);
                if (tipodoc.getIdParametro()==ClienteBE.getTipoDoc().getIdParametro())
                {
-               cboTipoDoc.setSelectedIndex(i);
-               break;
+                 cboTipoDoc.setSelectedIndex(i);
+                 break;
                
                }
            }
-//           
+            cboTipoDoc.setEnabled(false);  
+            txtNumeroDoc.setEditable(false);
 //           cboPais.setSelectedItem(ClienteBE.getPais());
 //           cboTipoDoc.setSelectedItem(ClienteBE.getTipoDoc());
     
@@ -289,33 +308,38 @@ public class ClientesEdit extends javax.swing.JDialog {
     }
     
     public void llenarcombos(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "TIPO_DOC");
-            ListaTipoDoc = q.list();
-//      
-            Query q2 = s.getNamedQuery("ParametrosXTipo");
-            q2.setParameter("tipo", "CIUDAD");
-            ListaCiudades = q2.list();
-            
-            Query q3= s.getNamedQuery("ParametrosXTipo");
-            q3.setParameter("tipo", "PAIS");
-            ListaPaises=q3.list();
-                     
-            
-            
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
+        
+        ListaTipoDoc=ParametroBL.buscar(null, null, "TIPO_DOC", null);
+        ListaCiudades=ParametroBL.buscar(null, null, "CIUDAD", null);
+        ListaPaises= ParametroBL.buscar(null, null, "PAIS", null);
+        
+//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+//        Session s = sf.openSession();
+//        try {
+//            Transaction tx = s.beginTransaction();
+//            Query q;
+//            
+//            q = s.getNamedQuery("ParametrosXTipo");
+//            q.setParameter("tipo", "TIPO_DOC");
+//            ListaTipoDoc = q.list();
+////      
+//            Query q2 = s.getNamedQuery("ParametrosXTipo");
+//            q2.setParameter("tipo", "CIUDAD");
+//            ListaCiudades = q2.list();
+//            
+//            Query q3= s.getNamedQuery("ParametrosXTipo");
+//            q3.setParameter("tipo", "PAIS");
+//            ListaPaises=q3.list();
+//                     
+//            
+//            
+//            }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//                }
+//        finally {
+//            s.close();
+//        }
         for (int i=0;i<ListaTipoDoc.size();i++)
         {
             Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
@@ -323,12 +347,7 @@ public class ClientesEdit extends javax.swing.JDialog {
             cboTipoDoc.addItem(TipoDocBE);
         }
         
-        for (int i=0;i<ListaCiudades.size();i++)
-        {
-            Parametro Ciudad =(Parametro)ListaCiudades.get(i);
-            
-            cboCiudad.addItem(Ciudad);
-        }
+        
         
         for (int i=0;i<ListaPaises.size();i++)
         {
@@ -336,29 +355,77 @@ public class ClientesEdit extends javax.swing.JDialog {
             
             cboPais.addItem(Pais);
         }
+        
+        cboPais.setSelectedIndex(1);
+        
+//        for (int i=0;i<ListaCiudades.size();i++)
+//        {
+//            Parametro Ciudad =(Parametro)ListaCiudades.get(i);
+//            
+//            cboCiudad.addItem(Ciudad);
+//        }
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        if (idCliente==-1){
-        ClienteBL.agregarCliente(txtNombres.getText(),txtApellidos.getText(),txtCorreo.getText(),
-                txtTelefono.getText(),                txtNumeroDoc.getText(),(Parametro)cboTipoDoc.getSelectedItem(),
-                (Parametro)cboCiudad.getSelectedItem(),(Parametro)cboPais.getSelectedItem());
+        String error_message = validarcampos();
+        if (error_message.isEmpty()){
+            if (idCliente==-1){
+            ClienteBL.agregarCliente(txtNombres.getText(),txtApellidos.getText(),txtCorreo.getText(),
+                    txtTelefono.getText(),                txtNumeroDoc.getText(),(Parametro)cboTipoDoc.getSelectedItem(),
+                    (Parametro)cboCiudad.getSelectedItem(),(Parametro)cboPais.getSelectedItem());
+            }
+            else{
+                ClienteBL.ModificarCliente(idCliente,txtNombres.getText(),txtApellidos.getText(),txtCorreo.getText(),
+                    txtTelefono.getText(),                txtNumeroDoc.getText(),(Parametro)cboTipoDoc.getSelectedItem(),
+                    (Parametro)cboCiudad.getSelectedItem(),(Parametro)cboPais.getSelectedItem());
+
+            }
+            setVisible(false);
+            dispose();
         }
         else{
-            ClienteBL.ModificarCliente(idCliente,txtNombres.getText(),txtApellidos.getText(),txtCorreo.getText(),
-                txtTelefono.getText(),                txtNumeroDoc.getText(),(Parametro)cboTipoDoc.getSelectedItem(),
-                (Parametro)cboCiudad.getSelectedItem(),(Parametro)cboPais.getSelectedItem());
+            ErrorDialog.mostrarError(error_message, this);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+    private String validarcampos(){
+        String error_message = "";
+        if (txtNombres.getText().isEmpty()||txtApellidos.getText().isEmpty() || txtCorreo.getText().isEmpty() ||
+                    txtTelefono.getText().isEmpty() ||  txtNumeroDoc.getText().isEmpty()
+                ||cboCiudad.getSelectedIndex()==0 || cboPais.getSelectedIndex()==0 ||cboTipoDoc.getSelectedIndex()==0 ){
+            
+            error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             
         }
-        setVisible(false);
-        dispose();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+        else{
+            if (idCliente==-1){
 
+                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
+            }
+        }
+                      
+        return error_message;
+    }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPaisActionPerformed
+        // TODO add your handling code here:
+        
+        cboCiudad.removeAllItems();
+        
+       
+        
+         ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()+1).getHijos();
+            for (int i=0;i<ListaCiudades.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListaCiudades.get(i);
+            
+            cboCiudad.addItem(TipoDocBE);
+        }
+    }//GEN-LAST:event_cboPaisActionPerformed
     public int showDialog(){
         setVisible(true);
               

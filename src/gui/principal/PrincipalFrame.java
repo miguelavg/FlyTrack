@@ -353,14 +353,4 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JButton simulacionButton;
     // End of variables declaration//GEN-END:variables
 
-    private Sesion sesionActiva;
-
-    
-    public Sesion getSesionActiva() {
-        return sesionActiva;
-    }
-
-    public void setSesionActiva(Sesion sesionActiva) {
-        this.sesionActiva = sesionActiva;
-    }
 }

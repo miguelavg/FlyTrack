@@ -6,12 +6,14 @@ package beans.seguridad;
 
 import beans.Parametro;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
@@ -32,7 +34,9 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "Perfil",
     query = "from Perfil"),
     @NamedQuery(name = "PerfilxId",
-    query = "from Perfil where idPerfil = :idperfil ")
+    query = "from Perfil where idPerfil = :idperfil "),
+    @NamedQuery(name = "PerfilXNombre",
+    query = "from Perfil where UPPER(Nombre) like UPPER(:nombre)")
 
 })
 
@@ -73,6 +77,9 @@ public class Perfil implements Serializable  {
     @ManyToOne
     @JoinColumn(name = "estado")
     private Parametro estado;       
+    
+    @OneToMany(mappedBy="perfil")
+    private List<Permiso> permisos;
 
     public int getIdPerfil(){
     return idPerfil;

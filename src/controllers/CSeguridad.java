@@ -22,7 +22,7 @@ import org.hibernate.Filter;
  */
 public class CSeguridad {
     
-    public static boolean verificarContrasenia(String user, char[] pass){
+    public static Usuario verificarContrasenia(String user, char[] pass){
 
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -36,7 +36,7 @@ public class CSeguridad {
             q.setParameter("login", user);
             Usuario usuario = (Usuario)q.uniqueResult();
             
-            if(usuario == null) return Boolean.FALSE; //si el usuario no existe
+            if(usuario == null) return null; //si el usuario no existe
             
             //-Existe contrasenia
             //-Contrasenia activa
@@ -45,9 +45,9 @@ public class CSeguridad {
             Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
             
             if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
-                return Boolean.TRUE;
+                return usuario;
             else 
-                return Boolean.FALSE;
+                return null;
                         
         }
         catch(Exception e){
@@ -57,7 +57,7 @@ public class CSeguridad {
             s.close();
         }
 
-        return true;
+        return null;
     }
     
     private static boolean passwordCorrecta(char[] passBD, char[] passRead){

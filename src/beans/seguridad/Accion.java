@@ -6,12 +6,15 @@ package beans.seguridad;
 
 import beans.Parametro;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -19,59 +22,46 @@ import javax.persistence.Table;
  *
  * @author joao
  */
+
 @Entity
 @Table(name = "Accion")
 public class Accion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-      private int idAccion;
+    private int idAccion;
+
+    @ManyToOne
+    @JoinColumn(name = "idAccionPadre")
+    private Accion AccionPadre;
+
+    private int nivel;
+
+    private String nombre;
     
-      @ManyToOne
-      @JoinColumn(name = "idAccionPadre")
-      private Parametro AccionPadre;
+    //En esta variable estan los perfiles que ejecutan dicha accion, encapsulado
+    //a traves de la clase Permiso
+    @OneToMany(mappedBy="accion")
+    private List<Permiso> permisos;
+      
+    public int getIdAccion(){
+        return idAccion;
+    }    
 
-      @ManyToOne
-      @JoinColumn(name = "Nivel")
-      private Parametro nivel;
+    public Accion getIdAccionPadre() {
+        return AccionPadre;
+    }
 
-      private String nombre;
-      
-      public Accion() {
-      } 
-      
-      public int getIdAccion(){
-      return idAccion;
-      }    
-      
-      public void setIdAccion(int accion){
-      this.idAccion=accion;
-      }    
-      
-      public Parametro getIdAccionPadre() {
-      return AccionPadre;
-      }
+    public Integer getNivel() {
+        return nivel;
+    }
 
-      public void setidAccionPadre(Parametro AccionPadre) {
-      this.AccionPadre = AccionPadre;
-      }
-      
-      public Parametro getNivel() {
-      return nivel;
-      }
+    public String getNombre(){
+        return nombre;
+    }    
 
-      public void setNivel(Parametro nivel) {
-      this.nivel = nivel;
-      }
-      
-            
-      public String getNombre(){
-      return nombre;
-      }    
-      
-      public void setNombre(String nombre){
-      this.nombre=nombre;
-      }    
-      
-      
+    public void setNombre(String nombre){
+        this.nombre=nombre;
+    }    
+
 }
 
