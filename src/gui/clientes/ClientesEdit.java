@@ -31,6 +31,7 @@ public class ClientesEdit extends javax.swing.JDialog {
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaCiudades;
     List<Parametro> ListaPaises;
+   
     int idCliente=-1;
     /**
      * Creates new form ClientesModificar
@@ -116,6 +117,11 @@ public class ClientesEdit extends javax.swing.JDialog {
         cboCiudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         cboPais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cboPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboPaisActionPerformed(evt);
+            }
+        });
 
         Ciudad.setText("Ciudad");
 
@@ -262,7 +268,7 @@ public class ClientesEdit extends javax.swing.JDialog {
            txtNumeroDoc.setText(ClienteBE.getNumDoc());
            txtTelefono.setText(ClienteBE.getTelefono());
            
-           for(int i=0;i<cboCiudad.getItemCount();i++){
+           for(int i=1;i<cboCiudad.getItemCount();i++){
                Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
                if (ciudad.getIdParametro()==ClienteBE.getCiudad().getIdParametro())
                {
@@ -274,7 +280,7 @@ public class ClientesEdit extends javax.swing.JDialog {
            
            cboPais.setSelectedItem(ClienteBE.getPais());
            
-           for(int i=0;i<cboPais.getItemCount();i++){
+           for(int i=1;i<cboPais.getItemCount();i++){
                Parametro pais = (Parametro)cboPais.getItemAt(i);
                if (pais.getIdParametro()==ClienteBE.getPais().getIdParametro())
                {
@@ -284,12 +290,12 @@ public class ClientesEdit extends javax.swing.JDialog {
                }
            }
            
-           for(int i=0;i<cboTipoDoc.getItemCount();i++){
+           for(int i=1;i<cboTipoDoc.getItemCount();i++){
                Parametro tipodoc = (Parametro)cboTipoDoc.getItemAt(i);
                if (tipodoc.getIdParametro()==ClienteBE.getTipoDoc().getIdParametro())
                {
-               cboTipoDoc.setSelectedIndex(i);
-               break;
+                 cboTipoDoc.setSelectedIndex(i);
+                 break;
                
                }
            }
@@ -341,12 +347,7 @@ public class ClientesEdit extends javax.swing.JDialog {
             cboTipoDoc.addItem(TipoDocBE);
         }
         
-        for (int i=0;i<ListaCiudades.size();i++)
-        {
-            Parametro Ciudad =(Parametro)ListaCiudades.get(i);
-            
-            cboCiudad.addItem(Ciudad);
-        }
+        
         
         for (int i=0;i<ListaPaises.size();i++)
         {
@@ -354,6 +355,15 @@ public class ClientesEdit extends javax.swing.JDialog {
             
             cboPais.addItem(Pais);
         }
+        
+        cboPais.setSelectedIndex(1);
+        
+//        for (int i=0;i<ListaCiudades.size();i++)
+//        {
+//            Parametro Ciudad =(Parametro)ListaCiudades.get(i);
+//            
+//            cboCiudad.addItem(Ciudad);
+//        }
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -400,6 +410,22 @@ public class ClientesEdit extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPaisActionPerformed
+        // TODO add your handling code here:
+        
+        cboCiudad.removeAllItems();
+        
+       
+        
+         ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()+1).getHijos();
+            for (int i=0;i<ListaCiudades.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListaCiudades.get(i);
+            
+            cboCiudad.addItem(TipoDocBE);
+        }
+    }//GEN-LAST:event_cboPaisActionPerformed
     public int showDialog(){
         setVisible(true);
               

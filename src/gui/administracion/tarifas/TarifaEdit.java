@@ -10,8 +10,12 @@ import beans.Parametro;
 import beans.Tarifa;
 import controllers.CTarifa;
 import controllers.CValidator;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesEdit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +37,7 @@ public class TarifaEdit extends javax.swing.JDialog {
     
     public TarifaEdit(javax.swing.JDialog parent, boolean modal,int id) {
         super(parent, modal);
+        idtarifa=id;
         initComponents();
         cargarcombos();
         
@@ -159,6 +164,10 @@ public class TarifaEdit extends javax.swing.JDialog {
                 txtFechaDesActionPerformed(evt);
             }
         });
+
+        cboMoneda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -290,10 +299,10 @@ public class TarifaEdit extends javax.swing.JDialog {
            txtAeroOri.setText(TarifaBE.getOrigen().getNombre());
            txtAeroDes.setText(TarifaBE.getDestino().getNombre());
            txtMonto.setText(CValidator.formatNumber(TarifaBE.getMonto()));
-           txtFechaAct.setText(CValidator.formatDate(TarifaBE.getFechaActivacion()));
-           txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()));
+           txtFechaAct.setText((CValidator.formatDate(TarifaBE.getFechaActivacion())).substring(0,10).replace("/", "-"));
+           txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()).substring(0,10).replace("/", "-"));
            
-           for(int i=0;i<cboMoneda.getItemCount();i++){
+           for(int i=1;i<cboMoneda.getItemCount();i++){
                Parametro moneda = (Parametro)cboMoneda.getItemAt(i);
                if (moneda.getIdParametro()==TarifaBE.getMoneda().getIdParametro())
                {
@@ -303,7 +312,7 @@ public class TarifaEdit extends javax.swing.JDialog {
                }
            }
            
-           for(int i=0;i<cboEstado.getItemCount();i++){
+           for(int i=1;i<cboEstado.getItemCount();i++){
                Parametro estado = (Parametro)cboEstado.getItemAt(i);
                if (estado.getIdParametro()==TarifaBE.getEstado().getIdParametro())
                {
@@ -371,15 +380,87 @@ public class TarifaEdit extends javax.swing.JDialog {
     private void txtFechaDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaDesActionPerformed
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        String error_message = validarcampos();
+        if (error_message.isEmpty()){
+            if (idtarifa==-1){
+                TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
+
+            }
+            else{
+                Aeropuerto nuevoaeroori;
+                Aeropuerto nuevoaerodes;
+                if (AeroOri==null){
+                    nuevoaeroori=TarifaBE.getOrigen();
+                } 
+                else{
+                    nuevoaeroori=AeroOri;
+                }
+
+                if (AeroDes==null){
+                    nuevoaerodes=TarifaBE.getDestino();
+                } 
+                else{
+                    nuevoaerodes=AeroDes;
+                }
+
+                TarifaBL.ModificarTarifa(TarifaBE.getIdTarifa(),nuevoaeroori,nuevoaerodes,txtMonto.getText(),txtFechaAct.getText(),txtFechaDes.getText()
+                        ,(Parametro)cboMoneda.getSelectedItem(),(Parametro)cboEstado.getSelectedItem());
+
+            }
+            setVisible(false);
+            dispose();
+        }
         
-        if (idtarifa==-1){
-            TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
+        else{
+            
+            ErrorDialog.mostrarError(error_message, this);
+            
+        }
+        //TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
         
+    }//GEN-LAST:event_jButton4ActionPerformed
+    private String validarcampos(){
+        
+        String error_message = "";
+        
+        if (txtAeroOri.getText().isEmpty()||txtAeroDes.getText().isEmpty() || txtMonto.getText().isEmpty() ||
+                    txtFechaAct.getText().isEmpty() ||  txtFechaDes.getText().isEmpty()
+                ||cboEstado.getSelectedIndex()==0 || cboMoneda.getSelectedIndex()==0  ){
+            
+            error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            
         }
         else{
+            
+//            if (idCliente==-1){
+//
+//                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
+//            }
+            
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
+            
+            Date fechaact = null;
+            Date fechades=null;
+            try {
+
+                fechaact = formatoDelTexto.parse(txtFechaAct.getText());
+                fechades = formatoDelTexto.parse(txtFechaDes.getText());
+
+            } catch (ParseException ex) {
+
+                ex.printStackTrace();
+            }
+            if (fechaact.after(fechades)){
+                error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación";
+            }
+            if (txtAeroOri.getText().equals(txtAeroDes.getText())){
+                error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación";
+            }
+                        
+            
             Aeropuerto nuevoaeroori;
             Aeropuerto nuevoaerodes;
             if (AeroOri==null){
@@ -388,24 +469,22 @@ public class TarifaEdit extends javax.swing.JDialog {
             else{
                 nuevoaeroori=AeroOri;
             }
-            
+
             if (AeroDes==null){
-                nuevoaeroori=TarifaBE.getDestino();
+                nuevoaerodes=TarifaBE.getDestino();
             } 
             else{
                 nuevoaerodes=AeroDes;
             }
             
-            TarifaBL.ModificarTarifa(TarifaBE.getIdTarifa(),nuevoaeroori,nuevoaeroori,txtMonto.getText(),txtFechaAct.getText(),txtFechaDes.getText()
-                    ,(Parametro)cboMoneda.getSelectedItem(),(Parametro)cboEstado.getSelectedItem());
+            error_message=TarifaBL.ValidarRuta(nuevoaeroori,nuevoaerodes);
             
         }
-        setVisible(false);
-        dispose();
-        //TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
+                      
+        return error_message;
         
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+        
+    }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed

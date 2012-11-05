@@ -51,7 +51,34 @@ public class CTarifa {
         
         return null;
     }
-    
+    public String ValidarRuta(Aeropuerto aeroori,Aeropuerto aerodes){
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String mensaje="";
+        List<Tarifa> Lista;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("TarifaxRuta");
+            q.setParameter("aeroori", aeroori);
+            q.setParameter("aerodes", aerodes);
+            Lista = q.list();
+            if (Lista.size()>0){
+               mensaje="Ya existe una tarifa para el origen y destino especificado"; 
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        
+        return mensaje;
+    }
     public List<Parametro> ListarEstadoMonedas(){
          SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -256,7 +283,7 @@ public class CTarifa {
             TarifaBE.setFechaActivacion(fechaact);
             TarifaBE.setFechaDesactivacion(fechades);
                         
-            int i = (Integer)s.save(TarifaBE);
+            s.update(TarifaBE);
             
             tx.commit();
             
