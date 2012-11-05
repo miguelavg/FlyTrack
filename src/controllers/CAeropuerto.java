@@ -19,6 +19,7 @@ public class CAeropuerto {
     
     static List<Parametro> ListaTipoDoc;
     static List<Parametro> ListaTipoEst;
+    static List<Aeropuerto> ListaAeropuerto;
     
     public static void modificarAeropuerto(
               int idAeropuerto,
@@ -165,6 +166,33 @@ public class CAeropuerto {
 //            s.close();
 //        }
 //    }
+    
+    
+       public static List<Aeropuerto> GenerarListaAeropuerto(){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("Aero");
+           
+            ListaAeropuerto = q.list();
+            
+            
+            
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            
+            s.close();
+        }
+        
+        return ListaAeropuerto;
+        
+    }
     
       public static List<Parametro> llenarComboPais(){
         SessionFactory sf = Sesion.getSessionFactory();
