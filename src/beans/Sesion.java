@@ -52,24 +52,4 @@ public class Sesion {
         usuario = aUsuario;
     }
     
-    
-    
-    public void crearSesion(String nombreUsuario){
-        SessionFactory sf = getSessionFactory();
-        Session s = sf.openSession();
-        
-        try{
-            Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
-            q.setParameter("Login", nombreUsuario);
-            setUsuario((Usuario)q.uniqueResult());
-            
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-    }
-    
 }

@@ -51,12 +51,12 @@ public class CSeguridad {
                         
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
-                }
+            System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
+        }
         finally {
+            System.out.println("CSeguridad.verificarContrasenia - INFO: Transaccion Terminada");
             s.close();
         }
-
         return null;
     }
     
@@ -69,6 +69,7 @@ public class CSeguridad {
             correcto = Arrays.equals(passRead, passBD);
         }
         Arrays.fill(passBD, '0');
+        System.out.println("CSeguridad.passwordCorrecta - INFO: resultado - " + correcto);
         return correcto;
     }
     
