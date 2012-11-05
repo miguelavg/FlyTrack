@@ -53,7 +53,11 @@ import org.hibernate.annotations.ParamDef;
     @FilterDef(name = "AeropuertoxCiudad",
     parameters =
     @ParamDef(name = "Ciudad", type = "integer")),
-    @FilterDef(name = "VuelosXAeropuerto", parameters = {
+    @FilterDef(name = "VuelosXAeropuertoSalida", parameters = {
+        @ParamDef(name = "upper", type = "date"),
+        @ParamDef(name = "lower", type = "date")
+    }),
+    @FilterDef(name = "VuelosXAeropuertoLlegada", parameters = {
         @ParamDef(name = "upper", type = "date"),
         @ParamDef(name = "lower", type = "date")
     })
@@ -82,8 +86,14 @@ public class Aeropuerto implements Serializable {
     @JoinColumn(name = "Estado")
     private Parametro estado;
     @OneToMany(mappedBy = "origen")
+    @Filters({
+        @Filter(name = "VuelosXAeropuertoSalida", condition = ":lower < fechaSalida AND fechaSalida < :upper")
+    })
     private List<Vuelo> vuelosSalida;
     @OneToMany(mappedBy = "destino")
+    @Filters({
+        @Filter(name = "VuelosXAeropuertoLlegada", condition = ":lower < fechaSalida AND fechaSalida < :upper")
+    })
     private List<Vuelo> vuelosLlegada;
     @OneToMany(mappedBy = "actual")
     private List<Envio> enviosAlmacen;
@@ -101,6 +111,10 @@ public class Aeropuerto implements Serializable {
         return nombre;
     }
 
+    public void setIdAeropuerto(int id) {
+        this.idAeropuerto = id;
+    }
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

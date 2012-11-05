@@ -5,10 +5,20 @@
 package gui.administracion.tarifas;
 
 import beans.Aeropuerto;
+import beans.Parametro;
+import beans.Tarifa;
+import beans.TipoCambio;
+import controllers.CAeropuerto;
+import controllers.CParametro;
+import controllers.CTarifa;
+import controllers.CTipoCambio;
+import controllers.CValidator;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesEdit;
 import gui.clientes.ClientesPopUp;
 import gui.envios.*;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,8 +32,18 @@ public class TarifaFrame extends javax.swing.JDialog {
     
     Aeropuerto AeroOri;
     Aeropuerto AeroDes;
+    CAeropuerto AeropuertoBL = new CAeropuerto();
+    List<Tarifa> ListaTarifa;
+    CTarifa TarifaBL = new CTarifa();
+    CTipoCambio TipoCambioBL= new CTipoCambio();
+    CParametro ParametroBL = new CParametro();
+    
     public TarifaFrame() {
+        
         initComponents();
+        CTipoCambio ctipocambio = new CTipoCambio();
+        ListaTarifa = TarifaBL.Buscar(null, null,"", "");
+        llenartabla();
     }
 
     /**
@@ -54,7 +74,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaTarifa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Envíos");
@@ -222,24 +242,15 @@ public class TarifaFrame extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTarifa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Jorge Chavez, Lima", "International JFK, New York", "70"},
-                {"Manco Capac, Juliaca", "Jorge Chavez, Lima", "15"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Aeropuerto Origen", "Aerouperto Destino", "Monto ($)"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaTarifa);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -264,7 +275,7 @@ public class TarifaFrame extends javax.swing.JDialog {
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -336,8 +347,68 @@ public class TarifaFrame extends javax.swing.JDialog {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        
+        ListaTarifa=TarifaBL.Buscar(AeroOri,AeroDes,txtMontoIni.getText(),txtMontoFin.getText());
+        llenartabla();
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void llenartabla(){
+        DefaultTableModel dtm = (DefaultTableModel) tablaTarifa.getModel();
+
+        for (int i = dtm.getRowCount(); i > 0; i--) {
+            dtm.removeRow(0);
+        }
+
+        if (ListaTarifa == null) {
+            return;
+        }
+
+        for (Tarifa t : ListaTarifa) {
+            llenarLineaTabla(t, dtm);
+        }
+    }
+    private void llenarLineaTabla  (Tarifa t,  DefaultTableModel dtm){
+        
+        Aeropuerto origen;
+        Aeropuerto destino;
+        Double monto=0.00;
+        origen=TarifaBL.BuscarAeropuertoXId(t.getOrigen());
+        destino=TarifaBL.BuscarAeropuertoXId(t.getDestino());
+        
+        Parametro moneda;
+        moneda = ParametroBL.buscarId(t.getMoneda().getIdParametro());
+        if (t.getMoneda().getValor().equals("Soles")){
+            
+            //TipoCambio tipocambio;
+            //tipocambio = TarifaBL.BuscarCambio(t.getMoneda().getIdParametro(),0);
+            monto=t.getMonto();//*tipocambio.getTipoCambio();
+        }
+        else {
+            if (t.getMoneda().getValor().equals("Euros")){
+            
+                //TipoCambio tipocambio;
+                //tipocambio = TarifaBL.BuscarCambio(t.getMoneda().getIdParametro(),0);
+                monto=t.getMonto();///tipocambio.getTipoCambio();
+            }
+            else{
+                monto= t.getMonto();
+            }
+        }
+        
+        Object[] datos = new Object[3];
+        datos[0] = origen.getNombre();
+        datos[1] = destino.getNombre();
+        datos[2] = monto;
+       
+        dtm.addRow(datos);
+    }
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+        // TODO add your handling code here:
+        CTipoCambio ctipocambio = new CTipoCambio();
+        ListaTarifa = TarifaBL.Buscar(null, null,"", "");
+        llenartabla();
+    }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
 
@@ -401,7 +472,7 @@ public class TarifaFrame extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaTarifa;
     private javax.swing.JTextField txtAeroDes;
     private javax.swing.JTextField txtAeroOri;
     private javax.swing.JTextField txtMontoFin;
