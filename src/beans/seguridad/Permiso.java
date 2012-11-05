@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,25 +22,38 @@ import javax.persistence.Table;
 @Table(name = "Permiso")
 
 public class Permiso implements Serializable {
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-      private int idPerfil;
-      private int idAccion;
+    private int idPermiso;
+    
+    @OneToOne
+    @JoinColumn(name="idAccion")
+    private Accion accion;
+    
+    @ManyToOne
+    @JoinColumn(name="idPerfil")
+    private Perfil perfil;
 
-      public int getIdPerfil(){
-      return idPerfil;
-      }    
-      
-      public void setIdPerfil(int idPerfil){
-      this.idPerfil=idPerfil;
-      }    
-      
-      public int getIdAccion(){
-      return idAccion;
-      }    
-      
-      public void setIdAccion(int idAccion){
-      this.idAccion=idAccion;
-      }    
+    public int getIdPermiso() {
+        return idPermiso;
+    }
+
+    public Accion getAccion() {
+        return accion;
+    }
+
+    public void setAccion(Accion accion) {
+        this.accion = accion;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    
+    
       
 }
