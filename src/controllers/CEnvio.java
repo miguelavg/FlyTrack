@@ -357,6 +357,7 @@ public class CEnvio {
             Query q = s.getNamedQuery("EnvioID");
             q.setParameter("idenvio", id);
             envio = (Envio) q.uniqueResult();
+            envio.getEscalas().size();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {

@@ -36,7 +36,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
         
         if (envio != null){
             this.remitenteEnvioText.setText(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos());
-            this.destinatarioEnvioText.setText(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos());            
+            this.destinatarioEnvioText.setText(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos());  
+            this.envio = envio;
         }
         
     }
