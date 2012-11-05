@@ -32,7 +32,7 @@ public class Accion implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "idAccionPadre")
-    private Accion AccionPadre;
+    private Accion accionPadre;
 
     private int nivel;
 
@@ -47,10 +47,6 @@ public class Accion implements Serializable {
         return idAccion;
     }    
 
-    public Accion getIdAccionPadre() {
-        return AccionPadre;
-    }
-
     public Integer getNivel() {
         return nivel;
     }
@@ -62,6 +58,14 @@ public class Accion implements Serializable {
     public void setNombre(String nombre){
         this.nombre=nombre;
     }    
+
+    public Accion getAccionPadre() {
+        return accionPadre;
+    }
+
+    public List<Permiso> getPermisos() {
+        return permisos;
+    }
 
 }
 
