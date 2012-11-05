@@ -7,6 +7,7 @@ package gui.seguridad.perfiles;
 import beans.Parametro;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
+import controllers.CParametro;
 import controllers.CPerfil;
 import gui.ErrorDialog;
 import java.util.List;
@@ -28,7 +29,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         List<Parametro> ListaEstado ;
         boolean isNuevo;
         Perfil perfil;
-
+         CParametro ParametroBL = new CParametro();
         
         
     CPerfil Perfil= new CPerfil ();
@@ -359,28 +360,14 @@ public class PerfilEdit extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
         public void llenarcomboEstado(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "ESTADO_USUARIO");
-            ListaEstado = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaEstado.size();i++)
+         ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+    
+        for (Parametro p : ListaEstado)
+        //for (int i=0;i<ListaEstado.size();i++)
         {
-            Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
+    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
             
-            cboEstado.addItem(TipoDocBE);
+            cboEstado.addItem(p);
         }
     }
     

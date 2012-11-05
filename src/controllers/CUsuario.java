@@ -61,7 +61,7 @@ public class CUsuario {
     
     
     
-     public List<Usuario> Buscar(Integer idperfil, Integer idaeropuerto,Integer idcliente,Integer Estado)
+     public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto,Cliente cliente,Parametro Estado)
     {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -71,16 +71,30 @@ public class CUsuario {
             Transaction tx = s.beginTransaction();
             Query q;
            q = s.getNamedQuery("Usuario");
+           
+           
+           if (perfil!=null ){
            Filter f = s.enableFilter("UsuarioxIdperfil");
-           f.setParameter("idperfil",idperfil);
+           f.setParameter("idperfil",perfil.getIdPerfil());
+           }
+           
+           if (aeropuerto!=null ){
            Filter f2 = s.enableFilter("UsuarioxIdaeropuerto");
-           f2.setParameter("idaeropuerto",idaeropuerto);
+           f2.setParameter("idaeropuerto",aeropuerto.getIdAeropuerto());
+           }
+           
+           if (cliente!=null ){
            Filter f3 = s.enableFilter("UsuarioxIdcliente");
-           f3.setParameter("idcliente",idcliente);
+           f3.setParameter("idcliente",cliente.getIdCliente());
 //           Filter f4 = s.enableFilter("UsuarioxLogin");
 //           f4.setParameter("login",Login);
+           }
+                      
+           //&& Estado.getIdParametro()!=0
+           if (Estado!=null ){
            Filter f5 = s.enableFilter("UsuarioxEstado");
-           f5.setParameter("estado",Estado);
+           f5.setParameter("estado",Estado.getIdParametro());
+           }
            ListaUsuarios= q.list();
 
            return ListaUsuarios;
@@ -171,11 +185,15 @@ public class CUsuario {
             
             else {
            Query q;
+           Query q1;
+           
            q = s.getNamedQuery("Usuario");
            Filter f = s.enableFilter("UsuarioxLogin");
            f.setParameter("login",logIn);
         
            List<Usuario> ListaUsuarios;
+           List<Usuario> ListaAuxUsuarios;
+           
            ListaUsuarios= q.list();
                 
                 if (ListaUsuarios.size() > 0) {
@@ -185,12 +203,14 @@ public class CUsuario {
                     }
                 }
                 
-           Query q1;
-           q1 = s.getNamedQuery("Usuario");
-           Filter f2 = s.enableFilter("UsuarioxIdcliente");
-           f2.setParameter("idcliente",idcliente);
+
+           //q = s.getNamedQuery("Usuario");
+//           Filter f2 = s.enableFilter("UsuarioxIdcliente");
+//           f2.setParameter("idcliente",idcliente);
         
-           List<Usuario> ListaAuxUsuarios;
+           q1 = s.getNamedQuery("UsuarioxIdClienteAux");
+           q1.setParameter("idcliente",idcliente );
+           
            ListaAuxUsuarios= q1.list();
                 
                 if (ListaAuxUsuarios.size() > 0) {

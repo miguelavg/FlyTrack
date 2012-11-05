@@ -9,6 +9,8 @@ import beans.Cliente;
 import beans.Parametro;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
+import controllers.CParametro;
+import controllers.CPerfil;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
@@ -33,6 +35,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
         Cliente  ClienteAux ;
             Aeropuerto AeropuertoAux;
                 boolean isNuevo;
+                
+         CParametro ParametroBL = new CParametro();
+        CPerfil PerfilBL= new CPerfil();
             
     /**
      * Creates new form UsuarioEdit
@@ -128,8 +133,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         jLabel2.setText("Perfil:");
 
         jLabel3.setText("Aeropuerto:");
-
-        txtAeropuerto.setText("Jorge Chávez, Lima");
 
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
@@ -311,53 +314,26 @@ public class UsuarioEdit extends javax.swing.JDialog {
     }
     
     public void llenarcomboEstado(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "ESTADO_USUARIO");
-            ListaEstado = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaEstado.size();i++)
+         ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+    
+        for (Parametro p : ListaEstado)
+        //for (int i=0;i<ListaEstado.size();i++)
         {
-            Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
+    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
             
-            cboEstado.addItem(TipoDocBE);
+            cboEstado.addItem(p);
         }
+        
     }
     
     public void llenarcomboPerfiles(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("Perfil");
-            ListaPerfiles = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaPerfiles.size();i++)
+        ListaPerfiles=PerfilBL.Buscar();
+    //int i=0;i<ListaPerfiles.size();i++
+        for (Perfil p: ListaPerfiles)
         {
-            Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
-            
-            cboPerfil.addItem(CPerfil);
+            //Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
+            //CPerfil
+            cboPerfil.addItem(p);
         }
     }
     
