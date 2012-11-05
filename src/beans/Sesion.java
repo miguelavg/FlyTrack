@@ -42,7 +42,17 @@ public class Sesion {
         sessionFactory.close();
     }
     
-    private Usuario usuario;
+    private static Usuario usuario;
+
+    public static Usuario getUsuario() {
+        return usuario;
+    }
+
+    public static void setUsuario(Usuario aUsuario) {
+        usuario = aUsuario;
+    }
+    
+    
     
     public void crearSesion(String nombreUsuario){
         SessionFactory sf = getSessionFactory();
@@ -51,7 +61,7 @@ public class Sesion {
         try{
             Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
             q.setParameter("Login", nombreUsuario);
-            usuario = (Usuario)q.uniqueResult();
+            setUsuario((Usuario)q.uniqueResult());
             
         }
         catch(Exception e){

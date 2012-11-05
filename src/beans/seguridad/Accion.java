@@ -6,12 +6,14 @@ package beans.seguridad;
 
 import beans.Parametro;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,9 +38,10 @@ public class Accion implements Serializable {
 
     private String nombre;
     
-    @OneToOne
-    @JoinColumn(name="idPermiso")
-    private Permiso permiso;
+    //En esta variable estan los perfiles que ejecutan dicha accion, encapsulado
+    //a traves de la clase Permiso
+    @OneToMany(mappedBy="accion")
+    private List<Permiso> permisos;
       
     public int getIdAccion(){
         return idAccion;
