@@ -193,9 +193,10 @@ public class CUsuario {
         
            List<Usuario> ListaUsuarios;
            List<Usuario> ListaAuxUsuarios;
-           
+          
            ListaUsuarios= q.list();
-                
+           s.disableFilter("UsuarioxLogin");
+           
                 if (ListaUsuarios.size() > 0) {
                     U = ListaUsuarios.get(0);
                     if (U!=null){
