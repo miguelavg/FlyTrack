@@ -225,7 +225,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jButton9" min="-2" pref="160" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="monitoreoButton" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="monitoreoButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel14" min="-2" pref="120" max="-2" attributes="0"/>
@@ -243,7 +243,7 @@
                                   <Component id="remitenteEnvioText" min="-2" pref="341" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="160" max="32767" attributes="0"/>
+                          <EmptySpace pref="139" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

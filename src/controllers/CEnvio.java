@@ -348,4 +348,20 @@ public class CEnvio {
         }
         return tarifa;
     }
+
+    public Envio buscarId(int id) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Envio envio = null;
+        try {
+            Query q = s.getNamedQuery("EnvioID");
+            q.setParameter("idenvio", id);
+            envio = (Envio) q.uniqueResult();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return envio;
+    }
 }
