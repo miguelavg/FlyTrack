@@ -5,6 +5,8 @@
 package beans;
 
 import beans.seguridad.Usuario;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
@@ -42,8 +44,22 @@ public class Sesion {
     
     private Usuario usuario;
     
-    public static void crearSesion(){
+    public void crearSesion(String nombreUsuario){
+        SessionFactory sf = getSessionFactory();
+        Session s = sf.openSession();
         
+        try{
+            Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
+            q.setParameter("Login", nombreUsuario);
+            usuario = (Usuario)q.uniqueResult();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
     }
     
 }

@@ -168,7 +168,7 @@ public class Login extends javax.swing.JFrame {
             lblError.setVisible(Boolean.FALSE);
 
             Sesion sesionIniciada = new Sesion();
-            sesionIniciada.crearSesion();
+            sesionIniciada.crearSesion(usuario);
             
             PrincipalFrame pf = new PrincipalFrame();
             pf.setSesionActiva(sesionIniciada);

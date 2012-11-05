@@ -28,7 +28,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 public class CUsuario {
     public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
-                Parametro estado,Integer numAcceso, boolean PrimerAcceso){
+        Parametro estado,Integer numAcceso, boolean PrimerAcceso){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -88,6 +88,7 @@ public class CUsuario {
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            
         }
         finally {
             s.close();
@@ -151,4 +152,75 @@ public class CUsuario {
         }
         
     }
+         
+         
+      
+     public String validar(Integer idusuario, Integer idcliente,boolean isNuevo, String aeropuerto, String cliente, String logIn,Parametro estado, Perfil perfil) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        Usuario U;
+        Usuario U2;
+        try {
+
+            if (idusuario==-1){
+            
+            if (aeropuerto.isEmpty()|| cliente.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            }
+            
+            else {
+           Query q;
+           q = s.getNamedQuery("Usuario");
+           Filter f = s.enableFilter("UsuarioxLogin");
+           f.setParameter("login",logIn);
+        
+           List<Usuario> ListaUsuarios;
+           ListaUsuarios= q.list();
+                
+                if (ListaUsuarios.size() > 0) {
+                    U = ListaUsuarios.get(0);
+                    if (U!=null){
+                        error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
+                    }
+                }
+                
+           Query q1;
+           q1 = s.getNamedQuery("Usuario");
+           Filter f2 = s.enableFilter("UsuarioxIdcliente");
+           f2.setParameter("idcliente",idcliente);
+        
+           List<Usuario> ListaAuxUsuarios;
+           ListaAuxUsuarios= q1.list();
+                
+                if (ListaAuxUsuarios.size() > 0) {
+                    U2 = ListaAuxUsuarios.get(0);
+                    if (U2!=null){
+                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
+                    }
+                }
+                
+            }
+            }
+            
+            if (idusuario!=-1){
+            if ( aeropuerto.isEmpty()|| cliente.isEmpty() || logIn.isEmpty() ||  estado==null || perfil==null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return error_message;
+    }         
+         
+         
+         
+         
+         
+         
 }
