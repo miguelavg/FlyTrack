@@ -2,18 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.envios;
+package gui.administracion.aeropuertos;
 
+import gui.envios.*;
 import beans.Aeropuerto;
 import beans.Envio;
 import beans.Escala;
 import beans.Parametro;
 import beans.Vuelo;
+import controllers.CAeropuerto;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.util.List;
 
 /**
  *
@@ -24,18 +27,28 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     /**
      * Creates new form MonitoreoFrame
      */
-    public MonitoreoFrame(Envio envio) {
+    private List<Aeropuerto> ListaAeropuerto = null;
+    public MonitoreoFrame() {
         initComponents();
-        this.envio = envio;
+        ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
 
     }
-    private Envio envio;
+ 
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        if (envio == null) {
+        
+        for (int j = 0; j <ListaAeropuerto.size(); j++){
+            
+            
+                  Graphics c = this.getGraphics();
+                 c.setColor(Color.red);
+                 c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
+                 
+           }  
+       /* if (envio == null) {
             return;
         }
 
@@ -85,6 +98,9 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         }
 
         g.dispose();
+        
+        
+        */
     }
 
     /**
@@ -100,32 +116,50 @@ public class MonitoreoFrame extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monitoreo Envio");
-        setMaximumSize(new java.awt.Dimension(1024, 582));
         setMinimumSize(new java.awt.Dimension(1024, 582));
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(1024, 582));
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        int x_posicion;
+        int y_posicion;
+        x_posicion = evt.getX();
+        y_posicion = evt.getY();
+        Graphics g = this.getGraphics();
+        
+        g.drawRect(x_posicion, y_posicion, 5, 5);
+        
+        
+        
+    }//GEN-LAST:event_jLabel1MousePressed
 
     /**
      * @param args the command line arguments
@@ -157,7 +191,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MonitoreoFrame(null).setVisible(true);
+                new MonitoreoFrame().setVisible(true);
             }
         });
     }

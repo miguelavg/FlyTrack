@@ -19,10 +19,18 @@ public class CAeropuerto {
     
     static List<Parametro> ListaTipoDoc;
     static List<Parametro> ListaTipoEst;
+    static List<Aeropuerto> ListaAeropuerto;
     
-    public void ModificarCliente(int idCliente,String Nombre, String Apellidos, String correo, 
-            String telefono,String NumeroDoc, 
-            Parametro TipoDoc, Parametro Ciudad, Parametro Pais ){
+    public static void modificarAeropuerto(
+              int idAeropuerto,
+              int Capacidad,
+              int CapacidadAct,
+              Parametro Ciudad,
+              int X,
+              int Y,
+              Parametro Estado,
+              String Nombre,
+              Parametro Pais ){
     
         
         SessionFactory sf = Sesion.getSessionFactory();
@@ -35,22 +43,22 @@ public class CAeropuerto {
 //            Parametro pTipoDoc;            
 //            Parametro pCiudad;            
 //            Parametro pPais;
+             Aeropuerto objAeropuerto = new Aeropuerto();
+               
+               objAeropuerto.setCapacidadMax(Capacidad);
+               objAeropuerto.setCapacidadActual(CapacidadAct);
+               objAeropuerto.setCiudad(Ciudad);
+               objAeropuerto.setCoordX(X);
+               objAeropuerto.setCoordY(Y);
+               objAeropuerto.setEstado(Estado);
+               objAeropuerto.setNombre(Nombre);
+               objAeropuerto.setPais(Pais);
+               objAeropuerto.setIdAeropuerto(idAeropuerto);
             
-            Cliente ClienteBE = new Cliente(); 
-            ClienteBE.setIdCliente(idCliente);
-            ClienteBE.setTipoDoc(TipoDoc);
-            ClienteBE.setApellidos(Apellidos);
-            ClienteBE.setNombres(Nombre);
-            ClienteBE.setNumDoc(NumeroDoc);
-            ClienteBE.setTelefono(telefono);
-            ClienteBE.seteMail( correo);
-            ClienteBE.setCiudad(Ciudad);
-            ClienteBE.setPais(Pais);
-            
-            s.update(ClienteBE);
+            s.update(objAeropuerto);
             
             tx.commit();
-            
+           
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -61,7 +69,9 @@ public class CAeropuerto {
 //      
         
     }
+    
     public static void agregarAeropuerto(
+              
                 int Capacidad,
                 int CapacidadAct,
                 Parametro Ciudad,
@@ -156,6 +166,33 @@ public class CAeropuerto {
 //            s.close();
 //        }
 //    }
+    
+    
+       public static List<Aeropuerto> GenerarListaAeropuerto(){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("Aero");
+           
+            ListaAeropuerto = q.list();
+            
+            
+            
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            
+            s.close();
+        }
+        
+        return ListaAeropuerto;
+        
+    }
     
       public static List<Parametro> llenarComboPais(){
         SessionFactory sf = Sesion.getSessionFactory();

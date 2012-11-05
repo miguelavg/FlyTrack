@@ -8,6 +8,7 @@ import beans.Parametro;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import controllers.CPerfil;
+import gui.ErrorDialog;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -25,7 +26,11 @@ public class PerfilEdit extends javax.swing.JDialog {
      * Creates new form PerfilEdit
      */
         List<Parametro> ListaEstado ;
-    
+        boolean isNuevo;
+        Perfil perfil;
+
+        
+        
     CPerfil Perfil= new CPerfil ();
     Integer idperfil=-1;
     public void setIdperfil(Integer idperfil) {
@@ -51,6 +56,8 @@ public class PerfilEdit extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        isNuevo=true;
+        
         idperfil=id;
         
         llenarcomboEstado();
@@ -66,6 +73,8 @@ public class PerfilEdit extends javax.swing.JDialog {
          
            txtNombre.setText(PerfilBE.getNombre());
            txtDescripcion.setText(PerfilBE.getDescripcion());   
+           
+           isNuevo=false;
            
            for(int i=0;i<cboEstado.getItemCount();i++){
                Parametro estado = (Parametro)cboEstado.getItemAt(i);
@@ -83,6 +92,12 @@ public class PerfilEdit extends javax.swing.JDialog {
      public int showDialog(){
         setVisible(true);
               
+//        if (this.isNuevo) {
+//            return this.perfil;
+//        } else {
+//            return null;
+//        }
+        
         return 1;
     }
 
@@ -372,18 +387,25 @@ public class PerfilEdit extends javax.swing.JDialog {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        CPerfil cperfil = new CPerfil();
+        String error_message = cperfil.validar(idperfil, isNuevo, this.txtNombre.getText(), this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        
+        if (error_message == null || error_message.isEmpty()) {
+            if (idperfil==-1){
+                Perfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+            }
 
-        if (idperfil==-1){
-            Perfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+            else{
+                Perfil PerfilBE=Perfil.BuscarXid(idperfil);    
+                // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
+                Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
+            }
+            this.setVisible(false);
+            this.dispose();
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
         }
 
-        else{
-
-        Perfil PerfilBE=Perfil.BuscarXid(idperfil);    
-       // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
-        Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
-
-        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
