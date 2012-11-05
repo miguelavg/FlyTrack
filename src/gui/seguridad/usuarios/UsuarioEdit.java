@@ -10,6 +10,7 @@ import beans.Parametro;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import controllers.CUsuario;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.HashSet;
@@ -31,6 +32,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
             List<Perfil> ListaPerfiles ;
         Cliente  ClienteAux ;
             Aeropuerto AeropuertoAux;
+                boolean isNuevo;
+            
     /**
      * Creates new form UsuarioEdit
      */
@@ -55,7 +58,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public UsuarioEdit(javax.swing.JDialog parent, boolean modal,int id) {
         super(parent, modal);
         initComponents();
-         idusuario=id;
+        idusuario=id;
+        isNuevo=true;
+         
        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
@@ -275,7 +280,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public void cargarcampos(){
     
         Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
-         
+        
+        isNuevo=false;
+        
            txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
            txtLogIn.setText(UsuarioBE.getLogIn());
            txtCliente.setText(UsuarioBE.getIdCliente().getNombres()+" "+UsuarioBE.getIdCliente().getApellidos());
@@ -358,6 +365,36 @@ public class UsuarioEdit extends javax.swing.JDialog {
           // TODO add your handling code here:
         Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
 
+        Aeropuerto nuevoAeropuerto;
+        Cliente nuevoCliente;
+        
+        Cliente auxCliente;
+        
+        CUsuario Cusuario = new CUsuario();
+        Integer valoraux;
+        //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
+        
+        
+        Usuario UsuarioauxBE=Usuario.BuscarXid(idusuario);
+        if (ClienteAux==null && idusuario!=-1){
+        auxCliente=UsuarioauxBE.getIdCliente();
+        }
+        else 
+        {auxCliente=ClienteAux;}
+        
+        
+        if (ClienteAux!=null){
+        valoraux=auxCliente.getIdCliente();
+        }
+        else {
+        valoraux=0;
+        }
+        
+        
+        String error_message = Cusuario.validar(idusuario,valoraux ,isNuevo, txtAeropuerto.getText(), txtCliente.getText(), txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem(),(Perfil)cboPerfil.getSelectedItem());
+        
+        if (error_message == null || error_message.isEmpty()) {
+        
         if (idusuario==-1){
                 Usuario.agregarUsuario(perfil, 
                 AeropuertoAux,
@@ -375,11 +412,24 @@ public class UsuarioEdit extends javax.swing.JDialog {
         //getidusuario()
         Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
         
+        if (AeropuertoAux==null){
+        nuevoAeropuerto=UsuarioBE.getIdAeropuerto();
+        }
+        else 
+        {nuevoAeropuerto=AeropuertoAux;}
+        
+        if (ClienteAux==null){
+        nuevoCliente=UsuarioBE.getIdCliente();
+        }
+        else 
+        {nuevoCliente=ClienteAux;}
+        
+        
         Usuario.modificarUsuario(idusuario, 
                 perfil, 
-                UsuarioBE.getIdAeropuerto(),
+                nuevoAeropuerto,
                 //AeropuertoAux, 
-                UsuarioBE.getIdCliente(),
+                nuevoCliente,
                 //ClienteAux, 
                 txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem());
 
@@ -394,7 +444,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //                login   txtLogIn.getText(),
 //                (Parametro)cboEstado.getSelectedItem());     
             
-        }        
+        }
+            this.setVisible(false);
+            this.dispose();
+        
+         } else {
+            ErrorDialog.mostrarError(error_message, this);
+        }
+        
 //        CUsuario.agregarUsuario(txtPerfil.getText(), 
 //                txtAeropuerto.getText(), 
 // //               idcliente, 
