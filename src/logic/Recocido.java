@@ -6,13 +6,11 @@ package logic;
 
 import beans.Aeropuerto;
 import beans.Envio;
-import beans.Parametro;
 import beans.Vuelo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,7 +18,6 @@ import java.util.Random;
  * @author miguelavg
  */
 public class Recocido {
-
     private int kSA;                            // iteraciones por temperatura
     private double temperaturaInicial;          // temperatura inicial
     private double temperatura;                 // temperatura actual
@@ -81,10 +78,8 @@ public class Recocido {
             double costoAlmacen = 0;
             double costoEnvio = 0;
             double costo;
-
             double pLleno;
             double pCapacidad;
-            Random rnd = new Random();
 
             for (int i = 0; i < vuelos.size(); i++) {
                 vuelo = vuelos.get(i);
@@ -114,7 +109,6 @@ public class Recocido {
     }
 
     public class CustomComparator implements Comparator<MovimientoAlmacen> {
-
         @Override
         public int compare(MovimientoAlmacen m1, MovimientoAlmacen m2) {
             if (m1.getFecha().before(m2.getFecha())) {
@@ -130,7 +124,7 @@ public class Recocido {
     private int getMax(Aeropuerto a, Date in, Date out) {
         int actual = a.getCapacidadActual();
         int max = actual;
-        
+
         ArrayList<MovimientoAlmacen> moves = new ArrayList<MovimientoAlmacen>();
         for (Vuelo v : a.getVuelosSalida()) {
             moves.add(new MovimientoAlmacen(v.getFechaSalida(), "O", v.getCapacidadActual()));
@@ -140,18 +134,18 @@ public class Recocido {
         }
         Collections.sort(moves, new CustomComparator());
 
-        for(MovimientoAlmacen m : moves){
-            if(m.getTipo().equals("I")){
+        for (MovimientoAlmacen m : moves) {
+            if (m.getTipo().equals("I")) {
                 actual = actual + m.getCantidad();
             }
-            if(m.getTipo().equals("O")){
+            if (m.getTipo().equals("O")) {
                 actual = actual - m.getCantidad();
             }
-            if(max < actual){
+            if (max < actual) {
                 max = actual;
             }
         }
-        
+
         return max;
     }
 
@@ -180,8 +174,7 @@ public class Recocido {
 
                 // Calcular los vuelos posibles, el beta y el tau
 
-                for (int i = 0; i < aActual.getVuelosSalida().size(); i++) {
-                    Vuelo vuelo = aActual.getVuelosSalida().get(i);
+                for (Vuelo vuelo : aActual.getVuelosSalida()) {
 
                     if (vuelo.getCapacidadMax() > vuelo.getCapacidadActual()
                             && getMax(aOrigen, dActual, vuelo.getFechaSalida()) < aOrigen.getCapacidadMax()) {
@@ -203,8 +196,7 @@ public class Recocido {
 
                 rcl = new ArrayList<Vuelo>();
 
-                for (int i = 0; i < posibles.size(); i++) {
-                    Vuelo vuelo = posibles.get(i);
+                for (Vuelo vuelo : posibles) {
                     ArrayList<Vuelo> wrap = new ArrayList<Vuelo>();
                     wrap.add(vuelo);
                     e = estadoEnergia(wrap, dActual);
@@ -281,14 +273,11 @@ public class Recocido {
     public ArrayList<Vuelo> simular() {
         try {
             Random rnd = new Random();
-            long tiempoInicio, tiempoFin;
             int dEnergia;
             double b, p;
 
             int iteraciones = this.kSA * (int) (Math.log(this.temperaturaFinal / this.temperaturaInicial) / Math.log(this.alfaSA));
             int outIt = 0;
-
-            tiempoInicio = new Date().getTime();
 
             for (int i = 0; i < this.intentos; i++) {
                 this.solucion = liteGrasp(envio.getOrigen(), envio.getDestino(), envio.getFechaRegistro(), this.alfaGrasp);
@@ -302,15 +291,8 @@ public class Recocido {
                 return null;
             }
 
-            // System.out.println("Solución inicial: ");
-            // tiempoFin = new Date().getTime();
-            // resultado = new Resultado(this.envio, tiempoFin - tiempoInicio, estadoEnergia(this.solucion, this.envio.getFecha()), this.solucion);
-            // resultado.imprimirResultados();
-
             while (this.temperatura > this.temperaturaFinal) {
-
                 for (int k = 0; k < this.kSA; k++) {
-
                     for (int i = 0; i < this.intentos; i++) {
                         this.alteracionMolecular();
                         if (this.alterado != null) {
@@ -322,22 +304,18 @@ public class Recocido {
                         outIt++;
 
                         if (outIt >= iteraciones * this.pParada) {
-                            tiempoFin = new Date().getTime();
                             // System.out.println("¡Fin por optimalidad!\n");
                             return this.solucion;
                         }
-
                         continue;
                     }
 
                     dEnergia = estadoEnergia(this.alterado, this.envio.getFechaRegistro()) - estadoEnergia(this.solucion, this.envio.getFechaRegistro());
 
                     if (dEnergia >= 0) {
-
                         outIt++;
                         b = boltzmann(dEnergia, temperatura);
                         p = rnd.nextDouble();
-
                         if (p <= b) {
                             this.solucion = this.alterado;
                             //System.out.println("¡Alteración elegida por Boltzmann!");
@@ -349,7 +327,6 @@ public class Recocido {
                     }
 
                     if (outIt >= iteraciones * this.pParada) {
-                        tiempoFin = new Date().getTime();
                         // System.out.println("¡Fin por optimalidad!\n");
                         return solucion;
                     }
@@ -358,8 +335,6 @@ public class Recocido {
 
                 this.enfriamiento();
             }
-
-            tiempoFin = new Date().getTime();
             return solucion;
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -6,6 +6,7 @@ package gui.seguridad.parametros;
 
 import beans.Parametro;
 import controllers.CParametro;
+import java.awt.Rectangle;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -333,7 +334,11 @@ public class ParametroDialog extends javax.swing.JDialog {
 
         if (nParametro != null) {
             llenarLineaTabla(nParametro, (DefaultTableModel) tbl_parametros.getModel());
+            int i = tbl_parametros.getRowCount();
+            tbl_parametros.setRowSelectionInterval(i - 1, i - 1);
+            tbl_parametros.scrollRectToVisible(new Rectangle(tbl_parametros.getCellRect(i, 0, true)));
         }
+
 
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -357,7 +362,7 @@ public class ParametroDialog extends javax.swing.JDialog {
             } else {
                 tbl_parametros.setValueAt(parametro.getPadre() + " : " + parametro.getPadre().getTipo(), fila, 4);
             }
-            
+
             tbl_parametros.setValueAt(parametro.isEstado() ? "Activo" : "Inactivo", fila, 5);
         }
 
