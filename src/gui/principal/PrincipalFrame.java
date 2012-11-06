@@ -6,12 +6,15 @@ package gui.principal;
 
 import beans.Sesion;
 import beans.Vuelo;
+import beans.seguridad.*;
+import controllers.*;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import gui.clientes.Clientes;
 import gui.administracion.aeropuertos.Aeropuerto;
 import gui.envios.EnvioDialog;
 import gui.reportes.ReporteFrame;
 import gui.administracion.vuelos.Vuelos;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -31,6 +34,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         
         initComponents();
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagenes/logo.png")).getImage());
+        definirPermisos();
     }
 
     /**
@@ -44,20 +48,20 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
-        envioButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        simulacionButton = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        administracionButton = new javax.swing.JButton();
-        btnCerrar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        administracionButton2 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        administracionButton3 = new javax.swing.JButton();
-        administracionButton4 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        btnEnvios = new javax.swing.JButton();
+        lblEnvios = new javax.swing.JLabel();
+        btnSimulacion = new javax.swing.JButton();
+        lblSimulacion = new javax.swing.JLabel();
+        lblAdministracion = new javax.swing.JLabel();
+        btnAdministracion = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
+        lblCerrarSesion = new javax.swing.JLabel();
+        btnReportes = new javax.swing.JButton();
+        lblReportes = new javax.swing.JLabel();
+        lblClientes = new javax.swing.JLabel();
+        btnClientes = new javax.swing.JButton();
+        btnSeguridad = new javax.swing.JButton();
+        lblSeguridad = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -65,115 +69,111 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        envioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
-        envioButton.addActionListener(new java.awt.event.ActionListener() {
+        btnEnvios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
+        btnEnvios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                envioButtonActionPerformed(evt);
+                btnEnviosActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel2.setText("Envíos");
+        lblEnvios.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblEnvios.setText("Envíos");
 
-        simulacionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simulacion48x48.png"))); // NOI18N
-        simulacionButton.addActionListener(new java.awt.event.ActionListener() {
+        btnSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simulacion48x48.png"))); // NOI18N
+        btnSimulacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                simulacionButtonActionPerformed(evt);
+                btnSimulacionActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel5.setText("Simulación");
+        lblSimulacion.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblSimulacion.setText("Simulación");
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel1.setText("Administración");
+        lblAdministracion.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblAdministracion.setText("Administración");
 
-        administracionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Configuration.png"))); // NOI18N
-        administracionButton.addActionListener(new java.awt.event.ActionListener() {
+        btnAdministracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Configuration.png"))); // NOI18N
+        btnAdministracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                administracionButtonActionPerformed(evt);
+                btnAdministracionActionPerformed(evt);
             }
         });
 
-        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
-        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exit48x48.png"))); // NOI18N
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel6.setText("Cerrar Sesión");
+        lblCerrarSesion.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblCerrarSesion.setText("Cerrar Sesión");
 
-        administracionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte48x48.png"))); // NOI18N
-        administracionButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte48x48.png"))); // NOI18N
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                administracionButton2ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel7.setText("Reportes");
+        lblReportes.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblReportes.setText("Reportes");
 
-        jLabel8.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel8.setText("Clientes");
+        lblClientes.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblClientes.setText("Clientes");
 
-        administracionButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
-        administracionButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                administracionButton3ActionPerformed(evt);
+                btnClientesActionPerformed(evt);
             }
         });
 
-        administracionButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/seguridad48x48.png"))); // NOI18N
-        administracionButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnSeguridad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/seguridad48x48.png"))); // NOI18N
+        btnSeguridad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                administracionButton4ActionPerformed(evt);
+                btnSeguridadActionPerformed(evt);
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel9.setText("Seguridad");
+        lblSeguridad.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblSeguridad.setText("Seguridad");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 48, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(administracionButton3)
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel8))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(envioButton)
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(administracionButton4)
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel9))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(administracionButton2)
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(administracionButton)
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(simulacionButton)
-                                    .addGap(36, 36, 36)
-                                    .addComponent(jLabel5)))))
+                        .addComponent(btnClientes)
+                        .addGap(36, 36, 36)
+                        .addComponent(lblClientes))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnCerrar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnEnvios)
+                        .addGap(36, 36, 36)
+                        .addComponent(lblEnvios))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSeguridad)
+                        .addGap(36, 36, 36)
+                        .addComponent(lblSeguridad))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdministracion)
+                        .addGap(36, 36, 36)
+                        .addComponent(lblAdministracion))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSimulacion)
+                        .addGap(36, 36, 36)
+                        .addComponent(lblSimulacion))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReportes)
+                            .addComponent(btnCerrarSesion))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCerrarSesion)
+                            .addComponent(lblReportes))))
                 .addGap(244, 244, 244))
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,47 +182,48 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(administracionButton))
+                        .addComponent(btnAdministracion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jLabel1)))
+                        .addComponent(lblAdministracion)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(administracionButton4)
+                        .addComponent(btnSeguridad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(envioButton))
+                        .addComponent(btnEnvios))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel9)
+                        .addComponent(lblSeguridad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(14, 14, 14)))
+                        .addComponent(lblEnvios)
+                        .addGap(21, 21, 21)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSimulacion)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(lblSimulacion)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(simulacionButton)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(administracionButton3)
+                        .addComponent(btnClientes)
                         .addGap(9, 9, 9)
-                        .addComponent(administracionButton2))
+                        .addComponent(btnReportes))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCerrar)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCerrarSesion))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
+                .addGap(18, 18, 18))
         );
 
         jLabel3.setText("Copyleft (l). Todos los derechos compartidos.");
@@ -241,7 +242,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -249,48 +250,49 @@ public class PrincipalFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void administracionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButtonActionPerformed
+    private void btnAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministracionActionPerformed
         // TODO add your handling code here:
         MenuAdministracionFrame menuAdmin = new MenuAdministracionFrame();
         menuAdmin.setVisible(true);
-    }//GEN-LAST:event_administracionButtonActionPerformed
+    }//GEN-LAST:event_btnAdministracionActionPerformed
 
-    private void envioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioButtonActionPerformed
+    private void btnEnviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviosActionPerformed
         // TODO add your handling code here:
         EnvioDialog envio = new EnvioDialog();
         envio.setVisible(true);
-    }//GEN-LAST:event_envioButtonActionPerformed
+    }//GEN-LAST:event_btnEnviosActionPerformed
 
-    private void simulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButtonActionPerformed
+    private void btnSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimulacionActionPerformed
         // TODO add your handling code here:
         //Simulacion simulacion = new Simulacion();
         //simulacion.setVisible(true);
-    }//GEN-LAST:event_simulacionButtonActionPerformed
+    }//GEN-LAST:event_btnSimulacionActionPerformed
 
-    private void administracionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton3ActionPerformed
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
         Clientes clientes = new Clientes();
         clientes.setVisible(true);
-    }//GEN-LAST:event_administracionButton3ActionPerformed
+    }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void administracionButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton2ActionPerformed
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
         ReporteFrame reporteFrame = new ReporteFrame();
         reporteFrame.setVisible(true);
-    }//GEN-LAST:event_administracionButton2ActionPerformed
+    }//GEN-LAST:event_btnReportesActionPerformed
 
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
+        Sesion.setUsuario(null);
         this.dispose();
         Login login = new Login();
         login.setVisible(Boolean.TRUE);
-    }//GEN-LAST:event_btnCerrarActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void administracionButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionButton4ActionPerformed
+    private void btnSeguridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguridadActionPerformed
         // TODO add your handling code here:
         MenuSeguridadFrame menuSeguridad = new MenuSeguridadFrame();
         menuSeguridad.setVisible(true);
-    }//GEN-LAST:event_administracionButton4ActionPerformed
+    }//GEN-LAST:event_btnSeguridadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,23 +336,44 @@ public class PrincipalFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton administracionButton;
-    private javax.swing.JButton administracionButton2;
-    private javax.swing.JButton administracionButton3;
-    private javax.swing.JButton administracionButton4;
-    private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton envioButton;
+    private javax.swing.JButton btnAdministracion;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnEnvios;
+    private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnSeguridad;
+    private javax.swing.JButton btnSimulacion;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton simulacionButton;
+    private javax.swing.JLabel lblAdministracion;
+    private javax.swing.JLabel lblCerrarSesion;
+    private javax.swing.JLabel lblClientes;
+    private javax.swing.JLabel lblEnvios;
+    private javax.swing.JLabel lblReportes;
+    private javax.swing.JLabel lblSeguridad;
+    private javax.swing.JLabel lblSimulacion;
     // End of variables declaration//GEN-END:variables
 
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean administracion = CSeguridad.validarPermiso(1, null,"Administracion",permisos);
+        this.btnAdministracion.setEnabled(administracion);
+        this.lblAdministracion.setEnabled(administracion);
+        boolean seguridad = CSeguridad.validarPermiso(1, null,"Seguridad",permisos);
+        this.btnSeguridad.setEnabled(seguridad);
+        this.lblSeguridad.setEnabled(seguridad);
+        boolean envios = CSeguridad.validarPermiso(1, null,"Envios",permisos);
+        this.btnEnvios.setEnabled(envios);
+        this.lblEnvios.setEnabled(envios);
+        boolean clientes = CSeguridad.validarPermiso(1, null,"Clientes",permisos);
+        this.btnClientes.setEnabled(clientes);
+        this.lblClientes.setEnabled(clientes);
+        boolean reportes = CSeguridad.validarPermiso(1, null,"Reportes",permisos);
+        this.btnReportes.setEnabled(reportes);
+        this.lblReportes.setEnabled(reportes);
+
+        pack();
+    }
 }

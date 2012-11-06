@@ -9,6 +9,8 @@ import beans.Cliente;
 import beans.Parametro;
 import beans.seguridad.Usuario;
 import beans.seguridad.Perfil;
+import controllers.CParametro;
+import controllers.CPerfil;
 import controllers.CUsuario;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
@@ -30,6 +32,9 @@ public class UsuarioFrame extends javax.swing.JDialog {
     List<Perfil> ListaPerfiles ;
     Cliente  ClienteAux ;
     Aeropuerto AeropuertoAux;
+        CParametro ParametroBL = new CParametro();
+        CPerfil PerfilBL= new CPerfil();
+    
     /**
      * Creates new form UsuarioFrame
      */
@@ -71,6 +76,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuario");
+        setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -282,53 +288,59 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
     
 public void llenarcomboEstado(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "ESTADO_USUARIO");
-            ListaEstado = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaEstado.size();i++)
+//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+//        Session s = sf.openSession();
+//        try {
+//            Transaction tx = s.beginTransaction();
+//            Query q;
+//            
+//            q = s.getNamedQuery("ParametrosXTipo");
+//            q.setParameter("tipo", "ESTADO_USUARIO");
+//            ListaEstado = q.list();
+////                        
+//            }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//                }
+//        finally {
+//            s.close();
+//        }
+        ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+    
+        for (Parametro p : ListaEstado)
+        //for (int i=0;i<ListaEstado.size();i++)
         {
-            Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
+    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
             
-            cboEstado.addItem(TipoDocBE);
+            cboEstado.addItem(p);
         }
     }
     
 public void llenarcomboPerfiles(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("Perfil");
-            ListaPerfiles = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaPerfiles.size();i++)
+//        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
+//        Session s = sf.openSession();
+//        try {
+//            Transaction tx = s.beginTransaction();
+//            Query q;
+//            
+//            q = s.getNamedQuery("Perfil");
+//            ListaPerfiles = q.list();
+////                        
+//            }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//                }
+//        finally {
+//            s.close();
+//        }
+    
+        ListaPerfiles=PerfilBL.Buscar();
+    //int i=0;i<ListaPerfiles.size();i++
+        for (Perfil p: ListaPerfiles)
         {
-            Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
-            
-            cboPerfil.addItem(CPerfil);
+            //Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
+            //CPerfil
+            cboPerfil.addItem(p);
         }
     }
 
@@ -346,8 +358,30 @@ public void llenarcomboPerfiles(){
         Parametro estado=(Parametro)cboEstado.getSelectedItem();
                 //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
         
-          
-        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil.getIdPerfil(), AeropuertoAux.getIdAeropuerto(),ClienteAux.getIdCliente(),estado.getIdParametro());
+//        if(cboPerfil.getSelectedIndex()!=0){
+//        
+//            perfil=(Perfil)cboPerfil.getSelectedItem();
+//            
+//        }
+//        else {
+//            perfil=null;
+//        }
+//        
+//        
+//        
+//        if(cboEstado.getSelectedIndex()!=0){
+//        
+//            estado=(Parametro)cboEstado.getSelectedItem();
+//            
+//        }
+//        else {
+//            estado=null;
+//        }
+        
+        
+        //AeropuertoAux.getIdAeropuerto()
+        //ClienteAux.getIdCliente()
+        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil, AeropuertoAux,ClienteAux,estado);
         //cboEstado.getSelectedItem());
         
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
@@ -380,6 +414,10 @@ public void llenarcomboPerfiles(){
         // TODO add your handling code here:
         
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        
+        if (UsuarioTabla.getSelectedRow()>-1){
+            
+        
         Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
@@ -387,6 +425,7 @@ public void llenarcomboPerfiles(){
         usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
         usuarioAgregarGUI.showDialog();
+         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed

@@ -20,13 +20,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Permiso")
-
 public class Permiso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPermiso;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idAccion")
     private Accion accion;
     

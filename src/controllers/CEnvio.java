@@ -132,8 +132,8 @@ public class CEnvio {
             Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             Parametro p;
 
-       //   Coger parámetros...
-            
+            //   Coger parámetros...
+
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "temperatura_inicial");
             p = (Parametro) q.uniqueResult();
@@ -189,28 +189,28 @@ public class CEnvio {
 
             long iFuturo = envio.getFechaRegistro().getTime() + limite_forward * 24 * 60 * 60 * 1000;
             Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(iFuturo);            
+            cal.setTimeInMillis(iFuturo);
             Date futuro = cal.getTime();
 
             long iPasado = envio.getFechaRegistro().getTime() - limite_backward * 24 * 60 * 60 * 1000;
-            cal.setTimeInMillis(iPasado);            
+            cal.setTimeInMillis(iPasado);
             Date pasado = cal.getTime();
-            
+
             Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalida");
             f_vuelos_s.setParameter("lower", envio.getFechaRegistro());
             f_vuelos_s.setParameter("upper", futuro);
-            
+
             Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
             f_vuelos_l.setParameter("lower", envio.getFechaRegistro());
             f_vuelos_l.setParameter("upper", futuro);
 
-       //   Consultar los aeropuertos con sus vuelos de salida
-            
+            //   Consultar los aeropuertos con sus vuelos de salida
+
             for (Aeropuerto a : aeros) {
-                
+
                 a.getVuelosSalida().size();
                 a.getVuelosLlegada().size();
-                
+
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
                 }
@@ -218,23 +218,23 @@ public class CEnvio {
                     envio.setDestino(a);
                 }
             }
-            
+
             s.disableFilter("VuelosXAeropuertoSalida");
             s.disableFilter("VuelosXAeropuertoLlegada");
-            
-       //   Recuperar los promedios de los vuelos históricos
-            
+
+            //   Recuperar los promedios de los vuelos históricos
+
             q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v where :lower < fechaSalida AND fechaSalida < :upper group by v.origen, v.destino order by 1 ,2");
             q.setParameter("upper", envio.getFechaRegistro());
             q.setParameter("lower", pasado);
-            
+
             List<Object[]> lista = q.list();
-            ArrayList<VueloLite> vuelosL = new ArrayList <VueloLite>();
-            for(Object[] o : lista){
-                vuelosL.add(new VueloLite((Integer)o[0], (Integer)o[1], (Double)o[2]));
+            ArrayList<VueloLite> vuelosL = new ArrayList<VueloLite>();
+            for (Object[] o : lista) {
+                vuelosL.add(new VueloLite((Integer) o[0], (Integer) o[1], (Double) o[2]));
             }
-            
-       //   Comenzamos la simulación...    
+
+            //   Comenzamos la simulación...    
 
             Recocido recocido = new Recocido(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, envio, costoAlmacen, vuelosL);
             ArrayList<Vuelo> solucion = recocido.simular();
@@ -280,9 +280,13 @@ public class CEnvio {
         try {
             Query q = s.getNamedQuery("Envios");
 
-            if (isInteger(numEnvio)) {
+            if (numEnvio != null && !numEnvio.isEmpty()) {
                 Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
-                f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
+                if (isInteger(numEnvio)) {
+                    f_numEnvio.setParameter("numEnvio", Integer.parseInt(numEnvio));
+                } else {
+                    f_numEnvio.setParameter("numEnvio", -1);
+                }
             }
 
             if (actual != null) {
@@ -331,6 +335,30 @@ public class CEnvio {
         }
     }
 
+    public String verificarTarifa(Aeropuerto origen, Aeropuerto destino) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        Tarifa tarifa;
+        try {
+            Query q = s.getNamedQuery("Tarifa").setMaxResults(1);
+            Parametro p;
+            q.setParameter("idorigen", origen.getIdAeropuerto());
+            q.setParameter("iddestino", destino.getIdAeropuerto());
+            tarifa = (Tarifa) q.uniqueResult();
+            
+            if (tarifa == null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
+        } finally {
+            s.close();
+        }
+        return error_message;
+    }
+
     public Tarifa calcularTarifa(Aeropuerto origen, Aeropuerto destino) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -364,5 +392,45 @@ public class CEnvio {
             s.close();
         }
         return envio;
+    }
+
+    public String validar(Parametro moneda, Parametro doc, Parametro estado, Aeropuerto origen, Aeropuerto actual, Aeropuerto destino, Cliente remitente, Cliente destinatario, Tarifa tarifa, TipoCambio tipoCambio, String numPaquetes) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        try {
+
+            if (moneda == null || doc == null || estado == null || origen == null || actual == null || destino == null || remitente == null || destinatario == null || numPaquetes == null || numPaquetes.isEmpty()) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            }
+
+            if (origen != null && destino != null) {
+                Query q = s.getNamedQuery("TiposCambioXMonedas");
+
+                if (origen.getIdAeropuerto() == destino.getIdAeropuerto()) {
+                    error_message = error_message + CValidator.buscarError("ERROR_FT008") + "\n";
+                }
+
+            }
+
+            if (!CValidator.isInteger(numPaquetes)) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT010") + "\n";
+            }
+
+            if (tarifa == null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
+            }
+
+            if (tipoCambio == null && moneda != null && !moneda.getValorUnico().equals("DOL")) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT012") + "\n";
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return error_message;
     }
 }

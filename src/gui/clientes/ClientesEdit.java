@@ -31,8 +31,9 @@ public class ClientesEdit extends javax.swing.JDialog {
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaCiudades;
     List<Parametro> ListaPaises;
-   
+    Cliente ClienteBE;
     int idCliente=-1;
+    boolean carga=false;
     /**
      * Creates new form ClientesModificar
      */
@@ -259,7 +260,7 @@ public class ClientesEdit extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     public void cargarcampos(){
     
-           Cliente ClienteBE=ClienteBL.BuscarXid(idCliente);
+           ClienteBE=ClienteBL.BuscarXid(idCliente);
            txtNombres.setText(ClienteBE.getNombres());
            txtNombres.setEditable(false);
            txtApellidos.setText(ClienteBE.getApellidos());
@@ -268,15 +269,7 @@ public class ClientesEdit extends javax.swing.JDialog {
            txtNumeroDoc.setText(ClienteBE.getNumDoc());
            txtTelefono.setText(ClienteBE.getTelefono());
            
-           for(int i=1;i<cboCiudad.getItemCount();i++){
-               Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
-               if (ciudad.getIdParametro()==ClienteBE.getCiudad().getIdParametro())
-               {
-               cboCiudad.setSelectedIndex(i);
-               break;
-               
-               }
-           }
+           
            
            cboPais.setSelectedItem(ClienteBE.getPais());
            
@@ -289,6 +282,16 @@ public class ClientesEdit extends javax.swing.JDialog {
                
                }
            }
+           
+//           for(int i=1;i<cboCiudad.getItemCount();i++){
+//               Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
+//               if (ciudad.getIdParametro()==ClienteBE.getCiudad().getIdParametro())
+//               {
+//               cboCiudad.setSelectedIndex(i);
+//               break;
+//               
+//               }
+//           }
            
            for(int i=1;i<cboTipoDoc.getItemCount();i++){
                Parametro tipodoc = (Parametro)cboTipoDoc.getItemAt(i);
@@ -357,6 +360,7 @@ public class ClientesEdit extends javax.swing.JDialog {
         }
         
         cboPais.setSelectedIndex(1);
+        carga=true;
         
 //        for (int i=0;i<ListaCiudades.size();i++)
 //        {
@@ -396,9 +400,15 @@ public class ClientesEdit extends javax.swing.JDialog {
                 ||cboCiudad.getSelectedIndex()==0 || cboPais.getSelectedIndex()==0 ||cboTipoDoc.getSelectedIndex()==0 ){
             
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-            
+                                    
         }
         else{
+            
+            if (CValidator.esAlfanumerico(txtNombres.getText())){
+                
+                error_message = "El nombre no puede ser alfanumérico";
+            }
+            
             if (idCliente==-1){
 
                 error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
@@ -417,13 +427,25 @@ public class ClientesEdit extends javax.swing.JDialog {
         cboCiudad.removeAllItems();
         
        
-        
-         ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()+1).getHijos();
+        cboCiudad.addItem("Seleccionar");
+         ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()-1).getHijos();
             for (int i=0;i<ListaCiudades.size();i++)
         {
             Parametro TipoDocBE =(Parametro)ListaCiudades.get(i);
             
             cboCiudad.addItem(TipoDocBE);
+        }
+            
+        if (carga && idCliente!=-1){
+            for(int i=1;i<cboCiudad.getItemCount();i++){
+               Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
+               if (ciudad.getIdParametro()==ClienteBE.getCiudad().getIdParametro())
+               {
+               cboCiudad.setSelectedIndex(i);
+               break;
+               
+               }
+           }
         }
     }//GEN-LAST:event_cboPaisActionPerformed
     public int showDialog(){

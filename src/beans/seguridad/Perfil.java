@@ -36,7 +36,7 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "PerfilxId",
     query = "from Perfil where idPerfil = :idperfil "),
     @NamedQuery(name = "PerfilXNombre",
-    query = "from Perfil where UPPER(Nombre) like UPPER(:nombre)")
+    query = "from Perfil where UPPER(Nombre) like UPPER(:nombre)"),
 
 })
 
@@ -80,6 +80,10 @@ public class Perfil implements Serializable  {
     
     @OneToMany(mappedBy="perfil")
     private List<Permiso> permisos;
+    
+    @OneToMany(mappedBy="perfil")
+    private List<Usuario> usuarios;
+
 
     public int getIdPerfil(){
     return idPerfil;
@@ -116,6 +120,10 @@ public class Perfil implements Serializable  {
    @Override
     public String toString(){
         return nombre;
+    }
+
+    public List<Permiso> getPermisos() {
+        return permisos;
     }
     
 }

@@ -4,9 +4,11 @@
  */
 package controllers;
 
+import beans.Aeropuerto;
 import beans.Parametro;
 import beans.TipoCambio;
 import beans.Sesion;
+import beans.Tarifa;
 import java.math.BigDecimal;
 import java.util.List;
 import org.hibernate.Filter;
@@ -33,7 +35,7 @@ public class CTipoCambio {
                 Filter f_origen = s.enableFilter("TiposCambioXOrigen");
                 f_origen.setParameter("idMoneda", origen.getIdParametro());
             }
-            
+
             if (destino != null) {
                 Filter f_destino = s.enableFilter("TiposCambioXDestino");
                 f_destino.setParameter("idMoneda", destino.getIdParametro());
@@ -48,6 +50,26 @@ public class CTipoCambio {
         }
 
         return tipos;
+    }
+
+    public TipoCambio buscarDolar(String valorUnico) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        TipoCambio tipo = null;
+
+        try {
+            Query q = s.getNamedQuery("TiposCambioXValosresUnicos");
+            q.setParameter("monedaOrigen", "DOL");
+            q.setParameter("monedaDestino", valorUnico);
+            tipo = (TipoCambio) q.uniqueResult();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return tipo;
     }
 
     public TipoCambio buscarId(int id) {
@@ -85,7 +107,7 @@ public class CTipoCambio {
                 q.setParameter("idMonedaOrigen", monedaOrigen.getIdParametro());
                 q.setParameter("idMonedaDestino", monedaDestino.getIdParametro());
                 List<TipoCambio> tipos = q.list();
-                
+
                 if (tipos.size() > 0) {
                     t = tipos.get(0);;
                     if (isNuevo) {
@@ -111,7 +133,7 @@ public class CTipoCambio {
 
         return error_message;
     }
- 
+
     public boolean guardar(TipoCambio tipoCambio) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -127,5 +149,33 @@ public class CTipoCambio {
             s.close();
         }
         return siGuardo;
+    }
+
+    public String verificarTipoCambioDolar(String valorUnico) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        TipoCambio tipo;
+        String error_message = "";
+        
+        if(valorUnico.equals("DOL")){
+            return error_message;
+        }
+
+        try {
+            Query q = s.getNamedQuery("TiposCambioXValosresUnicos");
+            q.setParameter("monedaOrigen", valorUnico);
+            q.setParameter("monedaDestino", "DOL");
+            tipo = (TipoCambio) q.uniqueResult();
+
+            if (tipo == null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT012") + "\n";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            error_message = error_message + CValidator.buscarError("ERROR_FT012") + "\n";
+        } finally {
+            s.close();
+        }
+        return error_message;
     }
 }

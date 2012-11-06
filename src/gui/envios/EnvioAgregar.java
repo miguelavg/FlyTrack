@@ -6,9 +6,11 @@ package gui.envios;
 
 import beans.*;
 import controllers.*;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,37 +22,134 @@ public class EnvioAgregar extends javax.swing.JDialog {
     /**
      * Creates new form Envio
      */
-    
-    private Cliente remitente = null;
-    private Cliente destinatario = null;
-    private Aeropuerto aeropuertoOrigen = null;
-    private Aeropuerto aeropuertoDestino = null;
-    private Aeropuerto aeropuertoActual = null;
-    private Tarifa tarifa = null;
+    private Cliente remitente;
+    private Cliente destinatario;
+    private Aeropuerto origen;
+    private Aeropuerto destino;
+    private Aeropuerto actual;
+    private Tarifa tarifa;
+    private TipoCambio tipoCambio;
+    private Parametro moneda;
+    private Parametro doc;
+    private Parametro estado;
+    private Envio envio;
+    private boolean isNuevo;
+
     public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
-        super(parent,modal);
+        super(parent, modal);
         initComponents();
-        llenarCombo();
+
         this.isNuevo = true;
         this.envio = null;
-        
-        if (envio != null){
-            this.remitenteEnvioText.setText(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos());
-            this.destinatarioEnvioText.setText(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos());  
+
+        if (envio != null) {
+            //  si no es nuevo...   
+            //  set objetos de combos y popups
+            this.remitente = envio.getRemitente();
+            this.destinatario = envio.getDestinatario();
+            this.actual = envio.getActual();
+            this.destino = envio.getDestino();
+            this.origen = envio.getOrigen();
+            this.moneda = envio.getMoneda();
+            this.doc = envio.getTipoDocVenta();
+            this.estado = envio.getEstado();
             this.envio = envio;
+            this.isNuevo = false;
+            //  llenar text boxes y combos       
+            this.txt_remitente.setText(this.remitente.getNombres() + " " + this.remitente.getApellidos());
+            this.txt_destinatario.setText(this.destinatario.getNombres() + " " + this.destinatario.getApellidos());
+            this.txt_destino.setText(this.destino.getNombre() + ", " + this.destino.getCiudad() + ", " + this.destino.getPais());
+            this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
+            this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
+            llenarCombos(this.moneda, this.doc, this.estado);
+            llenarEscalas(this.envio);
+
+            this.txt_numPaquetes.setEnabled(false);
+            this.txt_destino.setEnabled(false);
+            this.txt_destinatario.setEnabled(false);
+            this.txt_remitente.setEnabled(false);
+            this.cmb_moneda.setEnabled(false);
+            this.cmb_doc.setEnabled(false);
+            this.btn_destino.setEnabled(false);
+            this.btn_origen.setEnabled(false);
+            this.btn_destinatario.setEnabled(false);
+            this.btn_remitente.setEnabled(false);
+            this.btn_guardar.setEnabled(false);
+            if (envio.getActual().getIdAeropuerto() == envio.getDestino().getIdAeropuerto()) {
+                btn_out.setEnabled(true);
+            } else {
+                btn_out.setEnabled(false);
+            }
+        } else {
+            //  si es nuevo...
+            btn_factura.setEnabled(false);
+            btn_in.setEnabled(false);
+            btn_out.setEnabled(false);
+            btn_ruta.setEnabled(false);
+            llenarCombos(null, null, null);
+            this.isNuevo = true;
         }
-        
+
     }
-    public void llenarCombo(){
-        ArrayList<Parametro> lp2 =  new CEnvio().llenarCombo("TIPO_MONEDA");
-        ArrayList<Parametro> lp3 =  new CEnvio().llenarCombo("TIPO_DOC_PAGO_ENVIO");        
-        for(Parametro p: lp2){
-            this.monedaEnvioCombobox.addItem(p);
+
+    private void llenarCombos(Parametro moneda, Parametro doc, Parametro estado) {
+        CEnvio cenvio = new CEnvio();
+        ArrayList<Parametro> monedas = cenvio.llenarCombo("TIPO_MONEDA");
+        ArrayList<Parametro> docs = cenvio.llenarCombo("TIPO_DOC_PAGO_ENVIO");
+        ArrayList<Parametro> estados = cenvio.llenarCombo("ESTADO_ENVIO");
+
+        for (Parametro p : monedas) {
+            this.cmb_moneda.addItem(p);
+
+            if (moneda != null && moneda.getIdParametro() == p.getIdParametro()) {
+                cmb_moneda.setSelectedItem(p);
+            }
         }
-        for(Parametro p: lp3){
-            this.docPagoEnvioCombobox.addItem(p);
+
+        for (Parametro p : docs) {
+            this.cmb_doc.addItem(p);
+
+            if (doc != null && doc.getIdParametro() == p.getIdParametro()) {
+                cmb_moneda.setSelectedItem(p);
+            }
+        }
+
+        for (Parametro p : estados) {
+            this.cmb_estado.addItem(p);
+
+            if (estado != null && estado.getIdParametro() == p.getIdParametro()) {
+                cmb_moneda.setSelectedItem(p);
+
+            }
         }
     }
+
+    private void llenarEscalas(Envio envio) {
+
+        if (envio.getEscalas() == null) {
+            return;
+        }
+
+        Object[] datos = new Object[6];
+        DefaultTableModel dtm = (DefaultTableModel) tbl_escalas.getModel();
+
+        for (int i = dtm.getRowCount(); i > 0; i--) {
+            dtm.removeRow(0);
+        }
+
+        for (Escala e : envio.getEscalas()) {
+
+            datos[0] = e.getNumEscala();
+            datos[1] = e.getVuelo().getOrigen().getNombre() + ", " + e.getVuelo().getOrigen().getCiudad() + ", " + e.getVuelo().getOrigen().getPais();
+            datos[2] = e.getVuelo().getDestino().getNombre() + ", " + e.getVuelo().getDestino().getCiudad() + ", " + e.getVuelo().getDestino().getPais();
+            datos[3] = e.getVuelo().getFechaSalida();
+            datos[4] = e.getVuelo().getFechaLlegada();
+            datos[5] = e.getEstado();
+
+            dtm.addRow(datos);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,51 +163,55 @@ public class EnvioAgregar extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        aeropuertoOrigenEnvioText = new javax.swing.JTextField();
+        txt_origen = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        buscarRemitenteButton = new javax.swing.JButton();
-        remitenteEnvioText = new javax.swing.JTextField();
+        btn_remitente = new javax.swing.JButton();
+        txt_remitente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        aeropuertoActualEnvioText = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        txt_actual = new javax.swing.JTextField();
+        btn_factura = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        buscarDestinatarioButton = new javax.swing.JButton();
-        destinatarioEnvioText = new javax.swing.JTextField();
+        btn_destinatario = new javax.swing.JButton();
+        txt_destinatario = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         montoEnvioText = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btn_in = new javax.swing.JButton();
+        btn_out = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        docPagoEnvioCombobox = new javax.swing.JComboBox();
+        cmb_doc = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         numDocPagoEnvioText = new javax.swing.JTextField();
-        regresarEnvioButton = new javax.swing.JButton();
+        btn_regresar = new javax.swing.JButton();
         numeroEnvioText = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        numPaqEnvioText = new javax.swing.JTextField();
-        monedaEnvioCombobox = new javax.swing.JComboBox();
-        guardarEnvioButton = new javax.swing.JButton();
-        monitoreoButton = new javax.swing.JButton();
+        txt_numPaquetes = new javax.swing.JTextField();
+        cmb_moneda = new javax.swing.JComboBox();
+        btn_guardar = new javax.swing.JButton();
+        btn_ruta = new javax.swing.JButton();
         impuestoFactEnvio = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         fechaRegistroEnvioText = new javax.swing.JTextField();
         fechaRecojoEnvioText = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        buscarAeropuertoDestinoButton = new javax.swing.JButton();
-        aeropuertoDestinoEnvioText = new javax.swing.JTextField();
-        buscarAeropuertoOrigenButton = new javax.swing.JButton();
+        btn_destino = new javax.swing.JButton();
+        txt_destino = new javax.swing.JTextField();
+        btn_origen = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         totalEnvioText = new javax.swing.JTextField();
-        estadoEnvioText = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        cmb_estado = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_escalas = new javax.swing.JTable();
+        tbl_escalas = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
         jButton10.setText("Factura");
@@ -150,67 +253,65 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        aeropuertoOrigenEnvioText.setEditable(false);
-        aeropuertoOrigenEnvioText.setEnabled(false);
-        aeropuertoOrigenEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_origen.setEditable(false);
+        txt_origen.setEnabled(false);
+        txt_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aeropuertoOrigenEnvioTextActionPerformed(evt);
+                txt_origenActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Airport Origen:");
+        jLabel2.setText("Aero. Origen:");
 
-        jLabel3.setText("Airport Destino:");
+        jLabel3.setText("Estado:");
 
-        jLabel4.setText("Estado:");
-
-        buscarRemitenteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        buscarRemitenteButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_remitente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btn_remitente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarRemitenteButtonActionPerformed(evt);
+                btn_remitenteActionPerformed(evt);
             }
         });
 
-        remitenteEnvioText.setEditable(false);
-        remitenteEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_remitente.setEditable(false);
+        txt_remitente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remitenteEnvioTextActionPerformed(evt);
+                txt_remitenteActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Remitente:");
 
-        jLabel6.setText("Actual:");
+        jLabel6.setText("Aero. Actual:");
 
-        aeropuertoActualEnvioText.setEditable(false);
-        aeropuertoActualEnvioText.setEnabled(false);
-        aeropuertoActualEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_actual.setEditable(false);
+        txt_actual.setEnabled(false);
+        txt_actual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aeropuertoActualEnvioTextActionPerformed(evt);
+                txt_actualActionPerformed(evt);
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
-        jButton5.setText("Factura");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
+        btn_factura.setText("Factura");
+        btn_factura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_facturaActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Destinatario:");
 
-        buscarDestinatarioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        buscarDestinatarioButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_destinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btn_destinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarDestinatarioButtonActionPerformed(evt);
+                btn_destinatarioActionPerformed(evt);
             }
         });
 
-        destinatarioEnvioText.setEditable(false);
-        destinatarioEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_destinatario.setEditable(false);
+        txt_destinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                destinatarioEnvioTextActionPerformed(evt);
+                txt_destinatarioActionPerformed(evt);
             }
         });
 
@@ -224,19 +325,19 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/in.png"))); // NOI18N
-        jButton7.setText("Nota de entrada");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btn_in.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/in.png"))); // NOI18N
+        btn_in.setText("Nota de entrada");
+        btn_in.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btn_inActionPerformed(evt);
             }
         });
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/out.png"))); // NOI18N
-        jButton9.setText("Nota de salida");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btn_out.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/out.png"))); // NOI18N
+        btn_out.setText("Nota de salida");
+        btn_out.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btn_outActionPerformed(evt);
             }
         });
 
@@ -244,9 +345,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel10.setText("Doc. pago:");
 
-        docPagoEnvioCombobox.addActionListener(new java.awt.event.ActionListener() {
+        cmb_doc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cmb_doc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                docPagoEnvioComboboxActionPerformed(evt);
+                cmb_docActionPerformed(evt);
             }
         });
 
@@ -260,11 +362,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        regresarEnvioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
-        regresarEnvioButton.setText("Regresar");
-        regresarEnvioButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarEnvioButtonActionPerformed(evt);
+                btn_regresarActionPerformed(evt);
             }
         });
 
@@ -280,37 +382,38 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel13.setText("Num. paquetes:");
 
-        numPaqEnvioText.setText("1");
-        numPaqEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_numPaquetes.setText("1");
+        txt_numPaquetes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numPaqEnvioTextActionPerformed(evt);
+                txt_numPaquetesActionPerformed(evt);
             }
         });
-        numPaqEnvioText.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_numPaquetes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                numPaqEnvioTextKeyTyped(evt);
+                txt_numPaquetesKeyTyped(evt);
             }
         });
 
-        monedaEnvioCombobox.addActionListener(new java.awt.event.ActionListener() {
+        cmb_moneda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cmb_moneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                monedaEnvioComboboxActionPerformed(evt);
+                cmb_monedaActionPerformed(evt);
             }
         });
 
-        guardarEnvioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.png"))); // NOI18N
-        guardarEnvioButton.setText("Guardar");
-        guardarEnvioButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.png"))); // NOI18N
+        btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarEnvioButtonActionPerformed(evt);
+                btn_guardarActionPerformed(evt);
             }
         });
 
-        monitoreoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world.png"))); // NOI18N
-        monitoreoButton.setText("Monitorear");
-        monitoreoButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_ruta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world.png"))); // NOI18N
+        btn_ruta.setText("Ver ruta");
+        btn_ruta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                monitoreoButtonActionPerformed(evt);
+                btn_rutaActionPerformed(evt);
             }
         });
 
@@ -345,24 +448,24 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel16.setText("Fecha Recojo");
 
-        buscarAeropuertoDestinoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        buscarAeropuertoDestinoButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_destino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btn_destino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarAeropuertoDestinoButtonActionPerformed(evt);
+                btn_destinoActionPerformed(evt);
             }
         });
 
-        aeropuertoDestinoEnvioText.setEditable(false);
-        aeropuertoDestinoEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_destino.setEditable(false);
+        txt_destino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aeropuertoDestinoEnvioTextActionPerformed(evt);
+                txt_destinoActionPerformed(evt);
             }
         });
 
-        buscarAeropuertoOrigenButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        buscarAeropuertoOrigenButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_origen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btn_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarAeropuertoOrigenButtonActionPerformed(evt);
+                btn_origenActionPerformed(evt);
             }
         });
 
@@ -376,12 +479,13 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        estadoEnvioText.setEditable(false);
-        estadoEnvioText.setText("Programado");
-        estadoEnvioText.setEnabled(false);
-        estadoEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        jLabel18.setText("Aero. Destino:");
+
+        cmb_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No programado" }));
+        cmb_estado.setEnabled(false);
+        cmb_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estadoEnvioTextActionPerformed(evt);
+                cmb_estadoActionPerformed(evt);
             }
         });
 
@@ -399,76 +503,70 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(aeropuertoActualEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_actual, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(guardarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(aeropuertoOrigenEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(buscarAeropuertoOrigenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(btn_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
-                                        .addComponent(regresarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(aeropuertoDestinoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(buscarAeropuertoDestinoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(estadoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(monedaEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(cmb_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(buscarDestinatarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(buscarRemitenteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btn_destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btn_remitente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(destinatarioEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(docPagoEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmb_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_in, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_out, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(monitoreoButton))
+                                .addComponent(btn_ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -476,92 +574,95 @@ public class EnvioAgregar extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numPaqEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(remitenteEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(139, Short.MAX_VALUE))))
+                                .addComponent(txt_numPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txt_destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txt_remitente, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(97, 97, 97)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(monitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_in, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_out, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buscarRemitenteButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_remitente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(remitenteEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_remitente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buscarDestinatarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(destinatarioEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numPaqEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_numPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(aeropuertoOrigenEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(aeropuertoDestinoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buscarAeropuertoDestinoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarAeropuertoOrigenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_origen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_destino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(estadoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(aeropuertoActualEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_actual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(numeroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(monedaEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmb_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(docPagoEnvioCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmb_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(regresarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(guardarEnvioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -569,11 +670,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         tbl_escalas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Escala", "Origen", "Destino", "Fecha salida", "Fecha llegada", "Estado"
@@ -625,131 +722,155 @@ public class EnvioAgregar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void numPaqEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numPaqEnvioTextActionPerformed
+    private void txt_numPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_numPaquetesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_numPaqEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_numPaquetesActionPerformed
 
-    private void regresarEnvioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarEnvioButtonActionPerformed
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_regresarEnvioButtonActionPerformed
+    }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void numDocPagoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numDocPagoEnvioTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_numDocPagoEnvioTextActionPerformed
 
-    private void docPagoEnvioComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docPagoEnvioComboboxActionPerformed
+    private void cmb_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_docActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_docPagoEnvioComboboxActionPerformed
+    }//GEN-LAST:event_cmb_docActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btn_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_outActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_btn_outActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btn_inActionPerformed
 
     private void montoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoEnvioTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_montoEnvioTextActionPerformed
 
-    private void destinatarioEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinatarioEnvioTextActionPerformed
+    private void txt_destinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_destinatarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_destinatarioEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_destinatarioActionPerformed
 
-    private void buscarDestinatarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarDestinatarioButtonActionPerformed
+    private void btn_destinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinatarioActionPerformed
         ClientesPopUp ClientePU = new ClientesPopUp(this, true);
         destinatario = ClientePU.showDialog();
         if (destinatario != null) {
-            destinatarioEnvioText.setText(destinatario.getNombres() + " " + destinatario.getApellidos());
+            txt_destinatario.setText(destinatario.getNombres() + " " + destinatario.getApellidos());
         }
-    }//GEN-LAST:event_buscarDestinatarioButtonActionPerformed
+    }//GEN-LAST:event_btn_destinatarioActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btn_facturaActionPerformed
 
-    private void aeropuertoActualEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoActualEnvioTextActionPerformed
+    private void txt_actualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_actualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aeropuertoActualEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_actualActionPerformed
 
-    private void remitenteEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remitenteEnvioTextActionPerformed
+    private void txt_remitenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_remitenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_remitenteEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_remitenteActionPerformed
 
-    private void buscarRemitenteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarRemitenteButtonActionPerformed
+    private void btn_remitenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_remitenteActionPerformed
         // TODO add your handling code here:
         ClientesPopUp ClientePU = new ClientesPopUp(this, true);
         remitente = ClientePU.showDialog();
         if (remitente != null) {
-            remitenteEnvioText.setText(remitente.getNombres() + " " + remitente.getApellidos());
+            txt_remitente.setText(remitente.getNombres() + " " + remitente.getApellidos());
         }
-    }//GEN-LAST:event_buscarRemitenteButtonActionPerformed
+    }//GEN-LAST:event_btn_remitenteActionPerformed
 
-    private void aeropuertoOrigenEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoOrigenEnvioTextActionPerformed
+    private void txt_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_origenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_aeropuertoOrigenEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_origenActionPerformed
 
-    private void monedaEnvioComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monedaEnvioComboboxActionPerformed
+    private void cmb_monedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_monedaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_monedaEnvioComboboxActionPerformed
+        CTipoCambio ctipocambio = new CTipoCambio();
+        this.tipoCambio = null;
+        double vTipoCambio = 1;
+
+        if (cmb_moneda.getSelectedIndex() > 0) {
+            this.moneda = (Parametro) cmb_moneda.getSelectedItem();
+            String error_message = ctipocambio.verificarTipoCambioDolar(this.moneda.getValorUnico());
+
+            if (error_message == null || error_message.isEmpty()) {
+                this.tipoCambio = ctipocambio.buscarDolar(this.moneda.getValorUnico());
+            } else {
+                ErrorDialog.mostrarError(error_message, this);
+                this.tipoCambio = null;
+            }
+        }
+        
+        if(this.tarifa != null && this.tipoCambio != null){
+            vTipoCambio = this.tipoCambio.getTipoCambio();
+            montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+        }
+
+    }//GEN-LAST:event_cmb_monedaActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void guardarEnvioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEnvioButtonActionPerformed
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+        this.moneda = null;
+        this.doc = null;
+        this.estado = null;
+
+        if (cmb_moneda.getSelectedIndex() > 0) {
+            this.moneda = (Parametro) cmb_moneda.getSelectedItem();
+        }
+        if (cmb_doc.getSelectedIndex() > 0) {
+            this.doc = (Parametro) cmb_doc.getSelectedItem();
+        }
+        if (cmb_estado.getSelectedIndex() > 0) {
+            this.estado = (Parametro) cmb_estado.getSelectedItem();
+        }
+
         CEnvio cenvio = new CEnvio();
+        String error_message = "";
+
+        error_message = cenvio.validar(this.moneda, this.doc, this.estado, this.origen, this.actual, this.destino, this.remitente, this.destinatario, this.tarifa, this.tipoCambio, txt_numPaquetes.getText());
+
         beans.Envio env = null;
-        
-        env =   cenvio.agregarEnvio(
-                    aeropuertoOrigen,
-                    aeropuertoDestino,
-                    aeropuertoActual,
+
+        if (error_message == null || error_message.isEmpty()) {
+            env = cenvio.agregarEnvio(
+                    origen,
+                    destino,
+                    actual,
                     "PROG",
                     remitente,
                     destinatario,
                     Float.parseFloat(montoEnvioText.getText()),
-                    (Parametro)monedaEnvioCombobox.getSelectedItem(),
+                    (Parametro) cmb_moneda.getSelectedItem(),
                     -1,
-                    Integer.parseInt(numPaqEnvioText.getText()),
-                    (Parametro) docPagoEnvioCombobox.getSelectedItem(),
+                    Integer.parseInt(txt_numPaquetes.getText()),
+                    (Parametro) cmb_doc.getSelectedItem(),
                     -1,
                     Float.parseFloat(impuestoFactEnvio.getText()),
                     "",
-                    ""
-                );
-        this.numeroEnvioText.setText(String.valueOf(env.getIdEnvio()));
-        this.numDocPagoEnvioText.setText(String.valueOf(env.getNumDocVenta()));
-        
-        DefaultTableModel dtm = (DefaultTableModel) tbl_escalas.getModel();
+                    "");
+            this.numeroEnvioText.setText(String.valueOf(env.getIdEnvio()));
+            this.numDocPagoEnvioText.setText(String.valueOf(env.getNumDocVenta()));
 
-        for (int i = dtm.getRowCount(); i > 0; i--) {
-            dtm.removeRow(0);
+            llenarEscalas(env);
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
         }
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
-        Object[] datos = new Object[6];
-        for (Escala e : env.getEscalas()) {
-
-            datos[0] = e.getNumEscala();
-            datos[1] = e.getVuelo().getOrigen().getNombre() + ", " + e.getVuelo().getOrigen().getCiudad() + ", " + e.getVuelo().getOrigen().getPais();
-            datos[2] = e.getVuelo().getDestino().getNombre() + ", " + e.getVuelo().getDestino().getCiudad() + ", " + e.getVuelo().getDestino().getPais();
-            datos[3] = e.getVuelo().getFechaSalida();
-            datos[4] = e.getVuelo().getFechaLlegada();
-            datos[5] = e.getEstado();
-           
-
-            dtm.addRow(datos);
-        }
-        
-    }//GEN-LAST:event_guardarEnvioButtonActionPerformed
-
-    private void monitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitoreoButtonActionPerformed
-        MonitoreoFrame monitoreoDialog = new  MonitoreoFrame(envio);
+    private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
+        MonitoreoFrame monitoreoDialog = new MonitoreoFrame(envio);
         monitoreoDialog.setVisible(true);
-    }//GEN-LAST:event_monitoreoButtonActionPerformed
+    }//GEN-LAST:event_btn_rutaActionPerformed
 
     private void impuestoFactEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impuestoFactEnvioActionPerformed
         // TODO add your handling code here:
@@ -767,54 +888,65 @@ public class EnvioAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_numeroEnvioTextActionPerformed
 
-    private void buscarAeropuertoDestinoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAeropuertoDestinoButtonActionPerformed
-        AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
-        aeropuertoDestino = aeropuertoPU.showDialog();
-        if (aeropuertoDestino != null) {
-            aeropuertoDestinoEnvioText.setText(aeropuertoDestino.getNombre());
-            
+    private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        destino = aeropuertoPU.showDialog();
+        if (destino != null) {
+            txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
         }
-        
+
         CEnvio cenvio = new CEnvio();
-        tarifa =  cenvio.calcularTarifa(aeropuertoOrigen,aeropuertoDestino);
-        montoEnvioText.setText(String.valueOf(tarifa.getMonto()));
-        totalEnvioText.setText(String.valueOf(Integer.parseInt(numPaqEnvioText.getText())*Float.parseFloat(montoEnvioText.getText())*(1+Float.parseFloat(impuestoFactEnvio.getText()))));
-    }//GEN-LAST:event_buscarAeropuertoDestinoButtonActionPerformed
+        String error_message = cenvio.verificarTarifa(origen, destino);
 
-    private void aeropuertoDestinoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aeropuertoDestinoEnvioTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aeropuertoDestinoEnvioTextActionPerformed
+        if (error_message == null || error_message.isEmpty()) {
+            this.tarifa = cenvio.calcularTarifa(origen, destino);
+            double vTipoCambio = 1;
+            if (this.tipoCambio != null) {
+                vTipoCambio = this.tipoCambio.getTipoCambio();
+            }
 
-    private void buscarAeropuertoOrigenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAeropuertoOrigenButtonActionPerformed
-        AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
-        aeropuertoOrigen = aeropuertoPU.showDialog();
-        aeropuertoActual = aeropuertoOrigen;
-        if (aeropuertoOrigen != null) {
-            aeropuertoOrigenEnvioText.setText(aeropuertoOrigen.getNombre());
-            aeropuertoActualEnvioText.setText(aeropuertoActual.getNombre());
+            montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
+            this.tarifa = null;
         }
-       /* CEnvio cenvio = new CEnvio();
-        tarifa =  cenvio.calcularTarifa(aeropuertoOrigen,aeropuertoDestino);
-        montoEnvioText.setText(String.valueOf(tarifa.getMonto())); */
-    }//GEN-LAST:event_buscarAeropuertoOrigenButtonActionPerformed
+    }//GEN-LAST:event_btn_destinoActionPerformed
+
+    private void txt_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_destinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_destinoActionPerformed
+
+    private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        origen = aeropuertoPU.showDialog();
+        actual = origen;
+        if (origen != null) {
+            txt_origen.setText(origen.getNombre() + ", " + origen.getCiudad() + ", " + origen.getPais());
+            txt_actual.setText(actual.getNombre() + ", " + actual.getCiudad() + ", " + actual.getPais());
+        }
+        /* CEnvio cenvio = new CEnvio();
+         tarifa =  cenvio.calcularTarifa(origen,destino);
+         montoEnvioText.setText(String.valueOf(tarifa.getMonto())); */
+    }//GEN-LAST:event_btn_origenActionPerformed
 
     private void totalEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalEnvioTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalEnvioTextActionPerformed
 
-    private void estadoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoEnvioTextActionPerformed
+    private void txt_numPaquetesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_numPaquetesKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_estadoEnvioTextActionPerformed
+        try {
+            if (CValidator.isInteger(txt_numPaquetes.getText())) {
+                totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_txt_numPaquetesKeyTyped
 
-    private void numPaqEnvioTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numPaqEnvioTextKeyTyped
+    private void cmb_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_estadoActionPerformed
         // TODO add your handling code here:
-        try{
-            totalEnvioText.setText(String.valueOf(Integer.parseInt(numPaqEnvioText.getText())*Float.parseFloat(montoEnvioText.getText())*(1+Float.parseFloat(impuestoFactEnvio.getText()))));
-        }
-        catch(Exception e){
-            
-        }
-    }//GEN-LAST:event_numPaqEnvioTextKeyTyped
+    }//GEN-LAST:event_cmb_estadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -851,24 +983,23 @@ public class EnvioAgregar extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField aeropuertoActualEnvioText;
-    private javax.swing.JTextField aeropuertoDestinoEnvioText;
-    private javax.swing.JTextField aeropuertoOrigenEnvioText;
-    private javax.swing.JButton buscarAeropuertoDestinoButton;
-    private javax.swing.JButton buscarAeropuertoOrigenButton;
-    private javax.swing.JButton buscarDestinatarioButton;
-    private javax.swing.JButton buscarRemitenteButton;
-    private javax.swing.JTextField destinatarioEnvioText;
-    private javax.swing.JComboBox docPagoEnvioCombobox;
-    private javax.swing.JTextField estadoEnvioText;
+    private javax.swing.JButton btn_destinatario;
+    private javax.swing.JButton btn_destino;
+    private javax.swing.JButton btn_factura;
+    private javax.swing.JButton btn_guardar;
+    private javax.swing.JButton btn_in;
+    private javax.swing.JButton btn_origen;
+    private javax.swing.JButton btn_out;
+    private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton btn_remitente;
+    private javax.swing.JButton btn_ruta;
+    private javax.swing.JComboBox cmb_doc;
+    private javax.swing.JComboBox cmb_estado;
+    private javax.swing.JComboBox cmb_moneda;
     private javax.swing.JTextField fechaRecojoEnvioText;
     private javax.swing.JTextField fechaRegistroEnvioText;
-    private javax.swing.JButton guardarEnvioButton;
     private javax.swing.JTextField impuestoFactEnvio;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -878,9 +1009,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -890,20 +1021,19 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox monedaEnvioCombobox;
-    private javax.swing.JButton monitoreoButton;
     private javax.swing.JTextField montoEnvioText;
     private javax.swing.JTextField numDocPagoEnvioText;
-    private javax.swing.JTextField numPaqEnvioText;
     private javax.swing.JTextField numeroEnvioText;
-    private javax.swing.JButton regresarEnvioButton;
-    private javax.swing.JTextField remitenteEnvioText;
     private javax.swing.JTable tbl_escalas;
     private javax.swing.JTextField totalEnvioText;
+    private javax.swing.JTextField txt_actual;
+    private javax.swing.JTextField txt_destinatario;
+    private javax.swing.JTextField txt_destino;
+    private javax.swing.JTextField txt_numPaquetes;
+    private javax.swing.JTextField txt_origen;
+    private javax.swing.JTextField txt_remitente;
     // End of variables declaration//GEN-END:variables
-    private Envio envio;
-    private boolean isNuevo;
-    
+
     public Envio showDialog() {
         setVisible(true);
         if (this.isNuevo) {

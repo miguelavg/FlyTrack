@@ -91,6 +91,10 @@ public class Contrasena implements Serializable {
     return text;
     }    
 
+    public void setText(char[] text ){
+    this.text=text;
+    }  
+    
     public Parametro getEstado() {
     return estado;
     }
@@ -103,4 +107,8 @@ public class Contrasena implements Serializable {
       return usuario;
   }
         
+      public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
+    }
+  
 }

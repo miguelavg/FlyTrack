@@ -7,8 +7,10 @@ package controllers;
 import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Contrasena;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import java.util.Arrays;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,17 +40,19 @@ public class CSeguridad {
             
             if(usuario == null) return null; //si el usuario no existe
             
-            //-Existe contrasenia
-            //-Contrasenia activa
-            Query q2 = s.getNamedQuery("ContraseniaActivaXUsuario").setMaxResults(1);
-            q2.setParameter("usuario", usuario);
-            Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
+            usuario.getContrasenias().size();
+            List<Contrasena> contrasenias = usuario.getContrasenias();
+            boolean findPassActiva = Boolean.FALSE;
+            for(Contrasena passAnalizada : contrasenias){
+                if(passAnalizada.getEstado().getValorUnico().equals("ACTV")){
+                    findPassActiva = Boolean.TRUE;
+                     usuario.getPerfil().getPermisos().size();//para jalar en el query los permisos
+                    break;
+                }
+            }
             
-            if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
-                return usuario;
-            else 
-                return null;
-                        
+            return findPassActiva ? usuario : null;
+            
         }
         catch(Exception e){
             System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
@@ -122,5 +126,27 @@ public class CSeguridad {
         finally{
             s.close();
         }
+    }
+    
+    public static boolean validarPermiso(int nivel, String nombreAccionPadre, String nombreAccion, List<Permiso> permisos){
+        for(Permiso permiso : permisos){
+            boolean verificarNivel = permiso.getAccion().getNivel() == nivel;
+            boolean verificarAccion = permiso.getAccion().getNombre().equals(nombreAccion);
+            boolean verificarAccionPadre;
+            if(nombreAccionPadre == null){
+                verificarAccionPadre = Boolean.TRUE;
+            }
+            else{
+                if(permiso.getAccion().getPadre() != null){
+                    verificarAccionPadre = permiso.getAccion().getPadre().getNombre().equals(nombreAccionPadre);
+                }
+                else{
+                    verificarAccionPadre = Boolean.FALSE;
+                }
+            }
+            
+            if(verificarNivel && verificarAccion && verificarAccionPadre) return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 }

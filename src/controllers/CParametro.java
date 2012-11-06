@@ -28,7 +28,7 @@ public class CParametro {
             Query q = s.getNamedQuery("ParametrosAdmin");
 
             if (valor != null && !valor.isEmpty()) {
-                Filter f_valor = s.enableFilter("ParametrosXValor");
+                Filter f_valor = s.enableFilter("Para~metrosXValor");
                 f_valor.setParameter("valor", "%" + valor + "%");
             }
 
@@ -48,6 +48,10 @@ public class CParametro {
             }
 
             params = q.list();
+            
+            for(Parametro aux: params){
+                aux.getHijos().size();
+            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -40,6 +40,36 @@ public class EnvioDialog extends javax.swing.JDialog {
             this.cmb_estado.addItem(p);
         }
     }
+    
+    private void llenarTabla(List<Envio> envios){
+        DefaultTableModel dtm = (DefaultTableModel) tbl_envios.getModel();
+
+        for (int i = dtm.getRowCount(); i > 0; i--) {
+            dtm.removeRow(0);
+        }
+
+        if (envios == null) {
+            return;
+        }
+        
+        for (Envio e : envios) {
+            llenarLineaTabla(e, dtm);
+        }
+        
+        
+    }
+
+    private void llenarLineaTabla(Envio e, DefaultTableModel dtm) {
+        Object[] datos = new Object[7];
+        datos[0] = e.getIdEnvio();
+        datos[1] = e.getRemitente().getNombres() + " " + e.getRemitente().getApellidos();
+        datos[2] = e.getDestinatario().getNombres() + " " + e.getDestinatario().getApellidos();
+        datos[3] = e.getOrigen().getNombre() + ", " + e.getOrigen().getCiudad() + ", " + e.getOrigen().getPais();
+        datos[4] = e.getActual().getNombre() + ", " + e.getActual().getCiudad() + ", " + e.getActual().getPais();
+        datos[5] = e.getDestino().getNombre() + ", " + e.getDestino().getCiudad() + ", " + e.getDestino().getPais();
+        datos[6] = e.getEstado();
+        dtm.addRow(datos);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +104,11 @@ public class EnvioDialog extends javax.swing.JDialog {
         btn_agregar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_envios = new javax.swing.JTable();
+        tbl_envios = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Envíos");
@@ -312,16 +346,7 @@ public class EnvioDialog extends javax.swing.JDialog {
 
         tbl_envios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Num. Envío", "Remitente", "Destinatario", "Origen", "Actual", "Destino", "Estado"
@@ -394,7 +419,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         a_origen = aeropuertoPU.showDialog();
 
         if (a_origen != null) {
-            
+
             txt_origen.setText(a_origen.getNombre());
         }
     }//GEN-LAST:event_btn_origenActionPerformed
@@ -405,7 +430,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         a_destino = aeropuertoPU.showDialog();
 
         if (a_destino != null) {
-            
+
             txt_destino.setText(a_destino.getNombre());
         }
     }//GEN-LAST:event_btn_destinoActionPerformed
@@ -442,7 +467,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         a_actual = aeropuertoPU.showDialog();
 
         if (a_actual != null) {
-            
+
             txt_actual.setText(a_actual.getNombre());
         }
     }//GEN-LAST:event_btn_actualActionPerformed
@@ -454,46 +479,34 @@ public class EnvioDialog extends javax.swing.JDialog {
             p_estado = (Parametro) cmb_estado.getSelectedItem();
         }
         List<Envio> envios = cenvio.buscar(a_actual, a_origen, a_destino, p_estado, c_cliente, txt_numenvio.getText());
-        
-        DefaultTableModel dtm = (DefaultTableModel) tbl_envios.getModel();
 
-        for (int i = dtm.getRowCount(); i > 0; i--) {
-            dtm.removeRow(0);
-        }
-
-        Object[] datos = new Object[9];
-        for (Envio e : envios) {
-
-            datos[0] = e.getIdEnvio();
-            datos[1] = e.getRemitente().getNombres() + " " + e.getRemitente().getApellidos();
-            datos[2] = e.getDestinatario().getNombres() + " " + e.getDestinatario().getApellidos();
-            datos[3] = e.getOrigen().getNombre() + ", " + e.getOrigen().getCiudad() + ", " + e.getOrigen().getPais();
-            datos[4] = e.getActual().getNombre() + ", " + e.getActual().getCiudad() + ", " + e.getActual().getPais();
-            datos[5] = e.getDestino().getNombre() + ", " + e.getDestino().getCiudad() + ", " + e.getDestino().getPais();
-            datos[6] = e.getEstado();
-
-            dtm.addRow(datos);
-        }
-
+        llenarTabla(envios);
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
         /*EnvioAgregar envioAgregar = new EnvioAgregar();
-        envioAgregar.setVisible(true);*/
+         envioAgregar.setVisible(true);*/
+
+        EnvioAgregar envioAgregar = new EnvioAgregar(null, this, true);
+        Envio envio = envioAgregar.showDialog();
+
+        if (envio != null) {
+            //llenarLineaTabla(nTipoCambio, (DefaultTableModel) tbl_tiposcambio.getModel());
+        }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
 
-        
+
         int fila = this.tbl_envios.getSelectedRow();
         if (fila > -1) {
             int id = (Integer) tbl_envios.getValueAt(fila, 0);
             Envio envio = cenvio.buscarId(id);
-            EnvioAgregar envioAgregar = new EnvioAgregar(envio,this,true);
+            EnvioAgregar envioAgregar = new EnvioAgregar(envio, this, true);
             envioAgregar.showDialog();
-            
+
             tbl_envios.setValueAt(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos(), fila, 1);
             tbl_envios.setValueAt(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos(), fila, 2);
             tbl_envios.setValueAt(envio.getOrigen().getNombre(), fila, 3);
