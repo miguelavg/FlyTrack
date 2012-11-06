@@ -45,7 +45,7 @@ public class CSeguridad {
             for(Contrasena passAnalizada : contrasenias){
                 if(passAnalizada.getEstado().getValorUnico().equals("ACTV")){
                     findPassActiva = Boolean.TRUE;
-                    usuario.getPerfil().getPermisos().size(); //para jalar en el query los permisos
+                     usuario.getPerfil().getPermisos().size();//para jalar en el query los permisos
                     break;
                 }
             }
