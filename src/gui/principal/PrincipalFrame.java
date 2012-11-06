@@ -6,12 +6,15 @@ package gui.principal;
 
 import beans.Sesion;
 import beans.Vuelo;
+import beans.seguridad.*;
+import controllers.*;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import gui.clientes.Clientes;
 import gui.administracion.aeropuertos.Aeropuerto;
 import gui.envios.EnvioDialog;
 import gui.reportes.ReporteFrame;
 import gui.administracion.vuelos.Vuelos;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -45,19 +48,19 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         btnEnvios = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblEnvios = new javax.swing.JLabel();
         btnSimulacion = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblSimulacion = new javax.swing.JLabel();
+        lblAdministracion = new javax.swing.JLabel();
         btnAdministracion = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        lblCerrarSesion = new javax.swing.JLabel();
         btnReportes = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblReportes = new javax.swing.JLabel();
+        lblClientes = new javax.swing.JLabel();
         btnClientes = new javax.swing.JButton();
         btnSeguridad = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        lblSeguridad = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -72,8 +75,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel2.setText("Envíos");
+        lblEnvios.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblEnvios.setText("Envíos");
 
         btnSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/simulacion48x48.png"))); // NOI18N
         btnSimulacion.addActionListener(new java.awt.event.ActionListener() {
@@ -82,11 +85,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel5.setText("Simulación");
+        lblSimulacion.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblSimulacion.setText("Simulación");
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel1.setText("Administración");
+        lblAdministracion.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblAdministracion.setText("Administración");
 
         btnAdministracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Configuration.png"))); // NOI18N
         btnAdministracion.addActionListener(new java.awt.event.ActionListener() {
@@ -102,8 +105,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel6.setText("Cerrar Sesión");
+        lblCerrarSesion.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblCerrarSesion.setText("Cerrar Sesión");
 
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte48x48.png"))); // NOI18N
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
@@ -112,11 +115,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel7.setText("Reportes");
+        lblReportes.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblReportes.setText("Reportes");
 
-        jLabel8.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel8.setText("Clientes");
+        lblClientes.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblClientes.setText("Clientes");
 
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -132,8 +135,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel9.setText("Seguridad");
+        lblSeguridad.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lblSeguridad.setText("Seguridad");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,31 +148,31 @@ public class PrincipalFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnClientes)
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel8))
+                        .addComponent(lblClientes))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnEnvios)
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel2))
+                        .addComponent(lblEnvios))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnSeguridad)
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel9))
+                        .addComponent(lblSeguridad))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAdministracion)
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel1))
+                        .addComponent(lblAdministracion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnSimulacion)
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel5))
+                        .addComponent(lblSimulacion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnReportes)
                             .addComponent(btnCerrarSesion))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))))
+                            .addComponent(lblCerrarSesion)
+                            .addComponent(lblReportes))))
                 .addGap(244, 244, 244))
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,7 +184,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addComponent(btnAdministracion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jLabel1)))
+                        .addComponent(lblAdministracion)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -190,16 +193,16 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addComponent(btnEnvios))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel9)
+                        .addComponent(lblSeguridad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
+                        .addComponent(lblEnvios)
                         .addGap(21, 21, 21)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSimulacion)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jLabel5)))
+                        .addComponent(lblSimulacion)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -208,16 +211,16 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addComponent(btnReportes))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCerrarSesion))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addGap(18, 18, 18))
         );
@@ -242,6 +245,13 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
+
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        this.btnAdministracion.setVisible(CSeguridad.validarPermiso(1, null,"Administracion",permisos));
+        this.btnSeguridad.setVisible(CSeguridad.validarPermiso(1, null,"Seguridad",permisos));
+        this.btnEnvios.setVisible(CSeguridad.validarPermiso(1, null,"Envios",permisos));
+        this.btnClientes.setVisible(CSeguridad.validarPermiso(1, null,"Clientes",permisos));
+        this.btnReportes.setVisible(CSeguridad.validarPermiso(1, null,"Reportes",permisos));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -278,6 +288,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
+        Sesion.setUsuario(null);
         this.dispose();
         Login login = new Login();
         login.setVisible(Boolean.TRUE);
@@ -339,15 +350,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSeguridad;
     private javax.swing.JButton btnSimulacion;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblAdministracion;
+    private javax.swing.JLabel lblCerrarSesion;
+    private javax.swing.JLabel lblClientes;
+    private javax.swing.JLabel lblEnvios;
+    private javax.swing.JLabel lblReportes;
+    private javax.swing.JLabel lblSeguridad;
+    private javax.swing.JLabel lblSimulacion;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -129,6 +129,9 @@ public class CPerfil {
     }
         
         
+        
+        
+        
      public String validar(Integer idperfil, boolean isNuevo, String nombre, String descripcion, Parametro estado) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();

@@ -9,6 +9,9 @@ import beans.Cliente;
 import beans.Parametro;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
+import controllers.CContrasena;
+import controllers.CParametro;
+import controllers.CPerfil;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
@@ -27,12 +30,19 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class UsuarioEdit extends javax.swing.JDialog {
     CUsuario Usuario = new CUsuario();
+    
+    CContrasena Contrasena = new CContrasena();
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaEstado ;
-            List<Perfil> ListaPerfiles ;
+    List<Perfil> ListaPerfiles ;
         Cliente  ClienteAux ;
             Aeropuerto AeropuertoAux;
                 boolean isNuevo;
+                
+         CParametro ParametroBL = new CParametro();
+        CPerfil PerfilBL= new CPerfil();
+        Perfil Perfil ;
+        //Parametro Estado;
             
     /**
      * Creates new form UsuarioEdit
@@ -60,11 +70,15 @@ public class UsuarioEdit extends javax.swing.JDialog {
         initComponents();
         idusuario=id;
         isNuevo=true;
-         
+        
+        
        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
         if (idusuario!=-1){
+            
+        lblContrasena.setVisible(false);
+        psswdContrasena.setVisible(false);
         cargarcampos();
         }
         
@@ -94,6 +108,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
         lblCliente = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
         btnBuscarClientes = new javax.swing.JButton();
+        lblContrasena = new javax.swing.JLabel();
+        psswdContrasena = new javax.swing.JPasswordField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -129,8 +145,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel3.setText("Aeropuerto:");
 
-        txtAeropuerto.setText("Jorge Chávez, Lima");
-
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +177,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
         });
 
+        lblContrasena.setText("Contraseña:");
+
+        psswdContrasena.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -171,15 +189,17 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContrasena))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscarAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(psswdContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,8 +244,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblContrasena))
+                    .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(psswdContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -311,53 +333,26 @@ public class UsuarioEdit extends javax.swing.JDialog {
     }
     
     public void llenarcomboEstado(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("ParametrosXTipo");
-            q.setParameter("tipo", "ESTADO_USUARIO");
-            ListaEstado = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaEstado.size();i++)
+         ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+    
+        for (Parametro p : ListaEstado)
+        //for (int i=0;i<ListaEstado.size();i++)
         {
-            Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
+    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
             
-            cboEstado.addItem(TipoDocBE);
+            cboEstado.addItem(p);
         }
+        
     }
     
     public void llenarcomboPerfiles(){
-        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            
-            q = s.getNamedQuery("Perfil");
-            ListaPerfiles = q.list();
-//                        
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-                }
-        finally {
-            s.close();
-        }
-        for (int i=0;i<ListaPerfiles.size();i++)
+        ListaPerfiles=PerfilBL.Buscar();
+    //int i=0;i<ListaPerfiles.size();i++
+        for (Perfil p: ListaPerfiles)
         {
-            Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
-            
-            cboPerfil.addItem(CPerfil);
+            //Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
+            //CPerfil
+            cboPerfil.addItem(p);
         }
     }
     
@@ -372,6 +367,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
         
         CUsuario Cusuario = new CUsuario();
         Integer valoraux;
+        
+        Usuario UsuarioAux;
         //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
         
         
@@ -406,6 +403,16 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 (Parametro)cboEstado.getSelectedItem() , 
                 0,
                 false); 
+                
+                //Perfil=PerfilBL.BuscarXid(90);
+                ListaEstado=ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
+                //objeto usuario, objeto parametro
+                UsuarioAux=Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
+                
+                Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioAux,ListaEstado.get(0));
+                
+                
+                
         }
         else{
         txtCliente.setVisible(false);
@@ -557,6 +564,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblContrasena;
+    private javax.swing.JPasswordField psswdContrasena;
     private javax.swing.JTextField txtAeropuerto;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtLogIn;

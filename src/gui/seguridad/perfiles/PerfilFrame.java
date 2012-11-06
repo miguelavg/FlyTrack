@@ -204,6 +204,9 @@ public class PerfilFrame extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
          DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
+       
+        if (PerfilTabla.getSelectedRow()>-1){
+         
         Integer id=(Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
         
         PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
@@ -211,6 +214,7 @@ public class PerfilFrame extends javax.swing.JDialog {
         PerfilAgregarGUI.setBandera(1);
         PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
         PerfilAgregarGUI.showDialog();
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
