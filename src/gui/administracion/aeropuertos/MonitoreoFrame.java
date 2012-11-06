@@ -32,13 +32,14 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private List<Aeropuerto> ListaAeropuerto = null;
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
-        ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
+         ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }
      
     public Aeropuerto ShowDialog() {
 
       setVisible(true);
+       
       return objAero;
     }
 
@@ -49,8 +50,9 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         
         for (int j = 0; j <ListaAeropuerto.size(); j++){
             
-            
-                
+                 c.setColor(Color.WHITE);
+                 
+                 c.drawString(ListaAeropuerto.get(j).getPais().getValor()+'-'+ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX()+15, ListaAeropuerto.get(j).getCoordY());
                  c.setColor(Color.red);
                  c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
               
@@ -175,12 +177,12 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         y_posicion = evt.getY();
         Graphics g = this.getGraphics();
           objAero.setCoordX(x_posicion);
-          objAero.setCoordY(x_posicion);
+          objAero.setCoordY(y_posicion);
           g.setColor(Color.WHITE);  
           g.fillOval(x_posicion, y_posicion, 10,10 );
               
           g.drawOval(x_posicion, y_posicion, 10,10 );
-      
+          g.drawString(objAero.getPais().getValor()+'-'+objAero.getNombre(), x_posicion + 15, y_posicion);
           int result = 0;
    
          
