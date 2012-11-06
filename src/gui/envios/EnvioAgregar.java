@@ -6,9 +6,11 @@ package gui.envios;
 
 import beans.*;
 import controllers.*;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private Aeropuerto destino;
     private Aeropuerto actual;
     private Tarifa tarifa;
+    private TipoCambio tipoCambio;
     private Parametro moneda;
     private Parametro doc;
     private Parametro estado;
@@ -116,10 +119,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
             if (estado != null && estado.getIdParametro() == p.getIdParametro()) {
                 cmb_moneda.setSelectedItem(p);
-            }
 
-            if (estado == null && p.getValorUnico().equals("PROG")) {
-                cmb_moneda.setSelectedItem(p);
             }
         }
     }
@@ -477,7 +477,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel18.setText("Aero. Destino:");
 
-        cmb_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cmb_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No programado" }));
         cmb_estado.setEnabled(false);
         cmb_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -786,6 +786,20 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void cmb_monedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_monedaActionPerformed
         // TODO add your handling code here:
+        CTipoCambio ctipocambio = new CTipoCambio();
+        this.tipoCambio = null;
+
+        if (cmb_moneda.getSelectedIndex() > 0) {
+            this.moneda = (Parametro) cmb_moneda.getSelectedItem();
+            String error_message = ctipocambio.verificarTipoCambioDolar(this.moneda.getValorUnico());
+
+            if (error_message == null || error_message.isEmpty()) {
+                this.tipoCambio = ctipocambio.buscarDolar(this.moneda.getValorUnico());
+            } else {
+                ErrorDialog.mostrarError(error_message, this);
+            }
+        }
+
     }//GEN-LAST:event_cmb_monedaActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -797,7 +811,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         this.moneda = null;
         this.doc = null;
         this.estado = null;
-        
+
         if (cmb_moneda.getSelectedIndex() > 0) {
             this.moneda = (Parametro) cmb_moneda.getSelectedItem();
         }
@@ -809,29 +823,36 @@ public class EnvioAgregar extends javax.swing.JDialog {
         }
 
         CEnvio cenvio = new CEnvio();
+        String error_message = "";
+
+        error_message = cenvio.validar(this.moneda, this.doc, this.estado, this.origen, this.actual, this.destino, this.remitente, this.destinatario, this.tarifa, this.tipoCambio, txt_numPaquetes.getText());
+
         beans.Envio env = null;
 
-        env = cenvio.agregarEnvio(
-                origen,
-                destino,
-                actual,
-                "PROG",
-                remitente,
-                destinatario,
-                Float.parseFloat(montoEnvioText.getText()),
-                (Parametro) cmb_moneda.getSelectedItem(),
-                -1,
-                Integer.parseInt(txt_numPaquetes.getText()),
-                (Parametro) cmb_doc.getSelectedItem(),
-                -1,
-                Float.parseFloat(impuestoFactEnvio.getText()),
-                "",
-                "");
-        this.numeroEnvioText.setText(String.valueOf(env.getIdEnvio()));
-        this.numDocPagoEnvioText.setText(String.valueOf(env.getNumDocVenta()));
+        if (error_message == null || error_message.isEmpty()) {
+            env = cenvio.agregarEnvio(
+                    origen,
+                    destino,
+                    actual,
+                    "PROG",
+                    remitente,
+                    destinatario,
+                    Float.parseFloat(montoEnvioText.getText()),
+                    (Parametro) cmb_moneda.getSelectedItem(),
+                    -1,
+                    Integer.parseInt(txt_numPaquetes.getText()),
+                    (Parametro) cmb_doc.getSelectedItem(),
+                    -1,
+                    Float.parseFloat(impuestoFactEnvio.getText()),
+                    "",
+                    "");
+            this.numeroEnvioText.setText(String.valueOf(env.getIdEnvio()));
+            this.numDocPagoEnvioText.setText(String.valueOf(env.getNumDocVenta()));
 
-        llenarEscalas(env);
-
+            llenarEscalas(env);
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
+        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
@@ -863,9 +884,15 @@ public class EnvioAgregar extends javax.swing.JDialog {
         }
 
         CEnvio cenvio = new CEnvio();
-        tarifa = cenvio.calcularTarifa(origen, destino);
-        montoEnvioText.setText(String.valueOf(tarifa.getMonto()));
-        totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+        String error_message = cenvio.verificarTarifa(origen, destino);
+
+        if (error_message == null || error_message.isEmpty()) {
+            tarifa = cenvio.calcularTarifa(origen, destino);
+            montoEnvioText.setText(String.valueOf(tarifa.getMonto()));
+            totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
+        }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
     private void txt_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_destinoActionPerformed

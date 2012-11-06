@@ -36,7 +36,9 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "TiposCambioXMoneda",
     query = "from TipoCambio where monedaOrigen.idParametro = :idMoneda"),
     @NamedQuery(name = "TiposCambioXMonedas",
-    query = "from TipoCambio where monedaOrigen.idParametro = :idMonedaOrigen and monedaDestino.idParametro = :idMonedaDestino")
+    query = "from TipoCambio where monedaOrigen.idParametro = :idMonedaOrigen and monedaDestino.idParametro = :idMonedaDestino"),
+    @NamedQuery(name = "TiposCambioXValosresUnicos",
+    query = "from TipoCambio where monedaOrigen.valorUnico = :monedaOrigen and monedaDestino.valorUnico = :monedaDestino")
 })
 @FilterDefs({
     @FilterDef(name = "TiposCambioXOrigen",

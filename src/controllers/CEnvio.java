@@ -335,6 +335,30 @@ public class CEnvio {
         }
     }
 
+    public String verificarTarifa(Aeropuerto origen, Aeropuerto destino) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        Tarifa tarifa;
+        try {
+            Query q = s.getNamedQuery("Tarifa").setMaxResults(1);
+            Parametro p;
+            q.setParameter("idorigen", origen.getIdAeropuerto());
+            q.setParameter("iddestino", destino.getIdAeropuerto());
+            tarifa = (Tarifa) q.uniqueResult();
+            
+            if (tarifa == null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
+        } finally {
+            s.close();
+        }
+        return error_message;
+    }
+
     public Tarifa calcularTarifa(Aeropuerto origen, Aeropuerto destino) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -368,5 +392,45 @@ public class CEnvio {
             s.close();
         }
         return envio;
+    }
+
+    public String validar(Parametro moneda, Parametro doc, Parametro estado, Aeropuerto origen, Aeropuerto actual, Aeropuerto destino, Cliente remitente, Cliente destinatario, Tarifa tarifa, TipoCambio tipoCambio, String numPaquetes) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        try {
+
+            if (moneda == null || doc == null || estado == null || origen == null || actual == null || destino == null || remitente == null || destinatario == null || numPaquetes == null || numPaquetes.isEmpty()) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            }
+
+            if (origen != null && destino != null) {
+                Query q = s.getNamedQuery("TiposCambioXMonedas");
+
+                if (origen.getIdAeropuerto() == destino.getIdAeropuerto()) {
+                    error_message = error_message + CValidator.buscarError("ERROR_FT008") + "\n";
+                }
+
+            }
+
+            if (!CValidator.isInteger(numPaquetes)) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT010") + "\n";
+            }
+
+            if (tarifa == null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
+            }
+
+            if (tipoCambio == null && moneda != null && !moneda.getValorUnico().equals("DOL")) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT012") + "\n";
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return error_message;
     }
 }
