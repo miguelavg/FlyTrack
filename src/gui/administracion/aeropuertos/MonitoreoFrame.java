@@ -27,27 +27,38 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     /**
      * Creates new form MonitoreoFrame
      */
+    beans.Aeropuerto objAero = null;
     private List<Aeropuerto> ListaAeropuerto = null;
-    public MonitoreoFrame() {
+    public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
         ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
-
+        objAero = ObjAero;
     }
  
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
+               Graphics c = this.getGraphics();
         
         for (int j = 0; j <ListaAeropuerto.size(); j++){
             
             
-                  Graphics c = this.getGraphics();
+                
                  c.setColor(Color.red);
-                 c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
+                 c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
+              
+                 c.drawOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
+                // c.draw3DRect(, rootPaneCheckingEnabled);
+                         
+                // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
                  
            }  
+        c.setColor(Color.GREEN);
+        c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+              
+         c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+        
        /* if (envio == null) {
             return;
         }
@@ -155,7 +166,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         y_posicion = evt.getY();
         Graphics g = this.getGraphics();
         
-        g.drawRect(x_posicion, y_posicion, 5, 5);
+          g.setColor(Color.WHITE);  
+          g.fillOval(x_posicion, y_posicion, 10,10 );
+              
+          g.drawOval(x_posicion, y_posicion, 10,10 );
+      
         
         
         
@@ -191,7 +206,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MonitoreoFrame().setVisible(true);
+                new MonitoreoFrame(new beans.Aeropuerto()).setVisible(true);
             }
         });
     }

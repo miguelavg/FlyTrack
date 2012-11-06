@@ -351,7 +351,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
 
     private void btn_ubicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubicarActionPerformed
         // TODO add your handling code here:
-        MonitoreoFrame Mapa = new MonitoreoFrame();
+        MonitoreoFrame Mapa = new MonitoreoFrame(objAero);
         Mapa.setVisible(true);
     }//GEN-LAST:event_btn_ubicarActionPerformed
 
