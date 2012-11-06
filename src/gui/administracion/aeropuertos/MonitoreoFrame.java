@@ -17,6 +17,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,7 +35,12 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }
- 
+     
+    public Aeropuerto ShowDialog() {
+
+      setVisible(true);
+      return objAero;
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -57,7 +63,10 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         c.setColor(Color.GREEN);
         c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
               
-         c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+        c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+        
+            
+                
         
        /* if (envio == null) {
             return;
@@ -165,17 +174,27 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         x_posicion = evt.getX();
         y_posicion = evt.getY();
         Graphics g = this.getGraphics();
-        
+          objAero.setCoordX(x_posicion);
+          objAero.setCoordY(x_posicion);
           g.setColor(Color.WHITE);  
           g.fillOval(x_posicion, y_posicion, 10,10 );
               
           g.drawOval(x_posicion, y_posicion, 10,10 );
       
-        
-        
+          int result = 0;
+   
+         
+          result =  JOptionPane.showConfirmDialog(null, "Desea asignarle otra ubicacion ?", "Confirmaciòn",JOptionPane.YES_NO_OPTION);
+         
+          if (result == JOptionPane.NO_OPTION ) {
+                 this.dispose();
+          }
+             
+         
         
     }//GEN-LAST:event_jLabel1MousePressed
 
+   
     /**
      * @param args the command line arguments
      */
