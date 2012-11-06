@@ -352,7 +352,11 @@ public class AeropuertoModificar extends javax.swing.JDialog {
     private void btn_ubicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubicarActionPerformed
         // TODO add your handling code here:
         MonitoreoFrame Mapa = new MonitoreoFrame(objAero);
-        Mapa.setVisible(true);
+        objAero = Mapa.ShowDialog();
+        
+       
+        txt_X.setText(String.valueOf(objAero.getCoordX()));
+        txt_Y.setText(String.valueOf(objAero.getCoordY()));
     }//GEN-LAST:event_btn_ubicarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
