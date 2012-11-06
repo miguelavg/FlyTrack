@@ -8,8 +8,11 @@ import beans.Aeropuerto;
 import beans.Envio;
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
+import beans.seguridad.Permiso;
 import controllers.CEnvio;
 import controllers.CParametro;
+import controllers.CSeguridad;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import gui.seguridad.parametros.ParametroEdit;
@@ -581,4 +584,19 @@ public class EnvioDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txt_numenvio;
     private javax.swing.JTextField txt_origen;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(2, "Envios", "Crear", permisos);
+        this.btn_agregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(2, "Envios", "Modificar", permisos);
+        this.btn_modificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(2, "Envios", "Buscar/Listar", permisos);
+        this.btn_buscar.setEnabled(buscar);
+        
+        //boolean cargaMasiva = CSeguridad.validarPermiso(2, "Envios", "Carga Masiva", permisos);
+        
+        pack();
+    }
 }
