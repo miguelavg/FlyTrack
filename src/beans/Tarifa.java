@@ -33,8 +33,11 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "Tarifa",
     query = "from Tarifa where origen.idAeropuerto = :idorigen and destino.idAeropuerto = :iddestino"),
     @NamedQuery(name = "Tarifas",
-    query = "from Tarifa"   
-        )
+    query = "from Tarifa"  ),
+    @NamedQuery(name = "TarifaxId",
+    query = "from Tarifa where idTarifa= :id"  ),
+    @NamedQuery(name = "TarifaxRuta",
+    query = "from Tarifa where origen= :aeroori and destino=:aerodes"  ),
 })
 @FilterDefs({
     @FilterDef(name = "TarifaxAeroOri",

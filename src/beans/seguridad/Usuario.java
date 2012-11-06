@@ -104,6 +104,10 @@ public class Usuario implements Serializable{
     @OneToMany(mappedBy="usuario")
     private List<Contrasena> contrasenias;
     
+    //se puede mapear la contrasenia activa haciendo un mapeo de uno a muchos
+    //donde a continuacion se indique un filtro para detectar la contrasenia activa
+    //y sacarla como un atributo
+    
     public List<Contrasena> getContrasenias() {
         return contrasenias;
     }

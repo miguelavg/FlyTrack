@@ -27,9 +27,19 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private Aeropuerto aeropuertoDestino = null;
     private Aeropuerto aeropuertoActual = null;
     private Tarifa tarifa = null;
-    public EnvioAgregar() {
+    public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
+        super(parent,modal);
         initComponents();
         llenarCombo();
+        this.isNuevo = true;
+        this.envio = null;
+        
+        if (envio != null){
+            this.remitenteEnvioText.setText(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos());
+            this.destinatarioEnvioText.setText(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos());  
+            this.envio = envio;
+        }
+        
     }
     public void llenarCombo(){
         ArrayList<Parametro> lp2 =  new CEnvio().llenarCombo("TIPO_MONEDA");
@@ -161,6 +171,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
+        remitenteEnvioText.setEditable(false);
         remitenteEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 remitenteEnvioTextActionPerformed(evt);
@@ -196,6 +207,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
+        destinatarioEnvioText.setEditable(false);
         destinatarioEnvioText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 destinatarioEnvioTextActionPerformed(evt);
@@ -456,7 +468,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(monitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(monitoreoButton))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -469,7 +481,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(remitenteEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(160, Short.MAX_VALUE))))
+                        .addContainerGap(139, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -735,7 +747,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_guardarEnvioButtonActionPerformed
 
     private void monitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitoreoButtonActionPerformed
-        MonitoreoFrame monitoreoDialog = new  MonitoreoFrame(null);
+        MonitoreoFrame monitoreoDialog = new  MonitoreoFrame(envio);
         monitoreoDialog.setVisible(true);
     }//GEN-LAST:event_monitoreoButtonActionPerformed
 
@@ -834,7 +846,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EnvioAgregar().setVisible(true);
+                new EnvioAgregar(null, new javax.swing.JDialog(), true).setVisible(true);
             }
         });
     }
@@ -889,4 +901,15 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JTable tbl_escalas;
     private javax.swing.JTextField totalEnvioText;
     // End of variables declaration//GEN-END:variables
+    private Envio envio;
+    private boolean isNuevo;
+    
+    public Envio showDialog() {
+        setVisible(true);
+        if (this.isNuevo) {
+            return this.envio;
+        } else {
+            return null;
+        }
+    }
 }

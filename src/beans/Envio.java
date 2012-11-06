@@ -33,7 +33,8 @@ import org.hibernate.annotations.ParamDef;
 @Entity
 @Table(name = "Envio")
 @NamedQueries({
-    @NamedQuery(name = "Envios", query = "from Envio order by fechaRegistro desc")
+    @NamedQuery(name = "Envios", query = "from Envio order by fechaRegistro desc"),
+    @NamedQuery(name = "EnvioID", query = "from Envio where idenvio = :idenvio")
     })
 @FilterDefs({
     @FilterDef(name = "EnviosXOrigen", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),

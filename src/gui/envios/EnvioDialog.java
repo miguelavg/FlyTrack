@@ -9,8 +9,10 @@ import beans.Envio;
 import beans.Cliente;
 import beans.Parametro;
 import controllers.CEnvio;
+import controllers.CParametro;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import gui.seguridad.parametros.ParametroEdit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -452,6 +454,7 @@ public class EnvioDialog extends javax.swing.JDialog {
             p_estado = (Parametro) cmb_estado.getSelectedItem();
         }
         List<Envio> envios = cenvio.buscar(a_actual, a_origen, a_destino, p_estado, c_cliente, txt_numenvio.getText());
+        
         DefaultTableModel dtm = (DefaultTableModel) tbl_envios.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -476,14 +479,27 @@ public class EnvioDialog extends javax.swing.JDialog {
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
-        EnvioAgregar envioAgregar = new EnvioAgregar();
-        envioAgregar.setVisible(true);
+        /*EnvioAgregar envioAgregar = new EnvioAgregar();
+        envioAgregar.setVisible(true);*/
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        EnvioAgregar envioAgregar = new EnvioAgregar();
-        envioAgregar.setVisible(true);
+
+        
+        int fila = this.tbl_envios.getSelectedRow();
+        if (fila > -1) {
+            int id = (Integer) tbl_envios.getValueAt(fila, 0);
+            Envio envio = cenvio.buscarId(id);
+            EnvioAgregar envioAgregar = new EnvioAgregar(envio,this,true);
+            envioAgregar.showDialog();
+            
+            tbl_envios.setValueAt(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos(), fila, 1);
+            tbl_envios.setValueAt(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos(), fila, 2);
+            tbl_envios.setValueAt(envio.getOrigen().getNombre(), fila, 3);
+            tbl_envios.setValueAt(envio.getActual().getNombre(), fila, 4);
+            tbl_envios.setValueAt(envio.getDestino().getNombre(), fila, 5);
+        }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void txt_numenvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_numenvioActionPerformed

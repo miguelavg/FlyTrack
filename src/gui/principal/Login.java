@@ -5,11 +5,13 @@
 package gui.principal;
 
 import beans.Sesion;
+import beans.seguridad.Usuario;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CSeguridad;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
+import org.hibernate.Session;
 
 /**
  *
@@ -163,15 +165,14 @@ public class Login extends javax.swing.JFrame {
 
         //Verificar si la constrasenia del usuario es la activa o no
         //manejar el numero de intentos fallidos aqui
-        if (CSeguridad.verificarContrasenia(usuario, password)) {
+        Usuario usuarioValidado = null;
+        if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
             //VERIFICACION EXITOSA
             lblError.setVisible(Boolean.FALSE);
 
-            Sesion sesionIniciada = new Sesion();
-            sesionIniciada.crearSesion(usuario);
+            Sesion.setUsuario(usuarioValidado);
             
             PrincipalFrame pf = new PrincipalFrame();
-            pf.setSesionActiva(sesionIniciada);
             pf.setVisible(Boolean.TRUE);
 
             this.setVisible(Boolean.FALSE);

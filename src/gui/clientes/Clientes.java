@@ -344,12 +344,13 @@ public class Clientes extends javax.swing.JDialog {
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
         
         
-        
-        Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
-        ClientesEdit MiVentana = new ClientesEdit(this,true,id);        
-        MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
-        MiVentana.showDialog();
-        cargartabla();
+        if (ClienteTabla.getSelectedRow()>-1){
+            Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+            ClientesEdit MiVentana = new ClientesEdit(this,true,id);        
+            MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+            MiVentana.showDialog();
+            cargartabla();
+        }
         
     }//GEN-LAST:event_btnModificarActionPerformed
 

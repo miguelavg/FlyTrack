@@ -79,6 +79,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Envíos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -247,10 +248,13 @@ public class TarifaFrame extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Aeropuerto Origen", "Aerouperto Destino", "Monto ($)"
+                "Id", "Aeropuerto Origen", "Aerouperto Destino", "Monto ($)"
             }
         ));
         jScrollPane1.setViewportView(tablaTarifa);
+        tablaTarifa.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaTarifa.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tablaTarifa.getColumnModel().getColumn(0).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -396,10 +400,11 @@ public class TarifaFrame extends javax.swing.JDialog {
             }
         }
         
-        Object[] datos = new Object[3];
-        datos[0] = origen.getNombre();
-        datos[1] = destino.getNombre();
-        datos[2] = monto;
+        Object[] datos = new Object[4];
+        datos[0] = t.getIdTarifa();
+        datos[1] = origen.getNombre();
+        datos[2] = destino.getNombre();
+        datos[3] = monto;
        
         dtm.addRow(datos);
     }
@@ -420,6 +425,18 @@ public class TarifaFrame extends javax.swing.JDialog {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) this.tablaTarifa.getModel();
+              
+        if (tablaTarifa.getSelectedRow()>-1){
+            Integer id=(Integer)tablaTarifa.getValueAt(tablaTarifa.getSelectedRow(), 0);
+            TarifaEdit MiVentana = new TarifaEdit(this,true,id);        
+            //MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+            MiVentana.showDialog();
+            ListaTarifa=TarifaBL.Buscar(null, null,"", "");
+            llenartabla();
+        }
+        
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
