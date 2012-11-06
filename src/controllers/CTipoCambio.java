@@ -156,6 +156,10 @@ public class CTipoCambio {
         Session s = sf.openSession();
         TipoCambio tipo;
         String error_message = "";
+        
+        if(valorUnico.equals("DOL")){
+            return error_message;
+        }
 
         try {
             Query q = s.getNamedQuery("TiposCambioXValosresUnicos");
