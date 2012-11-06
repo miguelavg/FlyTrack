@@ -4,6 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="modal" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -26,37 +27,37 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tarifaButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnTarifas" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTarifas" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="tarifaButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnTipoCambio" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTipoCambio" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="vueloButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVuelos" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblVuelos" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="aeropuertoButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAeropuertos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="lblAeropuertos" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -69,24 +70,24 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="vueloButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="aeropuertoButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnVuelos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAeropuertos" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" alignment="0" min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="lblAeropuertos" alignment="0" min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="lblVuelos" alignment="0" min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tarifaButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnTipoCambio" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="tarifaButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnTarifas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel1" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="lblTarifas" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="lblTipoCambio" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -99,64 +100,64 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="tarifaButton">
+    <Component class="javax.swing.JButton" name="btnTarifas">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/tarifa48x48.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tarifaButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTarifasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lblTarifas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tarifas"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="vueloButton">
+    <Component class="javax.swing.JButton" name="btnVuelos">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/vuelo48x48.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vueloButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVuelosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="aeropuertoButton">
+    <Component class="javax.swing.JButton" name="btnAeropuertos">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/aeropuerto48x48.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aeropuertoButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAeropuertosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lblVuelos">
       <Properties>
         <Property name="text" type="java.lang.String" value="  Vuelos "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="lblAeropuertos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Aeropuerto"/>
+        <Property name="text" type="java.lang.String" value="Aeropuertos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="lblTipoCambio">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tipo de cambio"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="tarifaButton1">
+    <Component class="javax.swing.JButton" name="btnTipoCambio">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/tipocambio48x48.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tarifaButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTipoCambioActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -34,6 +34,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         
         initComponents();
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagenes/logo.png")).getImage());
+        definirPermisos();
     }
 
     /**
@@ -246,23 +247,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        boolean administracion = CSeguridad.validarPermiso(1, null,"Administracion",permisos);
-        this.btnAdministracion.setEnabled(administracion);
-        this.lblAdministracion.setEnabled(administracion);
-        boolean seguridad = CSeguridad.validarPermiso(1, null,"Seguridad",permisos);
-        this.btnSeguridad.setEnabled(seguridad);
-        this.lblSeguridad.setEnabled(seguridad);
-        boolean envios = CSeguridad.validarPermiso(1, null,"Envios",permisos);
-        this.btnEnvios.setEnabled(envios);
-        this.lblEnvios.setEnabled(envios);
-        boolean clientes = CSeguridad.validarPermiso(1, null,"Clientes",permisos);
-        this.btnClientes.setEnabled(clientes);
-        this.lblClientes.setEnabled(clientes);
-        boolean reportes = CSeguridad.validarPermiso(1, null,"Reportes",permisos);
-        this.btnReportes.setEnabled(reportes);
-        this.lblReportes.setEnabled(reportes);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -371,4 +355,25 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblSimulacion;
     // End of variables declaration//GEN-END:variables
 
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean administracion = CSeguridad.validarPermiso(1, null,"Administracion",permisos);
+        this.btnAdministracion.setEnabled(administracion);
+        this.lblAdministracion.setEnabled(administracion);
+        boolean seguridad = CSeguridad.validarPermiso(1, null,"Seguridad",permisos);
+        this.btnSeguridad.setEnabled(seguridad);
+        this.lblSeguridad.setEnabled(seguridad);
+        boolean envios = CSeguridad.validarPermiso(1, null,"Envios",permisos);
+        this.btnEnvios.setEnabled(envios);
+        this.lblEnvios.setEnabled(envios);
+        boolean clientes = CSeguridad.validarPermiso(1, null,"Clientes",permisos);
+        this.btnClientes.setEnabled(clientes);
+        this.lblClientes.setEnabled(clientes);
+        boolean reportes = CSeguridad.validarPermiso(1, null,"Reportes",permisos);
+        this.btnReportes.setEnabled(reportes);
+        this.lblReportes.setEnabled(reportes);
+
+        pack();
+    }
 }
