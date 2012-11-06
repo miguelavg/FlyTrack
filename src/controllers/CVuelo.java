@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import java.util.List;
 import org.hibernate.*;
@@ -34,7 +35,7 @@ public class CVuelo {
             Transaction tx = s.beginTransaction();
             Query q;
             
-            q = s.getNamedQuery("ParametrosVuelo");
+            q = s.getNamedQuery("ParametrosAeropuerto");
             q.setParameter("tipo", "ESTADO_VUELO");
             ListaTipoEst = q.list();
             
@@ -60,9 +61,12 @@ public class CVuelo {
         Session s = sf.openSession();
         List<Vuelo> ListaVuelos = null;
         
+        Date ini;
+        Date fin;
+      
         try {
  
-            Query q= s.getNamedQuery("Aero");
+            Query q= s.getNamedQuery("Volar");
            
 //        if (isInteger(numEnvio)) {
 //                Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
@@ -80,13 +84,22 @@ public class CVuelo {
             }
 
             if (fechini != null) {
+                
+                ini = new Date();
+                ini.setDate(fechini.get(0));
+                ini.setMonth(fechini.get(1));
+                ini.setYear(fechini.get(2));
                 Filter f_inisalida = s.enableFilter("VueloXfechini");
-                f_inisalida.setParameter("idAeropuerto", fechini);
+                f_inisalida.setParameter("fechasalida", ini);
             }
 
             if (fechfinal != null) {
+                fin = new Date();
+                fin.setDate(fechfinal.get(0));
+                fin.setMonth(fechfinal.get(1));
+                fin.setYear(fechfinal.get(2));
                 Filter f_finllega = s.enableFilter("VueloXfechfin");
-                f_finllega.setParameter("idEstado", fechfinal);
+                f_finllega.setParameter("fechallegada", fin);
             }
 
             if (Estado != null) {
