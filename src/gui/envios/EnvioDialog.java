@@ -512,6 +512,7 @@ public class EnvioDialog extends javax.swing.JDialog {
             tbl_envios.setValueAt(envio.getOrigen().getNombre(), fila, 3);
             tbl_envios.setValueAt(envio.getActual().getNombre(), fila, 4);
             tbl_envios.setValueAt(envio.getDestino().getNombre(), fila, 5);
+            tbl_envios.setValueAt(envio.getEstado().getValor(), fila, 6);
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 

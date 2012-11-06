@@ -10,6 +10,7 @@ import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
@@ -89,6 +90,16 @@ public class EnvioAgregar extends javax.swing.JDialog {
             llenarCombos(null, null, null);
             this.isNuevo = true;
         }
+
+        CParametro cparametro = new CParametro();
+        List<Parametro> params = cparametro.buscar(null, "IVA", "IVA", null);
+        if (params != null) {
+            Parametro iva = params.get(0);
+            txt_iva.setText(iva.getValor());
+        }
+    
+
+    
 
     }
 
@@ -192,7 +203,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         cmb_moneda = new javax.swing.JComboBox();
         btn_guardar = new javax.swing.JButton();
         btn_ruta = new javax.swing.JButton();
-        impuestoFactEnvio = new javax.swing.JTextField();
+        txt_iva = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         fechaRegistroEnvioText = new javax.swing.JTextField();
@@ -417,12 +428,12 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        impuestoFactEnvio.setEditable(false);
-        impuestoFactEnvio.setText("0.19");
-        impuestoFactEnvio.setEnabled(false);
-        impuestoFactEnvio.addActionListener(new java.awt.event.ActionListener() {
+        txt_iva.setEditable(false);
+        txt_iva.setText("0.19");
+        txt_iva.setEnabled(false);
+        txt_iva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                impuestoFactEnvioActionPerformed(evt);
+                txt_ivaActionPerformed(evt);
             }
         });
 
@@ -529,7 +540,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(cmb_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txt_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -646,7 +657,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                         .addComponent(cmb_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(impuestoFactEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -741,6 +752,16 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void btn_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_outActionPerformed
         // TODO add your handling code here:
+        Object[] estados = cmb_estado.getSelectedObjects();
+
+        for (int i = 1; i < estados.length; i++) {
+            Parametro p = (Parametro) estados[i];
+            if (p.getValorUnico().equals("REC")) {
+                cmb_estado.setSelectedItem(p);
+                break;
+            }
+        }
+
     }//GEN-LAST:event_btn_outActionPerformed
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
@@ -805,11 +826,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.tipoCambio = null;
             }
         }
-        
-        if(this.tarifa != null && this.tipoCambio != null){
+
+        if (this.tarifa != null && this.tipoCambio != null) {
             vTipoCambio = this.tipoCambio.getTipoCambio();
             montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(txt_iva.getText()))));
         }
 
     }//GEN-LAST:event_cmb_monedaActionPerformed
@@ -855,7 +876,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                     Integer.parseInt(txt_numPaquetes.getText()),
                     (Parametro) cmb_doc.getSelectedItem(),
                     -1,
-                    Float.parseFloat(impuestoFactEnvio.getText()),
+                    Float.parseFloat(txt_iva.getText()),
                     "",
                     "");
             this.numeroEnvioText.setText(String.valueOf(env.getIdEnvio()));
@@ -872,9 +893,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
         monitoreoDialog.setVisible(true);
     }//GEN-LAST:event_btn_rutaActionPerformed
 
-    private void impuestoFactEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_impuestoFactEnvioActionPerformed
+    private void txt_ivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ivaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_impuestoFactEnvioActionPerformed
+    }//GEN-LAST:event_txt_ivaActionPerformed
 
     private void fechaRegistroEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaRegistroEnvioTextActionPerformed
         // TODO add your handling code here:
@@ -906,7 +927,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
 
             montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(txt_iva.getText()))));
         } else {
             ErrorDialog.mostrarError(error_message, this);
             this.tarifa = null;
@@ -938,7 +959,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (CValidator.isInteger(txt_numPaquetes.getText())) {
-                totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+                totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(txt_iva.getText()))));
             }
         } catch (Exception e) {
         }
@@ -998,7 +1019,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JComboBox cmb_moneda;
     private javax.swing.JTextField fechaRecojoEnvioText;
     private javax.swing.JTextField fechaRegistroEnvioText;
-    private javax.swing.JTextField impuestoFactEnvio;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1029,6 +1049,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JTextField txt_actual;
     private javax.swing.JTextField txt_destinatario;
     private javax.swing.JTextField txt_destino;
+    private javax.swing.JTextField txt_iva;
     private javax.swing.JTextField txt_numPaquetes;
     private javax.swing.JTextField txt_origen;
     private javax.swing.JTextField txt_remitente;
