@@ -6,7 +6,10 @@ package gui.administracion.aeropuertos;
 
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
+import beans.seguridad.Permiso;
 import controllers.CAeropuerto;
+import controllers.CSeguridad;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +35,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         initComponents();
         llenarComboPais();
         llenarComboEstado();
+        definirPermisos();
     }
 
     /**
@@ -411,4 +415,18 @@ public class Aeropuerto extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_aeropuerto;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Crear", "Tarifas", permisos);
+        this.btn_agregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Modificar", "TipoCambio", permisos);
+        this.btn_modificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(3, "Buscar/Listar", "Vuelos", permisos);
+        this.btn_buscar.setEnabled(buscar);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Carga Masiva", "Aeropuertos", permisos);
+//        this.btnCargaMasiva.setEnabled(cargaMasiva);
+        
+        pack();
+    }
 }

@@ -7,7 +7,9 @@ package gui.administracion.tipocambio;
 import beans.Parametro;
 import beans.Sesion;
 import beans.TipoCambio;
+import beans.seguridad.Permiso;
 import controllers.CParametro;
+import controllers.CSeguridad;
 import controllers.CTipoCambio;
 import controllers.CValidator;
 import java.text.DateFormat;
@@ -27,6 +29,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     public TipoCambioDialog() {
         initComponents();
         llenarCombos();
+        definirPermisos();
     }
     private Parametro origen;
     private Parametro destino;
@@ -402,4 +405,19 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     private javax.swing.JPanel pnl_titulo;
     private javax.swing.JTable tbl_tiposcambio;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
+        this.btn_agregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
+        this.btn_modificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
+        this.btn_buscar.setEnabled(buscar);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Aeropuertos", permisos);
+//        this.btn_cargaMasiva.setEnabled(cargaMasiva);
+        
+        pack();
+        
+    }
 }
