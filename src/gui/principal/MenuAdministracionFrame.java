@@ -157,7 +157,7 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
     private void btnVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVuelosActionPerformed
         // TODO add your handling code here:
         Vuelos vuelo = new Vuelos();
-        //vuelo.setModal(true);
+        vuelo.setModal(true);
         vuelo.setVisible(true);
     }//GEN-LAST:event_btnVuelosActionPerformed
 
