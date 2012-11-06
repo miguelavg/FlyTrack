@@ -18,20 +18,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.*;
 
 /**
  *
- * @author miguelavg
+ * @author jcastanon
  */
 @Entity
 @Table(name = "Vuelo")
 @NamedQueries({
-    @NamedQuery(name = "Vuelos",
-    query = "from Vuelo where estado.valorUnico = 'ACTV'"),
-    @NamedQuery(name = "VuelosXFecha",
-    query = "from Vuelo where :fechaRegistro < fechaSalida")
+    @NamedQuery(name = "Volar",  query = "from Vuelo"),
+    @NamedQuery(name = "Vuelos", query = "from Vuelo where estado.valorUnico = 'ACTV'"),
+    @NamedQuery(name = "VuelosXFecha", query = "from Vuelo where :fechaRegistro < fechaSalida")
+})
+@FilterDefs({
+    @FilterDef(name = "VueloXOrigen", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "VueloXDestino", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "VueloXfechini", parameters = @ParamDef(name = "fechasalida", type = "timestamp")),
+    @FilterDef(name = "VueloXfechfin", parameters = @ParamDef(name = "fechallegada", type = "timestamp")),
+    @FilterDef(name = "VueloXEstado", parameters = @ParamDef(name = "estado", type = "integer")),
+})
+@Filters({
+    @Filter(name = "VueloXOrigen", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "VueloXDestino", condition = "idAeropuerto = :idAeropuerto"),
+    @Filter(name = "VueloXfechini", condition = "fechasalida = :fechasalida"),
+     @Filter(name = "VueloXfechfin", condition = "fechallegada = :fechallegada"),
+    @Filter(name = "VueloXEstado", condition = "estado = :estado")
 })
 public class Vuelo implements Serializable {
 
@@ -101,7 +113,7 @@ public class Vuelo implements Serializable {
     public void setFechaSalida(Date fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
-
+ 
     public Date getFechaLlegada() {
         return fechaLlegada;
     }
