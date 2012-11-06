@@ -247,11 +247,21 @@ public class PrincipalFrame extends javax.swing.JFrame {
         );
 
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        this.btnAdministracion.setVisible(CSeguridad.validarPermiso(1, null,"Administracion",permisos));
-        this.btnSeguridad.setVisible(CSeguridad.validarPermiso(1, null,"Seguridad",permisos));
-        this.btnEnvios.setVisible(CSeguridad.validarPermiso(1, null,"Envios",permisos));
-        this.btnClientes.setVisible(CSeguridad.validarPermiso(1, null,"Clientes",permisos));
-        this.btnReportes.setVisible(CSeguridad.validarPermiso(1, null,"Reportes",permisos));
+        boolean administracion = CSeguridad.validarPermiso(1, null,"Administracion",permisos);
+        this.btnAdministracion.setEnabled(administracion);
+        this.lblAdministracion.setEnabled(administracion);
+        boolean seguridad = CSeguridad.validarPermiso(1, null,"Seguridad",permisos);
+        this.btnSeguridad.setEnabled(seguridad);
+        this.lblSeguridad.setEnabled(seguridad);
+        boolean envios = CSeguridad.validarPermiso(1, null,"Envios",permisos);
+        this.btnEnvios.setEnabled(envios);
+        this.lblEnvios.setEnabled(envios);
+        boolean clientes = CSeguridad.validarPermiso(1, null,"Clientes",permisos);
+        this.btnClientes.setEnabled(clientes);
+        this.lblClientes.setEnabled(clientes);
+        boolean reportes = CSeguridad.validarPermiso(1, null,"Reportes",permisos);
+        this.btnReportes.setEnabled(reportes);
+        this.lblReportes.setEnabled(reportes);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

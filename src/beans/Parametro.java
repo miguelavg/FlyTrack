@@ -72,7 +72,8 @@ public class Parametro implements Serializable {
     private String valorUnico;
     private String tipo;
     private boolean estado;
-    @OneToMany(mappedBy = "padre", fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "padre", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "padre")
     @Filters({
         @Filter(name = "ParametroHijosXTipo", condition = "tipo = :tipo and estado = true")
     })
