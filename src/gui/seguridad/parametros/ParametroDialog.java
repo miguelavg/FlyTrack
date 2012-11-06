@@ -5,7 +5,10 @@
 package gui.seguridad.parametros;
 
 import beans.Parametro;
+import beans.Sesion;
+import beans.seguridad.Permiso;
 import controllers.CParametro;
+import controllers.CSeguridad;
 import java.awt.Rectangle;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +24,7 @@ public class ParametroDialog extends javax.swing.JDialog {
      */
     public ParametroDialog() {
         initComponents();
+        definirPermisos();
     }
     private Parametro padre;
 
@@ -423,4 +427,16 @@ public class ParametroDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txt_valor;
     private javax.swing.JTextField txt_valorUnico;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Parametros", "Crear", permisos);
+        this.btn_agregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Parametros", "Modificar", permisos);
+        this.btn_modificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(3, "Parametros", "Buscar/Listar", permisos);
+        this.btn_buscar.setEnabled(buscar);
+        
+        pack();
+    }
 }

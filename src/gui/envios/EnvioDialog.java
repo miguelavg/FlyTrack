@@ -42,6 +42,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         for (Parametro p : params) {
             this.cmb_estado.addItem(p);
         }
+        definirPermisos();
     }
     
     private void llenarTabla(List<Envio> envios){

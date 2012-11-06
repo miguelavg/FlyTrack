@@ -7,10 +7,13 @@ package gui.seguridad.usuarios;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
 import beans.seguridad.Usuario;
 import beans.seguridad.Perfil;
+import beans.seguridad.Permiso;
 import controllers.CParametro;
 import controllers.CPerfil;
+import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
@@ -43,6 +46,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         //llenarcomboTipoDoc();  
         llenarcomboEstado();
         llenarcomboPerfiles();
+        definirPermisos();
     }
 
     /**
@@ -500,4 +504,16 @@ public void llenarcomboPerfiles(){
     private javax.swing.JTextField txtAeropuerto;
     private javax.swing.JTextField txtCliente;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Usuarios", "Crear", permisos);
+        this.btnAgregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Usuarios", "Modificar", permisos);
+        this.btnModificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(3, "Usuarios", "Buscar/Listar", permisos);
+        this.btnBuscar.setEnabled(buscar);
+        
+        pack();
+    }
 }
