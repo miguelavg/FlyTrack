@@ -360,7 +360,7 @@ public class PerfilEdit extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
         public void llenarcomboEstado(){
-         ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+         ListaEstado=ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
     
         for (Parametro p : ListaEstado)
         //for (int i=0;i<ListaEstado.size();i++)
