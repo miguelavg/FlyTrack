@@ -76,6 +76,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuario");
+        setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
