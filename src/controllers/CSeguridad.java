@@ -7,6 +7,7 @@ package controllers;
 import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Contrasena;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import java.util.Arrays;
 import java.util.List;
@@ -45,24 +46,13 @@ public class CSeguridad {
             for(Contrasena passAnalizada : contrasenias){
                 if(passAnalizada.getEstado().getValorUnico().equals("ACTV")){
                     findPassActiva = Boolean.TRUE;
-                    usuario.getPerfil().getPermisos().size(); //para jalar en el query los permisos
+                     usuario.getPerfil().getPermisos().size();//para jalar en el query los permisos
                     break;
                 }
             }
             
             return findPassActiva ? usuario : null;
             
-            //-Existe contrasenia
-            //-Contrasenia activa
-//            Query q2 = s.getNamedQuery("ContraseniaActivaXUsuario").setMaxResults(1);
-//            q2.setParameter("usuario", usuario);
-//            Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
-//            
-//            if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
-//                return usuario;
-//            else 
-//                return null;
-                        
         }
         catch(Exception e){
             System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
@@ -136,5 +126,18 @@ public class CSeguridad {
         finally{
             s.close();
         }
+    }
+    
+    public static boolean validarPermiso(int nivel, String nombreAccionPadre, String nombreAccion, List<Permiso> permisos){
+        for(Permiso permiso : permisos){
+            boolean verificarNivel = permiso.getAccion().getNivel() == nivel;
+            boolean verificarAccion = permiso.getAccion().getNombre().equals(nombreAccion);
+            boolean verificarAccionPadre = (nombreAccionPadre != null)
+                                            ? permiso.getAccion().getAccionPadre().getNombre().equals(nombreAccionPadre) 
+                                            : Boolean.TRUE;
+
+            if(verificarNivel && verificarAccion && verificarAccionPadre) return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 }
