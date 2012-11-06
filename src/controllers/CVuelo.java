@@ -109,4 +109,8 @@ public class CVuelo {
         return ListaVuelos;      
      
      }
+
+    public static List<Vuelo> BuscarVuelo(Parametro a_origen, Parametro a_destino, Calendar fechini, Calendar fechfin, Parametro TipoDoc) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
