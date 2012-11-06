@@ -42,7 +42,7 @@ import org.hibernate.annotations.*;
     @Filter(name = "VueloXOrigen", condition = "idAeropuerto = :idAeropuerto"),
     @Filter(name = "VueloXDestino", condition = "idAeropuerto = :idAeropuerto"),
     @Filter(name = "VueloXfechini", condition = "fechasalida = :fechasalida"),
-     @Filter(name = "VueloXfechfin", condition = "fechallegada = :fechallegada"),
+    @Filter(name = "VueloXfechfin", condition = "fechallegada = :fechallegada"),
     @Filter(name = "VueloXEstado", condition = "estado = :estado")
 })
 public class Vuelo implements Serializable {
