@@ -237,7 +237,33 @@ public class CUsuario {
         }
 
         return error_message;
-    }         
+    }
+     
+     
+     
+        public Usuario BuscarXidCliente(int id){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Usuario CUsuario = new Usuario();
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("UsuarioxIdClienteAux");
+            q.setParameter("idcliente", id);
+            
+            CUsuario=(Usuario)q.list().get(0);
+            //CUsuario=(Usuario)q.uniqueResult();
+            return CUsuario;
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        return null;
+    }
          
          
          

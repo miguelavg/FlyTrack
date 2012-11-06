@@ -36,7 +36,7 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "PerfilxId",
     query = "from Perfil where idPerfil = :idperfil "),
     @NamedQuery(name = "PerfilXNombre",
-    query = "from Perfil where UPPER(Nombre) like UPPER(:nombre)")
+    query = "from Perfil where UPPER(Nombre) like UPPER(:nombre)"),
 
 })
 
