@@ -77,6 +77,7 @@ public class PerfilFrame extends javax.swing.JDialog {
         PerfilTabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
