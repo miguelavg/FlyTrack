@@ -8,6 +8,7 @@ import beans.Parametro;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class Accion implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "idPadre")
-    private Accion accionPadre;
+    private Accion padre;
 
     private int nivel;
 
@@ -42,6 +43,9 @@ public class Accion implements Serializable {
     //a traves de la clase Permiso
     @OneToMany(mappedBy="accion")
     private List<Permiso> permisos;
+    
+    @OneToMany(mappedBy="padre", fetch = FetchType.EAGER)
+    private List<Accion> hijos;
       
     public int getIdAccion(){
         return idAccion;
@@ -59,12 +63,16 @@ public class Accion implements Serializable {
         this.nombre=nombre;
     }    
 
-    public Accion getAccionPadre() {
-        return accionPadre;
+    public Accion getPadre() {
+        return padre;
     }
 
     public List<Permiso> getPermisos() {
         return permisos;
+    }
+
+    public List<Accion> getHijos() {
+        return hijos;
     }
 
 }
