@@ -9,6 +9,7 @@ import beans.Sesion;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
 import java.util.Arrays;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,25 +39,38 @@ public class CSeguridad {
             
             if(usuario == null) return null; //si el usuario no existe
             
+            usuario.getContrasenias().size();
+            List<Contrasena> contrasenias = usuario.getContrasenias();
+            boolean findPassActiva = Boolean.FALSE;
+            for(Contrasena passAnalizada : contrasenias){
+                if(passAnalizada.getEstado().getValorUnico().equals("ACTV")){
+                    findPassActiva = Boolean.TRUE;
+                    usuario.getPerfil().getPermisos().size(); //para jalar en el query los permisos
+                    break;
+                }
+            }
+            
+            return findPassActiva ? usuario : null;
+            
             //-Existe contrasenia
             //-Contrasenia activa
-            Query q2 = s.getNamedQuery("ContraseniaActivaXUsuario").setMaxResults(1);
-            q2.setParameter("usuario", usuario);
-            Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
-            
-            if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
-                return usuario;
-            else 
-                return null;
+//            Query q2 = s.getNamedQuery("ContraseniaActivaXUsuario").setMaxResults(1);
+//            q2.setParameter("usuario", usuario);
+//            Contrasena contrasenaActiva = (Contrasena)q2.uniqueResult();
+//            
+//            if(contrasenaActiva != null && passwordCorrecta(contrasenaActiva.getText(), pass)) 
+//                return usuario;
+//            else 
+//                return null;
                         
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
-                }
+            System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
+        }
         finally {
+            System.out.println("CSeguridad.verificarContrasenia - INFO: Transaccion Terminada");
             s.close();
         }
-
         return null;
     }
     
@@ -69,6 +83,7 @@ public class CSeguridad {
             correcto = Arrays.equals(passRead, passBD);
         }
         Arrays.fill(passBD, '0');
+        System.out.println("CSeguridad.passwordCorrecta - INFO: resultado - " + correcto);
         return correcto;
     }
     

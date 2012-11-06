@@ -54,6 +54,23 @@ public class CValidator {
             return false;
         }
     }
+    
+    public static boolean esAlfanumerico(String input){
+        
+     
+            
+            for (Integer c=0;c<10;c++){
+               
+                if (input.contains(c.toString())){
+                    
+                    return true;
+                }
+            }
+            
+        
+        
+        return false;
+    }
 
     public static String formatDate(Date date) {
         String formattedDate = "";

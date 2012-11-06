@@ -165,12 +165,13 @@ public class Login extends javax.swing.JFrame {
 
         //Verificar si la constrasenia del usuario es la activa o no
         //manejar el numero de intentos fallidos aqui
-        Usuario usuarioABuscar = null;
-        if ((usuarioABuscar = CSeguridad.verificarContrasenia(usuario, password)) != null) {
+        Usuario usuarioValidado = null;
+        if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
             //VERIFICACION EXITOSA
             lblError.setVisible(Boolean.FALSE);
+            usuarioValidado.getContrasenias().size();
 
-            Sesion.setUsuario(usuarioABuscar);
+            Sesion.setUsuario(usuarioValidado);
             
             PrincipalFrame pf = new PrincipalFrame();
             pf.setVisible(Boolean.TRUE);

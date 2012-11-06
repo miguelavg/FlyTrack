@@ -75,11 +75,15 @@ public class Perfil implements Serializable  {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "estado")
+    @JoinColumn(name = "Estado")
     private Parametro estado;       
     
     @OneToMany(mappedBy="perfil")
     private List<Permiso> permisos;
+    
+    @OneToMany(mappedBy="perfil")
+    private List<Usuario> usuarios;
+
 
     public int getIdPerfil(){
     return idPerfil;
@@ -116,6 +120,10 @@ public class Perfil implements Serializable  {
    @Override
     public String toString(){
         return nombre;
+    }
+
+    public List<Permiso> getPermisos() {
+        return permisos;
     }
     
 }
