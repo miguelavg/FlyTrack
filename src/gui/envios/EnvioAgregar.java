@@ -792,6 +792,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
         CTipoCambio ctipocambio = new CTipoCambio();
         this.tipoCambio = null;
+        double vTipoCambio = 1;
 
         if (cmb_moneda.getSelectedIndex() > 0) {
             this.moneda = (Parametro) cmb_moneda.getSelectedItem();
@@ -801,7 +802,14 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.tipoCambio = ctipocambio.buscarDolar(this.moneda.getValorUnico());
             } else {
                 ErrorDialog.mostrarError(error_message, this);
+                this.tipoCambio = null;
             }
+        }
+        
+        if(this.tarifa != null && this.tipoCambio != null){
+            vTipoCambio = this.tipoCambio.getTipoCambio();
+            montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
         }
 
     }//GEN-LAST:event_cmb_monedaActionPerformed
@@ -891,11 +899,17 @@ public class EnvioAgregar extends javax.swing.JDialog {
         String error_message = cenvio.verificarTarifa(origen, destino);
 
         if (error_message == null || error_message.isEmpty()) {
-            tarifa = cenvio.calcularTarifa(origen, destino);
-            montoEnvioText.setText(String.valueOf(tarifa.getMonto()));
-            totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+            this.tarifa = cenvio.calcularTarifa(origen, destino);
+            double vTipoCambio = 1;
+            if (this.tipoCambio != null) {
+                vTipoCambio = this.tipoCambio.getTipoCambio();
+            }
+
+            montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
         } else {
             ErrorDialog.mostrarError(error_message, this);
+            this.tarifa = null;
         }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
@@ -923,7 +937,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private void txt_numPaquetesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_numPaquetesKeyTyped
         // TODO add your handling code here:
         try {
-            totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+            if (CValidator.isInteger(txt_numPaquetes.getText())) {
+                totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(impuestoFactEnvio.getText()))));
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txt_numPaquetesKeyTyped
