@@ -280,12 +280,12 @@ public class CEnvio {
         try {
             Query q = s.getNamedQuery("Envios");
 
-            if (numEnvio != null) {
+            if (numEnvio != null && !numEnvio.isEmpty()) {
                 Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
                 if (isInteger(numEnvio)) {
-                    f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
+                    f_numEnvio.setParameter("numEnvio", Integer.parseInt(numEnvio));
                 } else {
-                    f_numEnvio.setParameter("idEnvio", -1);
+                    f_numEnvio.setParameter("numEnvio", -1);
                 }
             }
 

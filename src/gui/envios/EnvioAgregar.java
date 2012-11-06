@@ -207,7 +207,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
         cmb_estado = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_escalas = new javax.swing.JTable();
+        tbl_escalas = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
         jButton10.setText("Factura");
