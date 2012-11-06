@@ -179,7 +179,7 @@ public class Aeropuerto extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "Ciudad", "País", "Estado", "X", "Y", "Capacidad max de almacenamiento", "Capacidad actual de almacenamiento"
+                "Nombre", "Ciudad", "País", "Estado", "Cap. Maxima", "Cap. Actual"
             }
         ));
         jScrollPane1.setViewportView(tbl_aeropuerto);
@@ -202,9 +202,10 @@ public class Aeropuerto extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 572, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,8 +215,8 @@ public class Aeropuerto extends javax.swing.JDialog {
                     .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,11 +273,11 @@ public class Aeropuerto extends javax.swing.JDialog {
            datos[0] = listaAeropuertos.get(i).getNombre();
            datos[1] = listaAeropuertos.get(i).getCiudad();
            datos[2] = listaAeropuertos.get(i).getPais();
-           datos[3] = listaAeropuertos.get(i).getCoordX();
-           datos[4] = listaAeropuertos.get(i).getCoordY();
-           
-           datos[5] = listaAeropuertos.get(i).getCapacidadMax();
-           datos[6] = listaAeropuertos.get(i).getCapacidadActual();
+//           datos[3] = listaAeropuertos.get(i).getCoordX();
+//           datos[4] = listaAeropuertos.get(i).getCoordY();
+           datos[3] = listaAeropuertos.get(i).getEstado().getValor().toString();
+           datos[4] = listaAeropuertos.get(i).getCapacidadMax();
+           datos[5] = listaAeropuertos.get(i).getCapacidadActual();
            
            dtm.addRow(datos);
         }

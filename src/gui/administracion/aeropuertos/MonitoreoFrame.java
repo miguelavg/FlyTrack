@@ -17,6 +17,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,10 +32,16 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private List<Aeropuerto> ListaAeropuerto = null;
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
-        ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
+         ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }
- 
+     
+    public Aeropuerto ShowDialog() {
+
+      setVisible(true);
+       
+      return objAero;
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -43,8 +50,9 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         
         for (int j = 0; j <ListaAeropuerto.size(); j++){
             
-            
-                
+                 c.setColor(Color.WHITE);
+                 
+                 c.drawString(ListaAeropuerto.get(j).getPais().getValor()+'-'+ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX()+15, ListaAeropuerto.get(j).getCoordY());
                  c.setColor(Color.red);
                  c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
               
@@ -57,7 +65,10 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         c.setColor(Color.GREEN);
         c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
               
-         c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+        c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+        
+            
+                
         
        /* if (envio == null) {
             return;
@@ -165,17 +176,27 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         x_posicion = evt.getX();
         y_posicion = evt.getY();
         Graphics g = this.getGraphics();
-        
+          objAero.setCoordX(x_posicion);
+          objAero.setCoordY(y_posicion);
           g.setColor(Color.WHITE);  
           g.fillOval(x_posicion, y_posicion, 10,10 );
               
           g.drawOval(x_posicion, y_posicion, 10,10 );
-      
-        
-        
+          g.drawString(objAero.getPais().getValor()+'-'+objAero.getNombre(), x_posicion + 15, y_posicion);
+          int result = 0;
+   
+         
+          result =  JOptionPane.showConfirmDialog(null, "Desea asignarle otra ubicacion ?", "Confirmaciòn",JOptionPane.YES_NO_OPTION);
+         
+          if (result == JOptionPane.NO_OPTION ) {
+                 this.dispose();
+          }
+             
+         
         
     }//GEN-LAST:event_jLabel1MousePressed
 
+   
     /**
      * @param args the command line arguments
      */

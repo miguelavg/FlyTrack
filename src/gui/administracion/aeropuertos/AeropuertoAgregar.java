@@ -17,7 +17,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
     /**
      * Creates new form AeropuertoAgregar
      */
-      
+     public beans.Aeropuerto objAero = null;
      private List<Parametro> ListatipoPar; 
      private List<Parametro> ListatipoEst; 
      private List<Parametro> ListatipoHijo;
@@ -269,6 +269,12 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
     private void btn_ubicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubicarActionPerformed
         // TODO add your handling code here:
+        MonitoreoFrame Mapa = new MonitoreoFrame(objAero);
+        objAero = Mapa.ShowDialog();
+        
+       
+        txt_X.setText(String.valueOf(objAero.getCoordX()));
+        txt_Y.setText(String.valueOf(objAero.getCoordY()));
     }//GEN-LAST:event_btn_ubicarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
