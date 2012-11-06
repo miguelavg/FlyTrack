@@ -132,10 +132,19 @@ public class CSeguridad {
         for(Permiso permiso : permisos){
             boolean verificarNivel = permiso.getAccion().getNivel() == nivel;
             boolean verificarAccion = permiso.getAccion().getNombre().equals(nombreAccion);
-            boolean verificarAccionPadre = (nombreAccionPadre != null)
-                                            ? permiso.getAccion().getPadre().getNombre().equals(nombreAccionPadre) 
-                                            : Boolean.TRUE;
-
+            boolean verificarAccionPadre;
+            if(nombreAccionPadre == null){
+                verificarAccionPadre = Boolean.TRUE;
+            }
+            else{
+                if(permiso.getAccion().getPadre() != null){
+                    verificarAccionPadre = permiso.getAccion().getPadre().getNombre().equals(nombreAccionPadre);
+                }
+                else{
+                    verificarAccionPadre = Boolean.FALSE;
+                }
+            }
+            
             if(verificarNivel && verificarAccion && verificarAccionPadre) return Boolean.TRUE;
         }
         return Boolean.FALSE;
