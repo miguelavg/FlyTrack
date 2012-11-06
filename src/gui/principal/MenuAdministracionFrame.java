@@ -26,22 +26,7 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
      */
     public MenuAdministracionFrame() {
         initComponents();
-        
-        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        boolean tarifas = CSeguridad.validarPermiso(2, "Administracion", "Tarifas", permisos);
-        this.btnTarifas.setEnabled(tarifas);
-        this.lblTarifas.setEnabled(tarifas);
-        boolean tipoCambio = CSeguridad.validarPermiso(2, "Administracion", "TipoCambio", permisos);
-        this.btnTipoCambio.setEnabled(tipoCambio);
-        this.lblTipoCambio.setEnabled(tipoCambio);
-        boolean vuelos = CSeguridad.validarPermiso(2, "Administracion", "Vuelos", permisos);
-        this.btnVuelos.setEnabled(vuelos);
-        this.lblVuelos.setEnabled(vuelos);
-        boolean aeropuertos = CSeguridad.validarPermiso(2, "Administracion", "Aeropuertos", permisos);
-        this.btnAeropuertos.setEnabled(aeropuertos);
-        this.lblAeropuertos.setEnabled(aeropuertos);
-        
-        pack();
+        definirPermisos();
     }
 
     /**
@@ -241,4 +226,23 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
     private javax.swing.JLabel lblTipoCambio;
     private javax.swing.JLabel lblVuelos;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean tarifas = CSeguridad.validarPermiso(2, "Administracion", "Tarifas", permisos);
+        this.btnTarifas.setEnabled(tarifas);
+        this.lblTarifas.setEnabled(tarifas);
+        boolean tipoCambio = CSeguridad.validarPermiso(2, "Administracion", "TipoCambio", permisos);
+        this.btnTipoCambio.setEnabled(tipoCambio);
+        this.lblTipoCambio.setEnabled(tipoCambio);
+        boolean vuelos = CSeguridad.validarPermiso(2, "Administracion", "Vuelos", permisos);
+        this.btnVuelos.setEnabled(vuelos);
+        this.lblVuelos.setEnabled(vuelos);
+        boolean aeropuertos = CSeguridad.validarPermiso(2, "Administracion", "Aeropuertos", permisos);
+        this.btnAeropuertos.setEnabled(aeropuertos);
+        this.lblAeropuertos.setEnabled(aeropuertos);
+        
+        pack();
+    }
 }
