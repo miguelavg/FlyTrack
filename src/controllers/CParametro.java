@@ -48,6 +48,10 @@ public class CParametro {
             }
 
             params = q.list();
+            
+            for(Parametro aux: params){
+                aux.getHijos().size();
+            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

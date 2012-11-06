@@ -205,6 +205,9 @@ public class CAeropuerto {
             q.setParameter("tipo", "PAIS");
             ListaTipoDoc = q.list();
             
+            for(Parametro tipoDoc: ListaTipoDoc){
+                tipoDoc.getHijos().size();
+            }
             
             
             }
