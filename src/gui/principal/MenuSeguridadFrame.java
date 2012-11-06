@@ -4,8 +4,12 @@
  */
 package gui.principal;
 
+import beans.Sesion;
+import beans.seguridad.Permiso;
+import controllers.CSeguridad;
 import gui.seguridad.perfiles.PerfilFrame;
 import gui.seguridad.usuarios.UsuarioFrame;
+import java.util.List;
 /**
  *
  * @author ronald
@@ -17,6 +21,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
      */
     public MenuSeguridadFrame() {
         initComponents();
+        definirPermisos();
     }
 
     /**
@@ -28,131 +33,101 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        simulacionButton2 = new javax.swing.JButton();
-        tarifaButton1 = new javax.swing.JButton();
-        simulacionButton3 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnPerfiles = new javax.swing.JButton();
+        btnUsuarios = new javax.swing.JButton();
+        btnParametros = new javax.swing.JButton();
+        lblPerfiles = new javax.swing.JLabel();
+        lblParametros = new javax.swing.JLabel();
+        lblUsuarios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
+        setResizable(false);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        simulacionButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
-        simulacionButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPerfiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
+        btnPerfiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                simulacionButton2ActionPerformed(evt);
+                btnPerfilesActionPerformed(evt);
             }
         });
 
-        tarifaButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
-        tarifaButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario48x48.png"))); // NOI18N
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tarifaButton1ActionPerformed(evt);
+                btnUsuariosActionPerformed(evt);
             }
         });
 
-        simulacionButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
-        simulacionButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnParametros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/parametro48x48.png"))); // NOI18N
+        btnParametros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                simulacionButton3ActionPerformed(evt);
+                btnParametrosActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Perfiles");
+        lblPerfiles.setText("Perfiles");
 
-        jLabel4.setText("Parámetros");
+        lblParametros.setText("Parámetros");
 
-        jLabel2.setText("Usuarios");
+        lblUsuarios.setText("Usuarios");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tarifaButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblUsuarios, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUsuarios, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(simulacionButton2))
+                    .addComponent(lblPerfiles)
+                    .addComponent(btnPerfiles))
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(lblParametros)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(simulacionButton3)))
+                        .addComponent(btnParametros)))
                 .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnParametros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPerfiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUsuarios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(simulacionButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(simulacionButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tarifaButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addContainerGap())
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblUsuarios)
+                    .addComponent(lblPerfiles)
+                    .addComponent(lblParametros))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void simulacionButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton2ActionPerformed
+    private void btnPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilesActionPerformed
         // TODO add your handling code here:
         PerfilFrame perfilframe = new PerfilFrame();
         perfilframe.setVisible(true);
-    }//GEN-LAST:event_simulacionButton2ActionPerformed
+    }//GEN-LAST:event_btnPerfilesActionPerformed
 
-    private void simulacionButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionButton3ActionPerformed
+    private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
         gui.seguridad.parametros.ParametroDialog parametro = new gui.seguridad.parametros.ParametroDialog();
         parametro.setVisible(true);
-    }//GEN-LAST:event_simulacionButton3ActionPerformed
+    }//GEN-LAST:event_btnParametrosActionPerformed
 
-    private void tarifaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarifaButton1ActionPerformed
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
         UsuarioFrame usuarioframe = new UsuarioFrame();
         usuarioframe.setVisible(true);
-    }//GEN-LAST:event_tarifaButton1ActionPerformed
+    }//GEN-LAST:event_btnUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,13 +164,27 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton simulacionButton2;
-    private javax.swing.JButton simulacionButton3;
-    private javax.swing.JButton tarifaButton1;
+    private javax.swing.JButton btnParametros;
+    private javax.swing.JButton btnPerfiles;
+    private javax.swing.JButton btnUsuarios;
+    private javax.swing.JLabel lblParametros;
+    private javax.swing.JLabel lblPerfiles;
+    private javax.swing.JLabel lblUsuarios;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean usuarios = CSeguridad.validarPermiso(2, "Administracion", "Tarifas", permisos);
+        this.btnUsuarios.setEnabled(usuarios);
+        this.lblUsuarios.setEnabled(usuarios);
+        boolean perfiles = CSeguridad.validarPermiso(2, "Administracion", "TipoCambio", permisos);
+        this.btnPerfiles.setEnabled(perfiles);
+        this.lblPerfiles.setEnabled(perfiles);
+        boolean parametros = CSeguridad.validarPermiso(2, "Administracion", "Vuelos", permisos);
+        this.btnParametros.setEnabled(parametros);
+        this.lblParametros.setEnabled(parametros);
+        
+        pack();
+    }
 }
