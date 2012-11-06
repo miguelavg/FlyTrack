@@ -132,8 +132,8 @@ public class CEnvio {
             Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             Parametro p;
 
-       //   Coger parámetros...
-            
+            //   Coger parámetros...
+
             q.setParameter("tipo", "SA_PARAM");
             q.setParameter("valorUnico", "temperatura_inicial");
             p = (Parametro) q.uniqueResult();
@@ -189,28 +189,28 @@ public class CEnvio {
 
             long iFuturo = envio.getFechaRegistro().getTime() + limite_forward * 24 * 60 * 60 * 1000;
             Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(iFuturo);            
+            cal.setTimeInMillis(iFuturo);
             Date futuro = cal.getTime();
 
             long iPasado = envio.getFechaRegistro().getTime() - limite_backward * 24 * 60 * 60 * 1000;
-            cal.setTimeInMillis(iPasado);            
+            cal.setTimeInMillis(iPasado);
             Date pasado = cal.getTime();
-            
+
             Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalida");
             f_vuelos_s.setParameter("lower", envio.getFechaRegistro());
             f_vuelos_s.setParameter("upper", futuro);
-            
+
             Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
             f_vuelos_l.setParameter("lower", envio.getFechaRegistro());
             f_vuelos_l.setParameter("upper", futuro);
 
-       //   Consultar los aeropuertos con sus vuelos de salida
-            
+            //   Consultar los aeropuertos con sus vuelos de salida
+
             for (Aeropuerto a : aeros) {
-                
+
                 a.getVuelosSalida().size();
                 a.getVuelosLlegada().size();
-                
+
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
                 }
@@ -218,23 +218,23 @@ public class CEnvio {
                     envio.setDestino(a);
                 }
             }
-            
+
             s.disableFilter("VuelosXAeropuertoSalida");
             s.disableFilter("VuelosXAeropuertoLlegada");
-            
-       //   Recuperar los promedios de los vuelos históricos
-            
+
+            //   Recuperar los promedios de los vuelos históricos
+
             q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v where :lower < fechaSalida AND fechaSalida < :upper group by v.origen, v.destino order by 1 ,2");
             q.setParameter("upper", envio.getFechaRegistro());
             q.setParameter("lower", pasado);
-            
+
             List<Object[]> lista = q.list();
-            ArrayList<VueloLite> vuelosL = new ArrayList <VueloLite>();
-            for(Object[] o : lista){
-                vuelosL.add(new VueloLite((Integer)o[0], (Integer)o[1], (Double)o[2]));
+            ArrayList<VueloLite> vuelosL = new ArrayList<VueloLite>();
+            for (Object[] o : lista) {
+                vuelosL.add(new VueloLite((Integer) o[0], (Integer) o[1], (Double) o[2]));
             }
-            
-       //   Comenzamos la simulación...    
+
+            //   Comenzamos la simulación...    
 
             Recocido recocido = new Recocido(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, envio, costoAlmacen, vuelosL);
             ArrayList<Vuelo> solucion = recocido.simular();
@@ -280,9 +280,13 @@ public class CEnvio {
         try {
             Query q = s.getNamedQuery("Envios");
 
-            if (isInteger(numEnvio)) {
+            if (numEnvio != null) {
                 Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
-                f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
+                if (isInteger(numEnvio)) {
+                    f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
+                } else {
+                    f_numEnvio.setParameter("idEnvio", -1);
+                }
             }
 
             if (actual != null) {
