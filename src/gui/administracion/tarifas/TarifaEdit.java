@@ -439,6 +439,7 @@ public class TarifaEdit extends javax.swing.JDialog {
 //
 //                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
 //            }
+                      
             
             SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
             
@@ -460,24 +461,25 @@ public class TarifaEdit extends javax.swing.JDialog {
                 error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación";
             }
                         
-            
-            Aeropuerto nuevoaeroori;
-            Aeropuerto nuevoaerodes;
-            if (AeroOri==null){
-                nuevoaeroori=TarifaBE.getOrigen();
-            } 
-            else{
-                nuevoaeroori=AeroOri;
-            }
+            if (idtarifa==-1){
+                Aeropuerto nuevoaeroori;
+                Aeropuerto nuevoaerodes;
+                if (AeroOri==null){
+                    nuevoaeroori=TarifaBE.getOrigen();
+                } 
+                else{
+                    nuevoaeroori=AeroOri;
+                }
 
-            if (AeroDes==null){
-                nuevoaerodes=TarifaBE.getDestino();
-            } 
-            else{
-                nuevoaerodes=AeroDes;
+                if (AeroDes==null){
+                    nuevoaerodes=TarifaBE.getDestino();
+                } 
+                else{
+                    nuevoaerodes=AeroDes;
+                }
+
+                error_message=TarifaBL.ValidarRuta(nuevoaeroori,nuevoaerodes);
             }
-            
-            error_message=TarifaBL.ValidarRuta(nuevoaeroori,nuevoaerodes);
             
         }
                       

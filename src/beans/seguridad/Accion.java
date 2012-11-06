@@ -31,7 +31,7 @@ public class Accion implements Serializable {
     private int idAccion;
 
     @ManyToOne
-    @JoinColumn(name = "idAccionPadre")
+    @JoinColumn(name = "idPadre")
     private Accion accionPadre;
 
     private int nivel;

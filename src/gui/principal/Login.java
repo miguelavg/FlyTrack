@@ -169,6 +169,7 @@ public class Login extends javax.swing.JFrame {
         if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
             //VERIFICACION EXITOSA
             lblError.setVisible(Boolean.FALSE);
+            usuarioValidado.getContrasenias().size();
 
             Sesion.setUsuario(usuarioValidado);
             
