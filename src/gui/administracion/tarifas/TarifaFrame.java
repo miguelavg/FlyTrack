@@ -6,10 +6,13 @@ package gui.administracion.tarifas;
 
 import beans.Aeropuerto;
 import beans.Parametro;
+import beans.Sesion;
 import beans.Tarifa;
 import beans.TipoCambio;
+import beans.seguridad.Permiso;
 import controllers.CAeropuerto;
 import controllers.CParametro;
+import controllers.CSeguridad;
 import controllers.CTarifa;
 import controllers.CTipoCambio;
 import controllers.CValidator;
@@ -44,6 +47,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         CTipoCambio ctipocambio = new CTipoCambio();
         ListaTarifa = TarifaBL.Buscar(null, null,"", "");
         llenartabla();
+        definirPermisos();
     }
 
     /**
@@ -67,12 +71,12 @@ public class TarifaFrame extends javax.swing.JDialog {
         txtMontoFin = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtMontoIni = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTarifa = new javax.swing.JTable();
 
@@ -152,11 +156,11 @@ public class TarifaFrame extends javax.swing.JDialog {
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
-        jButton5.setText("Buscar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -183,7 +187,7 @@ public class TarifaFrame extends javax.swing.JDialog {
                         .addComponent(txtAeroOri, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -221,25 +225,25 @@ public class TarifaFrame extends javax.swing.JDialog {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
-        jButton6.setText("Agregar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
-        jButton7.setText("Modificar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -265,9 +269,9 @@ public class TarifaFrame extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -276,8 +280,8 @@ public class TarifaFrame extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -349,13 +353,13 @@ public class TarifaFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoIniActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
         ListaTarifa=TarifaBL.Buscar(AeroOri,AeroDes,txtMontoIni.getText(),txtMontoFin.getText());
         llenartabla();
         
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void llenartabla(){
         DefaultTableModel dtm = (DefaultTableModel) tablaTarifa.getModel();
@@ -414,16 +418,16 @@ public class TarifaFrame extends javax.swing.JDialog {
         ListaTarifa = TarifaBL.Buscar(null, null,"", "");
         llenartabla();
     }
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
 
         TarifaEdit tarifaEditGUI = new TarifaEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         int result = tarifaEditGUI.showDialog();
         //cargartabla();//le decimos al compilador que queremos que se vea la ventana
         
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dtm = (DefaultTableModel) this.tablaTarifa.getModel();
               
@@ -437,7 +441,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         }
         
         
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -474,11 +478,11 @@ public class TarifaFrame extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -495,4 +499,18 @@ public class TarifaFrame extends javax.swing.JDialog {
     private javax.swing.JTextField txtMontoFin;
     private javax.swing.JTextField txtMontoIni;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Tarifas", "Crear", permisos);
+        this.btnAgregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Tarifas", "Modificar", permisos);
+        this.btnModificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(3, "Tarifas", "Buscar/Listar", permisos);
+        this.btnBuscar.setEnabled(buscar);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Tarifas", "Carga Masiva", permisos);
+//        this.btnCargaMasiva.setEnabled(cargaMasiva);
+        
+        pack();
+    }
 }
