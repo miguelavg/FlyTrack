@@ -80,6 +80,12 @@ public class MonitoreoFrame extends javax.swing.JDialog {
                 Stroke stroke = new BasicStroke(2.0f);
                 g2.setStroke(stroke);
                 g2.drawLine(o.getCoordX(), o.getCoordY(), d.getCoordX(), d.getCoordY());
+                g2.drawString(o.getPais().getValor() + '-' + o.getNombre(), o.getCoordX() + 15, o.getCoordY());
+                g2.fillOval(o.getCoordX()-5, o.getCoordY()-5, 10, 10);
+                g2.drawOval(o.getCoordX()-5, o.getCoordY()-5, 10, 10);
+                g2.drawString(d.getPais().getValor() + '-' + d.getNombre(), d.getCoordX() + 15, d.getCoordY());
+                g2.fillOval(d.getCoordX()-5, d.getCoordY()-5, 10, 10);
+                g2.drawOval(d.getCoordX()-5, d.getCoordY()-5, 10, 10);
             }
 
         }
