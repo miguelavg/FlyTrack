@@ -306,6 +306,7 @@ public class ClientesEdit extends javax.swing.JDialog {
             txtNumeroDoc.setEditable(false);
 //           cboPais.setSelectedItem(ClienteBE.getPais());
 //           cboTipoDoc.setSelectedItem(ClienteBE.getTipoDoc());
+            
     
         
     }
@@ -419,6 +420,7 @@ public class ClientesEdit extends javax.swing.JDialog {
     }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPaisActionPerformed

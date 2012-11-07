@@ -5,6 +5,7 @@
 package gui.seguridad.perfiles;
 
 import beans.Parametro;
+import beans.seguridad.Accion;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import controllers.CParametro;
@@ -17,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -33,6 +35,7 @@ public class PerfilEdit extends javax.swing.JDialog {
          CParametro ParametroBL = new CParametro();
         List<Perfil> ListaPerfiles ;
         CPerfil cPerfil = new CPerfil();
+        List<Accion> ListaAcciones;
         
         
     CPerfil Perfil= new CPerfil ();
@@ -76,15 +79,22 @@ public class PerfilEdit extends javax.swing.JDialog {
     
     public void llenarPanelPermisos(){
         ListaPerfiles= cPerfil.Buscar();
-//        ListaAcciones= cPerfil.BuscarAcciones();
-//        
-//        JCheckBox chb= new JCheckBox();
-//        
-//        for( Perfil p : ListaPerfiles){
-//            if 
-//        }
-////        panel.add(chb);
-//        panel.add(chb);
+        ListaAcciones= cPerfil.BuscarAcciones();
+        
+        JCheckBox chb= new JCheckBox();
+        
+        for( Accion a : ListaAcciones){
+            
+            JCheckBox chb1= new JCheckBox();
+            chb1.setText(a.getNombre());
+            chb1.setName("chb1");
+            
+            PanelAcciones.add(chb1);
+            
+        }
+        
+//      panel.add(chb);
+        
     }
     public void cargarcampos(){    
         Perfil PerfilBE= Perfil.BuscarXid(idperfil);
@@ -140,7 +150,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         txtDescripcion = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox();
-        jPanel3 = new javax.swing.JPanel();
+        PanelAcciones = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
@@ -224,16 +234,16 @@ public class PerfilEdit extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        PanelAcciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelAccionesLayout = new javax.swing.GroupLayout(PanelAcciones);
+        PanelAcciones.setLayout(PanelAccionesLayout);
+        PanelAccionesLayout.setHorizontalGroup(
+            PanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelAccionesLayout.setVerticalGroup(
+            PanelAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 210, Short.MAX_VALUE)
         );
 
@@ -258,7 +268,7 @@ public class PerfilEdit extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelAcciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -277,7 +287,7 @@ public class PerfilEdit extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PanelAcciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,6 +381,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelAcciones;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cboEstado;
@@ -380,7 +391,6 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTree jTree1;
