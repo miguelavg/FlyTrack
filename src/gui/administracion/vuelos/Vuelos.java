@@ -153,6 +153,15 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
+        dt_fechini.setNothingAllowed(false);
+        try {
+            dt_fechini.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+
+        dt_fechfin.setNothingAllowed(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
