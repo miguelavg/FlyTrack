@@ -11,8 +11,11 @@ package gui.clientes;
  */
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
+import beans.seguridad.Permiso;
 import controllers.CCliente;
 import controllers.CParametro;
+import controllers.CSeguridad;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -34,6 +37,7 @@ public class Clientes extends javax.swing.JDialog {
     public Clientes() {
         initComponents();
         llenarcombos();
+        definirPermisos();
     }
     
     public void llenarcombos(){
@@ -432,4 +436,20 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumDoc;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(2, "Clientes", "Crear", permisos);
+        btnAgregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(2, "Clientes", "Modificar", permisos);
+        btnModificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(2, "Clientes", "Buscar/Listar", permisos);
+        btnBuscar.setEnabled(buscar);
+        boolean cargaMasiva = CSeguridad.validarPermiso(2, "Clientes", "Carga Masiva", permisos);
+        btnCargaMas.setEnabled(cargaMasiva);
+                
+        pack();
+    }
+
 }

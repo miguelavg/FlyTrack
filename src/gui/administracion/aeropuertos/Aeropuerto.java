@@ -6,7 +6,10 @@ package gui.administracion.aeropuertos;
 
 import beans.Cliente;
 import beans.Parametro;
+import beans.Sesion;
+import beans.seguridad.Permiso;
 import controllers.CAeropuerto;
+import controllers.CSeguridad;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author joao
  */
+
 public class Aeropuerto extends javax.swing.JDialog {
 
   
@@ -32,6 +36,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         initComponents();
         llenarComboPais();
         llenarComboEstado();
+        definirPermisos();
     }
 
     /**
@@ -256,7 +261,8 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     
      private void llenarGrillaAero() {
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
+
+         listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
                 ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
         
           
@@ -280,6 +286,7 @@ public class Aeropuerto extends javax.swing.JDialog {
            datos[5] = listaAeropuertos.get(i).getCapacidadActual();
            
            dtm.addRow(datos);
+
         }
      
      }
@@ -291,7 +298,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         llenarGrillaAero();
         
         // MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
-       // MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
+        // MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -411,4 +418,18 @@ public class Aeropuerto extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_aeropuerto;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Crear", "Tarifas", permisos);
+        this.btn_agregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Modificar", "TipoCambio", permisos);
+        this.btn_modificar.setEnabled(modificar);
+        boolean buscar = CSeguridad.validarPermiso(3, "Buscar/Listar", "Vuelos", permisos);
+        this.btn_buscar.setEnabled(buscar);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Carga Masiva", "Aeropuertos", permisos);
+//        this.btnCargaMasiva.setEnabled(cargaMasiva);
+        
+        pack();
+    }
 }

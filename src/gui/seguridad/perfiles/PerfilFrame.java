@@ -5,9 +5,12 @@
 package gui.seguridad.perfiles;
 
 import beans.Parametro;
+import beans.Sesion;
 import beans.seguridad.Perfil;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import controllers.CPerfil;
+import controllers.CSeguridad;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
@@ -30,6 +33,7 @@ public class PerfilFrame extends javax.swing.JDialog {
         initComponents();
         
         llenarTabla();
+        definirPermisos();
     }
 
     
@@ -261,4 +265,18 @@ public class PerfilFrame extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        boolean crear = CSeguridad.validarPermiso(3, "Perfil", "Crear", permisos);
+        this.btnAgregar.setEnabled(crear);
+        boolean modificar = CSeguridad.validarPermiso(3, "Perfil", "Modificar", permisos);
+        this.btnModificar.setEnabled(modificar);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfil", "Carga Masiva", permisos);
+//        this.btnCargaMasiva.setEnabled(cargaMasiva);
+        
+        pack();
+        
+    }
 }
