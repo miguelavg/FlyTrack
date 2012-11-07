@@ -107,6 +107,7 @@ public class TarifaEdit extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtAeroOri.setEnabled(false);
         txtAeroOri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAeroOriActionPerformed(evt);
@@ -129,6 +130,7 @@ public class TarifaEdit extends javax.swing.JDialog {
             }
         });
 
+        txtAeroDes.setEnabled(false);
         txtAeroDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAeroDesActionPerformed(evt);
@@ -440,6 +442,14 @@ public class TarifaEdit extends javax.swing.JDialog {
 //                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
 //            }
                       
+            if (!CValidator.isInteger(txtMonto.getText())){
+                
+                error_message = "El monto es inválido";
+                return null;
+                
+            }
+                
+            
             
             SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
             
@@ -453,6 +463,8 @@ public class TarifaEdit extends javax.swing.JDialog {
             } catch (ParseException ex) {
 
                 ex.printStackTrace();
+                error_message = "La fecha es incorrecta";
+                return error_message;
             }
             if (fechaact.after(fechades)){
                 error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación";
@@ -489,6 +501,7 @@ public class TarifaEdit extends javax.swing.JDialog {
     }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
     public int showDialog(){
             setVisible(true);

@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author joao
  */
+
 public class Aeropuerto extends javax.swing.JDialog {
 
   
@@ -264,7 +265,8 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     
      private void llenarGrillaAero() {
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
+
+         listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
                 ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
         
           
@@ -288,6 +290,7 @@ public class Aeropuerto extends javax.swing.JDialog {
            datos[5] = listaAeropuertos.get(i).getCapacidadActual();
            
            dtm.addRow(datos);
+
         }
      
      }
@@ -299,7 +302,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         llenarGrillaAero();
         
         // MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
-       // MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
+        // MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     
     }//GEN-LAST:event_btn_agregarActionPerformed
 
