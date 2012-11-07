@@ -346,8 +346,8 @@ public class Vuelos extends javax.swing.JDialog {
         
         
           TipoDoc=(Parametro)cbm_estado.getSelectedItem();
-          fechini =  dt_fechini.getSelectedDate();
-          fechfin =  dt_fechfin.getSelectedDate();
+//          fechini =  dt_fechini.getSelectedDate();
+//          fechfin =  dt_fechfin.getSelectedDate();
   
           List<Vuelo> listaVuelos = CVuelo.BuscarVuelo(a_origen, a_destino, fechini, fechfin,TipoDoc);
                   
