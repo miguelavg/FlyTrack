@@ -306,6 +306,7 @@ public class ClientesEdit extends javax.swing.JDialog {
             txtNumeroDoc.setEditable(false);
 //           cboPais.setSelectedItem(ClienteBE.getPais());
 //           cboTipoDoc.setSelectedItem(ClienteBE.getTipoDoc());
+            
     
         
     }
@@ -413,12 +414,38 @@ public class ClientesEdit extends javax.swing.JDialog {
 
                 error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
             }
+            
+            if (CValidator.esAlfanumerico(txtNombres.getText())){
+                
+                error_message = "El nombre es inválido";
+                
+            }
+            
+            if (CValidator.esAlfanumerico(txtApellidos.getText())){
+                
+                error_message = "El Apellido es inválido";
+                
+            }
+            
+            if (!CValidator.isInteger(txtTelefono.getText())){
+                
+                error_message = "El teléfono es inválido";
+                
+            }
+            
+            if (!CValidator.isInteger(txtNumeroDoc.getText())){
+                
+                error_message = "El teléfono es inválido";
+            }
+            
+            
         }
                       
         return error_message;
     }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPaisActionPerformed
