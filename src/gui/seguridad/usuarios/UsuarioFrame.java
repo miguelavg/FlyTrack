@@ -43,7 +43,8 @@ public class UsuarioFrame extends javax.swing.JDialog {
      */
     public UsuarioFrame() {
         initComponents();
-        //llenarcomboTipoDoc();  
+        //llenarcomboTipoDoc(); 
+        cargartabla();
         llenarcomboEstado();
         llenarcomboPerfiles();
         definirPermisos();
@@ -111,8 +112,6 @@ public class UsuarioFrame extends javax.swing.JDialog {
         jLabel2.setText("Perfil:");
 
         jLabel3.setText("Aeropuerto:");
-
-        txtAeropuerto.setText("Jorge Chávez, Lima");
 
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
@@ -352,7 +351,7 @@ public void llenarcomboPerfiles(){
         // TODO add your handling code here:
 
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
-        //usuarioAgregarGUI.setVisible(true);
+        usuarioAgregarGUI.setVisible(true);
         cargartabla();
      
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -466,7 +465,7 @@ public void llenarcomboPerfiles(){
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
         // TODO add your handling code here:
         ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true); 
-        usuarioClientesPopUp.setVisible(true);
+        //usuarioClientesPopUp.setVisible(true);
         ClienteAux=usuarioClientesPopUp.showDialog();
         txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
         
@@ -475,7 +474,7 @@ public void llenarcomboPerfiles(){
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
         AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
         // TODO add your handling code here:
-        usuarioAeropuertoPopUp.setVisible(true);
+        //usuarioAeropuertoPopUp.setVisible(true);
          AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
          txtAeropuerto.setText(AeropuertoAux.getNombre());
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
