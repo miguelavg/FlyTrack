@@ -141,6 +141,50 @@ public class PerfilEdit extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelAdministracion = new javax.swing.JPanel();
+        chkAdministracion_Tarifas = new javax.swing.JCheckBox();
+        chkAdministracion_Vuelos = new javax.swing.JCheckBox();
+        chkAdministracion_Aeropuertos = new javax.swing.JCheckBox();
+        chkAdministracion_TipoCambio = new javax.swing.JCheckBox();
+        chkAdministracion_Tarifas_Crear = new javax.swing.JCheckBox();
+        chkAdministracion_Tarifas_Modificar = new javax.swing.JCheckBox();
+        chkAdministracion_Tarifas_Buscar = new javax.swing.JCheckBox();
+        chkAdministracion_Tarifas_CargaMasiva = new javax.swing.JCheckBox();
+        chkAdministracion_Vuelos_CargaMasiva = new javax.swing.JCheckBox();
+        chkAdministracion_Vuelos_Buscar = new javax.swing.JCheckBox();
+        chkAdministracion_Vuelos_Modificar = new javax.swing.JCheckBox();
+        chkAdministracion_Vuelos_Crear = new javax.swing.JCheckBox();
+        chkAdministracion_Aeropuertos_Crear = new javax.swing.JCheckBox();
+        chkAdministracion_Aeropuertos_Modificar = new javax.swing.JCheckBox();
+        chkAdministracion_Aeropuertos_Buscar = new javax.swing.JCheckBox();
+        chkAdministracion_Aeropuertos_CargaMasiva = new javax.swing.JCheckBox();
+        panelSeguridad = new javax.swing.JPanel();
+        chkSegurida_Usuarios = new javax.swing.JCheckBox();
+        chkSeguridad_Usuarios_Crear = new javax.swing.JCheckBox();
+        chkSeguridad_Usuarios_Modificar = new javax.swing.JCheckBox();
+        chkSeguridad_Usuarios_Buscar = new javax.swing.JCheckBox();
+        chkSeguridad_Usuarios_CargaMasiva = new javax.swing.JCheckBox();
+        chkSeguridad_Perfiles = new javax.swing.JCheckBox();
+        chkSeguridad_Perfiles_Crear = new javax.swing.JCheckBox();
+        chkSeguridad_Perfiles_Modificar = new javax.swing.JCheckBox();
+        chkSeguridad_Perfiles_CargaMasiva = new javax.swing.JCheckBox();
+        chkSeguridad_Parametros = new javax.swing.JCheckBox();
+        chkSeguridad_Parametros_Crear = new javax.swing.JCheckBox();
+        chkSeguridad_Parametros_Modificar = new javax.swing.JCheckBox();
+        chkSeguridad_Parametros_Buscar = new javax.swing.JCheckBox();
+        panelEnvios = new javax.swing.JPanel();
+        chkEnvios_Crear = new javax.swing.JCheckBox();
+        chkEnvios_Modificar = new javax.swing.JCheckBox();
+        chkEnvios_Buscar = new javax.swing.JCheckBox();
+        chkEnvios_CargaMasiva = new javax.swing.JCheckBox();
+        panelSimulacion = new javax.swing.JPanel();
+        panelClientes = new javax.swing.JPanel();
+        chkClientes_CargaMasiva = new javax.swing.JCheckBox();
+        chkClientes_Buscar = new javax.swing.JCheckBox();
+        chkClientes_Modificar = new javax.swing.JCheckBox();
+        chkClientes_Crear = new javax.swing.JCheckBox();
+        panelReportes = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
@@ -226,15 +270,321 @@ public class PerfilEdit extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        chkAdministracion_Tarifas.setText("Tarifas");
+
+        chkAdministracion_Vuelos.setText("Vuelos");
+
+        chkAdministracion_Aeropuertos.setText("Aeropuertos");
+
+        chkAdministracion_TipoCambio.setText("Tipo de Cambio");
+
+        chkAdministracion_Tarifas_Crear.setText("Crear");
+
+        chkAdministracion_Tarifas_Modificar.setText("Modificar");
+
+        chkAdministracion_Tarifas_Buscar.setText("Buscar / Listar");
+
+        chkAdministracion_Tarifas_CargaMasiva.setText("Carga Masiva");
+
+        chkAdministracion_Vuelos_CargaMasiva.setText("Carga Masiva");
+
+        chkAdministracion_Vuelos_Buscar.setText("Buscar / Listar");
+
+        chkAdministracion_Vuelos_Modificar.setText("Modificar");
+
+        chkAdministracion_Vuelos_Crear.setText("Crear");
+
+        chkAdministracion_Aeropuertos_Crear.setText("Crear");
+
+        chkAdministracion_Aeropuertos_Modificar.setText("Modificar");
+
+        chkAdministracion_Aeropuertos_Buscar.setText("Buscar / Listar");
+
+        chkAdministracion_Aeropuertos_CargaMasiva.setText("Carga Masiva");
+
+        javax.swing.GroupLayout panelAdministracionLayout = new javax.swing.GroupLayout(panelAdministracion);
+        panelAdministracion.setLayout(panelAdministracionLayout);
+        panelAdministracionLayout.setHorizontalGroup(
+            panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdministracionLayout.createSequentialGroup()
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdministracionLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkAdministracion_Tarifas)
+                            .addComponent(chkAdministracion_Vuelos))
+                        .addGap(127, 127, 127)
+                        .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkAdministracion_TipoCambio)
+                            .addComponent(chkAdministracion_Aeropuertos)))
+                    .addGroup(panelAdministracionLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chkAdministracion_Vuelos_Modificar)
+                                .addComponent(chkAdministracion_Vuelos_Crear)
+                                .addComponent(chkAdministracion_Vuelos_Buscar)
+                                .addComponent(chkAdministracion_Vuelos_CargaMasiva))
+                            .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chkAdministracion_Tarifas_Modificar)
+                                .addComponent(chkAdministracion_Tarifas_Crear)
+                                .addComponent(chkAdministracion_Tarifas_Buscar)
+                                .addComponent(chkAdministracion_Tarifas_CargaMasiva)))
+                        .addGap(76, 76, 76)
+                        .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkAdministracion_Aeropuertos_Modificar)
+                            .addComponent(chkAdministracion_Aeropuertos_Crear)
+                            .addComponent(chkAdministracion_Aeropuertos_Buscar)
+                            .addComponent(chkAdministracion_Aeropuertos_CargaMasiva))))
+                .addContainerGap(460, Short.MAX_VALUE))
+        );
+        panelAdministracionLayout.setVerticalGroup(
+            panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdministracionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkAdministracion_Tarifas)
+                    .addComponent(chkAdministracion_Aeropuertos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdministracionLayout.createSequentialGroup()
+                        .addComponent(chkAdministracion_Tarifas_Crear)
+                        .addGap(3, 3, 3)
+                        .addComponent(chkAdministracion_Tarifas_Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_Tarifas_Buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_Tarifas_CargaMasiva))
+                    .addGroup(panelAdministracionLayout.createSequentialGroup()
+                        .addComponent(chkAdministracion_Aeropuertos_Crear)
+                        .addGap(3, 3, 3)
+                        .addComponent(chkAdministracion_Aeropuertos_Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_Aeropuertos_Buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_Aeropuertos_CargaMasiva)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkAdministracion_Vuelos)
+                    .addComponent(chkAdministracion_TipoCambio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkAdministracion_Vuelos_Crear)
+                .addGap(3, 3, 3)
+                .addComponent(chkAdministracion_Vuelos_Modificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkAdministracion_Vuelos_Buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkAdministracion_Vuelos_CargaMasiva)
+                .addContainerGap(97, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Administracion", panelAdministracion);
+
+        chkSegurida_Usuarios.setText("Usuarios");
+
+        chkSeguridad_Usuarios_Crear.setText("Crear");
+
+        chkSeguridad_Usuarios_Modificar.setText("Modificar");
+
+        chkSeguridad_Usuarios_Buscar.setText("Buscar / Listar");
+
+        chkSeguridad_Usuarios_CargaMasiva.setText("Carga Masiva");
+
+        chkSeguridad_Perfiles.setText("Perfiles");
+
+        chkSeguridad_Perfiles_Crear.setText("Crear");
+
+        chkSeguridad_Perfiles_Modificar.setText("Modificar");
+
+        chkSeguridad_Perfiles_CargaMasiva.setText("Carga Masiva");
+
+        chkSeguridad_Parametros.setText("Parametros");
+
+        chkSeguridad_Parametros_Crear.setText("Crear");
+
+        chkSeguridad_Parametros_Modificar.setText("Modificar");
+
+        chkSeguridad_Parametros_Buscar.setText("Buscar / Listar");
+
+        javax.swing.GroupLayout panelSeguridadLayout = new javax.swing.GroupLayout(panelSeguridad);
+        panelSeguridad.setLayout(panelSeguridadLayout);
+        panelSeguridadLayout.setHorizontalGroup(
+            panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSeguridadLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkSegurida_Usuarios)
+                    .addComponent(chkSeguridad_Perfiles)
+                    .addGroup(panelSeguridadLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelSeguridadLayout.createSequentialGroup()
+                                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkSeguridad_Perfiles_Modificar)
+                                    .addComponent(chkSeguridad_Perfiles_Crear)
+                                    .addComponent(chkSeguridad_Perfiles_CargaMasiva))
+                                .addGap(8, 8, 8))
+                            .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chkSeguridad_Usuarios_Modificar)
+                                .addComponent(chkSeguridad_Usuarios_Crear)
+                                .addComponent(chkSeguridad_Usuarios_Buscar)
+                                .addComponent(chkSeguridad_Usuarios_CargaMasiva)))))
+                .addGap(105, 105, 105)
+                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkSeguridad_Parametros)
+                    .addGroup(panelSeguridadLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkSeguridad_Parametros_Modificar)
+                            .addComponent(chkSeguridad_Parametros_Crear)
+                            .addComponent(chkSeguridad_Parametros_Buscar))))
+                .addContainerGap(387, Short.MAX_VALUE))
+        );
+        panelSeguridadLayout.setVerticalGroup(
+            panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSeguridadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkSegurida_Usuarios)
+                    .addComponent(chkSeguridad_Parametros))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSeguridadLayout.createSequentialGroup()
+                        .addComponent(chkSeguridad_Usuarios_Crear)
+                        .addGap(3, 3, 3)
+                        .addComponent(chkSeguridad_Usuarios_Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkSeguridad_Usuarios_Buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkSeguridad_Usuarios_CargaMasiva))
+                    .addGroup(panelSeguridadLayout.createSequentialGroup()
+                        .addComponent(chkSeguridad_Parametros_Crear)
+                        .addGap(3, 3, 3)
+                        .addComponent(chkSeguridad_Parametros_Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkSeguridad_Parametros_Buscar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSeguridad_Perfiles)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSeguridad_Perfiles_Crear)
+                .addGap(3, 3, 3)
+                .addComponent(chkSeguridad_Perfiles_Modificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSeguridad_Perfiles_CargaMasiva)
+                .addContainerGap(127, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Seguridad", panelSeguridad);
+
+        chkEnvios_Crear.setText("Crear");
+
+        chkEnvios_Modificar.setText("Modificar");
+
+        chkEnvios_Buscar.setText("Buscar / Listar");
+
+        chkEnvios_CargaMasiva.setText("Carga Masiva");
+
+        javax.swing.GroupLayout panelEnviosLayout = new javax.swing.GroupLayout(panelEnvios);
+        panelEnvios.setLayout(panelEnviosLayout);
+        panelEnviosLayout.setHorizontalGroup(
+            panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEnviosLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkEnvios_CargaMasiva)
+                    .addComponent(chkEnvios_Buscar)
+                    .addComponent(chkEnvios_Modificar)
+                    .addComponent(chkEnvios_Crear))
+                .addContainerGap(676, Short.MAX_VALUE))
+        );
+        panelEnviosLayout.setVerticalGroup(
+            panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEnviosLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(chkEnvios_Crear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkEnvios_Modificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkEnvios_Buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkEnvios_CargaMasiva)
+                .addContainerGap(260, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Envios", panelEnvios);
+
+        javax.swing.GroupLayout panelSimulacionLayout = new javax.swing.GroupLayout(panelSimulacion);
+        panelSimulacion.setLayout(panelSimulacionLayout);
+        panelSimulacionLayout.setHorizontalGroup(
+            panelSimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 856, Short.MAX_VALUE)
+        );
+        panelSimulacionLayout.setVerticalGroup(
+            panelSimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 397, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Simulacion", panelSimulacion);
+
+        chkClientes_CargaMasiva.setText("Carga Masiva");
+
+        chkClientes_Buscar.setText("Buscar / Listar");
+
+        chkClientes_Modificar.setText("Modificar");
+
+        chkClientes_Crear.setText("Crear");
+
+        javax.swing.GroupLayout panelClientesLayout = new javax.swing.GroupLayout(panelClientes);
+        panelClientes.setLayout(panelClientesLayout);
+        panelClientesLayout.setHorizontalGroup(
+            panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelClientesLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkClientes_CargaMasiva)
+                    .addComponent(chkClientes_Buscar)
+                    .addComponent(chkClientes_Modificar)
+                    .addComponent(chkClientes_Crear))
+                .addContainerGap(676, Short.MAX_VALUE))
+        );
+        panelClientesLayout.setVerticalGroup(
+            panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelClientesLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(chkClientes_Crear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkClientes_Modificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkClientes_Buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkClientes_CargaMasiva)
+                .addContainerGap(260, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Clientes", panelClientes);
+
+        javax.swing.GroupLayout panelReportesLayout = new javax.swing.GroupLayout(panelReportes);
+        panelReportes.setLayout(panelReportesLayout);
+        panelReportesLayout.setHorizontalGroup(
+            panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 856, Short.MAX_VALUE)
+        );
+        panelReportesLayout.setVerticalGroup(
+            panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 397, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Reportes", panelReportes);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         btnCancelar.setText("Cancelar");
@@ -288,7 +638,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        public void llenarcomboEstado(){
+    public void llenarcomboEstado(){
          ListaEstado=ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
     
         for (Parametro p : ListaEstado)
@@ -374,6 +724,43 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cboEstado;
+    private javax.swing.JCheckBox chkAdministracion_Aeropuertos;
+    private javax.swing.JCheckBox chkAdministracion_Aeropuertos_Buscar;
+    private javax.swing.JCheckBox chkAdministracion_Aeropuertos_CargaMasiva;
+    private javax.swing.JCheckBox chkAdministracion_Aeropuertos_Crear;
+    private javax.swing.JCheckBox chkAdministracion_Aeropuertos_Modificar;
+    private javax.swing.JCheckBox chkAdministracion_Tarifas;
+    private javax.swing.JCheckBox chkAdministracion_Tarifas_Buscar;
+    private javax.swing.JCheckBox chkAdministracion_Tarifas_CargaMasiva;
+    private javax.swing.JCheckBox chkAdministracion_Tarifas_Crear;
+    private javax.swing.JCheckBox chkAdministracion_Tarifas_Modificar;
+    private javax.swing.JCheckBox chkAdministracion_TipoCambio;
+    private javax.swing.JCheckBox chkAdministracion_Vuelos;
+    private javax.swing.JCheckBox chkAdministracion_Vuelos_Buscar;
+    private javax.swing.JCheckBox chkAdministracion_Vuelos_CargaMasiva;
+    private javax.swing.JCheckBox chkAdministracion_Vuelos_Crear;
+    private javax.swing.JCheckBox chkAdministracion_Vuelos_Modificar;
+    private javax.swing.JCheckBox chkClientes_Buscar;
+    private javax.swing.JCheckBox chkClientes_CargaMasiva;
+    private javax.swing.JCheckBox chkClientes_Crear;
+    private javax.swing.JCheckBox chkClientes_Modificar;
+    private javax.swing.JCheckBox chkEnvios_Buscar;
+    private javax.swing.JCheckBox chkEnvios_CargaMasiva;
+    private javax.swing.JCheckBox chkEnvios_Crear;
+    private javax.swing.JCheckBox chkEnvios_Modificar;
+    private javax.swing.JCheckBox chkSegurida_Usuarios;
+    private javax.swing.JCheckBox chkSeguridad_Parametros;
+    private javax.swing.JCheckBox chkSeguridad_Parametros_Buscar;
+    private javax.swing.JCheckBox chkSeguridad_Parametros_Crear;
+    private javax.swing.JCheckBox chkSeguridad_Parametros_Modificar;
+    private javax.swing.JCheckBox chkSeguridad_Perfiles;
+    private javax.swing.JCheckBox chkSeguridad_Perfiles_CargaMasiva;
+    private javax.swing.JCheckBox chkSeguridad_Perfiles_Crear;
+    private javax.swing.JCheckBox chkSeguridad_Perfiles_Modificar;
+    private javax.swing.JCheckBox chkSeguridad_Usuarios_Buscar;
+    private javax.swing.JCheckBox chkSeguridad_Usuarios_CargaMasiva;
+    private javax.swing.JCheckBox chkSeguridad_Usuarios_Crear;
+    private javax.swing.JCheckBox chkSeguridad_Usuarios_Modificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -383,7 +770,14 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTree jTree1;
+    private javax.swing.JPanel panelAdministracion;
+    private javax.swing.JPanel panelClientes;
+    private javax.swing.JPanel panelEnvios;
+    private javax.swing.JPanel panelReportes;
+    private javax.swing.JPanel panelSeguridad;
+    private javax.swing.JPanel panelSimulacion;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

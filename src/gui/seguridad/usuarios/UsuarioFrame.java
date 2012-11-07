@@ -43,7 +43,8 @@ public class UsuarioFrame extends javax.swing.JDialog {
      */
     public UsuarioFrame() {
         initComponents();
-        //llenarcomboTipoDoc();  
+        //llenarcomboTipoDoc(); 
+        cargartabla();
         llenarcomboEstado();
         llenarcomboPerfiles();
         definirPermisos();
@@ -111,8 +112,6 @@ public class UsuarioFrame extends javax.swing.JDialog {
         jLabel2.setText("Perfil:");
 
         jLabel3.setText("Aeropuerto:");
-
-        txtAeropuerto.setText("Jorge Chávez, Lima");
 
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
@@ -353,6 +352,7 @@ public void llenarcomboPerfiles(){
 
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         usuarioAgregarGUI.setVisible(true);
+        cargartabla();
      
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -425,17 +425,47 @@ public void llenarcomboPerfiles(){
         Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
         
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
-        usuarioAgregarGUI.setVisible(true);
+        //usuarioAgregarGUI.setVisible(true);
         usuarioAgregarGUI.setBandera(1);
         usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
         usuarioAgregarGUI.showDialog();
+        cargartabla();
          }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+        public void cargartabla(){
+    
+            
+        List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,null,null);    
+        //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+        
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
+
+        
+        Object[] datos = new Object[9];
+       for (int i = 0; i < listaUsuarios.size(); i++) {
+           datos[0] = listaUsuarios.get(i).getIdCliente().getNombres();
+           datos[1] = listaUsuarios.get(i).getIdCliente().getApellidos();
+           datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
+           datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
+           datos[4] = listaUsuarios.get(i).getIdCliente().geteMail();
+           datos[5] = listaUsuarios.get(i).getEstado();
+           datos[6] = listaUsuarios.get(i).getIdCliente().getTipoDoc();
+           datos[7] = listaUsuarios.get(i).getIdCliente().getNumDoc();
+           datos[8] = listaUsuarios.get(i).getIdUsuario();           
+
+           dtm.addRow(datos);
+       }
+    }
+    
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
         // TODO add your handling code here:
         ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true); 
-        usuarioClientesPopUp.setVisible(true);
+        //usuarioClientesPopUp.setVisible(true);
         ClienteAux=usuarioClientesPopUp.showDialog();
         txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
         
@@ -444,7 +474,7 @@ public void llenarcomboPerfiles(){
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
         AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
         // TODO add your handling code here:
-        usuarioAeropuertoPopUp.setVisible(true);
+        //usuarioAeropuertoPopUp.setVisible(true);
          AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
          txtAeropuerto.setText(AeropuertoAux.getNombre());
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed

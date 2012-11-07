@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 
 /**
@@ -26,6 +28,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Accion")
+@NamedQueries({
+    @NamedQuery(name = "ArbolParametros",
+    query = "from Accion where nivel = 1"),
+})
+
 public class Accion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

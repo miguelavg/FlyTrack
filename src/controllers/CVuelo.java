@@ -5,6 +5,7 @@
 package controllers;
 
 import beans.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -60,14 +61,18 @@ public class CVuelo {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Vuelo> ListaVuelos = null;
-        
-        Date ini;
-        Date fin;
+        Date ini = null;
+        Date fin = null;
       
         try {
  
+            ini = fechini.getTime();
+            fin = fechfinal.getTime();
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
             Query q= s.getNamedQuery("Volar");
-           
+              
+                
+
 //        if (isInteger(numEnvio)) {
 //                Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
 //                f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
@@ -85,19 +90,20 @@ public class CVuelo {
 
             if (fechini != null) {
                 
-                ini = new Date();
-                ini.setDate(fechini.get(0));
-                ini.setMonth(fechini.get(1));
-                ini.setYear(fechini.get(2));
+//                ini = new Date();
+//                ini.setDate(fechini.get(0));
+//                ini.setMonth(fechini.get(1));
+//                ini.setYear(fechini.get(2));
+//                ini = formatoDelTexto.
                 Filter f_inisalida = s.enableFilter("VueloXfechini");
                 f_inisalida.setParameter("fechasalida", ini);
             }
 
             if (fechfinal != null) {
-                fin = new Date();
-                fin.setDate(fechfinal.get(0));
-                fin.setMonth(fechfinal.get(1));
-                fin.setYear(fechfinal.get(2));
+//                fin = new Date();
+//                fin.setDate(fechfinal.get(0));
+//                fin.setMonth(fechfinal.get(1));
+//                fin.setYear(fechfinal.get(2));
                 Filter f_finllega = s.enableFilter("VueloXfechfin");
                 f_finllega.setParameter("fechallegada", fin);
             }

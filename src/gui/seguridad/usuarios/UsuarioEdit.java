@@ -487,7 +487,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
         // TODO add your handling code here:
         ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true);
-        usuarioClientesPopUp.setVisible(true);
+        //usuarioClientesPopUp.setVisible(true);
         ClienteAux=usuarioClientesPopUp.showDialog();
        txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
@@ -495,7 +495,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
         // TODO add your handling code here:
         AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
-        usuarioAeropuertoPopUp.setVisible(true);
+        //usuarioAeropuertoPopUp.setVisible(true);
          AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
          txtAeropuerto.setText(AeropuertoAux.getNombre());
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed

@@ -268,8 +268,17 @@
           </Events>
         </Component>
         <Component class="datechooser.beans.DateChooserCombo" name="dt_fechini">
+          <Properties>
+            <Property name="dch_nothingAllowed" type="boolean" value="false"/>
+            <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,36,100,97,116,101,99,104,111,111,115,101,114,46,109,111,100,101,108,46,109,117,108,116,105,112,108,101,46,80,101,114,105,111,100,83,101,116,-104,-44,-96,42,-91,51,-90,42,2,0,3,76,0,4,100,97,116,97,116,0,22,76,106,97,118,97,47,117,116,105,108,47,76,105,110,107,101,100,76,105,115,116,59,76,0,9,108,97,115,116,65,100,100,101,100,116,0,35,76,100,97,116,101,99,104,111,111,115,101,114,47,109,111,100,101,108,47,109,117,108,116,105,112,108,101,47,80,101,114,105,111,100,59,76,0,10,112,101,114,105,111,100,67,97,115,104,113,0,126,0,2,120,112,115,114,0,20,106,97,118,97,46,117,116,105,108,46,76,105,110,107,101,100,76,105,115,116,12,41,83,93,74,96,-120,34,3,0,0,120,112,119,4,0,0,0,0,120,112,112"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="datechooser.beans.DateChooserCombo" name="dt_fechfin">
+          <Properties>
+            <Property name="dch_nothingAllowed" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

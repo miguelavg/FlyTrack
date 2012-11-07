@@ -6,6 +6,7 @@ package controllers;
 
 import beans.Parametro;
 import beans.Sesion;
+import beans.seguridad.Accion;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import java.util.List;
@@ -47,6 +48,30 @@ public class CPerfil {
         
         return null;
         
+    }
+         
+    public List<Accion> BuscarAcciones (){
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        List<Accion> ListaAccion;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+           q = s.getNamedQuery("ArbolAccion");
+           ListaAccion= q.list();
+                      
+           return ListaAccion;
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+        return null;
     }
          
      public void agregarPerfil(String nombre, String descripcion, Parametro estado){

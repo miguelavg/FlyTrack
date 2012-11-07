@@ -204,6 +204,7 @@ public class PerfilFrame extends javax.swing.JDialog {
 //        perfilModificar.setVisible(true);
         PerfilEdit perfilAgregarGUI = new PerfilEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         perfilAgregarGUI.setVisible(true);
+        llenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -215,10 +216,11 @@ public class PerfilFrame extends javax.swing.JDialog {
         Integer id=(Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
         
         PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
-        PerfilAgregarGUI.setVisible(true);
+        //PerfilAgregarGUI.setVisible(true);
         PerfilAgregarGUI.setBandera(1);
         PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
         PerfilAgregarGUI.showDialog();
+        llenarTabla();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 

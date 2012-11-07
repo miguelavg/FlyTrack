@@ -112,6 +112,7 @@ public class TarifaFrame extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtAeroOri.setEnabled(false);
         txtAeroOri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAeroOriActionPerformed(evt);
@@ -134,6 +135,7 @@ public class TarifaFrame extends javax.swing.JDialog {
             }
         });
 
+        txtAeroDes.setEnabled(false);
         txtAeroDes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAeroDesActionPerformed(evt);

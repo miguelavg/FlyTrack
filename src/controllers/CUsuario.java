@@ -183,6 +183,14 @@ public class CUsuario {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             
+            
+            
+            
+            
+            if (aeropuerto.isEmpty()|| cliente.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            }
+            
             else {
            Query q;
            Query q1;
