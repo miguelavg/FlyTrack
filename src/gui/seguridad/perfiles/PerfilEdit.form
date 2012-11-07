@@ -231,15 +231,539 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="210" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="panelAdministracion">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Administracion">
+                    <Property name="tabTitle" type="java.lang.String" value="Administracion"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chkAdministracion_Tarifas" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkAdministracion_Vuelos" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chkAdministracion_TipoCambio" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkAdministracion_Aeropuertos" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="chkAdministracion_Vuelos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Vuelos_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Vuelos_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Vuelos_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="chkAdministracion_Tarifas_Modificar" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_Crear" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chkAdministracion_Aeropuertos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkAdministracion_Aeropuertos_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkAdministracion_Aeropuertos_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkAdministracion_Aeropuertos_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="460" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="chkAdministracion_Tarifas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkAdministracion_Aeropuertos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="chkAdministracion_Tarifas_Crear" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Tarifas_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Tarifas_Buscar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Tarifas_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="chkAdministracion_Aeropuertos_Crear" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Aeropuertos_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Aeropuertos_Buscar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Aeropuertos_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="chkAdministracion_Vuelos" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkAdministracion_TipoCambio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkAdministracion_Vuelos_Crear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="chkAdministracion_Vuelos_Modificar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkAdministracion_Vuelos_Buscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkAdministracion_Vuelos_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="97" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Tarifas">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tarifas"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Vuelos"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Aeropuertos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Aeropuertos"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_TipoCambio">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tipo de Cambio"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Tarifas_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Tarifas_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Tarifas_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Tarifas_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Aeropuertos_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Aeropuertos_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Aeropuertos_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Aeropuertos_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelSeguridad">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Seguridad">
+                    <Property name="tabTitle" type="java.lang.String" value="Seguridad"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chkSegurida_Usuarios" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkSeguridad_Perfiles" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="chkSeguridad_Perfiles_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkSeguridad_Perfiles_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkSeguridad_Perfiles_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="chkSeguridad_Usuarios_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkSeguridad_Usuarios_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkSeguridad_Usuarios_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkSeguridad_Usuarios_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chkSeguridad_Parametros" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chkSeguridad_Parametros_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkSeguridad_Parametros_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chkSeguridad_Parametros_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="387" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="chkSegurida_Usuarios" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkSeguridad_Parametros" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="chkSeguridad_Usuarios_Crear" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Usuarios_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Usuarios_Buscar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Usuarios_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="chkSeguridad_Parametros_Crear" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Parametros_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Parametros_Buscar" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkSeguridad_Perfiles" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkSeguridad_Perfiles_Crear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="chkSeguridad_Perfiles_Modificar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkSeguridad_Perfiles_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="127" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JCheckBox" name="chkSegurida_Usuarios">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Usuarios"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Usuarios_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Usuarios_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Usuarios_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Usuarios_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Perfiles">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Perfiles"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Perfiles_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Perfiles_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Perfiles_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Parametros"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelEnvios">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Envios">
+                    <Property name="tabTitle" type="java.lang.String" value="Envios"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chkEnvios_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkEnvios_Buscar" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkEnvios_Modificar" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkEnvios_Crear" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="676" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="chkEnvios_Crear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkEnvios_Modificar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkEnvios_Buscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkEnvios_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="260" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JCheckBox" name="chkEnvios_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkEnvios_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkEnvios_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkEnvios_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelSimulacion">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Simulacion">
+                    <Property name="tabTitle" type="java.lang.String" value="Simulacion"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="856" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="397" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelClientes">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Clientes">
+                    <Property name="tabTitle" type="java.lang.String" value="Clientes"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chkClientes_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkClientes_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkClientes_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkClientes_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="676" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="chkClientes_Crear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkClientes_Modificar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkClientes_Buscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="chkClientes_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="260" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JCheckBox" name="chkClientes_CargaMasiva">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkClientes_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkClientes_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkClientes_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelReportes">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Reportes">
+                    <Property name="tabTitle" type="java.lang.String" value="Reportes"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="856" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="397" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+          </SubComponents>
+        </Container>
+      </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
