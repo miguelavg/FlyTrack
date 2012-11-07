@@ -7,7 +7,6 @@ package beans;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
@@ -75,6 +76,7 @@ public class Envio implements Serializable {
     private Parametro estado;
     @ManyToOne
     @JoinColumn(name = "idOrigen")
+    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto origen;
     @ManyToOne
     @JoinColumn(name = "idDestino")
@@ -88,7 +90,8 @@ public class Envio implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idDestinatario")
     private Cliente destinatario;
-    @OneToMany(mappedBy = "envio", cascade={CascadeType.ALL})
+    @OneToMany(mappedBy = "envio")
+    @Cascade(CascadeType.ALL)
     private List<Escala> escalas;
 
     public Envio() {

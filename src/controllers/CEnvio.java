@@ -43,7 +43,7 @@ public class CEnvio {
         return p;
     }
 
-    public void guardarEnvio(Envio envio){
+    public void guardarEnvio(Envio envio) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         try {
@@ -181,6 +181,8 @@ public class CEnvio {
             q.setParameter("valorUnico", "ACTV");
             p = (Parametro) q.uniqueResult();
             envio.setEscalas(escalas);
+            int capacidad;
+
 
             if (solucion == null || solucion.size() < 1) {
                 error_message = CValidator.buscarError("ERROR_FT013") + "\n";
@@ -194,6 +196,10 @@ public class CEnvio {
                     e.setEstado(p);
                     fecha = v.getFechaLlegada();
                     i++;
+                    capacidad = e.getVuelo().getCapacidadActual();
+                    e.getVuelo().setCapacidadActual(capacidad + envio.getNumPaquetes());
+                    capacidad = envio.getOrigen().getCapacidadActual();
+                    envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
                     envio.getEscalas().add(e);
                 }
             }
