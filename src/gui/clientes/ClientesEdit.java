@@ -110,6 +110,21 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         });
 
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomKeyRel(evt);
+            }
+        });
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelKeyPress(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelKeyRel(evt);
+            }
+        });
+
         cboTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel8.setText("Correo");
@@ -261,7 +276,7 @@ public class ClientesEdit extends javax.swing.JDialog {
     
            ClienteBE=ClienteBL.BuscarXid(idCliente);
            txtNombres.setText(ClienteBE.getNombres());
-           txtNombres.setEditable(false);
+//           txtNombres.setEditable(false);
            txtApellidos.setText(ClienteBE.getApellidos());
            txtApellidos.setEditable(false);
            txtCorreo.setText(ClienteBE.geteMail());
@@ -475,6 +490,32 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_cboPaisActionPerformed
+
+    private void txtTelKeyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelKeyPress
+        // TODO add your handling code here:
+        
+       
+        
+        
+        
+    }//GEN-LAST:event_txtTelKeyPress
+
+    private void txtTelKeyRel(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelKeyRel
+        // TODO add your handling code here:
+        char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txtTelefono)){
+            getToolkit().beep(); 
+        }
+        
+    }//GEN-LAST:event_txtTelKeyRel
+
+    private void txtNomKeyRel(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomKeyRel
+        // TODO add your handling code here:
+        char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txtNombres)){
+            getToolkit().beep(); 
+        }
+    }//GEN-LAST:event_txtNomKeyRel
     public int showDialog(){
         setVisible(true);
               

@@ -205,10 +205,17 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombres">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomKeyRel"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellidos">
         </Component>
         <Component class="javax.swing.JTextField" name="txtTelefono">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTelKeyPress"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTelKeyRel"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumeroDoc">
         </Component>
