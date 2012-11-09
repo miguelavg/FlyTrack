@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
-
+import controllers.CReportes;
+import javax.swing.JFileChooser;
 /**
  *
  * @author miguelavg
@@ -56,54 +57,38 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.estado = envio.getEstado();
             this.envio = envio;
             this.isNuevo = false;
+
             //  llenar text boxes y combos       
             this.txt_remitente.setText(this.remitente.getNombres() + " " + this.remitente.getApellidos());
             this.txt_destinatario.setText(this.destinatario.getNombres() + " " + this.destinatario.getApellidos());
             this.txt_destino.setText(this.destino.getNombre() + ", " + this.destino.getCiudad() + ", " + this.destino.getPais());
             this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
             this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
-            llenarCombos(this.moneda, this.doc, this.estado);
+            // falta llenar campos
+            llenarCombos(this.isNuevo, this.moneda, this.doc, this.estado);
             llenarEscalas(this.envio);
+            deshabilitarCampos();
 
-            this.txt_numPaquetes.setEnabled(false);
-            this.txt_destino.setEnabled(false);
-            this.txt_destinatario.setEnabled(false);
-            this.txt_remitente.setEnabled(false);
-            this.cmb_moneda.setEnabled(false);
-            this.cmb_doc.setEnabled(false);
-            this.btn_destino.setEnabled(false);
-            this.btn_origen.setEnabled(false);
-            this.btn_destinatario.setEnabled(false);
-            this.btn_remitente.setEnabled(false);
-            this.btn_guardar.setEnabled(false);
-            if (envio.getActual().getIdAeropuerto() == envio.getDestino().getIdAeropuerto()) {
-                btn_out.setEnabled(true);
-            } else {
-                btn_out.setEnabled(false);
-            }
         } else {
             //  si es nuevo...
-            btn_factura.setEnabled(false);
-            btn_in.setEnabled(false);
-            btn_out.setEnabled(false);
-            btn_ruta.setEnabled(false);
-            llenarCombos(null, null, null);
             this.isNuevo = true;
+            llenarCombos(this.isNuevo, null, null, null);
+            this.origen = Sesion.getUsuario().getIdAeropuerto();
+            this.actual = this.origen;
+            this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
+            this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
         }
 
+        habilitarBotones(this.isNuevo);
         CParametro cparametro = new CParametro();
         List<Parametro> params = cparametro.buscar(null, "IVA", "IVA", null);
         if (params != null) {
             Parametro iva = params.get(0);
             txt_iva.setText(iva.getValor());
         }
-    
-
-    
-
     }
 
-    private void llenarCombos(Parametro moneda, Parametro doc, Parametro estado) {
+    private void llenarCombos(boolean isNuevo, Parametro moneda, Parametro doc, Parametro estado) {
         CEnvio cenvio = new CEnvio();
         ArrayList<Parametro> monedas = cenvio.llenarCombo("TIPO_MONEDA");
         ArrayList<Parametro> docs = cenvio.llenarCombo("TIPO_DOC_PAGO_ENVIO");
@@ -113,6 +98,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.cmb_moneda.addItem(p);
 
             if (moneda != null && moneda.getIdParametro() == p.getIdParametro()) {
+                cmb_moneda.setSelectedItem(p);
+            }
+
+            if (isNuevo && p.getValorUnico().equals("DOL")) {
                 cmb_moneda.setSelectedItem(p);
             }
         }
@@ -132,6 +121,31 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 cmb_moneda.setSelectedItem(p);
 
             }
+        }
+    }
+
+    private void deshabilitarCampos() {
+        this.txt_numPaquetes.setEnabled(false);
+        this.txt_destino.setEnabled(false);
+        this.txt_destinatario.setEnabled(false);
+        this.txt_remitente.setEnabled(false);
+        this.cmb_moneda.setEnabled(false);
+        this.cmb_doc.setEnabled(false);
+        this.btn_destino.setEnabled(false);
+        this.btn_destinatario.setEnabled(false);
+        this.btn_remitente.setEnabled(false);
+        this.btn_guardar.setEnabled(false);
+    }
+
+    private void habilitarBotones(boolean siNuevo) {
+        btn_factura.setEnabled(!siNuevo);
+        btn_in.setEnabled(!siNuevo);
+        btn_ruta.setEnabled(!siNuevo);
+
+        if (this.destino != null && this.actual.getIdAeropuerto() == this.destino.getIdAeropuerto()) {
+            btn_out.setEnabled(true);
+        } else {
+            btn_out.setEnabled(false);
         }
     }
 
@@ -161,6 +175,27 @@ public class EnvioAgregar extends javax.swing.JDialog {
         }
     }
 
+    private void recalcular() {
+        double monto = -1;
+        double unitario;
+        double impuesto = 0;
+        int numPaquetes;
+
+        if (CValidator.isDouble(txt_iva.getText())) {
+            impuesto = Double.parseDouble(txt_iva.getText());
+        }
+
+        if (tarifa != null && CValidator.isInteger(txt_numPaquetes.getText()) && CValidator.isDouble(txt_unitario.getText())) {
+            unitario = Double.parseDouble(txt_unitario.getText());
+            numPaquetes = Integer.parseInt(txt_numPaquetes.getText());
+            monto = numPaquetes * unitario * (1 + impuesto);
+        }
+
+        if (monto > 0) {
+            txt_total.setText(CValidator.formatNumber(monto));
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,7 +222,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         btn_destinatario = new javax.swing.JButton();
         txt_destinatario = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        montoEnvioText = new javax.swing.JTextField();
+        txt_unitario = new javax.swing.JTextField();
         btn_in = new javax.swing.JButton();
         btn_out = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -206,14 +241,13 @@ public class EnvioAgregar extends javax.swing.JDialog {
         txt_iva = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        fechaRegistroEnvioText = new javax.swing.JTextField();
+        txt_fechaReg = new javax.swing.JTextField();
         fechaRecojoEnvioText = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         btn_destino = new javax.swing.JButton();
         txt_destino = new javax.swing.JTextField();
-        btn_origen = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        totalEnvioText = new javax.swing.JTextField();
+        txt_total = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         cmb_estado = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
@@ -328,11 +362,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel8.setText("Monto Unitario:");
 
-        montoEnvioText.setEditable(false);
-        montoEnvioText.setEnabled(false);
-        montoEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_unitario.setEditable(false);
+        txt_unitario.setEnabled(false);
+        txt_unitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                montoEnvioTextActionPerformed(evt);
+                txt_unitarioActionPerformed(evt);
             }
         });
 
@@ -356,7 +390,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel10.setText("Doc. pago:");
 
-        cmb_doc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cmb_doc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_docActionPerformed(evt);
@@ -399,13 +432,17 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 txt_numPaquetesActionPerformed(evt);
             }
         });
+        txt_numPaquetes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_numPaquetesFocusLost(evt);
+            }
+        });
         txt_numPaquetes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_numPaquetesKeyTyped(evt);
             }
         });
 
-        cmb_moneda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cmb_moneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_monedaActionPerformed(evt);
@@ -441,11 +478,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel15.setText("Fecha Registro");
 
-        fechaRegistroEnvioText.setEditable(false);
-        fechaRegistroEnvioText.setEnabled(false);
-        fechaRegistroEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_fechaReg.setEditable(false);
+        txt_fechaReg.setEnabled(false);
+        txt_fechaReg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaRegistroEnvioTextActionPerformed(evt);
+                txt_fechaRegActionPerformed(evt);
             }
         });
 
@@ -473,20 +510,13 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        btn_origen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        btn_origen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_origenActionPerformed(evt);
-            }
-        });
-
         jLabel17.setText("Total");
 
-        totalEnvioText.setEditable(false);
-        totalEnvioText.setEnabled(false);
-        totalEnvioText.addActionListener(new java.awt.event.ActionListener() {
+        txt_total.setEditable(false);
+        txt_total.setEnabled(false);
+        txt_total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalEnvioTextActionPerformed(evt);
+                txt_totalActionPerformed(evt);
             }
         });
 
@@ -519,8 +549,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                         .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btn_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGap(36, 36, 36))))
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -530,7 +559,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txt_unitario, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -542,7 +571,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                                 .addComponent(cmb_moneda, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(txt_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -565,7 +594,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cmb_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txt_fechaReg, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -633,14 +662,13 @@ public class EnvioAgregar extends javax.swing.JDialog {
                         .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_origen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_destino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(montoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_unitario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txt_actual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,11 +691,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
                     .addComponent(numDocPagoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaRegistroEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_fechaReg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechaRecojoEnvioText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -752,25 +780,28 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void btn_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_outActionPerformed
         // TODO add your handling code here:
-        Object[] estados = cmb_estado.getSelectedObjects();
+        int estados = cmb_estado.getItemCount();
+        CEnvio cenvio = new CEnvio();
 
-        for (int i = 1; i < estados.length; i++) {
-            Parametro p = (Parametro) estados[i];
+        for (int i = 1; i < estados; i++) {
+            Parametro p = (Parametro) cmb_estado.getItemAt(i);
             if (p.getValorUnico().equals("REC")) {
                 cmb_estado.setSelectedItem(p);
+                this.envio.setEstado(p);
                 break;
             }
         }
 
+        cenvio.guardarEnvio(this.envio);
     }//GEN-LAST:event_btn_outActionPerformed
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_inActionPerformed
 
-    private void montoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoEnvioTextActionPerformed
+    private void txt_unitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_unitarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_montoEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_unitarioActionPerformed
 
     private void txt_destinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_destinatarioActionPerformed
         // TODO add your handling code here:
@@ -785,7 +816,46 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_destinatarioActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        // TODO add your handling code here:
+
+        JFileChooser jfc = new JFileChooser();
+        int rslt = jfc.showSaveDialog(this);
+        if (rslt == JFileChooser.APPROVE_OPTION){
+            String strArch = jfc.getSelectedFile().getName();
+            if (!strArch.trim().isEmpty()){
+                String ruta = jfc.getSelectedFile().getPath().trim();
+                if (!ruta.isEmpty()){
+                    try{
+                        //beAlmacen alma = (new blHelper()).obtenerDatosAlmacen();
+                        //if (alma.getNombre() != null){
+                            //if (this.tblReporte.getRowCount()>=1){
+                                if (!ruta.endsWith(".pdf"))
+                                ruta += ".pdf";
+                                //System.out.println(this.usuario.getNombre());
+                                float[] anchos = {8f,8f,5f};
+                                //this.usuario.getNombre()
+                                //alma.getNombre()
+                                //this.palletElegido
+                                CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", "Joao", "FlyTrack", "Factura", anchos,this.envio);
+                                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n"+ruta);
+                            //}
+                            //else
+                            //CReportes.mostrarMensajeAdvertencia("No existen registros en el historial.");
+                            //}
+                        //else
+                        //  visualHelper.mostrarMensajeAdvertencia("No se ha ingresado información sobre el almacén.");
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        CReportes.mostrarMensajeError("Ocurrió un error al generar la factura.");
+                    }
+                }
+                else
+                CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo de la factura.");
+            }
+            else
+            CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+        }
+        
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void txt_actualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_actualActionPerformed
@@ -815,23 +885,27 @@ public class EnvioAgregar extends javax.swing.JDialog {
         this.tipoCambio = null;
         double vTipoCambio = 1;
 
-        if (cmb_moneda.getSelectedIndex() > 0) {
+        if (this.isNuevo) {
             this.moneda = (Parametro) cmb_moneda.getSelectedItem();
             String error_message = ctipocambio.verificarTipoCambioDolar(this.moneda.getValorUnico());
 
             if (error_message == null || error_message.isEmpty()) {
                 this.tipoCambio = ctipocambio.buscarDolar(this.moneda.getValorUnico());
+                if (this.tipoCambio != null) {
+                    vTipoCambio = this.tipoCambio.getTipoCambio();
+                }
+
+                if (this.tarifa != null) {
+                    txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+                    recalcular();
+                }
             } else {
                 ErrorDialog.mostrarError(error_message, this);
                 this.tipoCambio = null;
             }
         }
 
-        if (this.tarifa != null && this.tipoCambio != null) {
-            vTipoCambio = this.tipoCambio.getTipoCambio();
-            montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(txt_iva.getText()))));
-        }
+
 
     }//GEN-LAST:event_cmb_monedaActionPerformed
 
@@ -845,51 +919,62 @@ public class EnvioAgregar extends javax.swing.JDialog {
         this.doc = null;
         this.estado = null;
 
-        if (cmb_moneda.getSelectedIndex() > 0) {
-            this.moneda = (Parametro) cmb_moneda.getSelectedItem();
-        }
-        if (cmb_doc.getSelectedIndex() > 0) {
-            this.doc = (Parametro) cmb_doc.getSelectedItem();
-        }
-        if (cmb_estado.getSelectedIndex() > 0) {
-            this.estado = (Parametro) cmb_estado.getSelectedItem();
-        }
+        this.moneda = (Parametro) cmb_moneda.getSelectedItem();
+        this.doc = (Parametro) cmb_doc.getSelectedItem();
+
 
         CEnvio cenvio = new CEnvio();
-        String error_message = "";
+        CParametro cparametro = new CParametro();
+        String error_message;
 
-        error_message = cenvio.validar(this.moneda, this.doc, this.estado, this.origen, this.actual, this.destino, this.remitente, this.destinatario, this.tarifa, this.tipoCambio, txt_numPaquetes.getText());
-
-        beans.Envio env = null;
-
+        error_message = cenvio.validar(this.moneda, this.doc, this.origen, this.actual, this.destino, this.remitente, this.destinatario, this.tarifa, this.tipoCambio, txt_numPaquetes.getText());
         if (error_message == null || error_message.isEmpty()) {
-            env = cenvio.agregarEnvio(
-                    origen,
-                    destino,
-                    actual,
-                    "PROG",
-                    remitente,
-                    destinatario,
-                    Float.parseFloat(montoEnvioText.getText()),
-                    (Parametro) cmb_moneda.getSelectedItem(),
-                    -1,
-                    Integer.parseInt(txt_numPaquetes.getText()),
-                    (Parametro) cmb_doc.getSelectedItem(),
-                    -1,
-                    Float.parseFloat(txt_iva.getText()),
-                    "",
-                    "");
-            this.numeroEnvioText.setText(String.valueOf(env.getIdEnvio()));
-            this.numDocPagoEnvioText.setText(String.valueOf(env.getNumDocVenta()));
+            this.envio = new Envio();
+            this.envio.setActual(actual);
+            this.envio.setOrigen(origen);
+            this.envio.setDestino(destino);
+            List<Parametro> params = cparametro.buscar(null, "PROG", "ESTADO_ENVIO", null);
+            this.envio.setEstado(params.get(0));
+            this.envio.setRemitente(remitente);
+            this.envio.setDestinatario(destinatario);
+            this.envio.setMoneda(moneda);
+            this.envio.setNumPaquetes(Integer.parseInt(txt_numPaquetes.getText()));
+            this.envio.setTipoDocVenta(doc);
+            this.envio.setFechaRegistro(new Date());
+            this.envio.setFechaRecojo(null);
 
-            llenarEscalas(env);
+            int numPaquetes = this.envio.getNumPaquetes();
+            double unitario = tarifa.getMonto();
+            double impuesto = Double.parseDouble(txt_iva.getText());
+            double vTipoCambio = 1;
+            if (this.tipoCambio != null) {
+                vTipoCambio = this.tipoCambio.getTipoCambio();
+            }
+            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto);
+            this.envio.setMonto(total);
+            error_message = cenvio.calcularRuta(this.envio);
+
+            if (error_message == null || error_message.isEmpty()) {
+                this.numeroEnvioText.setText(String.valueOf(this.envio.getIdEnvio()));
+                this.numDocPagoEnvioText.setText(String.valueOf(this.envio.getNumDocVenta()));
+                this.txt_fechaReg.setText(CValidator.formatDate(this.envio.getFechaRegistro()));
+                llenarEscalas(this.envio);
+                this.isNuevo = false;
+
+                cenvio.guardarEnvio(this.envio);
+
+                deshabilitarCampos();
+                habilitarBotones(this.isNuevo);
+            } else {
+                ErrorDialog.mostrarError(error_message, this);
+            }
         } else {
             ErrorDialog.mostrarError(error_message, this);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
-        MonitoreoFrame monitoreoDialog = new MonitoreoFrame(envio);
+        MonitoreoFrame monitoreoDialog = new MonitoreoFrame(this.envio);
         monitoreoDialog.setVisible(true);
     }//GEN-LAST:event_btn_rutaActionPerformed
 
@@ -897,9 +982,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_ivaActionPerformed
 
-    private void fechaRegistroEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaRegistroEnvioTextActionPerformed
+    private void txt_fechaRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fechaRegActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fechaRegistroEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_fechaRegActionPerformed
 
     private void fechaRecojoEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaRecojoEnvioTextActionPerformed
         // TODO add your handling code here:
@@ -912,7 +997,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
         AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
         destino = aeropuertoPU.showDialog();
-        if (destino != null) {
+        if (destino != null && destino.getNombre() != null) {
             txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
         }
 
@@ -926,8 +1011,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 vTipoCambio = this.tipoCambio.getTipoCambio();
             }
 
-            montoEnvioText.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-            totalEnvioText.setText(CValidator.formatNumber(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(txt_iva.getText()))));
+            txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+            recalcular();
         } else {
             ErrorDialog.mostrarError(error_message, this);
             this.tarifa = null;
@@ -938,36 +1023,24 @@ public class EnvioAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_destinoActionPerformed
 
-    private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-        origen = aeropuertoPU.showDialog();
-        actual = origen;
-        if (origen != null) {
-            txt_origen.setText(origen.getNombre() + ", " + origen.getCiudad() + ", " + origen.getPais());
-            txt_actual.setText(actual.getNombre() + ", " + actual.getCiudad() + ", " + actual.getPais());
-        }
-        /* CEnvio cenvio = new CEnvio();
-         tarifa =  cenvio.calcularTarifa(origen,destino);
-         montoEnvioText.setText(String.valueOf(tarifa.getMonto())); */
-    }//GEN-LAST:event_btn_origenActionPerformed
-
-    private void totalEnvioTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalEnvioTextActionPerformed
+    private void txt_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_totalEnvioTextActionPerformed
+    }//GEN-LAST:event_txt_totalActionPerformed
 
     private void txt_numPaquetesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_numPaquetesKeyTyped
         // TODO add your handling code here:
-        try {
-            if (CValidator.isInteger(txt_numPaquetes.getText())) {
-                totalEnvioText.setText(String.valueOf(Integer.parseInt(txt_numPaquetes.getText()) * Float.parseFloat(montoEnvioText.getText()) * (1 + Float.parseFloat(txt_iva.getText()))));
-            }
-        } catch (Exception e) {
-        }
+        //recalcular();
+
     }//GEN-LAST:event_txt_numPaquetesKeyTyped
 
     private void cmb_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_estadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_estadoActionPerformed
+
+    private void txt_numPaquetesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_numPaquetesFocusLost
+        // TODO add your handling code here:
+        recalcular();
+    }//GEN-LAST:event_txt_numPaquetesFocusLost
 
     /**
      * @param args the command line arguments
@@ -1009,7 +1082,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JButton btn_factura;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_in;
-    private javax.swing.JButton btn_origen;
     private javax.swing.JButton btn_out;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JButton btn_remitente;
@@ -1018,7 +1090,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JComboBox cmb_estado;
     private javax.swing.JComboBox cmb_moneda;
     private javax.swing.JTextField fechaRecojoEnvioText;
-    private javax.swing.JTextField fechaRegistroEnvioText;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1041,18 +1112,19 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField montoEnvioText;
     private javax.swing.JTextField numDocPagoEnvioText;
     private javax.swing.JTextField numeroEnvioText;
     private javax.swing.JTable tbl_escalas;
-    private javax.swing.JTextField totalEnvioText;
     private javax.swing.JTextField txt_actual;
     private javax.swing.JTextField txt_destinatario;
     private javax.swing.JTextField txt_destino;
+    private javax.swing.JTextField txt_fechaReg;
     private javax.swing.JTextField txt_iva;
     private javax.swing.JTextField txt_numPaquetes;
     private javax.swing.JTextField txt_origen;
     private javax.swing.JTextField txt_remitente;
+    private javax.swing.JTextField txt_total;
+    private javax.swing.JTextField txt_unitario;
     // End of variables declaration//GEN-END:variables
 
     public Envio showDialog() {

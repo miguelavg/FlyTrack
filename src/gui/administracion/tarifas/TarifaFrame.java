@@ -44,9 +44,11 @@ public class TarifaFrame extends javax.swing.JDialog {
     public TarifaFrame() {
         
         initComponents();
+        this.setLocationRelativeTo(null);
         CTipoCambio ctipocambio = new CTipoCambio();
         ListaTarifa = TarifaBL.Buscar(null, null,"", "");
         llenartabla();
+//        tablaTarifa.set(0, 0);
         definirPermisos();
     }
 
@@ -81,7 +83,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         tablaTarifa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Envíos");
+        setTitle("Tarifa");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setModal(true);
 
@@ -98,16 +100,16 @@ public class TarifaFrame extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(254, 254, 254)
+                .addGap(302, 302, 302)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -257,10 +259,14 @@ public class TarifaFrame extends javax.swing.JDialog {
                 "Id", "Aeropuerto Origen", "Aerouperto Destino", "Monto ($)"
             }
         ));
+        tablaTarifa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaTarifa);
         tablaTarifa.getColumnModel().getColumn(0).setMinWidth(0);
         tablaTarifa.getColumnModel().getColumn(0).setPreferredWidth(0);
         tablaTarifa.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaTarifa.getColumnModel().getColumn(1).setPreferredWidth(309);
+        tablaTarifa.getColumnModel().getColumn(2).setPreferredWidth(309);
+        tablaTarifa.getColumnModel().getColumn(3).setPreferredWidth(100);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -513,6 +519,7 @@ public class TarifaFrame extends javax.swing.JDialog {
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Tarifas", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

@@ -35,7 +35,6 @@ public class CUsuario {
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
             
             Usuario CUsuario = new Usuario();
             
@@ -59,50 +58,44 @@ public class CUsuario {
         
     }
     
-    
-    
-     public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto,Cliente cliente,Parametro Estado)
+    public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto,Cliente cliente,Parametro Estado)
     {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        List<Usuario> ListaUsuarios;
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
-           q = s.getNamedQuery("Usuario");
+            Query q = s.getNamedQuery("Usuario");
            
            
-           if (perfil!=null ){
-           Filter f = s.enableFilter("UsuarioxIdperfil");
-           f.setParameter("idperfil",perfil.getIdPerfil());
-           }
-           
-           if (aeropuerto!=null ){
-           Filter f2 = s.enableFilter("UsuarioxIdaeropuerto");
-           f2.setParameter("idaeropuerto",aeropuerto.getIdAeropuerto());
-           }
-           
-           if (cliente!=null ){
-           Filter f3 = s.enableFilter("UsuarioxIdcliente");
-           f3.setParameter("idcliente",cliente.getIdCliente());
-//           Filter f4 = s.enableFilter("UsuarioxLogin");
-//           f4.setParameter("login",Login);
-           }
-                      
-           //&& Estado.getIdParametro()!=0
-           if (Estado!=null ){
-           Filter f5 = s.enableFilter("UsuarioxEstado");
-           f5.setParameter("estado",Estado.getIdParametro());
-           }
-           ListaUsuarios= q.list();
+            if (perfil!=null ){
+                Filter f = s.enableFilter("UsuarioxIdperfil");
+                f.setParameter("idperfil",perfil.getIdPerfil());
+            }
 
-           return ListaUsuarios;
+            if (aeropuerto!=null ){
+                Filter f2 = s.enableFilter("UsuarioxIdaeropuerto");
+                f2.setParameter("idaeropuerto",aeropuerto.getIdAeropuerto());
+            }
+
+            if (cliente!=null ){
+                Filter f3 = s.enableFilter("UsuarioxIdcliente");
+                f3.setParameter("idcliente",cliente.getIdCliente());
+ //           Filter f4 = s.enableFilter("UsuarioxLogin");
+ //           f4.setParameter("login",Login);
+            }
+
+            //&& Estado.getIdParametro()!=0
+            if (Estado!=null ){
+                Filter f5 = s.enableFilter("UsuarioxEstado");
+                f5.setParameter("estado",Estado.getIdParametro());
+            }
+            
+            return (List<Usuario>)q.list();
                       
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
-            
+            System.out.println(e.getMessage());            
         }
         finally {
             s.close();
@@ -111,7 +104,7 @@ public class CUsuario {
         return null;
     }
      
-         public Usuario BuscarXid(int id){
+    public Usuario BuscarXid(int id){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
           Usuario CUsuario = new Usuario();
@@ -134,7 +127,7 @@ public class CUsuario {
         return null;
     }
      
-         public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
+    public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
                 Parametro estado){
         
         SessionFactory sf = Sesion.getSessionFactory();
@@ -166,10 +159,8 @@ public class CUsuario {
         }
         
     }
-         
-         
       
-     public String validar(Integer idusuario, Integer idcliente,boolean isNuevo, String aeropuerto, String cliente, String logIn,Parametro estado, Perfil perfil) {
+    public String validar(Integer idusuario, Integer idcliente,boolean isNuevo, String aeropuerto, String cliente, String logIn,Parametro estado, Perfil perfil) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -247,9 +238,7 @@ public class CUsuario {
         return error_message;
     }
      
-     
-     
-        public Usuario BuscarXidCliente(int id){
+    public Usuario BuscarXidCliente(int id){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Usuario CUsuario = new Usuario();
@@ -272,10 +261,25 @@ public class CUsuario {
         }
         return null;
     }
-         
-         
-         
-         
-         
-         
+    
+    public static Usuario buscarXNombreUsuario(String username){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
+            q.setParameter("username", username);
+            Usuario user = (Usuario)q.uniqueResult();
+            user.getContrasenias().size();
+            return user;
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        
+        return null;
+    }
 }

@@ -6,9 +6,11 @@ package gui.seguridad.perfiles;
 
 import beans.Parametro;
 import beans.seguridad.Perfil;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import controllers.CParametro;
 import controllers.CPerfil;
+import controllers.CPermiso;
 import gui.ErrorDialog;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -27,96 +29,146 @@ public class PerfilEdit extends javax.swing.JDialog {
     /**
      * Creates new form PerfilEdit
      */
-        List<Parametro> ListaEstado ;
-        boolean isNuevo;
-        Perfil perfil;
-         CParametro ParametroBL = new CParametro();
-        List<Perfil> ListaPerfiles ;
-        CPerfil cPerfil = new CPerfil();
-        
+    List<Parametro> ListaEstado ;
+    Perfil perfil;
+    CParametro ParametroBL = new CParametro();
+    List<Perfil> ListaPerfiles ;
+
         
     CPerfil Perfil= new CPerfil ();
-    Integer idperfil=-1;
+    
+    private Integer idperfil = -1;
     public void setIdperfil(Integer idperfil) {
         this.idperfil = idperfil;
     }
-
     public Integer getIdperfil() {
         return idperfil;
     }
     
-    Integer bandera=-1;
-    public void setBandera(Integer bandera) {
-        this.bandera = bandera;
-    }
+    private void llenarPanelPermisos(){
+        List<Permiso> permisos = CPerfil.listarPermisosXPerfil(idperfil);
+        
+        boolean administracion = CPermiso.buscarPermiso(permisos, "Administracion", 1, null);
+        chkAdministracion.setSelected(administracion);
+        configurarAdministracion(administracion);
+        boolean seguridad = CPermiso.buscarPermiso(permisos, "Seguridad",1,null);
+        chkSeguridad.setSelected(seguridad);
+        configurarSeguridad(seguridad);
+        boolean envios = CPermiso.buscarPermiso(permisos, "Envios",1,null);
+        chkEnvios.setSelected(envios);
+        configurarEnvios(envios);
+        chkSimulacion.setSelected(CPermiso.buscarPermiso(permisos, "Simulacion",1,null));
+        boolean clientes = CPermiso.buscarPermiso(permisos, "Clientes",1,null);
+        chkClientes.setSelected(clientes);
+        configurarClientes(clientes);
+        boolean reportes = CPermiso.buscarPermiso(permisos, "Reportes",1,null);
+        chkReportes.setSelected(reportes);
+        configurarReportes(reportes);
+        
+        chkAdministracion_Aeropuertos.setSelected(CPermiso.buscarPermiso(permisos, "Aeropuertos",2,"Administracion"));
+        chkAdministracion_Tarifas.setSelected(CPermiso.buscarPermiso(permisos, "Tarifas",2,"Administracion"));
+        chkAdministracion_Vuelos.setSelected(CPermiso.buscarPermiso(permisos, "Vuelos",2,"Administracion"));
+        chkAdministracion_TipoCambio.setSelected(CPermiso.buscarPermiso(permisos, "TipoCambio",2,"Administracion"));
+        
+        chkSeguridad_Parametros.setSelected(CPermiso.buscarPermiso(permisos, "Parametros",2,"Seguridad"));
+        chkSeguridad_Usuarios.setSelected(CPermiso.buscarPermiso(permisos, "Usuarios",2,"Seguridad"));
+        chkSeguridad_Perfiles.setSelected(CPermiso.buscarPermiso(permisos, "Perfiles",2,"Seguridad"));
+        
+        chkEnvios_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar",2,"Envios"));
+        chkEnvios_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva",2,"Envios"));
+        chkEnvios_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear",2,"Envios"));
+        chkEnvios_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar",2,"Envios"));
+        
+        chkClientes_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar",2,"Clientes"));
+        chkClientes_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva",2,"Clientes"));
+        chkClientes_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear",2,"Clientes"));
+        chkClientes_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar",2,"Clientes"));
+        
+        chkReportes_Envios.setSelected(CPermiso.buscarPermiso(permisos, "Envios",2,"Reportes"));
+        chkReportes_Incidencias.setSelected(CPermiso.buscarPermiso(permisos, "Incidencias",2,"Reportes"));
+        chkReportes_LogAuditoria.setSelected(CPermiso.buscarPermiso(permisos, "LogAuditoria",2,"Reportes"));
+        chkReportes_MovAlmacen.setSelected(CPermiso.buscarPermiso(permisos, "MovAlmacen",2,"Reportes"));
+        chkReportes_Ventas.setSelected(CPermiso.buscarPermiso(permisos, "Ventas",2,"Reportes"));
+        
+        chkAdministracion_Aeropuertos_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Aeropuertos"));
+        chkAdministracion_Aeropuertos_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Aeropuertos"));
+        chkAdministracion_Aeropuertos_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Aeropuertos"));
+        chkAdministracion_Aeropuertos_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Aeropuertos"));
+        
+        chkAdministracion_Tarifas_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Tarifas"));
+        chkAdministracion_Tarifas_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Tarifas"));
+        chkAdministracion_Tarifas_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Tarifas"));
+        chkAdministracion_Tarifas_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Tarifas"));
+        
+        chkAdministracion_Vuelos_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Vuelos"));
+        chkAdministracion_Vuelos_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Vuelos"));
+        chkAdministracion_Vuelos_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Vuelos"));
+        chkAdministracion_Vuelos_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Vuelos"));
 
-    public Integer getBandera() {
-        return bandera;
+        chkAdministracion_TipoCambio_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "TipoCambio"));
+        chkAdministracion_TipoCambio_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "TipoCambio"));
+        chkAdministracion_TipoCambio_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "TipoCambio"));
+        chkAdministracion_TipoCambio_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "TipoCambio"));
+
+        chkSeguridad_Parametros_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Parametros"));
+        chkSeguridad_Parametros_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Parametros"));
+        chkSeguridad_Parametros_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Parametros"));
+        
+        chkSeguridad_Usuarios_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Usuarios"));
+        chkSeguridad_Usuarios_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Usuarios"));
+        chkSeguridad_Usuarios_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Usuarios"));
+        chkSeguridad_Usuarios_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Usuarios"));
+
+        chkSeguridad_Perfiles_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Perfiles"));
+        chkSeguridad_Perfiles_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Perfiles"));
+        chkSeguridad_Perfiles_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Perfiles"));        
+
     }
     
+    private void cargarcampos(){    
+        Perfil perfilBE = CPerfil.BuscarXid(idperfil);
+         
+        txtNombre.setText(perfilBE.getNombre());
+        txtDescripcion.setText(perfilBE.getDescripcion());   
+        cboEstado.setSelectedIndex(1);
+        for(int i=0;i<cboEstado.getItemCount();i++){
+            Parametro estado = (Parametro)cboEstado.getItemAt(i);
+            if (estado.getIdParametro() == perfilBE.getEstado().getIdParametro()){
+                cboEstado.setSelectedIndex(i);
+                break;
+            }
+        }
+
+    }    
     
+    public int showDialog(){
+        setVisible(true);
+        return 1;
+    }
+     
+    private void llenarcomboEstado(){
+        
+        ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
     
-    public PerfilEdit(javax.swing.JDialog parent, boolean modal,int id) {
+        for (Parametro p : ListaEstado){
+            cboEstado.addItem(p);
+        }
+    }
+    
+    public PerfilEdit(javax.swing.JDialog parent, boolean modal, int idPerfilPasado) {
         super(parent, modal);
         initComponents();
         
-        isNuevo=true;
-        
-        idperfil=id;
+        idperfil = idPerfilPasado; //comienza con -1
         
         llenarcomboEstado();
-        llenarPanelPermisos();
-        
-        if (idperfil!=-1){
-        cargarcampos();
+        if(idperfil != -1){
+            llenarPanelPermisos();
+            cargarcampos();
         }
-        
-        
-    }
-    
-    public void llenarPanelPermisos(){
-        ListaPerfiles= cPerfil.Buscar();
-//        ListaAcciones= cPerfil.BuscarAcciones();
-//        
-//        JCheckBox chb= new JCheckBox();
-//        
-//        for( Perfil p : ListaPerfiles){
-//            if 
-//        }
-////        panel.add(chb);
-//        panel.add(chb);
-    }
-    public void cargarcampos(){    
-        Perfil PerfilBE= Perfil.BuscarXid(idperfil);
-         
-           txtNombre.setText(PerfilBE.getNombre());
-           txtDescripcion.setText(PerfilBE.getDescripcion());   
-           
-           isNuevo=false;
-           
-           for(int i=0;i<cboEstado.getItemCount();i++){
-               Parametro estado = (Parametro)cboEstado.getItemAt(i);
-               if (estado.getIdParametro()==PerfilBE.getEstado().getIdParametro())
-               {
-               cboEstado.setSelectedIndex(i);
-               break;
-               
-               }
-           }
-
-    }
-    
-    
-     public int showDialog(){
-        setVisible(true);
-              
-//        if (this.isNuevo) {
-//            return this.perfil;
-//        } else {
-//            return null;
-//        }
-        
-        return 1;
+                
+        this.setLocationRelativeTo(null);
+        pack();
     }
 
     /**
@@ -128,8 +180,6 @@ public class PerfilEdit extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -141,7 +191,14 @@ public class PerfilEdit extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        paneles = new javax.swing.JTabbedPane();
+        panelPrincipal = new javax.swing.JPanel();
+        chkAdministracion = new javax.swing.JCheckBox();
+        chkSeguridad = new javax.swing.JCheckBox();
+        chkEnvios = new javax.swing.JCheckBox();
+        chkSimulacion = new javax.swing.JCheckBox();
+        chkClientes = new javax.swing.JCheckBox();
+        chkReportes = new javax.swing.JCheckBox();
         panelAdministracion = new javax.swing.JPanel();
         chkAdministracion_Tarifas = new javax.swing.JCheckBox();
         chkAdministracion_Vuelos = new javax.swing.JCheckBox();
@@ -159,8 +216,12 @@ public class PerfilEdit extends javax.swing.JDialog {
         chkAdministracion_Aeropuertos_Modificar = new javax.swing.JCheckBox();
         chkAdministracion_Aeropuertos_Buscar = new javax.swing.JCheckBox();
         chkAdministracion_Aeropuertos_CargaMasiva = new javax.swing.JCheckBox();
+        chkAdministracion_TipoCambio_Crear = new javax.swing.JCheckBox();
+        chkAdministracion_TipoCambio_Modificar = new javax.swing.JCheckBox();
+        chkAdministracion_TipoCambio_Buscar = new javax.swing.JCheckBox();
+        chkAdministracion_TipoCambio_CargaMasiva = new javax.swing.JCheckBox();
         panelSeguridad = new javax.swing.JPanel();
-        chkSegurida_Usuarios = new javax.swing.JCheckBox();
+        chkSeguridad_Usuarios = new javax.swing.JCheckBox();
         chkSeguridad_Usuarios_Crear = new javax.swing.JCheckBox();
         chkSeguridad_Usuarios_Modificar = new javax.swing.JCheckBox();
         chkSeguridad_Usuarios_Buscar = new javax.swing.JCheckBox();
@@ -178,19 +239,24 @@ public class PerfilEdit extends javax.swing.JDialog {
         chkEnvios_Modificar = new javax.swing.JCheckBox();
         chkEnvios_Buscar = new javax.swing.JCheckBox();
         chkEnvios_CargaMasiva = new javax.swing.JCheckBox();
-        panelSimulacion = new javax.swing.JPanel();
         panelClientes = new javax.swing.JPanel();
         chkClientes_CargaMasiva = new javax.swing.JCheckBox();
         chkClientes_Buscar = new javax.swing.JCheckBox();
         chkClientes_Modificar = new javax.swing.JCheckBox();
         chkClientes_Crear = new javax.swing.JCheckBox();
         panelReportes = new javax.swing.JPanel();
+        chkReportes_Ventas = new javax.swing.JCheckBox();
+        chkReportes_Envios = new javax.swing.JCheckBox();
+        chkReportes_MovAlmacen = new javax.swing.JCheckBox();
+        chkReportes_LogAuditoria = new javax.swing.JCheckBox();
+        chkReportes_Incidencias = new javax.swing.JCheckBox();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
 
-        jScrollPane2.setViewportView(jTree1);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Flytrack - Seguridad - Perfil");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -204,7 +270,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(231, 231, 231)
+                .addGap(363, 363, 363)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -242,7 +308,7 @@ public class PerfilEdit extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(186, 186, 186)
+                        .addGap(102, 102, 102)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -270,55 +336,251 @@ public class PerfilEdit extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        chkAdministracion.setText("Administración");
+        chkAdministracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracionActionPerformed(evt);
+            }
+        });
+
+        chkSeguridad.setText("Seguridad");
+        chkSeguridad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridadActionPerformed(evt);
+            }
+        });
+
+        chkEnvios.setText("Envíos");
+        chkEnvios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEnviosActionPerformed(evt);
+            }
+        });
+
+        chkSimulacion.setText("Simulación");
+
+        chkClientes.setText("Clientes");
+        chkClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkClientesActionPerformed(evt);
+            }
+        });
+
+        chkReportes.setText("Reportes");
+        chkReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkReportesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
+        panelPrincipal.setLayout(panelPrincipalLayout);
+        panelPrincipalLayout.setHorizontalGroup(
+            panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkReportes)
+                    .addComponent(chkClientes)
+                    .addComponent(chkSimulacion)
+                    .addComponent(chkEnvios)
+                    .addComponent(chkSeguridad)
+                    .addComponent(chkAdministracion))
+                .addContainerGap(519, Short.MAX_VALUE))
+        );
+        panelPrincipalLayout.setVerticalGroup(
+            panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(chkAdministracion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSeguridad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkEnvios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSimulacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkClientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkReportes)
+                .addContainerGap(155, Short.MAX_VALUE))
+        );
+
+        paneles.addTab("Principal", panelPrincipal);
+
+        panelAdministracion.setEnabled(false);
+
         chkAdministracion_Tarifas.setText("Tarifas");
+        chkAdministracion_Tarifas.setEnabled(false);
+        chkAdministracion_Tarifas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_TarifasActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Vuelos.setText("Vuelos");
+        chkAdministracion_Vuelos.setEnabled(false);
+        chkAdministracion_Vuelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_VuelosActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Aeropuertos.setText("Aeropuertos");
+        chkAdministracion_Aeropuertos.setEnabled(false);
+        chkAdministracion_Aeropuertos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_AeropuertosActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_TipoCambio.setText("Tipo de Cambio");
+        chkAdministracion_TipoCambio.setEnabled(false);
+        chkAdministracion_TipoCambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_TipoCambioActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Tarifas_Crear.setText("Crear");
+        chkAdministracion_Tarifas_Crear.setEnabled(false);
+        chkAdministracion_Tarifas_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Tarifas_CrearActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Tarifas_Modificar.setText("Modificar");
+        chkAdministracion_Tarifas_Modificar.setEnabled(false);
+        chkAdministracion_Tarifas_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Tarifas_ModificarActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Tarifas_Buscar.setText("Buscar / Listar");
+        chkAdministracion_Tarifas_Buscar.setEnabled(false);
+        chkAdministracion_Tarifas_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Tarifas_BuscarActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Tarifas_CargaMasiva.setText("Carga Masiva");
+        chkAdministracion_Tarifas_CargaMasiva.setEnabled(false);
+        chkAdministracion_Tarifas_CargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Tarifas_CargaMasivaActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Vuelos_CargaMasiva.setText("Carga Masiva");
+        chkAdministracion_Vuelos_CargaMasiva.setEnabled(false);
+        chkAdministracion_Vuelos_CargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Vuelos_CargaMasivaActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Vuelos_Buscar.setText("Buscar / Listar");
+        chkAdministracion_Vuelos_Buscar.setEnabled(false);
+        chkAdministracion_Vuelos_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Vuelos_BuscarActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Vuelos_Modificar.setText("Modificar");
+        chkAdministracion_Vuelos_Modificar.setEnabled(false);
+        chkAdministracion_Vuelos_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Vuelos_ModificarActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Vuelos_Crear.setText("Crear");
+        chkAdministracion_Vuelos_Crear.setEnabled(false);
+        chkAdministracion_Vuelos_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Vuelos_CrearActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Aeropuertos_Crear.setText("Crear");
+        chkAdministracion_Aeropuertos_Crear.setEnabled(false);
+        chkAdministracion_Aeropuertos_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Aeropuertos_CrearActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Aeropuertos_Modificar.setText("Modificar");
+        chkAdministracion_Aeropuertos_Modificar.setEnabled(false);
+        chkAdministracion_Aeropuertos_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Aeropuertos_ModificarActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Aeropuertos_Buscar.setText("Buscar / Listar");
+        chkAdministracion_Aeropuertos_Buscar.setEnabled(false);
+        chkAdministracion_Aeropuertos_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Aeropuertos_BuscarActionPerformed(evt);
+            }
+        });
 
         chkAdministracion_Aeropuertos_CargaMasiva.setText("Carga Masiva");
+        chkAdministracion_Aeropuertos_CargaMasiva.setEnabled(false);
+        chkAdministracion_Aeropuertos_CargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_Aeropuertos_CargaMasivaActionPerformed(evt);
+            }
+        });
+
+        chkAdministracion_TipoCambio_Crear.setText("Crear");
+        chkAdministracion_TipoCambio_Crear.setEnabled(false);
+        chkAdministracion_TipoCambio_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_TipoCambio_CrearActionPerformed(evt);
+            }
+        });
+
+        chkAdministracion_TipoCambio_Modificar.setText("Modificar");
+        chkAdministracion_TipoCambio_Modificar.setEnabled(false);
+        chkAdministracion_TipoCambio_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_TipoCambio_ModificarActionPerformed(evt);
+            }
+        });
+
+        chkAdministracion_TipoCambio_Buscar.setText("Buscar / Listar");
+        chkAdministracion_TipoCambio_Buscar.setEnabled(false);
+        chkAdministracion_TipoCambio_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_TipoCambio_BuscarActionPerformed(evt);
+            }
+        });
+
+        chkAdministracion_TipoCambio_CargaMasiva.setText("Carga Masiva");
+        chkAdministracion_TipoCambio_CargaMasiva.setEnabled(false);
+        chkAdministracion_TipoCambio_CargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAdministracion_TipoCambio_CargaMasivaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAdministracionLayout = new javax.swing.GroupLayout(panelAdministracion);
         panelAdministracion.setLayout(panelAdministracionLayout);
         panelAdministracionLayout.setHorizontalGroup(
             panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdministracionLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
                 .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkAdministracion_Tarifas)
+                    .addComponent(chkAdministracion_Vuelos)
                     .addGroup(panelAdministracionLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkAdministracion_Tarifas)
-                            .addComponent(chkAdministracion_Vuelos))
-                        .addGap(127, 127, 127)
-                        .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkAdministracion_TipoCambio)
-                            .addComponent(chkAdministracion_Aeropuertos)))
-                    .addGroup(panelAdministracionLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
+                        .addGap(40, 40, 40)
                         .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(chkAdministracion_Vuelos_Modificar)
@@ -329,14 +591,25 @@ public class PerfilEdit extends javax.swing.JDialog {
                                 .addComponent(chkAdministracion_Tarifas_Modificar)
                                 .addComponent(chkAdministracion_Tarifas_Crear)
                                 .addComponent(chkAdministracion_Tarifas_Buscar)
-                                .addComponent(chkAdministracion_Tarifas_CargaMasiva)))
-                        .addGap(76, 76, 76)
+                                .addComponent(chkAdministracion_Tarifas_CargaMasiva)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkAdministracion_TipoCambio)
+                    .addComponent(chkAdministracion_Aeropuertos)
+                    .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkAdministracion_Aeropuertos_Modificar)
-                            .addComponent(chkAdministracion_Aeropuertos_Crear)
-                            .addComponent(chkAdministracion_Aeropuertos_Buscar)
-                            .addComponent(chkAdministracion_Aeropuertos_CargaMasiva))))
-                .addContainerGap(460, Short.MAX_VALUE))
+                            .addComponent(chkAdministracion_TipoCambio_Modificar)
+                            .addComponent(chkAdministracion_TipoCambio_Crear)
+                            .addComponent(chkAdministracion_TipoCambio_Buscar)
+                            .addComponent(chkAdministracion_TipoCambio_CargaMasiva))
+                        .addGroup(panelAdministracionLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chkAdministracion_Aeropuertos_Modificar)
+                                .addComponent(chkAdministracion_Aeropuertos_Crear)
+                                .addComponent(chkAdministracion_Aeropuertos_Buscar)
+                                .addComponent(chkAdministracion_Aeropuertos_CargaMasiva)))))
+                .addGap(125, 125, 125))
         );
         panelAdministracionLayout.setVerticalGroup(
             panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,139 +641,238 @@ public class PerfilEdit extends javax.swing.JDialog {
                     .addComponent(chkAdministracion_Vuelos)
                     .addComponent(chkAdministracion_TipoCambio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkAdministracion_Vuelos_Crear)
-                .addGap(3, 3, 3)
-                .addComponent(chkAdministracion_Vuelos_Modificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkAdministracion_Vuelos_Buscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkAdministracion_Vuelos_CargaMasiva)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdministracionLayout.createSequentialGroup()
+                        .addComponent(chkAdministracion_Vuelos_Crear)
+                        .addGap(3, 3, 3)
+                        .addComponent(chkAdministracion_Vuelos_Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_Vuelos_Buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_Vuelos_CargaMasiva))
+                    .addGroup(panelAdministracionLayout.createSequentialGroup()
+                        .addComponent(chkAdministracion_TipoCambio_Crear)
+                        .addGap(3, 3, 3)
+                        .addComponent(chkAdministracion_TipoCambio_Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_TipoCambio_Buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkAdministracion_TipoCambio_CargaMasiva)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Administracion", panelAdministracion);
+        paneles.addTab("Administracion", panelAdministracion);
 
-        chkSegurida_Usuarios.setText("Usuarios");
+        panelSeguridad.setEnabled(false);
+
+        chkSeguridad_Usuarios.setText("Usuarios");
+        chkSeguridad_Usuarios.setEnabled(false);
+        chkSeguridad_Usuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_UsuariosActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Usuarios_Crear.setText("Crear");
+        chkSeguridad_Usuarios_Crear.setEnabled(false);
+        chkSeguridad_Usuarios_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Usuarios_CrearActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Usuarios_Modificar.setText("Modificar");
+        chkSeguridad_Usuarios_Modificar.setEnabled(false);
+        chkSeguridad_Usuarios_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Usuarios_ModificarActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Usuarios_Buscar.setText("Buscar / Listar");
+        chkSeguridad_Usuarios_Buscar.setEnabled(false);
+        chkSeguridad_Usuarios_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Usuarios_BuscarActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Usuarios_CargaMasiva.setText("Carga Masiva");
+        chkSeguridad_Usuarios_CargaMasiva.setEnabled(false);
+        chkSeguridad_Usuarios_CargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Usuarios_CargaMasivaActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Perfiles.setText("Perfiles");
+        chkSeguridad_Perfiles.setEnabled(false);
+        chkSeguridad_Perfiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_PerfilesActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Perfiles_Crear.setText("Crear");
+        chkSeguridad_Perfiles_Crear.setEnabled(false);
+        chkSeguridad_Perfiles_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Perfiles_CrearActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Perfiles_Modificar.setText("Modificar");
+        chkSeguridad_Perfiles_Modificar.setEnabled(false);
+        chkSeguridad_Perfiles_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Perfiles_ModificarActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Perfiles_CargaMasiva.setText("Carga Masiva");
+        chkSeguridad_Perfiles_CargaMasiva.setEnabled(false);
+        chkSeguridad_Perfiles_CargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Perfiles_CargaMasivaActionPerformed(evt);
+            }
+        });
 
-        chkSeguridad_Parametros.setText("Parametros");
+        chkSeguridad_Parametros.setText("Parámetros");
+        chkSeguridad_Parametros.setEnabled(false);
+        chkSeguridad_Parametros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_ParametrosActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Parametros_Crear.setText("Crear");
+        chkSeguridad_Parametros_Crear.setEnabled(false);
+        chkSeguridad_Parametros_Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Parametros_CrearActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Parametros_Modificar.setText("Modificar");
+        chkSeguridad_Parametros_Modificar.setEnabled(false);
+        chkSeguridad_Parametros_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Parametros_ModificarActionPerformed(evt);
+            }
+        });
 
         chkSeguridad_Parametros_Buscar.setText("Buscar / Listar");
+        chkSeguridad_Parametros_Buscar.setEnabled(false);
+        chkSeguridad_Parametros_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSeguridad_Parametros_BuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSeguridadLayout = new javax.swing.GroupLayout(panelSeguridad);
         panelSeguridad.setLayout(panelSeguridadLayout);
         panelSeguridadLayout.setHorizontalGroup(
             panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSeguridadLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(126, 126, 126)
                 .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkSegurida_Usuarios)
-                    .addComponent(chkSeguridad_Perfiles)
                     .addGroup(panelSeguridadLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelSeguridadLayout.createSequentialGroup()
-                                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkSeguridad_Perfiles_Modificar)
-                                    .addComponent(chkSeguridad_Perfiles_Crear)
-                                    .addComponent(chkSeguridad_Perfiles_CargaMasiva))
-                                .addGap(8, 8, 8))
-                            .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(chkSeguridad_Usuarios_Modificar)
-                                .addComponent(chkSeguridad_Usuarios_Crear)
-                                .addComponent(chkSeguridad_Usuarios_Buscar)
-                                .addComponent(chkSeguridad_Usuarios_CargaMasiva)))))
-                .addGap(105, 105, 105)
-                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkSeguridad_Parametros)
+                        .addComponent(chkSeguridad_Perfiles)
+                        .addContainerGap())
                     .addGroup(panelSeguridadLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
                         .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkSeguridad_Parametros_Modificar)
-                            .addComponent(chkSeguridad_Parametros_Crear)
-                            .addComponent(chkSeguridad_Parametros_Buscar))))
-                .addContainerGap(387, Short.MAX_VALUE))
+                            .addComponent(chkSeguridad_Usuarios)
+                            .addGroup(panelSeguridadLayout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkSeguridad_Usuarios_Modificar)
+                                    .addComponent(chkSeguridad_Usuarios_Crear)
+                                    .addComponent(chkSeguridad_Usuarios_Buscar)
+                                    .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(chkSeguridad_Perfiles_Modificar)
+                                            .addComponent(chkSeguridad_Perfiles_Crear)
+                                            .addComponent(chkSeguridad_Perfiles_CargaMasiva))
+                                        .addComponent(chkSeguridad_Usuarios_CargaMasiva)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                        .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeguridadLayout.createSequentialGroup()
+                                .addComponent(chkSeguridad_Parametros)
+                                .addGap(166, 166, 166))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeguridadLayout.createSequentialGroup()
+                                .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkSeguridad_Parametros_Modificar)
+                                    .addComponent(chkSeguridad_Parametros_Crear)
+                                    .addComponent(chkSeguridad_Parametros_Buscar))
+                                .addGap(110, 110, 110))))))
         );
         panelSeguridadLayout.setVerticalGroup(
             panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSeguridadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkSegurida_Usuarios)
+                    .addComponent(chkSeguridad_Usuarios)
                     .addComponent(chkSeguridad_Parametros))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSeguridadLayout.createSequentialGroup()
                         .addComponent(chkSeguridad_Usuarios_Crear)
-                        .addGap(3, 3, 3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkSeguridad_Usuarios_Modificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkSeguridad_Usuarios_Buscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkSeguridad_Usuarios_CargaMasiva))
+                        .addComponent(chkSeguridad_Usuarios_Buscar))
                     .addGroup(panelSeguridadLayout.createSequentialGroup()
                         .addComponent(chkSeguridad_Parametros_Crear)
-                        .addGap(3, 3, 3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkSeguridad_Parametros_Modificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkSeguridad_Parametros_Buscar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSeguridad_Usuarios_CargaMasiva)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSeguridad_Perfiles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSeguridad_Perfiles_Crear)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSeguridad_Perfiles_Modificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSeguridad_Perfiles_CargaMasiva)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Seguridad", panelSeguridad);
+        paneles.addTab("Seguridad", panelSeguridad);
+
+        panelEnvios.setEnabled(false);
 
         chkEnvios_Crear.setText("Crear");
+        chkEnvios_Crear.setEnabled(false);
 
         chkEnvios_Modificar.setText("Modificar");
+        chkEnvios_Modificar.setEnabled(false);
 
         chkEnvios_Buscar.setText("Buscar / Listar");
+        chkEnvios_Buscar.setEnabled(false);
 
         chkEnvios_CargaMasiva.setText("Carga Masiva");
+        chkEnvios_CargaMasiva.setEnabled(false);
 
         javax.swing.GroupLayout panelEnviosLayout = new javax.swing.GroupLayout(panelEnvios);
         panelEnvios.setLayout(panelEnviosLayout);
         panelEnviosLayout.setHorizontalGroup(
             panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEnviosLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(125, 125, 125)
                 .addGroup(panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chkEnvios_CargaMasiva)
                     .addComponent(chkEnvios_Buscar)
                     .addComponent(chkEnvios_Modificar)
                     .addComponent(chkEnvios_Crear))
-                .addContainerGap(676, Short.MAX_VALUE))
+                .addContainerGap(523, Short.MAX_VALUE))
         );
         panelEnviosLayout.setVerticalGroup(
             panelEnviosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEnviosLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addComponent(chkEnvios_Crear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkEnvios_Modificar)
@@ -508,49 +880,42 @@ public class PerfilEdit extends javax.swing.JDialog {
                 .addComponent(chkEnvios_Buscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkEnvios_CargaMasiva)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Envios", panelEnvios);
+        paneles.addTab("Envios", panelEnvios);
 
-        javax.swing.GroupLayout panelSimulacionLayout = new javax.swing.GroupLayout(panelSimulacion);
-        panelSimulacion.setLayout(panelSimulacionLayout);
-        panelSimulacionLayout.setHorizontalGroup(
-            panelSimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 856, Short.MAX_VALUE)
-        );
-        panelSimulacionLayout.setVerticalGroup(
-            panelSimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Simulacion", panelSimulacion);
+        panelClientes.setEnabled(false);
 
         chkClientes_CargaMasiva.setText("Carga Masiva");
+        chkClientes_CargaMasiva.setEnabled(false);
 
         chkClientes_Buscar.setText("Buscar / Listar");
+        chkClientes_Buscar.setEnabled(false);
 
         chkClientes_Modificar.setText("Modificar");
+        chkClientes_Modificar.setEnabled(false);
 
         chkClientes_Crear.setText("Crear");
+        chkClientes_Crear.setEnabled(false);
 
         javax.swing.GroupLayout panelClientesLayout = new javax.swing.GroupLayout(panelClientes);
         panelClientes.setLayout(panelClientesLayout);
         panelClientesLayout.setHorizontalGroup(
             panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClientesLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(125, 125, 125)
                 .addGroup(panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chkClientes_CargaMasiva)
                     .addComponent(chkClientes_Buscar)
                     .addComponent(chkClientes_Modificar)
                     .addComponent(chkClientes_Crear))
-                .addContainerGap(676, Short.MAX_VALUE))
+                .addContainerGap(523, Short.MAX_VALUE))
         );
         panelClientesLayout.setVerticalGroup(
             panelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClientesLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addComponent(chkClientes_Crear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkClientes_Modificar)
@@ -558,33 +923,71 @@ public class PerfilEdit extends javax.swing.JDialog {
                 .addComponent(chkClientes_Buscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkClientes_CargaMasiva)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Clientes", panelClientes);
+        paneles.addTab("Clientes", panelClientes);
+
+        panelReportes.setEnabled(false);
+
+        chkReportes_Ventas.setText("Ventas");
+        chkReportes_Ventas.setEnabled(false);
+
+        chkReportes_Envios.setText("Envíos");
+        chkReportes_Envios.setEnabled(false);
+
+        chkReportes_MovAlmacen.setText("Movimientos de Almacen");
+        chkReportes_MovAlmacen.setEnabled(false);
+
+        chkReportes_LogAuditoria.setText("Logs de Auditoría");
+        chkReportes_LogAuditoria.setEnabled(false);
+
+        chkReportes_Incidencias.setText("Incidencias");
+        chkReportes_Incidencias.setEnabled(false);
 
         javax.swing.GroupLayout panelReportesLayout = new javax.swing.GroupLayout(panelReportes);
         panelReportes.setLayout(panelReportesLayout);
         panelReportesLayout.setHorizontalGroup(
             panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 856, Short.MAX_VALUE)
+            .addGroup(panelReportesLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkReportes_Incidencias)
+                    .addComponent(chkReportes_LogAuditoria)
+                    .addComponent(chkReportes_MovAlmacen)
+                    .addComponent(chkReportes_Envios)
+                    .addComponent(chkReportes_Ventas))
+                .addContainerGap(449, Short.MAX_VALUE))
         );
         panelReportesLayout.setVerticalGroup(
             panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+            .addGroup(panelReportesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(chkReportes_Ventas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkReportes_Envios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkReportes_MovAlmacen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkReportes_LogAuditoria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkReportes_Incidencias)
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Reportes", panelReportes);
+        paneles.addTab("Reportes", panelReportes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(paneles, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(paneles, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         btnCancelar.setText("Cancelar");
@@ -628,7 +1031,7 @@ public class PerfilEdit extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -638,32 +1041,89 @@ public class PerfilEdit extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void llenarcomboEstado(){
-         ListaEstado=ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
-    
-        for (Parametro p : ListaEstado)
-        //for (int i=0;i<ListaEstado.size();i++)
-        {
-    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
-            
-            cboEstado.addItem(p);
-        }
+    private void configurarAdministracion(boolean estado){
+        this.panelAdministracion.setEnabled(estado);
+        this.chkAdministracion_Tarifas.setEnabled(estado);
+        this.chkAdministracion_Tarifas_Buscar.setEnabled(estado);
+        this.chkAdministracion_Tarifas_Crear.setEnabled(estado);
+        this.chkAdministracion_Tarifas_CargaMasiva.setEnabled(estado);
+        this.chkAdministracion_Tarifas_Modificar.setEnabled(estado);
+        this.chkAdministracion_TipoCambio.setEnabled(estado);
+        this.chkAdministracion_TipoCambio_Buscar.setEnabled(estado);
+        this.chkAdministracion_TipoCambio_CargaMasiva.setEnabled(estado);
+        this.chkAdministracion_TipoCambio_Crear.setEnabled(estado);
+        this.chkAdministracion_TipoCambio_Modificar.setEnabled(estado);
+        this.chkAdministracion_Aeropuertos.setEnabled(estado);
+        this.chkAdministracion_Aeropuertos_Crear.setEnabled(estado);
+        this.chkAdministracion_Aeropuertos_Modificar.setEnabled(estado);
+        this.chkAdministracion_Aeropuertos_Buscar.setEnabled(estado);
+        this.chkAdministracion_Aeropuertos_CargaMasiva.setEnabled(estado);
+        this.chkAdministracion_Vuelos.setEnabled(estado);
+        this.chkAdministracion_Vuelos_Buscar.setEnabled(estado);
+        this.chkAdministracion_Vuelos_CargaMasiva.setEnabled(estado);
+        this.chkAdministracion_Vuelos_Crear.setEnabled(estado);
+        this.chkAdministracion_Vuelos_Modificar.setEnabled(estado);
     }
     
+    private void configurarSeguridad(boolean estado){
+        this.panelSeguridad.setEnabled(estado);
+        this.chkSeguridad_Usuarios.setEnabled(estado);
+        this.chkSeguridad_Usuarios_Buscar.setEnabled(estado);
+        this.chkSeguridad_Usuarios_CargaMasiva.setEnabled(estado);
+        this.chkSeguridad_Usuarios_Crear.setEnabled(estado);
+        this.chkSeguridad_Usuarios_Modificar.setEnabled(estado);
+        this.chkSeguridad_Perfiles.setEnabled(estado);
+        this.chkSeguridad_Perfiles_CargaMasiva.setEnabled(estado);
+        this.chkSeguridad_Perfiles_Crear.setEnabled(estado);
+        this.chkSeguridad_Perfiles_Modificar.setEnabled(estado);
+        this.chkSeguridad_Parametros.setEnabled(estado);
+        this.chkSeguridad_Parametros_Buscar.setEnabled(estado);
+        this.chkSeguridad_Parametros_Crear.setEnabled(estado);
+        this.chkSeguridad_Parametros_Modificar.setEnabled(estado);
+    }
+    
+    private void configurarEnvios(boolean estado){
+        this.panelEnvios.setEnabled(estado);
+        this.chkEnvios.setEnabled(estado);
+        this.chkEnvios_Buscar.setEnabled(estado);
+        this.chkEnvios_CargaMasiva.setEnabled(estado);
+        this.chkEnvios_Crear.setEnabled(estado);
+        this.chkEnvios_Modificar.setEnabled(estado);        
+    }
+    
+    private void configurarClientes(boolean estado){
+        this.panelClientes.setEnabled(estado);
+        this.chkClientes.setEnabled(estado);
+        this.chkClientes_Buscar.setEnabled(estado);
+        this.chkClientes_CargaMasiva.setEnabled(estado);
+        this.chkClientes_Crear.setEnabled(estado);
+        this.chkClientes_Modificar.setEnabled(estado);
+    }
+    
+    private void configurarReportes(boolean estado){
+        this.panelReportes.setEnabled(estado);
+        this.chkReportes.setEnabled(estado);
+        this.chkReportes_Envios.setEnabled(estado);
+        this.chkReportes_Incidencias.setEnabled(estado);
+        this.chkReportes_LogAuditoria.setEnabled(estado);
+        this.chkReportes_MovAlmacen.setEnabled(estado);
+        this.chkReportes_Ventas.setEnabled(estado);
+    }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        CPerfil cperfil = new CPerfil();
-        String error_message = cperfil.validar(idperfil, isNuevo, this.txtNombre.getText(), this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        String error_message = null;
+        
+        if(idperfil == -1){
+            error_message = CPerfil.validar(idperfil, txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        }
         
         if (error_message == null || error_message.isEmpty()) {
-            if (idperfil==-1){
+            if (idperfil == -1){
                 Perfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
             }
 
             else{
-                Perfil PerfilBE=Perfil.BuscarXid(idperfil);    
-                // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
                 Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
             }
             this.setVisible(false);
@@ -676,8 +1136,445 @@ public class PerfilEdit extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-                this.setVisible (false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void chkAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracionActionPerformed
+        // TODO add your handling code here:
+        configurarAdministracion(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkAdministracionActionPerformed
+
+    private void chkSeguridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridadActionPerformed
+        // TODO add your handling code here:
+        configurarSeguridad(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkSeguridadActionPerformed
+
+    private void chkEnviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnviosActionPerformed
+        // TODO add your handling code here:
+        configurarEnvios(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkEnviosActionPerformed
+
+    private void chkClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClientesActionPerformed
+        // TODO add your handling code here:
+        configurarClientes(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkClientesActionPerformed
+
+    private void chkReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkReportesActionPerformed
+        // TODO add your handling code here:
+        configurarReportes(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkReportesActionPerformed
+
+    private void chkAdministracion_TarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_TarifasActionPerformed
+        // TODO add your handling code here:
+        chkAdministracion_Tarifas_Buscar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Tarifas_CargaMasiva.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Tarifas_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Tarifas_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkAdministracion_TarifasActionPerformed
+
+    private void chkAdministracion_VuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_VuelosActionPerformed
+        // TODO add your handling code here:
+        chkAdministracion_Vuelos_Buscar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Vuelos_CargaMasiva.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Vuelos_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Vuelos_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkAdministracion_VuelosActionPerformed
+
+    private void chkAdministracion_AeropuertosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_AeropuertosActionPerformed
+        // TODO add your handling code here:
+        chkAdministracion_Aeropuertos_Buscar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Aeropuertos_CargaMasiva.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Aeropuertos_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_Aeropuertos_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkAdministracion_AeropuertosActionPerformed
+
+    private void chkAdministracion_TipoCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_TipoCambioActionPerformed
+        // TODO add your handling code here:
+        chkAdministracion_TipoCambio_Buscar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_TipoCambio_CargaMasiva.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_TipoCambio_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkAdministracion_TipoCambio_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkAdministracion_TipoCambioActionPerformed
+
+    private void chkAdministracion_Tarifas_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Tarifas_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+            this.chkAdministracion_Tarifas.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Tarifas_Buscar.isSelected() &&
+                !this.chkAdministracion_Tarifas_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Tarifas_Modificar.isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Tarifas_CrearActionPerformed
+
+    private void chkAdministracion_Tarifas_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Tarifas_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Tarifas_Crear.isSelected() &&
+                !this.chkAdministracion_Tarifas_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Tarifas_Buscar.isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Tarifas_ModificarActionPerformed
+
+    private void chkAdministracion_Tarifas_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Tarifas_BuscarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Tarifas_Crear.isSelected() &&
+                !this.chkAdministracion_Tarifas_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Tarifas_Modificar.isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Tarifas_BuscarActionPerformed
+
+    private void chkAdministracion_Tarifas_CargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Tarifas_CargaMasivaActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Tarifas_Buscar.isSelected() &&
+                !this.chkAdministracion_Tarifas_Crear.isSelected() &&
+                !this.chkAdministracion_Tarifas_Modificar.isSelected()){
+                this.chkAdministracion_Tarifas.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Tarifas_CargaMasivaActionPerformed
+
+    private void chkAdministracion_Vuelos_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Vuelos_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Vuelos_Buscar.isSelected() &&
+                !this.chkAdministracion_Vuelos_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Vuelos_Modificar.isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Vuelos_CrearActionPerformed
+
+    private void chkAdministracion_Vuelos_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Vuelos_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Vuelos_Buscar.isSelected() &&
+                !this.chkAdministracion_Vuelos_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Vuelos_Crear.isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Vuelos_ModificarActionPerformed
+
+    private void chkAdministracion_Vuelos_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Vuelos_BuscarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Vuelos_Crear.isSelected() &&
+                !this.chkAdministracion_Vuelos_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Vuelos_Modificar.isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Vuelos_BuscarActionPerformed
+
+    private void chkAdministracion_Vuelos_CargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Vuelos_CargaMasivaActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Vuelos_Buscar.isSelected() &&
+                !this.chkAdministracion_Vuelos_Crear.isSelected() &&
+                !this.chkAdministracion_Vuelos_Modificar.isSelected()){
+                this.chkAdministracion_Vuelos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Vuelos_CargaMasivaActionPerformed
+
+    private void chkAdministracion_Aeropuertos_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Aeropuertos_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Aeropuertos_Buscar.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_Modificar.isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Aeropuertos_CrearActionPerformed
+
+    private void chkAdministracion_Aeropuertos_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Aeropuertos_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Aeropuertos_Buscar.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_Crear.isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Aeropuertos_ModificarActionPerformed
+
+    private void chkAdministracion_Aeropuertos_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Aeropuertos_BuscarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Aeropuertos_Modificar.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_Crear.isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Aeropuertos_BuscarActionPerformed
+
+    private void chkAdministracion_Aeropuertos_CargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_Aeropuertos_CargaMasivaActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_Aeropuertos_Buscar.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_Modificar.isSelected() &&
+                !this.chkAdministracion_Aeropuertos_Crear.isSelected()){
+                this.chkAdministracion_Aeropuertos.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_Aeropuertos_CargaMasivaActionPerformed
+
+    private void chkAdministracion_TipoCambio_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_TipoCambio_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_TipoCambio_Buscar.isSelected() &&
+                !this.chkAdministracion_TipoCambio_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_TipoCambio_Modificar.isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_TipoCambio_CrearActionPerformed
+
+    private void chkAdministracion_TipoCambio_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_TipoCambio_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_TipoCambio_Buscar.isSelected() &&
+                !this.chkAdministracion_TipoCambio_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_TipoCambio_Crear.isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_TipoCambio_ModificarActionPerformed
+
+    private void chkAdministracion_TipoCambio_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_TipoCambio_BuscarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_TipoCambio_Crear.isSelected() &&
+                !this.chkAdministracion_TipoCambio_CargaMasiva.isSelected() &&
+                !this.chkAdministracion_TipoCambio_Modificar.isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_TipoCambio_BuscarActionPerformed
+
+    private void chkAdministracion_TipoCambio_CargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracion_TipoCambio_CargaMasivaActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkAdministracion_TipoCambio_Buscar.isSelected() &&
+                !this.chkAdministracion_TipoCambio_Crear.isSelected() &&
+                !this.chkAdministracion_TipoCambio_Modificar.isSelected()){
+                this.chkAdministracion_TipoCambio.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkAdministracion_TipoCambio_CargaMasivaActionPerformed
+
+    private void chkSeguridad_UsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_UsuariosActionPerformed
+        // TODO add your handling code here:
+        chkSeguridad_Usuarios_Buscar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Usuarios_CargaMasiva.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Usuarios_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Usuarios_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkSeguridad_UsuariosActionPerformed
+
+    private void chkSeguridad_PerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_PerfilesActionPerformed
+        // TODO add your handling code here:
+        chkSeguridad_Perfiles_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Perfiles_CargaMasiva.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Perfiles_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkSeguridad_PerfilesActionPerformed
+
+    private void chkSeguridad_ParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_ParametrosActionPerformed
+        // TODO add your handling code here:
+        chkSeguridad_Parametros_Crear.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Parametros_Buscar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+        chkSeguridad_Parametros_Modificar.setSelected(((JCheckBox)evt.getSource()).isSelected());
+    }//GEN-LAST:event_chkSeguridad_ParametrosActionPerformed
+
+    private void chkSeguridad_Usuarios_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Usuarios_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Usuarios_Buscar.isSelected() &&
+                !this.chkSeguridad_Usuarios_Modificar.isSelected() &&
+                !this.chkSeguridad_Usuarios_CargaMasiva.isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Usuarios_CrearActionPerformed
+
+    private void chkSeguridad_Usuarios_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Usuarios_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Usuarios_Buscar.isSelected() &&
+                !this.chkSeguridad_Usuarios_Crear.isSelected() &&
+                !this.chkSeguridad_Usuarios_CargaMasiva.isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Usuarios_ModificarActionPerformed
+
+    private void chkSeguridad_Usuarios_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Usuarios_BuscarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Usuarios_Crear.isSelected() &&
+                !this.chkSeguridad_Usuarios_Modificar.isSelected() &&
+                !this.chkSeguridad_Usuarios_CargaMasiva.isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Usuarios_BuscarActionPerformed
+
+    private void chkSeguridad_Usuarios_CargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Usuarios_CargaMasivaActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Usuarios_Buscar.isSelected() &&
+                !this.chkSeguridad_Usuarios_Modificar.isSelected() &&
+                !this.chkSeguridad_Usuarios_Crear.isSelected()){
+                this.chkSeguridad_Usuarios.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Usuarios_CargaMasivaActionPerformed
+
+    private void chkSeguridad_Perfiles_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Perfiles_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Perfiles.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Perfiles_Modificar.isSelected() &&
+                !this.chkSeguridad_Perfiles_CargaMasiva.isSelected()){
+                this.chkSeguridad_Perfiles.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Perfiles_CrearActionPerformed
+
+    private void chkSeguridad_Perfiles_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Perfiles_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Perfiles.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Perfiles_Crear.isSelected() &&
+                !this.chkSeguridad_Perfiles_CargaMasiva.isSelected()){
+                this.chkSeguridad_Perfiles.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Perfiles_ModificarActionPerformed
+
+    private void chkSeguridad_Perfiles_CargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Perfiles_CargaMasivaActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Perfiles.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Perfiles_Modificar.isSelected() &&
+                !this.chkSeguridad_Perfiles_Crear.isSelected()){
+                this.chkSeguridad_Perfiles.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Perfiles_CargaMasivaActionPerformed
+
+    private void chkSeguridad_Parametros_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Parametros_CrearActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Parametros.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Parametros_Buscar.isSelected() &&
+                !this.chkSeguridad_Parametros_Modificar.isSelected()){
+                this.chkSeguridad_Parametros.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Parametros_CrearActionPerformed
+
+    private void chkSeguridad_Parametros_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Parametros_ModificarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Parametros.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Parametros_Buscar.isSelected() &&
+                !this.chkSeguridad_Parametros_Crear.isSelected()){
+                this.chkSeguridad_Parametros.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Parametros_ModificarActionPerformed
+
+    private void chkSeguridad_Parametros_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSeguridad_Parametros_BuscarActionPerformed
+        // TODO add your handling code here:
+        if(((JCheckBox)evt.getSource()).isSelected()){
+                this.chkSeguridad_Parametros.setSelected(Boolean.TRUE);
+        }
+        else{
+            if( !this.chkSeguridad_Parametros_Crear.isSelected() &&
+                !this.chkSeguridad_Parametros_Modificar.isSelected()){
+                this.chkSeguridad_Parametros.setSelected(Boolean.FALSE);
+            }
+        }
+    }//GEN-LAST:event_chkSeguridad_Parametros_BuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -724,6 +1621,7 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cboEstado;
+    private javax.swing.JCheckBox chkAdministracion;
     private javax.swing.JCheckBox chkAdministracion_Aeropuertos;
     private javax.swing.JCheckBox chkAdministracion_Aeropuertos_Buscar;
     private javax.swing.JCheckBox chkAdministracion_Aeropuertos_CargaMasiva;
@@ -735,20 +1633,32 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkAdministracion_Tarifas_Crear;
     private javax.swing.JCheckBox chkAdministracion_Tarifas_Modificar;
     private javax.swing.JCheckBox chkAdministracion_TipoCambio;
+    private javax.swing.JCheckBox chkAdministracion_TipoCambio_Buscar;
+    private javax.swing.JCheckBox chkAdministracion_TipoCambio_CargaMasiva;
+    private javax.swing.JCheckBox chkAdministracion_TipoCambio_Crear;
+    private javax.swing.JCheckBox chkAdministracion_TipoCambio_Modificar;
     private javax.swing.JCheckBox chkAdministracion_Vuelos;
     private javax.swing.JCheckBox chkAdministracion_Vuelos_Buscar;
     private javax.swing.JCheckBox chkAdministracion_Vuelos_CargaMasiva;
     private javax.swing.JCheckBox chkAdministracion_Vuelos_Crear;
     private javax.swing.JCheckBox chkAdministracion_Vuelos_Modificar;
+    private javax.swing.JCheckBox chkClientes;
     private javax.swing.JCheckBox chkClientes_Buscar;
     private javax.swing.JCheckBox chkClientes_CargaMasiva;
     private javax.swing.JCheckBox chkClientes_Crear;
     private javax.swing.JCheckBox chkClientes_Modificar;
+    private javax.swing.JCheckBox chkEnvios;
     private javax.swing.JCheckBox chkEnvios_Buscar;
     private javax.swing.JCheckBox chkEnvios_CargaMasiva;
     private javax.swing.JCheckBox chkEnvios_Crear;
     private javax.swing.JCheckBox chkEnvios_Modificar;
-    private javax.swing.JCheckBox chkSegurida_Usuarios;
+    private javax.swing.JCheckBox chkReportes;
+    private javax.swing.JCheckBox chkReportes_Envios;
+    private javax.swing.JCheckBox chkReportes_Incidencias;
+    private javax.swing.JCheckBox chkReportes_LogAuditoria;
+    private javax.swing.JCheckBox chkReportes_MovAlmacen;
+    private javax.swing.JCheckBox chkReportes_Ventas;
+    private javax.swing.JCheckBox chkSeguridad;
     private javax.swing.JCheckBox chkSeguridad_Parametros;
     private javax.swing.JCheckBox chkSeguridad_Parametros_Buscar;
     private javax.swing.JCheckBox chkSeguridad_Parametros_Crear;
@@ -757,10 +1667,12 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JCheckBox chkSeguridad_Perfiles_CargaMasiva;
     private javax.swing.JCheckBox chkSeguridad_Perfiles_Crear;
     private javax.swing.JCheckBox chkSeguridad_Perfiles_Modificar;
+    private javax.swing.JCheckBox chkSeguridad_Usuarios;
     private javax.swing.JCheckBox chkSeguridad_Usuarios_Buscar;
     private javax.swing.JCheckBox chkSeguridad_Usuarios_CargaMasiva;
     private javax.swing.JCheckBox chkSeguridad_Usuarios_Crear;
     private javax.swing.JCheckBox chkSeguridad_Usuarios_Modificar;
+    private javax.swing.JCheckBox chkSimulacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -769,15 +1681,13 @@ public class PerfilEdit extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTree jTree1;
     private javax.swing.JPanel panelAdministracion;
     private javax.swing.JPanel panelClientes;
     private javax.swing.JPanel panelEnvios;
+    private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelReportes;
     private javax.swing.JPanel panelSeguridad;
-    private javax.swing.JPanel panelSimulacion;
+    private javax.swing.JTabbedPane paneles;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

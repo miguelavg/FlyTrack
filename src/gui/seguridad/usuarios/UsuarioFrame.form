@@ -202,9 +202,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAeropuerto">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Jorge Ch&#xe1;vez, Lima"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscarAeropuerto">
           <Properties>

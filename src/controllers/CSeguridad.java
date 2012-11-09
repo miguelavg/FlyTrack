@@ -26,8 +26,8 @@ public class CSeguridad {
     
     public static Usuario verificarContrasenia(String user, char[] pass){
 
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+//        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = Sesion.openSessionFactory();
         
         try{
             
@@ -60,6 +60,7 @@ public class CSeguridad {
         finally {
             System.out.println("CSeguridad.verificarContrasenia - INFO: Transaccion Terminada");
             s.close();
+            Sesion.closeSessionFactory();
         }
         return null;
     }
@@ -148,5 +149,9 @@ public class CSeguridad {
             if(verificarNivel && verificarAccion && verificarAccionPadre) return Boolean.TRUE;
         }
         return Boolean.FALSE;
+    }
+    
+    public static char[] generaContraseniaAleatoria(){
+        return new char[]{'f','l','y','t','r','a','c','k'};
     }
 }

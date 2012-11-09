@@ -140,8 +140,7 @@
                                           <Component id="btn_guardar" min="-2" pref="120" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="txt_origen" min="-2" pref="185" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Component id="btn_origen" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -155,7 +154,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel8" min="-2" pref="120" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="montoEnvioText" min="-2" pref="185" max="-2" attributes="0"/>
+                                              <Component id="txt_unitario" min="-2" pref="185" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="1" attributes="0">
@@ -169,7 +168,7 @@
                                                   <Component id="cmb_moneda" min="-2" pref="185" max="-2" attributes="0"/>
                                                   <Component id="txt_iva" min="-2" pref="185" max="-2" attributes="0"/>
                                                   <Component id="fechaRecojoEnvioText" min="-2" pref="185" max="-2" attributes="0"/>
-                                                  <Component id="totalEnvioText" min="-2" pref="185" max="-2" attributes="0"/>
+                                                  <Component id="txt_total" min="-2" pref="185" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -202,7 +201,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="cmb_doc" min="-2" pref="185" max="-2" attributes="0"/>
-                                      <Component id="fechaRegistroEnvioText" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                      <Component id="txt_fechaReg" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -292,7 +291,6 @@
                           <Component id="txt_destino" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="btn_origen" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_destino" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -300,7 +298,7 @@
                       <Component id="jLabel6" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="montoEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txt_unitario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <Component id="txt_actual" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -331,12 +329,12 @@
                       <Component id="numDocPagoEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel17" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="totalEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txt_total" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel15" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="fechaRegistroEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txt_fechaReg" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel16" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="fechaRecojoEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -446,13 +444,13 @@
             <Property name="text" type="java.lang.String" value="Monto Unitario:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="montoEnvioText">
+        <Component class="javax.swing.JTextField" name="txt_unitario">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="montoEnvioTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_unitarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_in">
@@ -490,9 +488,7 @@
         <Component class="javax.swing.JComboBox" name="cmb_doc">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Seleccionar"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
@@ -549,15 +545,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_numPaquetesActionPerformed"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_numPaquetesFocusLost"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_numPaquetesKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmb_moneda">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Seleccionar"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
@@ -606,13 +601,13 @@
             <Property name="text" type="java.lang.String" value="Fecha Registro"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fechaRegistroEnvioText">
+        <Component class="javax.swing.JTextField" name="txt_fechaReg">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fechaRegistroEnvioTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_fechaRegActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="fechaRecojoEnvioText">
@@ -647,28 +642,18 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_destinoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_origen">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/buscar.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_origenActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
             <Property name="text" type="java.lang.String" value="Total"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="totalEnvioText">
+        <Component class="javax.swing.JTextField" name="txt_total">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="totalEnvioTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_totalActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">

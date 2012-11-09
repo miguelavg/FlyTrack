@@ -9,6 +9,7 @@ import beans.Sesion;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JTextField;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,7 +46,90 @@ public class CValidator {
             return false;
         }
     }
+    public static boolean esNumero( char input) {
+        
+            if (!Character.isDigit(input) || input==' ' ){
+                return false;
+            }
+                  
+            return true;
+        
+    }
+    
+    public static boolean esLetraOEspacio( char input) {
+        
+            if (Character.isLetter(input) || input==' ' ){
+                return true;
+            }
+                  
+            return false;
+        
+    }
+    
+    public static boolean validarSoloLetras( char input , JTextField caja){
+        if (input!=8){
+            if (!Character.isLetter(input)){
+//                
+                String texto="";
+                for (int i=0; i< caja.getText().length();i++){
 
+                    if (Character.isLetter(caja.getText().charAt(i)))
+                    {
+                        texto +=caja.getText().charAt(i);
+                    }
+
+                }
+                caja.setText(texto);
+                return false;
+            }
+            
+        }
+        return true;
+    }
+    
+    public static boolean validarSoloLetrasYEspacio( char input , JTextField caja){
+        if (input!=8){
+            if (!Character.isLetter(input)|| input!=' '){
+//                
+                String texto="";
+                for (int i=0; i< caja.getText().length();i++){
+
+                    if (Character.isLetter(caja.getText().charAt(i))|| input==' ' )
+                    {
+                        texto +=caja.getText().charAt(i);
+                    }
+
+                }
+                caja.setText(texto);
+                return false;
+            }
+            
+        }
+        return true;
+    }
+    
+    public static boolean validarSoloNumeros( char input , JTextField caja){
+        
+        if (input!=8){
+            if (!CValidator.esNumero((input))){
+//                
+                String texto="";
+                for (int i=0; i< caja.getText().length();i++){
+
+                    if (CValidator.esNumero(caja.getText().charAt(i)))
+                    {
+                        texto +=caja.getText().charAt(i);
+                    }
+
+                }
+                caja.setText(texto);
+                return false;
+            }
+            
+        }
+        return true;
+    }
+    
     public static boolean isDouble(String input) {
         try {
             Double.parseDouble(input);
@@ -90,7 +174,7 @@ public class CValidator {
         String formattedNumber = "";
 
         try {
-            DecimalFormat format = new DecimalFormat("#,###,###,##0.00");
+            DecimalFormat format = new DecimalFormat("0.00");
             formattedNumber = format.format(number);
         } catch (Exception e) {
             System.out.println(e.getMessage());

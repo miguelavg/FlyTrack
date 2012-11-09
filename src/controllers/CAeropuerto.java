@@ -90,10 +90,7 @@ public class CAeropuerto {
         try {
             Transaction tx = s.beginTransaction();
             Query q;
-//            Parametro pTipoDoc;            
-//            Parametro pCiudad;            
-//            Parametro pPais;
-            
+
  
             Aeropuerto objAeropuerto = new Aeropuerto();
                
@@ -120,6 +117,32 @@ public class CAeropuerto {
         }
     }
     
+    public static void cargarAeropuerto(
+              
+                Aeropuerto a){
+               
+               
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+           
+            int i = (Integer)s.save(a);
+            
+            tx.commit();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            s.close();
+        }
+    }
 //    public void agregarAeropuerto() {
 //        SessionFactory sf = Sesion.getSessionFactory();
 //        Session s = sf.openSession();
