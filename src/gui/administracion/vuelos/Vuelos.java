@@ -416,22 +416,30 @@ public class Vuelos extends javax.swing.JDialog {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
        
-       if (this.tbl_vuelos.getSelectedRow() != -1 ) {  
-            VuelosAgregar vVuelAgre = new VuelosAgregar(this,listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);
+      
+            VuelosAgregar vVuelAgre = new VuelosAgregar(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);
+    
+            vVuelAgre.setVisible(true);
+            vVuelAgre.setModal(true);
+            llenarGrillaVuelo();
+      
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+         if (this.tbl_vuelos.getSelectedRow() != -1 ) {  
+            VuelosAgregar vVuelAgre = new VuelosAgregar(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()), -1);
     
             vVuelAgre.setVisible(true);
        
             llenarGrillaVuelo();
         }
         else {
-          JOptionPane.showMessageDialog(null, "Debes seleccionar un Aeropuerto",
+          JOptionPane.showMessageDialog(null, "Debes seleccionar un Vuelo",
             "Advertencia", 1);
         
         }
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
