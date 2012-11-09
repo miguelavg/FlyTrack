@@ -15,8 +15,10 @@ import controllers.CSeguridad;
 import controllers.CVuelo;
 import gui.administracion.aeropuertos.AeropuertoCarga;
 import gui.administracion.aeropuertos.AeropuertoPopup;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -29,7 +31,7 @@ public class Vuelos extends javax.swing.JDialog {
     private Aeropuerto aeropuertoOrigen;
     private List<Parametro> ListatipoEst;
    // private List<Vuelo> listaVuelos;
-    
+    List<Vuelo> listaVuelos =null;
     private Calendar fechini, fechfin;
     private Parametro a_origen, a_destino;
 
@@ -103,7 +105,7 @@ public class Vuelos extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txt_origen.setText("Jorge Chávez, Lima");
+        txt_origen.setToolTipText("");
         txt_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_origenActionPerformed(evt);
@@ -126,7 +128,6 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
-        txt_destino.setText("John F. Kennedy, NY");
         txt_destino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_destinoActionPerformed(evt);
@@ -156,13 +157,20 @@ public class Vuelos extends javax.swing.JDialog {
         });
 
         dt_fechini.setNothingAllowed(false);
+        dt_fechini.setFormat(2);
         try {
             dt_fechini.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
             e1.printStackTrace();
         }
+        dt_fechini.setLocale(new java.util.Locale("es", "PE", ""));
 
         dt_fechfin.setNothingAllowed(false);
+        try {
+            dt_fechfin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -345,7 +353,7 @@ public class Vuelos extends javax.swing.JDialog {
         AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
         aeropuertoDestino = aeropuertoPU.showDialog();
         if (aeropuertoDestino != null) {
-        txt_destino.setText(aeropuertoDestino.getNombre());
+            txt_destino.setText(aeropuertoDestino.getNombre());
             
         }
     }//GEN-LAST:event_btn_origenDestActionPerformed
@@ -378,13 +386,17 @@ public class Vuelos extends javax.swing.JDialog {
         
         
           TipoDoc=(Parametro)cbm_estado.getSelectedItem();
-//          fechini =  dt_fechini.getSelectedDate();
-//          fechfin =  dt_fechfin.getSelectedDate();
+      
+          fechini =  dt_fechini.getSelectedDate();
+          fechfin =  dt_fechfin.getSelectedDate();
   
-          List<Vuelo> listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
+          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
                   
-                  
-        
+          llenarGrillaVuelo();
+
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
+    public void llenarGrillaVuelo(){
         
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_vuelos.getModel();
         int rows=dtm.getRowCount();
@@ -399,23 +411,34 @@ public class Vuelos extends javax.swing.JDialog {
        for (int i = 0; i < listaVuelos.size(); i++) {
            
            datos[0] = listaVuelos.get(i).getIdVuelo();
-           datos[1] = listaVuelos.get(i).getOrigen();
-           datos[2] = listaVuelos.get(i).getDestino();
+           datos[1] = listaVuelos.get(i).getOrigen().getNombre();
+           datos[2] = listaVuelos.get(i).getDestino().getNombre();
            datos[3] = listaVuelos.get(i).getFechaSalida();
            datos[4] = listaVuelos.get(i).getFechaLlegada();           
            datos[5] = listaVuelos.get(i).getEstado();
            datos[6] = listaVuelos.get(i).getCapacidadActual();           
            
            dtm.addRow(datos);
-       }
-
-    }//GEN-LAST:event_btn_buscarActionPerformed
-
+    
+    }
+       
+   }
+    
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        VuelosAgregar vVuelAgre = new VuelosAgregar(this);
+       
+       if (this.tbl_vuelos.getSelectedRow() != -1 ) {  
+            VuelosAgregar vVuelAgre = new VuelosAgregar(this,listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);
     
-        vVuelAgre.setVisible(true);
+            vVuelAgre.setVisible(true);
+       
+            llenarGrillaVuelo();
+        }
+        else {
+          JOptionPane.showMessageDialog(null, "Debes seleccionar un Aeropuerto",
+            "Advertencia", 1);
+        
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

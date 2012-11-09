@@ -4,8 +4,15 @@
  */
 package gui.administracion.vuelos;
 
+import beans.Aeropuerto;
+import beans.Parametro;
+import beans.Vuelo;
+import controllers.CVuelo;
+import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Component;
 import java.awt.Window;
+import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,21 +22,67 @@ import javax.swing.JOptionPane;
 public class VuelosAgregar extends javax.swing.JFrame {
     private final Component padre;
     private VuelosAgregar vVuelo = null;
+    private List<Parametro> ListatipoEst;
+    private int indicador = 0;
+    private Vuelo objVueloo = null; 
+    private Aeropuerto aeropuertoOrigen = null;
+    private Aeropuerto aeropuertoDestino = null;
     /**
      * Creates new form VuelosModificar
      */
     
     
-    public VuelosAgregar(Component parent) {
+    public VuelosAgregar(Component parent, Vuelo objVuelo,int i) {
       
             padre=parent;            
             padre.setEnabled(false); 
             ((Window)padre).setFocusableWindowState(false);         
             initComponents();
-            this.setLocationRelativeTo(null);            
- 
+            llenarComboEstado();
+            this.setLocationRelativeTo(null); 
+            indicador = i;
+            if (i != -1) {
+             cargar_componentes(objVuelo);
+            }
+            objVueloo = objVuelo; 
+            
       
     }
+    
+      private void llenarComboEstado(){
+      
+        
+          ListatipoEst = CVuelo.llenarComboEstado();
+            for (int i=0;i<ListatipoEst.size();i++)
+                {
+                    Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
+
+                    cbm_estado.addItem(TipoDocBE);
+                }
+            }
+    
+    public void cargar_componentes(Vuelo objVuelo){
+        txt_codigo.setText(String.valueOf(objVuelo.getIdVuelo()));
+        txt_origen.setText(objVuelo.getOrigen().getNombre());
+        txt_destino.setText(objVuelo.getOrigen().getNombre());
+        txt_capacidad.setText(String.valueOf(objVuelo.getCapacidadActual()));
+        Calendar cal1 = null;
+        Calendar cal2 = null;
+        cal1.setTime(objVuelo.getFechaLlegada());
+        dt_fechLlega.setSelectedDate(cal1);
+        
+        cal2.setTime(objVuelo.getFechaLlegada());
+        dt_fechLlega.setSelectedDate(cal2);
+        
+       for (int k=0 ; k<ListatipoEst.size(); k ++){
+        if (objVuelo.getEstado().getValor().compareTo(ListatipoEst.get(k).getValor())==0)  {
+            cbm_estado.setSelectedIndex(k);
+            break;
+        }
+     }
+        
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,17 +101,19 @@ public class VuelosAgregar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        btn_guardar = new javax.swing.JButton();
+        btn_cancelar = new javax.swing.JButton();
+        txt_codigo = new javax.swing.JTextField();
+        txt_origen = new javax.swing.JTextField();
+        txt_destino = new javax.swing.JTextField();
+        txt_capacidad = new javax.swing.JTextField();
+        cbm_estado = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        dt_fechLlega = new datechooser.beans.DateChooserCombo();
+        dt_fechSali = new datechooser.beans.DateChooserCombo();
+        btn_origenAero = new javax.swing.JButton();
+        btn_origenDest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,44 +152,61 @@ public class VuelosAgregar extends javax.swing.JFrame {
 
         jLabel7.setText("Capacidad");
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_guardarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_cancelarActionPerformed(evt);
             }
         });
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("0034");
-        jTextField1.setEnabled(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txt_codigo.setEditable(false);
+        txt_codigo.setEnabled(false);
+        txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txt_codigoActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("Lima");
-
-        jTextField5.setText("Paris");
-
-        jTextField6.setText("300");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Programado", "Salida", "LLegada", "Incidencia" }));
+        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Programado", "Salida", "LLegada", "Incidencia" }));
 
         jLabel8.setText("Fecha Llegada");
 
         jLabel9.setText("Fecha Salida");
 
-        jTextField7.setText("12/10/2012");
+        dt_fechLlega.setNothingAllowed(false);
+        try {
+            dt_fechLlega.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
 
-        jTextField8.setText("14/10/2012");
+        dt_fechSali.setNothingAllowed(false);
+        try {
+            dt_fechSali.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+
+        btn_origenAero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btn_origenAero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_origenAeroActionPerformed(evt);
+            }
+        });
+
+        btn_origenDest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btn_origenDest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_origenDestActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,61 +222,77 @@ public class VuelosAgregar extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel4))
                         .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cbm_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_codigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_origen, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(dt_fechLlega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btn_guardar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(btn_cancelar)
                         .addGap(31, 31, 31)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_destino, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(txt_capacidad, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_origenDest, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dt_fechSali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel8))
+                    .addComponent(btn_origenDest, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_destino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(3, 3, 3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dt_fechSali, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dt_fechLlega, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7))
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_capacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_guardar)
+                    .addComponent(btn_cancelar))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,22 +319,69 @@ public class VuelosAgregar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here: 
+        if (indicador != -1){
+         // agregar
+            CVuelo.agregarVuelo(
+                                aeropuertoOrigen,
+                                aeropuertoDestino,
+                                dt_fechLlega.getSelectedDate(),
+                                dt_fechSali.getSelectedDate(),
+                                ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                                txt_capacidad.getText()
+                                );
+            
+        }
+        else {
+          // modificar
+            CVuelo.modificarVuelo( 
+                                    txt_codigo.getText(),
+                                    aeropuertoOrigen,
+                                    aeropuertoDestino,
+                                    dt_fechLlega.getSelectedDate(),
+                                    dt_fechSali.getSelectedDate(),
+                                    ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                                    txt_capacidad.getText()
+                                    );
+        
+        }
+        
+        
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txt_codigoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            vVuelo = new VuelosAgregar(padre);
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+            
             vVuelo.dispose();
             
             
         
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void btn_origenAeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenAeroActionPerformed
+        // TODO add your handling code here:
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        aeropuertoOrigen = aeropuertoPU.showDialog();
+        if (aeropuertoOrigen != null) {
+            txt_origen.setText(aeropuertoOrigen.getNombre());
+
+        }
+    }//GEN-LAST:event_btn_origenAeroActionPerformed
+
+    private void btn_origenDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenDestActionPerformed
+        // TODO add your handling code here:
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        aeropuertoDestino = aeropuertoPU.showDialog();
+        if (aeropuertoDestino != null) {
+            txt_destino.setText(aeropuertoDestino.getNombre());
+
+        }
+    }//GEN-LAST:event_btn_origenDestActionPerformed
 
     
     /**
@@ -254,9 +389,13 @@ public class VuelosAgregar extends javax.swing.JFrame {
      */
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_guardar;
+    private javax.swing.JButton btn_origenAero;
+    private javax.swing.JButton btn_origenDest;
+    private javax.swing.JComboBox cbm_estado;
+    private datechooser.beans.DateChooserCombo dt_fechLlega;
+    private datechooser.beans.DateChooserCombo dt_fechSali;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -267,11 +406,9 @@ public class VuelosAgregar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txt_capacidad;
+    private javax.swing.JTextField txt_codigo;
+    private javax.swing.JTextField txt_destino;
+    private javax.swing.JTextField txt_origen;
     // End of variables declaration//GEN-END:variables
 }

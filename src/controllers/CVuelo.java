@@ -18,41 +18,36 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.*;
 
-
 /**
  *
  * @author jorge
  */
 public class CVuelo {
+
     private static List ListaTipoEst;
-    
-    
-    
-    
-     public static List<Parametro> llenarComboEstado(){
+
+    public static List<Parametro> llenarComboEstado() {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         try {
             Transaction tx = s.beginTransaction();
             Query q;
-            
+
             q = s.getNamedQuery("ParametrosAeropuerto");
             q.setParameter("tipo", "ESTADO_VUELO");
             ListaTipoEst = q.list();
-            
-            
-            
-            }
-        catch(Exception e){
+
+
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-                }
-        finally {
-            
+        } finally {
+
             s.close();
         }
-        
+
         return ListaTipoEst;
-        
+
     }
      
      public static void cargarVuelo(Vuelo v){
@@ -85,15 +80,25 @@ public class CVuelo {
         List<Vuelo> ListaVuelos = null;
         Date ini = null;
         Date fin = null;
-      
+        String inii = null;
+
         try {
- 
-            ini = fechini.getTime();
-            fin = fechfinal.getTime();
+
+            if (fechini != null) {
+                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-mm-dd HH:mm");
+                inii = date_format.format(fechini.getTime());
+                ini = fechini.getTime();
+            }
+
+            if (fechfinal != null) {
+                fin = fechfinal.getTime();
+            }
+
+
             SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
-            Query q= s.getNamedQuery("Volar");
-              
-                
+            Query q = s.getNamedQuery("Volar");
+
+
 
 //        if (isInteger(numEnvio)) {
 //                Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
@@ -102,16 +107,16 @@ public class CVuelo {
 
             if (PaisOrigen != null) {
                 Filter f_origen = s.enableFilter("VueloXOrigen");
-                f_origen.setParameter("idAeropuerto", PaisOrigen.getIdAeropuerto());
+                f_origen.setParameter("idOrigen", PaisOrigen.getIdAeropuerto());
             }
 
             if (PaisDestino != null) {
                 Filter f_destino = s.enableFilter("VueloXDestino");
-                f_destino.setParameter("idAeropuerto", PaisDestino.getIdAeropuerto());
+                f_destino.setParameter("idDestino", PaisDestino.getIdAeropuerto());
             }
 
             if (fechini != null) {
-                
+
 //                ini = new Date();
 //                ini.setDate(fechini.get(0));
 //                ini.setMonth(fechini.get(1));
@@ -137,21 +142,119 @@ public class CVuelo {
 
             ListaVuelos = q.list();
 
-          
-                      
-        }
-        catch(Exception e){
+
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             s.close();
         }
-        
-        return ListaVuelos;      
-     
-     }
 
-    public static List<Vuelo> BuscarVuelo(Parametro a_origen, Parametro a_destino, Calendar fechini, Calendar fechfin, Parametro TipoDoc) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return ListaVuelos;
+
+    }
+
+    public static void modificarVuelo(
+            
+            String idVuelo,
+            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoDestino,
+            Calendar ini,
+            Calendar fin,
+            Parametro Estado,
+            String capacidad
+          
+            ) {
+
+
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+
+
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+//            Parametro pTipoDoc;            
+//            Parametro pCiudad;            
+//            Parametro pPais;
+            Vuelo objVuelo = new Vuelo();
+
+            objVuelo.setIdVuelo(Integer.parseInt(idVuelo)); 
+            objVuelo.setOrigen(aeropuertoOrigen);
+            objVuelo.setDestino(aeropuertoDestino);
+            objVuelo.setFechaLlegada(ini.getTime());
+            objVuelo.setFechaSalida(fin.getTime());
+            objVuelo.setEstado(Estado);
+            objVuelo.setCapacidadActual(Integer.parseInt(capacidad));
+        
+//            objVuelo.setPais(Pais);
+//            objVuelo.setIdAeropuerto(idAeropuerto);
+
+            
+            /*
+             *  int idVuelo,
+            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoDestino,
+            Calendar ini,
+            Calendar fin,
+            Parametro Estado,
+            String capacidad
+             */
+            s.update(objVuelo);
+
+            tx.commit();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+//      
+
+    }
+
+    public static void agregarVuelo(
+           
+            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoDestino,
+            Calendar ini,
+            Calendar fin,
+            Parametro Estado,
+            String capacidad ) {
+
+
+
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+
+
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+//            Parametro pTipoDoc;            
+//            Parametro pCiudad;            
+//            Parametro pPais;
+
+
+              Vuelo objVuelo = new Vuelo();
+
+     //       objVuelo.setIdVuelo(idVuelo); 
+            objVuelo.setOrigen(aeropuertoOrigen);
+            objVuelo.setDestino(aeropuertoDestino);
+            objVuelo.setFechaLlegada(ini.getTime());
+            objVuelo.setFechaSalida(fin.getTime());
+            objVuelo.setEstado(Estado);
+            objVuelo.setCapacidadActual(Integer.parseInt(capacidad));
+
+
+            int i = (Integer) s.save(objVuelo);
+
+            tx.commit();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
     }
 }

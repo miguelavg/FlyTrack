@@ -118,8 +118,8 @@ public class CEnvio {
             p = (Parametro) q.uniqueResult();
             int limite_backward = Integer.parseInt(p.getValor());
 
-            q = s.getNamedQuery("Aeropuertos");
-            List<Aeropuerto> aeros = q.list();
+            
+            
 
             long iFuturo = envio.getFechaRegistro().getTime() + limite_forward * 24 * 60 * 60 * 1000;
             Calendar cal = Calendar.getInstance();
@@ -129,21 +129,27 @@ public class CEnvio {
             long iPasado = envio.getFechaRegistro().getTime() - limite_backward * 24 * 60 * 60 * 1000;
             cal.setTimeInMillis(iPasado);
             Date pasado = cal.getTime();
+            Date ahora = envio.getFechaRegistro();
 
             Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalida");
-            f_vuelos_s.setParameter("lower", envio.getFechaRegistro());
+            f_vuelos_s.setParameter("lower", ahora);
             f_vuelos_s.setParameter("upper", futuro);
 
             Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
-            f_vuelos_l.setParameter("lower", envio.getFechaRegistro());
+            f_vuelos_l.setParameter("lower", ahora);
             f_vuelos_l.setParameter("upper", futuro);
+            
+            q = s.getNamedQuery("Aeropuertos");
+            List<Aeropuerto> aeros = q.list();
 
             //   Consultar los aeropuertos con sus vuelos de salida
 
             for (Aeropuerto a : aeros) {
 
-                a.getVuelosSalida().size();
+                a.getVuelosSalida().size();                
                 a.getVuelosLlegada().size();
+                
+                
 
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);

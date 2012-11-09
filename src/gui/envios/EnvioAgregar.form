@@ -167,7 +167,7 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="cmb_moneda" min="-2" pref="185" max="-2" attributes="0"/>
                                                   <Component id="txt_iva" min="-2" pref="185" max="-2" attributes="0"/>
-                                                  <Component id="fechaRecojoEnvioText" min="-2" pref="185" max="-2" attributes="0"/>
+                                                  <Component id="txt_fechaRec" min="-2" pref="185" max="-2" attributes="0"/>
                                                   <Component id="txt_total" min="-2" pref="185" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -207,7 +207,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel11" min="-2" pref="120" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="numDocPagoEnvioText" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="txt_numDoc" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btn_factura" min="-2" pref="120" max="-2" attributes="0"/>
@@ -221,7 +221,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel14" min="-2" pref="120" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="numeroEnvioText" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="txt_numEnvio" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel13" min="-2" pref="120" max="-2" attributes="0"/>
@@ -305,7 +305,7 @@
                   <EmptySpace type="unrelated" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="numeroEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txt_numEnvio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -326,7 +326,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="numDocPagoEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txt_numDoc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel17" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="txt_total" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -336,7 +336,7 @@
                       <Component id="jLabel15" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="txt_fechaReg" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel16" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="fechaRecojoEnvioText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txt_fechaRec" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -500,13 +500,13 @@
             <Property name="text" type="java.lang.String" value="Num. doc. pago"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="numDocPagoEnvioText">
+        <Component class="javax.swing.JTextField" name="txt_numDoc">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numDocPagoEnvioTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_numDocActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_regresar">
@@ -520,13 +520,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_regresarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="numeroEnvioText">
+        <Component class="javax.swing.JTextField" name="txt_numEnvio">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numeroEnvioTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_numEnvioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
@@ -610,13 +610,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_fechaRegActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="fechaRecojoEnvioText">
+        <Component class="javax.swing.JTextField" name="txt_fechaRec">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fechaRecojoEnvioTextActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_fechaRecActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
