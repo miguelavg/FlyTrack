@@ -4,10 +4,13 @@
  */
 package gui.administracion.aeropuertos;
 
+import beans.Vuelo;
 import controllers.CAeropuerto;
 import controllers.CReportes;
 import controllers.CSerializer;
 import gui.ErrorDialog;
+import gui.InformationDialog;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
@@ -20,8 +23,10 @@ public class AeropuertoCarga extends javax.swing.JDialog {
     /**
      * Creates new form AeropuertoCarga
      */
+    boolean archivovalido=false;
     public AeropuertoCarga(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -162,6 +167,26 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+        if (archivovalido){    
+            ArrayList aeropuertos=CSerializer.deserializar(txtRuta.getText());
+            try{                   //CAeropuerto.ValidarCaga(vuelos);
+               for (int i = 0; i<aeropuertos.size();i++){
+                   beans.Aeropuerto aero=(beans.Aeropuerto)aeropuertos.get(i);
+                   CAeropuerto.cargarAeropuerto(aero);
+                }
+                InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
+            }
+            catch(Exception e){
+                        e.printStackTrace();
+                        ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
+            
+            }
+        }
+        
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btnRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutaActionPerformed
+        // TODO add your handling code here:
         JFileChooser jfc = new JFileChooser();
         int rslt = jfc.showSaveDialog(this);
         if (rslt == JFileChooser.APPROVE_OPTION){
@@ -175,9 +200,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                         }
                        else{
                            
-                           ArrayList vuelos=CSerializer.deserializar(ruta);
-                           //CAeropuerto.ValidarCaga(vuelos);
-                           
+                           archivovalido=true;
+                       
                        }
                                
                     }
@@ -192,10 +216,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else
                 ErrorDialog.mostrarError("Especifique un nombre al archivo",this);
         }
-    }//GEN-LAST:event_btn_guardarActionPerformed
-
-    private void btnRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnRutaActionPerformed
 
     /**
