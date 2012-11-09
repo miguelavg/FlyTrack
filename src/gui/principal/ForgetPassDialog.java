@@ -11,6 +11,7 @@ import controllers.CContrasena;
 import controllers.CParametro;
 import controllers.CSeguridad;
 import controllers.CUsuario;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -117,13 +118,14 @@ public class ForgetPassDialog extends javax.swing.JDialog {
         Contrasena contrasenaNueva = new Contrasena();
         contrasenaNueva.setUsuario(usuarioBuscado);
         contrasenaNueva.setText(CSeguridad.generaContraseniaAleatoria());
-        Date fechaActual = new Date();
-        contrasenaNueva.setFechaActivacion(fechaActual);
+        Calendar cal = Calendar.getInstance();
+        contrasenaNueva.setFechaActivacion(cal.getTime());
         contrasenaNueva.setFechaUltimoUso(null);
-        contrasenaNueva.setFechaCaducidad(CContrasena.calcularCaducidad(fechaActual));
-//        Parametro parametro = new CParametro();
-        contrasenaNueva.setEstado(null);
-        //la actualizo en el usuario
+        contrasenaNueva.setFechaCaducidad(CContrasena.calcularCaducidad(cal));
+        Parametro parametro = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "ACTV");
+        contrasenaNueva.setEstado(parametro);
+        //cambio la contrasenia antigua activa a desactivada y agrego esta contrasenia activa
+        //al usuario
         //la envio por correo
         //le digo al cliente que la contrasenia ya ha sido enviada a su correo
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed

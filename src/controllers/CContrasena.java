@@ -11,6 +11,7 @@ import beans.Sesion;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import beans.seguridad.Contrasena;
+import java.util.Calendar;
 import java.util.Date;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -49,10 +50,11 @@ public class CContrasena {
         }
     }
     
-    public static Date calcularCaducidad(Date fechaActual){
-        
-    
-        return null;
+    public static Date calcularCaducidad(Calendar calendarioActual){
+        Parametro parametro = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_CADUCIDAD_DIAS");
+        int diasMover = Integer.parseInt(parametro.getValor());
+        calendarioActual.add(Calendar.DATE, diasMover);   
+        return calendarioActual.getTime();
     }
     
 }

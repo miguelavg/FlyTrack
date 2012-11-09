@@ -142,41 +142,27 @@ public class CPerfil {
         return null;
     }
                 
-    public static String validar(Integer idperfil, boolean isNuevo, String nombre, String descripcion, Parametro estado) {
+    public static String validar(Integer idperfil, String nombre, String descripcion, Parametro estado) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
-        Perfil p;
+//        Perfil p;
         try {
 
             if (nombre.isEmpty()|| descripcion.isEmpty()|| estado==null ) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
-
+            
             if(!nombre.isEmpty()){
-                if(idperfil == -1){
-                //CPerfil Perfil= new CPerfil ();    
-                //Perfil PerfilBE=Perfil.BuscarXid(idperfil); 
                 
-                    Query q = s.getNamedQuery("PerfilXNombre");
-                    q.setParameter("nombre", nombre);
-                    List<Perfil> tipos = q.list();
+//                Query q = s.getNamedQuery("PerfilXNombre");
+                Query q = s.getNamedQuery("PerfilXNombre").setMaxResults(1);
+                q.setParameter("nombre", nombre);
+//                List<Perfil> tipos = q.list();
+                Perfil perfilEncontrado = (Perfil)q.uniqueResult();
 
-                    if (tipos.size() > 0) {
-                        p = tipos.get(0);
-                        if (p!=null){
-                            error_message = error_message + CValidator.buscarError("ERROR_FT005") + "\n";
-                        }
-
-
-    //                    if (isNuevo) {
-    //                        error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
-    //                    } else {
-    //                        if ((p.getNombre().toUpperCase())== PerfilBE.getNombre().toUpperCase()) {
-    //                            error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
-    //                        }
-    //                    }
-                    }
+                if (perfilEncontrado != null) {
+                    error_message = error_message + CValidator.buscarError("ERROR_FT005") + "\n";                    
                 }
 
             }

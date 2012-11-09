@@ -152,7 +152,6 @@ public class CSeguridad {
     }
     
     public static char[] generaContraseniaAleatoria(){
-        
-        return null;
+        return new char[]{'f','l','y','t','r','a','c','k'};
     }
 }

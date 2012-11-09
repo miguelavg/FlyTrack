@@ -6,6 +6,7 @@ package gui.seguridad.perfiles;
 
 import beans.Parametro;
 import beans.seguridad.Perfil;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import controllers.CParametro;
 import controllers.CPerfil;
@@ -28,33 +29,23 @@ public class PerfilEdit extends javax.swing.JDialog {
      * Creates new form PerfilEdit
      */
     List<Parametro> ListaEstado ;
-    boolean isNuevo;
     Perfil perfil;
     CParametro ParametroBL = new CParametro();
     List<Perfil> ListaPerfiles ;
 
         
     CPerfil Perfil= new CPerfil ();
-    Integer idperfil=-1;
+    
+    private Integer idperfil = -1;
     public void setIdperfil(Integer idperfil) {
         this.idperfil = idperfil;
     }
-
     public Integer getIdperfil() {
         return idperfil;
     }
     
-    Integer bandera=-1;
-    public void setBandera(Integer bandera) {
-        this.bandera = bandera;
-    }
-
-    public Integer getBandera() {
-        return bandera;
-    }
-    
     private void llenarPanelPermisos(){
-        ListaPerfiles = Perfil.Buscar();
+        List<Permiso> permisos = CPermiso.listarPermisosXPerfil(idperfil);
     }
     
     private void cargarcampos(){    
@@ -62,8 +53,6 @@ public class PerfilEdit extends javax.swing.JDialog {
          
         txtNombre.setText(perfilBE.getNombre());
         txtDescripcion.setText(perfilBE.getDescripcion());   
-
-        isNuevo=false;
 
         for(int i=0;i<cboEstado.getItemCount();i++){
             Parametro estado = (Parametro)cboEstado.getItemAt(i);
@@ -89,20 +78,18 @@ public class PerfilEdit extends javax.swing.JDialog {
         }
     }
     
-    public PerfilEdit(javax.swing.JDialog parent, boolean modal,int id) {
+    public PerfilEdit(javax.swing.JDialog parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
         
-        isNuevo = true; //perfil Nuevo
         idperfil = id; //comienza con -1
         
         llenarcomboEstado();
-        llenarPanelPermisos();
-        
-        if (idperfil!=-1){
+        if(idperfil != -1){
+            llenarPanelPermisos();
             cargarcampos();
         }
-        
+                
         this.setLocationRelativeTo(null);
         pack();
     }
@@ -1048,8 +1035,11 @@ public class PerfilEdit extends javax.swing.JDialog {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String error_message = CPerfil.validar(idperfil, isNuevo, this.txtNombre.getText(), 
-                this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        String error_message = null;
+        
+        if(idperfil == -1){
+            error_message = CPerfil.validar(idperfil, txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        }
         
         if (error_message == null || error_message.isEmpty()) {
             if (idperfil == -1){
