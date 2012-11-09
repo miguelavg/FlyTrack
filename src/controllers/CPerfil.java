@@ -23,21 +23,18 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class CPerfil {
     
-         public List<Perfil> Buscar()
-    {
+    public List<Perfil> Buscar(){
+        
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Perfil> ListaPerfiles;
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
-           q = s.getNamedQuery("Perfil");
-           ListaPerfiles= q.list();
-           
+            Query q = s.getNamedQuery("Perfil");
+            ListaPerfiles= q.list();
            
            return ListaPerfiles;
-                      
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -58,10 +55,8 @@ public class CPerfil {
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
-            
-           q = s.getNamedQuery("ArbolAccion");
-           ListaAccion= q.list();
+            Query q = s.getNamedQuery("ArbolAccion");
+            ListaAccion= q.list();
                       
            return ListaAccion;
         }
@@ -74,21 +69,21 @@ public class CPerfil {
         return null;
     }
          
-     public void agregarPerfil(String nombre, String descripcion, Parametro estado){
+    public void agregarPerfil(String nombre, String descripcion, Parametro estado){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        
+
         try {
             Transaction tx = s.beginTransaction();
             Query q;
-            
+
             Perfil CPerfil = new Perfil();
-            
+
             CPerfil.setNombre(nombre);
             CPerfil.setDescripcion(descripcion);
             CPerfil.setEstado(estado);
-            
+
             int i = (Integer)s.save(CPerfil);
             tx.commit();
         }
@@ -101,8 +96,7 @@ public class CPerfil {
         
     }   
      
-     
-         public void modificarPerfil(Integer idPerfil,String nombre, String descripcion, Parametro estado){
+    public void modificarPerfil(Integer idPerfil,String nombre, String descripcion, Parametro estado){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession( );
@@ -130,10 +124,11 @@ public class CPerfil {
         
     }   
          
-        public Perfil BuscarXid(int id){
+    public Perfil BuscarXid(int id){
+    
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-          Perfil CPerfil = new Perfil();
+        Perfil CPerfil = new Perfil();
         
         try {
             Transaction tx = s.beginTransaction();
@@ -152,12 +147,8 @@ public class CPerfil {
         
         return null;
     }
-        
-        
-        
-        
-        
-     public String validar(Integer idperfil, boolean isNuevo, String nombre, String descripcion, Parametro estado) {
+                
+    public String validar(Integer idperfil, boolean isNuevo, String nombre, String descripcion, Parametro estado) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -168,31 +159,30 @@ public class CPerfil {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
-            if (!nombre.isEmpty() ) {
+            if(!nombre.isEmpty()){
+                if(idperfil == -1){
+                //CPerfil Perfil= new CPerfil ();    
+                //Perfil PerfilBE=Perfil.BuscarXid(idperfil); 
                 
-                if (idperfil == -1 ) {
-//                CPerfil Perfil= new CPerfil ();    
-//                Perfil PerfilBE=Perfil.BuscarXid(idperfil); 
-                
-                Query q = s.getNamedQuery("PerfilXNombre");
-                q.setParameter("nombre", nombre);
-                List<Perfil> tipos = q.list();
-                
-                if (tipos.size() > 0) {
-                    p = tipos.get(0);
-                    if (p!=null){
-                        error_message = error_message + CValidator.buscarError("ERROR_FT005") + "\n";
+                    Query q = s.getNamedQuery("PerfilXNombre");
+                    q.setParameter("nombre", nombre);
+                    List<Perfil> tipos = q.list();
+
+                    if (tipos.size() > 0) {
+                        p = tipos.get(0);
+                        if (p!=null){
+                            error_message = error_message + CValidator.buscarError("ERROR_FT005") + "\n";
+                        }
+
+
+    //                    if (isNuevo) {
+    //                        error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
+    //                    } else {
+    //                        if ((p.getNombre().toUpperCase())== PerfilBE.getNombre().toUpperCase()) {
+    //                            error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
+    //                        }
+    //                    }
                     }
-                    
-                    
-//                    if (isNuevo) {
-//                        error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
-//                    } else {
-//                        if ((p.getNombre().toUpperCase())== PerfilBE.getNombre().toUpperCase()) {
-//                            error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
-//                        }
-//                    }
-                }
                 }
 
             }
