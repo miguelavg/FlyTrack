@@ -55,7 +55,29 @@ public class CVuelo {
         
     }
      
-     
+     public static void cargarVuelo(Vuelo v){
+         
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        
+        
+        try {
+            
+            Transaction tx = s.beginTransaction();
+              
+            int i = (Integer)s.save(v);
+            
+            tx.commit();
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+         
+     }
       public static List<Vuelo> BuscarVuelo(Aeropuerto PaisOrigen,Aeropuerto PaisDestino,Calendar fechini, Calendar fechfinal, Parametro Estado) {
          
         SessionFactory sf = Sesion.getSessionFactory();
