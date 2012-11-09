@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
  */
 public class CParametro {
 
-    public List<Parametro> buscar(String valor, String valorUnico, String tipo, Parametro padre) {
+    public static List<Parametro> buscar(String valor, String valorUnico, String tipo, Parametro padre) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Parametro> params = null;

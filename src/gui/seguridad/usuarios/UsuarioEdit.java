@@ -358,6 +358,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
           // TODO add your handling code here:
+        String mensaje="";
+        mensaje=CUsuario.ValidarContraseña(psswdContrasena.getPassword());
+        if (mensaje.equals("")){
+        
         Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
 
         Aeropuerto nuevoAeropuerto;
@@ -472,7 +476,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
         //select idCliente from Cliente where Nombres nombres and Apellidos apellidos and TipoDoc tipodoc and NumDodc numdoc 
         
 //(Parametro)cboTipoDoc.getSelectedItem()
-
+        }else{
+            ErrorDialog.mostrarError(mensaje, this);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
