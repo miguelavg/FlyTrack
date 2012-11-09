@@ -13,13 +13,15 @@ import java.awt.Component;
 import java.awt.Window;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author jorge
  */
-public class VuelosAgregar extends javax.swing.JFrame {
+public class VuelosAgregar extends javax.swing.JDialog {
     private final Component padre;
     private VuelosAgregar vVuelo = null;
     private List<Parametro> ListatipoEst;
@@ -32,17 +34,23 @@ public class VuelosAgregar extends javax.swing.JFrame {
      */
     
     
-    public VuelosAgregar(Component parent, Vuelo objVuelo,int i) {
-      
+    public VuelosAgregar(javax.swing.JDialog parent,boolean modal, Vuelo objVuelo,int i) {
+             super(parent,true);
             padre=parent;            
+            
             padre.setEnabled(false); 
             ((Window)padre).setFocusableWindowState(false);         
             initComponents();
             llenarComboEstado();
             this.setLocationRelativeTo(null); 
             indicador = i;
-            if (i != -1) {
+            txt_codigo.setVisible(false);
+            lbl_codigo.setVisible(false);
+            if (i == -1) {
+            txt_codigo.setVisible(true);
              cargar_componentes(objVuelo);
+             
+            lbl_codigo.setVisible(true);
             }
             objVueloo = objVuelo; 
             
@@ -96,7 +104,7 @@ public class VuelosAgregar extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_codigo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -142,7 +150,7 @@ public class VuelosAgregar extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Codigo Vuelo");
+        lbl_codigo.setText("Codigo Vuelo");
 
         jLabel3.setText("Origen");
 
@@ -217,7 +225,7 @@ public class VuelosAgregar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lbl_codigo)
                             .addComponent(jLabel3)
                             .addComponent(jLabel8)
                             .addComponent(jLabel4))
@@ -266,7 +274,7 @@ public class VuelosAgregar extends javax.swing.JFrame {
                             .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
+                                    .addComponent(lbl_codigo)
                                     .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -323,6 +331,7 @@ public class VuelosAgregar extends javax.swing.JFrame {
         // TODO add your handling code here: 
         if (indicador != -1){
          // agregar
+            
             CVuelo.agregarVuelo(
                                 aeropuertoOrigen,
                                 aeropuertoDestino,
@@ -355,12 +364,11 @@ public class VuelosAgregar extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_codigoActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-            
-            vVuelo.dispose();
-            
-            
-        
+   
+            this.dispose();
+                         
         // TODO add your handling code here:
+     
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_origenAeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenAeroActionPerformed
@@ -397,7 +405,6 @@ public class VuelosAgregar extends javax.swing.JFrame {
     private datechooser.beans.DateChooserCombo dt_fechLlega;
     private datechooser.beans.DateChooserCombo dt_fechSali;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -406,6 +413,7 @@ public class VuelosAgregar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbl_codigo;
     private javax.swing.JTextField txt_capacidad;
     private javax.swing.JTextField txt_codigo;
     private javax.swing.JTextField txt_destino;
