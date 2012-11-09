@@ -88,7 +88,7 @@ public class Recocido {
                 iCostoAlmacen = this.vCostoAlmacen * (double) milisec / (60 * 60000);
                 costoAlmacen = costoAlmacen + iCostoAlmacen;
 
-                pLleno = buscarHistorico(envio.getOrigen().getIdAeropuerto(), envio.getDestino().getIdAeropuerto());
+                pLleno = buscarHistorico(envio.getActual().getIdAeropuerto(), envio.getDestino().getIdAeropuerto());
 
                 pCapacidad = Math.max(pLleno * vuelo.getCapacidadMax(), vuelo.getCapacidadActual());
 
@@ -280,7 +280,7 @@ public class Recocido {
             int outIt = 0;
 
             for (int i = 0; i < this.intentos; i++) {
-                this.solucion = liteGrasp(envio.getOrigen(), envio.getDestino(), envio.getFechaRegistro(), this.alfaGrasp);
+                this.solucion = liteGrasp(envio.getActual(), envio.getDestino(), envio.getFechaRegistro(), this.alfaGrasp);
                 if (this.solucion != null) {
                     break;
                 }

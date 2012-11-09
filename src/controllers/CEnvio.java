@@ -148,6 +148,9 @@ public class CEnvio {
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
                 }
+                if (a.getIdAeropuerto() == envio.getActual().getIdAeropuerto()) {
+                    envio.setActual(a);
+                }
                 if (a.getIdAeropuerto() == envio.getDestino().getIdAeropuerto()) {
                     envio.setDestino(a);
                 }
@@ -203,6 +206,9 @@ public class CEnvio {
                     envio.getEscalas().add(e);
                 }
             }
+
+            capacidad = envio.getOrigen().getCapacidadActual();
+            envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
