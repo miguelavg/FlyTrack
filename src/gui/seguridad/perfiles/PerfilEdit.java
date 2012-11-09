@@ -27,13 +27,13 @@ public class PerfilEdit extends javax.swing.JDialog {
     /**
      * Creates new form PerfilEdit
      */
-        List<Parametro> ListaEstado ;
-        boolean isNuevo;
-        Perfil perfil;
-         CParametro ParametroBL = new CParametro();
-        List<Perfil> ListaPerfiles ;
-        CPerfil cPerfil = new CPerfil();
-        
+    List<Parametro> ListaEstado ;
+    boolean isNuevo;
+    Perfil perfil;
+    CParametro ParametroBL = new CParametro();
+    List<Perfil> ListaPerfiles ;
+    CPerfil cPerfil = new CPerfil();
+
         
     CPerfil Perfil= new CPerfil ();
     Integer idperfil=-1;
@@ -56,23 +56,7 @@ public class PerfilEdit extends javax.swing.JDialog {
     
     
     
-    public PerfilEdit(javax.swing.JDialog parent, boolean modal,int id) {
-        super(parent, modal);
-        initComponents();
-        
-        isNuevo=true;
-        
-        idperfil=id;
-        
-        llenarcomboEstado();
-        llenarPanelPermisos();
-        
-        if (idperfil!=-1){
-        cargarcampos();
-        }
-        
-        
-    }
+    
     
     public void llenarPanelPermisos(){
         ListaPerfiles= cPerfil.Buscar();
@@ -104,19 +88,37 @@ public class PerfilEdit extends javax.swing.JDialog {
                }
            }
 
+    }    
+    
+    public int showDialog(){
+        setVisible(true);
+        return 1;
+    }
+     
+    public void llenarcomboEstado(){
+        
+        ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
+    
+        for (Parametro p : ListaEstado){
+            cboEstado.addItem(p);
+        }
     }
     
-    
-     public int showDialog(){
-        setVisible(true);
-              
-//        if (this.isNuevo) {
-//            return this.perfil;
-//        } else {
-//            return null;
-//        }
+    public PerfilEdit(javax.swing.JDialog parent, boolean modal,int id) {
+        super(parent, modal);
+        initComponents();
         
-        return 1;
+        isNuevo = true; //perfil Nuevo
+        idperfil = id; //comienza con -1
+        
+        llenarcomboEstado();
+        llenarPanelPermisos();
+        
+        if (idperfil!=-1){
+            cargarcampos();
+        }
+        
+        
     }
 
     /**
@@ -989,18 +991,6 @@ public class PerfilEdit extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void llenarcomboEstado(){
-         ListaEstado=ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
-    
-        for (Parametro p : ListaEstado)
-        //for (int i=0;i<ListaEstado.size();i++)
-        {
-    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
-            
-            cboEstado.addItem(p);
-        }
-    }
-    
     private void configurarAdministracion(boolean estado){
         this.panelAdministracion.setEnabled(estado);
         this.chkAdministracion_Tarifas.setEnabled(estado);
@@ -1073,8 +1063,8 @@ public class PerfilEdit extends javax.swing.JDialog {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        CPerfil cperfil = new CPerfil();
-        String error_message = cperfil.validar(idperfil, isNuevo, this.txtNombre.getText(), this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        String error_message = CPerfil.validar(idperfil, isNuevo, this.txtNombre.getText(), 
+                this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
         
         if (error_message == null || error_message.isEmpty()) {
             if (idperfil==-1){
