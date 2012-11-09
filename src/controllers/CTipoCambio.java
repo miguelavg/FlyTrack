@@ -59,8 +59,8 @@ public class CTipoCambio {
 
         try {
             Query q = s.getNamedQuery("TiposCambioXValosresUnicos");
-            q.setParameter("monedaOrigen", "DOL");
-            q.setParameter("monedaDestino", valorUnico);
+            q.setParameter("monedaOrigen", valorUnico);
+            q.setParameter("monedaDestino", "DOL");
             tipo = (TipoCambio) q.uniqueResult();
 
         } catch (Exception e) {

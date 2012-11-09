@@ -11,12 +11,11 @@ import java.util.Date;
 import java.util.List;
 import logic.Recocido;
 import logic.VueloLite;
+import org.hibernate.Filter;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.Filter;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
@@ -30,8 +29,6 @@ public class CEnvio {
         Session s = sf.openSession();
         ArrayList<Parametro> p = null;
         try {
-
-
             Query q;
             q = s.getNamedQuery("ParametrosXTipo");
 
@@ -46,87 +43,24 @@ public class CEnvio {
         return p;
     }
 
-    public Envio agregarEnvio(
-            Aeropuerto aOrigen,
-            Aeropuerto aDestino,
-            Aeropuerto aActual,
-            String estado,
-            Cliente remitente,
-            Cliente destinatario,
-            float monto,
-            Parametro moneda,
-            int numEnvio,
-            int numPaq,
-            Parametro docPago,
-            int numDocPago,
-            float impuesto,
-            String fechaRegistro,
-            String fechaRecojo) {
-
+    public void guardarEnvio(Envio envio) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-
-        Envio e = new Envio();
         try {
-
             Transaction tx = s.beginTransaction();
-            Query q;
-            Parametro p;
-
-
-            e.setOrigen(aOrigen);
-            e.setDestino(aDestino);
-            e.setActual(aActual);
-
-            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", "PROG");
-            q.setParameter("tipo", "ESTADO_ENVIO");
-            p = (Parametro) q.uniqueResult();
-            e.setEstado(p);
-
-
-            e.setRemitente(remitente);
-            e.setDestinatario(destinatario);
-            e.setMonto(numPaq * monto * (1 + impuesto));
-
-            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", moneda.getValorUnico());
-            q.setParameter("tipo", moneda.getTipo());
-            p = (Parametro) q.uniqueResult();
-            e.setMoneda(p);
-
-            e.setNumPaquetes(numPaq);
-
-            q = s.getNamedQuery("ParametrosXTipoXValorUnico");
-            q.setParameter("valorUnico", docPago.getValorUnico());
-            q.setParameter("tipo", docPago.getTipo());
-            p = (Parametro) q.uniqueResult();
-            e.setTipoDocVenta(p);
-
-            Date fechaRegistroDate = new Date();
-            Date fechaRecojoDate = null;
-            e.setFechaRegistro(fechaRegistroDate);
-            e.setFechaRecojo(fechaRecojoDate);
-
-            calcularRuta(e);
-
-            numEnvio = (Integer) s.save(e);
-            e.setIdEnvio(numEnvio);
-            numDocPago = numEnvio;
-            e.setNumDocVenta(numDocPago);
-            s.saveOrUpdate(e);
+            s.saveOrUpdate(envio);
             tx.commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         } finally {
             s.close();
         }
-        return e;
     }
 
-    public boolean calcularRuta(Envio envio) {
+    public String calcularRuta(Envio envio) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
+        String error_message = "";
 
         try {
             Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
@@ -214,6 +148,9 @@ public class CEnvio {
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
                 }
+                if (a.getIdAeropuerto() == envio.getActual().getIdAeropuerto()) {
+                    envio.setActual(a);
+                }
                 if (a.getIdAeropuerto() == envio.getDestino().getIdAeropuerto()) {
                     envio.setDestino(a);
                 }
@@ -242,34 +179,42 @@ public class CEnvio {
             Escala e;
             int i = 1;
             Date fecha = envio.getFechaRegistro();
-
             q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             q.setParameter("tipo", "ESTADO_ESCALA");
             q.setParameter("valorUnico", "ACTV");
             p = (Parametro) q.uniqueResult();
-
             envio.setEscalas(escalas);
+            int capacidad;
 
-            for (Vuelo v : solucion) {
-                e = new Escala();
-                e.setEnvio(envio);
-                e.setVuelo(v);
-                e.setNumEscala(i);
-                e.setFechaInicio(fecha);
-                e.setEstado(p);
-                fecha = v.getFechaLlegada();
-                i++;
 
-                envio.getEscalas().add(e);
+            if (solucion == null || solucion.size() < 1) {
+                error_message = CValidator.buscarError("ERROR_FT013") + "\n";
+            } else {
+                for (Vuelo v : solucion) {
+                    e = new Escala();
+                    e.setEnvio(envio);
+                    e.setVuelo(v);
+                    e.setNumEscala(i);
+                    e.setFechaInicio(fecha);
+                    e.setEstado(p);
+                    fecha = v.getFechaLlegada();
+                    i++;
+                    capacidad = e.getVuelo().getCapacidadActual();
+                    e.getVuelo().setCapacidadActual(capacidad + envio.getNumPaquetes());
+                    capacidad = envio.getOrigen().getCapacidadActual();
+                    envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
+                    envio.getEscalas().add(e);
+                }
             }
 
-            return true;
+            capacidad = envio.getOrigen().getCapacidadActual();
+            envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             s.close();
         }
-        return false;
+        return error_message;
     }
 
     public List<Envio> buscar(Aeropuerto actual, Aeropuerto origen, Aeropuerto destino, Parametro estado, Cliente cliente, String numEnvio) {
@@ -282,7 +227,7 @@ public class CEnvio {
 
             if (numEnvio != null && !numEnvio.isEmpty()) {
                 Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
-                if (isInteger(numEnvio)) {
+                if (CValidator.isInteger(numEnvio)) {
                     f_numEnvio.setParameter("numEnvio", Integer.parseInt(numEnvio));
                 } else {
                     f_numEnvio.setParameter("numEnvio", -1);
@@ -326,15 +271,6 @@ public class CEnvio {
 
     }
 
-    public boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public String verificarTarifa(Aeropuerto origen, Aeropuerto destino) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -346,7 +282,7 @@ public class CEnvio {
             q.setParameter("idorigen", origen.getIdAeropuerto());
             q.setParameter("iddestino", destino.getIdAeropuerto());
             tarifa = (Tarifa) q.uniqueResult();
-            
+
             if (tarifa == null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT011") + "\n";
             }
@@ -394,13 +330,13 @@ public class CEnvio {
         return envio;
     }
 
-    public String validar(Parametro moneda, Parametro doc, Parametro estado, Aeropuerto origen, Aeropuerto actual, Aeropuerto destino, Cliente remitente, Cliente destinatario, Tarifa tarifa, TipoCambio tipoCambio, String numPaquetes) {
+    public String validar(Parametro moneda, Parametro doc, Aeropuerto origen, Aeropuerto actual, Aeropuerto destino, Cliente remitente, Cliente destinatario, Tarifa tarifa, TipoCambio tipoCambio, String numPaquetes) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
         try {
 
-            if (moneda == null || doc == null || estado == null || origen == null || actual == null || destino == null || remitente == null || destinatario == null || numPaquetes == null || numPaquetes.isEmpty()) {
+            if (moneda == null || doc == null || origen == null || actual == null || destino == null || remitente == null || destinatario == null || numPaquetes == null || numPaquetes.isEmpty()) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
