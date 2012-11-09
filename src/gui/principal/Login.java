@@ -91,6 +91,11 @@ public class Login extends javax.swing.JFrame {
         lblOlvidoPass.setMinimumSize(new java.awt.Dimension(150, 20));
         lblOlvidoPass.setName("2"); // NOI18N
         lblOlvidoPass.setPreferredSize(new java.awt.Dimension(150, 20));
+        lblOlvidoPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblOlvidoPassMouseClicked(evt);
+            }
+        });
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
         lblError.setText("Usuario y/o Contraseña Inválidos");
@@ -204,6 +209,12 @@ public class Login extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
             btnLogin.doClick();
     }//GEN-LAST:event_txtPassKeyPressed
+
+    private void lblOlvidoPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOlvidoPassMouseClicked
+        // TODO add your handling code here:
+        ForgetPassDialog fpdialog = new ForgetPassDialog(this, Boolean.TRUE);
+        fpdialog.setVisible(Boolean.TRUE);
+    }//GEN-LAST:event_lblOlvidoPassMouseClicked
 
     /**
      * @param args the command line arguments
