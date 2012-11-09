@@ -10,6 +10,7 @@ import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import controllers.CParametro;
 import controllers.CPerfil;
+import controllers.CPermiso;
 import gui.ErrorDialog;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -45,7 +46,14 @@ public class PerfilEdit extends javax.swing.JDialog {
     }
     
     private void llenarPanelPermisos(){
-        List<Permiso> permisos = CPermiso.listarPermisosXPerfil(idperfil);
+        List<Permiso> permisos = CPerfil.listarPermisosXPerfil(idperfil);
+        
+        chkAdministracion.setSelected(CPermiso.buscarPermiso(permisos, "Administracion", 1, null));
+        chkSeguridad.setSelected(CPermiso.buscarPermiso(permisos, "Seguridad",1,null));
+        chkEnvios.setSelected(CPermiso.buscarPermiso(permisos, "Envios",1,null));
+        chkSimulacion.setSelected(CPermiso.buscarPermiso(permisos, "Simulacion",1,null));
+        chkClientes.setSelected(CPermiso.buscarPermiso(permisos, "Clientes",1,null));
+        chkReportes.setSelected(CPermiso.buscarPermiso(permisos, "Reportes",1,null));
     }
     
     private void cargarcampos(){    
@@ -78,11 +86,11 @@ public class PerfilEdit extends javax.swing.JDialog {
         }
     }
     
-    public PerfilEdit(javax.swing.JDialog parent, boolean modal, int id) {
+    public PerfilEdit(javax.swing.JDialog parent, boolean modal, int idPerfilPasado) {
         super(parent, modal);
         initComponents();
         
-        idperfil = id; //comienza con -1
+        idperfil = idPerfilPasado; //comienza con -1
         
         llenarcomboEstado();
         if(idperfil != -1){

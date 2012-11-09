@@ -8,6 +8,7 @@ import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Accion;
 import beans.seguridad.Perfil;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import java.util.List;
 import org.hibernate.Filter;
@@ -175,6 +176,25 @@ public class CPerfil {
         }
 
         return error_message;
+    }
+    
+    public static List<Permiso> listarPermisosXPerfil(int idperfil){
+        Session s = Sesion.openSessionFactory();
+        
+        try{
+            
+            Query q = s.getNamedQuery("PermisosXPerfil");
+            q.setParameter("idperfil", idperfil);
+            return (List<Permiso>)q.list();
+
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        
+        return null;
     }
         
          
