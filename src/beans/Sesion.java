@@ -34,8 +34,8 @@ public class Sesion {
         return sessionFactory;
     }
     
-    public static void openSessionFactory(){
-        sessionFactory.openSession();
+    public static Session openSessionFactory(){
+        return sessionFactory.openSession();
     }
     
     public static void closeSessionFactory(){

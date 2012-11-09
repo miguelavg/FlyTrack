@@ -7,6 +7,7 @@ package gui.principal;
 import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CSeguridad;
+import gui.seguridad.parametros.ParametroDialog;
 import gui.seguridad.perfiles.PerfilFrame;
 import gui.seguridad.usuarios.UsuarioFrame;
 import java.util.List;
@@ -119,7 +120,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
-        gui.seguridad.parametros.ParametroDialog parametro = new gui.seguridad.parametros.ParametroDialog();
+        ParametroDialog parametro = new gui.seguridad.parametros.ParametroDialog();
         parametro.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 

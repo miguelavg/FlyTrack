@@ -437,6 +437,7 @@ public class ParametroDialog extends javax.swing.JDialog {
         boolean buscar = CSeguridad.validarPermiso(3, "Parametros", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

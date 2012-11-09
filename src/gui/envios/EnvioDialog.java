@@ -598,6 +598,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         
         //boolean cargaMasiva = CSeguridad.validarPermiso(2, "Envios", "Carga Masiva", permisos);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

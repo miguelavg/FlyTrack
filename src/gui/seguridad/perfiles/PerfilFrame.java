@@ -37,7 +37,7 @@ public class PerfilFrame extends javax.swing.JDialog {
     }
 
     
-    public void llenarTabla(){
+    private void llenarTabla(){
           
         List<Perfil> listaPerfiles = CPerfil.Buscar();
         //cboEstado.getSelectedItem());
@@ -209,18 +209,18 @@ public class PerfilFrame extends javax.swing.JDialog {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-         DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
        
         if (PerfilTabla.getSelectedRow()>-1){
          
-        Integer id=(Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
-        
-        PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
-        //PerfilAgregarGUI.setVisible(true);
-        PerfilAgregarGUI.setBandera(1);
-        PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
-        PerfilAgregarGUI.showDialog();
-        llenarTabla();
+            Integer id=(Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
+
+            PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
+            //PerfilAgregarGUI.setVisibl*e(true);
+            PerfilAgregarGUI.setBandera(1);
+            PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
+            PerfilAgregarGUI.showDialog();
+            llenarTabla();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -271,9 +271,9 @@ public class PerfilFrame extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        boolean crear = CSeguridad.validarPermiso(3, "Perfil", "Crear", permisos);
+        boolean crear = CSeguridad.validarPermiso(3, "Perfiles", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
-        boolean modificar = CSeguridad.validarPermiso(3, "Perfil", "Modificar", permisos);
+        boolean modificar = CSeguridad.validarPermiso(3, "Perfiles", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfil", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);

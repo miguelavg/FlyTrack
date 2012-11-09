@@ -32,7 +32,6 @@ public class PerfilEdit extends javax.swing.JDialog {
     Perfil perfil;
     CParametro ParametroBL = new CParametro();
     List<Perfil> ListaPerfiles ;
-    CPerfil cPerfil = new CPerfil();
 
         
     CPerfil Perfil= new CPerfil ();
@@ -54,39 +53,25 @@ public class PerfilEdit extends javax.swing.JDialog {
         return bandera;
     }
     
-    
-    
-    
-    
-    public void llenarPanelPermisos(){
-        ListaPerfiles= cPerfil.Buscar();
-//        ListaAcciones= cPerfil.BuscarAcciones();
-//        
-//        JCheckBox chb= new JCheckBox();
-//        
-//        for( Perfil p : ListaPerfiles){
-//            if 
-//        }
-////        panel.add(chb);
-//        panel.add(chb);
+    private void llenarPanelPermisos(){
+        ListaPerfiles = Perfil.Buscar();
     }
-    public void cargarcampos(){    
-        Perfil PerfilBE= Perfil.BuscarXid(idperfil);
+    
+    private void cargarcampos(){    
+        Perfil perfilBE = CPerfil.BuscarXid(idperfil);
          
-           txtNombre.setText(PerfilBE.getNombre());
-           txtDescripcion.setText(PerfilBE.getDescripcion());   
-           
-           isNuevo=false;
-           
-           for(int i=0;i<cboEstado.getItemCount();i++){
-               Parametro estado = (Parametro)cboEstado.getItemAt(i);
-               if (estado.getIdParametro()==PerfilBE.getEstado().getIdParametro())
-               {
-               cboEstado.setSelectedIndex(i);
-               break;
-               
-               }
-           }
+        txtNombre.setText(perfilBE.getNombre());
+        txtDescripcion.setText(perfilBE.getDescripcion());   
+
+        isNuevo=false;
+
+        for(int i=0;i<cboEstado.getItemCount();i++){
+            Parametro estado = (Parametro)cboEstado.getItemAt(i);
+            if (estado.getIdParametro() == perfilBE.getEstado().getIdParametro()){
+                cboEstado.setSelectedIndex(i);
+                break;
+            }
+        }
 
     }    
     
@@ -95,7 +80,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         return 1;
     }
      
-    public void llenarcomboEstado(){
+    private void llenarcomboEstado(){
         
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
     
@@ -1072,8 +1057,6 @@ public class PerfilEdit extends javax.swing.JDialog {
             }
 
             else{
-                Perfil PerfilBE = Perfil.BuscarXid(idperfil);    
-                // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
                 Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
             }
             this.setVisible(false);

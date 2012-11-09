@@ -27,14 +27,11 @@ public class CPerfil {
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        List<Perfil> ListaPerfiles;
         
         try {
             Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("Perfil");
-            ListaPerfiles= q.list();
-           
-           return ListaPerfiles;
+            return (List<Perfil>)q.list();           
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -124,19 +121,16 @@ public class CPerfil {
         
     }   
          
-    public Perfil BuscarXid(int id){
+    public static Perfil BuscarXid(int id){
     
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        Perfil CPerfil = new Perfil();
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
-            q = s.getNamedQuery("PerfilxId").setMaxResults(1);
+            Query q = s.getNamedQuery("PerfilxId").setMaxResults(1);
             q.setParameter("idperfil", id);
-            CPerfil=(Perfil)q.uniqueResult();
-            return CPerfil;
+            return (Perfil)q.uniqueResult();
             }
         catch(Exception e){
             System.out.println(e.getMessage());
