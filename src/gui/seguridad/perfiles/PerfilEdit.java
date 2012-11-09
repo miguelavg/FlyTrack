@@ -130,10 +130,11 @@ public class PerfilEdit extends javax.swing.JDialog {
          
         txtNombre.setText(perfilBE.getNombre());
         txtDescripcion.setText(perfilBE.getDescripcion());   
-        cboEstado.setSelectedIndex(1);
+        
         for(int i=0;i<cboEstado.getItemCount();i++){
             Parametro estado = (Parametro)cboEstado.getItemAt(i);
-            if (estado.getIdParametro() == perfilBE.getEstado().getIdParametro()){
+//            if (estado.getIdParametro() == perfilBE.getEstado().getIdParametro()){
+            if (estado == perfilBE.getEstado()){                
                 cboEstado.setSelectedIndex(i);
                 break;
             }
@@ -149,10 +150,79 @@ public class PerfilEdit extends javax.swing.JDialog {
     private void llenarcomboEstado(){
         
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
-    
+
         for (Parametro p : ListaEstado){
             cboEstado.addItem(p);
         }
+    }
+    
+    private void crearPermisos(Perfil perfilBuscado){
+        
+        if(chkAdministracion.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Administracion", 1, null);
+        if(chkSeguridad.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Seguridad", 1, null);
+        if(chkEnvios.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Envios", 1, null);
+        if(chkSimulacion.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Simulacion", 1, null);
+        if(chkClientes.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Clientes", 1, null);
+        if(chkReportes.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Reportes", 1, null);
+        
+        if(chkAdministracion_Aeropuertos.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Aeropuertos", 2, "Administracion");
+        if(chkAdministracion_Tarifas.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Tarifas", 2, "Administracion");
+        if(chkAdministracion_Vuelos.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Vuelos", 2, "Administracion");
+        if(chkAdministracion_TipoCambio.isSelected()) CPermiso.crearPermiso(perfilBuscado, "TipoCambio", 2, "Administracion");
+        
+        if(chkSeguridad_Parametros.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Parametros", 2, "Seguridad");
+        if(chkSeguridad_Usuarios.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Usuarios", 2, "Seguridad");
+        if(chkSeguridad_Perfiles.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Perfiles", 2, "Seguridad");
+        
+        if(chkEnvios_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 2, "Envios");
+        if(chkEnvios_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 2, "Envios");
+        if(chkEnvios_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 2, "Envios");
+        if(chkEnvios_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 2, "Envios");
+        
+        if(chkClientes_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 2, "Clientes");
+        if(chkClientes_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 2, "Clientes");
+        if(chkClientes_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Busca/Listar", 2, "Clientes");
+        if(chkClientes_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 2, "Clientes");
+        
+        if(chkReportes_Envios.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Envios", 2, "Reportes");
+        if(chkReportes_Incidencias.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Incidencias", 2, "Reportes");
+        if(chkReportes_LogAuditoria.isSelected()) CPermiso.crearPermiso(perfilBuscado, "LogAuditoria", 2, "Reportes");
+        if(chkReportes_Ventas.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Ventas", 2, "Reportes");
+        if(chkReportes_MovAlmacen.isSelected()) CPermiso.crearPermiso(perfilBuscado, "MovAlmacen", 2, "Reportes");
+        
+        if(chkAdministracion_Aeropuertos_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Aeropuertos");
+        if(chkAdministracion_Aeropuertos_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masivaa", 3, "Aeropuertos");
+        if(chkAdministracion_Aeropuertos_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Aeropuertos");
+        if(chkAdministracion_Aeropuertos_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Aeropuertos");
+        
+        if(chkAdministracion_Tarifas_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Tarifas");
+        if(chkAdministracion_Tarifas_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Tarifas");
+        if(chkAdministracion_Tarifas_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Tarifas");
+        if(chkAdministracion_Tarifas_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Tarifas");
+        
+        if(chkAdministracion_Vuelos_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Vuelos");
+        if(chkAdministracion_Vuelos_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Vuelos");
+        if(chkAdministracion_Vuelos_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Vuelos");
+        if(chkAdministracion_Vuelos_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Vuelos");
+        
+        if(chkAdministracion_TipoCambio_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "TipoCambio");
+        if(chkAdministracion_TipoCambio_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "TipoCambio");
+        if(chkAdministracion_TipoCambio_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "TipoCambio");
+        if(chkAdministracion_TipoCambio_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "TipoCambio");
+        
+        if(chkSeguridad_Usuarios_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Usuarios");
+        if(chkSeguridad_Usuarios_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Usuarios");
+        if(chkSeguridad_Usuarios_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Usuarios");
+        if(chkSeguridad_Usuarios_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Usuarios");
+        
+        if(chkSeguridad_Perfiles_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Perfiles");
+        if(chkSeguridad_Perfiles_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Perfiles");
+        if(chkSeguridad_Perfiles_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Perfiles");
+        
+        if(chkSeguridad_Parametros_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Parametros");
+        if(chkSeguridad_Parametros_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Parametros");
+        if(chkSeguridad_Parametros_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Parametros");
+        
     }
     
     public PerfilEdit(javax.swing.JDialog parent, boolean modal, int idPerfilPasado) {
@@ -1119,11 +1189,12 @@ public class PerfilEdit extends javax.swing.JDialog {
         }
         
         if (error_message == null || error_message.isEmpty()) {
-            if (idperfil == -1){
-                Perfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+            if (idperfil == -1){//Nuevo Perfil
+                Perfil perfilNuevo = CPerfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+                crearPermisos(perfilNuevo);
             }
 
-            else{
+            else{//Modificar Perfil
                 Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
             }
             this.setVisible(false);

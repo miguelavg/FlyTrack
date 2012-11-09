@@ -4,8 +4,12 @@
  */
 package controllers;
 
-import beans.seguridad.Permiso;
+import beans.Sesion;
+import beans.seguridad.*;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -43,5 +47,32 @@ public class CPermiso {
         }
         
         return false;
+    }
+    
+    public static void crearPermiso(Perfil perfil, String nombreAccion, int nivelAccion, String nombreAccionPadre){
+        Session s = Sesion.openSessionFactory();
+        
+        try{
+            Transaction tx = s.beginTransaction();
+            
+            Query q = s.getNamedQuery("AccionXNombreXNivelXPadre").setMaxResults(1);
+            q.setParameter("nivel", nivelAccion);
+            q.setParameter("nombre", nombreAccion);
+            q.setParameter("nombrePadre", nombreAccionPadre);
+            Accion accion = (Accion)q.uniqueResult();
+            
+            Permiso permiso = new Permiso();
+            permiso.setAccion(accion);
+            permiso.setPerfil(perfil);
+            s.save(permiso);
+            tx.commit();
+            
+        }catch (Exception e){
+            System.out.println(e.getMessage());            
+        }finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        
     }
 }
