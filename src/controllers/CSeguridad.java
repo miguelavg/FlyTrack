@@ -150,4 +150,9 @@ public class CSeguridad {
         }
         return Boolean.FALSE;
     }
+    
+    public static char[] generaContraseniaAleatoria(){
+        
+        return null;
+    }
 }

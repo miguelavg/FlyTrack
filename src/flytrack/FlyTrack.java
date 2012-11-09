@@ -5,6 +5,7 @@
 package flytrack;
 
 import gui.principal.Login;
+import java.util.Date;
 
 /**
  *
@@ -16,8 +17,8 @@ public class FlyTrack {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Login login = new Login();
-        login.setVisible(true);
-        
+//        Login login = new Login();
+//        login.setVisible(true);
+        System.out.println(new Date());
     }
 }
