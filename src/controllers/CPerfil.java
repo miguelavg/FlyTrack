@@ -67,7 +67,7 @@ public class CPerfil {
         return null;
     }
          
-    public void agregarPerfil(String nombre, String descripcion, Parametro estado){
+    public static Perfil agregarPerfil(String nombre, String descripcion, Parametro estado){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -76,14 +76,15 @@ public class CPerfil {
             Transaction tx = s.beginTransaction();
             Query q;
 
-            Perfil CPerfil = new Perfil();
+            Perfil perfilNuevo = new Perfil();
 
-            CPerfil.setNombre(nombre);
-            CPerfil.setDescripcion(descripcion);
-            CPerfil.setEstado(estado);
+            perfilNuevo.setNombre(nombre);
+            perfilNuevo.setDescripcion(descripcion);
+            perfilNuevo.setEstado(estado);
 
-            int i = (Integer)s.save(CPerfil);
+            s.save(perfilNuevo);
             tx.commit();
+            return perfilNuevo;
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -91,7 +92,7 @@ public class CPerfil {
         finally {
             s.close();
         }
-        
+        return null;
     }   
      
     public void modificarPerfil(Integer idPerfil,String nombre, String descripcion, Parametro estado){

@@ -90,7 +90,7 @@ public class Recocido {
 
                 pLleno = buscarHistorico(envio.getActual().getIdAeropuerto(), envio.getDestino().getIdAeropuerto());
 
-                pCapacidad = Math.max(pLleno * vuelo.getCapacidadMax(), vuelo.getCapacidadActual());
+                pCapacidad = Math.max(pLleno * vuelo.getCapacidadMax(), vuelo.getCapacidadActual() + 1);
 
                 iCostoEnvio = (double) vuelo.getAlquiler() / pCapacidad;
                 costoEnvio = costoEnvio + iCostoEnvio;
@@ -183,10 +183,10 @@ public class Recocido {
                         wrap.add(vuelo);
                         e = estadoEnergia(wrap, dActual);
 
-                        if (e < beta) {
+                        if (e < beta && e >= 0) {
                             beta = e;
                         }
-                        if (e > tau) {
+                        if (e > tau && e >= 0) {
                             tau = e;
                         }
 

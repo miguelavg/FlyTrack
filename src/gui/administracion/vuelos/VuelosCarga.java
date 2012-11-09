@@ -2,15 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.administracion.aeropuertos;
+package gui.administracion.vuelos;
 
-import beans.Vuelo;
 import controllers.CAeropuerto;
-import controllers.CReportes;
 import controllers.CSerializer;
+import controllers.CVuelo;
 import gui.ErrorDialog;
 import gui.InformationDialog;
-import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
@@ -18,15 +16,14 @@ import javax.swing.JFileChooser;
  *
  * @author jugox
  */
-public class AeropuertoCarga extends javax.swing.JDialog {
+public class VuelosCarga extends javax.swing.JDialog {
 
     /**
-     * Creates new form AeropuertoCarga
+     * Creates new form VuelosCarga
      */
     boolean archivovalido=false;
-    public AeropuertoCarga(javax.swing.JDialog parent, boolean modal) {
+    public VuelosCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -42,11 +39,11 @@ public class AeropuertoCarga extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtRuta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        txtRuta = new javax.swing.JTextField();
         btnRuta = new javax.swing.JButton();
-        btn_regresar = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,8 +51,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aeropuerto48x48.png"))); // NOI18N
-        jLabel1.setText("Aeropuertos");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
+        jLabel1.setText("Vuelos");
         jLabel1.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -63,16 +60,16 @@ public class AeropuertoCarga extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                .addGap(183, 183, 183)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -86,19 +83,19 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             }
         });
 
-        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
-        btn_regresar.setText("Regresar");
-        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regresarActionPerformed(evt);
-            }
-        });
-
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.png"))); // NOI18N
         btn_guardar.setText("Guardar");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_guardarActionPerformed(evt);
+            }
+        });
+
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
             }
         });
 
@@ -109,7 +106,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRuta)
@@ -140,12 +137,12 @@ public class AeropuertoCarga extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,38 +150,12 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btn_regresarActionPerformed
-
-    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        // TODO add your handling code here:
-        if (archivovalido){    
-            ArrayList aeropuertos=CSerializer.deserializar(txtRuta.getText());
-            try{                   //CAeropuerto.ValidarCaga(vuelos);
-               for (int i = 0; i<aeropuertos.size();i++){
-                   beans.Aeropuerto aero=(beans.Aeropuerto)aeropuertos.get(i);
-                   CAeropuerto.cargarAeropuerto(aero);
-                }
-                InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
-                this.dispose();
-            }
-            catch(Exception e){
-                        e.printStackTrace();
-                        ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
-            
-            }
-        }
-        
-    }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btnRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutaActionPerformed
         // TODO add your handling code here:
@@ -196,15 +167,15 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                 String ruta = jfc.getSelectedFile().getPath().trim();
                 if (!ruta.isEmpty()){
                     try{
-                       if (!ruta.endsWith(".xml")){
+                        if (!ruta.endsWith(".xml")){
                             ErrorDialog.mostrarError("Debe especificar un archivo xml", this);
                         }
-                       else{
-                           
-                           archivovalido=true;
-                       
-                       }
-                               
+                        else{
+
+                            archivovalido=true;
+
+                        }
+
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -212,13 +183,39 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                     }
                 }
                 else
-                    ErrorDialog.mostrarError("Especifique una ruta válida para guardar el archivo",this);
+                ErrorDialog.mostrarError("Especifique una ruta válida para guardar el archivo",this);
             }
             else
-                ErrorDialog.mostrarError("Especifique un nombre al archivo",this);
+            ErrorDialog.mostrarError("Especifique un nombre al archivo",this);
         }
-        
+
     }//GEN-LAST:event_btnRutaActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        if (archivovalido){
+            ArrayList vuelos=CSerializer.deserializar(txtRuta.getText());
+            try{                   //CAeropuerto.ValidarCaga(vuelos);
+                for (int i = 0; i<vuelos.size();i++){
+                    beans.Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
+                    CVuelo.cargarVuelo(vuelo);
+                }
+                InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
+                this.dispose();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
+
+            }
+        }
+
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btn_regresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,20 +234,20 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AeropuertoCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VuelosCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AeropuertoCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VuelosCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AeropuertoCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VuelosCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AeropuertoCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VuelosCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AeropuertoCarga dialog = new AeropuertoCarga(new javax.swing.JDialog(), true);
+                VuelosCarga dialog = new VuelosCarga(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

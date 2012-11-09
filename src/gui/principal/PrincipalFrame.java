@@ -14,6 +14,7 @@ import gui.administracion.aeropuertos.Aeropuerto;
 import gui.envios.EnvioDialog;
 import gui.reportes.ReporteFrame;
 import gui.administracion.vuelos.Vuelos;
+import gui.simulacion.SimDialog;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -262,8 +263,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void btnSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimulacionActionPerformed
         // TODO add your handling code here:
-        //Simulacion simulacion = new Simulacion();
-        //simulacion.setVisible(true);
+        SimDialog sim = new SimDialog();
+        sim.setVisible(true);
     }//GEN-LAST:event_btnSimulacionActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
