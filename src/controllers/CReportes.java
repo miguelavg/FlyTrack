@@ -208,28 +208,35 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
         table.addCell(i.toString());
         table.getRow(0).getCells()[0].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        table.addCell("Envio del aeropuerto: "+envio.getOrigen().getNombre()+" "+ "al aeropuerto:"+envio.getDestino().getNombre());
+        table.addCell("Envio del aeropuerto: "+envio.getOrigen().getNombre()+"\n"+ "al aeropuerto:"+envio.getDestino().getNombre());
         table.getRow(0).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
         Double j=envio.getMonto();
         table.addCell(j.toString());
-        table.getRow(0).getCells()[2].setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.getRow(0).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
+        
+        table.addCell(" ");
+        table.getRow(1).getCells()[0].setHorizontalAlignment(Element.ALIGN_LEFT);
         
         table.addCell("IGV: ");
         table.getRow(1).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        
-        Double k=envio.getMonto()*(20/100);
+        //Double jk=(double) (20/100);
+        Double k=envio.getMonto()*(Double)0.2;
+        //Double k=envio.get
         table.addCell(k.toString());
-        table.getRow(1).getCells()[2].setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.getRow(1).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
         
+        
+        table.addCell(" ");
+        table.getRow(2).getCells()[0].setHorizontalAlignment(Element.ALIGN_LEFT);
         
         table.addCell("Total: ");
         table.getRow(2).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
         Double l=j+k;
         table.addCell(l.toString());
-        table.getRow(2).getCells()[2].setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.getRow(2).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
         
                     
 //        for(int i=0;i<tablaJava.getRowCount();i++){
@@ -267,7 +274,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 
             Paragraph preface3 = null;
 
-            preface3=new Paragraph(tituloDocumento,FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
+            preface3=new Paragraph(tituloDocumento + "\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
             preface3.setAlignment(Element.ALIGN_CENTER);
 
             lineaVacia(preface3, 1);
