@@ -32,17 +32,17 @@ import org.hibernate.annotations.*;
     @NamedQuery(name = "VuelosXFecha", query = "from Vuelo where :fechaRegistro < fechaSalida")
 })
 @FilterDefs({
-    @FilterDef(name = "VueloXOrigen", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
-    @FilterDef(name = "VueloXDestino", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "VueloXOrigen", parameters = @ParamDef(name = "idOrigen", type = "integer")),
+    @FilterDef(name = "VueloXDestino", parameters = @ParamDef(name = "idDestino", type = "integer")),
     @FilterDef(name = "VueloXfechini", parameters = @ParamDef(name = "fechasalida", type = "timestamp")),
     @FilterDef(name = "VueloXfechfin", parameters = @ParamDef(name = "fechallegada", type = "timestamp")),
     @FilterDef(name = "VueloXEstado", parameters = @ParamDef(name = "estado", type = "integer")),
 })
 @Filters({
-    @Filter(name = "VueloXOrigen", condition = "idAeropuerto = :idAeropuerto"),
-    @Filter(name = "VueloXDestino", condition = "idAeropuerto = :idAeropuerto"),
-    @Filter(name = "VueloXfechini", condition = "fechasalida = :fechasalida"),
-    @Filter(name = "VueloXfechfin", condition = "fechallegada = :fechallegada"),
+    @Filter(name = "VueloXOrigen", condition = "idOrigen = :idOrigen"),
+    @Filter(name = "VueloXDestino", condition = "idDestino = :idDestino"),
+    @Filter(name = "VueloXfechini", condition = "fechaSalida > :fechasalida"), 
+    @Filter(name = "VueloXfechfin", condition = "fechaLlegada < :fechallegada"),
     @Filter(name = "VueloXEstado", condition = "estado = :estado")
 })
 public class Vuelo implements Serializable {
