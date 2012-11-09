@@ -243,6 +243,7 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
         this.btnAeropuertos.setEnabled(aeropuertos);
         this.lblAeropuertos.setEnabled(aeropuertos);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

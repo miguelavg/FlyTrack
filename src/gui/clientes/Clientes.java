@@ -36,7 +36,6 @@ public class Clientes extends javax.swing.JDialog {
     List<Parametro> ListaTipoDoc;
     public Clientes() {
         initComponents();
-        this.setLocationRelativeTo(null);
         llenarcombos();
         definirPermisos();
     }
@@ -461,7 +460,8 @@ public class Clientes extends javax.swing.JDialog {
         btnBuscar.setEnabled(buscar);
         boolean cargaMasiva = CSeguridad.validarPermiso(2, "Clientes", "Carga Masiva", permisos);
         btnCargaMas.setEnabled(cargaMasiva);
-                
+        
+        this.setLocationRelativeTo(null);
         pack();
     }
 

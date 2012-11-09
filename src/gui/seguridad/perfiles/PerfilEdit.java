@@ -6,9 +6,11 @@ package gui.seguridad.perfiles;
 
 import beans.Parametro;
 import beans.seguridad.Perfil;
+import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import controllers.CParametro;
 import controllers.CPerfil;
+import controllers.CPermiso;
 import gui.ErrorDialog;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -27,96 +29,77 @@ public class PerfilEdit extends javax.swing.JDialog {
     /**
      * Creates new form PerfilEdit
      */
-        List<Parametro> ListaEstado ;
-        boolean isNuevo;
-        Perfil perfil;
-         CParametro ParametroBL = new CParametro();
-        List<Perfil> ListaPerfiles ;
-        CPerfil cPerfil = new CPerfil();
-        
+    List<Parametro> ListaEstado ;
+    Perfil perfil;
+    CParametro ParametroBL = new CParametro();
+    List<Perfil> ListaPerfiles ;
+
         
     CPerfil Perfil= new CPerfil ();
-    Integer idperfil=-1;
+    
+    private Integer idperfil = -1;
     public void setIdperfil(Integer idperfil) {
         this.idperfil = idperfil;
     }
-
     public Integer getIdperfil() {
         return idperfil;
     }
     
-    Integer bandera=-1;
-    public void setBandera(Integer bandera) {
-        this.bandera = bandera;
+    private void llenarPanelPermisos(){
+        List<Permiso> permisos = CPerfil.listarPermisosXPerfil(idperfil);
+        
+        chkAdministracion.setSelected(CPermiso.buscarPermiso(permisos, "Administracion", 1, null));
+        chkSeguridad.setSelected(CPermiso.buscarPermiso(permisos, "Seguridad",1,null));
+        chkEnvios.setSelected(CPermiso.buscarPermiso(permisos, "Envios",1,null));
+        chkSimulacion.setSelected(CPermiso.buscarPermiso(permisos, "Simulacion",1,null));
+        chkClientes.setSelected(CPermiso.buscarPermiso(permisos, "Clientes",1,null));
+        chkReportes.setSelected(CPermiso.buscarPermiso(permisos, "Reportes",1,null));
     }
+    
+    private void cargarcampos(){    
+        Perfil perfilBE = CPerfil.BuscarXid(idperfil);
+         
+        txtNombre.setText(perfilBE.getNombre());
+        txtDescripcion.setText(perfilBE.getDescripcion());   
 
-    public Integer getBandera() {
-        return bandera;
+        for(int i=0;i<cboEstado.getItemCount();i++){
+            Parametro estado = (Parametro)cboEstado.getItemAt(i);
+            if (estado.getIdParametro() == perfilBE.getEstado().getIdParametro()){
+                cboEstado.setSelectedIndex(i);
+                break;
+            }
+        }
+
+    }    
+    
+    public int showDialog(){
+        setVisible(true);
+        return 1;
+    }
+     
+    private void llenarcomboEstado(){
+        
+        ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
+    
+        for (Parametro p : ListaEstado){
+            cboEstado.addItem(p);
+        }
     }
     
-    
-    
-    public PerfilEdit(javax.swing.JDialog parent, boolean modal,int id) {
+    public PerfilEdit(javax.swing.JDialog parent, boolean modal, int idPerfilPasado) {
         super(parent, modal);
         initComponents();
         
-        isNuevo=true;
-        
-        idperfil=id;
+        idperfil = idPerfilPasado; //comienza con -1
         
         llenarcomboEstado();
-        llenarPanelPermisos();
-        
-        if (idperfil!=-1){
-        cargarcampos();
+        if(idperfil != -1){
+            llenarPanelPermisos();
+            cargarcampos();
         }
-        
-        
-    }
-    
-    public void llenarPanelPermisos(){
-        ListaPerfiles= cPerfil.Buscar();
-//        ListaAcciones= cPerfil.BuscarAcciones();
-//        
-//        JCheckBox chb= new JCheckBox();
-//        
-//        for( Perfil p : ListaPerfiles){
-//            if 
-//        }
-////        panel.add(chb);
-//        panel.add(chb);
-    }
-    public void cargarcampos(){    
-        Perfil PerfilBE= Perfil.BuscarXid(idperfil);
-         
-           txtNombre.setText(PerfilBE.getNombre());
-           txtDescripcion.setText(PerfilBE.getDescripcion());   
-           
-           isNuevo=false;
-           
-           for(int i=0;i<cboEstado.getItemCount();i++){
-               Parametro estado = (Parametro)cboEstado.getItemAt(i);
-               if (estado.getIdParametro()==PerfilBE.getEstado().getIdParametro())
-               {
-               cboEstado.setSelectedIndex(i);
-               break;
-               
-               }
-           }
-
-    }
-    
-    
-     public int showDialog(){
-        setVisible(true);
-              
-//        if (this.isNuevo) {
-//            return this.perfil;
-//        } else {
-//            return null;
-//        }
-        
-        return 1;
+                
+        this.setLocationRelativeTo(null);
+        pack();
     }
 
     /**
@@ -202,7 +185,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Flytrack - Seguridad - Perfiles");
+        setTitle("Flytrack - Seguridad - Perfil");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
@@ -989,18 +972,6 @@ public class PerfilEdit extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void llenarcomboEstado(){
-         ListaEstado=ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
-    
-        for (Parametro p : ListaEstado)
-        //for (int i=0;i<ListaEstado.size();i++)
-        {
-    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
-            
-            cboEstado.addItem(p);
-        }
-    }
-    
     private void configurarAdministracion(boolean estado){
         this.panelAdministracion.setEnabled(estado);
         this.chkAdministracion_Tarifas.setEnabled(estado);
@@ -1070,20 +1041,20 @@ public class PerfilEdit extends javax.swing.JDialog {
         this.chkReportes_Ventas.setEnabled(estado);
     }
     
-    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        CPerfil cperfil = new CPerfil();
-        String error_message = cperfil.validar(idperfil, isNuevo, this.txtNombre.getText(), this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        String error_message = null;
+        
+        if(idperfil == -1){
+            error_message = CPerfil.validar(idperfil, txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
+        }
         
         if (error_message == null || error_message.isEmpty()) {
-            if (idperfil==-1){
+            if (idperfil == -1){
                 Perfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
             }
 
             else{
-                Perfil PerfilBE=Perfil.BuscarXid(idperfil);    
-                // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
                 Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
             }
             this.setVisible(false);
@@ -1096,7 +1067,7 @@ public class PerfilEdit extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-                this.setVisible (false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void chkAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracionActionPerformed

@@ -519,6 +519,7 @@ public class TarifaFrame extends javax.swing.JDialog {
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Tarifas", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

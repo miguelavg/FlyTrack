@@ -26,8 +26,8 @@ public class CSeguridad {
     
     public static Usuario verificarContrasenia(String user, char[] pass){
 
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+//        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = Sesion.openSessionFactory();
         
         try{
             
@@ -60,6 +60,7 @@ public class CSeguridad {
         finally {
             System.out.println("CSeguridad.verificarContrasenia - INFO: Transaccion Terminada");
             s.close();
+            Sesion.closeSessionFactory();
         }
         return null;
     }
@@ -129,25 +130,28 @@ public class CSeguridad {
     }
     
     public static boolean validarPermiso(int nivel, String nombreAccionPadre, String nombreAccion, List<Permiso> permisos){
-        return true;
-//        for(Permiso permiso : permisos){
-//            boolean verificarNivel = permiso.getAccion().getNivel() == nivel;
-//            boolean verificarAccion = permiso.getAccion().getNombre().equals(nombreAccion);
-//            boolean verificarAccionPadre;
-//            if(nombreAccionPadre == null){
-//                verificarAccionPadre = Boolean.TRUE;
-//            }
-//            else{
-//                if(permiso.getAccion().getPadre() != null){
-//                    verificarAccionPadre = permiso.getAccion().getPadre().getNombre().equals(nombreAccionPadre);
-//                }
-//                else{
-//                    verificarAccionPadre = Boolean.FALSE;
-//                }
-//            }
-//            
-//            if(verificarNivel && verificarAccion && verificarAccionPadre) return Boolean.TRUE;
-//        }
-//        return Boolean.FALSE;
+        for(Permiso permiso : permisos){
+            boolean verificarNivel = permiso.getAccion().getNivel() == nivel;
+            boolean verificarAccion = permiso.getAccion().getNombre().equals(nombreAccion);
+            boolean verificarAccionPadre;
+            if(nombreAccionPadre == null){
+                verificarAccionPadre = Boolean.TRUE;
+            }
+            else{
+                if(permiso.getAccion().getPadre() != null){
+                    verificarAccionPadre = permiso.getAccion().getPadre().getNombre().equals(nombreAccionPadre);
+                }
+                else{
+                    verificarAccionPadre = Boolean.FALSE;
+                }
+            }
+            
+            if(verificarNivel && verificarAccion && verificarAccionPadre) return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+    
+    public static char[] generaContraseniaAleatoria(){
+        return new char[]{'f','l','y','t','r','a','c','k'};
     }
 }

@@ -486,6 +486,7 @@ public class Vuelos extends javax.swing.JDialog {
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

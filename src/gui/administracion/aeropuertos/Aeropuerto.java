@@ -425,15 +425,16 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void definirPermisos(){
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        boolean crear = CSeguridad.validarPermiso(3, "Crear", "Tarifas", permisos);
+        boolean crear = CSeguridad.validarPermiso(3, "Aeropuertos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
-        boolean modificar = CSeguridad.validarPermiso(3, "Modificar", "TipoCambio", permisos);
+        boolean modificar = CSeguridad.validarPermiso(3, "Aeropuertos", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
-        boolean buscar = CSeguridad.validarPermiso(3, "Buscar/Listar", "Vuelos", permisos);
+        boolean buscar = CSeguridad.validarPermiso(3, "Aeropuertos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Carga Masiva", "Aeropuertos", permisos);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Aeropuertos", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

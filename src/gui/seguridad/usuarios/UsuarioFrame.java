@@ -544,6 +544,7 @@ public void llenarcomboPerfiles(){
         boolean buscar = CSeguridad.validarPermiso(3, "Usuarios", "Buscar/Listar", permisos);
         this.btnBuscar.setEnabled(buscar);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  *
@@ -20,6 +22,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Permiso")
+@NamedQueries({
+    @NamedQuery(name = "PermisosXPerfil",
+                query = "from Permiso where perfil.idperfil = :idperfil")
+})
+
 public class Permiso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

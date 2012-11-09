@@ -417,6 +417,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Aeropuertos", permisos);
 //        this.btn_cargaMasiva.setEnabled(cargaMasiva);
         
+        this.setLocationRelativeTo(null);
         pack();
         
     }

@@ -131,4 +131,20 @@ public class CParametro {
         return parametro;
     }
 
+    public static Parametro buscarXValorUnicoyTipo(String tipo, String valorUnico){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
+            q.setParameter("tipo", tipo);
+            q.setParameter("valorUnico", valorUnico);
+            return (Parametro)q.uniqueResult();
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        return null;
+    }
 }

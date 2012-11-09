@@ -259,13 +259,13 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
     private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
         // TODO add your handling code here:
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-        a_origen = aeropuertoPU.showDialog();
-
-        if (a_origen != null) {
-
-            txt_origen.setText(a_origen.getNombre());
-        }
+//        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+//        a_origen = aeropuertoPU.showDialog();
+//
+//        if (a_origen != null) {
+//
+//            txt_origen.setText(a_origen.getNombre());
+//        }
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void txt_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_destinoActionPerformed
@@ -274,13 +274,13 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
         // TODO add your handling code here:
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-        a_destino = aeropuertoPU.showDialog();
-
-        if (a_destino != null) {
-
-            txt_destino.setText(a_destino.getNombre());
-        }
+//        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+//        a_destino = aeropuertoPU.showDialog();
+//
+//        if (a_destino != null) {
+//
+//            txt_destino.setText(a_destino.getNombre());
+//        }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
     /**
