@@ -372,6 +372,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         this.btnReportes.setEnabled(reportes);
         this.lblReportes.setEnabled(reportes);
 
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

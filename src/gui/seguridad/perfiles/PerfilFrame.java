@@ -81,7 +81,9 @@ public class PerfilFrame extends javax.swing.JDialog {
         PerfilTabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Flytrack - Seguridad - Perfil");
         setModal(true);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -200,8 +202,6 @@ public class PerfilFrame extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-//        PerfilEdit perfilModificar = new PerfilEdit();
-//        perfilModificar.setVisible(true);
         PerfilEdit perfilAgregarGUI = new PerfilEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         perfilAgregarGUI.setVisible(true);
         llenarTabla();
@@ -278,6 +278,7 @@ public class PerfilFrame extends javax.swing.JDialog {
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfil", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
+        this.setLocationRelativeTo(null);
         pack();
         
     }

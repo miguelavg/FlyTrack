@@ -33,6 +33,8 @@ public class Login extends javax.swing.JFrame {
         }
         initComponents();
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagenes/logo.png")).getImage());
+        setLocationRelativeTo(null);
+        pack();
     }
 
     /**

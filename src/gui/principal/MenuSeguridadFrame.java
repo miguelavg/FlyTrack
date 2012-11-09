@@ -185,6 +185,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         this.btnParametros.setEnabled(parametros);
         this.lblParametros.setEnabled(parametros);
         
+        this.setLocationRelativeTo(null);
         pack();
     }
 }

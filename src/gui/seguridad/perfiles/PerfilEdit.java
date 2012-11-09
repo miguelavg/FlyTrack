@@ -118,7 +118,8 @@ public class PerfilEdit extends javax.swing.JDialog {
             cargarcampos();
         }
         
-        
+        this.setLocationRelativeTo(null);
+        pack();
     }
 
     /**
@@ -204,7 +205,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Flytrack - Seguridad - Perfiles");
+        setTitle("Flytrack - Seguridad - Perfil");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
@@ -1060,19 +1061,18 @@ public class PerfilEdit extends javax.swing.JDialog {
         this.chkReportes_Ventas.setEnabled(estado);
     }
     
-    
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String error_message = CPerfil.validar(idperfil, isNuevo, this.txtNombre.getText(), 
                 this.txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
         
         if (error_message == null || error_message.isEmpty()) {
-            if (idperfil==-1){
+            if (idperfil == -1){
                 Perfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
             }
 
             else{
-                Perfil PerfilBE=Perfil.BuscarXid(idperfil);    
+                Perfil PerfilBE = Perfil.BuscarXid(idperfil);    
                 // Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
                 Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
             }
@@ -1086,7 +1086,7 @@ public class PerfilEdit extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-                this.setVisible (false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void chkAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAdministracionActionPerformed
