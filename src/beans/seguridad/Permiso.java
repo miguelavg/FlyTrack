@@ -24,7 +24,7 @@ import org.hibernate.annotations.NamedQuery;
 @Table(name = "Permiso")
 @NamedQueries({
     @NamedQuery(name = "PermisosXPerfil",
-                query = "from Permiso where perfil.idperfil = :idperfil")
+                query = "from Permiso where perfil.idPerfil = :idperfil")
 })
 
 public class Permiso implements Serializable {

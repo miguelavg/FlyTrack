@@ -48,12 +48,81 @@ public class PerfilEdit extends javax.swing.JDialog {
     private void llenarPanelPermisos(){
         List<Permiso> permisos = CPerfil.listarPermisosXPerfil(idperfil);
         
-        chkAdministracion.setSelected(CPermiso.buscarPermiso(permisos, "Administracion", 1, null));
-        chkSeguridad.setSelected(CPermiso.buscarPermiso(permisos, "Seguridad",1,null));
-        chkEnvios.setSelected(CPermiso.buscarPermiso(permisos, "Envios",1,null));
+        boolean administracion = CPermiso.buscarPermiso(permisos, "Administracion", 1, null);
+        chkAdministracion.setSelected(administracion);
+        configurarAdministracion(administracion);
+        boolean seguridad = CPermiso.buscarPermiso(permisos, "Seguridad",1,null);
+        chkSeguridad.setSelected(seguridad);
+        configurarSeguridad(seguridad);
+        boolean envios = CPermiso.buscarPermiso(permisos, "Envios",1,null);
+        chkEnvios.setSelected(envios);
+        configurarEnvios(envios);
         chkSimulacion.setSelected(CPermiso.buscarPermiso(permisos, "Simulacion",1,null));
-        chkClientes.setSelected(CPermiso.buscarPermiso(permisos, "Clientes",1,null));
-        chkReportes.setSelected(CPermiso.buscarPermiso(permisos, "Reportes",1,null));
+        boolean clientes = CPermiso.buscarPermiso(permisos, "Clientes",1,null);
+        chkClientes.setSelected(clientes);
+        configurarClientes(clientes);
+        boolean reportes = CPermiso.buscarPermiso(permisos, "Reportes",1,null);
+        chkReportes.setSelected(reportes);
+        configurarReportes(reportes);
+        
+        chkAdministracion_Aeropuertos.setSelected(CPermiso.buscarPermiso(permisos, "Aeropuertos",2,"Administracion"));
+        chkAdministracion_Tarifas.setSelected(CPermiso.buscarPermiso(permisos, "Tarifas",2,"Administracion"));
+        chkAdministracion_Vuelos.setSelected(CPermiso.buscarPermiso(permisos, "Vuelos",2,"Administracion"));
+        chkAdministracion_TipoCambio.setSelected(CPermiso.buscarPermiso(permisos, "TipoCambio",2,"Administracion"));
+        
+        chkSeguridad_Parametros.setSelected(CPermiso.buscarPermiso(permisos, "Parametros",2,"Seguridad"));
+        chkSeguridad_Usuarios.setSelected(CPermiso.buscarPermiso(permisos, "Usuarios",2,"Seguridad"));
+        chkSeguridad_Perfiles.setSelected(CPermiso.buscarPermiso(permisos, "Perfiles",2,"Seguridad"));
+        
+        chkEnvios_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar",2,"Envios"));
+        chkEnvios_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva",2,"Envios"));
+        chkEnvios_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear",2,"Envios"));
+        chkEnvios_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar",2,"Envios"));
+        
+        chkClientes_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar",2,"Clientes"));
+        chkClientes_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva",2,"Clientes"));
+        chkClientes_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear",2,"Clientes"));
+        chkClientes_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar",2,"Clientes"));
+        
+        chkReportes_Envios.setSelected(CPermiso.buscarPermiso(permisos, "Envios",2,"Reportes"));
+        chkReportes_Incidencias.setSelected(CPermiso.buscarPermiso(permisos, "Incidencias",2,"Reportes"));
+        chkReportes_LogAuditoria.setSelected(CPermiso.buscarPermiso(permisos, "LogAuditoria",2,"Reportes"));
+        chkReportes_MovAlmacen.setSelected(CPermiso.buscarPermiso(permisos, "MovAlmacen",2,"Reportes"));
+        chkReportes_Ventas.setSelected(CPermiso.buscarPermiso(permisos, "Ventas",2,"Reportes"));
+        
+        chkAdministracion_Aeropuertos_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Aeropuertos"));
+        chkAdministracion_Aeropuertos_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Aeropuertos"));
+        chkAdministracion_Aeropuertos_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Aeropuertos"));
+        chkAdministracion_Aeropuertos_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Aeropuertos"));
+        
+        chkAdministracion_Tarifas_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Tarifas"));
+        chkAdministracion_Tarifas_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Tarifas"));
+        chkAdministracion_Tarifas_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Tarifas"));
+        chkAdministracion_Tarifas_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Tarifas"));
+        
+        chkAdministracion_Vuelos_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Vuelos"));
+        chkAdministracion_Vuelos_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Vuelos"));
+        chkAdministracion_Vuelos_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Vuelos"));
+        chkAdministracion_Vuelos_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Vuelos"));
+
+        chkAdministracion_TipoCambio_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "TipoCambio"));
+        chkAdministracion_TipoCambio_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "TipoCambio"));
+        chkAdministracion_TipoCambio_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "TipoCambio"));
+        chkAdministracion_TipoCambio_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "TipoCambio"));
+
+        chkSeguridad_Parametros_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Parametros"));
+        chkSeguridad_Parametros_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Parametros"));
+        chkSeguridad_Parametros_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Parametros"));
+        
+        chkSeguridad_Usuarios_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar", 3, "Usuarios"));
+        chkSeguridad_Usuarios_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Usuarios"));
+        chkSeguridad_Usuarios_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Usuarios"));
+        chkSeguridad_Usuarios_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Usuarios"));
+
+        chkSeguridad_Perfiles_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva", 3, "Perfiles"));
+        chkSeguridad_Perfiles_Crear.setSelected(CPermiso.buscarPermiso(permisos, "Crear", 3, "Perfiles"));
+        chkSeguridad_Perfiles_Modificar.setSelected(CPermiso.buscarPermiso(permisos, "Modificar", 3, "Perfiles"));        
+
     }
     
     private void cargarcampos(){    
@@ -61,7 +130,7 @@ public class PerfilEdit extends javax.swing.JDialog {
          
         txtNombre.setText(perfilBE.getNombre());
         txtDescripcion.setText(perfilBE.getDescripcion());   
-
+        cboEstado.setSelectedIndex(1);
         for(int i=0;i<cboEstado.getItemCount();i++){
             Parametro estado = (Parametro)cboEstado.getItemAt(i);
             if (estado.getIdParametro() == perfilBE.getEstado().getIdParametro()){
