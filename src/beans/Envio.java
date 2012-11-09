@@ -64,6 +64,8 @@ public class Envio implements Serializable {
     private Date fechaRecojo;
     private int numPaquetes;
     private double monto;
+    private double impuesto;
+    private double unitario;
     private int numDocVenta;
     @ManyToOne
     @JoinColumn(name = "Moneda")
@@ -215,5 +217,21 @@ public class Envio implements Serializable {
 
     public void setTipoDocVenta(Parametro tipoDocVenta) {
         this.tipoDocVenta = tipoDocVenta;
+    }
+
+    public double getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(double impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public double getUnitario() {
+        return unitario;
+    }
+
+    public void setUnitario(double unitario) {
+        this.unitario = unitario;
     }
 }
