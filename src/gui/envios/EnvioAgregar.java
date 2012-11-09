@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
-
+import controllers.CReportes;
+import javax.swing.JFileChooser;
 /**
  *
  * @author miguelavg
@@ -815,7 +816,46 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_destinatarioActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        // TODO add your handling code here:
+
+        JFileChooser jfc = new JFileChooser();
+        int rslt = jfc.showSaveDialog(this);
+        if (rslt == JFileChooser.APPROVE_OPTION){
+            String strArch = jfc.getSelectedFile().getName();
+            if (!strArch.trim().isEmpty()){
+                String ruta = jfc.getSelectedFile().getPath().trim();
+                if (!ruta.isEmpty()){
+                    try{
+                        //beAlmacen alma = (new blHelper()).obtenerDatosAlmacen();
+                        //if (alma.getNombre() != null){
+                            //if (this.tblReporte.getRowCount()>=1){
+                                if (!ruta.endsWith(".pdf"))
+                                ruta += ".pdf";
+                                //System.out.println(this.usuario.getNombre());
+                                float[] anchos = {8f,8f,5f};
+                                //this.usuario.getNombre()
+                                //alma.getNombre()
+                                //this.palletElegido
+                                CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", "Joao", "FlyTrack", "Factura", anchos,this.envio);
+                                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n"+ruta);
+                            //}
+                            //else
+                            //CReportes.mostrarMensajeAdvertencia("No existen registros en el historial.");
+                            //}
+                        //else
+                        //  visualHelper.mostrarMensajeAdvertencia("No se ha ingresado información sobre el almacén.");
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        CReportes.mostrarMensajeError("Ocurrió un error al generar la factura.");
+                    }
+                }
+                else
+                CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo de la factura.");
+            }
+            else
+            CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+        }
+        
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void txt_actualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_actualActionPerformed
