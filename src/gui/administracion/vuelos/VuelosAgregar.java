@@ -74,13 +74,22 @@ public class VuelosAgregar extends javax.swing.JDialog {
         txt_origen.setText(objVuelo.getOrigen().getNombre());
         txt_destino.setText(objVuelo.getOrigen().getNombre());
         txt_capacidad.setText(String.valueOf(objVuelo.getCapacidadActual()));
-        Calendar cal1 = null;
-        Calendar cal2 = null;
-        cal1.setTime(objVuelo.getFechaLlegada());
-        dt_fechLlega.setSelectedDate(cal1);
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
         
-        cal2.setTime(objVuelo.getFechaLlegada());
-        dt_fechLlega.setSelectedDate(cal2);
+        if (objVuelo.getFechaLlegada() != null ) {
+           cal1.setTime(objVuelo.getFechaLlegada()); 
+           dt_fechLlega.setSelectedDate(cal1);
+        }
+       
+       // cal1.setTime();
+        
+        if (objVuelo.getFechaLlegada() != null ) {
+            cal2.setTime(objVuelo.getFechaLlegada());
+            dt_fechLlega.setSelectedDate(cal2);
+        }
+        
+       
         
        for (int k=0 ; k<ListatipoEst.size(); k ++){
         if (objVuelo.getEstado().getValor().compareTo(ListatipoEst.get(k).getValor())==0)  {
