@@ -292,9 +292,22 @@ public class Aeropuerto extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void llenarGrillaAero() {
+        int pais = -1;
+        int ciudad = -1;
+        int estado = -1;
 
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
-                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(), ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
+        if (cbm_Pais.getSelectedIndex() > 0) {
+            pais = ((Parametro) cbm_Pais.getSelectedItem()).getIdParametro();
+        }
+        if (cbm_ciudad.getSelectedIndex() > 0) {
+            ciudad = ((Parametro) cbm_ciudad.getSelectedItem()).getIdParametro();
+        }
+        if (cbm_estado.getSelectedIndex() > 0) {
+            estado = ((Parametro) cbm_estado.getSelectedItem()).getIdParametro();
+        }
+
+
+        listaAeropuertos = CAeropuerto.BuscarAeropuerto(pais, ciudad, estado);
 
 
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
@@ -351,12 +364,15 @@ public class Aeropuerto extends javax.swing.JDialog {
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
         // TODO add your handling code here:
         cbm_ciudad.removeAllItems();
+        cbm_ciudad.addItem("Seleccionar");
 
-        ListatipoHijo = ListatipoPar.get(cbm_Pais.getSelectedIndex()).getHijos();
-        for (int i = 0; i < ListatipoHijo.size(); i++) {
-            Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
 
-            cbm_ciudad.addItem(TipoDocBE);
+        if (cbm_Pais.getSelectedIndex() > 0) {
+            ListatipoHijo = ListatipoPar.get(cbm_Pais.getSelectedIndex() - 1).getHijos();
+            for (int i = 0; i < ListatipoHijo.size(); i++) {
+                Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
+                cbm_ciudad.addItem(TipoDocBE);
+            }
         }
     }//GEN-LAST:event_cbm_PaisActionPerformed
 

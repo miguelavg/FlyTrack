@@ -259,22 +259,19 @@ public class CAeropuerto {
             
            q = s.getNamedQuery("Aero");
            
-           if (!Pais.equals(""))
+           if (Pais > 0 && !Pais.equals(""))
            {
              Filter f = s.enableFilter("AeropuertoxPais");
              f.setParameter("Pais",Pais);
            }
-           if (!Ciudad.equals("")){
+           if (Ciudad > 0 && !Ciudad.equals("")){
                 Filter f2 = s.enableFilter("AeropuertoxCiudad");
                 f2.setParameter("Ciudad",Ciudad);
 
            }
        
-           if (!Estado.equals("")){
-                Filter f4 = s.enableFilter("AeropuertoxEstado");
-                
-                
-                
+           if (Estado > 0 && !Estado.equals("")){
+                Filter f4 = s.enableFilter("AeropuertoxEstado");               
                 f4.setParameter("Estado",Estado);
 
            }
