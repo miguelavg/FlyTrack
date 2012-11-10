@@ -309,8 +309,8 @@ public class TarifaEdit extends javax.swing.JDialog {
            txtAeroOri.setText(TarifaBE.getOrigen().getNombre());
            txtAeroDes.setText(TarifaBE.getDestino().getNombre());
            txtMonto.setText(CValidator.formatNumber(TarifaBE.getMonto()));
-           txtFechaAct.setText((CValidator.formatDate(TarifaBE.getFechaActivacion())).substring(0,10).replace("/", "-"));
-           txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()).substring(0,10).replace("/", "-"));
+           //txtFechaAct.setText((CValidator.formatDate(TarifaBE.getFechaActivacion())).substring(0,10).replace("/", "-"));
+           //txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()).substring(0,10).replace("/", "-"));
            
            for(int i=1;i<cboMoneda.getItemCount();i++){
                Parametro moneda = (Parametro)cboMoneda.getItemAt(i);
@@ -437,8 +437,8 @@ public class TarifaEdit extends javax.swing.JDialog {
         String error_message = "";
         
         if (txtAeroOri.getText().isEmpty()||txtAeroDes.getText().isEmpty() || txtMonto.getText().isEmpty() ||
-                    txtFechaAct.getText().isEmpty() ||  txtFechaDes.getText().isEmpty()
-                ||cboEstado.getSelectedIndex()==0 || cboMoneda.getSelectedIndex()==0  ){
+                    //txtFechaAct.getText().isEmpty() ||  txtFechaDes.getText().isEmpty() ||
+                cboEstado.getSelectedIndex()==0 || cboMoneda.getSelectedIndex()==0  ){
             
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             
@@ -450,10 +450,10 @@ public class TarifaEdit extends javax.swing.JDialog {
 //                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
 //            }
                       
-            if (!CValidator.isInteger(txtMonto.getText())){
+            if (!CValidator.isDouble(txtMonto.getText())){
                 
                 error_message = "El monto es inválido";
-                return null;
+                return error_message;
                 
             }
                 
