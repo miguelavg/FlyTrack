@@ -50,6 +50,38 @@ public class CVuelo {
 
     }
      
+      public static String validar(
+            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoDestino,
+            Calendar ini,
+            Calendar fin,
+            Parametro Estado,
+            String capacidad) 
+      {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        String error_message = "";
+        Parametro p;
+        try {
+             
+            if (aeropuertoOrigen == null || 
+                aeropuertoDestino == null || 
+                ini == null || 
+                fin == null || 
+                Estado == null || 
+                capacidad == null) {
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return error_message;
+    }
+    
      public static void cargarVuelo(Vuelo v){
          
         SessionFactory sf = Sesion.getSessionFactory();
@@ -244,7 +276,7 @@ public class CVuelo {
             objVuelo.setFechaLlegada(ini.getTime());
             objVuelo.setFechaSalida(fin.getTime());
             objVuelo.setEstado(Estado);
-            objVuelo.setCapacidadActual(Integer.parseInt(capacidad));
+            objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
 
 
             int i = (Integer) s.save(objVuelo);
