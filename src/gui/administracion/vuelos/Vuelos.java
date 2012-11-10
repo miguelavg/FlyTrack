@@ -398,6 +398,7 @@ public class Vuelos extends javax.swing.JDialog {
 
     public void llenarGrillaVuelo(){
         
+        Parametro TipoDoc;
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_vuelos.getModel();
         int rows=dtm.getRowCount();
         for (int i=rows-1; i>=0; i--){
@@ -408,7 +409,16 @@ public class Vuelos extends javax.swing.JDialog {
         column= tbl_vuelos.getColumnModel().getColumn(0);
         column.setMaxWidth(0);
         Object[] datos = new Object[9];
-       for (int i = 0; i < listaVuelos.size(); i++) {
+        
+        if (cbm_estado.getSelectedIndex()>0) {
+          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
+          
+        }else {
+         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
+        }
+        
+        for (int i = 0; i < listaVuelos.size(); i++) {
            
            datos[0] = listaVuelos.get(i).getIdVuelo();
            datos[1] = listaVuelos.get(i).getOrigen().getNombre();
@@ -416,7 +426,7 @@ public class Vuelos extends javax.swing.JDialog {
            datos[3] = listaVuelos.get(i).getFechaSalida();
            datos[4] = listaVuelos.get(i).getFechaLlegada();           
            datos[5] = listaVuelos.get(i).getEstado();
-           datos[6] = listaVuelos.get(i).getCapacidadActual();           
+           datos[6] = listaVuelos.get(i).getCapacidadMax();           
            
            dtm.addRow(datos);
     
