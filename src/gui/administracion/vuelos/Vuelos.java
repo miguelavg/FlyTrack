@@ -440,7 +440,7 @@ public class Vuelos extends javax.swing.JDialog {
         // TODO add your handling code here:
          if (this.tbl_vuelos.getSelectedRow() != -1 ) {  
             VuelosAgregar vVuelAgre = new VuelosAgregar(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()), -1);
-    
+     
             vVuelAgre.setVisible(true);
        
             llenarGrillaVuelo();
