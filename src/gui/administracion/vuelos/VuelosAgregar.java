@@ -7,7 +7,9 @@ package gui.administracion.vuelos;
 import beans.Aeropuerto;
 import beans.Parametro;
 import beans.Vuelo;
+import controllers.CParametro;
 import controllers.CVuelo;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Component;
 import java.awt.Window;
@@ -340,10 +342,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
-        if (indicador != -1){
-         // agregar
-            
-            CVuelo.agregarVuelo(
+      
+         String error_message = CVuelo.validar( 
                                 aeropuertoOrigen,
                                 aeropuertoDestino,
                                 dt_fechLlega.getSelectedDate(),
@@ -351,9 +351,21 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                 ListatipoEst.get(cbm_estado.getSelectedIndex()),
                                 txt_capacidad.getText()
                                 );
-            
-        }
-        else {
+           
+        if (error_message == null || error_message.isEmpty()) {
+           if (indicador != -1){
+                    CVuelo.agregarVuelo(
+                                        aeropuertoOrigen,
+                                        aeropuertoDestino,
+                                        dt_fechLlega.getSelectedDate(),
+                                        dt_fechSali.getSelectedDate(),
+                                        ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                                        txt_capacidad.getText()
+                                        );
+                    this.setVisible(false);
+                    this.dispose();
+            }
+          else {
           // modificar
             CVuelo.modificarVuelo( 
                                     txt_codigo.getText(),
@@ -363,11 +375,11 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                     dt_fechSali.getSelectedDate(),
                                     ListatipoEst.get(cbm_estado.getSelectedIndex()),
                                     txt_capacidad.getText()
-                                    );
-        
-        }
-        
-        
+                                    );        
+        }          
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
+        }       
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
