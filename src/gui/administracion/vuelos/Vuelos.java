@@ -426,10 +426,14 @@ public class Vuelos extends javax.swing.JDialog {
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-       
-      
-            VuelosAgregar vVuelAgre = new VuelosAgregar(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);
-    
+       VuelosAgregar vVuelAgre = null;
+      if (tbl_vuelos.getSelectedRow() == -1 ) {
+          vVuelAgre = new VuelosAgregar(this,true,null, 1);
+      }
+      else {
+          vVuelAgre = new VuelosAgregar(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);  
+      }
+            
             vVuelAgre.setVisible(true);
             vVuelAgre.setModal(true);
             llenarGrillaVuelo();
