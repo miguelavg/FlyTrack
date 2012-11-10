@@ -164,7 +164,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         if(chkSimulacion.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Simulacion", 1, null);
         if(chkClientes.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Clientes", 1, null);
         if(chkReportes.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Reportes", 1, null);
-        
+                
         if(chkAdministracion_Aeropuertos.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Aeropuertos", 2, "Administracion");
         if(chkAdministracion_Tarifas.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Tarifas", 2, "Administracion");
         if(chkAdministracion_Vuelos.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Vuelos", 2, "Administracion");

@@ -33,6 +33,8 @@ import org.hibernate.annotations.NamedQuery;
         query = "from Accion where nivel = 1"),
     @NamedQuery(name = "AccionXNombreXNivelXPadre",
         query = "from Accion where nivel = :nivel and nombre = :nombre and padre.nombre = :nombrePadre"),
+    @NamedQuery(name = "AccionXNombre",
+        query = "from Accion where nivel = 1 and nombre = :nombre and padre = null")
 })
 
 public class Accion implements Serializable {

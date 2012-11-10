@@ -55,11 +55,21 @@ public class CPermiso {
         try{
             Transaction tx = s.beginTransaction();
             
-            Query q = s.getNamedQuery("AccionXNombreXNivelXPadre").setMaxResults(1);
-            q.setParameter("nivel", nivelAccion);
-            q.setParameter("nombre", nombreAccion);
-            q.setParameter("nombrePadre", nombreAccionPadre);
-            Accion accion = (Accion)q.uniqueResult();
+            Query q;
+            Accion accion;
+            
+            if(nombreAccionPadre != null){
+                q = s.getNamedQuery("AccionXNombreXNivelXPadre").setMaxResults(1);
+                q.setParameter("nivel", nivelAccion);
+                q.setParameter("nombre", nombreAccion);
+                q.setParameter("nombrePadre", nombreAccionPadre);
+                accion = (Accion)q.uniqueResult();
+            }
+            else{
+                q = s.getNamedQuery("AccionXNombre").setMaxResults(1);
+                q.setParameter("nombre", nombreAccion);
+                accion = (Accion)q.uniqueResult();
+            }
             
             Permiso permiso = new Permiso();
             permiso.setAccion(accion);
