@@ -185,7 +185,7 @@ public class CVuelo {
             objVuelo.setFechaLlegada(ini.getTime());
             objVuelo.setFechaSalida(fin.getTime());
             objVuelo.setEstado(Estado);
-            objVuelo.setCapacidadActual(Integer.parseInt(capacidad));
+            objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
         
 //            objVuelo.setPais(Pais);
 //            objVuelo.setIdAeropuerto(idAeropuerto);
