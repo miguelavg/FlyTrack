@@ -35,7 +35,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
     
     
     public VuelosAgregar(javax.swing.JDialog parent,boolean modal, Vuelo objVuelo,int i) {
-             super(parent,true);
+            super(parent,true);
             padre=parent;            
             
             padre.setEnabled(false); 
@@ -46,12 +46,14 @@ public class VuelosAgregar extends javax.swing.JDialog {
             indicador = i;
             txt_codigo.setVisible(false);
             lbl_codigo.setVisible(false);
+            
             if (i == -1) {
             txt_codigo.setVisible(true);
              cargar_componentes(objVuelo);
              
             lbl_codigo.setVisible(true);
             }
+            
             objVueloo = objVuelo; 
             
       
