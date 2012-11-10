@@ -14,21 +14,18 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author joao
  */
-
 public class Aeropuerto extends javax.swing.JDialog {
 
-  
-    private List<Parametro> ListatipoPar; 
-    private List<Parametro> ListatipoEst; 
+    private List<Parametro> ListatipoPar;
+    private List<Parametro> ListatipoEst;
     private List<Parametro> ListatipoHijo;
     private beans.Aeropuerto objAero = new beans.Aeropuerto();
-    
-     List<beans.Aeropuerto> listaAeropuertos;
+    List<beans.Aeropuerto> listaAeropuertos;
+
     /**
      * Creates new form Aeropuerto
      */
@@ -58,6 +55,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         cbm_Pais = new javax.swing.JComboBox();
         cbm_ciudad = new javax.swing.JComboBox();
         cbm_estado = new javax.swing.JComboBox();
+        btn_regresar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btn_agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -66,6 +64,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Aeropuertos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -79,10 +78,10 @@ public class Aeropuerto extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(249, 249, 249)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(314, 314, 314))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,15 +107,32 @@ public class Aeropuerto extends javax.swing.JDialog {
             }
         });
 
+        cbm_Pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_Pais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_PaisActionPerformed(evt);
             }
         });
 
+        cbm_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cbm_ciudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbm_ciudadActionPerformed(evt);
+            }
+        });
+
+        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_estadoActionPerformed(evt);
+            }
+        });
+
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
             }
         });
 
@@ -124,10 +140,6 @@ public class Aeropuerto extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(335, 335, 335)
-                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(387, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,9 +154,15 @@ public class Aeropuerto extends javax.swing.JDialog {
                         .addComponent(cbm_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                        .addContainerGap())))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(294, 294, 294)
+                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,17 +172,17 @@ public class Aeropuerto extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbm_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbm_ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbm_ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -216,28 +234,26 @@ public class Aeropuerto extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(43, 43, 43))))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,7 +277,7 @@ public class Aeropuerto extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -269,53 +285,52 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        
-       llenarGrillaAero();    
-  
-        
+
+        llenarGrillaAero();
+
+
     }//GEN-LAST:event_btn_buscarActionPerformed
 
-    
-     private void llenarGrillaAero() {
+    private void llenarGrillaAero() {
 
-         listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
-                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(),ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
-        
-          
+        listaAeropuertos = CAeropuerto.BuscarAeropuerto(ListatipoPar.get(cbm_Pais.getSelectedIndex()).getIdParametro(),
+                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()).getIdParametro(), ListatipoEst.get(cbm_estado.getSelectedIndex()).getIdParametro());
+
+
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
         Object[] datos = new Object[9];
-        
-        int rows=dtm.getRowCount();
-        for (int i=rows-1; i>=0; i--){
+
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-        
+
         for (int i = 0; i < listaAeropuertos.size(); i++) {
-            
-           datos[0] = listaAeropuertos.get(i).getNombre();
-           datos[1] = listaAeropuertos.get(i).getCiudad();
-           datos[2] = listaAeropuertos.get(i).getPais();
+
+            datos[0] = listaAeropuertos.get(i).getNombre();
+            datos[1] = listaAeropuertos.get(i).getCiudad();
+            datos[2] = listaAeropuertos.get(i).getPais();
 //           datos[3] = listaAeropuertos.get(i).getCoordX();
 //           datos[4] = listaAeropuertos.get(i).getCoordY();
-           datos[3] = listaAeropuertos.get(i).getEstado().getValor().toString();
-           datos[4] = listaAeropuertos.get(i).getCapacidadMax();
-           datos[5] = listaAeropuertos.get(i).getCapacidadActual();
-           
-           dtm.addRow(datos);
+            datos[3] = listaAeropuertos.get(i).getEstado().getValor().toString();
+            datos[4] = listaAeropuertos.get(i).getCapacidadMax();
+            datos[5] = listaAeropuertos.get(i).getCapacidadActual();
+
+            dtm.addRow(datos);
 
         }
-     
-     }
-        
+
+    }
+
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
-        AeropuertoAgregar MiVentana = new AeropuertoAgregar(this,true); //llamamos a la clase y creamos un objeto llamado MiVentana
+        AeropuertoAgregar MiVentana = new AeropuertoAgregar(this, true); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         llenarGrillaAero();
-        
+
         // MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
         // MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
-    
+
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
@@ -324,32 +339,23 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        if (this.tbl_aeropuerto.getSelectedRow() != -1 ) {
-            listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());  
-            
-            AeropuertoModificar MiVentana = new AeropuertoModificar(this,true,listaAeropuertos.get(tbl_aeropuerto.getSelectedRow())); //llamamos a la clase y creamos un objeto llamado MiVentana
+        if (this.tbl_aeropuerto.getSelectedRow() != -1) {
+            listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());
+
+            AeropuertoModificar MiVentana = new AeropuertoModificar(this, true, listaAeropuertos.get(tbl_aeropuerto.getSelectedRow())); //llamamos a la clase y creamos un objeto llamado MiVentana
             MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
             llenarGrillaAero();
         }
-        else {
-          JOptionPane.showMessageDialog(null, "Debes seleccionar un Aeropuerto",
-            "Advertencia", 1);
-        
-        }
-        
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
         // TODO add your handling code here:
         cbm_ciudad.removeAllItems();
-        
-       
-        
-         ListatipoHijo = ListatipoPar.get(cbm_Pais.getSelectedIndex()).getHijos();
-            for (int i=0;i<ListatipoHijo.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoHijo.get(i);
-            
+
+        ListatipoHijo = ListatipoPar.get(cbm_Pais.getSelectedIndex()).getHijos();
+        for (int i = 0; i < ListatipoHijo.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
+
             cbm_ciudad.addItem(TipoDocBE);
         }
     }//GEN-LAST:event_cbm_PaisActionPerformed
@@ -360,36 +366,41 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        AeropuertoCarga DialogoCarga = new AeropuertoCarga(this,true);
+        AeropuertoCarga DialogoCarga = new AeropuertoCarga(this, true);
         DialogoCarga.setVisible(true);
-            
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void llenarComboPais(){
-      
-        
-      ListatipoPar = CAeropuerto.llenarComboPais();
-        
-      for (int i=0;i<ListatipoPar.size();i++)
-          
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoPar.get(i);
-            
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void cbm_ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_ciudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbm_ciudadActionPerformed
+
+    private void llenarComboPais() {
+
+
+        ListatipoPar = CAeropuerto.llenarComboPais();
+
+        for (int i = 0; i < ListatipoPar.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoPar.get(i);
+
             cbm_Pais.addItem(TipoDocBE);
         }
-     }
-     private void llenarComboEstado(){
-      
-        
+    }
+
+    private void llenarComboEstado() {
+
         ListatipoEst = CAeropuerto.llenarComboEstado();
-      for (int i=0;i<ListatipoEst.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
-            
+        for (int i = 0; i < ListatipoEst.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoEst.get(i);
             cbm_estado.addItem(TipoDocBE);
         }
-     }
-    
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -428,6 +439,7 @@ public class Aeropuerto extends javax.swing.JDialog {
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox cbm_Pais;
     private javax.swing.JComboBox cbm_ciudad;
     private javax.swing.JComboBox cbm_estado;
@@ -443,7 +455,7 @@ public class Aeropuerto extends javax.swing.JDialog {
     private javax.swing.JTable tbl_aeropuerto;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
+    private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(3, "Aeropuertos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
@@ -453,7 +465,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         this.btn_buscar.setEnabled(buscar);
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Aeropuertos", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
-        
+
         this.setLocationRelativeTo(null);
         pack();
     }

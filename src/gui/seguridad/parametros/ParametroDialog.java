@@ -326,8 +326,8 @@ public class ParametroDialog extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        CParametro cparametro = new CParametro();
-        List<Parametro> parametros = cparametro.buscar(null, null, null, null);
+        //CParametro cparametro = new CParametro();
+        List<Parametro> parametros = CParametro.buscar(null, null, null, null);
         llenarTablaParametro(parametros);
     }//GEN-LAST:event_formWindowOpened
 
