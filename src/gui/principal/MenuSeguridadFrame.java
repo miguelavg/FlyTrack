@@ -42,7 +42,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         lblUsuarios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Seguridad");
+        setTitle("FlyTrack - Seguridad");
         setModal(true);
         setResizable(false);
 
