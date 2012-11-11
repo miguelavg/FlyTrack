@@ -63,7 +63,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         lblLogAuditoria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Seguridad");
+        setTitle("FlyTrack - Seguridad");
         setMaximumSize(new java.awt.Dimension(450, 115));
         setMinimumSize(new java.awt.Dimension(450, 115));
         setModal(true);
