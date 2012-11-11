@@ -75,7 +75,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.txt_total.setText(CValidator.formatNumber(this.envio.getMonto()));
             this.txt_numEnvio.setText(String.valueOf(this.envio.getIdEnvio()));
             this.txt_numPaquetes.setText(String.valueOf(this.envio.getNumPaquetes()));
-            this.txt_numDoc.setText(String.valueOf(this.envio.getIdEnvio()));
+            this.txt_numDoc.setText(String.valueOf(this.envio.getNumDocVenta()));
             this.txt_fechaReg.setText(CValidator.formatDate(this.envio.getFechaRegistro()));
             this.txt_fechaRec.setText(CValidator.formatDate(this.envio.getFechaRecojo()));
 
@@ -1038,7 +1038,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.envio.setNumDocVenta(CEnvio.getNextNumDoc(doc.getValorUnico()));
                 
                 this.txt_numEnvio.setText(String.valueOf(this.envio.getIdEnvio()));
-                this.txt_numDoc.setText(String.valueOf(this.envio.getIdEnvio()));
+                this.txt_numDoc.setText(String.valueOf(this.envio.getNumDocVenta()));
                 cenvio.guardarEnvio(this.envio);
 
                 deshabilitarCampos();
