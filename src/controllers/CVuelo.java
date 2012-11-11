@@ -56,7 +56,8 @@ public class CVuelo {
             Calendar ini,
             Calendar fin,
             Parametro Estado,
-            String capacidad) 
+            String capacidad,
+            String monto) 
       {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -69,7 +70,8 @@ public class CVuelo {
                 ini == null || 
                 fin == null || 
                 Estado == null || 
-                capacidad == null) {
+                capacidad == null ||
+                    monto == null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
@@ -166,7 +168,7 @@ public class CVuelo {
                 Filter f_finllega = s.enableFilter("VueloXfechfin");
                 f_finllega.setParameter("fechallegada", fin);
             }
-
+ 
             if (Estado != null) {
                 Filter f_estado = s.enableFilter("VueloXEstado");
                 f_estado.setParameter("estado", Estado.getIdParametro());
@@ -194,8 +196,8 @@ public class CVuelo {
             Calendar ini,
             Calendar fin,
             Parametro Estado,
-            String capacidad
-          
+            String capacidad,
+            String monto
             ) {
 
 
@@ -218,6 +220,7 @@ public class CVuelo {
             objVuelo.setFechaSalida(fin.getTime());
             objVuelo.setEstado(Estado);
             objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
+            objVuelo.setAlquiler(Double.valueOf(monto));
         
 //            objVuelo.setPais(Pais);
 //            objVuelo.setIdAeropuerto(idAeropuerto);
@@ -252,7 +255,8 @@ public class CVuelo {
             Calendar ini,
             Calendar fin,
             Parametro Estado,
-            String capacidad ) {
+            String capacidad,
+            String monto) {
 
 
 
@@ -277,6 +281,7 @@ public class CVuelo {
             objVuelo.setFechaSalida(fin.getTime());
             objVuelo.setEstado(Estado);
             objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
+            objVuelo.setAlquiler(Double.valueOf(monto));
 
 
             int i = (Integer) s.save(objVuelo);
