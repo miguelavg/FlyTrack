@@ -77,10 +77,11 @@ public class PerfilEdit extends javax.swing.JDialog {
         chkAdministracion_Tarifas.setSelected(CPermiso.buscarPermiso(permisos, "Tarifas",2,"Administracion"));
         chkAdministracion_Vuelos.setSelected(CPermiso.buscarPermiso(permisos, "Vuelos",2,"Administracion"));
         chkAdministracion_TipoCambio.setSelected(CPermiso.buscarPermiso(permisos, "TipoCambio",2,"Administracion"));
+        chkAdministracion_Parametros.setSelected(CPermiso.buscarPermiso(permisos, "Parametros",2,"Administracion"));
         
-        chkAdministracion_Parametros.setSelected(CPermiso.buscarPermiso(permisos, "Parametros",2,"Seguridad"));
         chkSeguridad_Usuarios.setSelected(CPermiso.buscarPermiso(permisos, "Usuarios",2,"Seguridad"));
         chkSeguridad_Perfiles.setSelected(CPermiso.buscarPermiso(permisos, "Perfiles",2,"Seguridad"));
+        chkSeguridad_LogAuditoria.setSelected(CPermiso.buscarPermiso(permisos, "LogAuditoria",2,"Seguridad"));
         
         chkEnvios_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar",2,"Envios"));
         chkEnvios_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva",2,"Envios"));
@@ -1288,10 +1289,12 @@ public class PerfilEdit extends javax.swing.JDialog {
             if (idperfil == -1){//Nuevo Perfil
                 Perfil perfilNuevo = CPerfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
                 crearPermisos(perfilNuevo);
+                
             }
 
             else{//Modificar Perfil
-                Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
+                Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem());
+//                modificarPermisos();
             }
             this.setVisible(false);
             this.dispose();

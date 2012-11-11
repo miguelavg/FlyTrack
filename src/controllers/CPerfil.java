@@ -69,8 +69,9 @@ public class CPerfil {
          
     public static Perfil agregarPerfil(String nombre, String descripcion, Parametro estado){
         
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+//        SessionFactory sf = Sesion.getSessionFactory();
+//        Session s = sf.openSession();
+        Session s = Sesion.openSessionFactory();
 
         try {
             Transaction tx = s.beginTransaction();
@@ -91,6 +92,7 @@ public class CPerfil {
                 }
         finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
         return null;
     }   

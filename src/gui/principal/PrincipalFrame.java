@@ -70,9 +70,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setTitle("FlyTrack");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
+
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
+                jPanel1KeyPressed(evt);
             }
         });
 
@@ -299,14 +300,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
         menuSeguridad.setVisible(true);
     }//GEN-LAST:event_btnSeguridadActionPerformed
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
         // TODO add your handling code here:
-        if( evt.getKeyCode() == KeyEvent.VK_ESCAPE ||
-            evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+        if(evt.getKeyCode() == KeyEvent.VK_ESCAPE){
             btnCerrarSesion.doClick();
         }
-            
-    }//GEN-LAST:event_formKeyPressed
+    }//GEN-LAST:event_jPanel1KeyPressed
 
     /**
      * @param args the command line arguments
