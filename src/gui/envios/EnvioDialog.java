@@ -125,7 +125,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Envíos");
+        setTitle("FlyTrack - Envíos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         setMinimumSize(new java.awt.Dimension(770, 601));
