@@ -416,7 +416,7 @@ public class Vuelos extends javax.swing.JDialog {
         column.setMaxWidth(0);
         Object[] datos = new Object[8];
         
-       
+        
         
         for (int i = 0; i < listaVuelos.size(); i++) {
            
@@ -438,6 +438,14 @@ public class Vuelos extends javax.swing.JDialog {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
        VuelosAgregar vVuelAgre = null;
+      
+        Parametro TipoDoc;
+        
+        
+          TipoDoc=(Parametro)cbm_estado.getSelectedItem();
+     
+      
+      
       if (tbl_vuelos.getSelectedRow() == -1 ) {
           vVuelAgre = new VuelosAgregar(this,true,null, 1);
       }
@@ -445,8 +453,16 @@ public class Vuelos extends javax.swing.JDialog {
           vVuelAgre = new VuelosAgregar(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);  
       }
             
+       if (cbm_estado.getSelectedIndex()>=0) {
+        TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+       }else {
+         TipoDoc= null;
+       } 
+       listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
             vVuelAgre.setVisible(true);
             vVuelAgre.setModal(true);
+            this.setEnabled(true);
+            this.setVisible(true);
             llenarGrillaVuelo();
       
     }//GEN-LAST:event_btnAgregarActionPerformed
