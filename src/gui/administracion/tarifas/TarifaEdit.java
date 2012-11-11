@@ -36,6 +36,7 @@ public class TarifaEdit extends javax.swing.JDialog {
     Tarifa TarifaBE;
     
     public TarifaEdit(javax.swing.JDialog parent, boolean modal,int id) {
+        
         super(parent, modal);
         idtarifa=id;
         initComponents();
@@ -88,7 +89,7 @@ public class TarifaEdit extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Tarifa-Edit");
+        setTitle("Tarifa - Editar");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -182,6 +183,7 @@ public class TarifaEdit extends javax.swing.JDialog {
 
         cboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.png"))); // NOI18N
         jButton4.setText("Guardar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +191,8 @@ public class TarifaEdit extends javax.swing.JDialog {
             }
         });
 
-        jButton5.setText("Cancelar");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
+        jButton5.setText("Regresar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -308,7 +311,9 @@ public class TarifaEdit extends javax.swing.JDialog {
         TarifaBE=TarifaBL.BuscarXid(idtarifa);
            txtAeroOri.setText(TarifaBE.getOrigen().getNombre());
            txtAeroDes.setText(TarifaBE.getDestino().getNombre());
-           txtMonto.setText(CValidator.formatNumber(TarifaBE.getMonto()));
+           String monto=CValidator.formatNumber(TarifaBE.getMonto());
+           monto.replace(",", ".");
+           txtMonto.setText(monto);
            //txtFechaAct.setText((CValidator.formatDate(TarifaBE.getFechaActivacion())).substring(0,10).replace("/", "-"));
            //txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()).substring(0,10).replace("/", "-"));
            
