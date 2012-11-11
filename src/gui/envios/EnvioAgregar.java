@@ -165,7 +165,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }
 
     private void habilitarBotones(boolean siNuevo) {
-        btn_factura.setEnabled(!siNuevo);
+
         btn_in.setEnabled(!siNuevo);
         btn_ruta.setEnabled(!siNuevo);
 
@@ -174,11 +174,17 @@ public class EnvioAgregar extends javax.swing.JDialog {
         } else {
             btn_anular.setEnabled(false);
         }
-        
+
         if (this.destino != null && this.actual.getIdAeropuerto() == this.destino.getIdAeropuerto()) {
             btn_out.setEnabled(true);
         } else {
             btn_out.setEnabled(false);
+        }
+
+        if (!this.isNuevo && !this.envio.getEstadoFactura().getValorUnico().equals("EM")) {
+            btn_factura.setEnabled(true);
+        } else {
+            btn_factura.setEnabled(false);
         }
     }
 
@@ -1126,7 +1132,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 break;
             }
         }
-        
+
         for (int i = 1; i < estadosFactura; i++) {
             Parametro p = (Parametro) cmb_estadoFactura.getItemAt(i);
             if (p.getValorUnico().equals("AN")) {
@@ -1135,22 +1141,22 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 break;
             }
         }
-        
+
         Parametro estadoEscala = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "INCTV");
         int cAero = this.envio.getActual().getCapacidadActual();
         this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
-        
-        
+
+
         this.envio.getActual().setCapacidadActual(1);
-        
-        for(Escala e : this.envio.getEscalas()){
+
+        for (Escala e : this.envio.getEscalas()) {
             e.setEstado(estadoEscala);
             int cVuelo = e.getVuelo().getCapacidadActual();
             e.getVuelo().setCapacidadActual(cVuelo - this.envio.getNumPaquetes());
         }
-        
+
         llenarEscalas(this.envio);
-        
+
         btn_anular.setEnabled(false);
         cenvio.guardarEnvio(this.envio);
     }//GEN-LAST:event_btn_anularActionPerformed
