@@ -262,7 +262,7 @@
                               <Component id="chkSeguridad" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkAdministracion" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="519" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="519" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -281,7 +281,7 @@
                           <Component id="chkClientes" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkReportes" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="155" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -350,7 +350,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="chkAdministracion_Tarifas" min="-2" max="-2" attributes="0"/>
                               <Component id="chkAdministracion_Vuelos" min="-2" max="-2" attributes="0"/>
@@ -372,52 +372,56 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="194" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="chkAdministracion_TipoCambio" min="-2" max="-2" attributes="0"/>
-                              <Component id="chkAdministracion_Aeropuertos" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="chkAdministracion_TipoCambio_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkAdministracion_TipoCambio_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkAdministracion_TipoCambio_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkAdministracion_TipoCambio_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="chkAdministracion_Aeropuertos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkAdministracion_Aeropuertos_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkAdministracion_Aeropuertos_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkAdministracion_Aeropuertos_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_TipoCambio" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="chkAdministracion_Aeropuertos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                  <Component id="chkAdministracion_TipoCambio_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="chkAdministracion_TipoCambio_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="chkAdministracion_TipoCambio_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="chkAdministracion_TipoCambio_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                  <Component id="chkAdministracion_Aeropuertos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="chkAdministracion_Aeropuertos_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="chkAdministracion_Aeropuertos_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="chkAdministracion_Aeropuertos_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
+                                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="chkAdministracion_Parametros" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="chkAdministracion_Parametros_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Parametros_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Parametros_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="chkAdministracion_Tarifas" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="chkAdministracion_Aeropuertos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="chkAdministracion_Tarifas_Crear" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Component id="chkAdministracion_Tarifas_Modificar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chkAdministracion_Tarifas_Buscar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chkAdministracion_Tarifas_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="chkAdministracion_Aeropuertos_Crear" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Component id="chkAdministracion_Aeropuertos_Modificar" min="-2" max="-2" attributes="0"/>
@@ -425,6 +429,34 @@
                                   <Component id="chkAdministracion_Aeropuertos_Buscar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chkAdministracion_Aeropuertos_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="chkAdministracion_Tarifas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkAdministracion_Aeropuertos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_Crear" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_Modificar" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_Buscar" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Tarifas_CargaMasiva" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="chkAdministracion_Parametros" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Parametros_Crear" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Parametros_Modificar" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Parametros_Buscar" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -453,7 +485,7 @@
                                   <Component id="chkAdministracion_TipoCambio_CargaMasiva" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="56" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -639,6 +671,42 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_TipoCambio_CargaMasivaActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Parametros">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Par&#xe1;metros"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_ParametrosActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Parametros_Crear">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_Parametros_CrearActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Parametros_Modificar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_Parametros_ModificarActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Parametros_Buscar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_Parametros_BuscarActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="panelSeguridad">
@@ -659,11 +727,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="chkSeguridad_Perfiles" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Component id="chkSeguridad_LogAuditoria" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="chkSeguridad_Usuarios" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
@@ -672,48 +737,39 @@
                                               <Component id="chkSeguridad_Usuarios_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="chkSeguridad_Usuarios_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="chkSeguridad_Usuarios_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="chkSeguridad_Perfiles_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="chkSeguridad_Perfiles_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="chkSeguridad_Perfiles_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="chkSeguridad_Usuarios_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="chkSeguridad_Usuarios_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="208" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="chkSeguridad_Parametros" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="chkSeguridad_Perfiles" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace pref="78" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="chkSeguridad_Parametros_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="chkSeguridad_Parametros_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="chkSeguridad_Parametros_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkSeguridad_Perfiles_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkSeguridad_Perfiles_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="chkSeguridad_Perfiles_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="chkSeguridad_Usuarios" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="chkSeguridad_Parametros" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="chkSeguridad_Usuarios" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="chkSeguridad_Usuarios_Crear" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chkSeguridad_Usuarios_Modificar" min="-2" max="-2" attributes="0"/>
@@ -721,24 +777,20 @@
                                   <Component id="chkSeguridad_Usuarios_Buscar" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="chkSeguridad_Parametros_Crear" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Perfiles" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chkSeguridad_Parametros_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Perfiles_Crear" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chkSeguridad_Parametros_Buscar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Perfiles_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chkSeguridad_Perfiles_CargaMasiva" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkSeguridad_Usuarios_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkSeguridad_Perfiles" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkSeguridad_Perfiles_Crear" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkSeguridad_Perfiles_Modificar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkSeguridad_Perfiles_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="80" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="chkSeguridad_LogAuditoria" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -825,41 +877,11 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Perfiles_CargaMasivaActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros">
+                <Component class="javax.swing.JCheckBox" name="chkSeguridad_LogAuditoria">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Par&#xe1;metros"/>
+                    <Property name="text" type="java.lang.String" value="Logs de Auditoria"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_ParametrosActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros_Crear">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Crear"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Parametros_CrearActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros_Modificar">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Modificar"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Parametros_ModificarActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Parametros_Buscar">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Parametros_BuscarActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -886,7 +908,7 @@
                               <Component id="chkEnvios_Modificar" min="-2" max="-2" attributes="0"/>
                               <Component id="chkEnvios_Crear" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="523" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="523" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -901,7 +923,7 @@
                           <Component id="chkEnvios_Buscar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkEnvios_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="230" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -956,7 +978,7 @@
                               <Component id="chkClientes_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkClientes_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="523" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="523" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -971,7 +993,7 @@
                           <Component id="chkClientes_Buscar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkClientes_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="230" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1022,12 +1044,11 @@
                           <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="chkReportes_Incidencias" min="-2" max="-2" attributes="0"/>
-                              <Component id="chkReportes_LogAuditoria" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkReportes_MovAlmacen" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkReportes_Envios" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chkReportes_Ventas" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="449" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="449" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1041,10 +1062,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkReportes_MovAlmacen" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkReportes_LogAuditoria" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkReportes_Incidencias" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="200" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1065,12 +1084,6 @@
                 <Component class="javax.swing.JCheckBox" name="chkReportes_MovAlmacen">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Movimientos de Almacen"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkReportes_LogAuditoria">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Logs de Auditor&#xed;a"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>

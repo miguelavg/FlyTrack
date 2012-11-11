@@ -43,8 +43,8 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         inputMap.put(strokeBACKSPACE, "BACKSPACE");
         rootPane.getActionMap().put("BACKSPACE", actionListener);
 
-    return rootPane;
-  }
+        return rootPane;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,13 +59,15 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         btnUsuarios = new javax.swing.JButton();
         lblPerfiles = new javax.swing.JLabel();
         lblUsuarios = new javax.swing.JLabel();
+        btnLogAuditoria = new javax.swing.JButton();
+        lblLogAuditoria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Seguridad");
-        setMaximumSize(new java.awt.Dimension(300, 115));
-        setMinimumSize(new java.awt.Dimension(300, 115));
+        setMaximumSize(new java.awt.Dimension(450, 115));
+        setMinimumSize(new java.awt.Dimension(450, 115));
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(300, 115));
+        setPreferredSize(new java.awt.Dimension(450, 115));
         setResizable(false);
 
         btnPerfiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
@@ -86,6 +88,15 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
 
         lblUsuarios.setText("Usuarios");
 
+        btnLogAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/report.jpeg"))); // NOI18N
+        btnLogAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogAuditoriaActionPerformed(evt);
+            }
+        });
+
+        lblLogAuditoria.setText("Logs de Auditoria");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,20 +112,34 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
                         .addComponent(btnUsuarios)
                         .addGap(79, 79, 79)
                         .addComponent(btnPerfiles)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(btnLogAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(lblLogAuditoria)))
+                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPerfiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUsuarios))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUsuarios)
-                    .addComponent(lblPerfiles))
-                .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLogAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLogAuditoria)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPerfiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUsuarios))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuarios)
+                            .addComponent(lblPerfiles))
+                        .addGap(23, 23, 23))))
         );
 
         pack();
@@ -131,6 +156,11 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         UsuarioFrame usuarioframe = new UsuarioFrame();
         usuarioframe.setVisible(true);
     }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnLogAuditoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,8 +197,10 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogAuditoria;
     private javax.swing.JButton btnPerfiles;
     private javax.swing.JButton btnUsuarios;
+    private javax.swing.JLabel lblLogAuditoria;
     private javax.swing.JLabel lblPerfiles;
     private javax.swing.JLabel lblUsuarios;
     // End of variables declaration//GEN-END:variables
@@ -182,6 +214,9 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         boolean perfiles = CSeguridad.validarPermiso(2, "Seguridad", "Perfiles", permisos);
         this.btnPerfiles.setEnabled(perfiles);
         this.lblPerfiles.setEnabled(perfiles);
+        boolean logAuditoria = CSeguridad.validarPermiso(2, "Seguridad", "LogAuditoria", permisos);
+        this.btnLogAuditoria.setEnabled(logAuditoria);
+        this.lblLogAuditoria.setEnabled(logAuditoria);
         
         this.setLocationRelativeTo(null);
         pack();
