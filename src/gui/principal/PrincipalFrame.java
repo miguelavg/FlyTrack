@@ -15,6 +15,7 @@ import gui.envios.EnvioDialog;
 import gui.reportes.ReporteFrame;
 import gui.administracion.vuelos.Vuelos;
 import gui.simulacion.SimDialog;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -37,7 +38,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("imagenes/logo.png")).getImage());
         definirPermisos();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +70,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setTitle("FlyTrack");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         btnEnvios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
         btnEnvios.addActionListener(new java.awt.event.ActionListener() {
@@ -292,6 +298,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
         MenuSeguridadFrame menuSeguridad = new MenuSeguridadFrame();
         menuSeguridad.setVisible(true);
     }//GEN-LAST:event_btnSeguridadActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        if( evt.getKeyCode() == KeyEvent.VK_ESCAPE ||
+            evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+            btnCerrarSesion.doClick();
+        }
+            
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments

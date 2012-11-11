@@ -64,6 +64,7 @@ public class Envio implements Serializable {
     private Date fechaRecojo;
     private int numPaquetes;
     private double monto;
+    private double iva;
     private double impuesto;
     private double unitario;
     private int numDocVenta;
@@ -76,6 +77,9 @@ public class Envio implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Estado")
     private Parametro estado;
+    @ManyToOne
+    @JoinColumn(name = "EstadoFactura")
+    private Parametro estadoFactura;
     @ManyToOne
     @JoinColumn(name = "idOrigen")
     @Cascade(CascadeType.SAVE_UPDATE)
@@ -234,4 +238,22 @@ public class Envio implements Serializable {
     public void setUnitario(double unitario) {
         this.unitario = unitario;
     }
+
+    public double getIva() {
+        return iva;
+    }
+
+    public void setIva(double iva) {
+        this.iva = iva;
+    }
+
+    public Parametro getEstadoFactura() {
+        return estadoFactura;
+    }
+
+    public void setEstadoFactura(Parametro estadoFactura) {
+        this.estadoFactura = estadoFactura;
+    }
+    
+    
 }

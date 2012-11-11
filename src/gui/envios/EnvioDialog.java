@@ -125,7 +125,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Envíos");
+        setTitle("FlyTrack - Envíos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         setMinimumSize(new java.awt.Dimension(770, 601));
@@ -519,7 +519,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         Envio envio = envioAgregar.showDialog();
 
         if (envio != null) {
-            //llenarLineaTabla(nTipoCambio, (DefaultTableModel) tbl_tiposcambio.getModel());
+            llenarLineaTabla(envio, (DefaultTableModel) tbl_envios.getModel());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 

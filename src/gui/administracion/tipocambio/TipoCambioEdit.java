@@ -39,6 +39,12 @@ public class TipoCambioEdit extends javax.swing.JDialog {
             this.tipoCambio = new TipoCambio();
             llenarCombos(null, null);
         }
+        
+        if(this.isNuevo){
+            this.setTitle("FlyTrack - Administración - Tipos de cambio - Agregar");
+        } else {
+            this.setTitle("FlyTrack - Administración - Tipos de cambio - Modificar");
+        }
     }
     private TipoCambio tipoCambio;
     private Parametro monedaOrigen;
