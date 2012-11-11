@@ -121,7 +121,7 @@ public class CTipoCambio {
 
             }
 
-            if (!CValidator.isDouble(vTipoCambio)) {
+            if (!CValidator.isDouble(vTipoCambio) && Double.parseDouble(vTipoCambio) > 0) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT004") + "\n";
             }
 

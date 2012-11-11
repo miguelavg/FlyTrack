@@ -4,17 +4,37 @@
  */
 package gui.administracion.vuelos;
 
+
+import beans.Incidencia;
+import beans.Parametro;
+import beans.Vuelo;
+import controllers.CAeropuerto;
+import controllers.CIncidencia;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 /**
  *
  * @author jorge
  */
-public class Incidencias extends javax.swing.JFrame {
+public class Incidencias extends javax.swing.JDialog {
 
+    
+    public List <Parametro>ListatipoInci =null;
+    public List <Incidencia>ListaInci =null;
+    
+    public Vuelo objV = null;
     /**
      * Creates new form Incidencias
      */
-    public Incidencias() {
+    public Incidencias(javax.swing.JDialog parent, boolean modal,Vuelo objVuelo) {
+        super(parent,modal);
         initComponents();
+        llenarComboIncidencia();
+        objV  = objVuelo;        
     }
 
     /**
@@ -30,18 +50,17 @@ public class Incidencias extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btn_guardar = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         txt_codigo = new javax.swing.JTextField();
-        cbm_estado = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
-        dt_fechLlega = new datechooser.beans.DateChooserCombo();
-        jComboBox1 = new javax.swing.JComboBox();
+        dt_fechini = new datechooser.beans.DateChooserCombo();
+        cbm_incidencia = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_incidencia = new javax.swing.JTable();
         btn_buscar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        dt_fechfin = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,30 +75,21 @@ public class Incidencias extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(146, 146, 146)
+                .addGap(215, 215, 215)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setText("Codigo Vuelo");
-
-        jLabel4.setText("Estado");
-
-        btn_guardar.setText("Guardar");
-        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_guardarActionPerformed(evt);
-            }
-        });
 
         btn_cancelar.setText("Cancelar");
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -96,22 +106,20 @@ public class Incidencias extends javax.swing.JFrame {
             }
         });
 
-        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Programado", "Salida", "LLegada", "Incidencia" }));
+        jLabel8.setText("Fecha Inicio");
 
-        jLabel8.setText("Fecha Llegada");
-
-        dt_fechLlega.setNothingAllowed(false);
+        dt_fechini.setNothingAllowed(false);
+        dt_fechini.setFormat(0);
+        dt_fechini.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
         try {
-            dt_fechLlega.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+            dt_fechini.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
             e1.printStackTrace();
         }
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setText("Tipo Incidencia");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_incidencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -119,48 +127,62 @@ public class Incidencias extends javax.swing.JFrame {
                 "Incidencia", "Estado", "Fecha ", "Descripcion", "TipoIndicencia"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbl_incidencia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_incidenciaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_incidencia);
 
         btn_buscar.setText("Buscar");
-        btn_buscar.setActionCommand("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
             }
         });
 
+        jLabel9.setText("Fecha Fin");
+
+        dt_fechfin.setNothingAllowed(false);
+        dt_fechfin.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
+        try {
+            dt_fechfin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)))
-                        .addGap(56, 56, 56)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbm_estado, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(dt_fechLlega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(56, 56, 56)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbm_incidencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(48, 48, 48)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(btn_buscar)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dt_fechfin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_guardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_cancelar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(256, 256, 256)
+                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_cancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,32 +190,25 @@ public class Incidencias extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dt_fechLlega, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_buscar))
-                    .addComponent(jLabel4))
+                        .addComponent(jLabel8)
+                        .addComponent(cbm_incidencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dt_fechfin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel2)
+                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_cancelar)
-                    .addComponent(btn_guardar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btn_buscar)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(btn_cancelar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,53 +220,25 @@ public class Incidencias extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        // TODO add your handling code here: 
-//        if (indicador != -1) {
-//            // agregar
-////            CVuelo.agregarVuelo(
-////                    aeropuertoOrigen,
-////                    aeropuertoDestino,
-////                    dt_fechLlega.getSelectedDate(),
-////                    dt_fechSali.getSelectedDate(),
-////                    ListatipoEst.get(cbm_estado.getSelectedIndex()),
-////                    txt_capacidad.getText());
-////
-////        } else {
-////            // modificar
-////            CVuelo.modificarVuelo(
-////                    txt_codigo.getText(),
-////                    aeropuertoOrigen,
-////                    aeropuertoDestino,
-////                    dt_fechLlega.getSelectedDate(),
-////                    dt_fechSali.getSelectedDate(),
-////                    ListatipoEst.get(cbm_estado.getSelectedIndex()),
-////                    txt_capacidad.getText());
-//
-//        }
-
-
-    }//GEN-LAST:event_btn_guardarActionPerformed
-
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
 
 //        vVuelo.dispose();
-
+           this.dispose();
 
 
         // TODO add your handling code here:
@@ -263,8 +250,63 @@ public class Incidencias extends javax.swing.JFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
+        Parametro p=null;
+        p=ListatipoInci.get(cbm_incidencia.getSelectedIndex());               
+        ListaInci = objV.getIncidencias(); //CIncidencia.BuscarIncidencia(p,dt_fechini.getSelectedDate(),dt_fechfin.getSelectedDate());   
+        llenarGrillaIncidencia();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
+    private void tbl_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_incidenciaMouseClicked
+        // TODO add your handling code here:
+        IncidenciaEdit VInci = new IncidenciaEdit(this,true,objV,1);
+        VInci.setModal(true);
+        VInci.setVisible(true);
+          
+    }//GEN-LAST:event_tbl_incidenciaMouseClicked
+
+    
+     public void llenarGrillaIncidencia(){
+        
+        Parametro TipoDoc;
+        DefaultTableModel dtm = (DefaultTableModel) this.tbl_incidencia.getModel();
+        int rows=dtm.getRowCount();
+        for (int i=rows-1; i>=0; i--){
+            dtm.removeRow(0);
+        }
+       
+        TableColumn column = null;
+        column= tbl_incidencia.getColumnModel().getColumn(0);
+        column.setMaxWidth(0);
+        Object[] datos = new Object[5];
+        
+        
+        Calendar fec = Calendar.getInstance();
+        
+        
+        for (int i = 0; i < ListaInci.size(); i++) {
+          
+            
+           datos[0] = ListaInci.get(i).getIdIncidencia();
+           datos[1] = ListaInci.get(i).getEstado().getIdParametro();
+           datos[2] = ListaInci.get(i).getDescripcion();
+           datos[3] = ListaInci.get(i).getFecha();
+           datos[4] = ListaInci.get(i).getVuelo().getIdVuelo();           
+          
+            fec.setTime((Date)dtm.getValueAt(i,3));
+            
+           if ((Integer)(dtm.getValueAt(i, 1)) == 
+              ((Parametro)cbm_incidencia.getSelectedItem()).getIdParametro()
+               &&  (dt_fechini.getSelectedDate().compareTo(fec)==-1) && 
+                   (dt_fechini.getSelectedDate().compareTo(fec)==1))
+               
+           {
+            dtm.addRow(datos);
+           }
+               
+    
+    }
+       
+   }
     /**
      * @param args the command line arguments
      */
@@ -302,26 +344,36 @@ public class Incidencias extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new Incidencias().setVisible(true);
+                new Incidencias(new javax.swing.JDialog(),true,new Vuelo()).setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
-    private javax.swing.JButton btn_guardar;
-    private javax.swing.JComboBox cbm_estado;
-    private datechooser.beans.DateChooserCombo dt_fechLlega;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox cbm_incidencia;
+    private datechooser.beans.DateChooserCombo dt_fechfin;
+    private datechooser.beans.DateChooserCombo dt_fechini;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_incidencia;
     private javax.swing.JTextField txt_codigo;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarComboIncidencia() {
+      ListatipoInci = CIncidencia.llenarComboEstado();;
+      
+      for (int i=0;i<ListatipoInci.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListatipoInci.get(i);
+            
+            cbm_incidencia.addItem(TipoDocBE);
+        }
+    }
 }

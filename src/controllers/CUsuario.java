@@ -27,8 +27,13 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 
 public class CUsuario {
-    public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
-        Parametro estado,Integer numAcceso, boolean PrimerAcceso){
+    public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto,String LogIn,
+        Parametro estado,Integer numAcceso, boolean PrimerAcceso,
+            String Nombre,String Apellidos, String correo, 
+            String telefono,String NumeroDoc, 
+            Parametro TipoDoc, Parametro Ciudad, Parametro Pais
+            
+            ){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -40,11 +45,21 @@ public class CUsuario {
             
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            CUsuario.setIdCliente(cliente);
+            //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
             CUsuario.setNumAcceso(numAcceso);
             CUsuario.setPrimerAcceso(PrimerAcceso);
+            
+            
+            CUsuario.setTipoDoc(TipoDoc);
+            CUsuario.setApellidos(Apellidos);
+            CUsuario.setNombres(Nombre);
+            CUsuario.setNumDoc(NumeroDoc);
+            CUsuario.setTelefono(telefono);
+            CUsuario.seteMail( correo);
+            CUsuario.setCiudad(Ciudad);
+            CUsuario.setPais(Pais);
             
             int i = (Integer)s.save(CUsuario);
             tx.commit();
@@ -58,7 +73,7 @@ public class CUsuario {
         
     }
     
-    public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto,Cliente cliente,Parametro Estado)
+    public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto,String nombre,Parametro Estado)
     {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -78,11 +93,13 @@ public class CUsuario {
                 f2.setParameter("idaeropuerto",aeropuerto.getIdAeropuerto());
             }
 
-            if (cliente!=null ){
-                Filter f3 = s.enableFilter("UsuarioxIdcliente");
-                f3.setParameter("idcliente",cliente.getIdCliente());
- //           Filter f4 = s.enableFilter("UsuarioxLogin");
- //           f4.setParameter("login",Login);
+            if (nombre!=null ){
+//                Filter f3 = s.enableFilter("UsuarioxIdcliente");
+//                f3.setParameter("idcliente",cliente.getIdCliente());
+//                
+                Filter f3 = s.enableFilter("UsuarioxNombre");
+                f3.setParameter("nombres",nombre);
+                
             }
 
             //&& Estado.getIdParametro()!=0
@@ -185,8 +202,12 @@ public class CUsuario {
         
         return mensaje;
     }
-    public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, Cliente cliente, String LogIn,
-                Parametro estado){
+    public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+                Parametro estado,String Nombre, String Apellidos, String correo, 
+            String telefono,String NumeroDoc, 
+            Parametro TipoDoc, Parametro Ciudad, Parametro Pais
+            
+            ){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession( );
@@ -200,11 +221,20 @@ public class CUsuario {
             CUsuario.setIdUsuario(idUsuario);
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            CUsuario.setIdCliente(cliente);
+            //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
             CUsuario.setNumAcceso(0);
             CUsuario.setPrimerAcceso(false);
+            
+            CUsuario.setTipoDoc(TipoDoc);
+            CUsuario.setApellidos(Apellidos);
+            CUsuario.setNombres(Nombre);
+            CUsuario.setNumDoc(NumeroDoc);
+            CUsuario.setTelefono(telefono);
+            CUsuario.seteMail( correo);
+            CUsuario.setCiudad(Ciudad);
+            CUsuario.setPais(Pais);
             
             s.update(CUsuario);
             tx.commit();
@@ -218,7 +248,7 @@ public class CUsuario {
         
     }
       
-    public String validar(Integer idusuario, Integer idcliente,boolean isNuevo, String aeropuerto, String cliente, String logIn,Parametro estado, Perfil perfil) {
+    public String validar(Integer idusuario, boolean isNuevo, String aeropuerto, String cliente, String logIn,Parametro estado, Perfil perfil) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -231,11 +261,6 @@ public class CUsuario {
             if (aeropuerto.isEmpty()|| cliente.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
-            
-            
-            
-            
-            
             if (aeropuerto.isEmpty()|| cliente.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
@@ -266,17 +291,17 @@ public class CUsuario {
 //           Filter f2 = s.enableFilter("UsuarioxIdcliente");
 //           f2.setParameter("idcliente",idcliente);
         
-           q1 = s.getNamedQuery("UsuarioxIdClienteAux");
-           q1.setParameter("idcliente",idcliente );
-           
-           ListaAuxUsuarios= q1.list();
-                
-                if (ListaAuxUsuarios.size() > 0) {
-                    U2 = ListaAuxUsuarios.get(0);
-                    if (U2!=null){
-                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
-                    }
-                }
+//           q1 = s.getNamedQuery("UsuarioxIdClienteAux");
+//           q1.setParameter("idcliente",idcliente );
+//           
+//           ListaAuxUsuarios= q1.list();
+//                
+//                if (ListaAuxUsuarios.size() > 0) {
+//                    U2 = ListaAuxUsuarios.get(0);
+//                    if (U2!=null){
+//                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
+//                    }
+//                }
                 
             }
             }
@@ -296,29 +321,29 @@ public class CUsuario {
         return error_message;
     }
      
-    public Usuario BuscarXidCliente(int id){
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
-        Usuario CUsuario = new Usuario();
-        
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-            q = s.getNamedQuery("UsuarioxIdClienteAux");
-            q.setParameter("idcliente", id);
-            
-            CUsuario=(Usuario)q.list().get(0);
-            //CUsuario=(Usuario)q.uniqueResult();
-            return CUsuario;
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        finally {
-            s.close();
-        }
-        return null;
-    }
+//    public Usuario BuscarXidCliente(int id){
+//        SessionFactory sf = Sesion.getSessionFactory();
+//        Session s = sf.openSession();
+//        Usuario CUsuario = new Usuario();
+//        
+//        try {
+//            Transaction tx = s.beginTransaction();
+//            Query q;
+//            q = s.getNamedQuery("UsuarioxIdClienteAux");
+//            q.setParameter("idcliente", id);
+//            
+//            CUsuario=(Usuario)q.list().get(0);
+//            //CUsuario=(Usuario)q.uniqueResult();
+//            return CUsuario;
+//            }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        finally {
+//            s.close();
+//        }
+//        return null;
+//    }
     
     public static Usuario buscarXNombreUsuario(String username){
         Session s = Sesion.openSessionFactory();
