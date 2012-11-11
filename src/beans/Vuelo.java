@@ -67,8 +67,10 @@ public class Vuelo implements Serializable {
     @JoinColumn(name = "idDestino")
     private Aeropuerto destino;
     @OneToMany(mappedBy = "vuelo")
+    @Cascade(CascadeType.ALL)
     private List<Incidencia> incidencias;
     @OneToMany(mappedBy = "vuelo")
+    @Cascade(CascadeType.ALL)
     private List<Escala> escalas;
 
     public Vuelo() {
