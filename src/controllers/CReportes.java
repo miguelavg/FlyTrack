@@ -5,6 +5,7 @@
 package controllers;
 
 import beans.Envio;
+import controllers.CValidator;
 import com.itextpdf.text.BaseColor;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -164,7 +165,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 
         private static void reporteEnPDF_Trazabilidad_Factura(Document document,Envio envio, float[] anchos) throws Exception {
 //INICIO TABLA
-        PdfPTable table = new PdfPTable(3);
+        PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(95);
         table.setWidths(anchos);
 
@@ -179,21 +180,28 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 //            table.addCell(c1);
 //        }
         
-              p1 = new Phrase("Cantidad");
+              p1 = new Phrase("Nro de Articulos");
               c1 = new PdfPCell(p1);
               c1.setHorizontalAlignment(Element.ALIGN_CENTER);
               c1.setNoWrap(true);
               c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
               table.addCell(c1);
               
-              p1 = new Phrase("Descripción");
+              p1 = new Phrase("Descripción de la mercancia");
               c1 = new PdfPCell(p1);
               c1.setHorizontalAlignment(Element.ALIGN_CENTER);
               c1.setNoWrap(true);
               c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
               table.addCell(c1);
               
-              p1 = new Phrase("Importe");
+              p1 = new Phrase("Valor Unitario");
+              c1 = new PdfPCell(p1);
+              c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+              c1.setNoWrap(true);
+              c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+              table.addCell(c1);
+              
+              p1 = new Phrase("Valor Total");
               c1 = new PdfPCell(p1);
               c1.setHorizontalAlignment(Element.ALIGN_CENTER);
               c1.setNoWrap(true);
@@ -208,37 +216,50 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
         table.addCell(i.toString());
         table.getRow(0).getCells()[0].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        table.addCell("Envio del aeropuerto: "+envio.getOrigen().getNombre()+"\n"+ "al aeropuerto:"+envio.getDestino().getNombre());
+        table.addCell("Envio del Aeropuerto de Origen: \n"+envio.getOrigen().getNombre()+"\n \n"+ "Al Aeropuerto de Destino: \n"+envio.getDestino().getNombre()+"\n");
         table.getRow(0).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        Double j=envio.getMonto();
-        table.addCell(j.toString());
+        
+        //Double j=envio.getMonto();
+        //j.toString()
+        table.addCell(CValidator.formatNumber(envio.getUnitario()));
         table.getRow(0).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
+        
+        table.addCell(CValidator.formatNumber(envio.getMonto()));
+        table.getRow(0).getCells()[3].setHorizontalAlignment(Element.ALIGN_RIGHT);
         
         table.addCell(" ");
         table.getRow(1).getCells()[0].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        table.addCell("IGV: ");
+        table.addCell(" ");
         table.getRow(1).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        //Double jk=(double) (20/100);
-        Double k=envio.getMonto()*(Double)0.2;
-        //Double k=envio.get
-        table.addCell(k.toString());
+         table.addCell("IGV:");
         table.getRow(1).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
         
+        table.addCell(CValidator.formatNumber(envio.getImpuesto()*envio.getMonto() ));
+        table.getRow(1).getCells()[3].setHorizontalAlignment(Element.ALIGN_RIGHT);
+        
+        //Double jk=(double) (20/100);
+//        Double k=envio.getMonto()*(Double)0.2;
+//        //Double k=envio.get
+//        table.addCell(k.toString());
+//        table.getRow(1).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+        table.addCell(" ");
+        table.getRow(2).getCells()[0].setHorizontalAlignment(Element.ALIGN_CENTER);
         
         table.addCell(" ");
-        table.getRow(2).getCells()[0].setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.getRow(2).getCells()[1].setHorizontalAlignment(Element.ALIGN_CENTER);
         
+        //Double l=j+k;
+        //l.toString()
         table.addCell("Total: ");
-        table.getRow(2).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.getRow(2).getCells()[2].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-        Double l=j+k;
-        table.addCell(l.toString());
-        table.getRow(2).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
-        
-                    
+        table.addCell(CValidator.formatNumber((envio.getMonto())+(envio.getImpuesto()*envio.getMonto())));
+        table.getRow(2).getCells()[3].setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.getRow(3).getCells()[3].setHorizontalAlignment(Element.ALIGN_RIGHT);
 //        for(int i=0;i<tablaJava.getRowCount();i++){
 //            table.addCell(tablaJava.getValueAt(i, 0).toString());
 //            table.addCell(tablaJava.getValueAt(i, 1).toString());
@@ -265,19 +286,43 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 
             lineaVacia(preface1, 1);
             
-            Paragraph preface2 = null;
-
-            preface2=new Paragraph("Empresa: "+empresa + "Direccion Av. Universitaria 1801 San Miguel", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface2.setAlignment(Element.ALIGN_LEFT);
-
-            lineaVacia(preface2, 1);
-
             Paragraph preface3 = null;
 
             preface3=new Paragraph(tituloDocumento + "\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
             preface3.setAlignment(Element.ALIGN_CENTER);
 
             lineaVacia(preface3, 1);
+            
+            
+            Paragraph preface2 = null;
+
+            preface2=new Paragraph("Empresa: "+empresa + " ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface2.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface2, 1);
+            
+            Paragraph preface4 = null;
+            
+            preface4=new Paragraph("Dirección: Av. Universitaria 1801 San Miguel", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface4.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface4, 1);
+
+            Paragraph preface5 = null;
+            
+            preface5=new Paragraph("País     : Peru ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface5.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface5, 1);
+            
+            Paragraph preface6 = null;
+            preface6=new Paragraph("Telefono : 4546354"+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface6.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface6, 1);
+            
+
+
 
 //            Paragraph preface4 = new Paragraph();
 //            preface4=new Paragraph("Historial de clientes  "+" "+".",FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL));
@@ -287,9 +332,13 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 //            lineaVacia(preface4, 1);
 
             document.add(preface1);
-            document.add(preface2);
             document.add(preface3);
-          //  document.add(preface4);
+            document.add(preface2);
+            document.add(preface4);
+            document.add(preface5);
+            document.add(preface6);
+            
+            
     }
 
     

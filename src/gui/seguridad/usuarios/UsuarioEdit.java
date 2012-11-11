@@ -168,7 +168,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
         });
 
-        lblCliente.setText("Cliente:");
+        lblCliente.setText("Empleado:");
 
         btnBuscarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -178,8 +178,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         });
 
         lblContrasena.setText("Contraseña:");
-
-        psswdContrasena.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -413,10 +411,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 //objeto usuario, objeto parametro
                 UsuarioAux=Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
                 
-                Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioAux,ListaEstado.get(0));
-                
-                
-                
+                Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioAux,ListaEstado.get(0));        
         }
         else{
         txtCliente.setVisible(false);

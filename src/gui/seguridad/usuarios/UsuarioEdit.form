@@ -257,7 +257,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblCliente">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cliente:"/>
+            <Property name="text" type="java.lang.String" value="Empleado:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCliente">
@@ -278,9 +278,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="psswdContrasena">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
