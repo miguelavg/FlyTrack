@@ -1,0 +1,546 @@
+<list>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Luis Alberto Bonnet</nombre>
+    <capacidadMax>200</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>400</coordY>
+    <pais>
+      <idParametro>39</idParametro>
+      <valor>Perú</valor>
+      <valorUnico>PER</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">39</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>41</idParametro>
+      <padre>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Lima</valor>
+      <valorUnico>LIMA</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">41</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Jorge Soto</nombre>
+    <capacidadMax>300</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>400</coordY>
+    <pais>
+      <idParametro>39</idParametro>
+      <valor>Perú</valor>
+      <valorUnico>PER</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">39</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>42</idParametro>
+      <padre>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Cusco</valor>
+      <valorUnico>CUSCO</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">42</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Roberto Palacios</nombre>
+    <capacidadMax>200</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>600</coordY>
+    <pais>
+      <idParametro>39</idParametro>
+      <valor>Perú</valor>
+      <valorUnico>PER</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">39</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>43</idParametro>
+      <padre>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Trujillo</valor>
+      <valorUnico>TRUJILLO</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">43</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Julinho</nombre>
+    <capacidadMax>200</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>800</coordY>
+    <pais>
+      <idParametro>29</idParametro>
+      <valor>Brasil</valor>
+      <valorUnico>BRA</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">29</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>45</idParametro>
+      <padre>
+        <idParametro>29</idParametro>
+        <valor>Brasil</valor>
+        <valorUnico>BRA</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">29</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Sao Paulo</valor>
+      <valorUnico>SAOPAULO</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">45</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Luis Alberto Bonnet</nombre>
+    <capacidadMax>200</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>400</coordY>
+    <pais>
+      <idParametro>39</idParametro>
+      <valor>Perú</valor>
+      <valorUnico>PER</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">39</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>41</idParametro>
+      <padre>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Lima</valor>
+      <valorUnico>LIMA</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">41</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Jorge Soto</nombre>
+    <capacidadMax>300</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>400</coordY>
+    <pais>
+      <idParametro>39</idParametro>
+      <valor>Perú</valor>
+      <valorUnico>PER</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">39</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>42</idParametro>
+      <padre>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Cusco</valor>
+      <valorUnico>CUSCO</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">42</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Roberto Palacios</nombre>
+    <capacidadMax>200</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>600</coordY>
+    <pais>
+      <idParametro>39</idParametro>
+      <valor>Perú</valor>
+      <valorUnico>PER</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">39</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>43</idParametro>
+      <padre>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Trujillo</valor>
+      <valorUnico>TRUJILLO</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">43</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+  <beans.Aeropuerto>
+    <idAeropuerto>0</idAeropuerto>
+    <nombre>Julinho</nombre>
+    <capacidadMax>200</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <coordX>200</coordX>
+    <coordY>800</coordY>
+    <pais>
+      <idParametro>29</idParametro>
+      <valor>Brasil</valor>
+      <valorUnico>BRA</valorUnico>
+      <tipo>PAIS</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">29</key>
+        <dirty>false</dirty>
+      </hijos>
+    </pais>
+    <ciudad>
+      <idParametro>45</idParametro>
+      <padre>
+        <idParametro>29</idParametro>
+        <valor>Brasil</valor>
+        <valorUnico>BRA</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">29</key>
+          <dirty>false</dirty>
+        </hijos>
+      </padre>
+      <valor>Sao Paulo</valor>
+      <valorUnico>SAOPAULO</valorUnico>
+      <tipo>CIUDAD</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">45</key>
+        <dirty>false</dirty>
+      </hijos>
+    </ciudad>
+    <estado>
+      <idParametro>27</idParametro>
+      <valor>Activo</valor>
+      <valorUnico>ACTV</valorUnico>
+      <tipo>ESTADO_AEROPUERTO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">27</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+  </beans.Aeropuerto>
+</list>

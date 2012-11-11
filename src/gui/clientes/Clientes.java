@@ -106,7 +106,7 @@ public class Clientes extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("Flrytack - Clientes");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

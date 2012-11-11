@@ -268,6 +268,11 @@ public class Vuelos extends javax.swing.JDialog {
                 "Codigo Vuelo", "Origen", "Destino", "Fecha salida", "Fecha llegada", "Estado", "Capacidad", "Alquiler"
             }
         ));
+        tbl_vuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_vuelosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_vuelos);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
@@ -489,6 +494,13 @@ public class Vuelos extends javax.swing.JDialog {
         VuelosCarga DialogoCarga = new VuelosCarga(this,true);
         DialogoCarga.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
+        // TODO add your handling code here:
+        Incidencias DialogoInc = new Incidencias(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()));
+        DialogoInc.setVisible(true);
+        
+    }//GEN-LAST:event_tbl_vuelosMouseClicked
 
     /**
      * @param args the command line arguments
