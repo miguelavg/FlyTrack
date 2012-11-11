@@ -71,7 +71,6 @@ public class UsuarioFrame extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
         cboPerfil = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
-        btnBuscarClientes = new javax.swing.JButton();
         txtCliente = new javax.swing.JTextField();
         btn_regresar1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -133,13 +132,6 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         jLabel7.setText("Cliente:");
 
-        btnBuscarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        btnBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarClientesActionPerformed(evt);
-            }
-        });
-
         btn_regresar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btn_regresar1.setText("Regresar");
         btn_regresar1.addActionListener(new java.awt.event.ActionListener() {
@@ -182,9 +174,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addGap(49, 49, 49))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22))))
@@ -209,11 +199,9 @@ public class UsuarioFrame extends javax.swing.JDialog {
                             .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,7 +390,7 @@ public void llenarcomboPerfiles(){
         
         //AeropuertoAux.getIdAeropuerto()
         //ClienteAux.getIdCliente()
-        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil, AeropuertoAux,ClienteAux,estado);
+        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil, AeropuertoAux,txtCliente.getText(),estado);
         //cboEstado.getSelectedItem());
         
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
@@ -415,14 +403,14 @@ public void llenarcomboPerfiles(){
         
        Object[] datos = new Object[9];
        for (int i = 0; i < listaUsuarios.size(); i++) {
-           datos[0] = listaUsuarios.get(i).getIdCliente().getNombres();
-           datos[1] = listaUsuarios.get(i).getIdCliente().getApellidos();
+           datos[0] = listaUsuarios.get(i).getNombres();
+           datos[1] = listaUsuarios.get(i).getApellidos();
            datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
            datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
-           datos[4] = listaUsuarios.get(i).getIdCliente().geteMail();
+           datos[4] = listaUsuarios.get(i).geteMail();
            datos[5] = listaUsuarios.get(i).getEstado();
-           datos[6] = listaUsuarios.get(i).getIdCliente().getTipoDoc();
-           datos[7] = listaUsuarios.get(i).getIdCliente().getNumDoc();
+           datos[6] = listaUsuarios.get(i).getTipoDoc();
+           datos[7] = listaUsuarios.get(i).getNumDoc();
            datos[8] = listaUsuarios.get(i).getIdUsuario();
            
            dtm.addRow(datos);
@@ -465,29 +453,20 @@ public void llenarcomboPerfiles(){
         
         Object[] datos = new Object[9];
        for (int i = 0; i < listaUsuarios.size(); i++) {
-           datos[0] = listaUsuarios.get(i).getIdCliente().getNombres();
-           datos[1] = listaUsuarios.get(i).getIdCliente().getApellidos();
+           datos[0] = listaUsuarios.get(i).getNombres();
+           datos[1] = listaUsuarios.get(i).getApellidos();
            datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
            datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
-           datos[4] = listaUsuarios.get(i).getIdCliente().geteMail();
+           datos[4] = listaUsuarios.get(i).geteMail();
            datos[5] = listaUsuarios.get(i).getEstado();
-           datos[6] = listaUsuarios.get(i).getIdCliente().getTipoDoc();
-           datos[7] = listaUsuarios.get(i).getIdCliente().getNumDoc();
+           datos[6] = listaUsuarios.get(i).getTipoDoc();
+           datos[7] = listaUsuarios.get(i).getNumDoc();
            datos[8] = listaUsuarios.get(i).getIdUsuario();           
 
            dtm.addRow(datos);
        }
     }
     
-    private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
-        // TODO add your handling code here:
-        ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true); 
-        //usuarioClientesPopUp.setVisible(true);
-        ClienteAux=usuarioClientesPopUp.showDialog();
-        txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
-        
-    }//GEN-LAST:event_btnBuscarClientesActionPerformed
-
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
         AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
         // TODO add your handling code here:
@@ -540,7 +519,6 @@ public void llenarcomboPerfiles(){
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscarAeropuerto;
-    private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btn_regresar1;
     private javax.swing.JComboBox cboEstado;

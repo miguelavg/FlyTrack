@@ -41,8 +41,8 @@ import org.hibernate.annotations.ParamDef;
         query="from Usuario where login = :login and estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "UsuarioxId",
     query = "from Usuario where idUsuario = :idusuario "),
-    @NamedQuery(name = "UsuarioxIdClienteAux",
-    query = "from Usuario where idcliente = :idcliente "),
+//    @NamedQuery(name = "UsuarioxIdClienteAux",
+//    query = "from Usuario where idcliente = :idcliente "),
     @NamedQuery(name = "UsuarioxNombreUsuario",
     query = "from Usuario where logIn = :username ")
 })
@@ -54,9 +54,15 @@ import org.hibernate.annotations.ParamDef;
     @FilterDef(name = "UsuarioxIdaeropuerto",
     parameters =
     @ParamDef(name = "idaeropuerto", type = "integer")),
-    @FilterDef(name = "UsuarioxIdcliente",
+//    @FilterDef(name = "UsuarioxIdcliente",
+//    parameters =
+//    @ParamDef(name = "idcliente", type = "integer")),
+    
+    @FilterDef(name = "UsuarioxNombre",
     parameters =
-    @ParamDef(name = "idcliente", type = "integer")),
+    @ParamDef(name = "nombres", type = "string")),
+    
+    
     @FilterDef(name = "UsuarioxLogin",
     parameters =
     @ParamDef(name = "login", type = "string")),
@@ -68,16 +74,14 @@ import org.hibernate.annotations.ParamDef;
 @Filters({
     @Filter(name = "UsuarioxIdperfil", condition = "idPerfil = :idperfil"),
     @Filter(name = "UsuarioxIdaeropuerto", condition = "idAeropuerto = :idaeropuerto"),
-    @Filter(name = "UsuarioxIdcliente", condition = "idCliente = :idcliente"),
+//    @Filter(name = "UsuarioxIdcliente", condition = "idCliente = :idcliente"),
+    
+    @Filter(name = "UsuarioxNombre", condition = "nombres = :nombres"),
+    
     @Filter(name = "UsuarioxLogin", condition = "Login = :login"),
     @Filter(name = "UsuarioxEstado", condition = "Estado = :estado"),    
 })
 
-//select C.nombres, C.Apellidos,P.nombre, A.nombre, ,C.CorreoElectronico, U.estado,C.TipoDoc, C.NumDoc     
-//from cliente C, usuario U, perfil P, aeropuerto A 
-//where C.idcliente=U.idcliente and U.idPerfil=P.idPerfil and U.idAeropuerto=A.idAeropuerto
-//and C.Nombres like nombres and C.Apellidos like apellidos and C.NumDoc like numdoc and C.TipoDoc like tipodoc       
-// 
 
 public class Usuario implements Serializable{
     @Id
@@ -92,9 +96,9 @@ public class Usuario implements Serializable{
     @JoinColumn(name = "idAeropuerto")
     private Aeropuerto aeropuerto;
     
-    @OneToOne
-    @JoinColumn(name = "idCliente")
-    private Cliente cliente;
+//    @OneToOne
+//    @JoinColumn(name = "idCliente")
+//    private Cliente cliente;
 
     private String logIn;
     
@@ -107,6 +111,91 @@ public class Usuario implements Serializable{
     
     @OneToMany(mappedBy="usuario")
     private List<Contrasena> contrasenias;
+    
+    
+    private String Nombres;
+    private String Apellidos;
+    private String NumDoc;
+    private String Telefono;
+    private String CorreoElectronico;
+    //private String Celular;
+    //private String Direccion;
+    @ManyToOne
+    @JoinColumn(name = "TipoDoc")
+    private Parametro tipoDoc;
+    @ManyToOne
+    @JoinColumn(name = "Ciudad")
+    private Parametro ciudad;
+    @ManyToOne
+    @JoinColumn(name = "Pais")
+    private Parametro pais;
+    
+        public String getNombres() {
+        return Nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.Nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return Apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.Apellidos = apellidos;
+    }
+
+    public String getNumDoc() {
+        return NumDoc;
+    }
+
+    public void setNumDoc(String numDoc) {
+        this.NumDoc = numDoc;
+    }
+
+    public String getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.Telefono = telefono;
+    }
+
+    public String geteMail() {
+        return CorreoElectronico;
+    }
+
+    public void seteMail(String eMail) {
+        this.CorreoElectronico = eMail;
+    }
+
+    public Parametro getTipoDoc() {
+        return tipoDoc;
+    }
+
+    public void setTipoDoc(Parametro tipoDoc) {
+        this.tipoDoc = tipoDoc;
+    }
+
+    public Parametro getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Parametro ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public Parametro getPais() {
+        return pais;
+    }
+
+    public void setPais(Parametro pais) {
+        this.pais = pais;
+    }
+
+    
+    
     
     //se puede mapear la contrasenia activa haciendo un mapeo de uno a muchos
     //donde a continuacion se indique un filtro para detectar la contrasenia activa
@@ -168,13 +257,13 @@ public class Usuario implements Serializable{
     this.aeropuerto = aeropuerto;
     }
 
-    public Cliente getIdCliente() {
-    return cliente;
-    }
-
-    public void setIdCliente(Cliente cliente) {
-    this.cliente = cliente;
-    }
+//    public Cliente getIdCliente() {
+//    return cliente;
+//    }
+//
+//    public void setIdCliente(Cliente cliente) {
+//    this.cliente = cliente;
+//    }
 
     public Parametro getEstado() {
     return estado;
@@ -183,5 +272,14 @@ public class Usuario implements Serializable{
     public void setEstado(Parametro estado) {
     this.estado = estado;
     }      
+//    
+//    public int getIdUsuario(){
+//    return idUsuario;
+//    }    
+//
+//    public void setIdUsuario(int idUsuario){
+//    this.idUsuario=idUsuario;
+//    }    
+//    
     
 }

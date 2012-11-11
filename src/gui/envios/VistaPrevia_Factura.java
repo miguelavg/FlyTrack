@@ -14,8 +14,11 @@ import controllers.CReportes;
 import beans.Envio;
 import beans.seguridad.Usuario;
 import controllers.CValidator;
+import java.awt.Component;
 import java.util.List;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class VistaPrevia_Factura extends javax.swing.JDialog {
 
@@ -67,10 +70,10 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(328, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(246, 246, 246)
                 .addComponent(jLabel1)
-                .addGap(187, 187, 187))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +100,15 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
             new String [] {
                 "Nro de Articulos", "Descripcion de la mercancia", "Valor Unitario", "Valor Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TablaFactura);
         TablaFactura.getColumnModel().getColumn(0).setPreferredWidth(30);
         TablaFactura.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -105,6 +116,8 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         TablaFactura.getColumnModel().getColumn(3).setPreferredWidth(50);
 
         jLabel2.setText("Elaborada por : ");
+
+        jTextField1.setEnabled(false);
 
         jLabel3.setText("Empresa             :  Flytrack ");
 
@@ -133,7 +146,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 301, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -175,18 +188,52 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//  public class TextRenderer extends JTextArea implements TableCellRenderer{
+//    public TextRenderer(){
+//      setLineWrap(true);
+//      setWrapStyleWord(true);
+//      setOpaque(true);
+//    }
+//    public Component getTableCellRendererComponent(JTable table, Object value,
+//    boolean isSelected, boolean hasFocus, int row, int column){
+//      setText((value == null) ? &#34;&#34;: value.toString());
+//      return this;
+//    }
+//  }
+    
+    
+    
+//    private void updateRowHeights()
+//{
+//    try
+//    {
+//        for (int row = 0; row < this.TablaFactura.getRowCount(); row++)
+//        {
+//            int rowHeight = this.TablaFactura.getRowHeight();
+//
+//            for (int column = 0; column < this.TablaFactura.getColumnCount(); column++)
+//            {
+//                Component comp = this.TablaFactura.prepareRenderer(this.TablaFactura.getCellRenderer(row, column), row, column);
+//                rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+//            }
+//
+//            this.TablaFactura.setRowHeight(row, rowHeight);
+//        }
+//    }
+//    catch(ClassCastException e) {}
+//}
+    
 public void cargartabla(){
     
     //    List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,null,null);    
         //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
         DefaultTableModel dtm = (DefaultTableModel) this.TablaFactura.getModel();
         
+        
         int rows=dtm.getRowCount();
         for (int i=rows-1; i>=0; i--){
             dtm.removeRow(0);
         }
-
         
         Object[] datos = new Object[4];
         Integer numPaquetes=envio.getNumPaquetes();
@@ -195,12 +242,15 @@ public void cargartabla(){
        
        //for (int i = 0; i < listaUsuarios.size(); i++) {
            datos[0] = numPaquetes.toString();
-           datos[1] = "Envio del Aeropuerto de Origen: "+""+envio.getOrigen().getNombre()+" \n "+" Al Aeropuerto de Destino: "+ envio.getDestino().getNombre()+" \n ";
+           datos[1] = "<html> Envio del Aeropuerto de Origen: <br> "+""+envio.getOrigen().getNombre()+" <br> "+" Al Aeropuerto de Destino: <br> "+ envio.getDestino().getNombre()+" <br> "+"<html> ";
            datos[2] =CValidator.formatNumber(envio.getUnitario());
            datos[3]= CValidator.formatNumber(envio.getMonto()); 
-                
-
-           dtm.addRow(datos);
+              
+           
+           //dtm.
+           //   DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)myTable.getCellRenderer(i, j);
+                 
+          //this.TablaFactura.setRowHeight(0, 50);       
            
            datos[0] = " ";
            datos[1] = " ";
@@ -215,7 +265,7 @@ public void cargartabla(){
            datos[3]= CValidator.formatNumber((envio.getMonto())+(envio.getImpuesto()*envio.getMonto())); 
                 
            dtm.addRow(datos);
-           
+//           updateRowHeights();
        //}
     }    
     
