@@ -1034,6 +1034,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.isNuevo = false;
 
                 cenvio.guardarEnvio(this.envio);
+                
+                this.envio.setNumDocVenta(CEnvio.getNextNumDoc(doc.getValorUnico()));
+                
                 this.txt_numEnvio.setText(String.valueOf(this.envio.getIdEnvio()));
                 this.txt_numDoc.setText(String.valueOf(this.envio.getIdEnvio()));
                 cenvio.guardarEnvio(this.envio);
