@@ -44,6 +44,12 @@ public class ParametroEdit extends javax.swing.JDialog {
         } else {
             this.parametro = new Parametro();
         }
+        
+        if(this.isNuevo){
+            this.setTitle("FlyTrack - Administración - Parámetros - Agregar");
+        } else {
+            this.setTitle("FlyTrack - Administración - Parámetros - Modificar");
+        }
     }
     private Parametro parametro;
     private Parametro padre;

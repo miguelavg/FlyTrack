@@ -5,6 +5,7 @@
 package controllers;
 
 import beans.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,8 +119,8 @@ public class CEnvio {
             p = (Parametro) q.uniqueResult();
             int limite_backward = Integer.parseInt(p.getValor());
 
-            
-            
+
+
 
             long iFuturo = envio.getFechaRegistro().getTime() + limite_forward * 24 * 60 * 60 * 1000;
             Calendar cal = Calendar.getInstance();
@@ -138,7 +139,7 @@ public class CEnvio {
             Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
             f_vuelos_l.setParameter("lower", ahora);
             f_vuelos_l.setParameter("upper", futuro);
-            
+
             q = s.getNamedQuery("Aeropuertos");
             List<Aeropuerto> aeros = q.list();
 
@@ -146,10 +147,10 @@ public class CEnvio {
 
             for (Aeropuerto a : aeros) {
 
-                a.getVuelosSalida().size();                
+                a.getVuelosSalida().size();
                 a.getVuelosLlegada().size();
-                
-                
+
+
 
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
@@ -207,14 +208,12 @@ public class CEnvio {
                     i++;
                     capacidad = e.getVuelo().getCapacidadActual();
                     e.getVuelo().setCapacidadActual(capacidad + envio.getNumPaquetes());
-                    capacidad = envio.getOrigen().getCapacidadActual();
-                    envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
                     envio.getEscalas().add(e);
                 }
             }
 
-            capacidad = envio.getOrigen().getCapacidadActual();
-            envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
+            capacidad = envio.getActual().getCapacidadActual();
+            envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -374,5 +373,27 @@ public class CEnvio {
         }
 
         return error_message;
+    }
+
+    public static int getNextNumDoc(String tipoDoc) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        int numDoc = -1;
+        try {
+            Query q;
+            if (tipoDoc.equals("BOL")) {
+                q = s.createSQLQuery("select nextval('envio_numboleta_seq')");
+                numDoc = ((BigInteger) q.uniqueResult()).shortValue();
+            }
+            if (tipoDoc.equals("FAC")) {
+                q = s.createSQLQuery("select nextval('envio_numfactura_seq')");
+                numDoc = ((BigInteger) q.uniqueResult()).shortValue();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return numDoc;
     }
 }
