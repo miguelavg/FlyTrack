@@ -376,16 +376,16 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="chkAdministracion_TipoCambio" min="-2" max="-2" attributes="0"/>
                               <Component id="chkAdministracion_Aeropuertos" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="chkAdministracion_TipoCambio_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chkAdministracion_TipoCambio_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chkAdministracion_TipoCambio_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chkAdministracion_TipoCambio_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="chkAdministracion_TipoCambio_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_TipoCambio_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_TipoCambio_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_TipoCambio_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                           <Component id="chkAdministracion_Aeropuertos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="chkAdministracion_Aeropuertos_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="chkAdministracion_Aeropuertos_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
