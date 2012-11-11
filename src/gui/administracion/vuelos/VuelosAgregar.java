@@ -387,7 +387,9 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                     ListatipoEst.get(cbm_estado.getSelectedIndex()),
                                     txt_capacidad.getText(),
                                     txt_monto.getText()
-                                    );        
+                                    );
+              this.setVisible(false);
+              this.dispose();
         }          
         } else {
             ErrorDialog.mostrarError(error_message, this);
