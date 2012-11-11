@@ -70,8 +70,8 @@ public class CVuelo {
                 ini == null || 
                 fin == null || 
                 Estado == null || 
-                capacidad == null ||
-                    monto == null) {
+                (capacidad == null || capacidad.compareTo("")==0 )  ||
+                (monto == null || monto.compareTo("")==0 )) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
