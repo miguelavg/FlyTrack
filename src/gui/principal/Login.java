@@ -75,7 +75,7 @@ public class Login extends javax.swing.JFrame {
         txtUser.setMinimumSize(new java.awt.Dimension(120, 30));
         txtUser.setPreferredSize(new java.awt.Dimension(120, 30));
 
-        btnLogin.setText("Login");
+        btnLogin.setText("Ingresar");
         btnLogin.setMaximumSize(new java.awt.Dimension(120, 30));
         btnLogin.setMinimumSize(new java.awt.Dimension(120, 30));
         btnLogin.setPreferredSize(new java.awt.Dimension(120, 30));
