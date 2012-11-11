@@ -97,7 +97,7 @@ public class ParametroPopup extends javax.swing.JDialog {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Buscar parámetro");
+        setTitle("FlyTrack - Buscar parámetro");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
