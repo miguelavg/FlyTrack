@@ -265,7 +265,7 @@ public class Vuelos extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo Vuelo", "Origen", "Destino", "Fecha salida", "Fecha llegada", "Estado", "Capacidad"
+                "Codigo Vuelo", "Origen", "Destino", "Fecha salida", "Fecha llegada", "Estado", "Capacidad", "Alquiler"
             }
         ));
         jScrollPane1.setViewportView(tbl_vuelos);
@@ -386,7 +386,13 @@ public class Vuelos extends javax.swing.JDialog {
         
         
           TipoDoc=(Parametro)cbm_estado.getSelectedItem();
-      
+//       if (cbm_estado.getSelectedIndex()>0) {
+//          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+//  
+//        }else {
+//         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
+//        }
+          
           fechini =  dt_fechini.getSelectedDate();
           fechfin =  dt_fechfin.getSelectedDate();
   
@@ -408,15 +414,9 @@ public class Vuelos extends javax.swing.JDialog {
         TableColumn column = null;
         column= tbl_vuelos.getColumnModel().getColumn(0);
         column.setMaxWidth(0);
-        Object[] datos = new Object[9];
+        Object[] datos = new Object[8];
         
-        if (cbm_estado.getSelectedIndex()>0) {
-          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
-          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
-          
-        }else {
-         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
-        }
+       
         
         for (int i = 0; i < listaVuelos.size(); i++) {
            
@@ -425,8 +425,9 @@ public class Vuelos extends javax.swing.JDialog {
            datos[2] = listaVuelos.get(i).getDestino().getNombre();
            datos[3] = listaVuelos.get(i).getFechaSalida();
            datos[4] = listaVuelos.get(i).getFechaLlegada();           
-           datos[5] = listaVuelos.get(i).getEstado();
-           datos[6] = listaVuelos.get(i).getCapacidadMax();           
+           datos[5] = listaVuelos.get(i).getEstado().getValor();
+           datos[6] = String.valueOf(listaVuelos.get(i).getCapacidadMax());           
+           datos[7] = String.valueOf(listaVuelos.get(i).getAlquiler());
            
            dtm.addRow(datos);
     
