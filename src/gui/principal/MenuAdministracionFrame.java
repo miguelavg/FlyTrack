@@ -48,6 +48,7 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
         btnTipoCambio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Administración");
         setModal(true);
         setResizable(false);
 

@@ -3,7 +3,7 @@
 <Form version="1.6" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Tarifa"/>
+    <Property name="title" type="java.lang.String" value="Tarifas"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Default Cursor"/>
     </Property>
@@ -45,7 +45,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -92,7 +92,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/tarifa48x48.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TARIFA"/>
+            <Property name="text" type="java.lang.String" value="Tarifas"/>
             <Property name="autoscrolls" type="boolean" value="true"/>
           </Properties>
         </Component>
@@ -110,44 +110,27 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel6" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="txtMontoIni" min="-2" pref="185" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="btnBuscar" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Component id="jLabel2" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtAeroOri" min="-2" pref="185" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnBuscar" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="txtMontoFin" min="-2" pref="185" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel3" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtAeroDes" min="-2" pref="185" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton2" min="-2" pref="30" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
+                          <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabel3" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="btn_regresar" min="-2" pref="120" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtAeroDes" min="-2" pref="185" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton2" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -168,16 +151,11 @@
                           <Component id="txtAeroDes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtMontoIni" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="txtMontoFin" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnBuscar" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnBuscar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btn_regresar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -230,21 +208,6 @@
             <Property name="text" type="java.lang.String" value="Destino:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMontoFin">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMontoFinActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Monto:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtMontoIni">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMontoIniActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -256,15 +219,16 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JButton" name="btn_regresar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="  -"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/cancel.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Regresar"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="(RANGO)"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_regresarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -346,7 +310,7 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="true" title="Id" type="java.lang.Object"/>
                     <Column editable="true" title="Aeropuerto Origen" type="java.lang.Object"/>
-                    <Column editable="true" title="Aerouperto Destino" type="java.lang.Object"/>
+                    <Column editable="true" title="Aeropuerto Destino" type="java.lang.Object"/>
                     <Column editable="true" title="Monto ($)" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -381,6 +345,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable() {&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false;&#xa;    }&#xa;}"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
