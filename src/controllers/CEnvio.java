@@ -207,14 +207,12 @@ public class CEnvio {
                     i++;
                     capacidad = e.getVuelo().getCapacidadActual();
                     e.getVuelo().setCapacidadActual(capacidad + envio.getNumPaquetes());
-                    capacidad = envio.getOrigen().getCapacidadActual();
-                    envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
                     envio.getEscalas().add(e);
                 }
             }
 
-            capacidad = envio.getOrigen().getCapacidadActual();
-            envio.getOrigen().setCapacidadActual(capacidad + envio.getNumPaquetes());
+            capacidad = envio.getActual().getCapacidadActual();
+            envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {

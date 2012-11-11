@@ -519,7 +519,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         Envio envio = envioAgregar.showDialog();
 
         if (envio != null) {
-            //llenarLineaTabla(nTipoCambio, (DefaultTableModel) tbl_tiposcambio.getModel());
+            llenarLineaTabla(envio, (DefaultTableModel) tbl_envios.getModel());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
