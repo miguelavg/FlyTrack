@@ -148,7 +148,8 @@ public class CUsuario {
         
         String mensaje="";
         List<Parametro> Condiciones ;
-        Condiciones=CParametro.buscar(null, null,"SEGURIDAD",null);
+        CParametro ParametroC = new CParametro();
+        Condiciones=ParametroC.buscar(null, null,"SEGURIDAD",null);
         for (Parametro cond : Condiciones){
             if (cond.getValorUnico().equals("PASS_LONG_MINIMA")){
                 if (contra.length<Integer.parseInt(cond.getValor())){

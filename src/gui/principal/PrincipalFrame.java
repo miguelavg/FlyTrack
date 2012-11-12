@@ -15,9 +15,16 @@ import gui.envios.EnvioDialog;
 import gui.reportes.ReporteFrame;
 import gui.administracion.vuelos.Vuelos;
 import gui.simulacion.SimDialog;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
 /**
@@ -70,9 +77,10 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setTitle("FlyTrack");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
+
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
+                jPanel1KeyPressed(evt);
             }
         });
 
@@ -288,6 +296,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
         Sesion.setUsuario(null);
+        this.setVisible(Boolean.FALSE);
         this.dispose();
         Login login = new Login();
         login.setVisible(Boolean.TRUE);
@@ -299,15 +308,28 @@ public class PrincipalFrame extends javax.swing.JFrame {
         menuSeguridad.setVisible(true);
     }//GEN-LAST:event_btnSeguridadActionPerformed
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
         // TODO add your handling code here:
-        if( evt.getKeyCode() == KeyEvent.VK_ESCAPE ||
-            evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-            btnCerrarSesion.doClick();
-        }
-            
-    }//GEN-LAST:event_formKeyPressed
+    }//GEN-LAST:event_jPanel1KeyPressed
 
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
+        Action actionListener = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            btnCerrarSesion.doClick();
+          } 
+        } ;
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+        inputMap.put(strokeBACKSPACE, "BACKSPACE");
+        rootPane.getActionMap().put("BACKSPACE", actionListener);
+
+        return rootPane;
+    }
+    
     /**
      * @param args the command line arguments
      */

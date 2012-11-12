@@ -83,7 +83,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Tarifas");
+        setTitle("Flytrack - Tarifas");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setModal(true);
 
