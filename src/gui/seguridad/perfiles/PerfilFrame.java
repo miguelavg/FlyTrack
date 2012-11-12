@@ -244,7 +244,7 @@ public class PerfilFrame extends javax.swing.JDialog {
             PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
             //PerfilAgregarGUI.setVisibl*e(true);
             PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
-            PerfilAgregarGUI.showDialog();
+            PerfilAgregarGUI.setVisible(Boolean.TRUE);
             llenarTabla();
         }
     }//GEN-LAST:event_btnModificarActionPerformed

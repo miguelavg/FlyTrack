@@ -149,12 +149,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         }
 
     }    
-    
-    public int showDialog(){
-        setVisible(true);
-        return 1;
-    }
-     
+         
     private void llenarcomboEstado(){
         
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
@@ -190,7 +185,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         
         if(chkClientes_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 2, "Clientes");
         if(chkClientes_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 2, "Clientes");
-        if(chkClientes_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Busca/Listar", 2, "Clientes");
+        if(chkClientes_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 2, "Clientes");
         if(chkClientes_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 2, "Clientes");
         
         if(chkReportes_Envios.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Envios", 2, "Reportes");
