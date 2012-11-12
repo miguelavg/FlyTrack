@@ -72,7 +72,7 @@ public class Incidencia implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @ManyToOne
-    @JoinColumn(name = "Estado")
+    @JoinColumn(name = "tipo")
     private Parametro estado;
     @ManyToOne
     @JoinColumn(name = "idVuelo")
