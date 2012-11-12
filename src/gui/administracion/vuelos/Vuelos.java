@@ -345,7 +345,7 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void btn_origenAeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenAeroActionPerformed
         // TODO add your handling code here:
-             AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
+        AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
         aeropuertoOrigen = aeropuertoPU.showDialog();
         if (aeropuertoOrigen != null) {
             txt_origen.setText(aeropuertoOrigen.getNombre());
@@ -389,7 +389,6 @@ public class Vuelos extends javax.swing.JDialog {
         
           Parametro TipoDoc;
         
-        
           TipoDoc=(Parametro)cbm_estado.getSelectedItem();
 //       if (cbm_estado.getSelectedIndex()>0) {
 //          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
@@ -407,6 +406,10 @@ public class Vuelos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
+    public void buscar(){
+    
+    
+    }
     public void llenarGrillaVuelo(){
         
         Parametro TipoDoc;
@@ -418,7 +421,7 @@ public class Vuelos extends javax.swing.JDialog {
        
         TableColumn column = null;
         column= tbl_vuelos.getColumnModel().getColumn(0);
-        column.setMaxWidth(0);
+        //column.setMaxWidth(0);
         Object[] datos = new Object[8];
         
         
@@ -499,6 +502,23 @@ public class Vuelos extends javax.swing.JDialog {
         // TODO add your handling code here:
         Incidencias DialogoInc = new Incidencias(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()));
         DialogoInc.setVisible(true);
+        Parametro TipoDoc;
+        
+          TipoDoc=(Parametro)cbm_estado.getSelectedItem();
+//       if (cbm_estado.getSelectedIndex()>0) {
+//          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+//  
+//        }else {
+//         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
+//        }
+          
+          fechini =  dt_fechini.getSelectedDate();
+          fechfin =  dt_fechfin.getSelectedDate();
+  
+          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
+                  
+          llenarGrillaVuelo();
+        
         
     }//GEN-LAST:event_tbl_vuelosMouseClicked
 

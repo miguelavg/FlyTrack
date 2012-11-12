@@ -173,8 +173,12 @@ public class CVuelo {
                 Filter f_estado = s.enableFilter("VueloXEstado");
                 f_estado.setParameter("estado", Estado.getIdParametro());
             }
-
+            
             ListaVuelos = q.list();
+            
+            for (int i=0; ListaVuelos.size()>i; i++){
+                ListaVuelos.get(i).getIncidencias().size();
+            }
 
 
 
@@ -248,6 +252,53 @@ public class CVuelo {
 
     }
 
+    public static void modificarVueloEstado(
+            
+           Vuelo objVuelo,
+           String Estado
+            ) {
+
+
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+
+
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+//            Parametro pTipoDoc;            
+//            Parametro pCiudad;            
+//            Parametro pPais;
+            Parametro p = CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", Estado);
+            objVuelo.setEstado(p);
+            
+        
+//            objVuelo.setPais(Pais);
+//            objVuelo.setIdAeropuerto(idAeropuerto);
+
+            
+            /*
+             *  int idVuelo,
+            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoDestino,
+            Calendar ini,
+            Calendar fin,
+            Parametro Estado,
+            String capacidad
+             */
+            s.update(objVuelo);
+
+            tx.commit();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+//      
+
+    }
+    
     public static void agregarVuelo(
            
             Aeropuerto aeropuertoOrigen, 

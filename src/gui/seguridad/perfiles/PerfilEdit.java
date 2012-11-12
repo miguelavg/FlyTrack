@@ -77,10 +77,11 @@ public class PerfilEdit extends javax.swing.JDialog {
         chkAdministracion_Tarifas.setSelected(CPermiso.buscarPermiso(permisos, "Tarifas",2,"Administracion"));
         chkAdministracion_Vuelos.setSelected(CPermiso.buscarPermiso(permisos, "Vuelos",2,"Administracion"));
         chkAdministracion_TipoCambio.setSelected(CPermiso.buscarPermiso(permisos, "TipoCambio",2,"Administracion"));
+        chkAdministracion_Parametros.setSelected(CPermiso.buscarPermiso(permisos, "Parametros",2,"Administracion"));
         
-        chkAdministracion_Parametros.setSelected(CPermiso.buscarPermiso(permisos, "Parametros",2,"Seguridad"));
         chkSeguridad_Usuarios.setSelected(CPermiso.buscarPermiso(permisos, "Usuarios",2,"Seguridad"));
         chkSeguridad_Perfiles.setSelected(CPermiso.buscarPermiso(permisos, "Perfiles",2,"Seguridad"));
+        chkSeguridad_LogAuditoria.setSelected(CPermiso.buscarPermiso(permisos, "LogAuditoria",2,"Seguridad"));
         
         chkEnvios_Buscar.setSelected(CPermiso.buscarPermiso(permisos, "Buscar/Listar",2,"Envios"));
         chkEnvios_CargaMasiva.setSelected(CPermiso.buscarPermiso(permisos, "Carga Masiva",2,"Envios"));
@@ -148,12 +149,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         }
 
     }    
-    
-    public int showDialog(){
-        setVisible(true);
-        return 1;
-    }
-     
+         
     private void llenarcomboEstado(){
         
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_PERFIL", null);
@@ -189,7 +185,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         
         if(chkClientes_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 2, "Clientes");
         if(chkClientes_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 2, "Clientes");
-        if(chkClientes_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Busca/Listar", 2, "Clientes");
+        if(chkClientes_Buscar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 2, "Clientes");
         if(chkClientes_CargaMasiva.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 2, "Clientes");
         
         if(chkReportes_Envios.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Envios", 2, "Reportes");
@@ -230,6 +226,432 @@ public class PerfilEdit extends javax.swing.JDialog {
         if(chkSeguridad_Perfiles_Crear.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Perfiles");
         if(chkSeguridad_Perfiles_Modificar.isSelected()) CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Perfiles");
         
+    }
+    
+    private void modificarPermisos(Perfil perfilBuscado){
+        List<Permiso> permisos = CPerfil.listarPermisosXPerfil(perfilBuscado.getIdPerfil());
+        Permiso permisoAux;
+        boolean resultado;
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Administracion", 1, null);
+        if(this.chkAdministracion.isSelected() && permisoAux == null){
+            //Si el permiso esta seleccionado y no lo encuentra en la lista actual de permisos
+            //AGREGAR PERMISO
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Administracion", 1, null);
+        }
+        else if(!this.chkAdministracion.isSelected() && permisoAux != null){
+            //Si el permiso no esta seleccionado y lo encuentra en la lista actual de permisos
+            //ELIMINAR PERMISO
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Seguridad", 1, null);
+        if(this.chkSeguridad.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Seguridad", 1, null);
+        }
+        else if(!this.chkSeguridad.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Envios", 1, null);
+        if(this.chkEnvios.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Envios", 1, null);
+        }
+        else if(!this.chkEnvios.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Simulacion", 1, null);
+        if(this.chkSimulacion.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Simulacion", 1, null);
+        }
+        else if(!this.chkSimulacion.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Clientes", 1, null);
+        if(this.chkClientes.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Clientes", 1, null);
+        }
+        else if(!this.chkClientes.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Reportes", 1, null);
+        if(this.chkReportes.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Reportes", 1, null);
+        }
+        else if(!this.chkReportes.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Tarifas", 2, "Administracion");
+        if(this.chkAdministracion_Tarifas.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Tarifas", 2, "Administracion");
+        }
+        else if(!this.chkAdministracion_Tarifas.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Vuelos", 2, "Administracion");
+        if(this.chkAdministracion_Vuelos.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Vuelos", 2, "Administracion");
+        }
+        else if(!this.chkAdministracion_Vuelos.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Aeropuertos", 2, "Administracion");
+        if(this.chkAdministracion_Aeropuertos.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Aeropuertos", 2, "Administracion");
+        }
+        else if(!this.chkAdministracion_Aeropuertos.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "TipoCambio", 2, "Administracion");
+        if(this.chkAdministracion_TipoCambio.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "TipoCambio", 2, "Administracion");
+        }
+        else if(!this.chkAdministracion_TipoCambio.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Parametros", 2, "Administracion");
+        if(this.chkAdministracion_Parametros.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Parametros", 2, "Administracion");
+        }
+        else if(!this.chkAdministracion_Parametros.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Usuarios", 2, "Seguridad");
+        if(this.chkSeguridad_Usuarios.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Usuarios", 2, "Seguridad");
+        }
+        else if(!this.chkSeguridad_Usuarios.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Perfiles", 2, "Seguridad");
+        if(this.chkSeguridad_Perfiles.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Perfiles", 2, "Seguridad");
+        }
+        else if(!this.chkSeguridad_Perfiles.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "LogAuditoria", 2, "Seguridad");
+        if(this.chkSeguridad_LogAuditoria.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "LogAuditoria", 2, "Seguridad");
+        }
+        else if(!this.chkSeguridad_LogAuditoria.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 2, "Envios");
+        if(this.chkEnvios_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 2, "Envios");
+        }
+        else if(!this.chkEnvios_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 2, "Envios");
+        if(this.chkEnvios_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 2, "Envios");
+        }
+        else if(!this.chkEnvios_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 2, "Envios");
+        if(this.chkEnvios_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 2, "Envios");
+        }
+        else if(!this.chkEnvios_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 2, "Envios");
+        if(this.chkEnvios_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 2, "Envios");
+        }
+        else if(!this.chkEnvios_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 2, "Clientes");
+        if(this.chkClientes_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 2, "Clientes");
+        }
+        else if(!this.chkClientes_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 2, "Clientes");
+        if(this.chkClientes_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 2, "Clientes");
+        }
+        else if(!this.chkClientes_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 2, "Clientes");
+        if(this.chkClientes_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 2, "Clientes");
+        }
+        else if(!this.chkClientes_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 2, "Clientes");
+        if(this.chkClientes_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 2, "Clientes");
+        }
+        else if(!this.chkClientes_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Ventas", 2, "Reportes");
+        if(this.chkReportes_Ventas.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Ventas", 2, "Reportes");
+        }
+        else if(!this.chkReportes_Ventas.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Envios", 2, "Reportes");
+        if(this.chkReportes_Envios.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Envios", 2, "Reportes");
+        }
+        else if(!this.chkReportes_Envios.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "MovAlmacen", 2, "Reportes");
+        if(this.chkReportes_MovAlmacen.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "MovAlmacen", 2, "Reportes");
+        }
+        else if(!this.chkReportes_MovAlmacen.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Incidencias", 2, "Reportes");
+        if(this.chkReportes_Incidencias.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Incidencias", 2, "Envios");
+        }
+        else if(!this.chkReportes_Incidencias.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Tarifas");
+        if(this.chkAdministracion_Tarifas_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Tarifas");
+        }
+        else if(!this.chkAdministracion_Tarifas_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Tarifas");
+        if(this.chkAdministracion_Tarifas_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Tarifas");
+        }
+        else if(!this.chkAdministracion_Tarifas_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Tarifas");
+        if(this.chkAdministracion_Tarifas_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Tarifas");
+        }
+        else if(!this.chkAdministracion_Tarifas_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 3, "Tarifas");
+        if(this.chkAdministracion_Tarifas_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Tarifas");
+        }
+        else if(!this.chkAdministracion_Tarifas_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Vuelos");
+        if(this.chkAdministracion_Vuelos_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Vuelos");
+        }
+        else if(!this.chkAdministracion_Vuelos_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Vuelos");
+        if(this.chkAdministracion_Vuelos_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Vuelos");
+        }
+        else if(!this.chkAdministracion_Vuelos_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Vuelos");
+        if(this.chkAdministracion_Vuelos_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Vuelos");
+        }
+        else if(!this.chkAdministracion_Vuelos_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 3, "Vuelos");
+        if(this.chkAdministracion_Vuelos_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Vuelos");
+        }
+        else if(!this.chkAdministracion_Vuelos_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Aeropuertos");
+        if(this.chkAdministracion_Aeropuertos_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Aeropuertos");
+        }
+        else if(!this.chkAdministracion_Aeropuertos_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Aeropuertos");
+        if(this.chkAdministracion_Aeropuertos_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Aeropuertos");
+        }
+        else if(!this.chkAdministracion_Aeropuertos_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Aeropuertos");
+        if(this.chkAdministracion_Aeropuertos_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Aeropuertos");
+        }
+        else if(!this.chkAdministracion_Aeropuertos_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 3, "Aeropuertos");
+        if(this.chkAdministracion_Aeropuertos_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Aeropuertos");
+        }
+        else if(!this.chkAdministracion_Aeropuertos_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "TipoCambio");
+        if(this.chkAdministracion_TipoCambio_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "TipoCambio");
+        }
+        else if(!this.chkAdministracion_TipoCambio_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "TipoCambio");
+        if(this.chkAdministracion_TipoCambio_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "TipoCambio");
+        }
+        else if(!this.chkAdministracion_TipoCambio_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "TipoCambio");
+        if(this.chkAdministracion_TipoCambio_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "TipoCambio");
+        }
+        else if(!this.chkAdministracion_TipoCambio_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 3, "TipoCambio");
+        if(this.chkAdministracion_TipoCambio_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "TipoCambio");
+        }
+        else if(!this.chkAdministracion_TipoCambio_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Paramtetros");
+        if(this.chkAdministracion_Parametros_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Parametros");
+        }
+        else if(!this.chkAdministracion_Parametros_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Paramtetros");
+        if(this.chkAdministracion_Parametros_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Parametros");
+        }
+        else if(!this.chkAdministracion_Parametros_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Paramtetros");
+        if(this.chkAdministracion_Parametros_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Parametros");
+        }
+        else if(!this.chkAdministracion_Parametros_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Usuarios");
+        if(this.chkSeguridad_Usuarios_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Usuarios");
+        }
+        else if(!this.chkSeguridad_Usuarios_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Usuarios");
+        if(this.chkSeguridad_Usuarios_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Usuarios");
+        }
+        else if(!this.chkSeguridad_Usuarios_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Usuarios");
+        if(this.chkSeguridad_Usuarios_Buscar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Usuarios");
+        }
+        else if(!this.chkSeguridad_Usuarios_Buscar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 3, "Usuarios");
+        if(this.chkSeguridad_Usuarios_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Usuarios");
+        }
+        else if(!this.chkSeguridad_Usuarios_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Perfiles");
+        if(this.chkSeguridad_Perfiles_Crear.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Perfiles");
+        }
+        else if(!this.chkSeguridad_Perfiles_Crear.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Perfiles");
+        if(this.chkSeguridad_Perfiles_Modificar.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Perfiles");
+        }
+        else if(!this.chkSeguridad_Perfiles_Modificar.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
+        
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Carga Masiva", 3, "Perfiles");
+        if(this.chkSeguridad_Perfiles_CargaMasiva.isSelected() && permisoAux == null){
+            resultado = CPermiso.crearPermiso(perfilBuscado, "Carga Masiva", 3, "Perfiles");
+        }
+        else if(!this.chkSeguridad_Perfiles_CargaMasiva.isSelected() && permisoAux != null){
+            resultado = CPermiso.eliminarPermiso(permisoAux);
+        }
     }
     
     public PerfilEdit(javax.swing.JDialog parent, boolean modal, int idPerfilPasado) {
@@ -1288,10 +1710,12 @@ public class PerfilEdit extends javax.swing.JDialog {
             if (idperfil == -1){//Nuevo Perfil
                 Perfil perfilNuevo = CPerfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
                 crearPermisos(perfilNuevo);
+                
             }
 
             else{//Modificar Perfil
-                Perfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem() );
+                Perfil perfilModificado = CPerfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem());
+                modificarPermisos(perfilModificado);
             }
             this.setVisible(false);
             this.dispose();
