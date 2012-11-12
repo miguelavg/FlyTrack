@@ -8,8 +8,15 @@ import beans.Sesion;
 import beans.seguridad.Usuario;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CSeguridad;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import org.hibernate.Session;
 
@@ -219,6 +226,26 @@ public class Login extends javax.swing.JFrame {
         fpdialog.setVisible(Boolean.TRUE);
     }//GEN-LAST:event_lblOlvidoPassMouseClicked
 
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
+        Action actionListener = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(Boolean.FALSE);
+            dispose();
+            System.exit(0);
+          } 
+        } ;
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+        inputMap.put(strokeBACKSPACE, "BACKSPACE");
+        rootPane.getActionMap().put("BACKSPACE", actionListener);
+
+        return rootPane;
+    }
+    
     /**
      * @param args the command line arguments
      */

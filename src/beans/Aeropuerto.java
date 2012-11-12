@@ -64,8 +64,8 @@ import org.hibernate.annotations.ParamDef;
         @ParamDef(name = "lower", type = "date")
     }),
     @FilterDef(name = "VuelosXAeropuertoLlegada", parameters = {
-        @ParamDef(name = "upper", type = "date"),
-        @ParamDef(name = "lower", type = "date")
+        @ParamDef(name = "upper", type = "timestamp"),
+        @ParamDef(name = "lower", type = "timestamp")
     })
 })
 @Filters({

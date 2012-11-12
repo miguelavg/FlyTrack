@@ -20,6 +20,14 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import gui.seguridad.perfiles.PerfilEdit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 /**
  *
  * @author msolorzano
@@ -34,6 +42,24 @@ public class PerfilFrame extends javax.swing.JDialog {
         
         llenarTabla();
         definirPermisos();
+    }
+
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
+        Action actionListener = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(false);
+          } 
+        } ;
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+        inputMap.put(strokeBACKSPACE, "BACKSPACE");
+        rootPane.getActionMap().put("BACKSPACE", actionListener);
+
+        return rootPane;
     }
 
     
@@ -218,7 +244,7 @@ public class PerfilFrame extends javax.swing.JDialog {
             PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
             //PerfilAgregarGUI.setVisibl*e(true);
             PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
-            PerfilAgregarGUI.showDialog();
+            PerfilAgregarGUI.setVisible(Boolean.TRUE);
             llenarTabla();
         }
     }//GEN-LAST:event_btnModificarActionPerformed

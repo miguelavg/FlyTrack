@@ -132,7 +132,7 @@ public class Usuario implements Serializable{
     @JoinColumn(name = "Pais")
     private Parametro pais;
     
-        public String getNombres() {
+    public String getNombres() {
         return Nombres;
     }
 

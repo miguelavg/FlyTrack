@@ -4,15 +4,21 @@
  */
 package gui.administracion.aeropuertos;
 
+import beans.Parametro;
 import beans.Vuelo;
+import com.thoughtworks.xstream.XStream;
 import controllers.CAeropuerto;
+import controllers.CParametro;
 import controllers.CReportes;
 import controllers.CSerializer;
 import gui.ErrorDialog;
 import gui.InformationDialog;
 import java.awt.Component;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import xml.XmlAeropuerto;
 
 /**
  *
@@ -24,6 +30,10 @@ public class AeropuertoCarga extends javax.swing.JDialog {
      * Creates new form AeropuertoCarga
      */
     boolean archivovalido=false;
+    CParametro cParametro = new CParametro();
+        
+    static ArrayList<beans.Aeropuerto> listaaero = new ArrayList<beans.Aeropuerto>();
+    
     public AeropuertoCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         this.setLocationRelativeTo(null);
@@ -76,6 +86,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtRuta.setEnabled(false);
 
         jLabel2.setText("Seleccionar archivo");
 
@@ -164,11 +176,135 @@ public class AeropuertoCarga extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+    public  void generaraeropuertos(){
+        
+        beans.Aeropuerto aero= new beans.Aeropuerto();
+        
+        aero.setCapacidadActual(0);
+        aero.setCapacidadMax(200);
+        aero.setCoordX(200);
+        aero.setCoordY(400);
+        aero.setNombre("Luis Alberto Bonnet");
+    
+        Parametro pais=cParametro.buscarId(39);
+        Parametro ciudad=cParametro.buscarId(41);
+        Parametro estado=cParametro.buscarId(27);
+    
+        aero.setPais(pais);
+        aero.setCiudad(ciudad);
+        aero.setEstado(estado);
 
+        listaaero.add(aero);
+        
+        beans.Aeropuerto aero2= new beans.Aeropuerto();
+        
+        aero2.setCapacidadActual(0);
+        aero2.setCapacidadMax(300);
+        aero2.setCoordX(200);
+        aero2.setCoordY(400);
+        aero2.setNombre("Jorge Soto");
+        
+        Parametro pais2=cParametro.buscarId(39);
+        Parametro ciudad2=cParametro.buscarId(42);
+        Parametro estado2=cParametro.buscarId(27);
+        
+        aero2.setPais(pais2);
+        aero2.setCiudad(ciudad2);
+        aero2.setEstado(estado2);
+        
+        listaaero.add(aero2);
+        
+        beans.Aeropuerto aero3= new beans.Aeropuerto();
+        
+        aero3.setCapacidadActual(0);
+        aero3.setCapacidadMax(200);
+        aero3.setCoordX(200);
+        aero3.setCoordY(600);
+        aero3.setNombre("Roberto Palacios");
+        
+        Parametro pais3=cParametro.buscarId(39);
+        Parametro ciudad3=cParametro.buscarId(43);
+        Parametro estado3=cParametro.buscarId(27);
+        
+        aero3.setPais(pais3);
+        aero3.setCiudad(ciudad3);
+        aero3.setEstado(estado3);
+        
+        listaaero.add(aero3);
+        
+        beans.Aeropuerto aero4= new beans.Aeropuerto();
+        
+        aero4.setCapacidadActual(0);
+        aero4.setCapacidadMax(200);
+        aero4.setCoordX(200);
+        aero4.setCoordY(800);
+        aero4.setNombre("Julinho");
+        
+        Parametro pais4=cParametro.buscarId(29);
+        Parametro ciudad4=cParametro.buscarId(45);
+        Parametro estado4=cParametro.buscarId(27);        
+        
+        aero4.setPais(pais4);
+        aero4.setCiudad(ciudad4);
+        aero4.setEstado(estado4);
+            
+     
+        listaaero.add(aero4);
+        
+        
+        
+    }
+    
+    public  void serializar(ArrayList lista, String arch) {
+
+        XStream xstream = new XStream();
+        String xml = xstream.toXML(lista);
+
+        try {
+            FileWriter fw = new FileWriter(arch);
+            fw.write(xml);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+
+    }
+    
+    private ArrayList<beans.Aeropuerto>  PasaValores(ArrayList<XmlAeropuerto> xmlAeropuertos){
+        
+        ArrayList<beans.Aeropuerto> aeropuertos = new ArrayList<beans.Aeropuerto>();
+        for (int i= 0; i<xmlAeropuertos.size();i++){
+            beans.Aeropuerto aero = new beans.Aeropuerto();
+            XmlAeropuerto xmlaero= (XmlAeropuerto)xmlAeropuertos.get(i);
+            aero.setCapacidadActual(xmlaero.getCapacidadActual());
+            aero.setCapacidadMax(xmlaero.getCapacidadMax());
+            aero.setCoordX(xmlaero.getCoordX());
+            aero.setCoordY(xmlaero.getCoordY());
+            aero.setNombre(xmlaero.getNombre());
+            
+            Parametro pais=cParametro.buscarId(xmlaero.getPais());
+            Parametro ciudad=cParametro.buscarId(xmlaero.getCiudad());
+            Parametro estado=cParametro.buscarId(xmlaero.getEstado());
+            
+            aero.setPais(pais);
+            aero.setCiudad(ciudad);
+            aero.setEstado(estado);
+            aeropuertos.add(aero);
+        }
+        return aeropuertos;
+        
+    }
+    
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+//        generaraeropuertos();
+//        serializar(listaaero, "PruebaCargaAero.xml");
+//                
+        
         if (archivovalido){    
-            ArrayList aeropuertos=CSerializer.deserializar(txtRuta.getText());
+            ArrayList xmlAeropuertos=CSerializer.deserializar(txtRuta.getText());
+//          ArrayList aeropuertos=CSerializer.deserializar("PruebaCargaAero.xml");
+            ArrayList aeropuertos = PasaValores(xmlAeropuertos);
             try{                   //CAeropuerto.ValidarCaga(vuelos);
                for (int i = 0; i<aeropuertos.size();i++){
                    beans.Aeropuerto aero=(beans.Aeropuerto)aeropuertos.get(i);
@@ -202,7 +338,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                        else{
                            
                            archivovalido=true;
-                       
+                           txtRuta.setText(ruta);
                        }
                                
                     }

@@ -268,6 +268,11 @@ public class Vuelos extends javax.swing.JDialog {
                 "Codigo Vuelo", "Origen", "Destino", "Fecha salida", "Fecha llegada", "Estado", "Capacidad", "Alquiler"
             }
         ));
+        tbl_vuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_vuelosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_vuelos);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
@@ -340,7 +345,7 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void btn_origenAeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenAeroActionPerformed
         // TODO add your handling code here:
-             AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
+        AeropuertoPopup  aeropuertoPU = new AeropuertoPopup(this, true);
         aeropuertoOrigen = aeropuertoPU.showDialog();
         if (aeropuertoOrigen != null) {
             txt_origen.setText(aeropuertoOrigen.getNombre());
@@ -384,7 +389,6 @@ public class Vuelos extends javax.swing.JDialog {
         
           Parametro TipoDoc;
         
-        
           TipoDoc=(Parametro)cbm_estado.getSelectedItem();
 //       if (cbm_estado.getSelectedIndex()>0) {
 //          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
@@ -402,6 +406,10 @@ public class Vuelos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
+    public void buscar(){
+    
+    
+    }
     public void llenarGrillaVuelo(){
         
         Parametro TipoDoc;
@@ -413,7 +421,7 @@ public class Vuelos extends javax.swing.JDialog {
        
         TableColumn column = null;
         column= tbl_vuelos.getColumnModel().getColumn(0);
-        column.setMaxWidth(0);
+        //column.setMaxWidth(0);
         Object[] datos = new Object[8];
         
         
@@ -489,6 +497,30 @@ public class Vuelos extends javax.swing.JDialog {
         VuelosCarga DialogoCarga = new VuelosCarga(this,true);
         DialogoCarga.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
+        // TODO add your handling code here:
+        Incidencias DialogoInc = new Incidencias(this,true,listaVuelos.get(tbl_vuelos.getSelectedRow()));
+        DialogoInc.setVisible(true);
+        Parametro TipoDoc;
+        
+          TipoDoc=(Parametro)cbm_estado.getSelectedItem();
+//       if (cbm_estado.getSelectedIndex()>0) {
+//          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+//  
+//        }else {
+//         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
+//        }
+          
+          fechini =  dt_fechini.getSelectedDate();
+          fechfin =  dt_fechfin.getSelectedDate();
+  
+          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);
+                  
+          llenarGrillaVuelo();
+        
+        
+    }//GEN-LAST:event_tbl_vuelosMouseClicked
 
     /**
      * @param args the command line arguments

@@ -69,15 +69,12 @@ public class CPerfil {
          
     public static Perfil agregarPerfil(String nombre, String descripcion, Parametro estado){
         
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+        Session s = Sesion.openSessionFactory();
 
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
 
             Perfil perfilNuevo = new Perfil();
-
             perfilNuevo.setNombre(nombre);
             perfilNuevo.setDescripcion(descripcion);
             perfilNuevo.setEstado(estado);
@@ -91,36 +88,36 @@ public class CPerfil {
                 }
         finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
         return null;
     }   
      
-    public void modificarPerfil(Integer idPerfil,String nombre, String descripcion, Parametro estado){
+    public static Perfil modificarPerfil(Integer idPerfil,String nombre, String descripcion, Parametro estado){
         
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession( );
+        Session s = Sesion.openSessionFactory();
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
             
-            Perfil CPerfil = new Perfil();
-            CPerfil.setIdPerfil(idPerfil);
-            CPerfil.setNombre(nombre);
-            CPerfil.setDescripcion(descripcion);
-            CPerfil.setEstado(estado);
+            Perfil perfilModificado = new Perfil();
+            perfilModificado.setIdPerfil(idPerfil);
+            perfilModificado.setNombre(nombre);
+            perfilModificado.setDescripcion(descripcion);
+            perfilModificado.setEstado(estado);
             
-            
-            s.update(CPerfil);
+            s.update(perfilModificado);
             tx.commit();
+            return perfilModificado;
         }
         catch(Exception e){
             System.out.println(e.getMessage());
                 }
         finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
-        
+        return null;
     }   
          
     public static Perfil BuscarXid(int id){
