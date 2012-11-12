@@ -93,7 +93,7 @@ public class CUsuario {
                 f2.setParameter("idaeropuerto",aeropuerto.getIdAeropuerto());
             }
 
-            if (nombre!=null ){
+            if (!nombre.trim().equals("") ){
 //                Filter f3 = s.enableFilter("UsuarioxIdcliente");
 //                f3.setParameter("idcliente",cliente.getIdCliente());
 //                
@@ -132,6 +132,7 @@ public class CUsuario {
             q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
             q.setParameter("idusuario", id);
             CUsuario=(Usuario)q.uniqueResult();
+            CUsuario.getContrasenias().size();
             return CUsuario;
             }
         catch(Exception e){
@@ -247,7 +248,7 @@ public class CUsuario {
         
     }
       
-    public String validar(Integer idusuario, boolean isNuevo, String aeropuerto, String cliente, String logIn,Parametro estado, Perfil perfil) {
+    public String validar(Integer idusuario, boolean isNuevo, String aeropuerto, String logIn,Parametro estado, Perfil perfil) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -257,10 +258,10 @@ public class CUsuario {
 
             if (idusuario==-1){
             
-            if (aeropuerto.isEmpty()|| cliente.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
+            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
-            if (aeropuerto.isEmpty()|| cliente.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
+            if (aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             
@@ -306,7 +307,7 @@ public class CUsuario {
             }
             
             if (idusuario!=-1){
-            if ( aeropuerto.isEmpty()|| cliente.isEmpty() || logIn.isEmpty() ||  estado==null || perfil==null) {
+            if ( aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             }
@@ -364,4 +365,26 @@ public class CUsuario {
         
         return null;
     }
+    
+     public static Usuario buscarXNumDocumento(String documento){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("UsuarioxNumDoc").setMaxResults(1);
+            q.setParameter("documento", documento);
+            Usuario user = (Usuario)q.uniqueResult();
+            user.getContrasenias().size();
+            return user;
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        
+        return null;
+    }
+    
 }

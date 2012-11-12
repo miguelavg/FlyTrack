@@ -148,33 +148,22 @@
                                   <Component id="txtLogIn" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel9" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                              <Component id="jLabel10" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="Ciudad" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtApellidos" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                                              <Component id="txtNumeroDoc" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
-                                              <Component id="txtTelefono" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
-                                              <Component id="cboCiudad" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblCliente" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="txtCliente" min="-2" pref="185" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel9" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Component id="jLabel10" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Ciudad" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnBuscarClientes" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtApellidos" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                                      <Component id="txtNumeroDoc" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                      <Component id="txtTelefono" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                      <Component id="cboCiudad" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -224,15 +213,10 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="lblCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txtCliente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lblContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="btnBuscarClientes" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="lblContrasena" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="psswdContrasena" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtNombres" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -318,23 +302,6 @@
         <Component class="javax.swing.JTextField" name="txtLogIn">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLogInActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCliente">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Empleado:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtCliente">
-        </Component>
-        <Component class="javax.swing.JButton" name="btnBuscarClientes">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/buscar.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarClientesActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblContrasena">

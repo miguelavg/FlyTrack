@@ -44,7 +44,9 @@ import org.hibernate.annotations.ParamDef;
 //    @NamedQuery(name = "UsuarioxIdClienteAux",
 //    query = "from Usuario where idcliente = :idcliente "),
     @NamedQuery(name = "UsuarioxNombreUsuario",
-    query = "from Usuario where logIn = :username ")
+    query = "from Usuario where logIn = :username "),
+        @NamedQuery(name = "UsuarioxNumDoc",
+    query = "from Usuario where numdoc = :documento ")
 })
 
 @FilterDefs({

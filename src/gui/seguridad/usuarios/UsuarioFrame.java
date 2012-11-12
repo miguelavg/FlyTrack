@@ -122,6 +122,8 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         jLabel6.setText("Estado:");
 
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +131,8 @@ public class UsuarioFrame extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
+
+        cboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel7.setText("Cliente:");
 
@@ -363,31 +367,38 @@ public void llenarcomboPerfiles(){
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
-        Parametro estado=(Parametro)cboEstado.getSelectedItem();
+//        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
+//        Parametro estado=(Parametro)cboEstado.getSelectedItem();
                 //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
         
-//        if(cboPerfil.getSelectedIndex()!=0){
-//        
-//            perfil=(Perfil)cboPerfil.getSelectedItem();
-//            
-//        }
-//        else {
-//            perfil=null;
-//        }
-//        
-//        
-//        
-//        if(cboEstado.getSelectedIndex()!=0){
-//        
-//            estado=(Parametro)cboEstado.getSelectedItem();
-//            
-//        }
-//        else {
-//            estado=null;
-//        }
+        Parametro estado;
+        Perfil perfil;
+        
+        if(cboPerfil.getSelectedIndex()!=0){
+        
+            perfil=(Perfil)cboPerfil.getSelectedItem();
+            
+        }
+        else {
+            perfil=null;
+        }
         
         
+        
+        if(cboEstado.getSelectedIndex()!=0){
+        
+            estado=(Parametro)cboEstado.getSelectedItem();
+            
+        }
+        else {
+            estado=null;
+        }
+        
+        if (txtAeropuerto.getText().trim().equals("")){
+            AeropuertoAux=null;
+        }
+
+       
         //AeropuertoAux.getIdAeropuerto()
         //ClienteAux.getIdCliente()
         List<Usuario> listaUsuarios = CUsuario.Buscar(perfil, AeropuertoAux,txtCliente.getText(),estado);
@@ -441,7 +452,7 @@ public void llenarcomboPerfiles(){
         public void cargartabla(){
     
             
-        List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,null,null);    
+        List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,"",null);    
         //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
         
