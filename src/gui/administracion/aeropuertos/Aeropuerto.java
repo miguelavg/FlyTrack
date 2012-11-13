@@ -292,18 +292,18 @@ public class Aeropuerto extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void llenarGrillaAero() {
-        int pais = -1;
-        int ciudad = -1;
-        int estado = -1;
+        Parametro pais = null ;
+        Parametro ciudad = null;
+        Parametro estado = null;
 
         if (cbm_Pais.getSelectedIndex() > 0) {
-            pais = ((Parametro) cbm_Pais.getSelectedItem()).getIdParametro();
+            pais = ((Parametro) cbm_Pais.getSelectedItem());
         }
         if (cbm_ciudad.getSelectedIndex() > 0) {
-            ciudad = ((Parametro) cbm_ciudad.getSelectedItem()).getIdParametro();
+            ciudad = ((Parametro) cbm_ciudad.getSelectedItem());
         }
         if (cbm_estado.getSelectedIndex() > 0) {
-            estado = ((Parametro) cbm_estado.getSelectedItem()).getIdParametro();
+            estado = ((Parametro) cbm_estado.getSelectedItem());
         }
 
 
