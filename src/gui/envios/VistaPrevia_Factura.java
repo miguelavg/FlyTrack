@@ -227,6 +227,7 @@ public void cargartabla(){
     
     //    List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,null,null);    
         //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
+        TablaFactura.setRowHeight(50); 
         DefaultTableModel dtm = (DefaultTableModel) this.TablaFactura.getModel();
         
         
@@ -245,7 +246,9 @@ public void cargartabla(){
            datos[1] = "<html> Envio del Aeropuerto de Origen: <br> "+""+envio.getOrigen().getNombre()+" <br> "+" Al Aeropuerto de Destino: <br> "+ envio.getDestino().getNombre()+" <br> "+"<html> ";
            datos[2] =CValidator.formatNumber(envio.getUnitario());
            datos[3]= CValidator.formatNumber(envio.getMonto()); 
-              
+           
+           
+           dtm.addRow(datos);
            
            //dtm.
            //   DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)myTable.getCellRenderer(i, j);
@@ -263,6 +266,8 @@ public void cargartabla(){
            datos[1] = " ";
            datos[2] ="Monto Total:";
            datos[3]= CValidator.formatNumber((envio.getMonto())+(envio.getImpuesto()*envio.getMonto())); 
+           
+           
                 
            dtm.addRow(datos);
 //           updateRowHeights();
