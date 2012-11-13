@@ -143,7 +143,6 @@ public class CParametro {
             System.out.println(e.getMessage());
         } finally {
             s.close();
-            Sesion.closeSessionFactory();
         }
         return null;
     }
