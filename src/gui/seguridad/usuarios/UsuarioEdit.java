@@ -577,7 +577,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
             
             if (idusuario==-1){
 
-                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
+                error_message = error_message+ Usuario.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
             }
             
             if (CValidator.esAlfanumerico(txtNombres.getText())){
@@ -772,6 +772,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     Contrasena.agregarContrasena(CSeguridad.generaContraseniaAleatoria(),
                             UsuarioAux,
                             ListaEstado.get(0));
+                    
+                    
+                    
                 } else {
                     //txtCliente.setVisible(false);
                     //getidusuario()

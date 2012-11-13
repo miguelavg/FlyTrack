@@ -5,6 +5,7 @@
 package controllers;
 
 import beans.Envio;
+import beans.Sesion;
 import controllers.CValidator;
 import com.itextpdf.text.BaseColor;
 import java.io.FileOutputStream;
@@ -365,7 +366,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             Image imagen= Image.getInstance("../imagenes/logo48x48.png");
             imagen.setAlignment(Image.ALIGN_CENTER | Image.TEXTWRAP);
             
-            document.add(imagen);
+            
             
             Paragraph preface50 = new Paragraph();
          
@@ -381,39 +382,22 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 
             Paragraph preface42 ;
             
-            preface42=new Paragraph("N° "+ envio.getIdEnvio()+ "\t  \t  \t"+"Fecha "+dateFormat.format(calendar.getTime()).substring(0, 10),FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface42.setAlignment(Element.ALIGN_LEFT);
+            preface42=new Paragraph("N° "+ envio.getIdEnvio()+ "\t  \t  \t"+"Fecha "+dateFormat.format(calendar.getTime()).substring(0, 10)+"\n",FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface42.setAlignment(Element.ALIGN_MIDDLE);
             
             Paragraph preface3 = null;
 
-            preface3=new Paragraph(tituloDocumento + "\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
-            preface3.setAlignment(Element.ALIGN_CENTER);
+            preface3=new Paragraph("Empleado  "+ Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos()+ "\t \t Hora  "+dateFormat.format(calendar.getTime()).substring(11, 16)+"\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
+            preface3.setAlignment(Element.ALIGN_MIDDLE);
 
-            lineaVacia(preface3, 1);
+            lineaVacia(preface3, 3);
             
-            
-            Paragraph preface4 = null;
-            
-            preface4=new Paragraph("Dirección: Av. Universitaria 1801 San Miguel", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface4.setAlignment(Element.ALIGN_LEFT);
+            Paragraph preface30 = null;
 
-            lineaVacia(preface4, 1);
+            preface30=new Paragraph("Destinatario  "+ envio.getDestinatario().getNombres()+" "+envio.getDestinatario().getApellidos()+"\t"+"Cantidad  "+envio.getNumPaquetes()+"\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
+            preface30.setAlignment(Element.ALIGN_MIDDLE);
 
-            Paragraph preface5 = null;
-            
-            preface5=new Paragraph("País     : Peru ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface5.setAlignment(Element.ALIGN_LEFT);
-
-            lineaVacia(preface5, 1);
-            
-            Paragraph preface6 = null;
-            preface6=new Paragraph("Telefono : 4546354"+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface6.setAlignment(Element.ALIGN_LEFT);
-
-            lineaVacia(preface6, 1);
-            
-
-
+            lineaVacia(preface30, 2);
 
 //            Paragraph preface4 = new Paragraph();
 //            preface4=new Paragraph("Historial de clientes  "+" "+".",FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL));
@@ -421,13 +405,14 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 //
 //            lineaVacia(preface4, 1);
 //            lineaVacia(preface4, 1);
-
+            
+            document.add(imagen);
+            document.add(preface50);
             document.add(preface1);
-            document.add(preface3);
       
-            document.add(preface4);
-            document.add(preface5);
-            document.add(preface6);    
+            document.add(preface42);
+            document.add(preface3);
+            document.add(preface30);    
     }
     
     public static void crearPDF_Trazabilidad_Nota_Entrada(String direccionDelDocumento,String nombreDocumento,
