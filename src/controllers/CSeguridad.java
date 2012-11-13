@@ -67,7 +67,7 @@ public class CSeguridad {
         return null;
     }
     
-    private static boolean passwordCorrecta(char[] passBD, char[] passRead){
+    public static boolean passwordCorrecta(char[] passBD, char[] passRead){
         boolean correcto = Boolean.TRUE;
         if(passBD.length != passRead.length){
             correcto = Boolean.FALSE;
@@ -78,6 +78,24 @@ public class CSeguridad {
         Arrays.fill(passBD, '0');
         System.out.println("CSeguridad.passwordCorrecta - INFO: resultado - " + correcto);
         return correcto;
+    }
+    
+    public static Contrasena getContrasenaActiva(int idUsuario){
+        Session s = Sesion.openSessionFactory();
+        
+        try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("ContrasenaActivaXidUsuario").setMaxResults(1);
+            q.setParameter("idUsuario", idUsuario);
+            return (Contrasena)q.uniqueResult();
+        } catch(Exception e){
+            System.out.println("CSeguridad.getContrasenaActiva - ERROR: " + e.getMessage());
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        
+        return null;
     }
     
     public static int getMaxIntentosFallidos(){

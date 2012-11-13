@@ -930,6 +930,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
         // TODO add your handling code here:
+        NotaEntrada NotaEntradaDialog = new NotaEntrada(this.envio);
+        NotaEntradaDialog.setVisible(true);
+        
+        
     }//GEN-LAST:event_btn_inActionPerformed
 
     private void txt_unitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_unitarioActionPerformed

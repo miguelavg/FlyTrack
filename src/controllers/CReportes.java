@@ -156,7 +156,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
         document.addKeywords("Java, PDF, iText, NetBeans");
         document.addAuthor(empresa);
 
-        caratulaPDF_Trazabilidad_Factura(document,tituloEnElDocumento,autor,empresa);
+        caratulaPDF_Trazabilidad_Factura(document,tituloEnElDocumento,autor,empresa,envio);
         reporteEnPDF_Trazabilidad_Factura(document,envio,anchos);
         document.close();
 
@@ -236,7 +236,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
         table.addCell(" ");
         table.getRow(1).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-         table.addCell("IGV:");
+         table.addCell("IVA:");
         table.getRow(1).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
         
         table.addCell(CValidator.formatNumber(envio.getImpuesto()*envio.getMonto() ));
@@ -277,13 +277,13 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
         document.add(table);
     }
         
-    private static void caratulaPDF_Trazabilidad_Factura(Document document,String tituloDocumento,String autor, String empresa) throws Exception {
+    private static void caratulaPDF_Trazabilidad_Factura(Document document,String tituloDocumento,String autor, String empresa,Envio envio) throws Exception {
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
             Paragraph preface1 = new Paragraph();
 
-            preface1=new Paragraph("Factura elaborada por "+autor+" el dia "+dateFormat.format(calendar.getTime()),FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface1=new Paragraph(tituloDocumento+" elaborada por "+autor+" el dia "+dateFormat.format(calendar.getTime()),FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
             preface1.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface1, 1);
@@ -296,8 +296,15 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             lineaVacia(preface3, 1);
             
             
-            Paragraph preface2 = null;
+            Paragraph preface7 = null;
 
+            preface7=new Paragraph("Numero de documento de pago: "+envio.getNumDocVenta()+ "  ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface7.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface7, 1);
+            
+            Paragraph preface2 = null;
+            
             preface2=new Paragraph("Empresa: "+empresa + " ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
             preface2.setAlignment(Element.ALIGN_LEFT);
 
@@ -324,21 +331,31 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             lineaVacia(preface6, 1);
             
 
+            Paragraph preface8 = null;
+            preface8=new Paragraph("Moneda : "+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface8.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface8, 1);
 
 
-//            Paragraph preface4 = new Paragraph();
-//            preface4=new Paragraph("Historial de clientes  "+" "+".",FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL));
-//            preface4.setAlignment(Element.ALIGN_LEFT);
+//            Paragraph preface9 = null;
+//            preface9=new Paragraph("Tipo de Documento : "+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+//            preface9.setAlignment(Element.ALIGN_LEFT);
 //
-//            lineaVacia(preface4, 1);
-//            lineaVacia(preface4, 1);
+//            lineaVacia(preface9, 1);
+            
+            
 
             document.add(preface1);
             document.add(preface3);
        
+            document.add(preface7);
+            document.add(preface2);
+            
             document.add(preface4);
             document.add(preface5);
             document.add(preface6);    
+            document.add(preface8);  
     }
     
     public static void crearPDF_Trazabilidad_NotaSalida(String direccionDelDocumento,Envio envio) throws Exception {
@@ -587,7 +604,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
         table.addCell(" ");
         table.getRow(1).getCells()[1].setHorizontalAlignment(Element.ALIGN_LEFT);
         
-         table.addCell("IGV:");
+         table.addCell("IVA:");
         table.getRow(1).getCells()[2].setHorizontalAlignment(Element.ALIGN_RIGHT);
         
         table.addCell(CValidator.formatNumber(envio.getImpuesto()*envio.getMonto() ));

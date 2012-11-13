@@ -12,9 +12,12 @@ import controllers.CReportes;
  * @author joao
  */
 import beans.Envio;
+import beans.Sesion;
 import beans.seguridad.Usuario;
 import controllers.CValidator;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +31,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
     public VistaPrevia_Factura(Envio envio) {
         initComponents();
         this.envio=envio;
+        cargarcampos();
         cargartabla();
     }
     private Envio envio;
@@ -44,15 +48,21 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btn_factura = new javax.swing.JButton();
+        btn_docPago = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaFactura = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtEmpleado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
+        txtMoneda = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtTipoDoc = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VistaPrevia_Factura");
@@ -63,7 +73,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/new.png"))); // NOI18N
-        jLabel1.setText("Factura");
+        jLabel1.setText("Documento de Pago");
         jLabel1.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -73,7 +83,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(246, 246, 246)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,11 +95,11 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btn_factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
-        btn_factura.setText("Generar Factura en pdf");
-        btn_factura.addActionListener(new java.awt.event.ActionListener() {
+        btn_docPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
+        btn_docPago.setText("Guardar Documento de pago en pdf");
+        btn_docPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_facturaActionPerformed(evt);
+                btn_docPagoActionPerformed(evt);
             }
         });
 
@@ -117,7 +127,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
 
         jLabel2.setText("Elaborada por : ");
 
-        jTextField1.setEnabled(false);
+        txtEmpleado.setEnabled(false);
 
         jLabel3.setText("Empresa             :  Flytrack ");
 
@@ -126,6 +136,18 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         jLabel5.setText("País                         : Peru");
 
         jLabel6.setText("Telefono             : 4546354");
+
+        jLabel7.setText("Nro de Documento de pago:");
+
+        txtNumero.setEnabled(false);
+
+        txtMoneda.setEnabled(false);
+
+        jLabel10.setText("Moneda                :");
+
+        jLabel11.setText("Tipo de Documento:");
+
+        txtTipoDoc.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -137,27 +159,45 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(btn_docPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel10))
+                                    .addGap(73, 73, 73)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 301, Short.MAX_VALUE)))
+                                .addGap(107, 107, 107)
+                                .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_docPago, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
@@ -165,8 +205,19 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11)
+                        .addGap(6, 6, 6))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -223,6 +274,20 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
 //    catch(ClassCastException e) {}
 //}
     
+public void cargarcampos() {   
+        txtNumero.setText(String.valueOf(envio.getIdEnvio()));
+        //LabelAero.setText(this.envio.getDestino().getNombre()+ " - "+this.envio.getDestino().getPais().getValor() );
+        txtEmpleado.setText(Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos());
+        
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        txtMoneda.setText(this.envio.getMoneda().getValor());
+        txtTipoDoc.setText(this.envio.getTipoDocVenta().getValor());
+        
+  
+}
+        
 public void cargartabla(){
     
     //    List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,null,null);    
@@ -275,7 +340,7 @@ public void cargartabla(){
     }    
     
     
-    private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
+    private void btn_docPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_docPagoActionPerformed
         JFileChooser jfc = new JFileChooser();
         int rslt = jfc.showSaveDialog(this);
         if (rslt == JFileChooser.APPROVE_OPTION) {
@@ -295,8 +360,23 @@ public void cargartabla(){
                         //this.usuario.getNombre()
                         //alma.getNombre()
                         //this.palletElegido
-                        CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", "Joao", "FlyTrack", "Factura", anchos, this.envio);
-                        CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
+                        
+                        String usuariologeado=Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos();
+                        
+                        if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
+                            CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", usuariologeado, "FlyTrack", "Factura", anchos, this.envio);
+                            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
+                        }
+
+
+
+                        if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
+                            CReportes.crearPDF_Trazabilidad_Factura(ruta, "Boleta", usuariologeado, "FlyTrack", "Boleta", anchos, this.envio);
+                            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la boleta en la ruta\n" + ruta);
+                        }
+                        
+                        
+                        
                         //}
                         //else
                         //CReportes.mostrarMensajeAdvertencia("No existen registros en el historial.");
@@ -305,17 +385,17 @@ public void cargartabla(){
                         //  visualHelper.mostrarMensajeAdvertencia("No se ha ingresado información sobre el almacén.");
                     } catch (Exception e) {
                         e.printStackTrace();
-                        CReportes.mostrarMensajeError("Ocurrió un error al generar la factura.");
+                        CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
                     }
                 } else {
-                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo de la factura.");
+                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
                 }
             } else {
                 CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
             }
         }
 
-    }//GEN-LAST:event_btn_facturaActionPerformed
+    }//GEN-LAST:event_btn_docPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,16 +433,22 @@ public void cargartabla(){
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaFactura;
-    private javax.swing.JButton btn_factura;
+    private javax.swing.JButton btn_docPago;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtEmpleado;
+    private javax.swing.JTextField txtMoneda;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtTipoDoc;
     // End of variables declaration//GEN-END:variables
 }
