@@ -4,16 +4,13 @@
  */
 package gui.simulacion;
 
-import beans.Aeropuerto;
-import beans.Cliente;
-import beans.Parametro;
-import beans.Sesion;
-import beans.seguridad.Permiso;
-import controllers.CEnvio;
-import controllers.CSeguridad;
+import controllers.CSimulator;
+import gui.InformationDialog;
 import gui.envios.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.InputMap;
@@ -38,6 +35,7 @@ public class SimDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    private ArrayList<VueloLite> vInicial;
 
     @Override
     protected JRootPane createRootPane() {
@@ -57,7 +55,7 @@ public class SimDialog extends javax.swing.JDialog {
         return rootPane;
     }
 
-    private void llenarTablaAeroLites(List<AeroLite> aeropuertos) {
+    private void llenarTablaAeroLites(ArrayList<AeroLite> aeropuertos) {
         DefaultTableModel dtm = (DefaultTableModel) tbl_aeropuertos.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -75,13 +73,13 @@ public class SimDialog extends javax.swing.JDialog {
 
     private void llenarLineaTablaAeroLite(AeroLite a, DefaultTableModel dtm) {
         Object[] datos = new Object[3];
-        datos[0] = a.getNombre();
+        datos[0] = a;
         datos[1] = a.getCapacidadActual();
         datos[2] = a.getCapacidadMax();
         dtm.addRow(datos);
     }
 
-    private void llenarTablaVueloLites(List<VueloLite> vuelos) {
+    private void llenarTablaVueloLites(ArrayList<VueloLite> vuelos) {
         DefaultTableModel dtm = (DefaultTableModel) tbl_vuelos.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -98,15 +96,16 @@ public class SimDialog extends javax.swing.JDialog {
     }
 
     private void llenarLineaTablaVueloLite(VueloLite v, DefaultTableModel dtm) {
-        Object[] datos = new Object[4];
+        Object[] datos = new Object[5];
         datos[0] = v.getNum();
         datos[1] = v.getOrigen();
         datos[2] = v.getDestino();
         datos[3] = v.getCapacidadMax();
+        datos[4] = v.getAlquiler();
         dtm.addRow(datos);
     }
 
-    private void llenarEnvioLites(List<EnvioLite> envios) {
+    private void llenarTablaEnvioLites(List<EnvioLite> envios) {
         DefaultTableModel dtm = (DefaultTableModel) tbl_envios.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -130,6 +129,107 @@ public class SimDialog extends javax.swing.JDialog {
         dtm.addRow(datos);
     }
 
+    private void llenarTablas() {
+        ArrayList<AeroLite> aeroLites = CSimulator.calcularAeropuertos();
+        if (aeroLites != null) {
+            llenarTablaAeroLites(aeroLites);
+            ArrayList<VueloLite> vueloLites = CSimulator.calcularVuelos(aeroLites);
+            llenarTablaVueloLites(vueloLites);
+            ArrayList<EnvioLite> envioLites = CSimulator.calcularEnvios(aeroLites);
+            llenarTablaEnvioLites(envioLites);
+            this.vInicial = vueloLites;
+        }
+    }
+
+    private int[] desordenar(int num) {
+        int[] a = new int[num];
+        Random randomizer = new Random();
+        int temp, rnd;
+
+        for (int i = 0; i < num; i++) {
+            a[i] = i;
+        }
+
+        for (int i = 0; i < num; i++) {
+            rnd = randomizer.nextInt(num);
+            temp = a[rnd];
+            a[rnd] = a[i];
+            a[i] = temp;
+        }
+
+        return a;
+    }
+
+    private ArrayList<AeroLite> reconstruirAeroLites(DefaultTableModel dtm) {
+        ArrayList<AeroLite> aeroLites = new ArrayList<AeroLite>();
+
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            AeroLite aeroLite = (AeroLite) dtm.getValueAt(i, 0);
+            int capacidadActual = (Integer) dtm.getValueAt(i, 1);
+            int capacidadMax = (Integer) dtm.getValueAt(i, 2);
+
+            if (aeroLite != null && capacidadActual >= 0 && capacidadMax > 0) {
+                aeroLite.setCapacidadActual(capacidadActual);
+                aeroLite.setCapacidadMax(capacidadMax);
+                aeroLites.add(aeroLite);
+            }
+        }
+
+        return aeroLites;
+    }
+
+    private ArrayList<VueloLite> reconstruirVueloLites(DefaultTableModel dtm) {
+        ArrayList<VueloLite> vueloLites = new ArrayList<VueloLite>();
+        Random randomizer = new Random();
+
+        int[] a = desordenar(dtm.getRowCount());
+        int k = 0;
+
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            int num = (Integer) dtm.getValueAt(i, 0);
+            AeroLite origen = (AeroLite) dtm.getValueAt(i, 1);
+            AeroLite destino = (AeroLite) dtm.getValueAt(i, 2);
+            int capacidadMax = (Integer) dtm.getValueAt(i, 3);
+            double alquiler = (Double) dtm.getValueAt(i, 4);
+            if (origen != null && destino != null && capacidadMax > 0 && alquiler >= 0 && num > 0) {
+                for (int j = 0; j < num; j++) {
+                    VueloLite v = new VueloLite(origen, destino, j, capacidadMax, alquiler);
+                    v.setEvt(k++);
+                    v.setDur(randomizer.nextInt(9));
+                    v.setCapacidadActual((int) (randomizer.nextDouble() * capacidadMax));
+                    vueloLites.add(v);
+                    v.getOrigen().getVuelosSalida().add(v);
+                    v.getDestino().getVuelosLlegada().add(v);
+                }
+            }
+        }
+
+        return vueloLites;
+    }
+
+    private ArrayList<EnvioLite> reconstruirEnvioLites(DefaultTableModel dtm) {
+        ArrayList<EnvioLite> envioLites = new ArrayList<EnvioLite>();
+
+        int[] a = desordenar(dtm.getRowCount());
+        int k = 0;
+
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            int num = (Integer) dtm.getValueAt(i, 0);
+            AeroLite origen = (AeroLite) dtm.getValueAt(i, 1);
+            AeroLite destino = (AeroLite) dtm.getValueAt(i, 2);
+
+            if (origen != null && destino != null && num > 0) {
+                for (int j = 0; j < num; j++) {
+                    EnvioLite v = new EnvioLite(origen, destino, j);
+                    v.setEvt(k++);
+                    envioLites.add(v);
+                }
+            }
+        }
+
+        return envioLites;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -144,26 +244,14 @@ public class SimDialog extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_envios = new javax.swing.JTable() {
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;
-            }
-        };
+        tbl_envios = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tbl_aeropuertos = new javax.swing.JTable() {
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;
-            }
-        };
+        tbl_aeropuertos = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tbl_vuelos = new javax.swing.JTable() {
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;
-            }
-        };
+        tbl_vuelos = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         btn_actualizar = new javax.swing.JButton();
@@ -213,7 +301,7 @@ public class SimDialog extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
-        jLabel5.setText("Envíos:");
+        jLabel5.setText("Envíos");
 
         tbl_envios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,7 +330,6 @@ public class SimDialog extends javax.swing.JDialog {
         tbl_envios.getColumnModel().getColumn(0).setMinWidth(40);
         tbl_envios.getColumnModel().getColumn(0).setPreferredWidth(10);
         tbl_envios.getColumnModel().getColumn(0).setMaxWidth(40);
-        tbl_envios.getAccessibleContext().setAccessibleParent(jPanel3);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -280,16 +367,22 @@ public class SimDialog extends javax.swing.JDialog {
                 "Nombre", "#paq", "Max. paq."
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, true, true
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane4.setViewportView(tbl_aeropuertos);
-        tbl_aeropuertos.getAccessibleContext().setAccessibleParent(jPanel2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -321,14 +414,14 @@ public class SimDialog extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Origen", "Destino", "Max. paq."
+                "#", "Origen", "Destino", "Max. paq.", "Alquiler"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true
+                true, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -342,10 +435,9 @@ public class SimDialog extends javax.swing.JDialog {
         jScrollPane5.setViewportView(tbl_vuelos);
         tbl_vuelos.getColumnModel().getColumn(0).setMinWidth(40);
         tbl_vuelos.getColumnModel().getColumn(0).setMaxWidth(40);
-        tbl_vuelos.getAccessibleContext().setAccessibleParent(jPanel6);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
-        jLabel9.setText("Vuelos:");
+        jLabel9.setText("Vuelos");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -454,19 +546,60 @@ public class SimDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getAccessibleContext().setAccessibleName("FlyTrack - Simulación");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // TODO add your handling code here:
+        llenarTablas();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_simularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simularActionPerformed
         // TODO add your handling code here:
-        MonitoreoFrame monitoreoDialog = new MonitoreoFrame(null);
-        monitoreoDialog.setVisible(true);
+        DefaultTableModel dtm = (DefaultTableModel) tbl_aeropuertos.getModel();
+        ArrayList<AeroLite> aeroLites = reconstruirAeroLites(dtm);
+
+        dtm = (DefaultTableModel) tbl_vuelos.getModel();
+        ArrayList<VueloLite> vueloLites = reconstruirVueloLites(dtm);
+
+        dtm = (DefaultTableModel) tbl_envios.getModel();
+        ArrayList<EnvioLite> envioLites = reconstruirEnvioLites(dtm);
+
+        CSimulator.simular(envioLites);
+
+        String aNecesidad = "";
+        String vNecesidad = "";
+
+        for (AeroLite a : aeroLites) {
+            if (a.getNecesidad() > 0) {
+                aNecesidad = aNecesidad + "Aumentar en " + a.getNecesidad() + " la capacidad del aeropuerto " + a.getNombre() + "\n";
+            }
+        }
+
+        for (VueloLite vI : this.vInicial) {
+            for (VueloLite v : vueloLites) {
+                if (v.getOrigen().getId() == vI.getOrigen().getId() && v.getDestino().getId() == vI.getDestino().getId()) {
+                    vI.setNecesidad(vI.getNecesidad() + v.getNecesidad());
+                }
+            }
+        }
+
+        for (VueloLite vI : this.vInicial) {
+            if (vI.getNecesidad() > 0) {
+                vNecesidad = vNecesidad + "Aumentar en " + vI.getNecesidad() + " la capacidad del vuelo " + vI.getOrigen().getNombre() + " - " + vI.getDestino().getNombre() + "\n";
+            } 
+        }
+        
+        if(!aNecesidad.isEmpty()){
+            aNecesidad = "Se recomienda: \n" + vNecesidad;
+        }
+        if(!vNecesidad.isEmpty()){
+            vNecesidad = "Se recomienda: \n" + vNecesidad;
+        }
+        
+        String mensaje = aNecesidad + "\n" + vNecesidad;
+        InformationDialog.mostrarInformacion(mensaje, this);
+        
     }//GEN-LAST:event_btn_simularActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -477,6 +610,7 @@ public class SimDialog extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        llenarTablas();
     }//GEN-LAST:event_formWindowOpened
 
     /**

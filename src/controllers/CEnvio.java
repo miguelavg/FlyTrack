@@ -119,7 +119,10 @@ public class CEnvio {
             p = (Parametro) q.uniqueResult();
             int limite_backward = Integer.parseInt(p.getValor());
 
-
+            q.setParameter("tipo", "ESTADO_VUELO");
+            q.setParameter("valorUnico", "PROG");
+            p = (Parametro) q.uniqueResult();
+            int idProg = Integer.parseInt(p.getValor());
 
 
             long iFuturo = envio.getFechaRegistro().getTime() + limite_forward * 24 * 60 * 60 * 1000;
@@ -135,11 +138,13 @@ public class CEnvio {
             Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalida");
             f_vuelos_s.setParameter("lower", ahora);
             f_vuelos_s.setParameter("upper", futuro);
+            f_vuelos_s.setParameter("idEstado", idProg);
 
             Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
             f_vuelos_l.setParameter("lower", ahora);
             f_vuelos_l.setParameter("upper", futuro);
-
+            f_vuelos_s.setParameter("idEstado", idProg);
+            
             q = s.getNamedQuery("Aeropuertos");
             List<Aeropuerto> aeros = q.list();
 
