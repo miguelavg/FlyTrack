@@ -212,7 +212,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             btn_out.setEnabled(false);
         }
 
-        if (!this.isNuevo && !this.envio.getEstadoFactura().getValorUnico().equals("EM")) {
+        if (!this.isNuevo && this.envio.getEstadoFactura().getValorUnico().equals("EM")) {
             btn_factura.setEnabled(true);
         } else {
             btn_factura.setEnabled(false);
