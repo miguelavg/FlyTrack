@@ -1,0 +1,46 @@
+<list>
+  <xml.XmlVuelo>
+    <idVuelo>0</idVuelo>
+    <costoAlquiler>2000.0</costoAlquiler>
+    <capacidadMax>100</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <fechaSalida>2012-12-02 17:00:29.258 UTC</fechaSalida>
+    <fechaLlegada>2012-12-02 13:00:29.258 UTC</fechaLlegada>
+    <estado>14</estado>
+    <origen>20</origen>
+    <destino>23</destino>
+  </xml.XmlVuelo>
+  <xml.XmlVuelo>
+    <idVuelo>0</idVuelo>
+    <costoAlquiler>2000.0</costoAlquiler>
+    <capacidadMax>100</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <fechaSalida reference="../../xml.XmlVuelo/fechaSalida"/>
+    <fechaLlegada reference="../../xml.XmlVuelo/fechaLlegada"/>
+    <estado>14</estado>
+    <origen>21</origen>
+    <destino>23</destino>
+  </xml.XmlVuelo>
+  <xml.XmlVuelo>
+    <idVuelo>0</idVuelo>
+    <costoAlquiler>2000.0</costoAlquiler>
+    <capacidadMax>100</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <fechaSalida reference="../../xml.XmlVuelo/fechaSalida"/>
+    <fechaLlegada reference="../../xml.XmlVuelo/fechaLlegada"/>
+    <estado>14</estado>
+    <origen>22</origen>
+    <destino>23</destino>
+  </xml.XmlVuelo>
+  <xml.XmlVuelo>
+    <idVuelo>0</idVuelo>
+    <costoAlquiler>2000.0</costoAlquiler>
+    <capacidadMax>100</capacidadMax>
+    <capacidadActual>0</capacidadActual>
+    <fechaSalida reference="../../xml.XmlVuelo/fechaSalida"/>
+    <fechaLlegada reference="../../xml.XmlVuelo/fechaLlegada"/>
+    <estado>14</estado>
+    <origen>4</origen>
+    <destino>23</destino>
+  </xml.XmlVuelo>
+</list>
