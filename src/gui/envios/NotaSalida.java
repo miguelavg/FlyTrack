@@ -108,18 +108,31 @@ public class NotaSalida extends javax.swing.JDialog {
         jLabel7.setText("N°:");
 
         txtNumero.setEditable(false);
+        txtNumero.setEnabled(false);
 
         jLabel8.setText("Fecha:");
 
         txtHora.setEditable(false);
+        txtHora.setEnabled(false);
 
+        LabelAero.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelAero.setText("Aeropuerto :");
 
         jLabel10.setText("Destinatario:");
 
         jLabel11.setText("Cant. de paquetes:");
 
+        txtEmpleado.setEnabled(false);
+
+        txtDestinatario.setEditable(false);
+        txtDestinatario.setEnabled(false);
+
+        txtCantidad.setEditable(false);
+        txtCantidad.setEnabled(false);
+
         jLabel3.setText("Hora");
+
+        txtFecha.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo48x48.png"))); // NOI18N
@@ -164,11 +177,11 @@ public class NotaSalida extends javax.swing.JDialog {
                         .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(356, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LabelAero, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(329, 329, 329))
+                .addGap(316, 316, 316))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
