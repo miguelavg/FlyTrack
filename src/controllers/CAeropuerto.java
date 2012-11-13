@@ -291,17 +291,17 @@ public class CAeropuerto {
            if (Pais!=null)
            {
              Filter f = s.enableFilter("AeropuertoxPais");
-             f.setParameter("Pais",Pais);
+             f.setParameter("Pais",Pais.getIdParametro());
            }
            if (Ciudad!=null){
                 Filter f2 = s.enableFilter("AeropuertoxCiudad");
-                f2.setParameter("Ciudad",Ciudad);
+              f2.setParameter("Ciudad",Ciudad.getIdParametro());
 
            }
        
            if (Estado!=null){
                 Filter f4 = s.enableFilter("AeropuertoxEstado");               
-                f4.setParameter("Estado",Estado);
+                f4.setParameter("Estado",Estado.getIdParametro());
 
            }
            
