@@ -144,8 +144,12 @@ public class CUsuario {
         
         return null;
     }
-     
-    public static String ValidarContraseña(char[] contra){
+    
+//    public static boolean validarContrasena(char[] contrasenaAValidar){
+//        Parametro condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA")
+//    }
+    
+    public static String ValidarContrasena(char[] contra){
         
         String mensaje="";
         List<Parametro> Condiciones ;
@@ -203,11 +207,11 @@ public class CUsuario {
         
         return mensaje;
     }
+    
     public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, String LogIn,
-                Parametro estado,String Nombre, String Apellidos, String correo, 
+            Parametro estado,String Nombre, String Apellidos, String correo, 
             String telefono,String NumeroDoc, 
             Parametro TipoDoc, Parametro Ciudad, Parametro Pais
-            
             ){
         
         SessionFactory sf = Sesion.getSessionFactory();
