@@ -11,13 +11,32 @@ import java.util.ArrayList;
  * @author miguelavg
  */
 public class AeroLite {
+
+    private int id;
     private String nombre;
     private int capacidadMax;
     private int capacidadActual;
-    private ArrayList<VueloHist> vuelosSalida;
-    private ArrayList<VueloHist> vuelosLlegada;
-    
-    public AeroLite(){
+    int necesidad;
+    private ArrayList<VueloLite> vuelosSalida;
+    private ArrayList<VueloLite> vuelosLlegada;
+
+    public AeroLite() {
+    }
+
+    public AeroLite(int id, String nombre, int capacidadMax, int capacidadActual) {
+        this.id = id;
+        this.nombre = nombre;
+        this.capacidadMax = capacidadMax;
+        this.capacidadActual = capacidadActual;
+        this.necesidad = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -44,19 +63,33 @@ public class AeroLite {
         this.capacidadActual = capacidadActual;
     }
 
-    public ArrayList<VueloHist> getVuelosSalida() {
+    public ArrayList<VueloLite> getVuelosSalida() {
         return vuelosSalida;
     }
 
-    public void setVuelosSalida(ArrayList<VueloHist> vuelosSalida) {
+    public void setVuelosSalida(ArrayList<VueloLite> vuelosSalida) {
         this.vuelosSalida = vuelosSalida;
     }
 
-    public ArrayList<VueloHist> getVuelosLlegada() {
+    public ArrayList<VueloLite> getVuelosLlegada() {
         return vuelosLlegada;
     }
 
-    public void setVuelosLlegada(ArrayList<VueloHist> vuelosLlegada) {
+    public void setVuelosLlegada(ArrayList<VueloLite> vuelosLlegada) {
         this.vuelosLlegada = vuelosLlegada;
+    }
+
+    
+    public int getNecesidad() {
+        return necesidad;
+    }
+
+    public void setNecesidad(int necesidad) {
+        this.necesidad = necesidad;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getNombre();
     }
 }

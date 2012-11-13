@@ -4,11 +4,15 @@
  */
 package controllers;
 
+import beans.Aeropuerto;
+import beans.Parametro;
 import beans.Sesion;
 import java.util.ArrayList;
 import java.util.List;
 import logic.AeroLite;
 import logic.EnvioLite;
+import logic.RecocidoLite;
+import logic.VueloLite;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,19 +23,37 @@ import org.hibernate.SessionFactory;
  */
 public class CSimulator {
 
-    public static ArrayList<EnvioLite> calcularEnvios() {
+    private static AeroLite buscarAeroLite(int id, ArrayList<AeroLite> aeroLites) {
+
+        int lo = 0;
+        int hi = aeroLites.size() - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            AeroLite a = aeroLites.get(mid);
+            if (id < a.getId()) {
+                hi = mid - 1;
+            } else if (id > a.getId()) {
+                lo = mid + 1;
+            } else {
+                return aeroLites.get(mid);
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<AeroLite> calcularAeropuertos() {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
+        ArrayList<AeroLite> aeroLites = null;
 
         try {
-            Query q = s.createQuery("select  count(e) from Envio e").setMaxResults(1);
-            int nEnvios = (Integer) q.uniqueResult();
-            
-            q = s.createQuery("select  e.origen.nombre, e.destino.nombre,  count(e) from Envio e group by e.origen.nombre, e.destino.nombre");
-            List<Object[]> envios = q.list();
-            
-            for(Object[] obj : envios){
-                
+
+            Query q = s.getNamedQuery("Aero");
+            List<Aeropuerto> aeros = q.list();
+            aeroLites = new ArrayList<AeroLite>();
+
+            for (Aeropuerto a : aeros) {
+                aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre(), a.getCapacidadMax(), a.getCapacidadActual()));
             }
 
         } catch (Exception e) {
@@ -39,6 +61,123 @@ public class CSimulator {
         } finally {
             s.close();
         }
-        return null;
+        return aeroLites;
+    }
+
+    public static ArrayList<VueloLite> calcularVuelos(ArrayList<AeroLite> aeroLites) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        ArrayList<VueloLite> vueloLites = null;
+
+        try {
+            Query q = s.createQuery("select v.origen.idAeropuerto, v.destino.idAeropuerto,  count(v),  avg(v.capacidadMax), avg(v.costoAlquiler) from Vuelo v group by v.origen, v.destino order by 1, 2");
+            List<Object[]> objVuelos = q.list();
+            vueloLites = new ArrayList<VueloLite>();
+
+            for (Object[] obj : objVuelos) {
+                AeroLite origen = buscarAeroLite((Integer) obj[0], aeroLites);
+                AeroLite destino = buscarAeroLite((Integer) obj[1], aeroLites);
+                int num = ((Long) obj[2]).intValue();
+                int cap = ((Double) obj[3]).intValue();
+                double alq = (Double) obj[4];
+                vueloLites.add(new VueloLite(origen, destino, num, cap, alq));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return vueloLites;
+    }
+
+    public static ArrayList<EnvioLite> calcularEnvios(ArrayList<AeroLite> aeroLites) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        ArrayList<EnvioLite> envioLites = null;
+
+        try {
+            Query q = s.createQuery("select e.origen.idAeropuerto, e.destino.idAeropuerto,  count(e) from Envio e group by e.origen, e.destino order by 1, 2");
+            List<Object[]> objVuelos = q.list();
+            envioLites = new ArrayList<EnvioLite>();
+
+            for (Object[] obj : objVuelos) {
+                AeroLite origen = buscarAeroLite((Integer) obj[0], aeroLites);
+                AeroLite destino = buscarAeroLite((Integer) obj[1], aeroLites);
+                int num = ((Long) obj[2]).intValue();
+                envioLites.add(new EnvioLite(origen, destino, num));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return envioLites;
+    }
+
+    public static void simular(ArrayList<EnvioLite> envioLites) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+
+        try {
+            Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
+            Parametro p;
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "temperatura_inicial");
+            p = (Parametro) q.uniqueResult();
+            double temperaturaInicial = Double.parseDouble(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "temperatura_final");
+            p = (Parametro) q.uniqueResult();
+            double temperaturaFinal = Double.parseDouble(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "k_sa");
+            p = (Parametro) q.uniqueResult();
+            int k = Integer.parseInt(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "alfa_sa");
+            p = (Parametro) q.uniqueResult();
+            double alfaSA = Double.parseDouble(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "alfa_grasp");
+            p = (Parametro) q.uniqueResult();
+            double alfaGrasp = Double.parseDouble(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "porcentaje_parada");
+            p = (Parametro) q.uniqueResult();
+            double pParada = Double.parseDouble(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "num_intentos");
+            p = (Parametro) q.uniqueResult();
+            int intentos = Integer.parseInt(p.getValor());
+
+            q.setParameter("tipo", "SA_PARAM");
+            q.setParameter("valorUnico", "costo_almacen_usd_hora");
+            p = (Parametro) q.uniqueResult();
+            double costoAlmacen = Double.parseDouble(p.getValor());
+
+
+            RecocidoLite rl = new RecocidoLite(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, costoAlmacen, envioLites);
+
+
+            for (EnvioLite e : envioLites) {
+                rl.grasp(e);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+            return;
+
+        }
+
     }
 }
