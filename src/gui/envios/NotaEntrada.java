@@ -99,16 +99,26 @@ public class NotaEntrada extends javax.swing.JDialog {
         jLabel12.setText("N°:");
 
         txtNumero.setEditable(false);
+        txtNumero.setEnabled(false);
 
         jLabel13.setText("Fecha:");
 
         txtHora.setEditable(false);
+        txtHora.setEnabled(false);
 
         jLabel15.setText("Remitente:");
 
         jLabel16.setText("Cant. de paquetes:");
 
+        txtEmpleado.setEnabled(false);
+
+        txtDestinatario.setEnabled(false);
+
+        txtCantidad.setEnabled(false);
+
         jLabel6.setText("Hora");
+
+        txtFecha.setEnabled(false);
 
         jLabel17.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo48x48.png"))); // NOI18N

@@ -182,7 +182,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
                                 .addComponent(jLabel2)
                                 .addGap(107, 107, 107)
                                 .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 253, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
