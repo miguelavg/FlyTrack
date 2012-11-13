@@ -6,7 +6,6 @@ package gui.simulacion;
 
 import beans.Aeropuerto;
 import beans.Cliente;
-import beans.Envio;
 import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Permiso;
@@ -35,14 +34,9 @@ public class SimDialog extends javax.swing.JDialog {
     /**
      * Creates new form Envio
      */
-    private CEnvio cenvio;
-    private Aeropuerto a_destino, a_origen, a_actual;
-    private Cliente c_cliente;
-    private Parametro p_estado;
-
     public SimDialog() {
         initComponents();
-        definirPermisos();
+        this.setLocationRelativeTo(null);
     }
 
     @Override
@@ -438,7 +432,7 @@ public class SimDialog extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -539,14 +533,4 @@ public class SimDialog extends javax.swing.JDialog {
     private javax.swing.JTable tbl_envios;
     private javax.swing.JTable tbl_vuelos;
     // End of variables declaration//GEN-END:variables
-
-    private void definirPermisos() {
-
-        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        boolean crear = CSeguridad.validarPermiso(2, "Envios", "Crear", permisos);
-        //boolean cargaMasiva = CSeguridad.validarPermiso(2, "Envios", "Carga Masiva", permisos);
-
-        this.setLocationRelativeTo(null);
-        pack();
-    }
 }
