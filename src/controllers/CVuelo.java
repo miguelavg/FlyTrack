@@ -178,7 +178,9 @@ public class CVuelo {
             
             for (int i=0; ListaVuelos.size()>i; i++){
                 ListaVuelos.get(i).getIncidencias().size();
+                ListaVuelos.get(i).getEscalas().size();
             }
+           
 
 
 

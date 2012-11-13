@@ -65,6 +65,7 @@ public class Incidencias extends javax.swing.JDialog {
         btn_agregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FlyTrack - Incidencia");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -110,7 +111,6 @@ public class Incidencias extends javax.swing.JDialog {
 
         jLabel8.setText("Fecha Inicio");
 
-        dt_fechini.setNothingAllowed(false);
         dt_fechini.setFormat(0);
         dt_fechini.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
         try {
@@ -118,6 +118,8 @@ public class Incidencias extends javax.swing.JDialog {
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
             e1.printStackTrace();
         }
+
+        cbm_incidencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", " " }));
 
         jLabel3.setText("Tipo Incidencia");
 
@@ -145,7 +147,6 @@ public class Incidencias extends javax.swing.JDialog {
 
         jLabel9.setText("Fecha Fin");
 
-        dt_fechfin.setNothingAllowed(false);
         dt_fechfin.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
         try {
             dt_fechfin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
@@ -259,8 +260,7 @@ public class Incidencias extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        Parametro p = null;
-        p = ListatipoInci.get(cbm_incidencia.getSelectedIndex());
+        
         ListaInci = objV.getIncidencias(); //CIncidencia.BuscarIncidencia(p,dt_fechini.getSelectedDate(),dt_fechfin.getSelectedDate());   
         llenarGrillaIncidencia();
     }//GEN-LAST:event_btn_buscarActionPerformed
@@ -300,7 +300,11 @@ public class Incidencias extends javax.swing.JDialog {
 
 
         Calendar fec = Calendar.getInstance();
-
+          Parametro p= null;
+            if (cbm_incidencia.getSelectedIndex() > 0) {
+               p = (Parametro)cbm_incidencia.getSelectedItem();
+            }
+           
 
         for (int i = 0; i < ListaInci.size(); i++) {
 
@@ -312,22 +316,81 @@ public class Incidencias extends javax.swing.JDialog {
             datos[3] = ListaInci.get(i).getFecha();
             datos[2] = ListaInci.get(i).getDescripcion();
             datos[1] = ListaInci.get(i).getEstado().getValor();
-
+            
             fec.setTime(ListaInci.get(i).getFecha());
-
-//           if ((Integer)(dtm.getValueAt(i, 1)) == 
-//              ((Parametro)cbm_incidencia.getSelectedItem()).getIdParametro()
-//               &&  (dt_fechini.getSelectedDate().compareTo(fec)==-1) && 
-//                   (dt_fechini.getSelectedDate().compareTo(fec)==1))
-//               
-//           {
-            dtm.addRow(datos);
-//           }
-
-
+            
+            if ( p!= null) {
+              if ((int)(ListaInci.get(i).getEstado().getIdParametro()) == 
+                    (p.getIdParametro())) {
+                    if ((dt_fechini.getSelectedDate() != null) &&
+                        (dt_fechfin.getSelectedDate() != null)){
+                          if ((dt_fechini.getSelectedDate().compareTo(fec)==-1) &&
+                             (dt_fechfin.getSelectedDate().compareTo(fec)==1)) 
+                            {
+                               dtm.addRow(datos);
+                            }
+                        
+                    }
+                    if ((dt_fechini.getSelectedDate() == null) &&
+                            (dt_fechfin.getSelectedDate() != null)){
+                         if (dt_fechfin.getSelectedDate().compareTo(fec)==1)  
+                            {
+                               dtm.addRow(datos);
+                            }
+                        
+                    }
+                    if ((dt_fechini.getSelectedDate() != null) &&
+                            (dt_fechfin.getSelectedDate() == null)){
+                            if (dt_fechini.getSelectedDate().compareTo(fec)==-1)  
+                            {
+                               dtm.addRow(datos);
+                            }
+                          
+                    }  
+                        if ((dt_fechini.getSelectedDate() == null) &&
+                        (dt_fechfin.getSelectedDate() == null)){
+                         
+                               dtm.addRow(datos);   
+                         }
+              }
+            }
+            else{
+                 if ((dt_fechini.getSelectedDate() != null) &&
+                        (dt_fechfin.getSelectedDate() != null)){
+                          if ((dt_fechini.getSelectedDate().compareTo(fec)==-1) &&
+                             (dt_fechfin.getSelectedDate().compareTo(fec)==1)) 
+                            {
+                               dtm.addRow(datos);
+                            }
+                        
+                    }
+                    if ((dt_fechini.getSelectedDate() == null) &&
+                            (dt_fechfin.getSelectedDate() != null)){
+                         if (dt_fechfin.getSelectedDate().compareTo(fec)==1)  
+                            {
+                               dtm.addRow(datos);
+                            }
+                        
+                    }
+                    if ((dt_fechini.getSelectedDate() != null) &&
+                            (dt_fechfin.getSelectedDate() == null)){
+                            if (dt_fechini.getSelectedDate().compareTo(fec)==-1)  
+                            {
+                               dtm.addRow(datos);
+                            }                         
+                      }   
+                     if ((dt_fechini.getSelectedDate() == null) &&
+                        (dt_fechfin.getSelectedDate() == null)){
+                         
+                               dtm.addRow(datos);   
+                     }
+              }
+             
+            }
+         
         }
 
-    }
+    
 
     /**
      * @param args the command line arguments

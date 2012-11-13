@@ -110,6 +110,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FlyTrack - Modificar");
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
