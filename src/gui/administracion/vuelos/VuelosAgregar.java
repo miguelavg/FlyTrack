@@ -8,6 +8,7 @@ import beans.Aeropuerto;
 import beans.Parametro;
 import beans.Vuelo;
 import controllers.CParametro;
+import controllers.CValidator;
 import controllers.CVuelo;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
@@ -199,6 +200,16 @@ public class VuelosAgregar extends javax.swing.JDialog {
             }
         });
 
+        txt_origen.setEnabled(false);
+
+        txt_destino.setEnabled(false);
+
+        txt_capacidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_capacidadKeyReleased(evt);
+            }
+        });
+
         cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel8.setText("Fecha Llegada");
@@ -230,6 +241,12 @@ public class VuelosAgregar extends javax.swing.JDialog {
         btn_origenDest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_origenDestActionPerformed(evt);
+            }
+        });
+
+        txt_monto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_montoKeyReleased(evt);
             }
         });
 
@@ -281,7 +298,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
                 .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +453,22 @@ public class VuelosAgregar extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btn_origenDestActionPerformed
 
-    
+    private void txt_montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_montoKeyReleased
+        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txt_monto)) {
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txt_montoKeyReleased
+
+    private void txt_capacidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_capacidadKeyReleased
+        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txt_capacidad)) {
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txt_capacidadKeyReleased
+
     /**
      * @param args the command line arguments
      */

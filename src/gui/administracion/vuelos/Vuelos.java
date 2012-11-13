@@ -105,6 +105,7 @@ public class Vuelos extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txt_origen.setToolTipText("");
+        txt_origen.setEnabled(false);
         txt_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_origenActionPerformed(evt);
@@ -127,6 +128,7 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
+        txt_destino.setEnabled(false);
         txt_destino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_destinoActionPerformed(evt);

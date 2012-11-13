@@ -277,10 +277,19 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_origen">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_destino">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_capacidad">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_capacidadKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbm_estado">
           <Properties>
@@ -338,6 +347,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_monto">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_montoKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
