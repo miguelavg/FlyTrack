@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 package controllers;
+import gui.ErrorDialog;
+import java.awt.Component;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -14,7 +16,7 @@ public class CMail {
     private String mailSMTPServers;
     private String mailSMTPServerPort;
     
-    private void sendMail(String from, String password, String to, String subject, String message){
+    public void sendMail(String from, String password, String to, String subject, String message){
         Properties prop = new Properties();
         
         mailSMTPServers = "smtp.gmail.com";
@@ -44,7 +46,8 @@ public class CMail {
             msg.setContent(message,"text/area");
         }
         catch(Exception e){
-            System.out.println(">> Erro: Completar Message" + e);
+            //System.out.println(">> Erro: Completar Message" + e);
+            //ErrorDialog.mostrarError("Error al enviar mensaje", this);
         }
         Transport tr;
         
@@ -56,7 +59,8 @@ public class CMail {
             tr.close();
         }
         catch(Exception e){
-            System.out.println(">> Erro: Envio Message" + e);
+            //System.out.println(">> Erro: Envio Message" + e);
+            //ErrorDialog.mostrarError("Error al enviar mensaje", this);
         }
     }    
 }
