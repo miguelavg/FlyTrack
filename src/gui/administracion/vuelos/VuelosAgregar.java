@@ -138,6 +138,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FlyTrack - Vuelo - Agregar");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
