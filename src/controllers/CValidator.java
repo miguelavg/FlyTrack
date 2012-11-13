@@ -172,7 +172,9 @@ public class CValidator {
 
     public static String formatNumber(double number) {
         String formattedNumber = "";
-
+        //String monto=CValidator.formatNumber(number);
+        monto.replace(",", ".");
+        number = Double.parseDouble(monto);
         try {
             DecimalFormat format = new DecimalFormat("0.00");
             formattedNumber = format.format(number);
