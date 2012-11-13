@@ -182,6 +182,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
             CContrasena.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario())){
             Parametro contraseniaInactiva = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "INCTV");
             new CContrasena().desactivarUltimaContrasena(contrasenia, contraseniaInactiva);
+            
         }
         //validar que la contrasenia anterior sea igual a la contrasenia que se desactivara
         //verificar que los 2 campos de contrasenia nueva coincidan
