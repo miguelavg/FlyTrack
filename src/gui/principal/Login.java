@@ -64,7 +64,9 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FlyTrack - Iniciar Sesión");
-        setResizable(false);
+        setMaximumSize(new java.awt.Dimension(370, 250));
+        setMinimumSize(new java.awt.Dimension(370, 250));
+        setPreferredSize(new java.awt.Dimension(370, 250));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Usuario");
@@ -110,11 +112,6 @@ public class Login extends javax.swing.JFrame {
         txtPass.setMaximumSize(new java.awt.Dimension(120, 30));
         txtPass.setMinimumSize(new java.awt.Dimension(120, 30));
         txtPass.setPreferredSize(new java.awt.Dimension(120, 30));
-        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPassKeyPressed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,37 +122,37 @@ public class Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblError)
-                                .addGap(30, 30, 30)))
-                        .addGap(30, 30, 30))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(lblError))
+                            .addComponent(jLabel3))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblError)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,11 +160,11 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
                 .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         lblError.setVisible(false);
@@ -180,45 +177,41 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUser.getText();
         char[] password = txtPass.getPassword();
 
-        //Verificar si la constrasenia del usuario es la activa o no
-        //manejar el numero de intentos fallidos aqui
-        Usuario usuarioValidado = null;
-        if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
-            //VERIFICACION EXITOSA
-            lblError.setVisible(Boolean.FALSE);
-            usuarioValidado.getContrasenias().size();
+        if(!usuario.isEmpty() && password != null && password.length > 0){
+            //Verificar si la constrasenia del usuario es la activa o no
+            //manejar el numero de intentos fallidos aqui
+            Usuario usuarioValidado = null;
+            if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
+                //VERIFICACION EXITOSA
+                lblError.setVisible(Boolean.FALSE);
+                usuarioValidado.getContrasenias().size();
 
-            Sesion.setUsuario(usuarioValidado);
-            
-            PrincipalFrame pf = new PrincipalFrame();
-            pf.setVisible(Boolean.TRUE);
+                Sesion.setUsuario(usuarioValidado);
 
-            this.setVisible(Boolean.FALSE);
-            this.dispose();
-        } else {
-            //VERIFICACION FALLO
-            lblError.setVisible(Boolean.TRUE);
-            if (usuario.equals(userAnteriorIntentoLogin)) {
-                numIntentosFallidos++;
+                PrincipalFrame pf = new PrincipalFrame();
+                pf.setVisible(Boolean.TRUE);
+
+                this.setVisible(Boolean.FALSE);
+                this.dispose();
             } else {
-                numIntentosFallidos = 1;
-            }
-            userAnteriorIntentoLogin = usuario;
-            //Solo incremento si el usuario que ha intentado logearse es igual al
-            //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
-            // Si llega al limite de intentos fallidos se bloquea la cuenta
-            if (numIntentosFallidos >= numMaxIntentosFallidos) {
-                //CSeguridad.bloquearCuenta(usuario);
-                lblError.setText("Cuenta bloqueada: Supero el numero maximo de intentos fallidos");
+                //VERIFICACION FALLO
+                lblError.setVisible(Boolean.TRUE);
+                if (usuario.equals(userAnteriorIntentoLogin)) {
+                    numIntentosFallidos++;
+                } else {
+                    numIntentosFallidos = 1;
+                }
+                userAnteriorIntentoLogin = usuario;
+                //Solo incremento si el usuario que ha intentado logearse es igual al
+                //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
+                // Si llega al limite de intentos fallidos se bloquea la cuenta
+                if (numIntentosFallidos >= numMaxIntentosFallidos) {
+                    //CSeguridad.bloquearCuenta(usuario);
+                    lblError.setText("Cuenta bloqueada: Supero el numero maximo de intentos fallidos");
+                }
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-            btnLogin.doClick();
-    }//GEN-LAST:event_txtPassKeyPressed
 
     private void lblOlvidoPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOlvidoPassMouseClicked
         // TODO add your handling code here:
@@ -228,20 +221,28 @@ public class Login extends javax.swing.JFrame {
 
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
-        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
-        Action actionListener = new AbstractAction() { 
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+//        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
             setVisible(Boolean.FALSE);
             dispose();
             System.exit(0);
           } 
         } ;
-        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(strokeESC, "ESCAPE");
-        rootPane.getActionMap().put("ESCAPE", actionListener);
-        inputMap.put(strokeBACKSPACE, "BACKSPACE");
-        rootPane.getActionMap().put("BACKSPACE", actionListener);
+        inputMap.put(stroke, "EXIT");
+        rootPane.getActionMap().put("EXIT", accion);
+        
+        stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            btnLogin.doClick();
+          } 
+        } ;
+        inputMap.put(stroke, "LOGIN");
+        rootPane.getActionMap().put("LOGIN", accion);
 
         return rootPane;
     }
