@@ -54,6 +54,7 @@ public class NotaEntrada extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
+        LabelAero = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -103,7 +104,7 @@ public class NotaEntrada extends javax.swing.JDialog {
 
         txtHora.setEditable(false);
 
-        jLabel15.setText("Origen:");
+        jLabel15.setText("Remitente:");
 
         jLabel16.setText("Cant. de paquetes:");
 
@@ -113,39 +114,49 @@ public class NotaEntrada extends javax.swing.JDialog {
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo48x48.png"))); // NOI18N
         jLabel17.setText("Flytrack");
 
+        LabelAero.setText("Aeropuerto :");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(293, Short.MAX_VALUE)
+                .addContainerGap(431, Short.MAX_VALUE)
                 .addComponent(jLabel17)
-                .addGap(317, 317, 317))
+                .addGap(408, 408, 408))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(91, 91, 91)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5)
-                    .addComponent(jLabel12))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(67, 67, 67)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                    .addComponent(txtEmpleado)
+                                    .addComponent(txtNumero)))
+                            .addComponent(jLabel12))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelAero, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(165, 165, 165)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel6))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .addComponent(txtHora))
-                .addGap(30, 30, 30))
+                .addGap(27, 27, 27))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +168,8 @@ public class NotaEntrada extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LabelAero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -173,12 +185,10 @@ public class NotaEntrada extends javax.swing.JDialog {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,7 +220,7 @@ public class NotaEntrada extends javax.swing.JDialog {
         public void cargarcampos(){
         
         txtNumero.setText(String.valueOf(envio.getIdEnvio()));
-        //LabelAero.setText(this.envio.getDestino().getNombre()+ " - "+this.envio.getDestino().getPais().getValor() );
+        LabelAero.setText(this.envio.getOrigen().getNombre()+ " - "+this.envio.getOrigen().getPais().getValor() );
         txtEmpleado.setText(Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos());
         
         Calendar calendar = Calendar.getInstance();
@@ -218,7 +228,7 @@ public class NotaEntrada extends javax.swing.JDialog {
 
         txtFecha.setText(dateFormat.format(calendar.getTime()).substring(0, 10));
         txtHora.setText(dateFormat.format(calendar.getTime()).substring(11, 16));
-        txtDestinatario.setText(envio.getDestinatario().getNombres()+ " "+ envio.getDestinatario().getApellidos());
+        txtDestinatario.setText(envio.getRemitente().getNombres()+ " "+ envio.getRemitente().getApellidos());
         txtCantidad.setText(String.valueOf(envio.getNumPaquetes()));
         
     }
@@ -239,7 +249,7 @@ public class NotaEntrada extends javax.swing.JDialog {
                                     ruta += ".pdf";
                                 }
                                 float[] anchos = {5f, 11f, 5f,5f};
-                                CReportes.crearPDF_Trazabilidad_Nota_Entrada(ruta, "Nota de entrada", "Joao", "FlyTrack", "Nota de entrada", anchos, this.envio);
+                                CReportes.crearPDF_Trazabilidad_Nota_Entrada(ruta, this.envio);
                                 CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la nota de entrada\n" + ruta);                               
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -307,6 +317,7 @@ public class NotaEntrada extends javax.swing.JDialog {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelAero;
     private javax.swing.JButton btn_nota_entrada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
