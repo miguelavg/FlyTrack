@@ -174,6 +174,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         Graphics c = this.getGraphics();
          c.setColor(Color.WHITE);
+           c.fillOval(evt.getX(),evt.getY(), 10,10 );
         c.drawOval(evt.getX(),evt.getY(), 10,10 );
       int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posiciòn?", "Advertencia", JOptionPane.YES_NO_OPTION);
          if (JOptionPane.YES_OPTION == result) {

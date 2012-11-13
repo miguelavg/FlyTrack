@@ -280,8 +280,12 @@ public class Incidencias extends javax.swing.JDialog {
         IncidenciaEdit VInci = new IncidenciaEdit(this, true, objV, 1);
         VInci.setModal(true);
         objInc = VInci.showDialog();
-        cambioEstadoVuelo();
-
+        if (objInc != null){
+          
+           cambioEstadoVuelo();
+    
+        }
+        
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     public void llenarGrillaIncidencia() {
