@@ -48,7 +48,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btn_factura = new javax.swing.JButton();
+        btn_docPago = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaFactura = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -95,11 +95,11 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btn_factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
-        btn_factura.setText("Guardar Documento de pago en pdf");
-        btn_factura.addActionListener(new java.awt.event.ActionListener() {
+        btn_docPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
+        btn_docPago.setText("Guardar Documento de pago en pdf");
+        btn_docPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_facturaActionPerformed(evt);
+                btn_docPagoActionPerformed(evt);
             }
         });
 
@@ -164,7 +164,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel6)
-                                .addComponent(btn_factura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btn_docPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +188,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_docPago, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -340,7 +340,7 @@ public void cargartabla(){
     }    
     
     
-    private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
+    private void btn_docPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_docPagoActionPerformed
         JFileChooser jfc = new JFileChooser();
         int rslt = jfc.showSaveDialog(this);
         if (rslt == JFileChooser.APPROVE_OPTION) {
@@ -360,8 +360,23 @@ public void cargartabla(){
                         //this.usuario.getNombre()
                         //alma.getNombre()
                         //this.palletElegido
-                        CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", "Joao", "FlyTrack", "Factura", anchos, this.envio);
-                        CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
+                        
+                        String usuariologeado=Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos();
+                        
+                        if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
+                            CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", usuariologeado, "FlyTrack", "Factura", anchos, this.envio);
+                            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
+                        }
+
+
+
+                        if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
+                            CReportes.crearPDF_Trazabilidad_Factura(ruta, "Boleta", usuariologeado, "FlyTrack", "Boleta", anchos, this.envio);
+                            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la boleta en la ruta\n" + ruta);
+                        }
+                        
+                        
+                        
                         //}
                         //else
                         //CReportes.mostrarMensajeAdvertencia("No existen registros en el historial.");
@@ -370,17 +385,17 @@ public void cargartabla(){
                         //  visualHelper.mostrarMensajeAdvertencia("No se ha ingresado información sobre el almacén.");
                     } catch (Exception e) {
                         e.printStackTrace();
-                        CReportes.mostrarMensajeError("Ocurrió un error al generar la factura.");
+                        CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
                     }
                 } else {
-                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo de la factura.");
+                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
                 }
             } else {
                 CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
             }
         }
 
-    }//GEN-LAST:event_btn_facturaActionPerformed
+    }//GEN-LAST:event_btn_docPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,7 +433,7 @@ public void cargartabla(){
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaFactura;
-    private javax.swing.JButton btn_factura;
+    private javax.swing.JButton btn_docPago;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
