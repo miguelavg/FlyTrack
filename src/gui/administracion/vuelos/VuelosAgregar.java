@@ -389,6 +389,9 @@ public class VuelosAgregar extends javax.swing.JDialog {
            
         if (error_message == null || error_message.isEmpty()) {
            if (indicador != -1){
+
+                    cbm_estado.setEnabled(false);
+                    cbm_estado.setSelectedIndex(1);
                     CVuelo.agregarVuelo(
                                         aeropuertoOrigen,
                                         aeropuertoDestino,
@@ -402,6 +405,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
             }
           else {
           // modificar
+               cbm_estado.setEnabled(true);
             CVuelo.modificarVuelo( 
                                     txt_codigo.getText(),
                                     aeropuertoOrigen,

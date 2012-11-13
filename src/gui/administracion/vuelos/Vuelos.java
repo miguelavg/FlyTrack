@@ -366,7 +366,6 @@ public class Vuelos extends javax.swing.JDialog {
     }
 
     public void llenarGrillaVuelo() {
-
         Parametro TipoDoc;
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_vuelos.getModel();
         int rows = dtm.getRowCount();
@@ -409,11 +408,12 @@ public class Vuelos extends javax.swing.JDialog {
         fechini = dt_fechini.getSelectedDate();
         fechfin = dt_fechfin.getSelectedDate();
         
-        listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+        //listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
         vVuelAgre.setVisible(true);
         vVuelAgre.setModal(true);
         this.setEnabled(true);
         this.setVisible(true);
+        listaVuelos = CVuelo.BuscarVuelo(null, null, null, null, null);
         llenarGrillaVuelo();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -445,6 +445,8 @@ public class Vuelos extends javax.swing.JDialog {
         {
             listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null );
         }
+        
+        
         llenarGrillaVuelo();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
