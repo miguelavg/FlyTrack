@@ -15,6 +15,7 @@ import controllers.CParametro;
 import controllers.CPerfil;
 import controllers.CSeguridad;
 import controllers.CUsuario;
+import controllers.CValidator;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import java.util.List;
@@ -137,6 +138,12 @@ public class UsuarioFrame extends javax.swing.JDialog {
         cboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel7.setText("Cliente:");
+
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClienteKeyReleased(evt);
+            }
+        });
 
         btn_regresar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btn_regresar1.setText("Regresar");
@@ -492,6 +499,14 @@ public void llenarcomboPerfiles(){
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresar1ActionPerformed
+
+    private void txtClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyReleased
+        // TODO add your handling code here:
+                char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txtCliente)){
+            getToolkit().beep(); 
+        }
+    }//GEN-LAST:event_txtClienteKeyReleased
 
     /**
      * @param args the command line arguments
