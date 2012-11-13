@@ -1092,7 +1092,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             ErrorDialog.mostrarError(error_message, this);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
-
+    
     private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
         MonitoreoFrame monitoreoDialog = new MonitoreoFrame(this.envio);
         monitoreoDialog.setVisible(true);
