@@ -906,22 +906,23 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void btn_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_outActionPerformed
         // TODO add your handling code here:
-        int estados = cmb_estado.getItemCount();
-        CEnvio cenvio = new CEnvio();
 
-        for (int i = 1; i < estados; i++) {
-            Parametro p = (Parametro) cmb_estado.getItemAt(i);
-            if (p.getValorUnico().equals("REC")) {
-                cmb_estado.setSelectedItem(p);
-                this.envio.setEstado(p);
-                break;
+        if (!this.envio.getEstado().getValorUnico().equals("REC")) {
+            int estados = cmb_estado.getItemCount();
+            CEnvio cenvio = new CEnvio();
+            for (int i = 1; i < estados; i++) {
+                Parametro p = (Parametro) cmb_estado.getItemAt(i);
+                if (p.getValorUnico().equals("REC")) {
+                    cmb_estado.setSelectedItem(p);
+                    this.envio.setEstado(p);
+                    break;
+                }
             }
+            int cAero = this.envio.getActual().getCapacidadMax();
+            this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
+            this.envio.setFechaRecojo(new Date());
+            cenvio.guardarEnvio(this.envio);
         }
-        int cAero = this.envio.getActual().getCapacidadMax();
-        this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
-
-        cenvio.guardarEnvio(this.envio);
-
         NotaSalida NotaSalida = new NotaSalida(this, true, this.envio);
         NotaSalida.setVisible(true);
 
