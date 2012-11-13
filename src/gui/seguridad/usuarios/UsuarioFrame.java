@@ -549,10 +549,13 @@ public void llenarcomboPerfiles(){
 
     private void definirPermisos(){
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Usuarios", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Usuarios", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(3, "Usuarios", "Buscar/Listar", permisos);
         this.btnBuscar.setEnabled(buscar);
         

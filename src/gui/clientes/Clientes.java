@@ -489,12 +489,16 @@ public class Clientes extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(2, "Clientes", "Crear", permisos);
         btnAgregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(2, "Clientes", "Modificar", permisos);
         btnModificar.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(2, "Clientes", "Buscar/Listar", permisos);
         btnBuscar.setEnabled(buscar);
+        
         boolean cargaMasiva = CSeguridad.validarPermiso(2, "Clientes", "Carga Masiva", permisos);
         btnCargaMas.setEnabled(cargaMasiva);
         

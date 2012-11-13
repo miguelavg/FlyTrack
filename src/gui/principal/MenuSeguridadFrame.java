@@ -208,12 +208,15 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean usuarios = CSeguridad.validarPermiso(2, "Seguridad", "Usuarios", permisos);
         this.btnUsuarios.setEnabled(usuarios);
         this.lblUsuarios.setEnabled(usuarios);
+        
         boolean perfiles = CSeguridad.validarPermiso(2, "Seguridad", "Perfiles", permisos);
         this.btnPerfiles.setEnabled(perfiles);
         this.lblPerfiles.setEnabled(perfiles);
+        
         boolean logAuditoria = CSeguridad.validarPermiso(2, "Seguridad", "LogAuditoria", permisos);
         this.btnLogAuditoria.setEnabled(logAuditoria);
         this.lblLogAuditoria.setEnabled(logAuditoria);
