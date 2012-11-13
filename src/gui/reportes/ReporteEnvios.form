@@ -41,8 +41,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="71" max="32767" attributes="0"/>
+              <Component id="jPanel5" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,14 +66,14 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel4" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="txt_origen" min="-2" pref="185" max="-2" attributes="0"/>
+                          <Component id="txtOrigen" min="-2" pref="185" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btn_origen" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                          <Component id="dt_fechini" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="dtFechaIni" min="-2" pref="209" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="252" max="32767" attributes="0"/>
@@ -84,18 +84,20 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="txt_destino" min="-2" pref="198" max="-2" attributes="0"/>
+                          <Component id="txtDestino" min="-2" pref="198" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btn_destino" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="dt_fechfin" min="-2" pref="226" max="-2" attributes="0"/>
+                      <Component id="dtFechaFin" min="-2" pref="226" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="426" max="-2" attributes="0"/>
+                  <Component id="btnBuscar" min="-2" pref="104" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="91" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="477" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,27 +106,30 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dt_fechfin" min="-2" max="-2" attributes="0"/>
+                      <Component id="dtFechaFin" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="dt_fechini" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="dtFechaIni" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="txt_origen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtOrigen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btn_origen" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_destino" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="txt_destino" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtDestino" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -135,7 +140,7 @@
             <Property name="text" type="java.lang.String" value="Fecha Inicial:"/>
           </Properties>
         </Component>
-        <Component class="datechooser.beans.DateChooserCombo" name="dt_fechini">
+        <Component class="datechooser.beans.DateChooserCombo" name="dtFechaIni">
           <Properties>
             <Property name="dch_nothingAllowed" type="boolean" value="false"/>
             <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
@@ -148,9 +153,10 @@
             <Property name="text" type="java.lang.String" value="Fecha Final:"/>
           </Properties>
         </Component>
-        <Component class="datechooser.beans.DateChooserCombo" name="dt_fechfin">
+        <Component class="datechooser.beans.DateChooserCombo" name="dtFechaFin">
           <Properties>
             <Property name="dch_nothingAllowed" type="boolean" value="false"/>
+            <Property name="dch_locked" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -158,13 +164,13 @@
             <Property name="text" type="java.lang.String" value="Origen:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_origen">
+        <Component class="javax.swing.JTextField" name="txtOrigen">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="origenText" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_origenActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtOrigenActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_origen">
@@ -182,13 +188,13 @@
             <Property name="text" type="java.lang.String" value="Destino:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_destino">
+        <Component class="javax.swing.JTextField" name="txtDestino">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="destinoText" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_destinoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDestinoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_destino">
@@ -201,12 +207,20 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_destinoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/search.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnRegresar">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/cancel.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Regresar"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -270,7 +284,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="1048" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButton2" min="-2" pref="145" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -283,11 +297,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="235" max="-2" attributes="0"/>
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="257" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -295,6 +309,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/reporte.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Exportar"/>
           </Properties>
           <Events>
