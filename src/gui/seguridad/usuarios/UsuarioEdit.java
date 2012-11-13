@@ -617,64 +617,68 @@ public class UsuarioEdit extends javax.swing.JDialog {
         String mensaje="";
         String mensaje2="";
         
+        boolean pasavalidacion;
+        
         if (idusuario!=-1){
             
-        mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+        //mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
         
-        Integer id=-1;
-        char[] aux_contrasena = psswdContrasena.getPassword();
-        char[] aux_contrasena_rec = null;
-        
-        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
-        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
-        
-//        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
-//            Contrasena con = UsuarioBE.getContrasenias().get(i);
-//            Integer idaux = con.getIdContrasena();
-//            if (idaux > id) {
-//                aux_contrasena = con;
-//                id = idaux;
+//        Integer id=-1;
+//        char[] aux_contrasena = psswdContrasena.getPassword();
+//        char[] aux_contrasena_rec = null;
+//        
+//        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
+//        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
+//        
+////        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
+////            Contrasena con = UsuarioBE.getContrasenias().get(i);
+////            Integer idaux = con.getIdContrasena();
+////            if (idaux > id) {
+////                aux_contrasena = con;
+////                id = idaux;
+////            }
+////        }
+//        boolean esigual=true;
+//        fuera:
+//        for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
+//            if (i > 0) {
+//                aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
+//                Integer menor;
+//                Integer aux1 = aux_contrasena_rec.length;
+//                Integer aux2 = psswdContrasena.getPassword().length;
+//                if (aux1 <= aux2) {
+//                    menor = aux1;
+//                } else {
+//                    menor = aux2;
+//                }
+//                for (int j = 0; j < menor; j++) {
+//                    char c_caracter = psswdContrasena.getPassword()[j];
+//                    char c_caracter2 = aux_contrasena_rec[j];
+//
+//                    if (c_caracter != c_caracter2) {
+//                        //mensaje2 = "La contrasena debe ser distinta";
+//                        esigual = false;
+//                        //break fuera;
+//
+//                    }
+//                }
+//                if (esigual){
+//                    break fuera;
+//                }
+//                else {
+//                    if (i == UsuarioBE.getContrasenias().size() - numeroContrasenas + 1) {
+//                        esigual = false;
+//                    } else {
+//                        esigual = true;
+//                    }
+//                }
+//                
 //            }
 //        }
-        boolean esigual=true;
-        fuera:
-        for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
-            if (i > 0) {
-                aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
-                Integer menor;
-                Integer aux1 = aux_contrasena_rec.length;
-                Integer aux2 = psswdContrasena.getPassword().length;
-                if (aux1 <= aux2) {
-                    menor = aux1;
-                } else {
-                    menor = aux2;
-                }
-                for (int j = 0; j < menor; j++) {
-                    char c_caracter = psswdContrasena.getPassword()[j];
-                    char c_caracter2 = aux_contrasena_rec[j];
+        
+          pasavalidacion=CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(),idusuario);
 
-                    if (c_caracter != c_caracter2) {
-                        //mensaje2 = "La contrasena debe ser distinta";
-                        esigual = false;
-                        //break fuera;
-
-                    }
-                }
-                if (esigual){
-                    break fuera;
-                }
-                else {
-                    if (i == UsuarioBE.getContrasenias().size() - numeroContrasenas + 1) {
-                        esigual = false;
-                    } else {
-                        esigual = true;
-                    }
-                }
-                
-            }
-        }
-
-          if (esigual){
+          if (!pasavalidacion){
           mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
           mensaje=mensaje+mensaje2;
           }
