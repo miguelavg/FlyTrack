@@ -97,7 +97,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/tarifa24x24.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Generar Nota de salida en pdf"/>
+        <Property name="text" type="java.lang.String" value="Guardar Nota de salida en pdf"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_nota_entradaActionPerformed"/>

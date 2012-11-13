@@ -81,7 +81,7 @@ public class NotaEntrada extends javax.swing.JDialog {
         );
 
         btn_nota_entrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa24x24.png"))); // NOI18N
-        btn_nota_entrada.setText("Generar Nota de salida en pdf");
+        btn_nota_entrada.setText("Guardar Nota de salida en pdf");
         btn_nota_entrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_nota_entradaActionPerformed(evt);
