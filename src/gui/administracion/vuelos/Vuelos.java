@@ -24,8 +24,8 @@ import javax.swing.table.TableColumn;
  */
 public class Vuelos extends javax.swing.JDialog {
 
-    private Aeropuerto aeropuertoDestino;
-    private Aeropuerto aeropuertoOrigen;
+    private Aeropuerto aeropuertoDestino =null;
+    private Aeropuerto aeropuertoOrigen =null;
     private List<Parametro> ListatipoEst;
     // private List<Vuelo> listaVuelos;
     private List<Vuelo> listaVuelos = null;
@@ -73,6 +73,7 @@ public class Vuelos extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_vuelos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnIncidencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,6 +139,7 @@ public class Vuelos extends javax.swing.JDialog {
 
         jLabel5.setText("Fecha Final:");
 
+        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_estadoActionPerformed(evt);
@@ -154,7 +156,6 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
-        dt_fechini.setFormat(2);
         try {
             dt_fechini.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
@@ -295,6 +296,14 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
+        btnIncidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
+        btnIncidencia.setText("Incidencia");
+        btnIncidencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncidenciaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -307,6 +316,8 @@ public class Vuelos extends javax.swing.JDialog {
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -318,7 +329,8 @@ public class Vuelos extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -396,24 +408,16 @@ public class Vuelos extends javax.swing.JDialog {
         // TODO add your handling code here:
         VuelosAgregar vVuelAgre = null;
 
-        Parametro TipoDoc;
-
-
-        TipoDoc = (Parametro) cbm_estado.getSelectedItem();
-
-
-
-        if (tbl_vuelos.getSelectedRow() == -1) {
-            vVuelAgre = new VuelosAgregar(this, true, null, 1);
-        } else {
-            vVuelAgre = new VuelosAgregar(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()), 1);
-        }
-
-        if (cbm_estado.getSelectedIndex() >= 0) {
-            TipoDoc = (Parametro) cbm_estado.getSelectedItem();
-        } else {
-            TipoDoc = null;
-        }
+        Parametro TipoDoc=null;
+        if (cbm_estado.getSelectedIndex()>0) {
+           TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+        }      
+        
+        vVuelAgre = new VuelosAgregar(this, true, null, 1);
+    
+        fechini = dt_fechini.getSelectedDate();
+        fechfin = dt_fechfin.getSelectedDate();
+        
         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
         vVuelAgre.setVisible(true);
         vVuelAgre.setModal(true);
@@ -447,46 +451,25 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
         // TODO add your handling code here:
-        Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
-        DialogoInc.setVisible(true);
-        Parametro TipoDoc;
-
-        TipoDoc = (Parametro) cbm_estado.getSelectedItem();
-//       if (cbm_estado.getSelectedIndex()>0) {
-//          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
-//  
-//        }else {
-//         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
-//        }
-
-        fechini = dt_fechini.getSelectedDate();
-        fechfin = dt_fechfin.getSelectedDate();
-
-        listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
-
-        llenarGrillaVuelo();
-
+        
 
     }//GEN-LAST:event_tbl_vuelosMouseClicked
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
 
-        Parametro TipoDoc;
-
-        TipoDoc = (Parametro) cbm_estado.getSelectedItem();
-        //       if (cbm_estado.getSelectedIndex()>0) {
-        //          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
-        //
-        //        }else {
-        //         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
-        //        }
-
+        Parametro TipoDoc = null;
         fechini = dt_fechini.getSelectedDate();
         fechfin = dt_fechfin.getSelectedDate();
-
-        listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
-
+      
+        if (cbm_estado.getSelectedIndex()>0) {
+            TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+             listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);   
+          }
+        else
+        {
+            listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null );
+        }
         llenarGrillaVuelo();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
@@ -526,6 +509,26 @@ public class Vuelos extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresar2ActionPerformed
+
+    private void btnIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciaActionPerformed
+        // TODO add your handling code here:
+       Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
+        DialogoInc.setVisible(true);
+        Parametro TipoDoc;
+         fechini = dt_fechini.getSelectedDate();
+         fechfin = dt_fechfin.getSelectedDate();
+       
+       if (cbm_estado.getSelectedIndex()>0) {
+          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
+          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+  
+        }else {
+         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
+        }
+
+        llenarGrillaVuelo();
+
+    }//GEN-LAST:event_btnIncidenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -569,6 +572,7 @@ public class Vuelos extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnIncidencia;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_origenAero;
