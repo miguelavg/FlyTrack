@@ -453,7 +453,7 @@ public class Vuelos extends javax.swing.JDialog {
     private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
         // TODO add your handling code here:
         
-
+     
     }//GEN-LAST:event_tbl_vuelosMouseClicked
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
@@ -513,12 +513,23 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void btnIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciaActionPerformed
         // TODO add your handling code here:
-       Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
+       
+//         if (objV.getEstado().getValorUnico().compareTo("FIN")== 0){
+//            bandera = false;
+//        }
+//            
+//        if (objV.getEstado().getValorUnico().compareTo("CAN")== 0){
+//           bandera = false;
+//        }
+
+    // if tbl_vuelos.   
+       if (tbl_vuelos.getSelectedRow()>-1) {
+        Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
         DialogoInc.setVisible(true);
         Parametro TipoDoc;
          fechini = dt_fechini.getSelectedDate();
          fechfin = dt_fechfin.getSelectedDate();
-       
+     
        if (cbm_estado.getSelectedIndex()>0) {
           TipoDoc = (Parametro)cbm_estado.getSelectedItem();
           listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
@@ -528,7 +539,9 @@ public class Vuelos extends javax.swing.JDialog {
         }
 
         llenarGrillaVuelo();
-
+       }else{
+        JOptionPane.showMessageDialog(this,"Debe seleccionar un Vuelo", "Advertencia", 1);
+       }
     }//GEN-LAST:event_btnIncidenciaActionPerformed
 
     /**

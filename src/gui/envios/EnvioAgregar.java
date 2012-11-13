@@ -75,7 +75,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.txt_destinatario.setText(this.destinatario.getNombres() + " " + this.destinatario.getApellidos());
             this.txt_destino.setText(this.destino.getNombre() + ", " + this.destino.getCiudad() + ", " + this.destino.getPais());
             this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
-            this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
+
+            if (this.actual != null) {
+                this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
+            }
             this.txt_unitario.setText(CValidator.formatNumber(this.envio.getUnitario()));
             this.txt_iva.setText(CValidator.formatNumber(this.envio.getImpuesto()));
             this.lbl_iva.setText("IVA(" + CValidator.formatNumber(this.envio.getIva() * 100) + "%):");
@@ -200,13 +203,13 @@ public class EnvioAgregar extends javax.swing.JDialog {
         btn_in.setEnabled(!siNuevo);
         btn_ruta.setEnabled(!siNuevo);
 
-        if (this.actual.getIdAeropuerto() == this.origen.getIdAeropuerto() && !this.isNuevo && !this.envio.getEstado().getValorUnico().equals("CAN")) {
+        if (this.actual != null && this.actual.getIdAeropuerto() == this.origen.getIdAeropuerto() && !this.isNuevo && !this.envio.getEstado().getValorUnico().equals("CAN")) {
             btn_anular.setEnabled(true);
         } else {
             btn_anular.setEnabled(false);
         }
 
-        if (this.destino != null && this.actual.getIdAeropuerto() == this.destino.getIdAeropuerto()) {
+        if (this.destino != null && this.actual != null && this.actual.getIdAeropuerto() == this.destino.getIdAeropuerto()) {
             btn_out.setEnabled(true);
         } else {
             btn_out.setEnabled(false);
@@ -918,10 +921,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
         this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
 
         cenvio.guardarEnvio(this.envio);
-        
-        NotaSalida NotaSalida = new NotaSalida(this,true,this.envio);
+
+        NotaSalida NotaSalida = new NotaSalida(this, true, this.envio);
         NotaSalida.setVisible(true);
-        
+
     }//GEN-LAST:event_btn_outActionPerformed
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
@@ -1041,9 +1044,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.envio.setActual(actual);
             this.envio.setOrigen(origen);
             this.envio.setDestino(destino);
-            this.estado = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO","PROG");
+            this.estado = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "PROG");
             this.envio.setEstado(this.estado);
-            this.estadoFactura = CParametro.buscarXValorUnicoyTipo("ESTADO_FACTURA","EM");
+            this.estadoFactura = CParametro.buscarXValorUnicoyTipo("ESTADO_FACTURA", "EM");
             this.envio.setEstadoFactura(this.estadoFactura);
             this.envio.setRemitente(remitente);
             this.envio.setDestinatario(destinatario);

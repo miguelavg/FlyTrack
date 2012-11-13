@@ -119,7 +119,7 @@ public class Incidencias extends javax.swing.JDialog {
             e1.printStackTrace();
         }
 
-        cbm_incidencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", " " }));
+        cbm_incidencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel3.setText("Tipo Incidencia");
 
@@ -280,8 +280,12 @@ public class Incidencias extends javax.swing.JDialog {
         IncidenciaEdit VInci = new IncidenciaEdit(this, true, objV, 1);
         VInci.setModal(true);
         objInc = VInci.showDialog();
-        cambioEstadoVuelo();
-
+        if (objInc != null){
+          
+           cambioEstadoVuelo();
+    
+        }
+        
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     public void llenarGrillaIncidencia() {
@@ -312,10 +316,10 @@ public class Incidencias extends javax.swing.JDialog {
             datos[0] = ListaInci.get(i).getIdIncidencia();
 
 
-            datos[4] = ListaInci.get(i).getVuelo().getIdVuelo();
-            datos[3] = ListaInci.get(i).getFecha();
-            datos[2] = ListaInci.get(i).getDescripcion();
-            datos[1] = ListaInci.get(i).getEstado().getValor();
+            datos[1] = ListaInci.get(i).getVuelo().getIdVuelo();
+            datos[2] = ListaInci.get(i).getFecha();
+            datos[3] = ListaInci.get(i).getDescripcion();
+            datos[4] = ListaInci.get(i).getEstado().getValor();
             
             fec.setTime(ListaInci.get(i).getFecha());
             
