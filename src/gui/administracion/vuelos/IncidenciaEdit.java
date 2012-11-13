@@ -9,6 +9,7 @@ import beans.Parametro;
 import beans.Vuelo;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -141,6 +142,8 @@ public class IncidenciaEdit extends javax.swing.JDialog {
             e1.printStackTrace();
         }
 
+        cbm_incidencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         jLabel3.setText("Tipo Incidencia");
 
         ta_descripcion.setColumns(20);
@@ -240,12 +243,51 @@ public class IncidenciaEdit extends javax.swing.JDialog {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
         
-        objInc = new Incidencia();
-        objInc.setDescripcion(ta_descripcion.getText());
-        objInc.setEstado((Parametro)cbm_incidencia.getSelectedItem());
-        objInc.setFecha(dt_fech.getSelectedDate().getTime());
-        objInc.setVuelo(objV);
-      
+        Parametro p=null;
+        boolean bandera= false;
+        if (cbm_incidencia.getSelectedIndex()>0){
+          p= (Parametro)cbm_incidencia.getSelectedItem();
+        
+        
+         // validarrr ingreso de datos
+        if (objV.getEstado().getValorUnico().compareTo("PROG")== 0){
+             if ((p.getValorUnico().compareTo("CAN")== 0) || (p.getValorUnico().compareTo("RET")==0)
+                   || (p.getValorUnico().compareTo("DES"))==0){
+                bandera = true;
+                    
+             }          
+        }
+            
+        if (objV.getEstado().getValorUnico().compareTo("VUE")== 0){
+               if ((p.getValorUnico().compareTo("CAN")== 0) || (p.getValorUnico().compareTo("RET")==0)
+                   || (p.getValorUnico().compareTo("ATE"))==0){
+                 bandera = true;
+             }     
+        }
+            
+        if (objV.getEstado().getValorUnico().compareTo("FIN")== 0){
+            bandera = false;
+        }
+            
+           
+        if (objV.getEstado().getValorUnico().compareTo("RET")== 0){
+            if ((p.getValorUnico().compareTo("CAN")== 0) || (p.getValorUnico().compareTo("RET")==0)){
+                  bandera = true;                       
+             }   
+        }
+            
+        if (objV.getEstado().getValorUnico().compareTo("CAN")== 0){
+           bandera = false;
+        }
+            
+        if (bandera) {
+                objInc = new Incidencia();
+                objInc.setDescripcion(ta_descripcion.getText());
+                objInc.setEstado((Parametro)cbm_incidencia.getSelectedItem());
+                objInc.setFecha(dt_fech.getSelectedDate().getTime());
+                objInc.setVuelo(objV);
+
+        
         
         if (indicador != -1) {
                          
@@ -254,6 +296,10 @@ public class IncidenciaEdit extends javax.swing.JDialog {
                 objV.setIncidencias(new ArrayList<Incidencia>());
              }
              objV.getIncidencias().add(objInc);
+          }
+        }else {
+        
+        JOptionPane.showMessageDialog(this, "La secuencia programada no es aceptada", "Advertencia", 1);
         }
 //        } else {
 //            // modificar
@@ -268,7 +314,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 //
 //        }
         this.dispose();
-
+        }
    }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
