@@ -61,7 +61,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_aeropuerto = new javax.swing.JTable();
         btn_modificar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_cargaMasiva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Aeropuerto");
@@ -219,11 +219,11 @@ public class Aeropuerto extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
-        jButton1.setText("Carga masiva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_cargaMasiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
+        btn_cargaMasiva.setText("Carga masiva");
+        btn_cargaMasiva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_cargaMasivaActionPerformed(evt);
             }
         });
 
@@ -240,7 +240,7 @@ public class Aeropuerto extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_cargaMasiva, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -248,7 +248,7 @@ public class Aeropuerto extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cargaMasiva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -381,12 +381,12 @@ public class Aeropuerto extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_agregarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_cargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargaMasivaActionPerformed
         // TODO add your handling code here:
         AeropuertoCarga DialogoCarga = new AeropuertoCarga(this, true);
         DialogoCarga.setVisible(true);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_cargaMasivaActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         // TODO add your handling code here:
@@ -455,12 +455,12 @@ public class Aeropuerto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_cargaMasiva;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox cbm_Pais;
     private javax.swing.JComboBox cbm_ciudad;
     private javax.swing.JComboBox cbm_estado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -474,14 +474,18 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Aeropuertos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Aeropuertos", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(3, "Aeropuertos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Aeropuertos", "Carga Masiva", permisos);
-//        this.btnCargaMasiva.setEnabled(cargaMasiva);
+        
+        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Aeropuertos", "Carga Masiva", permisos);
+        this.btn_cargaMasiva.setEnabled(cargaMasiva);
 
         this.setLocationRelativeTo(null);
         pack();

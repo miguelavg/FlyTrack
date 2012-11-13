@@ -262,7 +262,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btn_modificar" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="btn_cargaMasiva" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -274,7 +274,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btn_cargaMasiva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_agregar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_modificar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -379,7 +379,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_modificarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btn_cargaMasiva">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/xml.png"/>
@@ -387,7 +387,7 @@
             <Property name="text" type="java.lang.String" value="Carga masiva"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cargaMasivaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
