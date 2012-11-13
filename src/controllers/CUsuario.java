@@ -132,7 +132,8 @@ public class CUsuario {
             q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
             q.setParameter("idusuario", id);
             CUsuario=(Usuario)q.uniqueResult();
-            CUsuario.getContrasenias().size();
+            CUsuario.getContrasenias().size();//LAZY QUERY
+            CUsuario.getPerfil().getPermisos().size();//LAZY QUERY
             return CUsuario;
             }
         catch(Exception e){
