@@ -387,5 +387,38 @@ public class CUsuario {
         
         return null;
     }
+     
+         public String ValidarDocumento(Parametro tipodoc, String numero){
+        String error="";
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Usuario usuario=null;
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("UsuarioxIdentidad").setMaxResults(1);
+            q.setParameter("tipodoc", tipodoc);
+            q.setParameter("numdoc", numero);
+            
+            usuario=(Usuario)q.uniqueResult();
+            
+                       }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        
+        if (usuario!=null){
+            error="Ya existe un usuario registrado con ese número de documento";
+        }
+        
+        return error;
+    }
+     
+     
     
 }
