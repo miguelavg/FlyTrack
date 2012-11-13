@@ -363,7 +363,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-            Image imagen= Image.getInstance("../../imagenes/logo48x48.png");
+            Image imagen= Image.getInstance(("./src/imagenes/logo48x48.png"));
             imagen.setAlignment(Image.ALIGN_CENTER | Image.TEXTWRAP);
             
             
@@ -371,45 +371,49 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             Paragraph preface50 = new Paragraph();
          
             
-            preface50=new Paragraph("   Nota de Salida   \n",FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL));
-            preface50.setAlignment(Element.ALIGN_MIDDLE);
+            preface50=new Paragraph("   Nota de Salida   \n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
+            preface50.setAlignment(Element.ALIGN_CENTER);
             
             Paragraph preface1 = new Paragraph();
          
             
-            preface1=new Paragraph("   Flytrack   \n",FontFactory.getFont(FontFactory.COURIER, 16, Font.NORMAL));
-            preface1.setAlignment(Element.ALIGN_MIDDLE);
+            preface1=new Paragraph("   Flytrack   \n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
+            preface1.setAlignment(Element.ALIGN_CENTER);
+            
+            Paragraph preface90 = new Paragraph();
+         
+            
+            preface90=new Paragraph(envio.getOrigen().getNombre()+" - "+envio.getOrigen().getPais().getValor()+"  \n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, Font.NORMAL));
+            preface90.setAlignment(Element.ALIGN_CENTER);
 
+            lineaVacia(preface90, 2);
+            
             Paragraph preface42 ;
             
-            preface42=new Paragraph("N° "+ envio.getIdEnvio()+ "\t  \t  \t"+"Fecha "+dateFormat.format(calendar.getTime()).substring(0, 10)+"\n",FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface42.setAlignment(Element.ALIGN_MIDDLE);
+            preface42=new Paragraph("N°: "+ envio.getIdEnvio()+ "                                                  "+"Fecha :   "+dateFormat.format(calendar.getTime()).substring(0, 10)+"\n",FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface42.setAlignment(Element.ALIGN_LEFT);
             
             Paragraph preface3 = null;
 
-            preface3=new Paragraph("Empleado  "+ Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos()+ "\t \t Hora  "+dateFormat.format(calendar.getTime()).substring(11, 16)+"\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
-            preface3.setAlignment(Element.ALIGN_MIDDLE);
+            preface3=new Paragraph("Empleado : "+ Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos()+ "\t \t  Hora : "+dateFormat.format(calendar.getTime()).substring(11, 16)+"\n",FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface3.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface3, 3);
             
             Paragraph preface30 = null;
 
-            preface30=new Paragraph("Destinatario  "+ envio.getDestinatario().getNombres()+" "+envio.getDestinatario().getApellidos()+"\t"+"Cantidad  "+envio.getNumPaquetes()+"\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
-            preface30.setAlignment(Element.ALIGN_MIDDLE);
+            preface30=new Paragraph("Destinatario : "+ envio.getDestinatario().getNombres()+" "+envio.getDestinatario().getApellidos()+"\t   Cantidad  : "+envio.getNumPaquetes()+"\n",FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface30.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface30, 2);
 
-//            Paragraph preface4 = new Paragraph();
-//            preface4=new Paragraph("Historial de clientes  "+" "+".",FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL));
-//            preface4.setAlignment(Element.ALIGN_LEFT);
-//
-//            lineaVacia(preface4, 1);
+
 //            lineaVacia(preface4, 1);
             
             document.add(imagen);
             document.add(preface50);
             document.add(preface1);
-      
+            document.add(preface90);
             document.add(preface42);
             document.add(preface3);
             document.add(preface30);    
