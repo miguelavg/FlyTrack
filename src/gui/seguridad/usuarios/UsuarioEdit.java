@@ -36,8 +36,6 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class UsuarioEdit extends javax.swing.JDialog {
     CUsuario Usuario = new CUsuario();
     
-   
-    
     CContrasena Contrasena = new CContrasena();
     //CSeguridad seguridad=new CSeguridad();
     List<Parametro> ListaTipoDoc ;
@@ -184,6 +182,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel3.setText("Aeropuerto:");
 
+        txtAeropuerto.setEnabled(false);
+
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,6 +242,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel9.setText("Apellidos:");
 
+        txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyReleased(evt);
+            }
+        });
+
         jLabel10.setText("Teléfono:");
 
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -258,6 +264,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
         cboCiudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel12.setText("Número Doc:");
+
+        txtNumeroDoc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroDocKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -603,7 +615,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 
                 error_message = "El teléfono es inválido";
             }
+            if (!CValidator.validarEmail(txtCorreo.getText())){
             
+                    error_message = "El correo es inválido";
+            
+            }
             
         }
                       
@@ -943,6 +959,26 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void cboTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoDocActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboTipoDocActionPerformed
+
+    private void txtNumeroDocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDocKeyReleased
+        // TODO add your handling code here:
+        char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txtNumeroDoc)){
+            getToolkit().beep(); 
+        }
+        
+        
+    }//GEN-LAST:event_txtNumeroDocKeyReleased
+
+    private void txtApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyReleased
+        // TODO add your handling code here:
+        char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txtNombres)){
+            getToolkit().beep(); 
+        }
+        
+        
+    }//GEN-LAST:event_txtApellidosKeyReleased
     public int showDialog(){
         setVisible(true);
               
