@@ -10,6 +10,7 @@ import beans.seguridad.Usuario;
 import controllers.CContrasena;
 import controllers.CParametro;
 import controllers.CSeguridad;
+import controllers.CUsuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -27,6 +28,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
     private Usuario usuario;
     private Contrasena contrasenia;
+    private boolean ejecutoCambio = false;
     
     /**
      * Creates new form CambiarContrasenaDialog
@@ -42,6 +44,13 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         this(parent, modal);
         usuario = usuarioAModificar;
         contrasenia = contraseniaAModificar;
+        lblValidacionesContrasenia.setText("<html>Las contraseñas deben tener las siguientes indicaciones: <br>" +
+                "Longitud Minima de Caraceteres: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA").getValor()) + "<br>" +
+                "Numero mínimo de caracteres numéricos: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_NUM").getValor()) + "<br>" +
+                "Numero mínimo de caracteres especiales: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP").getValor()) + "<br>" +
+                "Numero mínimo de caracteres mayúsculas: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS").getValor()) + "<br>" +
+                "Numero mínimo de caracteres minúsculas: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS").getValor()) + "<br>" +
+                "Diferente a las "+ (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST").getValor()) + " contraseñas anteriores<html>");
     }
     
     protected JRootPane createRootPane() { 
@@ -51,6 +60,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
         Action accion = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
+            if(!ejecutoCambio) usuario = null; 
             setVisible(Boolean.TRUE);
             dispose();
           } 
@@ -59,6 +69,11 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         rootPane.getActionMap().put("EXIT", accion);
         
         return rootPane;
+    }
+    
+    public Usuario showDialog(){
+        setVisible(Boolean.TRUE);
+        return usuario;
     }
 
     /**
@@ -80,6 +95,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
+        lblValidacionesContrasenia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,63 +129,70 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         lblMensaje.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(255, 0, 12));
 
+        lblValidacionesContrasenia.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        lblValidacionesContrasenia.setForeground(new java.awt.Color(255, 0, 0));
+        lblValidacionesContrasenia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValidacionesContrasenia.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(21, 21, 21)))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(lblValidacionesContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblValidacionesContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -179,24 +202,29 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        usuario = null;
         this.setVisible(Boolean.TRUE);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        boolean nuevasContraseniasIguales = false;
+        boolean nuevasContraseniasIguales = CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword());
+        boolean validacionesContrasenia = CSeguridad.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario());
         if( CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword()) &&
-            (nuevasContraseniasIguales = CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword())) &&
-            CSeguridad.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario())){
+            nuevasContraseniasIguales && validacionesContrasenia){
             CContrasena.desactivarContrasena(contrasenia);
             char[] contrasenaNueva = txtPassNueva.getPassword();
             CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
+            ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
+            usuario = new CUsuario().BuscarXid(usuario.getIdUsuario());
         }
         else{
             if(!nuevasContraseniasIguales)
                 lblMensaje.setText("Las contraseñas nuevas ingresadas deben COINCIDIR");
-            else 
+            else if(!validacionesContrasenia)
+                lblMensaje.setText("Las contraseñas deben respetar las indicaciones");
+            else
                 lblMensaje.setText("");
         }
         
@@ -251,6 +279,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblValidacionesContrasenia;
     private javax.swing.JPasswordField txtPassActual;
     private javax.swing.JPasswordField txtPassNueva;
     private javax.swing.JPasswordField txtPassNueva2;
