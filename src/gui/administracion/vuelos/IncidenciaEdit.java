@@ -134,7 +134,6 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
         jLabel8.setText("Fecha Incidencia");
 
-        dt_fech.setNothingAllowed(false);
         dt_fech.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
         try {
             dt_fech.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
