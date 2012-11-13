@@ -262,6 +262,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAeropuerto">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscarAeropuerto">
           <Properties>
@@ -373,6 +376,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellidos">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidosKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -405,6 +411,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumeroDoc">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroDocKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

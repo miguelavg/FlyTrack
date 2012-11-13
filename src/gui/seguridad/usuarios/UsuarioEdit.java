@@ -36,8 +36,6 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class UsuarioEdit extends javax.swing.JDialog {
     CUsuario Usuario = new CUsuario();
     
-   
-    
     CContrasena Contrasena = new CContrasena();
     //CSeguridad seguridad=new CSeguridad();
     List<Parametro> ListaTipoDoc ;
@@ -184,6 +182,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel3.setText("Aeropuerto:");
 
+        txtAeropuerto.setEnabled(false);
+
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,6 +242,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel9.setText("Apellidos:");
 
+        txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyReleased(evt);
+            }
+        });
+
         jLabel10.setText("Teléfono:");
 
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -258,6 +264,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
         cboCiudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         jLabel12.setText("Número Doc:");
+
+        txtNumeroDoc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumeroDocKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -603,7 +615,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 
                 error_message = "El teléfono es inválido";
             }
+            if (!CValidator.validarEmail(txtCorreo.getText())){
             
+                    error_message = "El correo es inválido";
+            
+            }
             
         }
                       
@@ -617,64 +633,68 @@ public class UsuarioEdit extends javax.swing.JDialog {
         String mensaje="";
         String mensaje2="";
         
+        boolean pasavalidacion;
+        
         if (idusuario!=-1){
             
-        mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+        //mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
         
-        Integer id=-1;
-        char[] aux_contrasena = psswdContrasena.getPassword();
-        char[] aux_contrasena_rec = null;
-        
-        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
-        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
-        
-//        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
-//            Contrasena con = UsuarioBE.getContrasenias().get(i);
-//            Integer idaux = con.getIdContrasena();
-//            if (idaux > id) {
-//                aux_contrasena = con;
-//                id = idaux;
+//        Integer id=-1;
+//        char[] aux_contrasena = psswdContrasena.getPassword();
+//        char[] aux_contrasena_rec = null;
+//        
+//        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
+//        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
+//        
+////        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
+////            Contrasena con = UsuarioBE.getContrasenias().get(i);
+////            Integer idaux = con.getIdContrasena();
+////            if (idaux > id) {
+////                aux_contrasena = con;
+////                id = idaux;
+////            }
+////        }
+//        boolean esigual=true;
+//        fuera:
+//        for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
+//            if (i > 0) {
+//                aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
+//                Integer menor;
+//                Integer aux1 = aux_contrasena_rec.length;
+//                Integer aux2 = psswdContrasena.getPassword().length;
+//                if (aux1 <= aux2) {
+//                    menor = aux1;
+//                } else {
+//                    menor = aux2;
+//                }
+//                for (int j = 0; j < menor; j++) {
+//                    char c_caracter = psswdContrasena.getPassword()[j];
+//                    char c_caracter2 = aux_contrasena_rec[j];
+//
+//                    if (c_caracter != c_caracter2) {
+//                        //mensaje2 = "La contrasena debe ser distinta";
+//                        esigual = false;
+//                        //break fuera;
+//
+//                    }
+//                }
+//                if (esigual){
+//                    break fuera;
+//                }
+//                else {
+//                    if (i == UsuarioBE.getContrasenias().size() - numeroContrasenas + 1) {
+//                        esigual = false;
+//                    } else {
+//                        esigual = true;
+//                    }
+//                }
+//                
 //            }
 //        }
-        boolean esigual=true;
-        fuera:
-        for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
-            if (i > 0) {
-                aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
-                Integer menor;
-                Integer aux1 = aux_contrasena_rec.length;
-                Integer aux2 = psswdContrasena.getPassword().length;
-                if (aux1 <= aux2) {
-                    menor = aux1;
-                } else {
-                    menor = aux2;
-                }
-                for (int j = 0; j < menor; j++) {
-                    char c_caracter = psswdContrasena.getPassword()[j];
-                    char c_caracter2 = aux_contrasena_rec[j];
+        
+          pasavalidacion=CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(),idusuario);
 
-                    if (c_caracter != c_caracter2) {
-                        //mensaje2 = "La contrasena debe ser distinta";
-                        esigual = false;
-                        //break fuera;
-
-                    }
-                }
-                if (esigual){
-                    break fuera;
-                }
-                else {
-                    if (i == UsuarioBE.getContrasenias().size() - numeroContrasenas + 1) {
-                        esigual = false;
-                    } else {
-                        esigual = true;
-                    }
-                }
-                
-            }
-        }
-
-          if (esigual){
+          if (!pasavalidacion){
           mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
           mensaje=mensaje+mensaje2;
           }
@@ -827,7 +847,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
 
-
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
                     
                     UsuarioauxBE= Usuario.BuscarXid(idusuario);
@@ -939,6 +958,26 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void cboTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoDocActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboTipoDocActionPerformed
+
+    private void txtNumeroDocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDocKeyReleased
+        // TODO add your handling code here:
+        char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txtNumeroDoc)){
+            getToolkit().beep(); 
+        }
+        
+        
+    }//GEN-LAST:event_txtNumeroDocKeyReleased
+
+    private void txtApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyReleased
+        // TODO add your handling code here:
+        char letra=evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txtNombres)){
+            getToolkit().beep(); 
+        }
+        
+        
+    }//GEN-LAST:event_txtApellidosKeyReleased
     public int showDialog(){
         setVisible(true);
               
