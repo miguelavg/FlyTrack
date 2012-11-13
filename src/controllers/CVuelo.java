@@ -274,6 +274,46 @@ public class CVuelo {
             Parametro p = CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", Estado);
             objVuelo.setEstado(p);
             
+            
+            if(p.getValorUnico().equals("FIN")){
+                for(Escala e : objVuelo.getEscalas()){
+                    String valUnico;
+                    if(objVuelo.getDestino().getIdAeropuerto() == e.getEnvio().getDestino().getIdAeropuerto()){
+                        valUnico = "XREC";
+                    } else {
+                        valUnico = "ESC";
+                    }
+                          
+                    p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", valUnico);
+                    e.getEnvio().setActual(objVuelo.getDestino());
+                    
+                    int cActual = e.getEnvio().getActual().getCapacidadActual();
+                    e.getEnvio().getActual().setCapacidadActual(cActual + e.getEnvio().getNumPaquetes());
+                    e.getEnvio().setEstado(p);
+                }
+            }
+            
+            if(p.getValorUnico().equals("VUE")){
+                for(Escala e : objVuelo.getEscalas()){                       
+                    p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "VUE");
+                    int cActual = e.getEnvio().getActual().getCapacidadActual();
+                    e.getEnvio().getActual().setCapacidadActual(cActual - e.getEnvio().getNumPaquetes());
+                    e.getEnvio().setActual(null);
+                    e.getEnvio().setEstado(p);
+                }
+            }
+            
+            if(p.getValorUnico().equals("CAN") || p.getValorUnico().equals("RET")){
+                for(Escala e : objVuelo.getEscalas()){                       
+                    CEnvio cenvio = new CEnvio();
+                    String error = cenvio.calcularRuta(e.getEnvio());
+                    
+                    if(error == null || error.isEmpty()){
+                        p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
+                        e.getEnvio().setEstado(p);
+                    }
+                }
+            }
         
 //            objVuelo.setPais(Pais);
 //            objVuelo.setIdAeropuerto(idAeropuerto);

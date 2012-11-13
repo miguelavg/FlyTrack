@@ -26,7 +26,6 @@ public class CSeguridad {
     
     public static Usuario verificarContrasenia(String user, char[] pass){
 
-//        SessionFactory sf = Sesion.getSessionFactory();
         Session s = Sesion.openSessionFactory();
         
         try{
@@ -42,17 +41,20 @@ public class CSeguridad {
             
             usuario.getContrasenias().size();
             List<Contrasena> contrasenias = usuario.getContrasenias();
-            boolean findPassActiva = Boolean.FALSE;
+            Contrasena passActiva = null;
             for(Contrasena passAnalizada : contrasenias){
                 if(passAnalizada.getEstado().getValorUnico().equals("ACTV")){
-                    findPassActiva = Boolean.TRUE;
-                     usuario.getPerfil().getPermisos().size();//para jalar en el query los permisos
+                    passActiva = passAnalizada;
                     break;
                 }
             }
             
-            return findPassActiva ? usuario : null;
+            if(passActiva == null) return null; //si el usuario no tiene password activa
+            if(!passwordCorrecta(passActiva.getText(), pass)) return null; //si la password no coincide
             
+            //Si el usuario tiene contrasenia activa y justa esa coincide con la ingresada
+            usuario.getPerfil().getPermisos().size();//para jalar en el query los permisos
+            return usuario;            
         }
         catch(Exception e){
             System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());

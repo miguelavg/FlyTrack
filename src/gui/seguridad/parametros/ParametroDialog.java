@@ -10,7 +10,14 @@ import beans.seguridad.Permiso;
 import controllers.CParametro;
 import controllers.CSeguridad;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +32,24 @@ public class ParametroDialog extends javax.swing.JDialog {
     public ParametroDialog() {
         initComponents();
         definirPermisos();
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
     private Parametro padre;
 
@@ -443,7 +468,7 @@ public class ParametroDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txt_valorUnico;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
+    private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(3, "Parametros", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
@@ -451,7 +476,7 @@ public class ParametroDialog extends javax.swing.JDialog {
         this.btn_modificar.setEnabled(modificar);
         boolean buscar = CSeguridad.validarPermiso(3, "Parametros", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
-        
+
         this.setLocationRelativeTo(null);
         pack();
     }

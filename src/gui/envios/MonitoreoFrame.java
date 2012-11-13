@@ -14,6 +14,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -29,6 +36,25 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         this.envio = envio;
 
     }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
+    }
+    
     private Envio envio;
 
     @Override
@@ -81,11 +107,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
                 g2.setStroke(stroke);
                 g2.drawLine(o.getCoordX(), o.getCoordY(), d.getCoordX(), d.getCoordY());
                 g2.drawString(o.getPais().getValor() + '-' + o.getNombre(), o.getCoordX() + 15, o.getCoordY());
-                g2.fillOval(o.getCoordX()-5, o.getCoordY()-5, 10, 10);
-                g2.drawOval(o.getCoordX()-5, o.getCoordY()-5, 10, 10);
+                g2.fillOval(o.getCoordX() - 5, o.getCoordY() - 5, 10, 10);
+                g2.drawOval(o.getCoordX() - 5, o.getCoordY() - 5, 10, 10);
                 g2.drawString(d.getPais().getValor() + '-' + d.getNombre(), d.getCoordX() + 15, d.getCoordY());
-                g2.fillOval(d.getCoordX()-5, d.getCoordY()-5, 10, 10);
-                g2.drawOval(d.getCoordX()-5, d.getCoordY()-5, 10, 10);
+                g2.fillOval(d.getCoordX() - 5, d.getCoordY() - 5, 10, 10);
+                g2.drawOval(d.getCoordX() - 5, d.getCoordY() - 5, 10, 10);
             }
 
         }

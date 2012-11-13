@@ -149,7 +149,7 @@ public class Recocido {
         return max;
     }
 
-    private ArrayList<Vuelo> liteGrasp(Aeropuerto aOrigen, Aeropuerto aDestino, Date fecha, double alfa) {
+    private ArrayList<Vuelo> liteGrasp(Aeropuerto aOrigen, Aeropuerto aDestino, Date fecha, double alfa, int numPaquetes) {
         try {
             Aeropuerto aActual = aOrigen;
             Random rnd = new Random();
@@ -176,8 +176,8 @@ public class Recocido {
 
                 for (Vuelo vuelo : aActual.getVuelosSalida()) {
 
-                    if (vuelo.getCapacidadMax() > vuelo.getCapacidadActual()
-                            && getMax(aOrigen, dActual, vuelo.getFechaSalida()) < aOrigen.getCapacidadMax()) {
+                    if (vuelo.getCapacidadMax() >= vuelo.getCapacidadActual() + numPaquetes
+                            && getMax(aOrigen, dActual, vuelo.getFechaSalida()) + numPaquetes <= aOrigen.getCapacidadMax()) {
                         posibles.add(vuelo);
                         ArrayList<Vuelo> wrap = new ArrayList<Vuelo>();
                         wrap.add(vuelo);
@@ -252,7 +252,7 @@ public class Recocido {
                 fecha = envio.getFechaRegistro();
             }
 
-            ArrayList<Vuelo> construccion = liteGrasp(pivote, envio.getDestino(), fecha, this.alfaGrasp);
+            ArrayList<Vuelo> construccion = liteGrasp(pivote, envio.getDestino(), fecha, this.alfaGrasp, envio.getNumPaquetes());
 
             if (construccion == null) {
                 this.alterado = null;
@@ -280,7 +280,7 @@ public class Recocido {
             int outIt = 0;
 
             for (int i = 0; i < this.intentos; i++) {
-                this.solucion = liteGrasp(envio.getActual(), envio.getDestino(), envio.getFechaRegistro(), this.alfaGrasp);
+                this.solucion = liteGrasp(envio.getActual(), envio.getDestino(), envio.getFechaRegistro(), this.alfaGrasp, envio.getNumPaquetes());
                 if (this.solucion != null) {
                     break;
                 }

@@ -10,8 +10,15 @@ import controllers.CParametro;
 import controllers.CTipoCambio;
 import controllers.CValidator;
 import gui.ErrorDialog;
+import java.awt.event.ActionEvent;
 import java.util.Date;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -27,7 +34,7 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         initComponents();
         this.isNuevo = true;
         this.tipoCambio = null;
-       
+
         if (tipoCambio != null) {
             this.txt_tipocambio.setText(CValidator.formatNumber(tipoCambio.getTipoCambio()));
             llenarCombos(tipoCambio.getMonedaOrigen(), tipoCambio.getMonedaDestino());
@@ -39,12 +46,30 @@ public class TipoCambioEdit extends javax.swing.JDialog {
             this.tipoCambio = new TipoCambio();
             llenarCombos(null, null);
         }
-        
-        if(this.isNuevo){
+
+        if (this.isNuevo) {
             this.setTitle("FlyTrack - Administración - Tipos de cambio - Agregar");
         } else {
             this.setTitle("FlyTrack - Administración - Tipos de cambio - Modificar");
         }
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
     private TipoCambio tipoCambio;
     private Parametro monedaOrigen;
@@ -71,12 +96,12 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         for (Parametro p : monedas) {
             this.cmb_origen.addItem(p);
             this.cmb_destino.addItem(p);
-            
-            if(origen != null && p.getIdParametro() == origen.getIdParametro()){
+
+            if (origen != null && p.getIdParametro() == origen.getIdParametro()) {
                 this.cmb_origen.setSelectedItem(p);
             }
-            
-            if(destino != null && p.getIdParametro() == destino.getIdParametro()){
+
+            if (destino != null && p.getIdParametro() == destino.getIdParametro()) {
                 this.cmb_destino.setSelectedItem(p);
             }
         }

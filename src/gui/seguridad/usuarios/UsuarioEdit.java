@@ -151,6 +151,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Usuario_editar");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -163,10 +164,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(358, 358, 358)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(235, 235, 235))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,6 +192,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel6.setText("Estado:");
 
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
+        cboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cboPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboPerfilActionPerformed(evt);
@@ -229,6 +233,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
         jLabel5.setText("Tipo Doc:");
 
         cboTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+        cboTipoDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoDocActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Apellidos:");
 
@@ -416,7 +425,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
            txtLogIn.setText(UsuarioBE.getLogIn());
            //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
            
-           for(int i=0;i<cboPerfil.getItemCount();i++){
+           for(int i=1;i<cboPerfil.getItemCount();i++){
                Perfil Perfil = (Perfil)cboPerfil.getItemAt(i);
                if (Perfil.getIdPerfil()==UsuarioBE.getPerfil().getIdPerfil())
                {
@@ -426,7 +435,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                }
            }
            
-           for(int i=0;i<cboEstado.getItemCount();i++){
+           for(int i=1;i<cboEstado.getItemCount();i++){
                Parametro estado = (Parametro)cboEstado.getItemAt(i);
                if (estado.getIdParametro()==UsuarioBE.getEstado().getIdParametro())
                {
@@ -468,27 +477,25 @@ public class UsuarioEdit extends javax.swing.JDialog {
             txtNumeroDoc.setEditable(false);
     }
     
-    public void llenarcomboEstado(){
-         ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
-    
-        for (Parametro p : ListaEstado)
-        //for (int i=0;i<ListaEstado.size();i++)
-        {
-    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
-            
-            cboEstado.addItem(p);
+    public void llenarcomboEstado() {
+        ListaEstado = ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+
+        //for (Parametro p : ListaEstado)
+        for (int i = 0; i < ListaEstado.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListaEstado.get(i);
+
+            cboEstado.addItem(TipoDocBE);
         }
-        
     }
     
-    public void llenarcomboPerfiles(){
-        ListaPerfiles=PerfilBL.Buscar();
-    //int i=0;i<ListaPerfiles.size();i++
-        for (Perfil p: ListaPerfiles)
-        {
-            //Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
+    public void llenarcomboPerfiles() {
+        ListaPerfiles = PerfilBL.Buscar();
+        //int i=0;i<ListaPerfiles.size();i++
+        //Perfil p: ListaPerfiles
+        for (int i = 0; i < ListaPerfiles.size(); i++) {
+            Perfil CPerfil = (Perfil) ListaPerfiles.get(i);
             //CPerfil
-            cboPerfil.addItem(p);
+            cboPerfil.addItem(CPerfil);
         }
     }
     
@@ -610,35 +617,83 @@ public class UsuarioEdit extends javax.swing.JDialog {
         String mensaje2="";
         
         if (idusuario!=-1){
+            
         mensaje=CUsuario.ValidarContraseña(psswdContrasena.getPassword());
         
         Integer id=-1;
-        Contrasena aux_contrasena = null;
-        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
-            Contrasena con = UsuarioBE.getContrasenias().get(i);
-            Integer idaux = con.getIdContrasena();
-            if (idaux > id) {
-                aux_contrasena = con;
-                id = idaux;
+        char[] aux_contrasena = psswdContrasena.getPassword();
+        char[] aux_contrasena_rec = null;
+        
+        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
+        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
+        
+//        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
+//            Contrasena con = UsuarioBE.getContrasenias().get(i);
+//            Integer idaux = con.getIdContrasena();
+//            if (idaux > id) {
+//                aux_contrasena = con;
+//                id = idaux;
+//            }
+//        }
+        boolean esigual=true;
+        fuera:
+        for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
+            if (i > 0) {
+                aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
+                for (int j = 0; j < aux_contrasena.length; j++) {
+                    char c_caracter = psswdContrasena.getPassword()[j];
+                    char c_caracter2 = aux_contrasena_rec[j];
+
+                    if (c_caracter != c_caracter2) {
+                        //mensaje2 = "La contrasena debe ser distinta";
+                        esigual = false;
+                        break fuera;
+
+                    }
+                }
             }
         }
 
-        Integer aux1=aux_contrasena.getText().length;
-        Integer aux2=psswdContrasena.getPassword().length;
-        Integer menor=0;
-        if (aux1<=aux2) {menor=aux1;}
-        else {menor=aux2;}
+          if (esigual){
+          mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
+          mensaje=mensaje+mensaje2;
+          }
+//        Integer aux1=aux_contrasena.getText().length;
+//        Integer aux2=psswdContrasena.getPassword().length;
+//        Integer menor=0;
+//        if (aux1<=aux2) {menor=aux1;}
+//        else {menor=aux2;}
+//        
+//        
+//        for (int i = 0; i < menor; i++) {
+//            char c_caracter = psswdContrasena.getPassword()[i];
+//            char c_caracter2 = aux_contrasena.getText()[i];
+//
+//            if (c_caracter == c_caracter2) {
+//                mensaje2 = "La contrasena debe ser distinta";
+//                
+//            }
+//        }
+ 
+        
+//        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
+//        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
+//        
+//        Integer menorCon=0;
+//        Integer aux3=UsuarioBE.getContrasenias().size();
+//        Integer aux4=numeroContrasenas;
+//        
+//        if (aux3<=aux4) {menorCon=aux3;}
+//        else {menorCon=aux4;}
+//        
+//        String contrasenaNueva=Character.toString(psswdContrasena.getPassword());
+//        
+//        for (int i=0; i< menorCon;i++){
+//        }
         
         
-        for (int i = 0; i < menor; i++) {
-            char c_caracter = psswdContrasena.getPassword()[i];
-            char c_caracter2 = aux_contrasena.getText()[i];
-
-            if (c_caracter == c_caracter2) {
-                mensaje2 = "La contrasena debe ser distinta";
-                break;
-            }
-        }
+        
+        
         }
         
         if (mensaje.equals("") && mensaje2.equals("")) {
@@ -674,6 +729,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
         
         
         String error_message = Cusuario.validar(idusuario ,isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem(),(Perfil)cboPerfil.getSelectedItem());
+        
+            if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0 ) {
+
+                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+
+            }
+        
+        
         
         String error_message2 = validarcampos();
         
@@ -846,6 +909,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_txtTelefonotxtTelKeyRel
+
+    private void cboTipoDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoDocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTipoDocActionPerformed
     public int showDialog(){
         setVisible(true);
               
