@@ -8,13 +8,12 @@ package logic;
  *
  * @author miguelavg
  */
-public class VueloLite {
+public class EnvioLite {
+
     private AeroLite origen;
     private AeroLite destino;
-    int evt;
-    int num;
-    int capacidadActual;
-    int capacidadMax;
+    private int evt;
+    private int num;
 
     public AeroLite getOrigen() {
         return origen;
@@ -38,22 +37,6 @@ public class VueloLite {
 
     public void setEvt(int evt) {
         this.evt = evt;
-    }
-
-    public int getCapacidadActual() {
-        return capacidadActual;
-    }
-
-    public void setCapacidadActual(int capacidadActual) {
-        this.capacidadActual = capacidadActual;
-    }
-
-    public int getCapacidadMax() {
-        return capacidadMax;
-    }
-
-    public void setCapacidadMax(int capacidadMax) {
-        this.capacidadMax = capacidadMax;
     }
 
     public int getNum() {
