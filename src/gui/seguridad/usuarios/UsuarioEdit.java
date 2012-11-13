@@ -641,17 +641,36 @@ public class UsuarioEdit extends javax.swing.JDialog {
         for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
             if (i > 0) {
                 aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
-                for (int j = 0; j < aux_contrasena.length; j++) {
+                Integer menor;
+                Integer aux1 = aux_contrasena_rec.length;
+                Integer aux2 = psswdContrasena.getPassword().length;
+                if (aux1 <= aux2) {
+                    menor = aux1;
+                } else {
+                    menor = aux2;
+                }
+                for (int j = 0; j < menor; j++) {
                     char c_caracter = psswdContrasena.getPassword()[j];
                     char c_caracter2 = aux_contrasena_rec[j];
 
                     if (c_caracter != c_caracter2) {
                         //mensaje2 = "La contrasena debe ser distinta";
                         esigual = false;
-                        break fuera;
+                        //break fuera;
 
                     }
                 }
+                if (esigual){
+                    break fuera;
+                }
+                else {
+                    if (i == UsuarioBE.getContrasenias().size() - numeroContrasenas + 1) {
+                        esigual = false;
+                    } else {
+                        esigual = true;
+                    }
+                }
+                
             }
         }
 
@@ -775,8 +794,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             UsuarioAux,
                             ListaEstado.get(0));
                     
-//                     cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel",UsuarioAux.geteMail(),"contrasena por defecto", "La contrasena por defecto es la siguiente :"+CSeguridad.generaContraseniaAleatoria());
+                    String aux=String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
                     
+                     cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel",UsuarioAux.geteMail(),"contrasena por defecto", "La contrasena por defecto es la siguiente :"+aux);
                     
                 } else {
                     //txtCliente.setVisible(false);
