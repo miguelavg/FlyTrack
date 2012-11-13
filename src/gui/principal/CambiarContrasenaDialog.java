@@ -4,18 +4,61 @@
  */
 package gui.principal;
 
+import beans.Parametro;
+import beans.seguridad.Contrasena;
+import beans.seguridad.Usuario;
+import controllers.CContrasena;
+import controllers.CParametro;
+import controllers.CSeguridad;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
+
 /**
  *
  * @author msolorzano
  */
 public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
+    private Usuario usuario;
+    private Contrasena contrasenia;
+    
     /**
      * Creates new form CambiarContrasenaDialog
      */
     public CambiarContrasenaDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public CambiarContrasenaDialog(java.awt.Frame parent, boolean modal, 
+            Usuario usuarioAModificar, Contrasena contraseniaAModificar){
+        this(parent, modal);
+        usuario = usuarioAModificar;
+        contrasenia = contraseniaAModificar;
+    }
+    
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(Boolean.TRUE);
+            dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "EXIT");
+        rootPane.getActionMap().put("EXIT", accion);
+        
+        return rootPane;
     }
 
     /**
@@ -53,8 +96,18 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         lblTitulo.setText("Cambiar Contraseña");
 
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,6 +167,27 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(Boolean.TRUE);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+        
+        if( CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword()) &&
+            CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword()) &&
+                true){
+            Parametro contraseniaInactiva = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "INCTV");
+            new CContrasena().desactivarUltimaContrasena(contrasenia, contraseniaInactiva);
+        }
+        //validar que la contrasenia anterior sea igual a la contrasenia que se desactivara
+        //verificar que los 2 campos de contrasenia nueva coincidan
+        //cambie de estado la contrasenia anterior
+        //cree una contrasenia nueva
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments

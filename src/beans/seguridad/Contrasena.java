@@ -26,12 +26,12 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "Contrasena")
 @NamedQueries({
-    @NamedQuery(
-        name = "ContraseniaActivaXUsuario",
-        query = "from Contrasena where usuario = :usuario and estado.valorUnico = 'ACTV'"
-    ),
+    @NamedQuery(name = "ContraseniaActivaXUsuario",
+                query = "from Contrasena where usuario = :usuario and estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "ContrasenaxId",
-    query = "from Contrasena where idUsuario = :idusuario"),
+                query = "from Contrasena where idUsuario = :idusuario"),
+    @NamedQuery(name = "ContrasenaActivaXidUsuario",
+                query = "from Contrasena where usuario.idUsuario = :idUsuario and estado.valorUnico = 'ACTV'"),
 })
 public class Contrasena implements Serializable {
     @Id
