@@ -7,7 +7,14 @@ package gui.seguridad.parametros;
 import beans.Parametro;
 import controllers.CParametro;
 import gui.ErrorDialog;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -23,7 +30,7 @@ public class ParametroEdit extends javax.swing.JDialog {
         initComponents();
         this.isNuevo = true;
         this.parametro = null;
-        
+
         if (parametro != null) {
             this.txt_valor.setText(parametro.getValor());
             this.txt_valorUnico.setText(parametro.getValorUnico());
@@ -44,12 +51,30 @@ public class ParametroEdit extends javax.swing.JDialog {
         } else {
             this.parametro = new Parametro();
         }
-        
-        if(this.isNuevo){
+
+        if (this.isNuevo) {
             this.setTitle("FlyTrack - Administración - Parámetros - Agregar");
         } else {
             this.setTitle("FlyTrack - Administración - Parámetros - Modificar");
         }
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
     private Parametro parametro;
     private Parametro padre;

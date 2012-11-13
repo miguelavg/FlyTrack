@@ -16,8 +16,16 @@ import controllers.CSeguridad;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import gui.seguridad.parametros.ParametroEdit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -44,8 +52,26 @@ public class EnvioDialog extends javax.swing.JDialog {
         }
         definirPermisos();
     }
-    
-    private void llenarTabla(List<Envio> envios){
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
+    }
+
+    private void llenarTabla(List<Envio> envios) {
         DefaultTableModel dtm = (DefaultTableModel) tbl_envios.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -55,12 +81,12 @@ public class EnvioDialog extends javax.swing.JDialog {
         if (envios == null) {
             return;
         }
-        
+
         for (Envio e : envios) {
             llenarLineaTabla(e, dtm);
         }
-        
-        
+
+
     }
 
     private void llenarLineaTabla(Envio e, DefaultTableModel dtm) {
@@ -621,8 +647,8 @@ public class EnvioDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txt_origen;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
-        
+    private void definirPermisos() {
+
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(2, "Envios", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
@@ -630,9 +656,9 @@ public class EnvioDialog extends javax.swing.JDialog {
         this.btn_modificar.setEnabled(modificar);
         boolean buscar = CSeguridad.validarPermiso(2, "Envios", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
-        
+
         //boolean cargaMasiva = CSeguridad.validarPermiso(2, "Envios", "Carga Masiva", permisos);
-        
+
         this.setLocationRelativeTo(null);
         pack();
     }
