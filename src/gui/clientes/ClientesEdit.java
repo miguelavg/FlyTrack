@@ -113,6 +113,7 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         });
 
+        txtNombres.setEditable(false);
         txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomKeyRel(evt);
@@ -134,6 +135,7 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         });
 
+        txtNumeroDoc.setEditable(false);
         txtNumeroDoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNumeroDocKeyReleased(evt);
@@ -270,7 +272,7 @@ public class ClientesEdit extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 12, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
