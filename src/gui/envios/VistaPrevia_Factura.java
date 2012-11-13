@@ -182,7 +182,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
                                 .addComponent(jLabel2)
                                 .addGap(107, 107, 107)
                                 .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 253, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -292,7 +292,7 @@ public void cargartabla(){
     
     //    List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,null,null);    
         //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
-        TablaFactura.setRowHeight(50); 
+        TablaFactura.setRowHeight(100); 
         DefaultTableModel dtm = (DefaultTableModel) this.TablaFactura.getModel();
         
         
@@ -323,14 +323,14 @@ public void cargartabla(){
            datos[0] = " ";
            datos[1] = " ";
            datos[2] ="IGV:";
-           datos[3]= CValidator.formatNumber(envio.getImpuesto()*envio.getMonto()); 
+           datos[3]= CValidator.formatNumber(envio.getImpuesto()/100*envio.getMonto()); 
                 
            dtm.addRow(datos);
 
            datos[0] = " ";
            datos[1] = " ";
            datos[2] ="Monto Total:";
-           datos[3]= CValidator.formatNumber((envio.getMonto())+(envio.getImpuesto()*envio.getMonto())); 
+           datos[3]= CValidator.formatNumber((envio.getMonto())+(envio.getImpuesto()/100*envio.getMonto())); 
            
            
                 

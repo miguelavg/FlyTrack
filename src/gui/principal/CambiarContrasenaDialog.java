@@ -79,6 +79,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         lblTitulo = new javax.swing.JLabel();
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -109,6 +110,9 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
             }
         });
 
+        lblMensaje.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lblMensaje.setForeground(new java.awt.Color(255, 0, 12));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,10 +138,13 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(21, 21, 21)))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -162,7 +169,9 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -176,18 +185,21 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        
+        boolean nuevasContraseniasIguales = false;
         if( CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword()) &&
-            CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword()) &&
-            CContrasena.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario())){
-            Parametro contraseniaInactiva = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "INCTV");
-            new CContrasena().desactivarUltimaContrasena(contrasenia, contraseniaInactiva);
-            
+            (nuevasContraseniasIguales = CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword())) &&
+            CSeguridad.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario())){
+            CContrasena.desactivarContrasena(contrasenia);
+            char[] contrasenaNueva = txtPassNueva.getPassword();
+            CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
         }
-        //validar que la contrasenia anterior sea igual a la contrasenia que se desactivara
-        //verificar que los 2 campos de contrasenia nueva coincidan
-        //cambie de estado la contrasenia anterior
-        //cree una contrasenia nueva
+        else{
+            if(!nuevasContraseniasIguales)
+                lblMensaje.setText("Las contraseñas nuevas ingresadas deben COINCIDIR");
+            else 
+                lblMensaje.setText("");
+        }
+        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
@@ -237,6 +249,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPasswordField txtPassActual;
     private javax.swing.JPasswordField txtPassNueva;
