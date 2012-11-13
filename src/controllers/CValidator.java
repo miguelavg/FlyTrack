@@ -174,7 +174,7 @@ public class CValidator {
         String formattedNumber = "";
 
         try {
-            DecimalFormat format = new DecimalFormat("0.00");
+            DecimalFormat format = new  DecimalFormat("0.00");
             formattedNumber = format.format(number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
