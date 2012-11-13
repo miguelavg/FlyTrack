@@ -285,7 +285,7 @@
               <SerializedValue value="-84,-19,0,5,115,114,0,36,100,97,116,101,99,104,111,111,115,101,114,46,109,111,100,101,108,46,109,117,108,116,105,112,108,101,46,80,101,114,105,111,100,83,101,116,-104,-44,-96,42,-91,51,-90,42,2,0,3,76,0,4,100,97,116,97,116,0,22,76,106,97,118,97,47,117,116,105,108,47,76,105,110,107,101,100,76,105,115,116,59,76,0,9,108,97,115,116,65,100,100,101,100,116,0,35,76,100,97,116,101,99,104,111,111,115,101,114,47,109,111,100,101,108,47,109,117,108,116,105,112,108,101,47,80,101,114,105,111,100,59,76,0,10,112,101,114,105,111,100,67,97,115,104,113,0,126,0,2,120,112,115,114,0,20,106,97,118,97,46,117,116,105,108,46,76,105,110,107,101,100,76,105,115,116,12,41,83,93,74,96,-120,34,3,0,0,120,112,119,4,0,0,0,0,120,112,112"/>
             </Property>
             <Property name="dch_locale" type="java.util.Locale" editor="datechooser.beans.editor.locale.LocaleEditor">
-              <SerializedValue value="-84,-19,0,5,115,114,0,16,106,97,118,97,46,117,116,105,108,46,76,111,99,97,108,101,126,-8,17,96,-100,48,-7,-20,3,0,6,73,0,8,104,97,115,104,99,111,100,101,76,0,7,99,111,117,110,116,114,121,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,76,0,10,101,120,116,101,110,115,105,111,110,115,113,0,126,0,1,76,0,8,108,97,110,103,117,97,103,101,113,0,126,0,1,76,0,6,115,99,114,105,112,116,113,0,126,0,1,76,0,7,118,97,114,105,97,110,116,113,0,126,0,1,120,112,-1,-1,-1,-1,116,0,2,80,69,116,0,0,116,0,2,101,115,113,0,126,0,4,113,0,126,0,4,120"/>
+              <SerializedValue value="-84,-19,0,5,115,114,0,16,106,97,118,97,46,117,116,105,108,46,76,111,99,97,108,101,126,-8,17,96,-100,48,-7,-20,2,0,4,73,0,8,104,97,115,104,99,111,100,101,76,0,7,99,111,117,110,116,114,121,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,76,0,8,108,97,110,103,117,97,103,101,113,0,126,0,1,76,0,7,118,97,114,105,97,110,116,113,0,126,0,1,120,112,-1,-1,-1,-1,116,0,2,80,69,116,0,2,101,115,116,0,0"/>
             </Property>
           </Properties>
         </Component>
@@ -328,9 +328,7 @@
                       <Component id="jScrollPane1" alignment="0" pref="736" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnAgregar" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnModificar" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnIncidencia" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButton1" min="-2" pref="150" max="-2" attributes="0"/>
@@ -346,7 +344,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAgregar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="btnModificar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btnIncidencia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -367,17 +364,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnModificar">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/edit.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Modificar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">

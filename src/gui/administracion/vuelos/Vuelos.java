@@ -69,7 +69,6 @@ public class Vuelos extends javax.swing.JDialog {
         btn_regresar2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_vuelos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -262,14 +261,6 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
-        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setToolTipText("");
         jScrollPane1.setAutoscrolls(true);
 
@@ -315,9 +306,7 @@ public class Vuelos extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -329,7 +318,6 @@ public class Vuelos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -427,22 +415,6 @@ public class Vuelos extends javax.swing.JDialog {
         llenarGrillaVuelo();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-        if (this.tbl_vuelos.getSelectedRow() != -1) {
-            VuelosAgregar vVuelAgre = new VuelosAgregar(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()), -1);
-
-            vVuelAgre.setVisible(true);
-
-            llenarGrillaVuelo();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un Vuelo",
-                    "Advertencia", 1);
-
-        }
-
-    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -587,7 +559,6 @@ public class Vuelos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnIncidencia;
-    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_origenAero;
     private javax.swing.JButton btn_origenDest;
@@ -616,7 +587,7 @@ public class Vuelos extends javax.swing.JDialog {
         boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
         boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
-        this.btnModificar.setEnabled(modificar);
+        this.btnIncidencia.setEnabled(modificar);
         boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);

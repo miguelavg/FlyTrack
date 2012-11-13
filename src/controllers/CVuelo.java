@@ -179,15 +179,7 @@ public class CVuelo {
             for (int i=0; ListaVuelos.size()>i; i++){
                 ListaVuelos.get(i).getIncidencias().size();
                 ListaVuelos.get(i).getEscalas().size();
-                
-                for(Escala e :  ListaVuelos.get(i).getEscalas()){
-                    e.getEnvio().getEscalas().size();
-                }
-            }
-           
-
-
-
+             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -321,12 +313,12 @@ public class CVuelo {
                         }
                     }
                     
-                    String error = cenvio.calcularRuta(e.getEnvio());
+                    //String error = cenvio.calcularRuta(e.getEnvio());
                     
-                    if(error == null || error.isEmpty()){
-                        p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
-                        e.getEnvio().setEstado(p);
-                    }
+                    //if(error == null || error.isEmpty()){
+                        //p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
+                        //e.getEnvio().setEstado(p);
+                    //}
                 }
             }
         
