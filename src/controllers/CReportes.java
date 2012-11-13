@@ -363,7 +363,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-            Image imagen= Image.getInstance("../imagenes/logo48x48.png");
+            Image imagen= Image.getInstance("../../imagenes/logo48x48.png");
             imagen.setAlignment(Image.ALIGN_CENTER | Image.TEXTWRAP);
             
             
