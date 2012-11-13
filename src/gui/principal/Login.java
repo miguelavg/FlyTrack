@@ -5,12 +5,15 @@
 package gui.principal;
 
 import beans.Sesion;
+import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CSeguridad;
 import gui.ErrorDialog;
+import gui.InformationDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -189,7 +192,30 @@ public class Login extends javax.swing.JFrame {
                 //VERIFICACION EXITOSA
                 lblError.setVisible(Boolean.FALSE);
 //                usuarioValidado.getContrasenias().size();
+                
+                //Se debe cambiar la contrasenia en el login cuando:
+                //- El primer acceso de la cuenta
+                //- La contrasenia ya caduco
+                
+                Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(usuarioValidado.getIdUsuario());
+                boolean condicion1 = contrasenaActiva.getFechaCaducidad().before(new Date());
+                boolean condicion2 = !usuarioValidado.getPrimerAcceso();
 
+                if(condicion1 || condicion2){
+                    String error = "";
+                    if(condicion1) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
+                    if(condicion2) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia. \n";
+                    if(error != null && !error.isEmpty()){
+                        InformationDialog.mostrarInformacion(error, this);
+                    }
+//                    if(condicion1) 
+//                        InformationDialog.mostrarInformacion("Su contraseña ha caducado, es necesario cambiarla", this);
+//                    if(condicion2) 
+//                        InformationDialog.mostrarInformacion("Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia", this);
+                    CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
+                    cambiarContrasenia.setVisible(Boolean.TRUE);
+                }
+                
                 Sesion.setUsuario(usuarioValidado);
 
                 PrincipalFrame pf = new PrincipalFrame();
@@ -230,8 +256,6 @@ public class Login extends javax.swing.JFrame {
         KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
         Action accion = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
-            setVisible(Boolean.FALSE);
-            dispose();
             System.exit(0);
           } 
         } ;

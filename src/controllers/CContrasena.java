@@ -25,7 +25,6 @@ import org.hibernate.Transaction;
  */
 public class CContrasena {
     
-    
     public void agregarContrasena(char[] contrasena, Usuario usuario, Parametro estado){
 
         SessionFactory sf = Sesion.getSessionFactory();
@@ -60,7 +59,6 @@ public class CContrasena {
         return calendarioActual.getTime();
     }
     
-    
     public void desactivarUltimaContrasena(Contrasena contrasena, Parametro estado){
 
         SessionFactory sf = Sesion.getSessionFactory();
@@ -90,8 +88,7 @@ public class CContrasena {
         }
     }
     
-    
-        public List<Contrasena> buscarContrasena(int id){
+    public List<Contrasena> buscarContrasena(int id){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Contrasena> listContrasenas = null;
@@ -113,8 +110,5 @@ public class CContrasena {
         }
         return listContrasenas;
     }
-    
-    
-    
     
 }
