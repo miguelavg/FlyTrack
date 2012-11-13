@@ -191,20 +191,18 @@ public class Login extends javax.swing.JFrame {
             if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
                 //VERIFICACION EXITOSA
                 lblError.setVisible(Boolean.FALSE);
-//                usuarioValidado.getContrasenias().size();
                 
                 //Se debe cambiar la contrasenia en el login cuando:
                 //- El primer acceso de la cuenta
                 //- La contrasenia ya caduco
-                
                 Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(usuarioValidado.getIdUsuario());
-                boolean condicion1 = contrasenaActiva.getFechaCaducidad().before(new Date());
-                boolean condicion2 = !usuarioValidado.getPrimerAcceso();
+                boolean condicionCaducidad = contrasenaActiva.getFechaCaducidad().before(new Date());
+                boolean condicionPrimerIngreso = !usuarioValidado.getPrimerAcceso();
 
-                if(condicion1 || condicion2){
+                if(condicionCaducidad || condicionPrimerIngreso){
                     String error = "";
-                    if(condicion1) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
-                    if(condicion2) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia. \n";
+                    if(condicionCaducidad) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
+                    if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia. \n";
                     if(error != null && !error.isEmpty()){
                         InformationDialog.mostrarInformacion(error, this);
                     }
@@ -213,16 +211,20 @@ public class Login extends javax.swing.JFrame {
 //                    if(condicion2) 
 //                        InformationDialog.mostrarInformacion("Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia", this);
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
-                    cambiarContrasenia.setVisible(Boolean.TRUE);
+                    usuarioValidado = cambiarContrasenia.showDialog();
+//                    cambiarContrasenia.setVisible(Boolean.TRUE);
                 }
                 
-                Sesion.setUsuario(usuarioValidado);
+                if(usuarioValidado != null){
+                
+                    Sesion.setUsuario(usuarioValidado);
 
-                PrincipalFrame pf = new PrincipalFrame();
-                pf.setVisible(Boolean.TRUE);
+                    PrincipalFrame pf = new PrincipalFrame();
+                    pf.setVisible(Boolean.TRUE);
 
-                this.setVisible(Boolean.FALSE);
-                this.dispose();
+                    this.setVisible(Boolean.FALSE);
+                    this.dispose();
+                }
             } else {
                 //VERIFICACION FALLO
                 lblError.setVisible(Boolean.TRUE);
