@@ -259,10 +259,10 @@ public class CUsuario {
 
             if (idusuario==-1){
             
-            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
-                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-            }
-            if (aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
+//            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
+//                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+//            }
+            if (aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null ) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             
