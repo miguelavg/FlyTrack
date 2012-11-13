@@ -179,6 +179,10 @@ public class CVuelo {
             for (int i=0; ListaVuelos.size()>i; i++){
                 ListaVuelos.get(i).getIncidencias().size();
                 ListaVuelos.get(i).getEscalas().size();
+                
+                for(Escala e :  ListaVuelos.get(i).getEscalas()){
+                    e.getEnvio().getEscalas().size();
+                }
             }
            
 
@@ -304,8 +308,19 @@ public class CVuelo {
             }
             
             if(p.getValorUnico().equals("CAN") || p.getValorUnico().equals("RET")){
+                
+                Parametro pInactivo = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "INCTV");
+                
                 for(Escala e : objVuelo.getEscalas()){                       
+                    int numEscala = e.getNumEscala();
                     CEnvio cenvio = new CEnvio();
+                    
+                    for(Escala eFuturo : e.getEnvio().getEscalas()){
+                        if(eFuturo.getNumEscala() > numEscala){
+                            eFuturo.setEstado(pInactivo);
+                        }
+                    }
+                    
                     String error = cenvio.calcularRuta(e.getEnvio());
                     
                     if(error == null || error.isEmpty()){
