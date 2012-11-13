@@ -358,7 +358,8 @@ public class Aeropuerto extends javax.swing.JDialog {
             AeropuertoModificar MiVentana = new AeropuertoModificar(this, true, listaAeropuertos.get(tbl_aeropuerto.getSelectedRow())); //llamamos a la clase y creamos un objeto llamado MiVentana
             MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
             llenarGrillaAero();
-        }
+        }else
+            JOptionPane.showMessageDialog(this,"Debe seleccionar un Aeropuerto","Advertencia",1);
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
