@@ -58,11 +58,5 @@ public class CMail {
         catch(Exception e){
             System.out.println(">> Erro: Envio Message" + e);
         }
-    }
-    public static void main(String [] args){
-        CMail cmail = new CMail();
-        cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel","miguelvg27@gmail.com","me subestimass", "prueba jaja");
-        
-    }
-    
+    }    
 }
