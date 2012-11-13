@@ -56,6 +56,7 @@ public class NotaEntrada extends javax.swing.JDialog {
         jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

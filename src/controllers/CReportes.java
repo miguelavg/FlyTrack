@@ -515,7 +515,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             lineaVacia(preface8, 1);
             
             Paragraph preface9 = null;
-            preface9=new Paragraph("Cantidad de paquetes: "+" "+envio.getNumDocVenta()+" "+"\n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface9=new Paragraph("Cantidad de paquetes: "+" "+envio.getNumPaquetes()+" "+"\n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
             preface9.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface9, 1);
@@ -524,7 +524,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             preface10=new Paragraph("Fecha: "+" "+envio.getFechaRegistro()+" "+"\n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
             preface10.setAlignment(Element.ALIGN_LEFT);
 
-            lineaVacia(preface9, 1);
+            lineaVacia(preface10, 1);
             
             
             
