@@ -179,7 +179,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         
         if( CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword()) &&
             CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword()) &&
-                true){
+            CContrasena.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario())){
             Parametro contraseniaInactiva = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "INCTV");
             new CContrasena().desactivarUltimaContrasena(contrasenia, contraseniaInactiva);
         }

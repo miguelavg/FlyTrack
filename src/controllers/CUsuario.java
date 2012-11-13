@@ -145,9 +145,6 @@ public class CUsuario {
         return null;
     }
     
-//    public static boolean validarContrasena(char[] contrasenaAValidar){
-//        Parametro condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA")
-//    }
     
     public static String ValidarContrasena(char[] contra){
         

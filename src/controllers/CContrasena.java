@@ -111,4 +111,55 @@ public class CContrasena {
         return listContrasenas;
     }
     
+    public static boolean validarContrasena(char[] contrasenaAValidar, int idUsuario){
+        Parametro condicion;
+        int count;
+        
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA");
+        if(contrasenaAValidar.length < Integer.parseInt(condicion.getValor()))
+            return false;
+        
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_NUM");
+        count = 0;
+        for(char car : contrasenaAValidar){
+            if(Character.isDigit(car)) count++;
+        }
+        if(count < Integer.parseInt(condicion.getValor()))
+            return false;
+        
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS");
+        count = 0;
+        for(char car : contrasenaAValidar){
+            if(Character.isUpperCase(car)) count++;
+        }
+        if(count < Integer.parseInt(condicion.getValor()))
+            return false;
+        
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS");
+        count = 0;
+        for(char car : contrasenaAValidar){
+            if(Character.isLowerCase(car)) count++;
+        }
+        if(count < Integer.parseInt(condicion.getValor()))
+            return false;
+        
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP");
+        count = 0;
+        for(char car : contrasenaAValidar){
+            if(!Character.isDigit(car) && !Character.isLetter(car)) count++;
+        }
+        if(count < Integer.parseInt(condicion.getValor()))
+            return false;
+        
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST");
+        List<Contrasena> contrasenasAContrastar = CSeguridad.getUltimasContrasenasXUsuario(Integer.parseInt(condicion.getValor()), idUsuario);
+        String passAValidar = new String(contrasenaAValidar);
+        for(Contrasena contrasenaAContrastar : contrasenasAContrastar){
+            String passAContrastar = new String(contrasenaAContrastar.getText());
+            if(passAContrastar.equals(passAValidar)) return false;
+        }
+        
+        return true;
+    }
+    
 }
