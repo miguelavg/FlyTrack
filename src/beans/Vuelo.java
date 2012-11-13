@@ -62,9 +62,11 @@ public class Vuelo implements Serializable {
     private Parametro estado;
     @ManyToOne
     @JoinColumn(name = "idOrigen")
+    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto origen;
     @ManyToOne
     @JoinColumn(name = "idDestino")
+    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto destino;
     @OneToMany(mappedBy = "vuelo")
     private List<Incidencia> incidencias;
