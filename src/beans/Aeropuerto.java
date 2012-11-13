@@ -30,7 +30,7 @@ import org.hibernate.annotations.ParamDef;
 @Table(name = "Aeropuerto")
 @NamedQueries({
     @NamedQuery(name = "Aero",
-    query = "from Aeropuerto "),
+    query = "from Aeropuerto where estado.valorUnico = 'ACTV' order by idAeropuerto"),
     @NamedQuery(name = "Aeropuertos",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "AeropuertosXPais",
@@ -61,11 +61,13 @@ import org.hibernate.annotations.ParamDef;
     
     @FilterDef(name = "VuelosXAeropuertoSalida", parameters = {
         @ParamDef(name = "upper", type = "date"),
-        @ParamDef(name = "lower", type = "date")
+        @ParamDef(name = "lower", type = "date"),
+        @ParamDef(name = "idEstado", type = "integer")    
     }),
     @FilterDef(name = "VuelosXAeropuertoLlegada", parameters = {
         @ParamDef(name = "upper", type = "timestamp"),
-        @ParamDef(name = "lower", type = "timestamp")
+        @ParamDef(name = "lower", type = "timestamp"),
+        @ParamDef(name = "idEstado", type = "integer")
     })
 })
 @Filters({
@@ -93,12 +95,12 @@ public class Aeropuerto implements Serializable {
     private Parametro estado;
     @OneToMany(mappedBy = "origen")
     @Filters({
-        @Filter(name = "VuelosXAeropuertoSalida", condition = ":lower < fechaSalida AND fechaSalida < :upper")
+        @Filter(name = "VuelosXAeropuertoSalida", condition = ":lower < fechaSalida AND fechaSalida < :upper AND estado = :idEstado")
     })
     private List<Vuelo> vuelosSalida;
     @OneToMany(mappedBy = "destino")
     @Filters({
-        @Filter(name = "VuelosXAeropuertoLlegada", condition = ":lower < fechaSalida AND fechaSalida < :upper")
+        @Filter(name = "VuelosXAeropuertoLlegada", condition = ":lower < fechaSalida AND fechaSalida < :upper AND estado = :idEstado")
     })
     private List<Vuelo> vuelosLlegada;
     @OneToMany(mappedBy = "actual")

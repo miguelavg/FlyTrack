@@ -19,7 +19,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
     /**
      * Creates new form AeropuertoAgregar
      */
-     public beans.Aeropuerto objAero = null;
+     public beans.Aeropuerto objAero = new beans.Aeropuerto();
      private List<Parametro> ListatipoPar; 
      private List<Parametro> ListatipoEst; 
      private List<Parametro> ListatipoHijo;
