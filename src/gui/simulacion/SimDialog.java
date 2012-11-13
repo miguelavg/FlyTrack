@@ -598,6 +598,11 @@ public class SimDialog extends javax.swing.JDialog {
         }
         
         String mensaje = aNecesidad + "\n" + vNecesidad;
+        
+        if(aNecesidad.isEmpty() && vNecesidad.isEmpty()){
+            mensaje = "La distribución de los almacenes y vuelos es correcto.";
+        }
+        
         InformationDialog.mostrarInformacion(mensaje, this);
         
     }//GEN-LAST:event_btn_simularActionPerformed
