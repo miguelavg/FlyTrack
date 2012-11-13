@@ -30,9 +30,9 @@ public class Recocido {
     private Envio envio;                        // envío a realizar
     private ArrayList<Vuelo> solucion;          // ruta solución
     private ArrayList<Vuelo> alterado;          // ruta alterada
-    private ArrayList<VueloLite> vuelosLite;    // histórico
+    private ArrayList<VueloHist> vuelosLite;    // histórico
 
-    public Recocido(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, Envio envio, double vCostoAlmacen, ArrayList<VueloLite> vuelosLite) {
+    public Recocido(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, Envio envio, double vCostoAlmacen, ArrayList<VueloHist> vuelosLite) {
         this.kSA = kSA;
         this.temperaturaInicial = temperaturaInicial;
         this.temperatura = temperaturaInicial;
@@ -57,7 +57,7 @@ public class Recocido {
         int hi = vuelosLite.size() - 1;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
-            VueloLite v = vuelosLite.get(mid);
+            VueloHist v = vuelosLite.get(mid);
             if ((idOrigen < v.getOrigen()) || (idOrigen == v.getOrigen() && idDestino < v.getDestino())) {
                 hi = mid - 1;
             } else if ((idOrigen > v.getOrigen()) || (idOrigen == v.getOrigen() && idDestino > v.getDestino())) {

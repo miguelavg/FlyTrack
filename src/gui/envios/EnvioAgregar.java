@@ -918,6 +918,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
         this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
 
         cenvio.guardarEnvio(this.envio);
+        
+        NotaSalida NotaSalida = new NotaSalida(this,true,this.envio);
+        NotaSalida.setVisible(true);
+        
     }//GEN-LAST:event_btn_outActionPerformed
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed

@@ -7,7 +7,7 @@ package controllers;
 import beans.*;
 import java.util.ArrayList;
 import java.util.List;
-import logic.VueloLite;
+import logic.VueloHist;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -30,12 +30,12 @@ public class CTest {
             
             Query q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v group by v.origen, v.destino");
             List<Object[]> lista = q.list();
-            ArrayList<VueloLite> vuelosL = new ArrayList <VueloLite>();
+            ArrayList<VueloHist> vuelosL = new ArrayList <VueloHist>();
             for(Object[] o : lista){
-                vuelosL.add(new VueloLite((Integer)o[0], (Integer)o[1], (Double)o[2]));
+                vuelosL.add(new VueloHist((Integer)o[0], (Integer)o[1], (Double)o[2]));
             }
             
-            for(VueloLite v : vuelosL){
+            for(VueloHist v : vuelosL){
                 System.out.println(v.getDestino() + " " + v.getOrigen() + " " + v.getpLleno());
             }
             
