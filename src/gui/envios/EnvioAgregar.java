@@ -1041,9 +1041,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.envio.setActual(actual);
             this.envio.setOrigen(origen);
             this.envio.setDestino(destino);
-            Parametro param = CParametro.buscarXValorUnicoyTipo("PROG", "ESTADO_ENVIO");
+            Parametro param = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO","PROG");
             this.envio.setEstado(param);
-            param = CParametro.buscarXValorUnicoyTipo("EM", "ESTADO_FACTURA");
+            param = CParametro.buscarXValorUnicoyTipo("ESTADO_FACTURA","EM");
             this.envio.setEstadoFactura(param);
             this.envio.setRemitente(remitente);
             this.envio.setDestinatario(destinatario);
@@ -1076,7 +1076,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 cenvio.guardarEnvio(this.envio);
 
                 this.envio.setNumDocVenta(CEnvio.getNextNumDoc(doc.getValorUnico()));
-
+                llenarCombos(this.isNuevo, this.moneda, this.doc, this.estado, this.estadoFactura);
                 this.txt_numEnvio.setText(String.valueOf(this.envio.getIdEnvio()));
                 this.txt_numDoc.setText(String.valueOf(this.envio.getNumDocVenta()));
                 cenvio.guardarEnvio(this.envio);
