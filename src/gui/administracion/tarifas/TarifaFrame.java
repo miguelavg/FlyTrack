@@ -397,6 +397,8 @@ public class TarifaFrame extends javax.swing.JDialog {
         TarifaEdit tarifaEditGUI = new TarifaEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
         int result = tarifaEditGUI.showDialog();
         //cargartabla();//le decimos al compilador que queremos que se vea la ventana
+        ListaTarifa=TarifaBL.Buscar(null,null,"","");
+        llenartabla();
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 

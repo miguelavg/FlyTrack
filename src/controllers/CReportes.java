@@ -332,11 +332,16 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             
 
             Paragraph preface8 = null;
-            preface8=new Paragraph("Moneda : "+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface8=new Paragraph("Moneda :  ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
             preface8.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface8, 1);
+            
+            Paragraph preface88 = null;
+            preface88=new Paragraph(envio.getMoneda().getValor()+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface88.setAlignment(Element.ALIGN_RIGHT);
 
+            lineaVacia(preface8, 1);
 
 //            Paragraph preface9 = null;
 //            preface9=new Paragraph("Tipo de Documento : "+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
