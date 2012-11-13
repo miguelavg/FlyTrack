@@ -216,7 +216,33 @@ public class CAeropuerto {
         return ListaAeropuerto;
         
     }
-    
+    public beans.Aeropuerto BuscarId(int id){
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        beans.Aeropuerto aero= null;
+        
+        try {
+            
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("AeropuertosxID");
+            q.setParameter("idaero", id);
+           
+             aero= (beans.Aeropuerto)q.uniqueResult();
+                       
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            
+            s.close();
+        }
+        
+        return aero;
+    }
       public static List<Parametro> llenarComboPais(){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -294,7 +320,7 @@ public class CAeropuerto {
      
      }
              
-      
+       
       
        public static List<Parametro> llenarComboEstado(){
         SessionFactory sf = Sesion.getSessionFactory();

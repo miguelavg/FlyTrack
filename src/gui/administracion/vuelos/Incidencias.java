@@ -4,7 +4,6 @@
  */
 package gui.administracion.vuelos;
 
-
 import beans.Incidencia;
 import beans.Parametro;
 import beans.Vuelo;
@@ -23,21 +22,20 @@ import javax.swing.table.TableColumn;
  */
 public class Incidencias extends javax.swing.JDialog {
 
-    
-    public List <Parametro>ListatipoInci =null;
-    public List <Incidencia>ListaInci =null;
-    
+    public List<Parametro> ListatipoInci = null;
+    public List<Incidencia> ListaInci = null;
     public Vuelo objV = null;
-    public Incidencia objInc =null;
+    public Incidencia objInc = null;
+
     /**
      * Creates new form Incidencias
      */
-    public Incidencias(javax.swing.JDialog parent, boolean modal,Vuelo objVuelo) {
-        super(parent,modal);
+    public Incidencias(javax.swing.JDialog parent, boolean modal, Vuelo objVuelo) {
+        super(parent, modal);
         initComponents();
-        
+
         llenarComboIncidencia();
-        objV  = objVuelo;        
+        objV = objVuelo;
     }
 
     /**
@@ -249,7 +247,7 @@ public class Incidencias extends javax.swing.JDialog {
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
 
 //        vVuelo.dispose();
-           this.dispose();
+        this.dispose();
 
 
         // TODO add your handling code here:
@@ -261,63 +259,62 @@ public class Incidencias extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        Parametro p=null;
-        p=ListatipoInci.get(cbm_incidencia.getSelectedIndex());               
+        Parametro p = null;
+        p = ListatipoInci.get(cbm_incidencia.getSelectedIndex());
         ListaInci = objV.getIncidencias(); //CIncidencia.BuscarIncidencia(p,dt_fechini.getSelectedDate(),dt_fechfin.getSelectedDate());   
         llenarGrillaIncidencia();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void tbl_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_incidenciaMouseClicked
         // TODO add your handling code here:
-        IncidenciaEdit VInci = new IncidenciaEdit(this,true,objV,1);
+        IncidenciaEdit VInci = new IncidenciaEdit(this, true, objV, 1);
         VInci.setModal(true);
         VInci.setVisible(true);
         ListaInci = objV.getIncidencias();
         llenarGrillaIncidencia();
-          
+
     }//GEN-LAST:event_tbl_incidenciaMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
-        IncidenciaEdit VInci = new IncidenciaEdit(this,true,objV,1);
+        IncidenciaEdit VInci = new IncidenciaEdit(this, true, objV, 1);
         VInci.setModal(true);
-        objInc=VInci.showDialog();
+        objInc = VInci.showDialog();
         cambioEstadoVuelo();
-        
+
     }//GEN-LAST:event_btn_agregarActionPerformed
 
-    
-     public void llenarGrillaIncidencia(){
-        
+    public void llenarGrillaIncidencia() {
+
         Parametro TipoDoc;
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_incidencia.getModel();
-        int rows=dtm.getRowCount();
-        for (int i=rows-1; i>=0; i--){
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-       
+
         TableColumn column = null;
-        column= tbl_incidencia.getColumnModel().getColumn(0);
+        column = tbl_incidencia.getColumnModel().getColumn(0);
         column.setMaxWidth(0);
         Object[] datos = new Object[5];
-        
-        
+
+
         Calendar fec = Calendar.getInstance();
-        
-        
+
+
         for (int i = 0; i < ListaInci.size(); i++) {
-          
-            
-           datos[0] = ListaInci.get(i).getIdIncidencia();
-        
-           
-           datos[4] = ListaInci.get(i).getVuelo().getIdVuelo(); 
-           datos[3] = ListaInci.get(i).getFecha();
-           datos[2] = ListaInci.get(i).getDescripcion();
-           datos[1] = ListaInci.get(i).getEstado().getValor();
-          
+
+
+            datos[0] = ListaInci.get(i).getIdIncidencia();
+
+
+            datos[4] = ListaInci.get(i).getVuelo().getIdVuelo();
+            datos[3] = ListaInci.get(i).getFecha();
+            datos[2] = ListaInci.get(i).getDescripcion();
+            datos[1] = ListaInci.get(i).getEstado().getValor();
+
             fec.setTime(ListaInci.get(i).getFecha());
-            
+
 //           if ((Integer)(dtm.getValueAt(i, 1)) == 
 //              ((Parametro)cbm_incidencia.getSelectedItem()).getIdParametro()
 //               &&  (dt_fechini.getSelectedDate().compareTo(fec)==-1) && 
@@ -326,11 +323,12 @@ public class Incidencias extends javax.swing.JDialog {
 //           {
             dtm.addRow(datos);
 //           }
-               
-    
+
+
+        }
+
     }
-       
-   }
+
     /**
      * @param args the command line arguments
      */
@@ -366,9 +364,8 @@ public class Incidencias extends javax.swing.JDialog {
          * Create and display the form
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
-                new Incidencias(new javax.swing.JDialog(),true,new Vuelo()).setVisible(true);
+                new Incidencias(new javax.swing.JDialog(), true, new Vuelo()).setVisible(true);
             }
         });
     }
@@ -392,12 +389,11 @@ public class Incidencias extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void llenarComboIncidencia() {
-      ListatipoInci = CIncidencia.llenarComboEstado();;
-      
-      for (int i=0;i<ListatipoInci.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoInci.get(i);
-            
+        ListatipoInci = CIncidencia.llenarComboEstado();;
+
+        for (int i = 0; i < ListatipoInci.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoInci.get(i);
+
             cbm_incidencia.addItem(TipoDocBE);
         }
     }
@@ -405,29 +401,33 @@ public class Incidencias extends javax.swing.JDialog {
     private void cambioEstadoVuelo() {
         String val;
         String valorPara;
-        val= objInc.getEstado().getValorUnico();
-        
-        if (val.compareTo("DES")==0) //DESPEGUE -- > EN VUELO 16
-        {   valorPara="VUE";
+        val = objInc.getEstado().getValorUnico();
+
+        if (val.compareTo("DES") == 0) //DESPEGUE -- > EN VUELO 16
+        {
+            valorPara = "VUE";
             cambiarEstado(objInc.getVuelo(), valorPara);
-        }     
-        if (val.compareTo("ATE")==0)//ATERRIZAJE --> FINALIZADO 17
-        {   valorPara="FIN";
-            cambiarEstado(objInc.getVuelo(),valorPara);
-        }              
-        if (val.compareTo("RET")==0) // RETRASO --> retraso 15
-        {    valorPara="RET";
-            cambiarEstado(objInc.getVuelo(),valorPara);
-        }                        
-        if (val.compareTo("CAN")==0) //cancelado --> cancelado 18
-        {   valorPara="CAN";
-            cambiarEstado(objInc.getVuelo(),valorPara);
         }
-    
+        if (val.compareTo("ATE") == 0)//ATERRIZAJE --> FINALIZADO 17
+        {
+            valorPara = "FIN";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+        if (val.compareTo("RET") == 0) // RETRASO --> retraso 15
+        {
+            valorPara = "RET";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+        if (val.compareTo("CAN") == 0) //cancelado --> cancelado 18
+        {
+            valorPara = "CAN";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+
     }
 
     private void cambiarEstado(Vuelo objVuelo, String valorPara) {
 
-       CVuelo.modificarVueloEstado(objVuelo, valorPara);
+        CVuelo.modificarVueloEstado(objVuelo, valorPara);
     }
 }

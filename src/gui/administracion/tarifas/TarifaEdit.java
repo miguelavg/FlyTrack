@@ -323,7 +323,6 @@ public class TarifaEdit extends javax.swing.JDialog {
                {
                cboMoneda.setSelectedIndex(i);
                break;
-               
                }
            }
            

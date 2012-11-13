@@ -182,7 +182,7 @@ public class CEnvio {
 
             Recocido recocido = new Recocido(k, temperaturaInicial, temperaturaFinal, alfaSA, alfaGrasp, pParada, intentos, envio, costoAlmacen, vuelosL);
             ArrayList<Vuelo> solucion = recocido.simular();
-            ArrayList<Escala> escalas = new ArrayList<Escala>();
+
             Escala e;
             int i = 1;
             Date fecha = envio.getFechaRegistro();
@@ -190,9 +190,12 @@ public class CEnvio {
             q.setParameter("tipo", "ESTADO_ESCALA");
             q.setParameter("valorUnico", "ACTV");
             p = (Parametro) q.uniqueResult();
-            envio.setEscalas(escalas);
-            int capacidad;
 
+            if (envio.getEscalas() == null || envio.getEscalas().isEmpty()) {
+                envio.setEscalas(new ArrayList<Escala>());
+            }
+
+            int capacidad;
 
             if (solucion == null || solucion.size() < 1) {
                 error_message = CValidator.buscarError("ERROR_FT013") + "\n";
