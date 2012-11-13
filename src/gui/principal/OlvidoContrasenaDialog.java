@@ -18,12 +18,12 @@ import java.util.Date;
  *
  * @author msolorzano
  */
-public class ForgetPassDialog extends javax.swing.JDialog {
+public class OlvidoContrasenaDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form ForgetPassDialog
+     * Creates new form OlvidoContrasenaDialog
      */
-    public ForgetPassDialog(java.awt.Frame parent, boolean modal) {
+    public OlvidoContrasenaDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -147,20 +147,20 @@ public class ForgetPassDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ForgetPassDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OlvidoContrasenaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ForgetPassDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OlvidoContrasenaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ForgetPassDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OlvidoContrasenaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ForgetPassDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OlvidoContrasenaDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ForgetPassDialog dialog = new ForgetPassDialog(new javax.swing.JFrame(), true);
+                OlvidoContrasenaDialog dialog = new OlvidoContrasenaDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
