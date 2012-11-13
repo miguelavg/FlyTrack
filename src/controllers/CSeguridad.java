@@ -175,4 +175,24 @@ public class CSeguridad {
     public static char[] generaContraseniaAleatoria(){
         return new char[]{'f','l','y','t','r','a','c','k'};
     }
+    
+    public static List<Contrasena> getUltimasContrasenasXUsuario(int limite, int idUsuario){
+        Session s = Sesion.openSessionFactory();
+        
+        try{
+            Transaction tx = s.beginTransaction();
+            Query q = s.getNamedQuery("UltimasContrasenasXUsuarioParaValidar");
+            q.setParameter("idUsuario", idUsuario);
+            q.setParameter("limite", limite);
+            return (List<Contrasena>)q.list();
+            
+        } catch(Exception e){
+            System.out.println("CSeguridad.getUltimasContrasenasXUsuario - ERROR: " + e.getMessage());
+        } finally {
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+        
+        return null;
+    }
 }
