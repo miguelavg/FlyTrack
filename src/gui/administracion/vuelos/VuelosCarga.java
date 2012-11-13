@@ -4,13 +4,19 @@
  */
 package gui.administracion.vuelos;
 
+import beans.Parametro;
+import beans.Vuelo;
 import controllers.CAeropuerto;
+import controllers.CParametro;
 import controllers.CSerializer;
 import controllers.CVuelo;
 import gui.ErrorDialog;
 import gui.InformationDialog;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JFileChooser;
+import xml.XmlVuelo;
 
 /**
  *
@@ -25,6 +31,7 @@ public class VuelosCarga extends javax.swing.JDialog {
     public VuelosCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        generaraeropuertos();
     }
 
     /**
@@ -156,9 +163,80 @@ public class VuelosCarga extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+      public  void generaraeropuertos(){
+        
+        
+        ArrayList<XmlVuelo> listaxmlvuelos = new ArrayList<XmlVuelo>();
+        
+        
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(2012, 11, 2, 8, 0);
+        Date fecha = calendario.getTime();
+        calendario.set(2012, 11, 2, 12, 0);
+        Date fecha2 = calendario.getTime();
+        
+        XmlVuelo vuelo= new XmlVuelo();
+        vuelo.setAlquiler(2000);
+        vuelo.setCapacidadActual(0);
+        vuelo.setCapacidadMax(100);
+        vuelo.setDestino(23);
+        vuelo.setOrigen(20);
+        vuelo.setEstado(14);   
+        vuelo.setFechaLlegada(fecha);
+        vuelo.setFechaSalida(fecha2);
+        
+        listaxmlvuelos.add(vuelo);
+        
+        XmlVuelo vuelo2= new XmlVuelo();
+        
+        vuelo2.setAlquiler(2000);
+        vuelo2.setCapacidadActual(0);
+        vuelo2.setCapacidadMax(100);
+        vuelo2.setDestino(23);
+        vuelo2.setOrigen(21);
+        vuelo2.setEstado(14);   
+        vuelo2.setFechaLlegada(fecha);
+        vuelo2.setFechaSalida(fecha2);
+        
+        listaxmlvuelos.add(vuelo2);
+        
+        XmlVuelo vuelo3= new XmlVuelo();
+        
+        vuelo3.setAlquiler(2000);
+        vuelo3.setCapacidadActual(0);
+        vuelo3.setCapacidadMax(100);
+        vuelo3.setDestino(23);
+        vuelo3.setOrigen(22);
+        vuelo3.setEstado(14);   
+        vuelo3.setFechaLlegada(fecha);
+        vuelo3.setFechaSalida(fecha2);
+        
+        listaxmlvuelos.add(vuelo3);
+        
+        XmlVuelo vuelo4= new XmlVuelo();
+        
+        vuelo4.setAlquiler(2000);
+        vuelo4.setCapacidadActual(0);
+        vuelo4.setCapacidadMax(100);
+        vuelo4.setDestino(23);
+        vuelo4.setOrigen(4);
+        vuelo4.setEstado(14);   
+        vuelo4.setFechaLlegada(fecha);
+        vuelo4.setFechaSalida(fecha2);
+        
+        listaxmlvuelos.add(vuelo4);
+        
+        CSerializer.serializar(listaxmlvuelos, "PruebaVuelo.xml");
+        
+    }
+    
+    
     private void btnRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutaActionPerformed
         // TODO add your handling code here:
+        
+        
+//        
+        
         JFileChooser jfc = new JFileChooser();
         int rslt = jfc.showSaveDialog(this);
         if (rslt == JFileChooser.APPROVE_OPTION){
@@ -171,15 +249,15 @@ public class VuelosCarga extends javax.swing.JDialog {
                             ErrorDialog.mostrarError("Debe especificar un archivo xml", this);
                         }
                         else{
-
+                            
                             archivovalido=true;
-
+                            txtRuta.setText(ruta);
                         }
 
                     }
                     catch (Exception e){
                         e.printStackTrace();
-                        ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
+                        ErrorDialog.mostrarError("Ocurrió un error al realizar la carga.",this);
                     }
                 }
                 else
@@ -191,13 +269,47 @@ public class VuelosCarga extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnRutaActionPerformed
 
+    private ArrayList<Vuelo> PasaValores(ArrayList<XmlVuelo> xmlvuelos){
+        
+        CParametro cparametro = new CParametro();
+        CAeropuerto caeropuerto = new CAeropuerto();
+        
+        ArrayList<Vuelo> listavuelos = new ArrayList<Vuelo>();
+        for (int s=0; s<xmlvuelos.size();s++){
+            
+            Vuelo vuelo  = new Vuelo();
+            vuelo.setAlquiler(xmlvuelos.get(s).getAlquiler());
+            vuelo.setCapacidadActual(xmlvuelos.get(s).getCapacidadActual());
+            vuelo.setCapacidadMax(xmlvuelos.get(s).getCapacidadMax());
+            vuelo.setFechaLlegada(xmlvuelos.get(s).getFechaLlegada());
+            vuelo.setFechaSalida(xmlvuelos.get(s).getFechaSalida());
+            
+            Parametro estado=cparametro.buscarId(xmlvuelos.get(s).getEstado());
+            
+            beans.Aeropuerto aeroori = caeropuerto.BuscarId(xmlvuelos.get(s).getOrigen());
+            beans.Aeropuerto aerodes = caeropuerto.BuscarId(xmlvuelos.get(s).getDestino());
+            
+            vuelo.setDestino(aerodes);
+            vuelo.setOrigen(aeroori);
+            vuelo.setEstado(estado);
+            listavuelos.add(vuelo);
+            
+        }
+        return listavuelos;
+        
+        
+    }
+                
+    
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         if (archivovalido){
-            ArrayList vuelos=CSerializer.deserializar(txtRuta.getText());
+            ArrayList<XmlVuelo> xmlvuelos=CSerializer.deserializar(txtRuta.getText());
+            ArrayList<Vuelo> vuelos = PasaValores(xmlvuelos);
+            
             try{                   //CAeropuerto.ValidarCaga(vuelos);
                 for (int i = 0; i<vuelos.size();i++){
-                    beans.Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
+                    Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
                     CVuelo.cargarVuelo(vuelo);
                 }
                 InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);

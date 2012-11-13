@@ -7,6 +7,7 @@ package gui.seguridad.usuarios;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
+import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import controllers.CCliente;
@@ -15,6 +16,7 @@ import controllers.CParametro;
 import controllers.CPerfil;
 import controllers.CUsuario;
 import controllers.CValidator;
+import controllers.CSeguridad;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
@@ -33,10 +35,14 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class UsuarioEdit extends javax.swing.JDialog {
     CUsuario Usuario = new CUsuario();
     
+   
+    
     CContrasena Contrasena = new CContrasena();
+    //CSeguridad seguridad=new CSeguridad();
     List<Parametro> ListaTipoDoc ;
     List<Parametro> ListaEstado ;
     List<Perfil> ListaPerfiles ;
+    List<Contrasena> ListaContrasena;
     Cliente  ClienteAux ;
     Aeropuerto AeropuertoAux;
     boolean isNuevo;
@@ -50,17 +56,16 @@ public class UsuarioEdit extends javax.swing.JDialog {
     
     CCliente ClienteBL = new CCliente();
     
-                
-         CParametro ParametroBL = new CParametro();
-        CPerfil PerfilBL= new CPerfil();
-        Perfil Perfil ;
+    CParametro ParametroBL = new CParametro();
+    CPerfil PerfilBL= new CPerfil();
+    Perfil Perfil ;
         //Parametro Estado;
             
     /**
      * Creates new form UsuarioEdit
      */
-    Integer idusuario=-1;
-    
+    Integer idusuario=-1; 
+    Integer idcontrasena=0;
     Usuario UsuarioBE;
     
     public void setIdusuario(Integer idusuario) {
@@ -85,19 +90,20 @@ public class UsuarioEdit extends javax.swing.JDialog {
         initComponents();
         idusuario=id;
         isNuevo=true;
+
         
         
        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
         llenarcombos();
-        if (idusuario!=-1){
-            
+        if (idusuario!=-1){            
+        cargarcampos();               
+        }
+        
+        else {
         lblContrasena.setVisible(false);
         psswdContrasena.setVisible(false);
-        cargarcampos();
-        
-        
         }
         
     }
@@ -123,9 +129,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         cboPerfil = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         txtLogIn = new javax.swing.JTextField();
-        lblCliente = new javax.swing.JLabel();
-        txtCliente = new javax.swing.JTextField();
-        btnBuscarClientes = new javax.swing.JButton();
         lblContrasena = new javax.swing.JLabel();
         psswdContrasena = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
@@ -199,15 +202,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         txtLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLogInActionPerformed(evt);
-            }
-        });
-
-        lblCliente.setText("Empleado:");
-
-        btnBuscarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        btnBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarClientesActionPerformed(evt);
             }
         });
 
@@ -290,26 +284,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel12)
-                                            .addComponent(Ciudad))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNumeroDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cboCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(Ciudad))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNumeroDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(49, 49, 49))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -344,13 +330,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
                                 .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblContrasena))
-                    .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContrasena)
                     .addComponent(psswdContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,14 +408,13 @@ public class UsuarioEdit extends javax.swing.JDialog {
     
     public void cargarcampos(){
     
-        Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
+     UsuarioBE=Usuario.BuscarXid(idusuario);
         
         isNuevo=false;
         
            txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
            txtLogIn.setText(UsuarioBE.getLogIn());
            //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
-           
            
            for(int i=0;i<cboPerfil.getItemCount();i++){
                Perfil Perfil = (Perfil)cboPerfil.getItemAt(i);
@@ -454,8 +435,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
                
                }
            }
-
-           
            
            txtNombres.setText(UsuarioBE.getNombres());
            txtApellidos.setText(UsuarioBE.getApellidos());
@@ -628,25 +607,57 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
           // TODO add your handling code here:
         String mensaje="";
+        String mensaje2="";
+        
+        if (idusuario!=-1){
         mensaje=CUsuario.ValidarContraseña(psswdContrasena.getPassword());
-        if (mensaje.equals("")){
         
-        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
+        Integer id=-1;
+        Contrasena aux_contrasena = null;
+        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
+            Contrasena con = UsuarioBE.getContrasenias().get(i);
+            Integer idaux = con.getIdContrasena();
+            if (idaux > id) {
+                aux_contrasena = con;
+                id = idaux;
+            }
+        }
 
-        Aeropuerto nuevoAeropuerto;
-        Cliente nuevoCliente;
+        Integer aux1=aux_contrasena.getText().length;
+        Integer aux2=psswdContrasena.getPassword().length;
+        Integer menor=0;
+        if (aux1<=aux2) {menor=aux1;}
+        else {menor=aux2;}
         
-        Cliente auxCliente;
         
-        CUsuario Cusuario = new CUsuario();
-        Integer valoraux;
+        for (int i = 0; i < menor; i++) {
+            char c_caracter = psswdContrasena.getPassword()[i];
+            char c_caracter2 = aux_contrasena.getText()[i];
+
+            if (c_caracter == c_caracter2) {
+                mensaje2 = "La contrasena debe ser distinta";
+                break;
+            }
+        }
+        }
         
-        Usuario UsuarioAux;
+        if (mensaje.equals("") && mensaje2.equals("")) {
+
+            Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
+
+            Aeropuerto nuevoAeropuerto;
+            Cliente nuevoCliente;
+
+            Cliente auxCliente;
+
+            CUsuario Cusuario = new CUsuario();
+            Integer valoraux;
+
+            Usuario UsuarioAux;
         //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
         
         
-        Usuario UsuarioauxBE=Usuario.BuscarXid(idusuario);
-        
+            Usuario UsuarioauxBE;
 //        if (ClienteAux==null && idusuario!=-1){
 //        auxCliente=UsuarioauxBE.getIdCliente();
 //        }
@@ -662,82 +673,90 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        }
         
         
-        String error_message = Cusuario.validar(idusuario ,isNuevo, txtAeropuerto.getText(), txtCliente.getText(), txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem(),(Perfil)cboPerfil.getSelectedItem());
+        String error_message = Cusuario.validar(idusuario ,isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem(),(Perfil)cboPerfil.getSelectedItem());
         
         String error_message2 = validarcampos();
+        
+        error_message=error_message+error_message2;
+        
       
         if (error_message == null || error_message.isEmpty()) {
         
-        if (idusuario==-1){
-                Usuario.agregarUsuario(perfil, 
-                AeropuertoAux,
-                //aeropuerto,
-                //txtAeropuerto.getText(), 
- //               idcliente, 
-                //ClienteAux,
-                txtLogIn.getText(),
-                (Parametro)cboEstado.getSelectedItem() , 
-                0,
-                false,
-                txtNombres.getText(),
-                txtApellidos.getText(),txtCorreo.getText(),
-                    txtTelefono.getText(),                txtNumeroDoc.getText(),(Parametro)cboTipoDoc.getSelectedItem(),
-                    (Parametro)cboCiudad.getSelectedItem(),(Parametro)cboPais.getSelectedItem()                        
-                        
-                        ); 
-                
-                //Perfil=PerfilBL.BuscarXid(90);
-                ListaEstado=ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
-                //objeto usuario, objeto parametro
-                UsuarioAux=CUsuario.buscarXNombreUsuario(txtNombres.getText());
-                        //Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
-                
-                
-                Contrasena.agregarContrasena(psswdContrasena.getPassword(), 
-                        UsuarioAux,
-                        ListaEstado.get(0));        
-        }
-        else{
-        txtCliente.setVisible(false);
-        //getidusuario()
-        Usuario UsuarioBE=Usuario.BuscarXid(idusuario);
-        
-        if (AeropuertoAux==null){
-        nuevoAeropuerto=UsuarioBE.getIdAeropuerto();
-        }
-        else 
-        {nuevoAeropuerto=AeropuertoAux;}
-        
+                if (idusuario == -1) {
+                    Usuario.agregarUsuario(perfil,
+                            AeropuertoAux,
+                            //aeropuerto,
+                            //txtAeropuerto.getText(), 
+                            //               idcliente, 
+                            //ClienteAux,
+                            txtLogIn.getText(),
+                            (Parametro) cboEstado.getSelectedItem(),
+                            0,
+                            false,
+                            txtNombres.getText(),
+                            txtApellidos.getText(), txtCorreo.getText(),
+                            txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
+                            (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
+
+                    //Perfil=PerfilBL.BuscarXid(90);
+                    ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
+                    //objeto usuario, objeto parametro
+                    UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
+                    //Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
+
+                    //crear contrasena por defecto
+                    //                    
+                    Contrasena.agregarContrasena(CSeguridad.generaContraseniaAleatoria(),
+                            UsuarioAux,
+                            ListaEstado.get(0));
+                } else {
+                    //txtCliente.setVisible(false);
+                    //getidusuario()
+                    Usuario UsuarioBE = Usuario.BuscarXid(idusuario);
+
+                    if (AeropuertoAux == null) {
+                        nuevoAeropuerto = UsuarioBE.getIdAeropuerto();
+                    } else {
+                        nuevoAeropuerto = AeropuertoAux;
+                    }
+
 //        if (ClienteAux==null){
 //        nuevoCliente=UsuarioBE.getIdCliente();
 //        }
 //        else 
 //        {nuevoCliente=ClienteAux;}
-        
-        
-        Usuario.modificarUsuario(idusuario, 
-                perfil, 
-                nuevoAeropuerto,
-                //AeropuertoAux, 
-                //nuevoCliente,
-                //ClienteAux, 
-                txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem(),
-                
-                txtNombres.getText(),txtApellidos.getText(),txtCorreo.getText(),
-                    txtTelefono.getText(),                txtNumeroDoc.getText(),(Parametro)cboTipoDoc.getSelectedItem(),
-                    (Parametro)cboCiudad.getSelectedItem(),(Parametro)cboPais.getSelectedItem()
-                
-                );
 
-   
-            
-        }
-            this.setVisible(false);
-            this.dispose();
-        
-         } else {
-            ErrorDialog.mostrarError(error_message, this);
-        }
+
+                    Usuario.modificarUsuario(idusuario,
+                            perfil,
+                            nuevoAeropuerto,
+                            //AeropuertoAux, 
+                            //nuevoCliente,
+                            //ClienteAux, 
+                            txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
+                            txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
+                            txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
+                            (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
+
+
+                    //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
+                    
+                    UsuarioauxBE= Usuario.BuscarXid(idusuario);
+                    ListaContrasena=Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
+                    
+                    ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
+                    Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size()-1),ListaEstado.get(0));
+                    ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
+                    Contrasena.agregarContrasena(psswdContrasena.getPassword(),
+                            UsuarioauxBE,
+                            ListaEstado.get(0));
+                }
+                this.setVisible(false);
+                this.dispose();
+
+            } else {
+                ErrorDialog.mostrarError(error_message, this);
+            }
         
 //        CUsuario.agregarUsuario(txtPerfil.getText(), 
 //                txtAeropuerto.getText(), 
@@ -766,14 +785,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLogInActionPerformed
 
-    private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
-        // TODO add your handling code here:
-        ClientesPopUp usuarioClientesPopUp = new ClientesPopUp(this,true);
-        //usuarioClientesPopUp.setVisible(true);
-        ClienteAux=usuarioClientesPopUp.showDialog();
-       txtCliente.setText(ClienteAux.getNombres()+" "+ClienteAux.getApellidos());
-    }//GEN-LAST:event_btnBuscarClientesActionPerformed
-
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
         // TODO add your handling code here:
         AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
@@ -796,23 +807,23 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
     private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPaisActionPerformed
         // TODO add your handling code here:
-        if (cboPais.getSelectedIndex()!=0){
+        
+
+        if (cboPais.getSelectedIndex() != 0) {
             cboCiudad.removeAllItems();
 
             cboCiudad.addItem("Seleccionar");
-            ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()-1).getHijos();
-            for (int i=0;i<ListaCiudades.size();i++)
-            {
-                Parametro TipoDocBE =(Parametro)ListaCiudades.get(i);
+            ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex() - 1).getHijos();
+            for (int i = 0; i < ListaCiudades.size(); i++) {
+                Parametro TipoDocBE = (Parametro) ListaCiudades.get(i);
 
                 cboCiudad.addItem(TipoDocBE);
             }
 
-            if (carga && idusuario!=-1){
-                for(int i=1;i<cboCiudad.getItemCount();i++){
-                    Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
-                    if (ciudad.getIdParametro()==UsuarioBE.getCiudad().getIdParametro())
-                    {
+            if (carga && idusuario != -1) {
+                for (int i = 1; i < cboCiudad.getItemCount(); i++) {
+                    Parametro ciudad = (Parametro) cboCiudad.getItemAt(i);
+                    if (ciudad.getIdParametro() == UsuarioBE.getCiudad().getIdParametro()) {
                         cboCiudad.setSelectedIndex(i);
                         break;
 
@@ -884,7 +895,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Ciudad;
     private javax.swing.JButton btnBuscarAeropuerto;
-    private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cboCiudad;
@@ -906,12 +916,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblContrasena;
     private javax.swing.JPasswordField psswdContrasena;
     private javax.swing.JTextField txtAeropuerto;
     private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtLogIn;
     private javax.swing.JTextField txtNombres;
