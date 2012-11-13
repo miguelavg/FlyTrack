@@ -9,6 +9,7 @@ import beans.Parametro;
 import controllers.CAeropuerto;
 import gui.clientes.ClientesPopUp;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -64,7 +65,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_aeropuerto = new javax.swing.JTable();
-        btn_seleccionar = new javax.swing.JButton();
+        btn_buscar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Aeropuerto - Buscar");
@@ -185,11 +186,11 @@ public class AeropuertoPopup extends javax.swing.JDialog {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        btn_seleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
-        btn_seleccionar.setText("Seleccionar");
-        btn_seleccionar.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
+        btn_buscar1.setText("Seleccionar");
+        btn_buscar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_seleccionarActionPerformed(evt);
+                btn_buscar1ActionPerformed(evt);
             }
         });
 
@@ -205,8 +206,8 @@ public class AeropuertoPopup extends javax.swing.JDialog {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_seleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(239, 239, 239))))
+                        .addComponent(btn_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(212, 212, 212))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -218,9 +219,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(178, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_seleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -302,26 +303,30 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         
       //  beans.Aeropuerto ObjAero = new beans.Aeropuerto();
         objAero = listaAeropuertos.get(tbl_aeropuerto.getSelectedRow());
-        
-        this.dispose();
-         
-        
+ 
     }//GEN-LAST:event_tbl_aeropuertoMouseClicked
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbm_estadoActionPerformed
 
-    private void btn_seleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_seleccionarActionPerformed
+    private void btn_buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar1ActionPerformed
         // TODO add your handling code here:
         if (tbl_aeropuerto.getSelectedRow() > -1 ) {
-         
+          this.dispose();
+            
         }
         else
         {
+            
+            JOptionPane.showMessageDialog(this,
+                "Debe Seleccionar un Aeropuerto",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE);
+
         
         }
-    }//GEN-LAST:event_btn_seleccionarActionPerformed
+    }//GEN-LAST:event_btn_buscar1ActionPerformed
 
    
    
@@ -406,7 +411,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
-    private javax.swing.JButton btn_seleccionar;
+    private javax.swing.JButton btn_buscar1;
     private javax.swing.JComboBox cbm_Pais;
     private javax.swing.JComboBox cbm_ciudad;
     private javax.swing.JComboBox cbm_estado;
