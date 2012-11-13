@@ -17,8 +17,8 @@ public class AeroLite {
     private int capacidadMax;
     private int capacidadActual;
     int necesidad;
-    private ArrayList<VueloLite> vuelosSalida;
-    private ArrayList<VueloLite> vuelosLlegada;
+    private ArrayList<VueloLite> vuelosSalida = new ArrayList<VueloLite>();
+    private ArrayList<VueloLite> vuelosLlegada= new ArrayList<VueloLite>();
 
     public AeroLite() {
     }

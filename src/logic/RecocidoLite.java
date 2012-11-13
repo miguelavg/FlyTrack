@@ -121,7 +121,7 @@ public class RecocidoLite {
                         }
 
                     } else {
-                        if (vuelo.getCapacidadMax() >= vuelo.getCapacidadActual()) {
+                        if (vuelo.getCapacidadMax() < vuelo.getCapacidadActual()) {
                             vuelo.setNecesidad(vuelo.getNecesidad() + 1);
                         } else {
                             aOrigen.setNecesidad(vuelo.getNecesidad() + 1);
