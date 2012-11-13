@@ -64,7 +64,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Aeropuertos");
+        setTitle("FlyTrack - Aeropuerto");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
