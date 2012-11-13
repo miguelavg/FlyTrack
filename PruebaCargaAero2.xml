@@ -1,44 +1,44 @@
 <list>
   <xml.XmlAeropuerto>
     <idAeropuerto>0</idAeropuerto>
-    <nombre>Luis Alberto Bonnet</nombre>
+    <nombre>Alberto Gallardo</nombre>
     <capacidadMax>200</capacidadMax>
     <capacidadActual>0</capacidadActual>
-    <coordX>200</coordX>
-    <coordY>400</coordY>
+    <coordX>300</coordX>
+    <coordY>100</coordY>
     <pais>39</pais>
     <ciudad>41</ciudad>
     <estado>1</estado>
   </xml.XmlAeropuerto>
   <xml.XmlAeropuerto>
     <idAeropuerto>0</idAeropuerto>
-    <nombre>Jorge Soto</nombre>
+    <nombre>Alfredo Quesada</nombre>
     <capacidadMax>300</capacidadMax>
     <capacidadActual>0</capacidadActual>
-    <coordX>200</coordX>
-    <coordY>400</coordY>
+    <coordX>300</coordX>
+    <coordY>200</coordY>
     <pais>39</pais>
     <ciudad>42</ciudad>
     <estado>1</estado>
   </xml.XmlAeropuerto>
   <xml.XmlAeropuerto>
     <idAeropuerto>0</idAeropuerto>
-    <nombre>Roberto Palacios</nombre>
+    <nombre>Julio Cesar Uribe</nombre>
     <capacidadMax>200</capacidadMax>
     <capacidadActual>0</capacidadActual>
-    <coordX>200</coordX>
-    <coordY>600</coordY>
+    <coordX>300</coordX>
+    <coordY>300</coordY>
     <pais>39</pais>
     <ciudad>43</ciudad>
     <estado>1</estado>
   </xml.XmlAeropuerto>
   <xml.XmlAeropuerto>
     <idAeropuerto>0</idAeropuerto>
-    <nombre>Julinho</nombre>
+    <nombre>Leandro Franco</nombre>
     <capacidadMax>200</capacidadMax>
     <capacidadActual>0</capacidadActual>
-    <coordX>200</coordX>
-    <coordY>800</coordY>
+    <coordX>300</coordX>
+    <coordY>400</coordY>
     <pais>29</pais>
     <ciudad>45</ciudad>
     <estado>1</estado>
