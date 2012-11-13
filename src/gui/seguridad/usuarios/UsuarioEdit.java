@@ -12,6 +12,7 @@ import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import controllers.CCliente;
 import controllers.CContrasena;
+import controllers.CMail;
 import controllers.CParametro;
 import controllers.CPerfil;
 import controllers.CUsuario;
@@ -746,6 +747,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         if (error_message == null || error_message.isEmpty()) {
         
                 if (idusuario == -1) {
+                    CMail cmail = new CMail();
                     Usuario.agregarUsuario(perfil,
                             AeropuertoAux,
                             //aeropuerto,
@@ -766,13 +768,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     //objeto usuario, objeto parametro
                     UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
                     //Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
-
+                    
                     //crear contrasena por defecto
                     //                    
                     Contrasena.agregarContrasena(CSeguridad.generaContraseniaAleatoria(),
                             UsuarioAux,
                             ListaEstado.get(0));
                     
+//                     cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel",UsuarioAux.geteMail(),"contrasena por defecto", "La contrasena por defecto es la siguiente :"+CSeguridad.generaContraseniaAleatoria());
                     
                     
                 } else {
