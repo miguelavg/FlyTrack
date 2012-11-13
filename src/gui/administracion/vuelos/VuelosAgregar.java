@@ -410,6 +410,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
    
             this.dispose();
+            this.setVisible(false);
                          
         // TODO add your handling code here:
      
