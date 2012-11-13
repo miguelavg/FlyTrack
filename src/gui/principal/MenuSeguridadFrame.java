@@ -31,17 +31,15 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
         KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
         Action actionListener = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
             setVisible(false);
+            dispose();
           } 
         } ;
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(strokeESC, "ESCAPE");
         rootPane.getActionMap().put("ESCAPE", actionListener);
-        inputMap.put(strokeBACKSPACE, "BACKSPACE");
-        rootPane.getActionMap().put("BACKSPACE", actionListener);
 
         return rootPane;
     }
