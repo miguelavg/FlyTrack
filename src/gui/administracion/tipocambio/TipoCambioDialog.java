@@ -12,9 +12,16 @@ import controllers.CParametro;
 import controllers.CSeguridad;
 import controllers.CTipoCambio;
 import controllers.CValidator;
+import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +37,24 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         initComponents();
         llenarCombos();
         definirPermisos();
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
     private Parametro origen;
     private Parametro destino;
@@ -350,7 +375,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
             TipoCambioEdit parametroEdit = new TipoCambioEdit(tipoCambio, this, true);
             parametroEdit.showDialog();
-            
+
             tbl_tiposcambio.setValueAt(tipoCambio.getMonedaOrigen().getValor(), fila, 1);
             tbl_tiposcambio.setValueAt(tipoCambio.getMonedaDestino().getValor(), fila, 2);
             tbl_tiposcambio.setValueAt(CValidator.formatNumber(tipoCambio.getTipoCambio()), fila, 3);
@@ -424,7 +449,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     private javax.swing.JTable tbl_tiposcambio;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
+    private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
@@ -434,9 +459,9 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         this.btn_buscar.setEnabled(buscar);
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Aeropuertos", permisos);
 //        this.btn_cargaMasiva.setEnabled(cargaMasiva);
-        
+
         this.setLocationRelativeTo(null);
         pack();
-        
+
     }
 }

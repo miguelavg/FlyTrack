@@ -15,7 +15,14 @@ import java.util.List;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import controllers.CReportes;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -110,6 +117,24 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         habilitarBotones(this.isNuevo);
 
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     private void llenarCombos(boolean isNuevo, Parametro moneda, Parametro doc, Parametro estado, Parametro estadoFactura) {
