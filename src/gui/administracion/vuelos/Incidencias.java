@@ -10,6 +10,7 @@ import beans.Parametro;
 import beans.Vuelo;
 import controllers.CAeropuerto;
 import controllers.CIncidencia;
+import controllers.CVuelo;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +28,14 @@ public class Incidencias extends javax.swing.JDialog {
     public List <Incidencia>ListaInci =null;
     
     public Vuelo objV = null;
+    public Incidencia objInc =null;
     /**
      * Creates new form Incidencias
      */
     public Incidencias(javax.swing.JDialog parent, boolean modal,Vuelo objVuelo) {
         super(parent,modal);
         initComponents();
+        
         llenarComboIncidencia();
         objV  = objVuelo;        
     }
@@ -61,8 +64,9 @@ public class Incidencias extends javax.swing.JDialog {
         btn_buscar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         dt_fechfin = new datechooser.beans.DateChooserCombo();
+        btn_agregar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -124,7 +128,7 @@ public class Incidencias extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Incidencia", "Estado", "Fecha ", "Descripcion", "TipoIndicencia"
+                "Incidencia", "idVuelo", "Fecha ", "Descripcion", "TipoIndicencia"
             }
         ));
         tbl_incidencia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,38 +155,43 @@ public class Incidencias extends javax.swing.JDialog {
             e1.printStackTrace();
         }
 
+        btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbm_incidencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel8))
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dt_fechfin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(256, 256, 256)
-                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_cancelar)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addGap(56, 56, 56)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbm_incidencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(48, 48, 48)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel8))
+                            .addGap(33, 33, 33)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dt_fechfin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btn_cancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,8 +212,10 @@ public class Incidencias extends javax.swing.JDialog {
                         .addComponent(jLabel2)
                         .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(btn_buscar)
-                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_buscar)
+                    .addComponent(btn_agregar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(btn_cancelar)
@@ -261,8 +272,19 @@ public class Incidencias extends javax.swing.JDialog {
         IncidenciaEdit VInci = new IncidenciaEdit(this,true,objV,1);
         VInci.setModal(true);
         VInci.setVisible(true);
+        ListaInci = objV.getIncidencias();
+        llenarGrillaIncidencia();
           
     }//GEN-LAST:event_tbl_incidenciaMouseClicked
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        // TODO add your handling code here:
+        IncidenciaEdit VInci = new IncidenciaEdit(this,true,objV,1);
+        VInci.setModal(true);
+        objInc=VInci.showDialog();
+        cambioEstadoVuelo();
+        
+    }//GEN-LAST:event_btn_agregarActionPerformed
 
     
      public void llenarGrillaIncidencia(){
@@ -287,21 +309,23 @@ public class Incidencias extends javax.swing.JDialog {
           
             
            datos[0] = ListaInci.get(i).getIdIncidencia();
-           datos[1] = ListaInci.get(i).getEstado().getIdParametro();
-           datos[2] = ListaInci.get(i).getDescripcion();
+        
+           
+           datos[4] = ListaInci.get(i).getVuelo().getIdVuelo(); 
            datos[3] = ListaInci.get(i).getFecha();
-           datos[4] = ListaInci.get(i).getVuelo().getIdVuelo();           
+           datos[2] = ListaInci.get(i).getDescripcion();
+           datos[1] = ListaInci.get(i).getEstado().getValor();
           
-            fec.setTime((Date)dtm.getValueAt(i,3));
+            fec.setTime(ListaInci.get(i).getFecha());
             
-           if ((Integer)(dtm.getValueAt(i, 1)) == 
-              ((Parametro)cbm_incidencia.getSelectedItem()).getIdParametro()
-               &&  (dt_fechini.getSelectedDate().compareTo(fec)==-1) && 
-                   (dt_fechini.getSelectedDate().compareTo(fec)==1))
-               
-           {
+//           if ((Integer)(dtm.getValueAt(i, 1)) == 
+//              ((Parametro)cbm_incidencia.getSelectedItem()).getIdParametro()
+//               &&  (dt_fechini.getSelectedDate().compareTo(fec)==-1) && 
+//                   (dt_fechini.getSelectedDate().compareTo(fec)==1))
+//               
+//           {
             dtm.addRow(datos);
-           }
+//           }
                
     
     }
@@ -349,6 +373,7 @@ public class Incidencias extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JComboBox cbm_incidencia;
@@ -375,5 +400,34 @@ public class Incidencias extends javax.swing.JDialog {
             
             cbm_incidencia.addItem(TipoDocBE);
         }
+    }
+
+    private void cambioEstadoVuelo() {
+        String val;
+        String valorPara;
+        val= objInc.getEstado().getValorUnico();
+        
+        if (val.compareTo("DES")==0) //DESPEGUE -- > EN VUELO 16
+        {   valorPara="VUE";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }     
+        if (val.compareTo("ATE")==0)//ATERRIZAJE --> FINALIZADO 17
+        {   valorPara="FIN";
+            cambiarEstado(objInc.getVuelo(),valorPara);
+        }              
+        if (val.compareTo("RET")==0) // RETRASO --> retraso 15
+        {    valorPara="RET";
+            cambiarEstado(objInc.getVuelo(),valorPara);
+        }                        
+        if (val.compareTo("CAN")==0) //cancelado --> cancelado 18
+        {   valorPara="CAN";
+            cambiarEstado(objInc.getVuelo(),valorPara);
+        }
+    
+    }
+
+    private void cambiarEstado(Vuelo objVuelo, String valorPara) {
+
+       CVuelo.modificarVueloEstado(objVuelo, valorPara);
     }
 }

@@ -29,7 +29,9 @@ import org.hibernate.annotations.NamedQuery;
     @NamedQuery(
         name = "ContraseniaActivaXUsuario",
         query = "from Contrasena where usuario = :usuario and estado.valorUnico = 'ACTV'"
-    )
+    ),
+    @NamedQuery(name = "ContrasenaxId",
+    query = "from Contrasena where idUsuario = :idusuario"),
 })
 public class Contrasena implements Serializable {
     @Id

@@ -27,7 +27,7 @@ public class CIncidencia {
             Query q;
 
             q = s.getNamedQuery("ParametrosAeropuerto");
-            q.setParameter("tipo", "ESTADO_ENVIO");
+            q.setParameter("tipo", "ESTADO_INCIDENCIA");
             ListaTipoInci = q.list();
 
 

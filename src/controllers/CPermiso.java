@@ -49,7 +49,39 @@ public class CPermiso {
         return false;
     }
     
-    public static void crearPermiso(Perfil perfil, String nombreAccion, int nivelAccion, String nombreAccionPadre){
+    public static Permiso encontrarPermiso(List<Permiso> permisos, String nombre, int nivel, String nombrePadre){
+        
+        for(Permiso permiso : permisos){
+            boolean coincideNombre  = permiso.getAccion().getNombre().equals(nombre);
+            boolean coincideNivel   = permiso.getAccion().getNivel() == nivel;
+            boolean coincidePadre;
+            if(nombrePadre == null){
+                if (permiso.getAccion().getPadre() == null){
+                    coincidePadre = true;
+                }
+                else{
+                    coincidePadre = false;
+                }
+            }
+            else{
+                if(permiso.getAccion().getPadre() == null){
+                    coincidePadre = false;
+                }
+                else{
+                    coincidePadre = permiso.getAccion().getPadre().getNombre().equals(nombrePadre);
+                }
+            }
+            
+            if(coincideNombre && coincideNivel && coincidePadre){
+                return permiso;
+            }
+                
+        }
+        
+        return null;
+    }
+    
+    public static boolean crearPermiso(Perfil perfil, String nombreAccion, int nivelAccion, String nombreAccionPadre){
         Session s = Sesion.openSessionFactory();
         
         try{
@@ -76,13 +108,31 @@ public class CPermiso {
             permiso.setPerfil(perfil);
             s.save(permiso);
             tx.commit();
+            return Boolean.TRUE;
             
         }catch (Exception e){
-            System.out.println(e.getMessage());            
+            System.out.println(e.getMessage());
+            return Boolean.FALSE;
         }finally{
             s.close();
             Sesion.closeSessionFactory();
         }
         
+    }
+    
+    public static boolean eliminarPermiso(Permiso permiso){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
+            s.delete(permiso);
+            tx.commit();
+            return Boolean.TRUE;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return Boolean.FALSE;
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }        
     }
 }

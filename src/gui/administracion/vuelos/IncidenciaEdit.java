@@ -7,6 +7,8 @@ import controllers.CIncidencia;
 import beans.Incidencia;
 import beans.Parametro;
 import beans.Vuelo;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,6 +18,8 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     public Vuelo objV =null;
     public int indicador = 0;
+    public List <Parametro>ListatipoInci =null;
+    Incidencia objInc=null;
     /**
      * Creates new form IncidenciaEdit
      */
@@ -27,8 +31,25 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         if (i==-1){
          llenarComponentes();
         }
+        txt_codigo.setText(String.valueOf(objVuelo.getIdVuelo()));
+        llenarComboIncidencia();
+    }
+   
+    private void llenarComboIncidencia() {
+      ListatipoInci = CIncidencia.llenarComboEstado();;
+      
+      for (int i=0;i<ListatipoInci.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListatipoInci.get(i);
+            
+            cbm_incidencia.addItem(TipoDocBE);
+        }
     }
 
+   public beans.Incidencia showDialog(){
+        setVisible(true);       
+        return objInc;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +70,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         txt_codigo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         dt_fech = new datechooser.beans.DateChooserCombo();
-        cbm_tipoInci = new javax.swing.JComboBox();
+        cbm_incidencia = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ta_descripcion = new javax.swing.JTextArea();
@@ -57,8 +78,9 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         ft_inci = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 420));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(null);
+        setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -128,6 +150,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         jLabel9.setText("Descripciòn");
 
         ft_inci.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance())));
+        ft_inci.setEnabled(false);
 
         jLabel10.setText("Hora Incidencia");
 
@@ -152,7 +175,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
                             .addComponent(jLabel10))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbm_tipoInci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbm_incidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(ft_inci, javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +192,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
                     .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbm_tipoInci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbm_incidencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -217,9 +240,9 @@ public class IncidenciaEdit extends javax.swing.JDialog {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
         
-        Incidencia objInc =null;
+        objInc = new Incidencia();
         objInc.setDescripcion(ta_descripcion.getText());
-        objInc.setEstado((Parametro)cbm_tipoInci.getSelectedItem());
+        objInc.setEstado((Parametro)cbm_incidencia.getSelectedItem());
         objInc.setFecha(dt_fech.getSelectedDate().getTime());
         objInc.setVuelo(objV);
       
@@ -227,6 +250,10 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         if (indicador != -1) {
                          
              CIncidencia.cargarIncidencia(objInc);
+             if  ( objV.getIncidencias() == null ) {
+                objV.setIncidencias(new ArrayList<Incidencia>());
+             }
+             objV.getIncidencias().add(objInc);
         }
 //        } else {
 //            // modificar
@@ -240,6 +267,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 //                    txt_capacidad.getText());
 //
 //        }
+        this.dispose();
 
    }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -250,7 +278,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
 
 //        vVuelo.dispose();
-
+        this.dispose();
 
 
         // TODO add your handling code here:
@@ -263,7 +291,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_guardar;
-    private javax.swing.JComboBox cbm_tipoInci;
+    private javax.swing.JComboBox cbm_incidencia;
     private datechooser.beans.DateChooserDialog dateChooserDialog1;
     private datechooser.beans.DateChooserDialog dateChooserDialog2;
     private datechooser.beans.DateChooserCombo dt_fech;
