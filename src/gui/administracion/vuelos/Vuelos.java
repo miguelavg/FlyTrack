@@ -105,6 +105,7 @@ public class Vuelos extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txt_origen.setToolTipText("");
+        txt_origen.setEnabled(false);
         txt_origen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_origenActionPerformed(evt);
@@ -127,6 +128,7 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
+        txt_destino.setEnabled(false);
         txt_destino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_destinoActionPerformed(evt);
@@ -364,7 +366,6 @@ public class Vuelos extends javax.swing.JDialog {
     }
 
     public void llenarGrillaVuelo() {
-
         Parametro TipoDoc;
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_vuelos.getModel();
         int rows = dtm.getRowCount();
@@ -407,11 +408,12 @@ public class Vuelos extends javax.swing.JDialog {
         fechini = dt_fechini.getSelectedDate();
         fechfin = dt_fechfin.getSelectedDate();
         
-        listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+        //listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
         vVuelAgre.setVisible(true);
         vVuelAgre.setModal(true);
         this.setEnabled(true);
         this.setVisible(true);
+        listaVuelos = CVuelo.BuscarVuelo(null, null, null, null, null);
         llenarGrillaVuelo();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -443,6 +445,8 @@ public class Vuelos extends javax.swing.JDialog {
         {
             listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null );
         }
+        
+        
         llenarGrillaVuelo();
     }//GEN-LAST:event_btn_buscarActionPerformed
 

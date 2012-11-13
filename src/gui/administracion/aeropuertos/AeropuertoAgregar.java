@@ -6,6 +6,8 @@ package gui.administracion.aeropuertos;
 
 import beans.Parametro;
 import controllers.CAeropuerto;
+import controllers.CValidator;
+import gui.ErrorDialog;
 import java.util.List;
 
 /**
@@ -96,9 +98,18 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
                 txt_NombreActionPerformed(evt);
             }
         });
+        txt_Nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_NombreKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("Estado:");
         jLabel5.setEnabled(false);
+
+        txt_X.setEnabled(false);
+
+        txt_Y.setEnabled(false);
 
         jLabel7.setText("X:");
 
@@ -106,15 +117,24 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
         jLabel8.setText("Capacidad max de Almacenamiento:");
 
+        txt_capacidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_capacidadKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Ciudad:");
 
         jLabel4.setText("País:");
 
+        cbm_pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_pais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_paisActionPerformed(evt);
             }
         });
+
+        cbm_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         cbm_estado.setEnabled(false);
         cbm_estado.addActionListener(new java.awt.event.ActionListener() {
@@ -247,25 +267,71 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_NombreActionPerformed
 
+        private String validarcampos(){
+        String error_message = "";
+        if (txt_Nombre.getText().isEmpty()||txt_capacidad.getText().isEmpty()
+                ||cbm_pais.getSelectedIndex()==0 || cbm_ciudad.getSelectedIndex()==0 ||cbm_estado.getSelectedIndex()==0 ){
+            
+            error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                                    
+        }
+        else{
+            
+            if (CValidator.esAlfanumerico(txt_Nombre.getText())){
+                
+                error_message = "El nombre no puede ser alfanumérico";
+            }
+            
+//            if (idCliente==-1){
+//
+//                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
+//            }
+//            
+            if (CValidator.esAlfanumerico(txt_Nombre.getText())){
+                
+                error_message = "El nombre es inválido";
+                
+            }
+            
+            if (!CValidator.isInteger(txt_capacidad.getText())){
+                
+                error_message = "El capacidad maxima es inválida";
+                
+            }
+           
+            
+        }
+                      
+        return error_message;
+    }
+    
+    
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         beans.Aeropuerto objAeropuerto = new beans.Aeropuerto();
-        
-         
 
-        CAeropuerto.agregarAeropuerto(
-                Integer.parseInt(txt_capacidad.getText()),
-                0,
-                ListatipoHijo.get(cbm_ciudad.getSelectedIndex()),
-                Integer.parseInt(txt_X.getText()),
-                Integer.parseInt(txt_Y.getText()),
-                ListatipoEst.get(cbm_estado.getSelectedIndex()),
-                txt_Nombre.getText(),
-                ListatipoPar.get(cbm_pais.getSelectedIndex()));
-     
-        this.dispose();
+
+        String error_message = validarcampos();
+        if (error_message.isEmpty()) {
+
+
+            CAeropuerto.agregarAeropuerto(
+                    Integer.parseInt(txt_capacidad.getText()),
+                    0,
+                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex()),
+                    Integer.parseInt(txt_X.getText()),
+                    Integer.parseInt(txt_Y.getText()),
+                    ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                    txt_Nombre.getText(),
+                    ListatipoPar.get(cbm_pais.getSelectedIndex()));
+
+            setVisible(false);
+            dispose();
+        } else {
+            ErrorDialog.mostrarError(error_message, this);
+        }
         
-        
+       
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_ubicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubicarActionPerformed
@@ -285,23 +351,55 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
     private void cbm_paisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_paisActionPerformed
         // TODO add your handling code here:
+//        if (cbm_pais.getSelectedIndex() != 0) {
+//            cbm_ciudad.removeAllItems();
+//
+//            ListatipoHijo = ListatipoPar.get(cbm_pais.getSelectedIndex()).getHijos();
+//            for (int i = 0; i < ListatipoHijo.size(); i++) {
+//                Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
+//
+//                cbm_ciudad.addItem(TipoDocBE);
+//            }
+//
+//
+//        }
         
-           cbm_ciudad.removeAllItems();
+        cbm_ciudad.removeAllItems();
+        cbm_ciudad.addItem("Seleccionar");
+
+
+        if (cbm_pais.getSelectedIndex() > 0) {
+            ListatipoHijo = ListatipoPar.get(cbm_pais.getSelectedIndex() - 1).getHijos();
+            for (int i = 0; i < ListatipoHijo.size(); i++) {
+                Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
+                cbm_ciudad.addItem(TipoDocBE);
+            }
+        }        
         
-       
         
-         ListatipoHijo = ListatipoPar.get(cbm_pais.getSelectedIndex()).getHijos();
-            for (int i=0;i<ListatipoHijo.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoHijo.get(i);
-            
-            cbm_ciudad.addItem(TipoDocBE);
-        }
     }//GEN-LAST:event_cbm_paisActionPerformed
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbm_estadoActionPerformed
+
+    private void txt_NombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NombreKeyReleased
+        // TODO add your handling code here:
+        
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txt_Nombre)) {
+            getToolkit().beep();
+        }
+        
+    }//GEN-LAST:event_txt_NombreKeyReleased
+
+    private void txt_capacidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_capacidadKeyReleased
+                char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txt_capacidad)) {
+            getToolkit().beep();
+        }// TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_capacidadKeyReleased
 
     
     private void limpiarComponentes(){
