@@ -15,6 +15,12 @@ public class EnvioLite {
     private int evt;
     private int num;
 
+    public EnvioLite(AeroLite origen, AeroLite destino, int num) {
+        this.origen = origen;
+        this.destino = destino;
+        this.num = num;
+    }
+    
     public AeroLite getOrigen() {
         return origen;
     }
