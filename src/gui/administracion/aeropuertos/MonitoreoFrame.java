@@ -140,61 +140,29 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         setTitle("Monitoreo Envio");
         setMinimumSize(new java.awt.Dimension(1024, 582));
         setModal(true);
+        setPreferredSize(new java.awt.Dimension(1024, 582));
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-        // TODO add your handling code here:
-        int x_posicion;
-        int y_posicion;
-        x_posicion = evt.getX();
-        y_posicion = evt.getY();
-        Graphics g = this.getGraphics();
-          objAero.setCoordX(x_posicion);
-          objAero.setCoordY(y_posicion);
-          g.setColor(Color.WHITE);  
-          g.fillOval(x_posicion, y_posicion, 10,10 );
-              
-          g.drawOval(x_posicion, y_posicion, 10,10 );
-          g.drawString(objAero.getPais().getValor()+'-'+objAero.getNombre(), x_posicion + 15, y_posicion);
-          int result = 0;
-   
-         
-          result =  JOptionPane.showConfirmDialog(null, "Desea asignarle otra ubicacion ?", "Confirmaciòn",JOptionPane.YES_NO_OPTION);
-         
-          if (result == JOptionPane.NO_OPTION ) {
-                 this.dispose();
-          }
-             
-         
-        
-    }//GEN-LAST:event_jLabel1MousePressed
 
    
     /**

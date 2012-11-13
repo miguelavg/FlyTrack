@@ -79,6 +79,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FlyTrack - Incidencia - Edit");
         setPreferredSize(null);
         setResizable(false);
 

@@ -272,7 +272,10 @@ public class CAeropuerto {
         
     }
       
-     public static List<Aeropuerto> BuscarAeropuerto(Integer Pais,Integer Ciudad,Integer Estado) {
+     public static List<Aeropuerto> BuscarAeropuerto(
+                    Parametro Pais,
+                    Parametro Ciudad,
+                    Parametro Estado) {
          
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -285,18 +288,18 @@ public class CAeropuerto {
             
            q = s.getNamedQuery("Aero");
            
-           if (Pais > 0 && !Pais.equals(""))
+           if (Pais!=null)
            {
              Filter f = s.enableFilter("AeropuertoxPais");
              f.setParameter("Pais",Pais);
            }
-           if (Ciudad > 0 && !Ciudad.equals("")){
+           if (Ciudad!=null){
                 Filter f2 = s.enableFilter("AeropuertoxCiudad");
                 f2.setParameter("Ciudad",Ciudad);
 
            }
        
-           if (Estado > 0 && !Estado.equals("")){
+           if (Estado!=null){
                 Filter f4 = s.enableFilter("AeropuertoxEstado");               
                 f4.setParameter("Estado",Estado);
 

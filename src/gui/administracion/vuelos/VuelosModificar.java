@@ -48,6 +48,7 @@ public class VuelosModificar extends javax.swing.JFrame {
         dateChooserCombo2 = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FlyTrack - Vuelos - Modificar");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
