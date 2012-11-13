@@ -95,7 +95,9 @@ public class EnvioDialog extends javax.swing.JDialog {
         datos[1] = e.getRemitente().getNombres() + " " + e.getRemitente().getApellidos();
         datos[2] = e.getDestinatario().getNombres() + " " + e.getDestinatario().getApellidos();
         datos[3] = e.getOrigen().getNombre() + ", " + e.getOrigen().getCiudad() + ", " + e.getOrigen().getPais();
-        datos[4] = e.getActual().getNombre() + ", " + e.getActual().getCiudad() + ", " + e.getActual().getPais();
+        if (e.getActual() != null) {
+            datos[4] = e.getActual().getNombre() + ", " + e.getActual().getCiudad() + ", " + e.getActual().getPais();
+        }
         datos[5] = e.getDestino().getNombre() + ", " + e.getDestino().getCiudad() + ", " + e.getDestino().getPais();
         datos[6] = e.getEstado();
         dtm.addRow(datos);
@@ -563,7 +565,9 @@ public class EnvioDialog extends javax.swing.JDialog {
             tbl_envios.setValueAt(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos(), fila, 1);
             tbl_envios.setValueAt(envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos(), fila, 2);
             tbl_envios.setValueAt(envio.getOrigen().getNombre(), fila, 3);
-            tbl_envios.setValueAt(envio.getActual().getNombre(), fila, 4);
+            if (envio.getActual() != null) {
+                tbl_envios.setValueAt(envio.getActual().getNombre(), fila, 4);
+            }
             tbl_envios.setValueAt(envio.getDestino().getNombre(), fila, 5);
             tbl_envios.setValueAt(envio.getEstado().getValor(), fila, 6);
         }

@@ -25,8 +25,9 @@ public class NotaSalida extends javax.swing.JDialog {
     public NotaSalida(javax.swing.JDialog parent, boolean modal, Envio e) {
         super(parent, modal);
         initComponents();
-        cargarcampos();
         this.envio=e;
+        cargarcampos();
+        
     }
 
     public void cargarcampos(){
