@@ -76,6 +76,7 @@ public class Vuelos extends javax.swing.JDialog {
         btnIncidencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FlyTrack - Vuelos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
