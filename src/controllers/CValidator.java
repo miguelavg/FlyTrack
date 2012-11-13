@@ -9,6 +9,8 @@ import beans.Sesion;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JTextField;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -107,7 +109,12 @@ public class CValidator {
         }
         return true;
     }
-    
+    public static boolean validarEmail(String email) {
+        String regex = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
     public static boolean validarSoloNumeros( char input , JTextField caja){
         
         if (input!=8){

@@ -196,7 +196,15 @@ public class Clientes extends javax.swing.JDialog {
             new String [] {
                 "Id", "Nombre", "Apellido", "Teléfono", "Email", "Tipo Doc.", "Num. Doc."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         ClienteTabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(ClienteTabla);
         ClienteTabla.getColumnModel().getColumn(0).setMinWidth(0);

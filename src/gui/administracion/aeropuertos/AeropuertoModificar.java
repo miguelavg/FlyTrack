@@ -6,6 +6,8 @@ package gui.administracion.aeropuertos;
 
 import beans.Parametro;
 import controllers.CAeropuerto;
+import controllers.CValidator;
+import gui.ErrorDialog;
 import java.util.List;
 
 /**
@@ -146,14 +148,29 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                 txt_nombreActionPerformed(evt);
             }
         });
+        txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_nombreKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("Estado:");
+
+        txt_X.setEnabled(false);
+
+        txt_Y.setEnabled(false);
 
         jLabel7.setText("X:");
 
         jLabel6.setText("Y:");
 
         jLabel8.setText("Capacidad max de almacenamiento:");
+
+        txt_capacidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_capacidadKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Ciudad:");
 
@@ -163,14 +180,17 @@ public class AeropuertoModificar extends javax.swing.JDialog {
 
         txt_capaActu.setEnabled(false);
 
+        cbm_pais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_pais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_paisActionPerformed(evt);
             }
         });
 
+        cbm_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_ciudad.setToolTipText("");
 
+        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbm_estadoActionPerformed(evt);
@@ -325,12 +345,56 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nombreActionPerformed
 
+    
+    private String validarcampos(){
+        String error_message = "";
+        if (txt_nombre.getText().isEmpty()||txt_capacidad.getText().isEmpty()
+                ||cbm_pais.getSelectedIndex()==0 || cbm_ciudad.getSelectedIndex()==0 ||cbm_estado.getSelectedIndex()==0 ){
+            
+            error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                                    
+        }
+        else{
+            
+            if (CValidator.esAlfanumerico(txt_nombre.getText())){
+                
+                error_message = "El nombre no puede ser alfanumérico";
+            }
+            
+//            if (idCliente==-1){
+//
+//                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
+//            }
+//            
+            if (CValidator.esAlfanumerico(txt_nombre.getText())){
+                
+                error_message = "El nombre es inválido";
+                
+            }
+            
+            if (!CValidator.isInteger(txt_capacidad.getText())){
+                
+                error_message = "La capacidad maxima es inválida";
+                
+            }
+           
+            
+        }
+                      
+        return error_message;
+    }
+    
+    
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         
           beans.Aeropuerto objAeropuerto = new beans.Aeropuerto();
         
-            CAeropuerto.modificarAeropuerto(
+                
+        String error_message = validarcampos();
+        if (error_message.isEmpty()){
+
+                        CAeropuerto.modificarAeropuerto(
                     objAero.getIdAeropuerto(),
                     Integer.parseInt(txt_capacidad.getText()),
                     0,
@@ -340,10 +404,19 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                     ListatipoEst.get(cbm_estado.getSelectedIndex()),
                     txt_nombre.getText(),
                     ListatipoPar.get(cbm_pais.getSelectedIndex()));
-
-            this.dispose();
-        
-        
+            
+            setVisible(false);
+            dispose();
+        }
+        else{
+            ErrorDialog.mostrarError(error_message, this);
+        }
+            
+            
+            
+            
+            
+            
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
@@ -366,19 +439,47 @@ public class AeropuertoModificar extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void cbm_paisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_paisActionPerformed
-        // TODO add your handling code here:
+//        // TODO add your handling code here:
+//        if (cbm_pais.getSelectedIndex() != 0) {
+//            cbm_ciudad.removeAllItems();
+//            ListatipoHijo = ListatipoPar.get(cbm_pais.getSelectedIndex()).getHijos();
+//            for (int i = 0; i < ListatipoHijo.size(); i++) {
+//                Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
+//                cbm_ciudad.addItem(TipoDocBE);
+//            }
+//        }
+        
+        
         cbm_ciudad.removeAllItems();
+        cbm_ciudad.addItem("Seleccionar");
+
+
+        if (cbm_pais.getSelectedIndex() > 0) {
+            ListatipoHijo = ListatipoPar.get(cbm_pais.getSelectedIndex() - 1).getHijos();
+            for (int i = 0; i < ListatipoHijo.size(); i++) {
+                Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
+                cbm_ciudad.addItem(TipoDocBE);
+            }
+        }  
         
-       
-        
-         ListatipoHijo = ListatipoPar.get(cbm_pais.getSelectedIndex()).getHijos();
-            for (int i=0;i<ListatipoHijo.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoHijo.get(i);
-            
-            cbm_ciudad.addItem(TipoDocBE);
-        }
     }//GEN-LAST:event_cbm_paisActionPerformed
+
+    private void txt_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyReleased
+        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txt_nombre)) {
+            getToolkit().beep();
+        }
+    }//GEN-LAST:event_txt_nombreKeyReleased
+
+    private void txt_capacidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_capacidadKeyReleased
+        // TODO add your handling code here:
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txt_capacidad)) {
+            getToolkit().beep();
+        }// TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_capacidadKeyReleased
 
     
     private void llenarComboPais(){
@@ -484,14 +585,14 @@ public class AeropuertoModificar extends javax.swing.JDialog {
      
      for (int j=0; j< ListatipoPar.size() ; j ++) {
        if (objAero.getPais().getValor().compareTo(ListatipoPar.get(j).getValor())==0){
-           cbm_pais.setSelectedIndex(j);
+           cbm_pais.setSelectedIndex(j+1);
            break;
        }     
      }
      
      for (int i=0; i < ListatipoHijo.size() ; i ++) {
        if (objAero.getCiudad().getValor().compareTo(ListatipoHijo.get(i).getValor())==0){
-           cbm_ciudad.setSelectedIndex(i);
+           cbm_ciudad.setSelectedIndex(i+1);
            break;
        }     
      }
