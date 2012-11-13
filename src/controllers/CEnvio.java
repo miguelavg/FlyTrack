@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import logic.Recocido;
-import logic.VueloLite;
+import logic.VueloHist;
 import org.hibernate.Filter;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -173,9 +173,9 @@ public class CEnvio {
             q.setParameter("lower", pasado);
 
             List<Object[]> lista = q.list();
-            ArrayList<VueloLite> vuelosL = new ArrayList<VueloLite>();
+            ArrayList<VueloHist> vuelosL = new ArrayList<VueloHist>();
             for (Object[] o : lista) {
-                vuelosL.add(new VueloLite((Integer) o[0], (Integer) o[1], (Double) o[2]));
+                vuelosL.add(new VueloHist((Integer) o[0], (Integer) o[1], (Double) o[2]));
             }
 
             //   Comenzamos la simulación...    
