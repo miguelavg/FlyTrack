@@ -279,12 +279,14 @@ public class AeropuertoPopup extends javax.swing.JDialog {
           if (cbm_Pais.getSelectedIndex() > 0 ) {
             p = (Parametro)cbm_Pais.getSelectedItem();
             ListatipoHijo = p.getHijos();
+            cbm_ciudad.addItem("Seleccionar");
             for (int i=0;i<ListatipoHijo.size();i++)
                     {
                         Parametro TipoDocBE =(Parametro)ListatipoHijo.get(i);
 
                         cbm_ciudad.addItem(TipoDocBE);
                     }
+            cbm_ciudad.setSelectedIndex(0);
           }
           
          
