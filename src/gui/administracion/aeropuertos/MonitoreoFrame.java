@@ -11,6 +11,7 @@ import beans.Escala;
 import beans.Parametro;
 import beans.Vuelo;
 import controllers.CAeropuerto;
+import controllers.CVuelo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -59,9 +60,9 @@ public class MonitoreoFrame extends javax.swing.JDialog {
                  c.drawOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
                 // c.draw3DRect(, rootPaneCheckingEnabled);
                          
-                // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
-                 
+                // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );       
            }  
+        
         c.setColor(Color.GREEN);
         c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
               
@@ -144,6 +145,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,6 +169,20 @@ public class MonitoreoFrame extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        Graphics c = this.getGraphics();
+         c.setColor(Color.WHITE);
+           c.fillOval(evt.getX(),evt.getY(), 10,10 );
+        c.drawOval(evt.getX(),evt.getY(), 10,10 );
+      int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posiciòn?", "Advertencia", JOptionPane.YES_NO_OPTION);
+         if (JOptionPane.YES_OPTION == result) {
+             objAero.setCoordX(evt.getX());
+             objAero.setCoordY(evt.getY());
+             this.dispose();
+         }
+    }//GEN-LAST:event_jLabel1MouseClicked
 
    
     /**
