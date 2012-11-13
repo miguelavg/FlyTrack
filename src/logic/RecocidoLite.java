@@ -107,7 +107,7 @@ public class RecocidoLite {
                 for (VueloLite vuelo : aActual.getVuelosSalida()) {
 
                     if (vuelo.getCapacidadMax() >= vuelo.getCapacidadActual()
-                            && aOrigen.getCapacidadActual() <= aOrigen.getCapacidadMax()) {
+                            && aActual.getCapacidadActual() <= aActual.getCapacidadMax()) {
                         posibles.add(vuelo);
                         ArrayList<VueloLite> wrap = new ArrayList<VueloLite>();
                         wrap.add(vuelo);
@@ -124,7 +124,7 @@ public class RecocidoLite {
                         if (vuelo.getCapacidadMax() < vuelo.getCapacidadActual()) {
                             vuelo.setNecesidad(vuelo.getNecesidad() + 1);
                         } else {
-                            aOrigen.setNecesidad(vuelo.getNecesidad() + 1);
+                            aActual.setNecesidad(aActual.getNecesidad() + 1);
                         }
                     }
                 }
@@ -157,6 +157,7 @@ public class RecocidoLite {
             }
 
             if (iActual != iFinal) {
+                aActual.setNecesidad(aActual.getNecesidad() + 1);
                 return null;
             }
 
