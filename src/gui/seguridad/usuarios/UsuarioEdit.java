@@ -847,7 +847,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
 
-
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
                     
                     UsuarioauxBE= Usuario.BuscarXid(idusuario);
