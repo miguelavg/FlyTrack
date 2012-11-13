@@ -212,7 +212,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             btn_out.setEnabled(false);
         }
 
-        if (!this.isNuevo && !this.envio.getEstadoFactura().getValorUnico().equals("EM")) {
+        if (!this.isNuevo && this.envio.getEstadoFactura().getValorUnico().equals("EM")) {
             btn_factura.setEnabled(true);
         } else {
             btn_factura.setEnabled(false);
@@ -1041,10 +1041,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.envio.setActual(actual);
             this.envio.setOrigen(origen);
             this.envio.setDestino(destino);
-            Parametro param = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO","PROG");
-            this.envio.setEstado(param);
-            param = CParametro.buscarXValorUnicoyTipo("ESTADO_FACTURA","EM");
-            this.envio.setEstadoFactura(param);
+            this.estado = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO","PROG");
+            this.envio.setEstado(this.estado);
+            this.estadoFactura = CParametro.buscarXValorUnicoyTipo("ESTADO_FACTURA","EM");
+            this.envio.setEstadoFactura(this.estadoFactura);
             this.envio.setRemitente(remitente);
             this.envio.setDestinatario(destinatario);
             this.envio.setMoneda(moneda);
