@@ -246,4 +246,22 @@ public class CSeguridad {
         
         return true;
     }
-}
+    
+       public static boolean validarContrasenaHist(char[] contrasenaAValidar, int idUsuario) {
+
+        Parametro condicion;
+        boolean valor=true;
+        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST");
+        List<Contrasena> contrasenasAContrastar = CSeguridad.getUltimasContrasenasXUsuario(Integer.parseInt(condicion.getValor()), idUsuario);
+        String passAValidar = new String(contrasenaAValidar);
+        for (Contrasena contrasenaAContrastar : contrasenasAContrastar) {
+            String passAContrastar = new String(contrasenaAContrastar.getText());
+            if (passAContrastar.equals(passAValidar)) {   valor= false; break;}
+            else {valor= true;}
+        }
+        
+        return valor;
+        
+        }
+
+    }
