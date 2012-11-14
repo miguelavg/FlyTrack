@@ -37,6 +37,7 @@ public class Vuelos extends javax.swing.JDialog {
      */
     public Vuelos() {
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboEstado();
         definirPermisos();
     }

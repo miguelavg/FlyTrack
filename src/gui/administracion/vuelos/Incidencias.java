@@ -33,7 +33,7 @@ public class Incidencias extends javax.swing.JDialog {
     public Incidencias(javax.swing.JDialog parent, boolean modal, Vuelo objVuelo) {
         super(parent, modal);
         initComponents();
-
+        this.setLocationRelativeTo(null);
         llenarComboIncidencia();
         objV = objVuelo;
     }
