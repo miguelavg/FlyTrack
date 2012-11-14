@@ -30,6 +30,7 @@ public class VuelosCarga extends javax.swing.JDialog {
     boolean archivovalido=false;
     public VuelosCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
         generaraeropuertos();
     }

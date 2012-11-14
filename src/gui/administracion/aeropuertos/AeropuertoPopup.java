@@ -40,6 +40,8 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     public AeropuertoPopup(javax.swing.JFrame parent, boolean modal) {
        super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        buscar();
         llenarComboPais();
         llenarComboEstado();
         
@@ -232,9 +234,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
-          Parametro TipoPais = null;
+    
+    public void buscar(){
+       Parametro TipoPais = null;
           Parametro TipoCiudad = null;
           Parametro TIpoEstado = null;
           
@@ -271,6 +273,11 @@ public class AeropuertoPopup extends javax.swing.JDialog {
            
            dtm.addRow(datos);
        }
+    
+    }
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+         buscar();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
