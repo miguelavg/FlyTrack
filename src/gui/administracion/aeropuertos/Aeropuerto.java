@@ -30,6 +30,8 @@ public class Aeropuerto extends javax.swing.JDialog {
      * Creates new form Aeropuerto
      */
     public Aeropuerto() {
+        
+        this.setLocationRelativeTo(null);
         initComponents();
         llenarComboPais();
         llenarComboEstado();

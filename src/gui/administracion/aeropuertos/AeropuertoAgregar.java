@@ -24,8 +24,10 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
      private List<Parametro> ListatipoEst; 
      private List<Parametro> ListatipoHijo;
     public AeropuertoAgregar(javax.swing.JDialog parent, boolean modal) {
+        
         super(parent, true);
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
         limpiarComponentes();
