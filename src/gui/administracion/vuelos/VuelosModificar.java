@@ -15,6 +15,7 @@ public class VuelosModificar extends javax.swing.JFrame {
      */
     public VuelosModificar() {
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboEstado();
     }
 
