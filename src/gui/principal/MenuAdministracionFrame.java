@@ -13,7 +13,15 @@ import gui.administracion.aeropuertos.Aeropuerto;
 import gui.administracion.tipocambio.TipoCambioDialog;
 import gui.clientes.ClientesPopUp;
 import gui.seguridad.parametros.ParametroDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -27,6 +35,22 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
     public MenuAdministracionFrame() {
         initComponents();
         definirPermisos();
+    }
+    
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(Boolean.FALSE);
+            dispose();
+          } 
+        } ;
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -254,18 +278,26 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean tarifas = CSeguridad.validarPermiso(2, "Administracion", "Tarifas", permisos);
         this.btnTarifas.setEnabled(tarifas);
         this.lblTarifas.setEnabled(tarifas);
+        
         boolean tipoCambio = CSeguridad.validarPermiso(2, "Administracion", "TipoCambio", permisos);
         this.btnTipoCambio.setEnabled(tipoCambio);
         this.lblTipoCambio.setEnabled(tipoCambio);
+        
         boolean vuelos = CSeguridad.validarPermiso(2, "Administracion", "Vuelos", permisos);
         this.btnVuelos.setEnabled(vuelos);
         this.lblVuelos.setEnabled(vuelos);
+        
         boolean aeropuertos = CSeguridad.validarPermiso(2, "Administracion", "Aeropuertos", permisos);
         this.btnAeropuertos.setEnabled(aeropuertos);
         this.lblAeropuertos.setEnabled(aeropuertos);
+        
+        boolean parametros = CSeguridad.validarPermiso(2, "Administracion", "Parametros", permisos);
+        this.btnParametros.setEnabled(parametros);
+        this.lblParametros.setEnabled(parametros);
         
         this.setLocationRelativeTo(null);
         pack();
