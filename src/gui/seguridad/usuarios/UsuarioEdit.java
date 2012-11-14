@@ -87,6 +87,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public UsuarioEdit(javax.swing.JDialog parent, boolean modal,int id) {
         super(parent, modal);
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+        
         idusuario=id;
         isNuevo=true;
 
@@ -633,9 +636,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
         String mensaje="";
         String mensaje2="";
         
-        boolean pasavalidacion;
+        boolean pasavalidacion=true;
         
         if (idusuario!=-1){
+            
             
         //mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
         
@@ -691,9 +695,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //                
 //            }
 //        }
-        
+          if (psswdContrasena.getPassword().length>0){
           pasavalidacion=CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(),idusuario);
-
+          }
           if (!pasavalidacion){
           mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
           mensaje=mensaje+mensaje2;
@@ -750,8 +754,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
             Usuario UsuarioAux;
         //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
-        
-        
+            
             Usuario UsuarioauxBE;
 //        if (ClienteAux==null && idusuario!=-1){
 //        auxCliente=UsuarioauxBE.getIdCliente();
@@ -852,12 +855,17 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     UsuarioauxBE= Usuario.BuscarXid(idusuario);
                     ListaContrasena=Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
                     
-                    ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size()-1),ListaEstado.get(0));
-                    ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.agregarContrasena(psswdContrasena.getPassword(),
-                            UsuarioauxBE,
-                            ListaEstado.get(0));
+                    if (psswdContrasena.getPassword().length != 0) {
+                        pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
+
+                        ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
+                        Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size() - 1), ListaEstado.get(0));
+                        ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
+                        Contrasena.agregarContrasena(psswdContrasena.getPassword(),
+                                UsuarioauxBE,
+                                ListaEstado.get(0));
+
+                    }
                 }
                 this.setVisible(false);
                 this.dispose();
