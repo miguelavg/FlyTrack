@@ -10,8 +10,15 @@ import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CAeropuerto;
 import controllers.CSeguridad;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,6 +41,22 @@ public class Aeropuerto extends javax.swing.JDialog {
         llenarComboPais();
         llenarComboEstado();
         definirPermisos();
+    }
+    
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(Boolean.FALSE);
+            dispose();
+          } 
+        } ;
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -64,7 +87,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         btn_cargaMasiva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FlyTrack - Aeropuerto");
+        setTitle("FlyTrack - Administración - Aeropuertos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

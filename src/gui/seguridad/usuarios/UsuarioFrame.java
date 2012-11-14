@@ -17,7 +17,14 @@ import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -48,6 +55,23 @@ public class UsuarioFrame extends javax.swing.JDialog {
         llenarcomboEstado();
         llenarcomboPerfiles();
         definirPermisos();
+    }
+    
+    @Override
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(false);
+            dispose();
+          } 
+        } ;
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -80,7 +104,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         UsuarioTabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Flytrack - Usuario");
+        setTitle("Flytrack - Seguridad - Usuario");
         setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());

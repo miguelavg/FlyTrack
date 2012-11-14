@@ -9,6 +9,7 @@ import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import gui.seguridad.parametros.ParametroDialog;
 import gui.seguridad.perfiles.PerfilFrame;
+import gui.seguridad.pistas.PistasDialog;
 import gui.seguridad.usuarios.UsuarioFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -28,6 +29,8 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         definirPermisos();
     }
     
+    
+    @Override
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
         KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
@@ -157,7 +160,9 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
 
     private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
         // TODO add your handling code here:
-        
+        PistasDialog pistasdl =  new PistasDialog();
+        pistasdl.setModal(Boolean.TRUE);
+        pistasdl.setVisible(Boolean.TRUE);
     }//GEN-LAST:event_btnLogAuditoriaActionPerformed
 
     /**
