@@ -591,7 +591,7 @@ public class SimDialog extends javax.swing.JDialog {
         }
         
         if(!aNecesidad.isEmpty()){
-            aNecesidad = "Se recomienda: \n" + vNecesidad;
+            aNecesidad = "Se recomienda: \n" + aNecesidad;
         }
         if(!vNecesidad.isEmpty()){
             vNecesidad = "Se recomienda: \n" + vNecesidad;
@@ -600,7 +600,7 @@ public class SimDialog extends javax.swing.JDialog {
         String mensaje = aNecesidad + "\n" + vNecesidad;
         
         if(aNecesidad.isEmpty() && vNecesidad.isEmpty()){
-            mensaje = "La distribución de los almacenes y vuelos es correcto.";
+            mensaje = "La distribución de los almacenes y vuelos es correcta.";
         }
         
         InformationDialog.mostrarInformacion(mensaje, this);

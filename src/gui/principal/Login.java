@@ -89,6 +89,7 @@ public class Login extends javax.swing.JFrame {
         txtUser.setMinimumSize(new java.awt.Dimension(120, 30));
         txtUser.setPreferredSize(new java.awt.Dimension(120, 30));
 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/in.png"))); // NOI18N
         btnLogin.setText("Ingresar");
         btnLogin.setMaximumSize(new java.awt.Dimension(120, 30));
         btnLogin.setMinimumSize(new java.awt.Dimension(120, 30));
@@ -206,13 +207,8 @@ public class Login extends javax.swing.JFrame {
                     if(error != null && !error.isEmpty()){
                         InformationDialog.mostrarInformacion(error, this);
                     }
-//                    if(condicion1) 
-//                        InformationDialog.mostrarInformacion("Su contraseña ha caducado, es necesario cambiarla", this);
-//                    if(condicion2) 
-//                        InformationDialog.mostrarInformacion("Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia", this);
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
                     usuarioValidado = cambiarContrasenia.showDialog();
-//                    cambiarContrasenia.setVisible(Boolean.TRUE);
                 }
                 
                 if(usuarioValidado != null){
