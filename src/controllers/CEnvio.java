@@ -196,8 +196,10 @@ public class CEnvio {
             q.setParameter("valorUnico", "ACTV");
             p = (Parametro) q.uniqueResult();
 
+            boolean original = false;
             if (envio.getEscalas() == null || envio.getEscalas().isEmpty()) {
                 envio.setEscalas(new ArrayList<Escala>());
+                original = true;
             }
 
             int capacidad;
@@ -212,6 +214,7 @@ public class CEnvio {
                     e.setNumEscala(i);
                     e.setFechaInicio(fecha);
                     e.setEstado(p);
+                    e.setOriginal(original);
                     fecha = v.getFechaLlegada();
                     i++;
                     capacidad = e.getVuelo().getCapacidadActual();

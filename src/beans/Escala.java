@@ -30,6 +30,7 @@ public class Escala implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEscala;
     private int numEscala;
+    private boolean original;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
     @ManyToOne
@@ -93,5 +94,13 @@ public class Escala implements Serializable {
 
     public void setNumEscala(int numEscala) {
         this.numEscala = numEscala;
+    }
+
+    public boolean isOriginal() {
+        return original;
+    }
+
+    public void setOriginal(boolean original) {
+        this.original = original;
     }
 }

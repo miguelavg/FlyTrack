@@ -9,20 +9,17 @@ import controllers.*;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
-import gui.envios.VistaPrevia_Factura;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-import javax.swing.table.DefaultTableModel;
-import controllers.CReportes;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -231,7 +228,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             return;
         }
 
-        Object[] datos = new Object[6];
+        Object[] datos = new Object[7];
         DefaultTableModel dtm = (DefaultTableModel) tbl_escalas.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -241,11 +238,12 @@ public class EnvioAgregar extends javax.swing.JDialog {
         for (Escala e : envio.getEscalas()) {
 
             datos[0] = e.getNumEscala();
-            datos[1] = e.getVuelo().getOrigen().getNombre() + ", " + e.getVuelo().getOrigen().getCiudad() + ", " + e.getVuelo().getOrigen().getPais();
-            datos[2] = e.getVuelo().getDestino().getNombre() + ", " + e.getVuelo().getDestino().getCiudad() + ", " + e.getVuelo().getDestino().getPais();
-            datos[3] = e.getVuelo().getFechaSalida();
-            datos[4] = e.getVuelo().getFechaLlegada();
-            datos[5] = e.getEstado();
+            datos[1] = e.getVuelo().getIdVuelo();
+            datos[2] = e.getVuelo().getOrigen().getNombre() + ", " + e.getVuelo().getOrigen().getCiudad() + ", " + e.getVuelo().getOrigen().getPais();
+            datos[3] = e.getVuelo().getDestino().getNombre() + ", " + e.getVuelo().getDestino().getCiudad() + ", " + e.getVuelo().getDestino().getPais();
+            datos[4] = e.getVuelo().getFechaSalida();
+            datos[5] = e.getVuelo().getFechaLlegada();
+            datos[6] = e.getEstado();
 
             dtm.addRow(datos);
         }
