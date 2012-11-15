@@ -296,14 +296,11 @@ public class PerfilFrame extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
         boolean crear = CSeguridad.validarPermiso(3, "Perfiles", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
-        
         boolean modificar = CSeguridad.validarPermiso(3, "Perfiles", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
-        
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfiles", "Carga Masiva", permisos);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfil", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
         this.setLocationRelativeTo(null);

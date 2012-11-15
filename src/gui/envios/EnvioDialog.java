@@ -654,13 +654,10 @@ public class EnvioDialog extends javax.swing.JDialog {
     private void definirPermisos() {
 
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
         boolean crear = CSeguridad.validarPermiso(2, "Envios", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
-        
         boolean modificar = CSeguridad.validarPermiso(2, "Envios", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
-        
         boolean buscar = CSeguridad.validarPermiso(2, "Envios", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 

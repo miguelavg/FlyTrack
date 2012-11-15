@@ -210,9 +210,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombres">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomKeyRel"/>
           </Events>
@@ -229,9 +226,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumeroDoc">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroDocKeyReleased"/>
           </Events>

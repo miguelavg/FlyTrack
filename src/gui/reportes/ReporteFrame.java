@@ -12,13 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import controllers.CReportes;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 
 /**
  *
@@ -34,23 +27,6 @@ public class ReporteFrame extends javax.swing.JFrame {
         
     public ReporteFrame() {
         initComponents();
-        this.setLocationRelativeTo(null);
-    }
-    
-    protected JRootPane createRootPane() { 
-        JRootPane rootPane = new JRootPane();
-        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        Action actionListener = new AbstractAction() { 
-          public void actionPerformed(ActionEvent actionEvent) { 
-            setVisible(Boolean.FALSE);
-            dispose();
-          } 
-        } ;
-        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(strokeESC, "ESCAPE");
-        rootPane.getActionMap().put("ESCAPE", actionListener);
-
-        return rootPane;
     }
 
     /**
@@ -129,7 +105,7 @@ public class ReporteFrame extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Flytrack - Reportes");
+        setTitle("Envíos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -145,9 +121,9 @@ public class ReporteFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
+                .addGap(254, 254, 254)
                 .addComponent(jLabel1)
-                .addGap(200, 200, 200))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,7 +441,7 @@ public class ReporteFrame extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 562, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,7 +491,7 @@ public class ReporteFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(

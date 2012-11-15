@@ -9,7 +9,6 @@ import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import gui.seguridad.parametros.ParametroDialog;
 import gui.seguridad.perfiles.PerfilFrame;
-import gui.seguridad.pistas.PistasDialog;
 import gui.seguridad.usuarios.UsuarioFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -29,20 +28,20 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         definirPermisos();
     }
     
-    
-    @Override
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
         KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
         Action actionListener = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
             setVisible(false);
-            dispose();
           } 
         } ;
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(strokeESC, "ESCAPE");
         rootPane.getActionMap().put("ESCAPE", actionListener);
+        inputMap.put(strokeBACKSPACE, "BACKSPACE");
+        rootPane.getActionMap().put("BACKSPACE", actionListener);
 
         return rootPane;
     }
@@ -160,9 +159,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
 
     private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
         // TODO add your handling code here:
-        PistasDialog pistasdl =  new PistasDialog();
-        pistasdl.setModal(Boolean.TRUE);
-        pistasdl.setVisible(Boolean.TRUE);
+        
     }//GEN-LAST:event_btnLogAuditoriaActionPerformed
 
     /**
@@ -211,15 +208,12 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
         boolean usuarios = CSeguridad.validarPermiso(2, "Seguridad", "Usuarios", permisos);
         this.btnUsuarios.setEnabled(usuarios);
         this.lblUsuarios.setEnabled(usuarios);
-        
         boolean perfiles = CSeguridad.validarPermiso(2, "Seguridad", "Perfiles", permisos);
         this.btnPerfiles.setEnabled(perfiles);
         this.lblPerfiles.setEnabled(perfiles);
-        
         boolean logAuditoria = CSeguridad.validarPermiso(2, "Seguridad", "LogAuditoria", permisos);
         this.btnLogAuditoria.setEnabled(logAuditoria);
         this.lblLogAuditoria.setEnabled(logAuditoria);

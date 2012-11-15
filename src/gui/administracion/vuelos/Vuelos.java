@@ -12,16 +12,9 @@ import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import controllers.CVuelo;
 import gui.administracion.aeropuertos.AeropuertoPopup;
-import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -46,22 +39,6 @@ public class Vuelos extends javax.swing.JDialog {
         initComponents();
         llenarComboEstado();
         definirPermisos();
-    }
-    
-    protected JRootPane createRootPane() { 
-        JRootPane rootPane = new JRootPane();
-        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        Action actionListener = new AbstractAction() { 
-          public void actionPerformed(ActionEvent actionEvent) { 
-            setVisible(Boolean.FALSE);
-            dispose();
-          } 
-        } ;
-        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(strokeESC, "ESCAPE");
-        rootPane.getActionMap().put("ESCAPE", actionListener);
-
-        return rootPane;
     }
 
     /**
@@ -94,11 +71,11 @@ public class Vuelos extends javax.swing.JDialog {
         btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_vuelos = new javax.swing.JTable();
-        btnCargaMasiva = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnIncidencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FlyTrack - Administración - Vuelos");
+        setTitle("FlyTrack - Vuelos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -305,11 +282,11 @@ public class Vuelos extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tbl_vuelos);
 
-        btnCargaMasiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
-        btnCargaMasiva.setText("Carga Masiva");
-        btnCargaMasiva.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
+        jButton1.setText("Carga Masiva");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargaMasivaActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -334,7 +311,7 @@ public class Vuelos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCargaMasiva, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -343,7 +320,7 @@ public class Vuelos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCargaMasiva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,11 +418,11 @@ public class Vuelos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void btnCargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMasivaActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         VuelosCarga DialogoCarga = new VuelosCarga(this, true);
         DialogoCarga.setVisible(true);
-    }//GEN-LAST:event_btnCargaMasivaActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
         // TODO add your handling code here:
@@ -585,7 +562,6 @@ public class Vuelos extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnCargaMasiva;
     private javax.swing.JButton btnIncidencia;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_origenAero;
@@ -594,6 +570,7 @@ public class Vuelos extends javax.swing.JDialog {
     private javax.swing.JComboBox cbm_estado;
     private datechooser.beans.DateChooserCombo dt_fechfin;
     private datechooser.beans.DateChooserCombo dt_fechini;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -611,18 +588,14 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
         boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
-        
         boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
         this.btnIncidencia.setEnabled(modificar);
-        
         boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
-        
-        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);
-        this.btnCargaMasiva.setEnabled(cargaMasiva);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);
+//        this.btnCargaMasiva.setEnabled(cargaMasiva);
 
         this.setLocationRelativeTo(null);
         pack();

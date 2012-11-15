@@ -138,6 +138,7 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Tipos de cambio");
         setModal(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -451,17 +452,13 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
-        boolean crear = CSeguridad.validarPermiso(3, "TipoCambio", "Crear", permisos);
+        boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
-        
-        boolean modificar = CSeguridad.validarPermiso(3, "TipoCambio", "Modificar", permisos);
+        boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
-        
-        boolean buscar = CSeguridad.validarPermiso(3, "TipoCambio", "Buscar/Listar", permisos);
+        boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
-
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "TipoCambio", "Carga Masiva", permisos);
+//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Aeropuertos", permisos);
 //        this.btn_cargaMasiva.setEnabled(cargaMasiva);
 
         this.setLocationRelativeTo(null);
