@@ -463,18 +463,17 @@ public class ClientesEdit extends javax.swing.JDialog {
                 
             }
 //            
-//            if (!CValidator.isInteger(txtTelefono.getText())){
-//                
-//                error_message = "El teléfono es inválido";
-//                
-//            }
+            if (!CValidator.isInteger(txtTelefono.getText())){
+                
+                error_message = "El teléfono es inválido";
+                
+            }
             
             if (!CValidator.isInteger(txtNumeroDoc.getText())){
                 
-                error_message = "El teléfono es inválido";
+                error_message = "El número de documento es inválido";
             }
-            
-            
+                        
         }
                       
         return error_message;

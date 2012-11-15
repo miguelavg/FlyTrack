@@ -80,8 +80,28 @@ public class CVuelo {
                 if (ini.before(fin)){
                      error_message ="La fecha de salida no puede ser menor a la fecha de llegada";
                 }
+                if (!CValidator.isInteger(capacidad)){
+                
+                    error_message = "La capacidad máxima es inválida";
+                
+                }
+                else{
+                    if (Integer.parseInt(capacidad)==0){
+                        error_message = "El capacidad máxima tiene que ser mayor que 0";
+                    }
+                }
+                
+                if (!CValidator.isDouble(monto)){
+                
+                    error_message = "La capacidad máxima es inválida";
+                
+                }
+                else{
+                    if (Double.parseDouble(monto)==0){
+                        error_message = "El capacidad máxima tiene que ser mayor que 0";
+                    }
+                }
             }
-            
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

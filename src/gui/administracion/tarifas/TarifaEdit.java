@@ -462,6 +462,12 @@ public class TarifaEdit extends javax.swing.JDialog {
                 return error_message;
                 
             }
+            else{
+                if (Double.parseDouble(txtMonto.getText())==0){
+                    error_message = "El monto debe ser mayor que 0";
+                    return error_message;
+                }
+            }
                 
             
             
