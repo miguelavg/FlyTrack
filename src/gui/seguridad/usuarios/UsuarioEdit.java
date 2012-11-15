@@ -657,7 +657,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         
         if (idusuario!=-1){
             
-        //mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+        mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
         
 //        Integer id=-1;
 //        char[] aux_contrasena = psswdContrasena.getPassword();
