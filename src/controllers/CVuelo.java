@@ -71,9 +71,17 @@ public class CVuelo {
                 fin == null || 
                 Estado == null || 
                 (capacidad == null || capacidad.compareTo("")==0 )  ||
-                (monto == null || monto.compareTo("")==0 )) {
+                (monto == null || monto.compareTo("")==0 )) 
+            {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                
             }
+            else{
+                if (ini.before(fin)){
+                     error_message ="La fecha de salida no puede ser menor a la fecha de llegada";
+                }
+            }
+            
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

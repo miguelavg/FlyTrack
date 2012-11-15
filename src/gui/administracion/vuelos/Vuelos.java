@@ -38,6 +38,7 @@ public class Vuelos extends javax.swing.JDialog {
     public Vuelos() {
         initComponents();
         llenarComboEstado();
+        this.setLocationRelativeTo(null); 
         definirPermisos();
     }
 
@@ -75,7 +76,8 @@ public class Vuelos extends javax.swing.JDialog {
         btnIncidencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FlyTrack - Vuelos");
+        setTitle("FlyTrack - Administración - Vuelos");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -171,6 +173,7 @@ public class Vuelos extends javax.swing.JDialog {
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
             e1.printStackTrace();
         }
+        dt_fechfin.setLocale(new java.util.Locale("es", "PE", ""));
 
         btn_regresar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btn_regresar2.setText("Regresar");
