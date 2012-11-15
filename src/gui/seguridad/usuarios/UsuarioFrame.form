@@ -262,6 +262,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCliente">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClienteKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_regresar1">
           <Properties>

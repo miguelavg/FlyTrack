@@ -113,7 +113,6 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         });
 
-        txtNombres.setEditable(false);
         txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNomKeyRel(evt);
@@ -135,7 +134,6 @@ public class ClientesEdit extends javax.swing.JDialog {
             }
         });
 
-        txtNumeroDoc.setEditable(false);
         txtNumeroDoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNumeroDocKeyReleased(evt);
@@ -334,6 +332,7 @@ public class ClientesEdit extends javax.swing.JDialog {
            }
             cboTipoDoc.setEnabled(false);  
             txtNumeroDoc.setEditable(false);
+            txtNombres.setEditable(false);
 //           cboPais.setSelectedItem(ClienteBE.getPais());
 //           cboTipoDoc.setSelectedItem(ClienteBE.getTipoDoc());
             
@@ -463,12 +462,12 @@ public class ClientesEdit extends javax.swing.JDialog {
                 error_message = "El Apellido es inválido";
                 
             }
-            
-            if (!CValidator.isInteger(txtTelefono.getText())){
-                
-                error_message = "El teléfono es inválido";
-                
-            }
+//            
+//            if (!CValidator.isInteger(txtTelefono.getText())){
+//                
+//                error_message = "El teléfono es inválido";
+//                
+//            }
             
             if (!CValidator.isInteger(txtNumeroDoc.getText())){
                 
