@@ -216,7 +216,7 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
 
     private void btnParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParametrosActionPerformed
         // TODO add your handling code here:
-        ParametroDialog parametro = new gui.seguridad.parametros.ParametroDialog();
+        ParametroDialog parametro = new ParametroDialog();
         parametro.setVisible(true);
     }//GEN-LAST:event_btnParametrosActionPerformed
 
