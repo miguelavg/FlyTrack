@@ -12,9 +12,16 @@ import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import controllers.CVuelo;
 import gui.administracion.aeropuertos.AeropuertoPopup;
+import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -40,6 +47,24 @@ public class Vuelos extends javax.swing.JDialog {
         llenarComboEstado();
         this.setLocationRelativeTo(null); 
         definirPermisos();
+    }
+    
+        @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -284,6 +309,13 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tbl_vuelos);
+        tbl_vuelos.getColumnModel().getColumn(0).setPreferredWidth(65);
+        tbl_vuelos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbl_vuelos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tbl_vuelos.getColumnModel().getColumn(3).setPreferredWidth(112);
+        tbl_vuelos.getColumnModel().getColumn(4).setPreferredWidth(112);
+        tbl_vuelos.getColumnModel().getColumn(6).setPreferredWidth(80);
+        tbl_vuelos.getColumnModel().getColumn(7).setPreferredWidth(75);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
         jButton1.setText("Carga Masiva");
@@ -293,7 +325,7 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
-        btnIncidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
+        btnIncidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/incidencia24x24.png"))); // NOI18N
         btnIncidencia.setText("Incidencia");
         btnIncidencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
