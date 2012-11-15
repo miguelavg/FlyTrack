@@ -31,6 +31,7 @@ public class VuelosCarga extends javax.swing.JDialog {
     public VuelosCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null); 
         generaraeropuertos();
     }
 
@@ -54,6 +55,7 @@ public class VuelosCarga extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Vuelos - Carga");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -124,7 +126,7 @@ public class VuelosCarga extends javax.swing.JDialog {
                 .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,6 +323,9 @@ public class VuelosCarga extends javax.swing.JDialog {
                 ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
 
             }
+        }
+        else{
+            ErrorDialog.mostrarError("El archivo no es válido",this);
         }
 
     }//GEN-LAST:event_btn_guardarActionPerformed

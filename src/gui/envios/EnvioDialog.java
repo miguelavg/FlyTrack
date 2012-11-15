@@ -5,19 +5,16 @@
 package gui.envios;
 
 import beans.Aeropuerto;
-import beans.Envio;
 import beans.Cliente;
+import beans.Envio;
 import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CEnvio;
-import controllers.CParametro;
 import controllers.CSeguridad;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
-import gui.seguridad.parametros.ParametroEdit;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -27,7 +24,6 @@ import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -485,7 +481,6 @@ public class EnvioDialog extends javax.swing.JDialog {
         a_destino = aeropuertoPU.showDialog();
 
         if (a_destino != null) {
-
             txt_destino.setText(a_destino.getNombre());
         }
     }//GEN-LAST:event_btn_destinoActionPerformed

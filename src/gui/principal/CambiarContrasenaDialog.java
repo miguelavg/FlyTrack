@@ -98,6 +98,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         lblValidacionesContrasenia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Contraseña Actual");

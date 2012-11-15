@@ -33,6 +33,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private List<Aeropuerto> ListaAeropuerto = null;
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
+        this.setLocationRelativeTo(null);
          ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }
@@ -138,13 +139,13 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Monitoreo Envio");
+        setTitle("FlyTrack - Ubicar aeropuerto");
         setMinimumSize(new java.awt.Dimension(1024, 582));
         setModal(true);
         setPreferredSize(new java.awt.Dimension(1024, 582));
         setResizable(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -156,9 +157,8 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
