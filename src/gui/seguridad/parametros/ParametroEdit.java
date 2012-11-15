@@ -28,6 +28,7 @@ public class ParametroEdit extends javax.swing.JDialog {
     public ParametroEdit(Parametro parametro, javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.isNuevo = true;
         this.parametro = null;
 
@@ -127,7 +128,8 @@ public class ParametroEdit extends javax.swing.JDialog {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Parámetros");
+        setTitle("FlyTrack - Administración - Parámetros - Modificar");
+        setResizable(false);
 
         pnl_titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
