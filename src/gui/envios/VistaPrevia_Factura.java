@@ -5,6 +5,7 @@
 package gui.envios;
 import javax.swing.JFileChooser;
 import controllers.CReportes;
+import gui.ErrorDialog;
 
 
 /**
@@ -343,6 +344,8 @@ public void cargartabla(){
     
     private void btn_docPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_docPagoActionPerformed
         JFileChooser jfc = new JFileChooser();
+                String error_message = "";
+                
         int rslt = jfc.showSaveDialog(this);
         if (rslt == JFileChooser.APPROVE_OPTION) {
             String strArch = jfc.getSelectedFile().getName();
@@ -387,6 +390,8 @@ public void cargartabla(){
                     } catch (Exception e) {
                         e.printStackTrace();
                         CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                        ErrorDialog.mostrarError(error_message, this);
                     }
                 } else {
                     CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
