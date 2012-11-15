@@ -1,4 +1,5 @@
 *.class
+*.cfg.xml
 
 # Package Files #
 *.war

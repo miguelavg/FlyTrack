@@ -221,6 +221,8 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
             CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
             ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
             usuario = new CUsuario().BuscarXid(usuario.getIdUsuario());
+            this.setVisible(Boolean.TRUE);
+            this.dispose();
         }
         else{
             if(!nuevasContraseniasIguales)
