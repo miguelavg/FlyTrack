@@ -135,7 +135,7 @@ public class CVuelo {
         }
          
      }
-      public static List<Vuelo> BuscarVuelo(Aeropuerto PaisOrigen,Aeropuerto PaisDestino,Calendar fechini, Calendar fechfinal, Parametro Estado) {
+      public static List<Vuelo> BuscarVuelo(String cod, Aeropuerto PaisOrigen,Aeropuerto PaisDestino,Calendar fechini, Calendar fechfinal, Parametro Estado) {
          
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -147,8 +147,7 @@ public class CVuelo {
         try {
 
             if (fechini != null) {
-                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-mm-dd HH:mm");
-                inii = date_format.format(fechini.getTime());
+                inii = CValidator.formatDate(fechini.getTime());
                 ini = fechini.getTime();
             }
 
@@ -166,6 +165,10 @@ public class CVuelo {
 //                Filter f_numEnvio = s.enableFilter("EnviosXNumEnvio");
 //                f_numEnvio.setParameter("idEnvio", Integer.parseInt(numEnvio));
 //            }
+            if (cod != null && !cod.isEmpty() && CValidator.isInteger(cod)) {
+                Filter f_id = s.enableFilter("VueloXId");
+                f_id.setParameter("id", Integer.parseInt(cod));
+            }
 
             if (PaisOrigen != null) {
                 Filter f_origen = s.enableFilter("VueloXOrigen");

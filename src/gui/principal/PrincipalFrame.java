@@ -394,18 +394,27 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean administracion = CSeguridad.validarPermiso(1, null,"Administracion",permisos);
         this.btnAdministracion.setEnabled(administracion);
         this.lblAdministracion.setEnabled(administracion);
+        
         boolean seguridad = CSeguridad.validarPermiso(1, null,"Seguridad",permisos);
         this.btnSeguridad.setEnabled(seguridad);
         this.lblSeguridad.setEnabled(seguridad);
+        
         boolean envios = CSeguridad.validarPermiso(1, null,"Envios",permisos);
         this.btnEnvios.setEnabled(envios);
         this.lblEnvios.setEnabled(envios);
+        
+        boolean simulacion = CSeguridad.validarPermiso(1, null,"Simulacion",permisos);
+        this.btnSimulacion.setEnabled(simulacion);
+        this.lblSimulacion.setEnabled(simulacion);
+        
         boolean clientes = CSeguridad.validarPermiso(1, null,"Clientes",permisos);
         this.btnClientes.setEnabled(clientes);
         this.lblClientes.setEnabled(clientes);
+        
         boolean reportes = CSeguridad.validarPermiso(1, null,"Reportes",permisos);
         this.btnReportes.setEnabled(reportes);
         this.lblReportes.setEnabled(reportes);

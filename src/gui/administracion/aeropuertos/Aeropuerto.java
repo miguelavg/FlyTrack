@@ -80,16 +80,16 @@ public class Aeropuerto extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(285, 285, 285)
+                .addGap(307, 307, 307)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -475,12 +475,16 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Aeropuertos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Aeropuertos", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(3, "Aeropuertos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
+
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Aeropuertos", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
 
