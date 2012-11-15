@@ -193,7 +193,7 @@ public class CEnvio {
             Date fecha = envio.getFechaRegistro();
             q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             q.setParameter("tipo", "ESTADO_ESCALA");
-            q.setParameter("valorUnico", "ACTV");
+            q.setParameter("valorUnico", "PROG");
             p = (Parametro) q.uniqueResult();
 
             boolean original = false;
