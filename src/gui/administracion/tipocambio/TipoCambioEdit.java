@@ -32,6 +32,7 @@ public class TipoCambioEdit extends javax.swing.JDialog {
     public TipoCambioEdit(TipoCambio tipoCambio, javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.isNuevo = true;
         this.tipoCambio = null;
 

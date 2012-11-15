@@ -33,6 +33,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private List<Aeropuerto> ListaAeropuerto = null;
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
+        this.setLocationRelativeTo(null);
          ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }

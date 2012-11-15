@@ -28,6 +28,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         
         super(parent, true);
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
         objAero = obj;

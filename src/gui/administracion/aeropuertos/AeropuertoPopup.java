@@ -32,6 +32,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     public AeropuertoPopup(javax.swing.JDialog parent, boolean modal) {
        super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
         
@@ -40,6 +41,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     public AeropuertoPopup(javax.swing.JFrame parent, boolean modal) {
        super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
         

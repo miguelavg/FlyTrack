@@ -26,6 +26,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
     public AeropuertoAgregar(javax.swing.JDialog parent, boolean modal) {
         super(parent, true);
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
         limpiarComponentes();
