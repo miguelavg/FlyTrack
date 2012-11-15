@@ -156,15 +156,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+            .addComponent(jLabel1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -174,8 +170,8 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         Graphics c = this.getGraphics();
          c.setColor(Color.WHITE);
-           c.fillOval(evt.getX(),evt.getY(), 10,10 );
-        c.drawOval(evt.getX(),evt.getY(), 10,10 );
+           c.fillOval(evt.getX(),evt.getY()+20, 10,10 );
+        c.drawOval(evt.getX(),evt.getY()+20, 10,10 );
       int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posiciòn?", "Advertencia", JOptionPane.YES_NO_OPTION);
          if (JOptionPane.YES_OPTION == result) {
              objAero.setCoordX(evt.getX());

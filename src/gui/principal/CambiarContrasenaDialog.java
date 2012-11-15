@@ -28,7 +28,8 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
     private Usuario usuario;
     private Contrasena contrasenia;
-    private boolean ejecutoCambio = false;
+    private boolean ejecutoCambio = false; 
+    //la variable cambio solo se ejecuta cuando se realiza el cambio en si, caso contrario debe seguir como false
     
     /**
      * Creates new form CambiarContrasenaDialog
@@ -45,12 +46,12 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         usuario = usuarioAModificar;
         contrasenia = contraseniaAModificar;
         lblValidacionesContrasenia.setText("<html>Las contraseñas deben tener las siguientes indicaciones: <br>" +
-                "Longitud Minima de Caraceteres: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA").getValor()) + "<br>" +
-                "Numero mínimo de caracteres numéricos: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_NUM").getValor()) + "<br>" +
-                "Numero mínimo de caracteres especiales: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP").getValor()) + "<br>" +
-                "Numero mínimo de caracteres mayúsculas: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS").getValor()) + "<br>" +
-                "Numero mínimo de caracteres minúsculas: " + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS").getValor()) + "<br>" +
-                "Diferente a las "+ (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST").getValor()) + " contraseñas anteriores<html>");
+                "Longitud Minima de Caraceteres: <b>" + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA").getValor()) + "</b><br>" +
+                "Numero mínimo de caracteres numéricos: <b>" + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_NUM").getValor()) + "</b><br>" +
+                "Numero mínimo de caracteres especiales: <b>" + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP").getValor()) + "</b><br>" +
+                "Numero mínimo de caracteres mayúsculas: <b>" + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS").getValor()) + "</b><br>" +
+                "Numero mínimo de caracteres minúsculas: <b>" + (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS").getValor()) + "</b><br>" +
+                "Diferente a las <b>"+ (CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST").getValor()) + "</b> contraseñas anteriores<html>");
     }
     
     protected JRootPane createRootPane() { 
@@ -141,34 +142,34 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
                                 .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblValidacionesContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                        .addComponent(lblValidacionesContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -212,23 +213,38 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        boolean nuevasContraseniasIguales = CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword());
-        boolean validacionesContrasenia = CSeguridad.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario());
-        if( CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword()) &&
-            nuevasContraseniasIguales && validacionesContrasenia){
-            CContrasena.desactivarContrasena(contrasenia);
-            char[] contrasenaNueva = txtPassNueva.getPassword();
-            CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
-            ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
-            usuario = new CUsuario().BuscarXid(usuario.getIdUsuario());
+        //Solo se procede a realizar la accion si en los 3 textbox hay informacion
+        if( txtPassActual.getPassword().length > 0 && txtPassNueva.getPassword().length > 0 && 
+            txtPassNueva2.getPassword().length > 0){
+            boolean actualContraseniasIguales = CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword());
+            boolean nuevasContraseniasIguales = CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword());
+            boolean validacionesContrasenia = CSeguridad.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario());
+            /*
+             * 1. La contrasena actual coincida con la contrasena ativa obtenida del usuario que se pido cambio de contrasenia
+             * 2. La contrasena nueva en ambas cajas de textos se debe comprobar que coincidan
+             * 3. La contrasena nueva debe pasar todas las validaciones del caso
+             */
+            if( actualContraseniasIguales && nuevasContraseniasIguales && validacionesContrasenia){
+                CContrasena.desactivarContrasena(contrasenia); //Desactivo su contrasena activa actual
+                CContrasena.agregarContrasenaActiva(txtPassNueva.getPassword(), usuario); //agrego la nueva contrasena activa
+                ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
+                usuario = new CUsuario().BuscarXid(usuario.getIdUsuario()); //actualizo el usuario, con las contrasenas
+                this.setVisible(Boolean.TRUE);
+                this.dispose();
+            }
+            else{
+                if(!nuevasContraseniasIguales)
+                    lblMensaje.setText("Las contraseñas nuevas ingresadas deben COINCIDIR");
+                else if(!validacionesContrasenia)
+                    lblMensaje.setText("Las contraseñas deben respetar las indicaciones");
+                else if(!actualContraseniasIguales)
+                    lblMensaje.setText("Ingrese sus datos válidos correctamente");
+                else
+                    lblMensaje.setText("");
+            }
         }
         else{
-            if(!nuevasContraseniasIguales)
-                lblMensaje.setText("Las contraseñas nuevas ingresadas deben COINCIDIR");
-            else if(!validacionesContrasenia)
-                lblMensaje.setText("Las contraseñas deben respetar las indicaciones");
-            else
-                lblMensaje.setText("");
+            lblMensaje.setText("Ingrese sus datos válidos correctamente");
         }
         
     }//GEN-LAST:event_btnConfirmarActionPerformed

@@ -120,6 +120,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         psswdContrasena.setVisible(false);
         }
 
+        cboEstado.setSelectedIndex(1);
         
     }
 
@@ -199,7 +200,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel3.setText("Aeropuerto:");
 
-        txtAeropuerto.setEnabled(false);
+        txtAeropuerto.setEditable(false);
 
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
@@ -657,7 +658,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         
         if (idusuario!=-1){
             
-        //mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+        mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
         
 //        Integer id=-1;
 //        char[] aux_contrasena = psswdContrasena.getPassword();

@@ -137,6 +137,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
         cbm_ciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
+        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
         cbm_estado.setEnabled(false);
         cbm_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,12 +303,22 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
                 
                 error_message = "El capacidad maxima es inválida";
                 
+            }      
+            if (!CValidator.isInteger(txt_capacidad.getText())){
+                
+                error_message = "El capacidad maxima es inválida";
+                
+            } 
+            else{
+                if (Integer.parseInt(txt_capacidad.getText())==0){
+                    error_message = "El capacidad maxima tiene que ser mayor que 0";
+                }
             }
-           
             
         }
                       
         return error_message;
+        
     }
     
     
@@ -323,12 +334,12 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
             CAeropuerto.agregarAeropuerto(
                     Integer.parseInt(txt_capacidad.getText()),
                     0,
-                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex()),
+                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex()-1),
                     Integer.parseInt(txt_X.getText()),
                     Integer.parseInt(txt_Y.getText()),
-                    ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                    ListatipoEst.get(cbm_estado.getSelectedIndex()-1),
                     txt_Nombre.getText(),
-                    ListatipoPar.get(cbm_pais.getSelectedIndex()));
+                    ListatipoPar.get(cbm_pais.getSelectedIndex()-1));
 
             setVisible(false);
             dispose();
@@ -346,7 +357,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         
        
         txt_X.setText(String.valueOf(objAero.getCoordX()));
-        txt_Y.setText(String.valueOf(objAero.getCoordY()));
+        txt_Y.setText(String.valueOf(objAero.getCoordY()+20));
     }//GEN-LAST:event_btn_ubicarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -426,15 +437,15 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         }
      }
      private void llenarComboEstado(){
-      
-        
-        ListatipoEst = CAeropuerto.llenarComboEstado();
-      for (int i=0;i<ListatipoEst.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
             
+        ListatipoEst = CAeropuerto.llenarComboEstado();
+        for (int i=0;i<ListatipoEst.size();i++)
+        {
+            Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);            
             cbm_estado.addItem(TipoDocBE);
         }
+              cbm_estado.setSelectedIndex(1);
+        
      }
     
     /**
