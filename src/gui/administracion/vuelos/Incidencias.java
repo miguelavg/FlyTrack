@@ -9,6 +9,7 @@ import beans.Parametro;
 import beans.Vuelo;
 import controllers.CAeropuerto;
 import controllers.CIncidencia;
+import controllers.CValidator;
 import controllers.CVuelo;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
@@ -43,6 +44,9 @@ public class Incidencias extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         llenarComboIncidencia();
         objV = objVuelo;
+        if (objVuelo != null) {
+            txt_codigo.setText("" + objVuelo.getIdVuelo());
+        }
     }
 
     @Override
@@ -88,7 +92,11 @@ public class Incidencias extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btn_agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_incidencia = new javax.swing.JTable();
+        tbl_incidencia = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Vuelos - Incidencia");
@@ -246,13 +254,24 @@ public class Incidencias extends javax.swing.JDialog {
             new String [] {
                 "Incidencia", "Cód. vuelo", "Fecha ", "Descripcion", "Tipo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl_incidencia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_incidenciaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tbl_incidencia);
+        tbl_incidencia.getColumnModel().getColumn(0).setMinWidth(0);
+        tbl_incidencia.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tbl_incidencia.getColumnModel().getColumn(0).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -334,7 +353,6 @@ public class Incidencias extends javax.swing.JDialog {
 //        VInci.setVisible(true);
 //        ListaInci = objV.getIncidencias();
 //        llenarGrillaIncidencia();
-
     }//GEN-LAST:event_tbl_incidenciaMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
@@ -369,9 +387,7 @@ public class Incidencias extends javax.swing.JDialog {
             dtm.removeRow(0);
         }
 
-        TableColumn column = null;
-        column = tbl_incidencia.getColumnModel().getColumn(0);
-        column.setMaxWidth(0);
+
         Object[] datos = new Object[5];
 
 
@@ -389,7 +405,7 @@ public class Incidencias extends javax.swing.JDialog {
 
 
             datos[1] = ListaInci.get(i).getVuelo().getIdVuelo();
-            datos[2] = ListaInci.get(i).getFecha();
+            datos[2] = CValidator.formatDate(ListaInci.get(i).getFecha());
             datos[3] = ListaInci.get(i).getDescripcion();
             datos[4] = ListaInci.get(i).getEstado().getValor();
 

@@ -10,6 +10,7 @@ import beans.Sesion;
 import beans.Vuelo;
 import beans.seguridad.Permiso;
 import controllers.CSeguridad;
+import controllers.CValidator;
 import controllers.CVuelo;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -31,8 +31,8 @@ import javax.swing.table.TableColumn;
  */
 public class Vuelos extends javax.swing.JDialog {
 
-    private Aeropuerto aeropuertoDestino =null;
-    private Aeropuerto aeropuertoOrigen =null;
+    private Aeropuerto aeropuertoDestino = null;
+    private Aeropuerto aeropuertoOrigen = null;
     private List<Parametro> ListatipoEst;
     // private List<Vuelo> listaVuelos;
     private List<Vuelo> listaVuelos = null;
@@ -45,11 +45,11 @@ public class Vuelos extends javax.swing.JDialog {
     public Vuelos() {
         initComponents();
         llenarComboEstado();
-        this.setLocationRelativeTo(null); 
+        this.setLocationRelativeTo(null);
         definirPermisos();
     }
-    
-        @Override
+
+    @Override
     protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
         KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
@@ -93,10 +93,16 @@ public class Vuelos extends javax.swing.JDialog {
         dt_fechini = new datechooser.beans.DateChooserCombo();
         dt_fechfin = new datechooser.beans.DateChooserCombo();
         btn_regresar2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txt_cod = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_vuelos = new javax.swing.JTable();
+        tbl_vuelos = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         jButton1 = new javax.swing.JButton();
         btnIncidencia = new javax.swing.JButton();
 
@@ -208,17 +214,21 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
 
+        jLabel7.setText("Código:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -246,9 +256,11 @@ public class Vuelos extends javax.swing.JDialog {
                             .addComponent(btn_regresar2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(16, 16, 16))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dt_fechfin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dt_fechfin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -273,7 +285,9 @@ public class Vuelos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,7 +422,7 @@ public class Vuelos extends javax.swing.JDialog {
             dtm.removeRow(0);
         }
 
-       Object[] datos = new Object[8];
+        Object[] datos = new Object[8];
 
 
 
@@ -417,11 +431,11 @@ public class Vuelos extends javax.swing.JDialog {
             datos[0] = listaVuelos.get(i).getIdVuelo();
             datos[1] = listaVuelos.get(i).getOrigen().getNombre();
             datos[2] = listaVuelos.get(i).getDestino().getNombre();
-            datos[3] = listaVuelos.get(i).getFechaSalida();
-            datos[4] = listaVuelos.get(i).getFechaLlegada();
+            datos[3] = CValidator.formatDate(listaVuelos.get(i).getFechaSalida());
+            datos[4] = CValidator.formatDate(listaVuelos.get(i).getFechaLlegada());
             datos[5] = listaVuelos.get(i).getEstado().getValor();
             datos[6] = String.valueOf(listaVuelos.get(i).getCapacidadMax());
-            datos[7] = String.valueOf(listaVuelos.get(i).getAlquiler());
+            datos[7] = CValidator.formatNumber(listaVuelos.get(i).getAlquiler());
 
             dtm.addRow(datos);
 
@@ -433,17 +447,18 @@ public class Vuelos extends javax.swing.JDialog {
         // TODO add your handling code here:
         VuelosAgregar vVuelAgre = null;
 
-        Parametro TipoDoc=null;
-        if (cbm_estado.getSelectedIndex()>0) {
-           TipoDoc = (Parametro)cbm_estado.getSelectedItem();
-        }      
-        
+        Parametro TipoDoc = null;
+        if (cbm_estado.getSelectedIndex() > 0) {
+            TipoDoc = (Parametro) cbm_estado.getSelectedItem();
+        }
+
         vVuelAgre = new VuelosAgregar(this, true, null, 1);
-    
+
         fechini = dt_fechini.getSelectedDate();
         fechfin = dt_fechfin.getSelectedDate();
-        
-        listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+        String codVuelo = txt_cod.getText();
+
+        listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
         vVuelAgre.setVisible(true);
         vVuelAgre.setModal(true);
         this.setEnabled(true);
@@ -461,8 +476,6 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
         // TODO add your handling code here:
-        
-     
     }//GEN-LAST:event_tbl_vuelosMouseClicked
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
@@ -471,17 +484,16 @@ public class Vuelos extends javax.swing.JDialog {
         Parametro TipoDoc = null;
         fechini = dt_fechini.getSelectedDate();
         fechfin = dt_fechfin.getSelectedDate();
-      
-        if (cbm_estado.getSelectedIndex()>0) {
-            TipoDoc = (Parametro)cbm_estado.getSelectedItem();
-             listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,TipoDoc);   
-          }
-        else
-        {
-            listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null );
+        String codVuelo = txt_cod.getText();
+
+        if (cbm_estado.getSelectedIndex() > 0) {
+            TipoDoc = (Parametro) cbm_estado.getSelectedItem();
+            listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+        } else {
+            listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, null);
         }
-        
-        
+
+
         llenarGrillaVuelo();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
@@ -524,7 +536,7 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void btnIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciaActionPerformed
         // TODO add your handling code here:
-       
+
 //         if (objV.getEstado().getValorUnico().compareTo("FIN")== 0){
 //            bandera = false;
 //        }
@@ -533,26 +545,27 @@ public class Vuelos extends javax.swing.JDialog {
 //           bandera = false;
 //        }
 
-    // if tbl_vuelos.   
-       if (tbl_vuelos.getSelectedRow()>-1) {
-        Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
-        DialogoInc.setVisible(true);
-        Parametro TipoDoc;
-         fechini = dt_fechini.getSelectedDate();
-         fechfin = dt_fechfin.getSelectedDate();
-     
-       if (cbm_estado.getSelectedIndex()>0) {
-          TipoDoc = (Parametro)cbm_estado.getSelectedItem();
-          listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
-  
-        }else {
-         listaVuelos = CVuelo.BuscarVuelo(aeropuertoOrigen, aeropuertoDestino, fechini, fechfin,null);
-        }
+        // if tbl_vuelos.   
+        if (tbl_vuelos.getSelectedRow() > -1) {
+            Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
+            DialogoInc.setVisible(true);
+            Parametro TipoDoc;
+            fechini = dt_fechini.getSelectedDate();
+            fechfin = dt_fechfin.getSelectedDate();
+            String codVuelo = txt_cod.getText();
 
-        llenarGrillaVuelo();
-       }else{
-        JOptionPane.showMessageDialog(this,"Debe seleccionar un Vuelo", "Advertencia", 1);
-       }
+            if (cbm_estado.getSelectedIndex() > 0) {
+                TipoDoc = (Parametro) cbm_estado.getSelectedItem();
+                listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+
+            } else {
+                listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, null);
+            }
+
+            llenarGrillaVuelo();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Vuelo", "Advertencia", 1);
+        }
     }//GEN-LAST:event_btnIncidenciaActionPerformed
 
     /**
@@ -612,11 +625,13 @@ public class Vuelos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_vuelos;
+    private javax.swing.JTextField txt_cod;
     private javax.swing.JTextField txt_destino;
     private javax.swing.JTextField txt_origen;
     // End of variables declaration//GEN-END:variables
