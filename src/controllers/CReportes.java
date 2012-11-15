@@ -301,17 +301,17 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             
             Paragraph preface7 = null;
 
-            preface7=new Paragraph("Numero de documento de pago: "+envio.getNumDocVenta()+ "  ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface7=new Paragraph("Número de documento de pago: "+envio.getNumDocVenta()+ "  ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface7.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface7, 1);
             
             Paragraph preface2 = null;
             
-            preface2=new Paragraph("Empresa:                                     "+empresa + " ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
-            preface2.setAlignment(Element.ALIGN_LEFT);
-
-            lineaVacia(preface2, 1);
+//            preface2=new Paragraph("Empresa:                                     "+empresa + " ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+//            preface2.setAlignment(Element.ALIGN_LEFT);
+//
+//            lineaVacia(preface2, 1);
             
             Paragraph preface4 = null;
             
@@ -328,14 +328,14 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             lineaVacia(preface5, 1);
             
             Paragraph preface6 = null;
-            preface6=new Paragraph("Telefono:                                     4546354"+"", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface6=new Paragraph("Teléfono:                                    4546354"+"", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface6.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface6, 1);
             
 
             Paragraph preface8 = null;
-            preface8=new Paragraph("Moneda:                                       "+envio.getMoneda().getValor()+"\n", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface8=new Paragraph("Moneda:                                      "+envio.getMoneda().getValor()+"\n", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface8.setAlignment(Element.ALIGN_LEFT);
 
 //            
@@ -344,12 +344,33 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 //            preface88.setAlignment(Element.ALIGN_RIGHT);
 
             lineaVacia(preface8, 1);
+            lineaVacia(preface8, 1);
+            
+            
+            Paragraph preface12 = null;  
+            preface12=new Paragraph("Datos del cliente"+" ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface12.setAlignment(Element.ALIGN_LEFT);
+            lineaVacia(preface12, 1);
+            
 
-//            Paragraph preface9 = null;
-//            preface9=new Paragraph("Tipo de Documento : "+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-//            preface9.setAlignment(Element.ALIGN_LEFT);
-//
-//            lineaVacia(preface9, 1);
+            Paragraph preface9 = null;  
+            preface9=new Paragraph("Nombre :                                     "+envio.getRemitente().getNombres()+" ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface9.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface9, 1);
+            
+            
+            Paragraph preface10 = null;
+            preface10=new Paragraph("Apellido:                                     "+envio.getRemitente().getApellidos()+" ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface10.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface10, 1);
+            
+            Paragraph preface11 = null;
+            preface11=new Paragraph("Número de Documento:               "+envio.getRemitente().getNumDoc()+"\n", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+            preface11.setAlignment(Element.ALIGN_LEFT);
+
+            lineaVacia(preface11, 1);
             
             
             document.add(imagen);
@@ -357,13 +378,18 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             document.add(preface3);
        
             document.add(preface7);
-            document.add(preface2);
+            //document.add(preface2);
             
             document.add(preface4);
             document.add(preface5);
             document.add(preface6);    
             document.add(preface8);
-            //document.add(preface88);
+            
+            document.add(preface12);
+            
+            document.add(preface9);
+            document.add(preface10);
+            document.add(preface11);
     }
     
     public static void crearPDF_Trazabilidad_NotaSalida(String direccionDelDocumento,Envio envio) throws Exception {

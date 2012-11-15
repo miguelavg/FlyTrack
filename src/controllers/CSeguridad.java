@@ -178,9 +178,8 @@ public class CSeguridad {
 
         try {
             Transaction tx = s.beginTransaction();
-            Query q = s.getNamedQuery("UltimasContrasenasXUsuarioParaValidar");
+            Query q = s.getNamedQuery("UltimasContrasenasXUsuarioParaValidar").setMaxResults(limite);
             q.setParameter("idUsuario", idUsuario);
-            q.setParameter("limite", limite);
             return (List<Contrasena>) q.list();
 
         } catch (Exception e) {

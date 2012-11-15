@@ -202,6 +202,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         btn_in.setEnabled(!siNuevo);
         btn_ruta.setEnabled(!siNuevo);
+        btn_bitacora.setEnabled(!siNuevo);
+        btn_almacen.setEnabled(!siNuevo);
 
         if (this.actual != null && this.actual.getIdAeropuerto() == this.origen.getIdAeropuerto() && !this.isNuevo && !this.envio.getEstado().getValorUnico().equals("CAN")) {
             btn_anular.setEnabled(true);
@@ -326,8 +328,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
         cmb_estadoFactura = new javax.swing.JComboBox();
         btn_anular = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_almacen = new javax.swing.JButton();
+        btn_bitacora = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_escalas = new javax.swing.JTable() {
@@ -635,11 +637,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         jLabel4.setText("Estado doc.:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/storage.png"))); // NOI18N
-        jButton1.setText("Mov. almacén");
+        btn_almacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/storage.png"))); // NOI18N
+        btn_almacen.setText("Mov. almacén");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lists.png"))); // NOI18N
-        jButton2.setText("Bitácora");
+        btn_bitacora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lists.png"))); // NOI18N
+        btn_bitacora.setText("Bitácora");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -744,10 +746,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
                                 .addComponent(btn_in, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_out, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_almacen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(0, 12, Short.MAX_VALUE))
@@ -773,8 +775,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btn_almacen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1280,7 +1282,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_almacen;
     private javax.swing.JButton btn_anular;
+    private javax.swing.JButton btn_bitacora;
     private javax.swing.JButton btn_destinatario;
     private javax.swing.JButton btn_destino;
     private javax.swing.JButton btn_factura;
@@ -1295,9 +1299,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private javax.swing.JComboBox cmb_estado;
     private javax.swing.JComboBox cmb_estadoFactura;
     private javax.swing.JComboBox cmb_moneda;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

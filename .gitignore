@@ -1,4 +1,5 @@
 *.class
+/src/hibernate.cfg.xml
 
 # Package Files #
 *.war
