@@ -623,12 +623,16 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
         this.btnIncidencia.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
+
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
 

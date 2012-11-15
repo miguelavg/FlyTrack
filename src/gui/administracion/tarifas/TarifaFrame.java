@@ -478,12 +478,16 @@ public class TarifaFrame extends javax.swing.JDialog {
 
     private void definirPermisos(){
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Tarifas", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Tarifas", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(3, "Tarifas", "Buscar/Listar", permisos);
         this.btnBuscar.setEnabled(buscar);
+
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Tarifas", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
         
