@@ -168,6 +168,11 @@ public class AeropuertoModificar extends javax.swing.JDialog {
 
         jLabel8.setText("Almacen:");
 
+        txt_capacidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_capacidadActionPerformed(evt);
+            }
+        });
         txt_capacidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_capacidadKeyReleased(evt);
@@ -372,6 +377,11 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                 error_message = "La capacidad maxima es inválida";
                 
             }
+            else{
+                if (Integer.parseInt(txt_capacidad.getText())==0){
+                    error_message = "El capacidad maxima tiene que ser mayor que 0";
+                }
+            }
            
             
         }
@@ -393,12 +403,12 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                     objAero.getIdAeropuerto(),
                     Integer.parseInt(txt_capacidad.getText()),
                     0,
-                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex()),
+                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex()-1),
                     Integer.parseInt(txt_X.getText()),
                     Integer.parseInt(txt_Y.getText()),
-                    ListatipoEst.get(cbm_estado.getSelectedIndex()),
+                    ListatipoEst.get(cbm_estado.getSelectedIndex()-1),
                     txt_nombre.getText(),
-                    ListatipoPar.get(cbm_pais.getSelectedIndex()));
+                    ListatipoPar.get(cbm_pais.getSelectedIndex()-1));
             
             setVisible(false);
             dispose();
@@ -476,6 +486,10 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         
     }//GEN-LAST:event_txt_capacidadKeyReleased
 
+    private void txt_capacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_capacidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_capacidadActionPerformed
+
     
     private void llenarComboPais(){
       
@@ -500,6 +514,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
             
             cbm_estado.addItem(TipoDocBE);
         }
+
      }
     /**
      * @param args the command line arguments
@@ -571,7 +586,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
      
      for (int k=0 ; k<ListatipoEst.size(); k ++){
         if (objAero.getEstado().getValor().compareTo(ListatipoEst.get(k).getValor())==0)  {
-            cbm_estado.setSelectedIndex(k);
+            cbm_estado.setSelectedIndex(k+1);
             break;
         }
      }
