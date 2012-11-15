@@ -67,6 +67,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VistaPrevia_Factura");
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
