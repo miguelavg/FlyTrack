@@ -281,16 +281,19 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
+            Image imagen= Image.getInstance(("./src/imagenes/logo48x48.png"));
+            imagen.setAlignment(Image.ALIGN_CENTER | Image.TEXTWRAP);
+            
             Paragraph preface1 = new Paragraph();
 
-            preface1=new Paragraph(tituloDocumento+" elaborada por "+autor+" el dia "+dateFormat.format(calendar.getTime()),FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface1=new Paragraph(tituloDocumento+" elaborada por "+autor+" el dia "+dateFormat.format(calendar.getTime()),FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface1.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface1, 1);
             
             Paragraph preface3 = null;
 
-            preface3=new Paragraph(tituloDocumento + "\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.NORMAL));
+            preface3=new Paragraph(tituloDocumento + "\n",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Font.NORMAL));
             preface3.setAlignment(Element.ALIGN_CENTER);
 
             lineaVacia(preface3, 1);
@@ -298,49 +301,49 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             
             Paragraph preface7 = null;
 
-            preface7=new Paragraph("Numero de documento de pago: "+envio.getNumDocVenta()+ "  ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface7=new Paragraph("Numero de documento de pago: "+envio.getNumDocVenta()+ "  ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface7.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface7, 1);
             
             Paragraph preface2 = null;
             
-            preface2=new Paragraph("Empresa: "+empresa + " ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface2=new Paragraph("Empresa:                                     "+empresa + " ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface2.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface2, 1);
             
             Paragraph preface4 = null;
             
-            preface4=new Paragraph("Dirección: Av. Universitaria 1801 San Miguel", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface4=new Paragraph("Dirección:                                   Av. Universitaria 1801 San Miguel", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface4.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface4, 1);
 
             Paragraph preface5 = null;
             
-            preface5=new Paragraph("País     : Peru ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface5=new Paragraph("País:                                            Perú ", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface5.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface5, 1);
             
             Paragraph preface6 = null;
-            preface6=new Paragraph("Telefono : 4546354"+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface6=new Paragraph("Telefono:                                     4546354"+"", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface6.setAlignment(Element.ALIGN_LEFT);
 
             lineaVacia(preface6, 1);
             
 
             Paragraph preface8 = null;
-            preface8=new Paragraph("Moneda :  ", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
+            preface8=new Paragraph("Moneda:                                       "+envio.getMoneda().getValor()+"\n", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
             preface8.setAlignment(Element.ALIGN_LEFT);
 
-            
-            Paragraph preface88 = null;
-            preface88=new Paragraph(envio.getMoneda().getValor()+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
-            preface88.setAlignment(Element.ALIGN_RIGHT);
+//            
+//            Paragraph preface88 = null;
+//            preface88=new Paragraph(envio.getMoneda().getValor()+" \n", FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL));
+//            preface88.setAlignment(Element.ALIGN_RIGHT);
 
-            lineaVacia(preface88, 1);
+            lineaVacia(preface8, 1);
 
 //            Paragraph preface9 = null;
 //            preface9=new Paragraph("Tipo de Documento : "+" \n", FontFactory.getFont(FontFactory.COURIER, 12, Font.NORMAL));
@@ -349,8 +352,8 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
 //            lineaVacia(preface9, 1);
             
             
-
-            document.add(preface1);
+            document.add(imagen);
+            //document.add(preface1);
             document.add(preface3);
        
             document.add(preface7);
@@ -360,7 +363,7 @@ String autor, String empresa,String tituloEnElDocumento, float[] anchos
             document.add(preface5);
             document.add(preface6);    
             document.add(preface8);
-            document.add(preface88);
+            //document.add(preface88);
     }
     
     public static void crearPDF_Trazabilidad_NotaSalida(String direccionDelDocumento,Envio envio) throws Exception {

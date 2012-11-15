@@ -45,6 +45,9 @@ public class UsuarioFrame extends javax.swing.JDialog {
     public UsuarioFrame() {
         initComponents();
         //llenarcomboTipoDoc(); 
+        
+         this.setLocationRelativeTo(null);
+        
         cargartabla();
         llenarcomboEstado();
         llenarcomboPerfiles();
@@ -83,6 +86,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Flytrack - Usuario");
         setModal(true);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

@@ -90,10 +90,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-       
-        String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
-        RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-        txtNombres.setDocument(regexDocument);
+//       
+//        String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
+//        RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
+//        txtNombres.setDocument(regexDocument);
  
 
         this.setLocationRelativeTo(null);
@@ -107,10 +107,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
         llenarcombos();
         if (idusuario!=-1){            
         cargarcampos();  
-        
+        txtNumeroDoc.enable(false);
 //                String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
         //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-        txtNombres.setDocument(regexDocument);
+        //txtNombres.setDocument(regexDocument);
         //txtNombres.setmax
         
         }
@@ -167,6 +167,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuario_editar");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -281,7 +282,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel12.setText("Número Doc:");
 
-        txtNumeroDoc.setEnabled(false);
         txtNumeroDoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNumeroDocKeyReleased(evt);
@@ -297,7 +297,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Regresar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -389,10 +389,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btnBuscarAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtAeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblContrasena)
-                    .addComponent(psswdContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(psswdContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContrasena))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
