@@ -143,6 +143,7 @@ public class TipoCambioEdit extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tipos de cambio");
+        setResizable(false);
 
         pnl_titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
