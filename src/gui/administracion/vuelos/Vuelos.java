@@ -284,6 +284,13 @@ public class Vuelos extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tbl_vuelos);
+        tbl_vuelos.getColumnModel().getColumn(0).setPreferredWidth(65);
+        tbl_vuelos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbl_vuelos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tbl_vuelos.getColumnModel().getColumn(3).setPreferredWidth(112);
+        tbl_vuelos.getColumnModel().getColumn(4).setPreferredWidth(112);
+        tbl_vuelos.getColumnModel().getColumn(6).setPreferredWidth(80);
+        tbl_vuelos.getColumnModel().getColumn(7).setPreferredWidth(75);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
         jButton1.setText("Carga Masiva");
