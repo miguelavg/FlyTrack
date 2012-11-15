@@ -91,7 +91,7 @@ public class CAeropuerto {
             Transaction tx = s.beginTransaction();
             Query q;
 
-  
+ 
             Aeropuerto objAeropuerto = new Aeropuerto();
                
                objAeropuerto.setCapacidadMax(Capacidad);

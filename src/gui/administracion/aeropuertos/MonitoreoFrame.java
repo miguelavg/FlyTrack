@@ -33,7 +33,6 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private List<Aeropuerto> ListaAeropuerto = null;
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
-        this.setLocationRelativeTo(null);
          ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }
@@ -71,7 +70,60 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         
             
                 
-      
+        
+       /* if (envio == null) {
+            return;
+        }
+
+        if (envio.getEscalas() == null) {
+            return;
+        }
+
+        for (Escala e : envio.getEscalas()) {
+            Vuelo v = e.getVuelo();
+
+            if (v == null) {
+                continue;
+            }
+
+            Parametro p = v.getEstado();
+
+            if (p == null) {
+                continue;
+            }
+
+            if (p.getValorUnico().equals("CAN")) {
+                g.setColor(Color.RED);
+            }
+
+            if (p.getValorUnico().equals("FIN")) {
+                g.setColor(Color.BLUE);
+            }
+
+            if (p.getValorUnico().equals("PROG") || p.getValorUnico().equals("RET")) {
+                g.setColor(Color.YELLOW);
+            }
+
+            if (p.getValorUnico().equals("VUE")) {
+                g.setColor(Color.GREEN);
+            }
+
+            Aeropuerto o = v.getOrigen();
+            Aeropuerto d = v.getDestino();
+
+            if (o != null && d != null) {
+                Graphics2D g2 = (Graphics2D) g;
+                Stroke stroke = new BasicStroke(2.0f);
+                g2.setStroke(stroke);
+                g2.drawLine(o.getCoordX(), o.getCoordY(), d.getCoordX(), d.getCoordY());
+            }
+
+        }
+
+        g.dispose();
+        
+        
+        */
     }
 
     /**

@@ -29,7 +29,6 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         super(parent,true);
         objV=objVuelo;
         initComponents();
-        this.setLocationRelativeTo(null);
         indicador=i;
         if (i==-1){
          llenarComponentes();
