@@ -3,10 +3,12 @@
  * and open the template in the editor.
  */
 package gui.administracion.vuelos;
-import controllers.CIncidencia;
+
 import beans.Incidencia;
 import beans.Parametro;
 import beans.Vuelo;
+import controllers.CIncidencia;
+import controllers.CVuelo;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,27 +27,28 @@ import javax.swing.KeyStroke;
  */
 public class IncidenciaEdit extends javax.swing.JDialog {
 
-    public Vuelo objV =null;
+    public Vuelo objV = null;
     public int indicador = 0;
-    public List <Parametro>ListatipoInci =null;
-    Incidencia objInc=null;
+    public List<Parametro> ListatipoInci = null;
+    Incidencia objInc = null;
+
     /**
      * Creates new form IncidenciaEdit
      */
-    public IncidenciaEdit(javax.swing.JDialog parent, boolean modal, Vuelo objVuelo,int i) {
-        super(parent,true);
-        objV=objVuelo;
+    public IncidenciaEdit(javax.swing.JDialog parent, boolean modal, Vuelo objVuelo, int i) {
+        super(parent, true);
+        objV = objVuelo;
         initComponents();
-        indicador=i;
-        if (i==-1){
-         llenarComponentes();
+        indicador = i;
+        if (i == -1) {
+            llenarComponentes();
         }
-        this.setLocationRelativeTo(null); 
+        this.setLocationRelativeTo(null);
         txt_codigo.setText(String.valueOf(objVuelo.getIdVuelo()));
         llenarComboIncidencia();
     }
-    
-        @Override
+
+    @Override
     protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
         KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
@@ -62,22 +65,22 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
         return rootPane;
     }
-   
+
     private void llenarComboIncidencia() {
-      ListatipoInci = CIncidencia.llenarComboEstado();;
-      
-      for (int i=0;i<ListatipoInci.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoInci.get(i);
-            
+        ListatipoInci = CIncidencia.llenarComboEstado();;
+
+        for (int i = 0; i < ListatipoInci.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoInci.get(i);
+
             cbm_incidencia.addItem(TipoDocBE);
         }
     }
 
-   public beans.Incidencia showDialog(){
-        setVisible(true);       
+    public beans.Incidencia showDialog() {
+        setVisible(true);
         return objInc;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -239,65 +242,66 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
-        
-        Parametro p=null;
-        boolean bandera= false;
-        if (cbm_incidencia.getSelectedIndex()>0){
-          p= (Parametro)cbm_incidencia.getSelectedItem();
-        
-        
-         // validarrr ingreso de datos
-        if (objV.getEstado().getValorUnico().compareTo("PROG")== 0){
-             if ((p.getValorUnico().compareTo("CAN")== 0) || (p.getValorUnico().compareTo("RET")==0)
-                   || (p.getValorUnico().compareTo("DES"))==0){
-                bandera = true;
-                    
-             }          
-        }
-            
-        if (objV.getEstado().getValorUnico().compareTo("VUE")== 0){
-               if ((p.getValorUnico().compareTo("CAN")== 0) || (p.getValorUnico().compareTo("RET")==0)
-                   || (p.getValorUnico().compareTo("ATE"))==0){
-                 bandera = true;
-             }     
-        }
-            
-        if (objV.getEstado().getValorUnico().compareTo("FIN")== 0){
-            bandera = false;
-        }
-            
-           
-        if (objV.getEstado().getValorUnico().compareTo("RET")== 0){
-            if ((p.getValorUnico().compareTo("CAN")== 0) || (p.getValorUnico().compareTo("RET")==0)){
-                  bandera = true;                       
-             }   
-        }
-            
-        if (objV.getEstado().getValorUnico().compareTo("CAN")== 0){
-           bandera = false;
-        }
-            
-        if (bandera) {
+
+        Parametro p = null;
+        boolean bandera = false;
+        if (cbm_incidencia.getSelectedIndex() > 0) {
+            p = (Parametro) cbm_incidencia.getSelectedItem();
+
+            // validarrr ingreso de datos
+            if (objV.getEstado().getValorUnico().compareTo("PROG") == 0) {
+                if ((p.getValorUnico().compareTo("CAN") == 0) || (p.getValorUnico().compareTo("RET") == 0)
+                        || (p.getValorUnico().compareTo("DES")) == 0) {
+                    bandera = true;
+
+                }
+            }
+
+            if (objV.getEstado().getValorUnico().compareTo("VUE") == 0) {
+                if ((p.getValorUnico().compareTo("CAN") == 0) || (p.getValorUnico().compareTo("RET") == 0)
+                        || (p.getValorUnico().compareTo("ATE")) == 0) {
+                    bandera = true;
+                }
+            }
+
+            if (objV.getEstado().getValorUnico().compareTo("FIN") == 0) {
+                bandera = false;
+            }
+
+
+            if (objV.getEstado().getValorUnico().compareTo("RET") == 0) {
+                if ((p.getValorUnico().compareTo("CAN") == 0) || (p.getValorUnico().compareTo("RET") == 0)) {
+                    bandera = true;
+                }
+            }
+
+            if (objV.getEstado().getValorUnico().compareTo("CAN") == 0) {
+                bandera = false;
+            }
+
+            if (bandera) {
                 objInc = new Incidencia();
                 objInc.setDescripcion(ta_descripcion.getText());
-                objInc.setEstado((Parametro)cbm_incidencia.getSelectedItem());
+                objInc.setEstado((Parametro) cbm_incidencia.getSelectedItem());
                 objInc.setFecha(new Date());
                 objInc.setVuelo(objV);
 
-        
-        
-        if (indicador != -1) {
-                         
-             CIncidencia.cargarIncidencia(objInc);
-             if  ( objV.getIncidencias() == null ) {
-                objV.setIncidencias(new ArrayList<Incidencia>());
-             }
-             objV.getIncidencias().add(objInc);
-          }
-        }else {
-        
-        JOptionPane.showMessageDialog(this, "La secuencia programada no es aceptada", "Advertencia", 1);
-        }
+
+
+                if (indicador != -1) {
+
+                    CIncidencia.cargarIncidencia(objInc);
+                    if (objV.getIncidencias() == null) {
+                        objV.setIncidencias(new ArrayList<Incidencia>());
+                    }
+                    objV.getIncidencias().add(objInc);
+                    cambioEstadoVuelo();
+                    
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(this, "La secuencia programada no es aceptada", "Advertencia", 1);
+            }
 //        } else {
 //            // modificar
 //            CVuelo.modificarVuelo(
@@ -310,7 +314,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 //                    txt_capacidad.getText());
 //
 //        }
-        this.dispose();
+            this.dispose();
         }
    }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -326,11 +330,9 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
         // TODO add your handling code here:
 }//GEN-LAST:event_btn_cancelarActionPerformed
-
     /**
      * @param args the command line arguments
      */
-   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_guardar;
@@ -350,5 +352,37 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void llenarComponentes() {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
+        private void cambioEstadoVuelo() {
+        String val;
+        String valorPara;
+        val = objInc.getEstado().getValorUnico();
+
+        if (val.compareTo("DES") == 0) //DESPEGUE -- > EN VUELO 16
+        {
+            valorPara = "VUE";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+        if (val.compareTo("ATE") == 0)//ATERRIZAJE --> FINALIZADO 17
+        {
+            valorPara = "FIN";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+        if (val.compareTo("RET") == 0) // RETRASO --> retraso 15
+        {
+            valorPara = "RET";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+        if (val.compareTo("CAN") == 0) //cancelado --> cancelado 18
+        {
+            valorPara = "CAN";
+            cambiarEstado(objInc.getVuelo(), valorPara);
+        }
+
+    }
+
+    private void cambiarEstado(Vuelo objVuelo, String valorPara) {
+        CVuelo.modificarVueloEstado(objVuelo, valorPara);
     }
 }

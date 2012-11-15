@@ -360,12 +360,6 @@ public class Incidencias extends javax.swing.JDialog {
         IncidenciaEdit VInci = new IncidenciaEdit(this, true, objV, 1);
         VInci.setModal(true);
         objInc = VInci.showDialog();
-        if (objInc != null) {
-
-            cambioEstadoVuelo();
-
-        }
-
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -545,36 +539,4 @@ public class Incidencias extends javax.swing.JDialog {
         }
     }
 
-    private void cambioEstadoVuelo() {
-        String val;
-        String valorPara;
-        val = objInc.getEstado().getValorUnico();
-
-        if (val.compareTo("DES") == 0) //DESPEGUE -- > EN VUELO 16
-        {
-            valorPara = "VUE";
-            cambiarEstado(objInc.getVuelo(), valorPara);
-        }
-        if (val.compareTo("ATE") == 0)//ATERRIZAJE --> FINALIZADO 17
-        {
-            valorPara = "FIN";
-            cambiarEstado(objInc.getVuelo(), valorPara);
-        }
-        if (val.compareTo("RET") == 0) // RETRASO --> retraso 15
-        {
-            valorPara = "RET";
-            cambiarEstado(objInc.getVuelo(), valorPara);
-        }
-        if (val.compareTo("CAN") == 0) //cancelado --> cancelado 18
-        {
-            valorPara = "CAN";
-            cambiarEstado(objInc.getVuelo(), valorPara);
-        }
-
-    }
-
-    private void cambiarEstado(Vuelo objVuelo, String valorPara) {
-
-        CVuelo.modificarVueloEstado(objVuelo, valorPara);
-    }
 }

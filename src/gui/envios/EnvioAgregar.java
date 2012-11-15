@@ -99,12 +99,17 @@ public class EnvioAgregar extends javax.swing.JDialog {
             //  si es nuevo...
             this.isNuevo = true;
             llenarCombos(this.isNuevo, null, null, null, null);
-            this.origen = Sesion.getUsuario().getIdAeropuerto();
+
+            if (Sesion.getUsuario().getIdAeropuerto() != null) {
+                this.origen = Sesion.getUsuario().getIdAeropuerto();
+            } else {
+                this.origen = null;
+                
+            }
             this.actual = this.origen;
             this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
             this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
-            CParametro cparametro = new CParametro();
-            List<Parametro> params = cparametro.buscar(null, "IVA", "IVA", null);
+            List<Parametro> params = CParametro.buscar(null, "IVA", "IVA", null);
             if (params != null) {
                 Parametro pIva = params.get(0);
                 this.iva = Double.parseDouble(pIva.getValor());
