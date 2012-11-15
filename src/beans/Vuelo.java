@@ -37,13 +37,15 @@ import org.hibernate.annotations.*;
     @FilterDef(name = "VueloXfechini", parameters = @ParamDef(name = "fechasalida", type = "timestamp")),
     @FilterDef(name = "VueloXfechfin", parameters = @ParamDef(name = "fechallegada", type = "timestamp")),
     @FilterDef(name = "VueloXEstado", parameters = @ParamDef(name = "estado", type = "integer")),
+    @FilterDef(name = "VueloXId", parameters = @ParamDef(name = "id", type = "integer"))
 })
 @Filters({
     @Filter(name = "VueloXOrigen", condition = "idOrigen = :idOrigen"),
     @Filter(name = "VueloXDestino", condition = "idDestino = :idDestino"),
     @Filter(name = "VueloXfechini", condition = "fechaSalida > :fechasalida"), 
     @Filter(name = "VueloXfechfin", condition = "fechaLlegada < :fechallegada"),
-    @Filter(name = "VueloXEstado", condition = "estado = :estado")
+    @Filter(name = "VueloXEstado", condition = "estado = :estado"),
+    @Filter(name = "VueloXId", condition = "idVuelo = :id")
 })
 public class Vuelo implements Serializable {
 
