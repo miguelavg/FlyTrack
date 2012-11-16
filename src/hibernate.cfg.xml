@@ -4,12 +4,12 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-<!--    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/flytrack</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/flytrack</property>
     <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">postgres</property>-->
-    <property name="hibernate.connection.url">jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1054/Prueba</property>
+    <property name="hibernate.connection.password">postgres</property>
+<!--    <property name="hibernate.connection.url">jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1054/Prueba</property>
     <property name="hibernate.connection.username">guest</property>
-    <property name="hibernate.connection.password">guest</property>
+    <property name="hibernate.connection.password">guest</property>-->
     <property name="connection.autocommit">false</property> 
     <property name="show_sql">true</property>
     <mapping class="beans.Aeropuerto"/>

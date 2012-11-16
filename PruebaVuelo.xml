@@ -4,8 +4,8 @@
     <costoAlquiler>2000.0</costoAlquiler>
     <capacidadMax>100</capacidadMax>
     <capacidadActual>0</capacidadActual>
-    <fechaSalida>2012-12-02 17:00:44.675 UTC</fechaSalida>
-    <fechaLlegada>2012-12-02 13:00:44.675 UTC</fechaLlegada>
+    <fechaSalida>2012-12-02 17:00:17.102 UTC</fechaSalida>
+    <fechaLlegada>2012-12-02 13:00:17.102 UTC</fechaLlegada>
     <estado>14</estado>
     <origen>20</origen>
     <destino>23</destino>

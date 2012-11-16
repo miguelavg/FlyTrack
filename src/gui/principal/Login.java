@@ -185,13 +185,14 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUser.getText();
         char[] password = txtPass.getPassword();
 
-        if(!usuario.isEmpty() && password != null && password.length > 0){
+        if( !usuario.isEmpty()  && password.length > 0 && 
+            password != null    && password.length > 0){
             //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
             Usuario usuarioValidado = null;
             if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
                 //VERIFICACION EXITOSA
-                lblError.setVisible(Boolean.FALSE);
+                lblError.setText("");
                 
                 //Se debe cambiar la contrasenia en el login cuando:
                 //- El primer acceso de la cuenta
@@ -223,7 +224,9 @@ public class Login extends javax.swing.JFrame {
                 }
             } else {
                 //VERIFICACION FALLO
-                lblError.setVisible(Boolean.TRUE);
+                lblError.setText("Usuario y/o Contraseña Inválidos");
+                
+                
                 if (usuario.equals(userAnteriorIntentoLogin)) {
                     numIntentosFallidos++;
                 } else {
@@ -238,6 +241,9 @@ public class Login extends javax.swing.JFrame {
                     ErrorDialog.mostrarError("Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
                 }
             }
+        }
+        else{
+            ErrorDialog.mostrarError("Ingrese Usuario y Contraseña por favor", this);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
