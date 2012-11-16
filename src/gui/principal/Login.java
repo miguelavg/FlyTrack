@@ -222,7 +222,7 @@ public class Login extends javax.swing.JFrame {
                 //VERIFICACION FALLO
                 lblError.setText("Usuario y/o Contraseña Inválidos");
                 Usuario usuarioAux = CUsuario.buscarXNombreUsuario(usuario);
-                if(usuarioAux != null){
+                if(usuarioAux != null){// Si el nombre de usuario existe
                     if (usuario.equals(userAnteriorIntentoLogin)) {
                         numIntentosFallidos++;
                     } else {
@@ -234,7 +234,8 @@ public class Login extends javax.swing.JFrame {
                     // Si llega al limite de intentos fallidos se bloquea la cuenta
                     if (numIntentosFallidos >= numMaxIntentosFallidos) {
                         CSeguridad.bloquearCuenta(usuario);
-                        ErrorDialog.mostrarError("Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
+                        ErrorDialog.mostrarError("Usuario: " +usuario + 
+                                " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
                     }
                 }
             }
