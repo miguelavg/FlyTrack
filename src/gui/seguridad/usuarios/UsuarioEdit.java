@@ -68,6 +68,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     Integer idusuario = -1;
     Integer idcontrasena = 0;
     Usuario UsuarioBE;
+    Contrasena ContrasenaAux;
 
     public void setIdusuario(Integer idusuario) {
         this.idusuario = idusuario;
@@ -867,10 +868,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     if (psswdContrasena.getPassword().length!=0){  
                     
                     UsuarioauxBE = Usuario.BuscarXid(idusuario);
-                    ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
+                    //ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
+                    ContrasenaAux=Contrasena.buscarContrasenaActivaPorUsuario(UsuarioauxBE.getIdUsuario());
 
                     ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size() - 1), ListaEstado.get(0));
+                    Contrasena.desactivarUltimaContrasena(ContrasenaAux, ListaEstado.get(0));
                     ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                     Contrasena.agregarContrasena(psswdContrasena.getPassword(),
                             UsuarioauxBE,

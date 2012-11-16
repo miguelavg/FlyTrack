@@ -160,4 +160,29 @@ public class CContrasena {
         return listContrasenas;
     }
     
+    
+        public Contrasena buscarContrasenaActivaPorUsuario(int id){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Contrasena Contrasena = new Contrasena();
+        
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            q = s.getNamedQuery("ContrasenaActivaXidUsuario");
+            q.setParameter("idUsuario", id);
+            
+            Contrasena=(Contrasena)q.uniqueResult();
+            return Contrasena;
+            
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            s.close();
+        }
+        return null;
+    }
+    
 }
