@@ -49,6 +49,7 @@ public class CEnvio {
         Session s = sf.openSession();
         try {
             Transaction tx = s.beginTransaction();
+            s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
             tx.commit();
         } catch (Exception e) {

@@ -38,11 +38,9 @@ public class Escala implements Serializable {
     private Parametro estado;
     @ManyToOne
     @JoinColumn(name = "idVuelo")
-    @Cascade(CascadeType.SAVE_UPDATE)
     private Vuelo vuelo;
     @ManyToOne
     @JoinColumn(name = "idEnvio")
-    @Cascade(CascadeType.SAVE_UPDATE)
     private Envio envio;
 
     public Escala() {

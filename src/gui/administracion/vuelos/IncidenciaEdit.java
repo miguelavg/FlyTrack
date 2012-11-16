@@ -385,5 +385,6 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void cambiarEstado(Vuelo objVuelo, String valorPara) {
         CVuelo.modificarVueloEstado(objVuelo, valorPara);
+        CVuelo.modificarEscalas(objVuelo);
     }
 }
