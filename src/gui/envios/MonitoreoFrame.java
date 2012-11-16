@@ -54,7 +54,6 @@ public class MonitoreoFrame extends javax.swing.JDialog {
 
         return rootPane;
     }
-    
     private Envio envio;
 
     @Override
@@ -82,10 +81,6 @@ public class MonitoreoFrame extends javax.swing.JDialog {
                 continue;
             }
 
-            if (p.getValorUnico().equals("CAN")) {
-                g.setColor(Color.RED);
-            }
-
             if (p.getValorUnico().equals("FIN")) {
                 g.setColor(Color.BLUE);
             }
@@ -96,6 +91,10 @@ public class MonitoreoFrame extends javax.swing.JDialog {
 
             if (p.getValorUnico().equals("VUE")) {
                 g.setColor(Color.GREEN);
+            }
+
+            if (p.getValorUnico().equals("CAN") || e.getEstado().getValorUnico().equals("CAN")) {
+                g.setColor(Color.RED);
             }
 
             Aeropuerto o = v.getOrigen();

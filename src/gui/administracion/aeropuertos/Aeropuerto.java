@@ -4,7 +4,6 @@
  */
 package gui.administracion.aeropuertos;
  
-import beans.Cliente;
 import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Permiso;
@@ -72,6 +71,11 @@ public class Aeropuerto extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Aeropuertos");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -344,6 +348,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         }
 
     }
+    
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
@@ -406,6 +411,11 @@ public class Aeropuerto extends javax.swing.JDialog {
     private void cbm_ciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_ciudadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbm_ciudadActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        llenarGrillaAero();
+    }//GEN-LAST:event_formWindowOpened
 
     private void llenarComboPais() {
 

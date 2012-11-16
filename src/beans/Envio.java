@@ -5,6 +5,8 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -86,9 +88,11 @@ public class Envio implements Serializable {
     private Aeropuerto origen;
     @ManyToOne
     @JoinColumn(name = "idDestino")
+    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto destino;
     @ManyToOne
     @JoinColumn(name = "idActual")
+    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto actual;
     @ManyToOne
     @JoinColumn(name = "idRemitente")
@@ -255,5 +259,22 @@ public class Envio implements Serializable {
         this.estadoFactura = estadoFactura;
     }
     
+    public class CustomComparator implements Comparator<Escala> {
+        @Override
+        public int compare(Escala e1, Escala e2) {
+            if (e1.getEstado().getIdParametro() > e2.getEstado().getIdParametro() || e1.getEstado().getIdParametro() == e2.getEstado().getIdParametro() && e1.getVuelo().getFechaSalida().before(e2.getVuelo().getFechaSalida())) {
+                return -1;
+            }
+            if (e1.getEstado().getIdParametro() < e2.getEstado().getIdParametro() || e1.getEstado().getIdParametro() == e2.getEstado().getIdParametro() && e1.getVuelo().getFechaSalida().after(e2.getVuelo().getFechaSalida())) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+    
+    public List<Escala> getEscalasOrdenadas() {
+        Collections.sort(escalas, new CustomComparator());
+        return escalas;
+    }
     
 }

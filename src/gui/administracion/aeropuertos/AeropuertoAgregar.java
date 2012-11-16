@@ -410,19 +410,19 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
     private void txt_NombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NombreKeyReleased
         // TODO add your handling code here:
-        
-        char letra = evt.getKeyChar();
-        if (!CValidator.validarSoloLetrasYEspacio(letra, txt_Nombre)) {
-            getToolkit().beep();
-        }
+//        
+//        char letra = evt.getKeyChar();
+//        if (!CValidator.validarSoloLetrasYEspacio(letra, txt_Nombre)) {
+//            getToolkit().beep();
+//        }
         
     }//GEN-LAST:event_txt_NombreKeyReleased
 
     private void txt_capacidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_capacidadKeyReleased
-                char letra = evt.getKeyChar();
-        if (!CValidator.validarSoloNumeros(letra, txt_capacidad)) {
-            getToolkit().beep();
-        }// TODO add your handling code here:
+//                char letra = evt.getKeyChar();
+//        if (!CValidator.validarSoloNumeros(letra, txt_capacidad)) {
+//            getToolkit().beep();
+//        }// TODO add your handling code here:
         
     }//GEN-LAST:event_txt_capacidadKeyReleased
 

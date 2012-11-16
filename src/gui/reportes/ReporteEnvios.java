@@ -4,6 +4,8 @@
  */
 package gui.reportes;
 
+import beans.Aeropuerto;
+import gui.administracion.aeropuertos.*;
 /**
  *
  * @author jugox
@@ -13,8 +15,12 @@ public class ReporteEnvios extends javax.swing.JFrame {
     /**
      * Creates new form ReporteEnvios
      */
+    Aeropuerto aeroori;
+    Aeropuerto aerodes;
+    
     public ReporteEnvios() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -30,7 +36,6 @@ public class ReporteEnvios extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         dtFechaIni = new datechooser.beans.DateChooserCombo();
         jLabel5 = new javax.swing.JLabel();
-        dtFechaFin = new datechooser.beans.DateChooserCombo();
         jLabel4 = new javax.swing.JLabel();
         txtOrigen = new javax.swing.JTextField();
         btn_origen = new javax.swing.JButton();
@@ -40,6 +45,7 @@ public class ReporteEnvios extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnRegresar1 = new javax.swing.JButton();
+        dtFechaFin = new datechooser.beans.DateChooserCombo();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -47,7 +53,8 @@ public class ReporteEnvios extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -59,11 +66,9 @@ public class ReporteEnvios extends javax.swing.JFrame {
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
             e1.printStackTrace();
         }
+        dtFechaIni.setLocale(new java.util.Locale("es", "PE", ""));
 
         jLabel5.setText("Fecha Final:");
-
-        dtFechaFin.setNothingAllowed(false);
-        dtFechaFin.setLocked(true);
 
         jLabel4.setText("Origen:");
 
@@ -104,6 +109,11 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btnRegresar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btnRegresar1.setText("Regresar");
@@ -112,6 +122,14 @@ public class ReporteEnvios extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        dtFechaFin.setNothingAllowed(false);
+        try {
+            dtFechaFin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+        dtFechaFin.setLocale(new java.util.Locale("es", "PE", ""));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,7 +158,7 @@ public class ReporteEnvios extends javax.swing.JFrame {
                         .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_destino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(426, 426, 426)
@@ -153,11 +171,12 @@ public class ReporteEnvios extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtFechaIni, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dtFechaIni, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -204,6 +223,7 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
         jButton2.setText("Exportar");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -284,13 +304,13 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
     private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
         // TODO add your handling code here:
-//        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-//        a_origen = aeropuertoPU.showDialog();
-//
-//        if (a_origen != null) {
-//
-//            txt_origen.setText(a_origen.getNombre());
-//        }
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        aeroori = aeropuertoPU.showDialog();
+
+        if (aeroori != null) {
+
+            txtOrigen.setText(aeroori.getNombre());
+        }
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void txtDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDestinoActionPerformed
@@ -299,13 +319,13 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
         // TODO add your handling code here:
-//        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-//        a_destino = aeropuertoPU.showDialog();
-//
-//        if (a_destino != null) {
-//
-//            txt_destino.setText(a_destino.getNombre());
-//        }
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        aerodes = aeropuertoPU.showDialog();
+
+        if (aerodes != null) {
+
+            txtDestino.setText(aerodes.getNombre());
+        }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -315,6 +335,11 @@ public class ReporteEnvios extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -64,16 +64,14 @@ public class Vuelo implements Serializable {
     private Parametro estado;
     @ManyToOne
     @JoinColumn(name = "idOrigen")
-    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto origen;
     @ManyToOne
     @JoinColumn(name = "idDestino")
-    @Cascade(CascadeType.SAVE_UPDATE)
     private Aeropuerto destino;
     @OneToMany(mappedBy = "vuelo")
+    @Cascade(CascadeType.ALL)
     private List<Incidencia> incidencias;
     @OneToMany(mappedBy = "vuelo")
-    @Cascade(CascadeType.ALL)
     private List<Escala> escalas;
 
     public Vuelo() {

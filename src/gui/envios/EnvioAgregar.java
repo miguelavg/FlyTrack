@@ -87,7 +87,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.txt_numPaquetes.setText(String.valueOf(this.envio.getNumPaquetes()));
             this.txt_numDoc.setText(String.valueOf(this.envio.getNumDocVenta()));
             this.txt_fechaReg.setText(CValidator.formatDate(this.envio.getFechaRegistro()));
-            this.txt_fechaRec.setText(CValidator.formatDate(this.envio.getFechaRecojo()));
+            if (this.envio.getFechaRecojo() != null) {
+                this.txt_fechaRec.setText(CValidator.formatDate(this.envio.getFechaRecojo()));
+            }
 
 
             // falta llenar campos
@@ -242,7 +244,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             dtm.removeRow(0);
         }
 
-        for (Escala e : envio.getEscalas()) {
+        for (Escala e : envio.getEscalasOrdenadas()) {
 
             datos[0] = e.getNumEscala();
             datos[1] = e.getVuelo().getIdVuelo();
