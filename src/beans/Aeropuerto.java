@@ -34,7 +34,7 @@ import org.hibernate.annotations.ParamDef;
     
     @NamedQuery(name = "Aero",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV' order by idAeropuerto"),
-    @NamedQuery(name = "AeroXNombre",
+    @NamedQuery(name = "AeroXNombres",
     query = "from Aeropuerto where nombre = :aero"),
     @NamedQuery(name = "Aeropuertos",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
