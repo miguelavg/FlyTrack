@@ -289,7 +289,7 @@ public class CAeropuerto {
             Transaction tx = s.beginTransaction();
             Query q;
             
-            q = s.getNamedQuery("AeroXNombre");
+            q = s.getNamedQuery("AeroXNombres");
             q.setParameter("aero", nombre);
            
              aero= (beans.Aeropuerto)q.uniqueResult();
