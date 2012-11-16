@@ -756,10 +756,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        
 //        for (int i=0; i< menorCon;i++){
 //        }
-
-
-
-
         }
 
         if (mensaje.equals("") && mensaje2.equals("")) {
@@ -777,7 +773,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
             Usuario UsuarioAux;
             //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
 
-
             Usuario UsuarioauxBE;
 //        if (ClienteAux==null && idusuario!=-1){
 //        auxCliente=UsuarioauxBE.getIdCliente();
@@ -793,21 +788,15 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        valoraux=0;
 //        }
 
-
             String error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
 
             if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
-
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-
             }
-
-
 
             String error_message2 = validarcampos();
 
             error_message = error_message + error_message2;
-
 
             if (error_message == null || error_message.isEmpty()) {
 
@@ -875,6 +864,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
 
+                    if (psswdContrasena.getPassword().length!=0){  
+                    
                     UsuarioauxBE = Usuario.BuscarXid(idusuario);
                     ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
 
@@ -884,6 +875,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     Contrasena.agregarContrasena(psswdContrasena.getPassword(),
                             UsuarioauxBE,
                             ListaEstado.get(0));
+                    }
+                    
                 }
                 this.setVisible(false);
                 this.dispose();
