@@ -299,7 +299,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
                     
                 }
             } else {
-
+                objInc = null;
                 JOptionPane.showMessageDialog(this, "La secuencia programada no es aceptada", "Advertencia", 1);
             }
 //        } else {
@@ -314,6 +314,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 //                    txt_capacidad.getText());
 //
 //        }
+            
             this.dispose();
         }
    }//GEN-LAST:event_btn_guardarActionPerformed

@@ -351,11 +351,14 @@ public class CUsuario {
     public static Usuario buscarXNombreUsuario(String username){
         Session s = Sesion.openSessionFactory();
         try{
-            Transaction tx = s.beginTransaction();
+            //Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
             q.setParameter("username", username);
             Usuario user = (Usuario)q.uniqueResult();
-            user.getContrasenias().size();
+            if(user != null) {
+                user.getContrasenias().size();
+                //user.getPerfil().getPermisos().size(); <-- no es necesario pues solo se usara para el Olvido Contrasenia
+            }
             return user;
         }
         catch(Exception e){
@@ -369,7 +372,7 @@ public class CUsuario {
         return null;
     }
     
-     public static Usuario buscarXNumDocumento(String documento){
+    public static Usuario buscarXNumDocumento(String documento){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -390,7 +393,7 @@ public class CUsuario {
         return null;
     }
      
-         public String ValidarDocumento(Parametro tipodoc, String numero){
+    public String ValidarDocumento(Parametro tipodoc, String numero){
         String error="";
         
         SessionFactory sf = Sesion.getSessionFactory();
