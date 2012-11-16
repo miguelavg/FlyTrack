@@ -331,6 +331,8 @@ public class TarifaFrame extends javax.swing.JDialog {
 
         if (AeroOri != null) {
             txtAeroOri.setText(AeroOri.getNombre()+ ", "+AeroOri.getCiudad().getValor());
+        } else {
+            txtAeroOri.setText("");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -343,7 +345,10 @@ public class TarifaFrame extends javax.swing.JDialog {
 
         if (AeroDes != null) {
             txtAeroDes.setText(AeroDes.getNombre()+ ", "+AeroDes.getCiudad().getValor());
+        } else {
+            txtAeroDes.setText("");
         }
+               
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -406,7 +411,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         datos[0] = t.getIdTarifa();
         datos[1] = origen.getNombre();
         datos[2] = destino.getNombre();
-        datos[3] = monto;
+        datos[3] = CValidator.formatNumber(monto);
        
         dtm.addRow(datos);
     }

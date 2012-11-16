@@ -450,7 +450,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
         aeropuertoOrigen = aeropuertoPU.showDialog();
         if (aeropuertoOrigen != null) {
             txt_origen.setText(aeropuertoOrigen.getNombre());
-
+        } else {
+            txt_origen.setText("");
         }
     }//GEN-LAST:event_btn_origenAeroActionPerformed
 
@@ -461,6 +462,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
         if (aeropuertoDestino != null) {
             txt_destino.setText(aeropuertoDestino.getNombre());
 
+        } else {
+            txt_destino.setText("");
         }
     }//GEN-LAST:event_btn_origenDestActionPerformed
 

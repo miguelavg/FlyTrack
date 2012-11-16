@@ -51,7 +51,7 @@ public class CTarifa {
         
         return null;
     }
-    public String ValidarRuta(Aeropuerto aeroori,Aeropuerto aerodes){
+    public String ValidarRuta(Aeropuerto aeroori, Aeropuerto aerodes){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -66,7 +66,7 @@ public class CTarifa {
             q.setParameter("aerodes", aerodes);
             Lista = q.list();
             if (Lista.size()>0){
-               mensaje="Ya existe una tarifa para el origen y destino especificado"; 
+               mensaje = "Ya existe una tarifa para el origen y destino especificado"; 
             }
         }
         catch(Exception e){

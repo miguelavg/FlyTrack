@@ -13,10 +13,17 @@ import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesEdit;
+import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -28,17 +35,17 @@ public class TarifaEdit extends javax.swing.JDialog {
      * Creates new form TarifaEdit
      */
     CTarifa TarifaBL = new CTarifa();
-    Aeropuerto AeroOri=null;
-    Aeropuerto AeroDes=null;
+    Aeropuerto AeroOri = null;
+    Aeropuerto AeroDes = null;
     List<Parametro> ListaMonedas;
     List<Parametro> ListaEstadoTarifa;
-    int idtarifa=-1;
+    int idtarifa = -1;
     Tarifa TarifaBE;
-    
-    public TarifaEdit(javax.swing.JDialog parent, boolean modal,int id) {
-        
+
+    public TarifaEdit(javax.swing.JDialog parent, boolean modal, int id) {
+
         super(parent, modal);
-        idtarifa=id;
+        idtarifa = id;
         initComponents();
         this.setLocationRelativeTo(null);
         cargarcombos();
@@ -50,11 +57,29 @@ public class TarifaEdit extends javax.swing.JDialog {
         jLabel10.setVisible(false);
         cboEstado.setSelectedIndex(1);
         cboMoneda.setSelectedIndex(2);
-        
-        if (idtarifa!=-1){
+
+        if (idtarifa != -1) {
             cargarcampos();
         }
-        
+
+    }
+    
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -306,56 +331,56 @@ public class TarifaEdit extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void cargarcampos(){
-        
-        TarifaBE=TarifaBL.BuscarXid(idtarifa);
-           txtAeroOri.setText(TarifaBE.getOrigen().getNombre());
-           txtAeroDes.setText(TarifaBE.getDestino().getNombre());
-           String monto=CValidator.formatNumber(TarifaBE.getMonto());
-           monto.replace(",", ".");
-           txtMonto.setText(monto);
-           //txtFechaAct.setText((CValidator.formatDate(TarifaBE.getFechaActivacion())).substring(0,10).replace("/", "-"));
-           //txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()).substring(0,10).replace("/", "-"));
-           
-           for(int i=1;i<cboMoneda.getItemCount();i++){
-               Parametro moneda = (Parametro)cboMoneda.getItemAt(i);
-               if (moneda.getIdParametro()==TarifaBE.getMoneda().getIdParametro())
-               {
-               cboMoneda.setSelectedIndex(i);
-               break;
-               }
-           }
-           
-           for(int i=1;i<cboEstado.getItemCount();i++){
-               Parametro estado = (Parametro)cboEstado.getItemAt(i);
-               if (estado.getIdParametro()==TarifaBE.getEstado().getIdParametro())
-               {
-               cboEstado.setSelectedIndex(i);
-               break;
-               
-               }
-           }
-           btnOrigen.setEnabled(false);
-           btnDestino.setEnabled(false);
-                 
+
+    public void cargarcampos() {
+
+        TarifaBE = TarifaBL.BuscarXid(idtarifa);
+        AeroOri = TarifaBE.getOrigen();
+        AeroDes = TarifaBE.getDestino();
+        txtAeroOri.setText(TarifaBE.getOrigen().getNombre());
+        txtAeroDes.setText(TarifaBE.getDestino().getNombre());
+        String monto = CValidator.formatNumber(TarifaBE.getMonto());
+        monto.replace(",", ".");
+        txtMonto.setText(monto);
+        //txtFechaAct.setText((CValidator.formatDate(TarifaBE.getFechaActivacion())).substring(0,10).replace("/", "-"));
+        //txtFechaDes.setText(CValidator.formatDate(TarifaBE.getFechaDesactivacion()).substring(0,10).replace("/", "-"));
+
+        for (int i = 1; i < cboMoneda.getItemCount(); i++) {
+            Parametro moneda = (Parametro) cboMoneda.getItemAt(i);
+            if (moneda.getIdParametro() == TarifaBE.getMoneda().getIdParametro()) {
+                cboMoneda.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        for (int i = 1; i < cboEstado.getItemCount(); i++) {
+            Parametro estado = (Parametro) cboEstado.getItemAt(i);
+            if (estado.getIdParametro() == TarifaBE.getEstado().getIdParametro()) {
+                cboEstado.setSelectedIndex(i);
+                break;
+
+            }
+        }
+        btnOrigen.setEnabled(false);
+        btnDestino.setEnabled(false);
+
     }
-    public void cargarcombos(){
-        ListaMonedas=TarifaBL.ListarMonedas();
-        ListaEstadoTarifa=TarifaBL.ListarEstadoMonedas();
-        
-        for (int i=0;i<ListaMonedas.size();i++)
-        {
-            Parametro Moneda =(Parametro)ListaMonedas.get(i);
-            
+
+    public void cargarcombos() {
+        ListaMonedas = TarifaBL.ListarMonedas();
+        ListaEstadoTarifa = TarifaBL.ListarEstadoMonedas();
+
+        for (int i = 0; i < ListaMonedas.size(); i++) {
+            Parametro Moneda = (Parametro) ListaMonedas.get(i);
+
             cboMoneda.addItem(Moneda);
         }
-        for (int i=0;i<ListaEstadoTarifa.size();i++)
-        {
-            Parametro EstadoTarifa =(Parametro)ListaEstadoTarifa.get(i);
-            
+        for (int i = 0; i < ListaEstadoTarifa.size(); i++) {
+            Parametro EstadoTarifa = (Parametro) ListaEstadoTarifa.get(i);
+
             cboEstado.addItem(EstadoTarifa);
         }
-        
+
     }
     private void txtAeroOriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroOriActionPerformed
         // TODO add your handling code here:
@@ -367,7 +392,9 @@ public class TarifaEdit extends javax.swing.JDialog {
         AeroOri = AeropuertoPU.showDialog();
 
         if (AeroOri != null) {
-            txtAeroOri.setText(AeroOri.getNombre()+ ", "+AeroOri.getCiudad().getValor());
+            txtAeroOri.setText(AeroOri.getNombre() + ", " + AeroOri.getCiudad().getValor());
+        } else {
+            txtAeroOri.setText("");
         }
     }//GEN-LAST:event_btnOrigenActionPerformed
 
@@ -377,7 +404,9 @@ public class TarifaEdit extends javax.swing.JDialog {
         AeroDes = AeropuertoPU.showDialog();
 
         if (AeroDes != null) {
-            txtAeroDes.setText(AeroDes.getNombre()+ ", "+AeroDes.getCiudad().getValor());
+            txtAeroDes.setText(AeroDes.getNombre() + ", " + AeroDes.getCiudad().getValor());
+        } else {
+            txtAeroDes.setText("");
         }
     }//GEN-LAST:event_btnDestinoActionPerformed
 
@@ -396,85 +425,77 @@ public class TarifaEdit extends javax.swing.JDialog {
     private void txtFechaDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaDesActionPerformed
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         String error_message = validarcampos();
-        if (error_message.isEmpty()){
-            if (idtarifa==-1){
-                TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
+        if (error_message.isEmpty()) {
+            if (idtarifa == -1) {
+                TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro) cboMoneda.getSelectedItem(), (Parametro) cboMoneda.getSelectedItem(), txtFechaAct.getText(), txtFechaDes.getText());
 
-            }
-            else{
+            } else {
                 Aeropuerto nuevoaeroori;
                 Aeropuerto nuevoaerodes;
-                if (AeroOri==null){
-                    nuevoaeroori=TarifaBE.getOrigen();
-                } 
-                else{
-                    nuevoaeroori=AeroOri;
+                if (AeroOri == null) {
+                    nuevoaeroori = TarifaBE.getOrigen();
+                } else {
+                    nuevoaeroori = AeroOri;
                 }
 
-                if (AeroDes==null){
-                    nuevoaerodes=TarifaBE.getDestino();
-                } 
-                else{
-                    nuevoaerodes=AeroDes;
+                if (AeroDes == null) {
+                    nuevoaerodes = TarifaBE.getDestino();
+                } else {
+                    nuevoaerodes = AeroDes;
                 }
 
-                TarifaBL.ModificarTarifa(TarifaBE.getIdTarifa(),nuevoaeroori,nuevoaerodes,txtMonto.getText(),txtFechaAct.getText(),txtFechaDes.getText()
-                        ,(Parametro)cboMoneda.getSelectedItem(),(Parametro)cboEstado.getSelectedItem());
+                TarifaBL.ModificarTarifa(TarifaBE.getIdTarifa(), nuevoaeroori, nuevoaerodes, txtMonto.getText(), txtFechaAct.getText(), txtFechaDes.getText(), (Parametro) cboMoneda.getSelectedItem(), (Parametro) cboEstado.getSelectedItem());
 
             }
             setVisible(false);
             dispose();
-        }
-        
-        else{
-            
+        } else {
+
             ErrorDialog.mostrarError(error_message, this);
-            
+
         }
         //TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
-    private String validarcampos(){
-        
+    private String validarcampos() {
+
         String error_message = "";
-        
-        if (txtAeroOri.getText().isEmpty()||txtAeroDes.getText().isEmpty() || txtMonto.getText().isEmpty() ||
-                    //txtFechaAct.getText().isEmpty() ||  txtFechaDes.getText().isEmpty() ||
-                cboEstado.getSelectedIndex()==0 || cboMoneda.getSelectedIndex()==0  ){
-            
+
+        if (txtAeroOri.getText().isEmpty() || txtAeroDes.getText().isEmpty() || txtMonto.getText().isEmpty()
+                || //txtFechaAct.getText().isEmpty() ||  txtFechaDes.getText().isEmpty() ||
+                cboEstado.getSelectedIndex() == 0 || cboMoneda.getSelectedIndex() == 0) {
+
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-            
-        }
-        else{
-            
+
+        } else {
+
 //            if (idCliente==-1){
 //
 //                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
 //            }
-                      
-            if (!CValidator.isDouble(txtMonto.getText())){
-                
-                error_message = "El monto es inválido";
+
+            if (!CValidator.isDouble(txtMonto.getText())) {
+
+                error_message = "El monto es inválido\n";
                 return error_message;
-                
-            }
-            else{
-                if (Double.parseDouble(txtMonto.getText())==0){
-                    error_message = "El monto debe ser mayor que 0";
+
+            } else {
+                if (Double.parseDouble(txtMonto.getText()) <= 0) {
+                    error_message = "El monto debe ser mayor que 0\n";
                     return error_message;
                 }
             }
-                
-            
-            
+
+
+
             SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
-            
+
             Date fechaact = null;
-            Date fechades=null;
+            Date fechades = null;
             try {
 
                 fechaact = formatoDelTexto.parse(txtFechaAct.getText());
@@ -483,50 +504,49 @@ public class TarifaEdit extends javax.swing.JDialog {
             } catch (ParseException ex) {
 
                 ex.printStackTrace();
-                error_message = "La fecha es incorrecta";
+                error_message = "La fecha es incorrecta\n";
                 return error_message;
             }
-            if (fechaact.after(fechades)){
-                error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación";
+            if (fechaact.after(fechades)) {
+                error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación\n";
             }
-            if (txtAeroOri.getText().equals(txtAeroDes.getText())){
-                error_message = error_message + "La fecha de activación no puede ser menor a la de desactivación";
+            if (AeroOri.getIdAeropuerto() == AeroDes.getIdAeropuerto()) {
+                error_message = error_message + "El aeropuerto origen debe ser distinto al aeropuerto destino\n";
             }
-                        
-            if (idtarifa==-1){
+
+            if (idtarifa == -1) {
                 Aeropuerto nuevoaeroori;
                 Aeropuerto nuevoaerodes;
-                if (AeroOri==null){
-                    nuevoaeroori=TarifaBE.getOrigen();
-                } 
-                else{
-                    nuevoaeroori=AeroOri;
+                if (AeroOri == null) {
+                    nuevoaeroori = TarifaBE.getOrigen();
+                } else {
+                    nuevoaeroori = AeroOri;
                 }
 
-                if (AeroDes==null){
-                    nuevoaerodes=TarifaBE.getDestino();
-                } 
-                else{
-                    nuevoaerodes=AeroDes;
+                if (AeroDes == null) {
+                    nuevoaerodes = TarifaBE.getDestino();
+                } else {
+                    nuevoaerodes = AeroDes;
                 }
 
-                error_message=TarifaBL.ValidarRuta(nuevoaeroori,nuevoaerodes);
+                error_message = error_message + TarifaBL.ValidarRuta(nuevoaeroori, nuevoaerodes);
             }
-            
+
         }
-                      
+
         return error_message;
-        
-        
+
+
     }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
-    public int showDialog(){
-            setVisible(true);
-            return 1;
+    public int showDialog() {
+        setVisible(true);
+        return 1;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -557,7 +577,7 @@ public class TarifaEdit extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TarifaEdit dialog = new TarifaEdit(new javax.swing.JDialog(), true,-1);
+                TarifaEdit dialog = new TarifaEdit(new javax.swing.JDialog(), true, -1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -565,8 +585,8 @@ public class TarifaEdit extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
-                
-                
+
+
             }
         });
     }
