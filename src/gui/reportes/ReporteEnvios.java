@@ -4,6 +4,8 @@
  */
 package gui.reportes;
 
+import beans.Aeropuerto;
+import gui.administracion.aeropuertos.*;
 /**
  *
  * @author jugox
@@ -13,6 +15,9 @@ public class ReporteEnvios extends javax.swing.JFrame {
     /**
      * Creates new form ReporteEnvios
      */
+    Aeropuerto aeroori;
+    Aeropuerto aerodes;
+    
     public ReporteEnvios() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -49,6 +54,7 @@ public class ReporteEnvios extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -298,13 +304,13 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
     private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
         // TODO add your handling code here:
-//        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-//        a_origen = aeropuertoPU.showDialog();
-//
-//        if (a_origen != null) {
-//
-//            txt_origen.setText(a_origen.getNombre());
-//        }
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        aeroori = aeropuertoPU.showDialog();
+
+        if (aeroori != null) {
+
+            txtOrigen.setText(aeroori.getNombre());
+        }
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void txtDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDestinoActionPerformed
@@ -313,13 +319,13 @@ public class ReporteEnvios extends javax.swing.JFrame {
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
         // TODO add your handling code here:
-//        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-//        a_destino = aeropuertoPU.showDialog();
-//
-//        if (a_destino != null) {
-//
-//            txt_destino.setText(a_destino.getNombre());
-//        }
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        aerodes = aeropuertoPU.showDialog();
+
+        if (aerodes != null) {
+
+            txtDestino.setText(aerodes.getNombre());
+        }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

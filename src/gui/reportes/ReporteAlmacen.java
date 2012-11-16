@@ -4,6 +4,9 @@
  */
 package gui.reportes;
 
+
+import beans.Aeropuerto;
+import gui.administracion.aeropuertos.*;
 /**
  *
  * @author jugox
@@ -13,6 +16,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     /**
      * Creates new form ReporteAlmacen
      */
+    beans.Aeropuerto aeroori;
     public ReporteAlmacen() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -39,7 +43,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtAeropuerto = new javax.swing.JTextPane();
+        txtOrigen = new javax.swing.JTextPane();
         btn_origen = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -55,6 +59,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -116,7 +121,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
         jLabel1.setText("Aeropuerto");
 
-        jScrollPane1.setViewportView(txtAeropuerto);
+        jScrollPane1.setViewportView(txtOrigen);
 
         btn_origen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btn_origen.addActionListener(new java.awt.event.ActionListener() {
@@ -261,14 +266,14 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
-        // TODO add your handling code here:
-        //        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-        //        a_origen = aeropuertoPU.showDialog();
-        //
-        //        if (a_origen != null) {
-            //
-            //            txt_origen.setText(a_origen.getNombre());
-            //        }
+         //TODO add your handling code here:
+                AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+                aeroori = aeropuertoPU.showDialog();
+        
+                if (aeroori != null) {
+            
+                        txtOrigen.setText(aeroori.getNombre());
+                    }
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -336,6 +341,6 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextPane txtAeropuerto;
+    private javax.swing.JTextPane txtOrigen;
     // End of variables declaration//GEN-END:variables
 }

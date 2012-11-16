@@ -50,6 +50,7 @@ public class ReporteVentas extends javax.swing.JFrame {
         btnRegresar.setText("Regresar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
