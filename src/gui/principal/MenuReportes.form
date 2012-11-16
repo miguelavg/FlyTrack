@@ -30,14 +30,14 @@
                           <Component id="lblLogAuditoria" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="btnLogAuditoria" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnRptEnvio" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                              <Component id="btnLogAuditoria2" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnRptVentas" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lblLogAuditoria2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -50,7 +50,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                              <Component id="btnLogAuditoria3" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnRptMovAlmc" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
@@ -62,7 +62,7 @@
                           <Component id="lblLogAuditoria4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="btnLogAuditoria4" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnRptIncidencias" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -77,12 +77,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="btnLogAuditoria2" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnRptVentas" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblLogAuditoria2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnLogAuditoria" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnRptEnvio" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblLogAuditoria" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -90,12 +90,12 @@
               <EmptySpace pref="20" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnLogAuditoria3" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnRptMovAlmc" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblLogAuditoria3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnLogAuditoria4" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnRptIncidencias" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblLogAuditoria4" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -108,14 +108,14 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnLogAuditoria">
+    <Component class="javax.swing.JButton" name="btnRptEnvio">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/envio4848.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogAuditoriaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRptEnvioActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLogAuditoria">
@@ -123,14 +123,14 @@
         <Property name="text" type="java.lang.String" value="Reporte de Envios"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnLogAuditoria2">
+    <Component class="javax.swing.JButton" name="btnRptVentas">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/tarifa48x48.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogAuditoria2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRptVentasActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLogAuditoria2">
@@ -138,14 +138,14 @@
         <Property name="text" type="java.lang.String" value="Reporte de Ventas"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnLogAuditoria3">
+    <Component class="javax.swing.JButton" name="btnRptMovAlmc">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/gestion_almacen.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogAuditoria3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRptMovAlmcActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLogAuditoria3">
@@ -153,14 +153,14 @@
         <Property name="text" type="java.lang.String" value="Reporte de Movimiento"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnLogAuditoria4">
+    <Component class="javax.swing.JButton" name="btnRptIncidencias">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/lightning-sign-icon.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogAuditoria4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRptIncidenciasActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLogAuditoria4">
