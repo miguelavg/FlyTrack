@@ -5,8 +5,6 @@
 package controllers;
 
 import beans.*;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -49,55 +47,50 @@ public class CVuelo {
         return ListaTipoEst;
 
     }
-     
-      public static String validar(
-            Aeropuerto aeropuertoOrigen, 
+
+    public static String validar(
+            Aeropuerto aeropuertoOrigen,
             Aeropuerto aeropuertoDestino,
             Calendar ini,
             Calendar fin,
             Parametro Estado,
             String capacidad,
-            String monto) 
-      {
+            String monto) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
         Parametro p;
         try {
-             
-            if (aeropuertoOrigen == null || 
-                aeropuertoDestino == null || 
-                ini == null || 
-                fin == null || 
-                Estado == null || 
-                (capacidad == null || capacidad.compareTo("")==0 )  ||
-                (monto == null || monto.compareTo("")==0 )) 
-            {
+
+            if (aeropuertoOrigen == null
+                    || aeropuertoDestino == null
+                    || ini == null
+                    || fin == null
+                    || Estado == null
+                    || (capacidad == null || capacidad.compareTo("") == 0)
+                    || (monto == null || monto.compareTo("") == 0)) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-                
-            }
-            else{
-                if (ini.before(fin)){
-                     error_message ="La fecha de salida no puede ser menor a la fecha de llegada";
+
+            } else {
+                if (ini.before(fin)) {
+                    error_message = "La fecha de salida no puede ser menor a la fecha de llegada";
                 }
-                if (!CValidator.isInteger(capacidad)){
-                
+                if (!CValidator.isInteger(capacidad)) {
+
                     error_message = "La capacidad máxima es inválida";
-                
-                }
-                else{
-                    if (Integer.parseInt(capacidad)==0){
+
+                } else {
+                    if (Integer.parseInt(capacidad) == 0) {
                         error_message = "El capacidad máxima tiene que ser mayor que 0";
                     }
                 }
-                
-                if (!CValidator.isDouble(monto)){
-                
+
+                if (!CValidator.isDouble(monto)) {
+
                     error_message = "La capacidad máxima es inválida";
-                
-                }
-                else{
-                    if (Double.parseDouble(monto)==0){
+
+                } else {
+                    if (Double.parseDouble(monto) == 0) {
                         error_message = "El capacidad máxima tiene que ser mayor que 0";
                     }
                 }
@@ -111,32 +104,31 @@ public class CVuelo {
 
         return error_message;
     }
-    
-     public static void cargarVuelo(Vuelo v){
-         
+
+    public static void cargarVuelo(Vuelo v) {
+
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        
-        
+
+
         try {
-            
+
             Transaction tx = s.beginTransaction();
-              
-            int i = (Integer)s.save(v);
-            
+
+            int i = (Integer) s.save(v);
+
             tx.commit();
-            
-        }
-        catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             s.close();
         }
-         
-     }
-      public static List<Vuelo> BuscarVuelo(String cod, Aeropuerto PaisOrigen,Aeropuerto PaisDestino,Calendar fechini, Calendar fechfinal, Parametro Estado) {
-         
+
+    }
+
+    public static List<Vuelo> BuscarVuelo(String cod, Aeropuerto PaisOrigen, Aeropuerto PaisDestino, Calendar fechini, Calendar fechfinal, Parametro Estado) {
+
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Vuelo> ListaVuelos = null;
@@ -198,18 +190,14 @@ public class CVuelo {
                 Filter f_finllega = s.enableFilter("VueloXfechfin");
                 f_finllega.setParameter("fechallegada", fin);
             }
- 
+
             if (Estado != null) {
                 Filter f_estado = s.enableFilter("VueloXEstado");
                 f_estado.setParameter("estado", Estado.getIdParametro());
             }
-            
+
             ListaVuelos = q.list();
-            
-            for (int i=0; ListaVuelos.size()>i; i++){
-                ListaVuelos.get(i).getIncidencias().size();
-                ListaVuelos.get(i).getEscalas().size();
-             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -221,16 +209,14 @@ public class CVuelo {
     }
 
     public static void modificarVuelo(
-            
             String idVuelo,
-            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoOrigen,
             Aeropuerto aeropuertoDestino,
             Calendar ini,
             Calendar fin,
             Parametro Estado,
             String capacidad,
-            String monto
-            ) {
+            String monto) {
 
 
         SessionFactory sf = Sesion.getSessionFactory();
@@ -245,7 +231,7 @@ public class CVuelo {
 //            Parametro pPais;
             Vuelo objVuelo = new Vuelo();
 
-            objVuelo.setIdVuelo(Integer.parseInt(idVuelo)); 
+            objVuelo.setIdVuelo(Integer.parseInt(idVuelo));
             objVuelo.setOrigen(aeropuertoOrigen);
             objVuelo.setDestino(aeropuertoDestino);
             objVuelo.setFechaLlegada(ini.getTime());
@@ -253,19 +239,19 @@ public class CVuelo {
             objVuelo.setEstado(Estado);
             objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
             objVuelo.setAlquiler(Double.valueOf(monto));
-        
+
 //            objVuelo.setPais(Pais);
 //            objVuelo.setIdAeropuerto(idAeropuerto);
 
-            
+
             /*
              *  int idVuelo,
-            Aeropuerto aeropuertoOrigen, 
-            Aeropuerto aeropuertoDestino,
-            Calendar ini,
-            Calendar fin,
-            Parametro Estado,
-            String capacidad
+             Aeropuerto aeropuertoOrigen, 
+             Aeropuerto aeropuertoDestino,
+             Calendar ini,
+             Calendar fin,
+             Parametro Estado,
+             String capacidad
              */
             s.update(objVuelo);
 
@@ -280,107 +266,8 @@ public class CVuelo {
 
     }
 
-    public static void modificarVueloEstado(
-            
-           Vuelo objVuelo,
-           String Estado
-            ) {
-
-
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
-
-
-        try {
-            Transaction tx = s.beginTransaction();
-            Query q;
-//            Parametro pTipoDoc;            
-//            Parametro pCiudad;            
-//            Parametro pPais;
-            Parametro p = CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", Estado);
-            objVuelo.setEstado(p);
-            
-            
-            if(p.getValorUnico().equals("FIN")){
-                for(Escala e : objVuelo.getEscalas()){
-                    String valUnico;
-                    if(objVuelo.getDestino().getIdAeropuerto() == e.getEnvio().getDestino().getIdAeropuerto()){
-                        valUnico = "XREC";
-                    } else {
-                        valUnico = "ESC";
-                    }
-                          
-                    p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", valUnico);
-                    e.getEnvio().setActual(objVuelo.getDestino());
-                    
-                    int cActual = e.getEnvio().getActual().getCapacidadActual();
-                    e.getEnvio().getActual().setCapacidadActual(cActual + e.getEnvio().getNumPaquetes());
-                    e.getEnvio().setEstado(p);
-                }
-            }
-            
-            if(p.getValorUnico().equals("VUE")){
-                for(Escala e : objVuelo.getEscalas()){                       
-                    p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "VUE");
-                    int cActual = e.getEnvio().getActual().getCapacidadActual();
-                    e.getEnvio().getActual().setCapacidadActual(cActual - e.getEnvio().getNumPaquetes());
-                    e.getEnvio().setActual(null);
-                    e.getEnvio().setEstado(p);
-                }
-            }
-            
-            if(p.getValorUnico().equals("CAN") || p.getValorUnico().equals("RET")){
-                
-                Parametro pInactivo = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "INCTV");
-                
-                for(Escala e : objVuelo.getEscalas()){                       
-                    int numEscala = e.getNumEscala();
-                    CEnvio cenvio = new CEnvio();
-                    
-                    for(Escala eFuturo : e.getEnvio().getEscalas()){
-                        if(eFuturo.getNumEscala() > numEscala){
-                            eFuturo.setEstado(pInactivo);
-                        }
-                    }
-                    
-                    //String error = cenvio.calcularRuta(e.getEnvio());
-                    
-                    //if(error == null || error.isEmpty()){
-                        //p = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
-                        //e.getEnvio().setEstado(p);
-                    //}
-                }
-            }
-        
-//            objVuelo.setPais(Pais);
-//            objVuelo.setIdAeropuerto(idAeropuerto);
-
-            
-            /*
-             *  int idVuelo,
-            Aeropuerto aeropuertoOrigen, 
-            Aeropuerto aeropuertoDestino,
-            Calendar ini,
-            Calendar fin,
-            Parametro Estado,
-            String capacidad
-             */
-            s.update(objVuelo);
-
-            tx.commit();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            s.close();
-        }
-//      
-
-    }
-    
     public static void agregarVuelo(
-           
-            Aeropuerto aeropuertoOrigen, 
+            Aeropuerto aeropuertoOrigen,
             Aeropuerto aeropuertoDestino,
             Calendar ini,
             Calendar fin,
@@ -402,9 +289,9 @@ public class CVuelo {
 //            Parametro pPais;
 
 
-              Vuelo objVuelo = new Vuelo();
+            Vuelo objVuelo = new Vuelo();
 
-     //       objVuelo.setIdVuelo(idVuelo); 
+            //       objVuelo.setIdVuelo(idVuelo); 
             objVuelo.setOrigen(aeropuertoOrigen);
             objVuelo.setDestino(aeropuertoDestino);
             objVuelo.setFechaLlegada(ini.getTime());
@@ -423,5 +310,147 @@ public class CVuelo {
         } finally {
             s.close();
         }
+    }
+
+    public static Vuelo buscarVueloId(int id) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        Vuelo v = null;
+
+        try {
+
+            Query q = s.getNamedQuery("VueloXIdVuelo").setMaxResults(1);
+            q.setParameter("idVuelo", id);
+            v = (Vuelo) q.uniqueResult();
+            
+            v.getIncidencias().size();
+            
+            for(Escala escala : v.getEscalas()){
+                //escala.getEnvio().getEscalas().size();
+                for(Escala escalaProfunda : escala.getEnvio().getEscalas()){
+                    if(escalaProfunda.getIdEscala() == escala.getIdEscala()){
+                        
+                    }
+                    
+                    if(escalaProfunda.getVuelo().getIdVuelo() == v.getIdVuelo()){
+                        
+                    }
+                }
+                
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return v;
+    }
+    
+        public static void modificarVueloEstado(Vuelo objVuelo, String Estado) {
+
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+            Parametro estadoVuelo = CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", Estado);
+            Parametro t;
+            objVuelo.setEstado(estadoVuelo);
+
+            if (estadoVuelo.getValorUnico().equals("FIN")) {
+                // Si el vuelo llegó
+                
+                for (Escala escala : objVuelo.getEscalas()) {
+                    String valUnico;
+                    if (objVuelo.getDestino().getIdAeropuerto() == escala.getEnvio().getDestino().getIdAeropuerto()) {
+                        valUnico = "XREC";
+                    } else {
+                        valUnico = "ESC";
+                    }
+                    
+                //  Cambiarle el estado al envío
+                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", valUnico);
+                    escala.getEnvio().setActual(objVuelo.getDestino());
+                    escala.getEnvio().setEstado(t);
+                    
+                //  Cambiarle el estado a la escala
+                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "FIN");
+                    escala.setEstado(t);
+                    
+                //  Incrementar el almacén
+                    int cActual = escala.getEnvio().getActual().getCapacidadActual();
+                    escala.getEnvio().getActual().setCapacidadActual(cActual + escala.getEnvio().getNumPaquetes());                  
+                }
+            }
+
+            if (estadoVuelo.getValorUnico().equals("VUE")) {
+                // Si el vuelo despegó
+                
+                for (Escala escala : objVuelo.getEscalas()) {
+                    
+                //  Cambiar de estado el envío
+                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "VUE");
+                    escala.getEnvio().setEstado(t);
+                  
+                //  Cambiarle el estado a la escala
+                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "EFE");
+                    escala.setEstado(t);
+                    
+                //  Decrementar el almacén
+                    int cActual = escala.getEnvio().getActual().getCapacidadActual();
+                    escala.getEnvio().getActual().setCapacidadActual(cActual - escala.getEnvio().getNumPaquetes());
+                    
+                //  Poner nulo el aeropuerto actual
+                    escala.getEnvio().setActual(null);
+                }
+            }
+
+            if (estadoVuelo.getValorUnico().equals("CAN")) {
+                // Si el vuelo es cancelado:
+                // - cambiarle el estado a las escalas que lo usan
+                // - cambiarle el estado a las escalas posteriores del mismo envío
+                // - decrementar al capacidad del vuelo de dichas escalas posteriores
+                // - recalcular ruta
+                // - si no hay ruta, poner estado Indefinido
+                // - si hay ruta, agregar las escalas           
+                
+                t = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "CAN");
+                Date ahora = new Date();
+                
+                for (Escala escala : objVuelo.getEscalas()) {
+                    int numEscala = escala.getNumEscala();
+                    escala.setEstado(t);
+
+                    for (Escala escalaCancelada : escala.getEnvio().getEscalas()) {
+                        if (escalaCancelada.getNumEscala() >= numEscala) {
+                            escalaCancelada.setEstado(t);
+                            int nVuelo = escalaCancelada.getVuelo().getCapacidadActual();
+                            escalaCancelada.getVuelo().setCapacidadActual(nVuelo - escalaCancelada.getEnvio().getNumPaquetes());
+                        }
+                    }
+                    
+                    CEnvio cenvio = new CEnvio();
+                    String error = cenvio.calcularRuta(escala.getEnvio(), ahora, numEscala);
+
+                    if(error != null || !error.isEmpty()){
+                        t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
+                        escala.getEnvio().setEstado(t);
+                    }
+                }
+            }
+
+            s.saveOrUpdate(objVuelo);
+            tx.commit();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+//      
+
     }
 }

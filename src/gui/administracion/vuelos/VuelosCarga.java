@@ -9,6 +9,7 @@ import beans.Vuelo;
 import controllers.CAeropuerto;
 import controllers.CParametro;
 import controllers.CSerializer;
+import controllers.CValidator;
 import controllers.CVuelo;
 import gui.ErrorDialog;
 import gui.InformationDialog;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFileChooser;
 import xml.XmlVuelo;
+import xml.xmlVueloString;
 
 /**
  *
@@ -32,7 +34,7 @@ public class VuelosCarga extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null); 
-        generaraeropuertos();
+        //generaraeropuertos();
     }
 
     /**
@@ -272,30 +274,154 @@ public class VuelosCarga extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnRutaActionPerformed
 
-    private ArrayList<Vuelo> PasaValores(ArrayList<XmlVuelo> xmlvuelos){
+    private ArrayList<Vuelo> PasaValores(ArrayList<xmlVueloString> xmlvuelos){
         
         CParametro cparametro = new CParametro();
         CAeropuerto caeropuerto = new CAeropuerto();
+        String error="";
+        Integer anosal;
+        Integer messal;
+        Integer diasal;
+        Integer horasal;
+        Integer minsal;
+        Integer anolle;
+        Integer meslle;
+        Integer dialle;
+        Integer horalle;
+        Integer minlle;
+        
         
         ArrayList<Vuelo> listavuelos = new ArrayList<Vuelo>();
-        for (int s=0; s<xmlvuelos.size();s++){
+        for (Integer s=0; s<xmlvuelos.size();s++){
+            
+            
+            if  (!CValidator.isDouble(xmlvuelos.get(s).getAlquiler()) || Double.parseDouble(xmlvuelos.get(s).getAlquiler())<=0){
+                ErrorDialog.mostrarError("Monto alquiler inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getCapacidadMax()) || Integer.parseInt(xmlvuelos.get(s).getCapacidadMax())<=0){
+                ErrorDialog.mostrarError("Capacidad máxima inválida en registro "+ s.toString(), this);
+                return null;
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getCapacidadActual()) || Integer.parseInt(xmlvuelos.get(s).getCapacidadActual())<=0){
+                ErrorDialog.mostrarError("Capacidad actual inválida en registro "+ s.toString(), this);
+                return null;
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getAnoSal()) || Integer.parseInt(xmlvuelos.get(s).getAnoSal())<2012){
+                ErrorDialog.mostrarError("Año de salida inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                anosal=Integer.parseInt(xmlvuelos.get(s).getAnoSal());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getAnoLle()) || Integer.parseInt(xmlvuelos.get(s).getAnoLle())<2012){
+                ErrorDialog.mostrarError("Año de llegada inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                anolle=Integer.parseInt(xmlvuelos.get(s).getAnoLle());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getMesSal()) || Integer.parseInt(xmlvuelos.get(s).getMesSal())>12){
+                ErrorDialog.mostrarError("Mes de salida inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                messal=Integer.parseInt(xmlvuelos.get(s).getMesSal());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getMesLle()) || Integer.parseInt(xmlvuelos.get(s).getMesLle())>12){
+                ErrorDialog.mostrarError("Mes de llegada inválido en registro "+ s.toString(), this);
+                return null;
+            } 
+            else{
+                meslle=Integer.parseInt(xmlvuelos.get(s).getMesLle());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getDiaSal()) || Integer.parseInt(xmlvuelos.get(s).getDiaSal())>31){
+                ErrorDialog.mostrarError("Día de salida inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                diasal=Integer.parseInt(xmlvuelos.get(s).getDiaSal());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getDiaLle()) || Integer.parseInt(xmlvuelos.get(s).getDiaLle())>31){
+                ErrorDialog.mostrarError("Día de llegada inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                dialle=Integer.parseInt(xmlvuelos.get(s).getDiaLle());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getHoraSal()) || Integer.parseInt(xmlvuelos.get(s).getHoraSal())>23){
+                ErrorDialog.mostrarError("Hora de salida inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                horasal=Integer.parseInt(xmlvuelos.get(s).getHoraSal());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getHoraLle()) || Integer.parseInt(xmlvuelos.get(s).getHoraLle())>23){
+                ErrorDialog.mostrarError("Hora de llegada inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                horalle=Integer.parseInt(xmlvuelos.get(s).getHoraLle());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getMinSal()) || Integer.parseInt(xmlvuelos.get(s).getMinSal())>59){
+                ErrorDialog.mostrarError("Minuto de salida inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                minsal=Integer.parseInt(xmlvuelos.get(s).getMinSal());
+            }
+            if  (!CValidator.isInteger(xmlvuelos.get(s).getMinLle()) || Integer.parseInt(xmlvuelos.get(s).getMinLle())>59){
+                ErrorDialog.mostrarError("Minuto de llegada inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            else{
+                minlle=Integer.parseInt(xmlvuelos.get(s).getMinLle());
+            }
+            Parametro estado= CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", xmlvuelos.get(s).getEstado());
+            if (estado==null) {
+                ErrorDialog.mostrarError("Estado de vuelo inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            beans.Aeropuerto aeroori= CAeropuerto.BuscarNombre(xmlvuelos.get(s).getOrigen());
+            if (aeroori==null) {
+                ErrorDialog.mostrarError("Aeropuerto origen inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            beans.Aeropuerto aerodes= CAeropuerto.BuscarNombre(xmlvuelos.get(s).getDestino());
+            if (aerodes==null) {
+                ErrorDialog.mostrarError("Aeropuerto destino inválido en registro "+ s.toString(), this);
+                return null;
+            }
+            
+            Calendar calendario = Calendar.getInstance();
+            Calendar calendario2 = Calendar.getInstance();
+            calendario.set(anosal, messal-1, diasal, horasal, minsal);
+            Date fecha = calendario.getTime();
+            calendario2.set(anolle, meslle-1, dialle, horalle, minlle);
+            Date fecha2 = calendario2.getTime();
+            
+            if (fecha.after(fecha2)){
+                ErrorDialog.mostrarError("Fecha de Salida es mahyor a la de llegada en registro "+ s.toString(), this);
+                return null;
+            }
+            if (aeroori.getNombre().equals(aerodes.getNombre())){
+                ErrorDialog.mostrarError("Aeropuerto origen no puede ser igual al aeropuerto destino en registro "+ s.toString(), this);
+                return null;
+            }
             
             Vuelo vuelo  = new Vuelo();
-            vuelo.setAlquiler(xmlvuelos.get(s).getAlquiler());
-            vuelo.setCapacidadActual(xmlvuelos.get(s).getCapacidadActual());
-            vuelo.setCapacidadMax(xmlvuelos.get(s).getCapacidadMax());
-            vuelo.setFechaLlegada(xmlvuelos.get(s).getFechaLlegada());
-            vuelo.setFechaSalida(xmlvuelos.get(s).getFechaSalida());
-            
-            Parametro estado=cparametro.buscarId(xmlvuelos.get(s).getEstado());
-            
-            beans.Aeropuerto aeroori = caeropuerto.BuscarId(xmlvuelos.get(s).getOrigen());
-            beans.Aeropuerto aerodes = caeropuerto.BuscarId(xmlvuelos.get(s).getDestino());
-            
+            vuelo.setAlquiler(Double.parseDouble(xmlvuelos.get(s).getAlquiler()));
+            vuelo.setCapacidadActual(Integer.parseInt(xmlvuelos.get(s).getCapacidadActual()));
+            vuelo.setCapacidadMax(Integer.parseInt(xmlvuelos.get(s).getCapacidadMax()));
+            vuelo.setFechaLlegada(fecha2);
+            vuelo.setFechaSalida(fecha);
             vuelo.setDestino(aerodes);
             vuelo.setOrigen(aeroori);
             vuelo.setEstado(estado);
             listavuelos.add(vuelo);
+            
+               
+            
             
         }
         return listavuelos;
@@ -307,21 +433,24 @@ public class VuelosCarga extends javax.swing.JDialog {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         if (archivovalido){
-            ArrayList<XmlVuelo> xmlvuelos=CSerializer.deserializar(txtRuta.getText());
+            ArrayList<xmlVueloString> xmlvuelos=CSerializer.deserializar(txtRuta.getText());
             ArrayList<Vuelo> vuelos = PasaValores(xmlvuelos);
             
-            try{                   //CAeropuerto.ValidarCaga(vuelos);
-                for (int i = 0; i<vuelos.size();i++){
-                    Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
-                    CVuelo.cargarVuelo(vuelo);
+            if (vuelos!=null){
+            
+                try{                   //CAeropuerto.ValidarCaga(vuelos);
+                    for (int i = 0; i<vuelos.size();i++){
+                        Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
+                        CVuelo.cargarVuelo(vuelo);
+                    }
+                    InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
+                    this.dispose();
                 }
-                InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
-                this.dispose();
-            }
-            catch(Exception e){
-                e.printStackTrace();
-                ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
+                catch(Exception e){
+                    e.printStackTrace();
+                    ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
 
+                }
             }
         }
         else{

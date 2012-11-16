@@ -241,6 +241,35 @@ public class CAeropuerto {
         
         return aero;
     }
+    
+    public static beans.Aeropuerto BuscarNombre(String nombre){
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        beans.Aeropuerto aero= null;
+        
+        try {
+            
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("AeroXNombre");
+            q.setParameter("aero", nombre);
+           
+             aero= (beans.Aeropuerto)q.uniqueResult();
+                       
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            
+            s.close();
+        }
+        
+        return aero;
+    }
+    
       public static List<Parametro> llenarComboPais(){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
