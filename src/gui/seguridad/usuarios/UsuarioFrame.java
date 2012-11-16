@@ -480,7 +480,7 @@ public void llenarcomboPerfiles(){
             datos[0] = listaUsuarios.get(i).getNombres();
             datos[1] = listaUsuarios.get(i).getApellidos();
             datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
-            datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
+            datos[3] = listaUsuarios.get(i).getIdAeropuerto()!= null ? listaUsuarios.get(i).getIdAeropuerto().getNombre() : null;
             datos[4] = listaUsuarios.get(i).geteMail();
             datos[5] = listaUsuarios.get(i).getEstado();
             datos[6] = listaUsuarios.get(i).getTipoDoc();
