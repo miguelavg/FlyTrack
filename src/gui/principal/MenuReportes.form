@@ -141,7 +141,7 @@
     <Component class="javax.swing.JButton" name="btnLogAuditoria3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/report.jpeg"/>
+          <Image iconType="3" name="/imagenes/gestion_almacen.png"/>
         </Property>
       </Properties>
       <Events>
@@ -156,7 +156,7 @@
     <Component class="javax.swing.JButton" name="btnLogAuditoria4">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/report.jpeg"/>
+          <Image iconType="3" name="/imagenes/lightning-sign-icon.png"/>
         </Property>
       </Properties>
       <Events>
