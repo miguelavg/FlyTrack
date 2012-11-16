@@ -659,12 +659,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
         String mensaje = "";
         String mensaje2 = "";
 
-        boolean pasavalidacion;
+        boolean pasavalidacion=true;
 
         if (idusuario != -1) {
 
+          if (psswdContrasena.getPassword().length!=0){  
             mensaje = CUsuario.ValidarContrasena(psswdContrasena.getPassword());
-
+            pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
+          }
 //        Integer id=-1;
 //        char[] aux_contrasena = psswdContrasena.getPassword();
 //        char[] aux_contrasena_rec = null;
@@ -717,8 +719,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //                
 //            }
 //        }
-
-            pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
 
             if (!pasavalidacion) {
                 mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
