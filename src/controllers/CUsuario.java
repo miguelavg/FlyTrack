@@ -372,7 +372,7 @@ public class CUsuario {
         return null;
     }
     
-     public static Usuario buscarXNumDocumento(String documento){
+    public static Usuario buscarXNumDocumento(String documento){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -393,7 +393,7 @@ public class CUsuario {
         return null;
     }
      
-         public String ValidarDocumento(Parametro tipodoc, String numero){
+    public String ValidarDocumento(Parametro tipodoc, String numero){
         String error="";
         
         SessionFactory sf = Sesion.getSessionFactory();
