@@ -458,12 +458,12 @@ public class Vuelos extends javax.swing.JDialog {
         fechfin = dt_fechfin.getSelectedDate();
         String codVuelo = txt_cod.getText();
 
-        listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+        //listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);//
         vVuelAgre.setVisible(true);
         vVuelAgre.setModal(true);
         this.setEnabled(true);
         this.setVisible(true);
-        //listaVuelos = CVuelo.BuscarVuelo(null, null, null, null, null);
+        listaVuelos = CVuelo.BuscarVuelo(null, null, null, null, null, null);
         llenarGrillaVuelo();
 
     }//GEN-LAST:event_btnAgregarActionPerformed
