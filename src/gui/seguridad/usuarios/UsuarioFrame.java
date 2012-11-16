@@ -18,40 +18,67 @@ import controllers.CUsuario;
 import controllers.CValidator;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+
 /**
  *
  * @author msolorzano
  */
 public class UsuarioFrame extends javax.swing.JDialog {
+
     CUsuario CUsuario = new CUsuario();
-    List<Parametro> ListaTipoDoc ;
-    List<Parametro> ListaEstado ;
-    List<Perfil> ListaPerfiles ;
-    Cliente  ClienteAux ;
+    List<Parametro> ListaTipoDoc;
+    List<Parametro> ListaEstado;
+    List<Perfil> ListaPerfiles;
+    Cliente ClienteAux;
     Aeropuerto AeropuertoAux;
-        CParametro ParametroBL = new CParametro();
-        CPerfil PerfilBL= new CPerfil();
-    
+    CParametro ParametroBL = new CParametro();
+    CPerfil PerfilBL = new CPerfil();
+
     /**
      * Creates new form UsuarioFrame
      */
     public UsuarioFrame() {
         initComponents();
         //llenarcomboTipoDoc(); 
-        
-         this.setLocationRelativeTo(null);
-        
+
+        this.setLocationRelativeTo(null);
+
         cargartabla();
         llenarcomboEstado();
         llenarcomboPerfiles();
         definirPermisos();
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -311,8 +338,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-public void llenarcomboEstado(){
+    public void llenarcomboEstado() {
 //        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
 //        Session s = sf.openSession();
 //        try {
@@ -330,18 +356,17 @@ public void llenarcomboEstado(){
 //        finally {
 //            s.close();
 //        }
-        ListaEstado=ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
-    
-        for (Parametro p : ListaEstado)
-        //for (int i=0;i<ListaEstado.size();i++)
+        ListaEstado = ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
+
+        for (Parametro p : ListaEstado) //for (int i=0;i<ListaEstado.size();i++)
         {
-    //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
-            
+            //        Parametro TipoDocBE =(Parametro)ListaEstado.get(i);
+
             cboEstado.addItem(p);
         }
     }
-    
-public void llenarcomboPerfiles(){
+
+    public void llenarcomboPerfiles() {
 //        SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
 //        Session s = sf.openSession();
 //        try {
@@ -358,11 +383,10 @@ public void llenarcomboPerfiles(){
 //        finally {
 //            s.close();
 //        }
-    
-        ListaPerfiles=PerfilBL.Buscar();
-    //int i=0;i<ListaPerfiles.size();i++
-        for (Perfil p: ListaPerfiles)
-        {
+
+        ListaPerfiles = PerfilBL.Buscar();
+        //int i=0;i<ListaPerfiles.size();i++
+        for (Perfil p : ListaPerfiles) {
             //Perfil  CPerfil  =(Perfil)ListaPerfiles.get(i);
             //CPerfil
             cboPerfil.addItem(p);
@@ -372,109 +396,57 @@ public void llenarcomboPerfiles(){
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
 
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
+        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         usuarioAgregarGUI.setVisible(true);
         cargartabla();
-     
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
 //        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
 //        Parametro estado=(Parametro)cboEstado.getSelectedItem();
-                //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
-        
+        //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
+
         Parametro estado;
         Perfil perfil;
-        
-        if(cboPerfil.getSelectedIndex()!=0){
-        
-            perfil=(Perfil)cboPerfil.getSelectedItem();
-            
-        }
-        else {
-            perfil=null;
-        }
-        
-        
-        
-        if(cboEstado.getSelectedIndex()!=0){
-        
-            estado=(Parametro)cboEstado.getSelectedItem();
-            
-        }
-        else {
-            estado=null;
-        }
-        
-        if (txtAeropuerto.getText().trim().equals("")){
-            AeropuertoAux=null;
+
+        if (cboPerfil.getSelectedIndex() != 0) {
+
+            perfil = (Perfil) cboPerfil.getSelectedItem();
+
+        } else {
+            perfil = null;
         }
 
-       
+
+
+        if (cboEstado.getSelectedIndex() != 0) {
+
+            estado = (Parametro) cboEstado.getSelectedItem();
+
+        } else {
+            estado = null;
+        }
+
+        if (txtAeropuerto.getText().trim().equals("")) {
+            AeropuertoAux = null;
+        }
+
+
         //AeropuertoAux.getIdAeropuerto()
         //ClienteAux.getIdCliente()
-        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil, AeropuertoAux,txtCliente.getText(),estado);
+        List<Usuario> listaUsuarios = CUsuario.Buscar(perfil, AeropuertoAux, txtCliente.getText(), estado);
         //cboEstado.getSelectedItem());
-        
-        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
-        
-        int filas=dtm.getRowCount();
-        
-        for (int i=filas-1; i>=0; i--){
-            dtm.removeRow(0);
-        }
-        
-       Object[] datos = new Object[9];
-       for (int i = 0; i < listaUsuarios.size(); i++) {
-           datos[0] = listaUsuarios.get(i).getNombres();
-           datos[1] = listaUsuarios.get(i).getApellidos();
-           datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
-           datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
-           datos[4] = listaUsuarios.get(i).geteMail();
-           datos[5] = listaUsuarios.get(i).getEstado();
-           datos[6] = listaUsuarios.get(i).getTipoDoc();
-           datos[7] = listaUsuarios.get(i).getNumDoc();
-           datos[8] = listaUsuarios.get(i).getIdUsuario();
-           
-           dtm.addRow(datos);
-       }
 
-        //mostrarListaAlerta(listaAlerta);
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-        
         DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
-        
-        if (UsuarioTabla.getSelectedRow()>-1){
-            
-        
-        Integer id=(Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
-        
-        UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this,true,id); 
-        //usuarioAgregarGUI.setVisible(true);
-        usuarioAgregarGUI.setBandera(1);
-        usuarioAgregarGUI.setIdusuario((Integer)UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
-        usuarioAgregarGUI.showDialog();
-        cargartabla();
-         }
-    }//GEN-LAST:event_btnModificarActionPerformed
 
-        public void cargartabla(){
-    
-            
-        List<Usuario> listaUsuarios = CUsuario.Buscar( null, null,"",null);    
-        //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
-        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
-        
-        int rows=dtm.getRowCount();
-        for (int i=rows-1; i>=0; i--){
+        int filas = dtm.getRowCount();
+
+        for (int i = filas - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
 
-        
         Object[] datos = new Object[9];
         for (int i = 0; i < listaUsuarios.size(); i++) {
             datos[0] = listaUsuarios.get(i).getNombres();
@@ -485,18 +457,72 @@ public void llenarcomboPerfiles(){
             datos[5] = listaUsuarios.get(i).getEstado();
             datos[6] = listaUsuarios.get(i).getTipoDoc();
             datos[7] = listaUsuarios.get(i).getNumDoc();
-            datos[8] = listaUsuarios.get(i).getIdUsuario();           
+            datos[8] = listaUsuarios.get(i).getIdUsuario();
+
+            dtm.addRow(datos);
+        }
+
+        //mostrarListaAlerta(listaAlerta);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+
+        if (UsuarioTabla.getSelectedRow() > -1) {
+
+
+            Integer id = (Integer) UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8);
+
+            UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this, true, id);
+            //usuarioAgregarGUI.setVisible(true);
+            usuarioAgregarGUI.setBandera(1);
+            usuarioAgregarGUI.setIdusuario((Integer) UsuarioTabla.getValueAt(UsuarioTabla.getSelectedRow(), 8));
+            usuarioAgregarGUI.showDialog();
+            cargartabla();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    public void cargartabla() {
+
+
+        List<Usuario> listaUsuarios = CUsuario.Buscar(null, null, "", null);
+        //List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
+        DefaultTableModel dtm = (DefaultTableModel) this.UsuarioTabla.getModel();
+
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
+            dtm.removeRow(0);
+        }
+
+
+        Object[] datos = new Object[9];
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            datos[0] = listaUsuarios.get(i).getNombres();
+            datos[1] = listaUsuarios.get(i).getApellidos();
+            datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
+            datos[3] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
+            datos[4] = listaUsuarios.get(i).geteMail();
+            datos[5] = listaUsuarios.get(i).getEstado();
+            datos[6] = listaUsuarios.get(i).getTipoDoc();
+            datos[7] = listaUsuarios.get(i).getNumDoc();
+            datos[8] = listaUsuarios.get(i).getIdUsuario();
 
             dtm.addRow(datos);
         }
     }
-    
+
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
-        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
+        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this, true);
         // TODO add your handling code here:
         //usuarioAeropuertoPopUp.setVisible(true);
-         AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
-         txtAeropuerto.setText(AeropuertoAux.getNombre());
+        AeropuertoAux = usuarioAeropuertoPopUp.showDialog();
+        if (AeropuertoAux != null) {
+            txtAeropuerto.setText(AeropuertoAux.getNombre());
+        } else {
+            txtAeropuerto.setText("");
+        }
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
     private void btn_regresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar1ActionPerformed
@@ -506,9 +532,9 @@ public void llenarcomboPerfiles(){
 
     private void txtClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyReleased
         // TODO add your handling code here:
-                char letra=evt.getKeyChar();
-        if (!CValidator.validarSoloLetrasYEspacio(letra, txtCliente)){
-            getToolkit().beep(); 
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txtCliente)) {
+            getToolkit().beep();
         }
     }//GEN-LAST:event_txtClienteKeyReleased
 
@@ -568,7 +594,7 @@ public void llenarcomboPerfiles(){
     private javax.swing.JTextField txtCliente;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
+    private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(3, "Usuarios", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
@@ -576,7 +602,7 @@ public void llenarcomboPerfiles(){
         this.btnModificar.setEnabled(modificar);
         boolean buscar = CSeguridad.validarPermiso(3, "Usuarios", "Buscar/Listar", permisos);
         this.btnBuscar.setEnabled(buscar);
-        
+
         this.setLocationRelativeTo(null);
         pack();
     }

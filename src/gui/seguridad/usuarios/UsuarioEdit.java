@@ -23,8 +23,15 @@ import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import controllers.ExpresionesRegulares;
+import java.awt.event.ActionEvent;
 import java.util.HashSet;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,39 +43,32 @@ import org.hibernate.cfg.AnnotationConfiguration;
  * @author joao
  */
 public class UsuarioEdit extends javax.swing.JDialog {
+
     CUsuario Usuario = new CUsuario();
-    
     CContrasena Contrasena = new CContrasena();
     //CSeguridad seguridad=new CSeguridad();
-    List<Parametro> ListaTipoDoc ;
-    List<Parametro> ListaEstado ;
-    List<Perfil> ListaPerfiles ;
+    List<Parametro> ListaTipoDoc;
+    List<Parametro> ListaEstado;
+    List<Perfil> ListaPerfiles;
     List<Contrasena> ListaContrasena;
-    Cliente  ClienteAux ;
+    Cliente ClienteAux;
     Aeropuerto AeropuertoAux;
     boolean isNuevo;
-    
-    boolean carga=false;
-                
-                
+    boolean carga = false;
     List<Parametro> ListaCiudades;
     List<Parametro> ListaPaises;
-    
-    
     CCliente ClienteBL = new CCliente();
-    
     CParametro ParametroBL = new CParametro();
-    CPerfil PerfilBL= new CPerfil();
-    Perfil Perfil ;
-        //Parametro Estado;
-            
+    CPerfil PerfilBL = new CPerfil();
+    Perfil Perfil;
+    //Parametro Estado;
     /**
      * Creates new form UsuarioEdit
      */
-    Integer idusuario=-1; 
-    Integer idcontrasena=0;
+    Integer idusuario = -1;
+    Integer idcontrasena = 0;
     Usuario UsuarioBE;
-    
+
     public void setIdusuario(Integer idusuario) {
         this.idusuario = idusuario;
     }
@@ -76,8 +76,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public Integer getIdusuario() {
         return idusuario;
     }
-    
-    Integer bandera=-1;
+    Integer bandera = -1;
+
     public void setBandera(Integer bandera) {
         this.bandera = bandera;
     }
@@ -85,8 +85,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public Integer getBandera() {
         return bandera;
     }
-    
-    public UsuarioEdit(javax.swing.JDialog parent, boolean modal,int id) {
+
+    public UsuarioEdit(javax.swing.JDialog parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
 
@@ -94,34 +94,50 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
 //        RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
 //        txtNombres.setDocument(regexDocument);
- 
+
 
         this.setLocationRelativeTo(null);
 
-        idusuario=id;
-        isNuevo=true;
+        idusuario = id;
+        isNuevo = true;
 
-       // llenarcomboTipoDoc(); 
+        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
         llenarcombos();
-        if (idusuario!=-1){            
-        cargarcampos();  
-        txtNumeroDoc.enable(false);
+        if (idusuario != -1) {
+            cargarcampos();
+            txtNumeroDoc.enable(false);
 //                String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
-        //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-        //txtNombres.setDocument(regexDocument);
-        //txtNombres.setmax
-        
-        }
-        
-        else {
-        lblContrasena.setVisible(false);
-        psswdContrasena.setVisible(false);
+            //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
+            //txtNombres.setDocument(regexDocument);
+            //txtNombres.setmax
+
+        } else {
+            lblContrasena.setVisible(false);
+            psswdContrasena.setVisible(false);
         }
 
         cboEstado.setSelectedIndex(1);
-        
+
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(Boolean.FALSE);
+                dispose();
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(strokeESC, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+
+        return rootPane;
     }
 
     /**
@@ -448,69 +464,65 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void cargarcampos(){
-    
-     UsuarioBE=Usuario.BuscarXid(idusuario);
-        
-        isNuevo=false;
-        
-           txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
-           txtLogIn.setText(UsuarioBE.getLogIn());
-           //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
-           
-           for(int i=1;i<cboPerfil.getItemCount();i++){
-               Perfil Perfil = (Perfil)cboPerfil.getItemAt(i);
-               if (Perfil.getIdPerfil()==UsuarioBE.getPerfil().getIdPerfil())
-               {
-               cboPerfil.setSelectedIndex(i);
-               break;
-               
-               }
-           }
-           
-           for(int i=1;i<cboEstado.getItemCount();i++){
-               Parametro estado = (Parametro)cboEstado.getItemAt(i);
-               if (estado.getIdParametro()==UsuarioBE.getEstado().getIdParametro())
-               {
-               cboEstado.setSelectedIndex(i);
-               break;
-               
-               }
-           }
-           
-           txtNombres.setText(UsuarioBE.getNombres());
-           txtApellidos.setText(UsuarioBE.getApellidos());
-           txtApellidos.setEditable(false);
-           txtCorreo.setText(UsuarioBE.geteMail());
-           txtNumeroDoc.setText(UsuarioBE.getNumDoc());
-           txtTelefono.setText(UsuarioBE.getTelefono());
-           
-           cboPais.setSelectedItem(UsuarioBE.getPais());
-           
-           for(int i=1;i<cboPais.getItemCount();i++){
-               Parametro pais = (Parametro)cboPais.getItemAt(i);
-               if (pais.getIdParametro()==UsuarioBE.getPais().getIdParametro())
-               {
-               cboPais.setSelectedIndex(i);
-               break;
-               
-               }
-           }
-           
-           for(int i=1;i<cboTipoDoc.getItemCount();i++){
-               Parametro tipodoc = (Parametro)cboTipoDoc.getItemAt(i);
-               if (tipodoc.getIdParametro()==UsuarioBE.getTipoDoc().getIdParametro())
-               {
-                 cboTipoDoc.setSelectedIndex(i);
-                 break;
-               
-               }
-           }
-            cboTipoDoc.setEnabled(false);  
-            txtNumeroDoc.setEditable(false);
+
+    public void cargarcampos() {
+
+        UsuarioBE = Usuario.BuscarXid(idusuario);
+
+        isNuevo = false;
+
+        txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
+        txtLogIn.setText(UsuarioBE.getLogIn());
+        //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
+
+        for (int i = 1; i < cboPerfil.getItemCount(); i++) {
+            Perfil Perfil = (Perfil) cboPerfil.getItemAt(i);
+            if (Perfil.getIdPerfil() == UsuarioBE.getPerfil().getIdPerfil()) {
+                cboPerfil.setSelectedIndex(i);
+                break;
+
+            }
+        }
+
+        for (int i = 1; i < cboEstado.getItemCount(); i++) {
+            Parametro estado = (Parametro) cboEstado.getItemAt(i);
+            if (estado.getIdParametro() == UsuarioBE.getEstado().getIdParametro()) {
+                cboEstado.setSelectedIndex(i);
+                break;
+
+            }
+        }
+
+        txtNombres.setText(UsuarioBE.getNombres());
+        txtApellidos.setText(UsuarioBE.getApellidos());
+        txtApellidos.setEditable(false);
+        txtCorreo.setText(UsuarioBE.geteMail());
+        txtNumeroDoc.setText(UsuarioBE.getNumDoc());
+        txtTelefono.setText(UsuarioBE.getTelefono());
+
+        cboPais.setSelectedItem(UsuarioBE.getPais());
+
+        for (int i = 1; i < cboPais.getItemCount(); i++) {
+            Parametro pais = (Parametro) cboPais.getItemAt(i);
+            if (pais.getIdParametro() == UsuarioBE.getPais().getIdParametro()) {
+                cboPais.setSelectedIndex(i);
+                break;
+
+            }
+        }
+
+        for (int i = 1; i < cboTipoDoc.getItemCount(); i++) {
+            Parametro tipodoc = (Parametro) cboTipoDoc.getItemAt(i);
+            if (tipodoc.getIdParametro() == UsuarioBE.getTipoDoc().getIdParametro()) {
+                cboTipoDoc.setSelectedIndex(i);
+                break;
+
+            }
+        }
+        cboTipoDoc.setEnabled(false);
+        txtNumeroDoc.setEditable(false);
     }
-    
+
     public void llenarcomboEstado() {
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
 
@@ -521,7 +533,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
             cboEstado.addItem(TipoDocBE);
         }
     }
-    
+
     public void llenarcomboPerfiles() {
         ListaPerfiles = PerfilBL.Buscar();
         //int i=0;i<ListaPerfiles.size();i++
@@ -532,37 +544,34 @@ public class UsuarioEdit extends javax.swing.JDialog {
             cboPerfil.addItem(CPerfil);
         }
     }
-    
-    public void llenarcombos(){
-        
-        ListaTipoDoc=ParametroBL.buscar(null, null, "TIPO_DOC", null);
-        ListaCiudades=ParametroBL.buscar(null, null, "CIUDAD", null);
-        ListaPaises= ParametroBL.buscar(null, null, "PAIS", null);
-        
 
-        for (int i=0;i<ListaTipoDoc.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
-            
+    public void llenarcombos() {
+
+        ListaTipoDoc = ParametroBL.buscar(null, null, "TIPO_DOC", null);
+        ListaCiudades = ParametroBL.buscar(null, null, "CIUDAD", null);
+        ListaPaises = ParametroBL.buscar(null, null, "PAIS", null);
+
+
+        for (int i = 0; i < ListaTipoDoc.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListaTipoDoc.get(i);
+
             cboTipoDoc.addItem(TipoDocBE);
         }
-        
-        
-        
-        for (int i=0;i<ListaPaises.size();i++)
-        {
-            Parametro Pais =(Parametro)ListaPaises.get(i);
-            
+
+
+
+        for (int i = 0; i < ListaPaises.size(); i++) {
+            Parametro Pais = (Parametro) ListaPaises.get(i);
+
             cboPais.addItem(Pais);
         }
-        
+
         cboPais.setSelectedIndex(0);
-        carga=true;
-        
+        carga = true;
+
 
     }
-    
-    
+
 //        private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {                                        
 //        // TODO add your handling code here:
 //        if (cboPais.getSelectedIndex()!=0){
@@ -591,75 +600,71 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //            }
 //        }
 //    }  
-    
-    private String validarcampos(){
+    private String validarcampos() {
         String error_message = "";
-        
-        if (txtNombres.getText().isEmpty()||txtApellidos.getText().isEmpty() || txtCorreo.getText().isEmpty() ||
-                    txtTelefono.getText().isEmpty() ||  txtNumeroDoc.getText().isEmpty()
-                ||cboCiudad.getSelectedIndex()==0 || cboPais.getSelectedIndex()==0 ||cboTipoDoc.getSelectedIndex()==0 ){
-            
+
+        if (txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtCorreo.getText().isEmpty()
+                || txtTelefono.getText().isEmpty() || txtNumeroDoc.getText().isEmpty()
+                || cboCiudad.getSelectedIndex() == 0 || cboPais.getSelectedIndex() == 0 || cboTipoDoc.getSelectedIndex() == 0) {
+
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-                                    
-        }
-        else{
-            
-            if (CValidator.esAlfanumerico(txtNombres.getText())){
-                
+
+        } else {
+
+            if (CValidator.esAlfanumerico(txtNombres.getText())) {
+
                 error_message = "El nombre no puede ser alfanumérico";
             }
-            
-            if (idusuario==-1){
 
-                error_message = error_message+ Usuario.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
+            if (idusuario == -1) {
+
+                error_message = error_message + Usuario.ValidarDocumento((Parametro) cboTipoDoc.getSelectedItem(), txtNumeroDoc.getText());
             }
-            
-            if (CValidator.esAlfanumerico(txtNombres.getText())){
-                
+
+            if (CValidator.esAlfanumerico(txtNombres.getText())) {
+
                 error_message = "El nombre es inválido";
-                
+
             }
-            
-            if (CValidator.esAlfanumerico(txtApellidos.getText())){
-                
+
+            if (CValidator.esAlfanumerico(txtApellidos.getText())) {
+
                 error_message = "El Apellido es inválido";
-                
+
             }
-            
-            if (!CValidator.isInteger(txtTelefono.getText())){
-                
+
+            if (!CValidator.isInteger(txtTelefono.getText())) {
+
                 error_message = "El teléfono es inválido";
-                
+
             }
-            
-            if (!CValidator.isInteger(txtNumeroDoc.getText())){
-                
+
+            if (!CValidator.isInteger(txtNumeroDoc.getText())) {
+
                 error_message = "El teléfono es inválido";
             }
-            if (!CValidator.validarEmail(txtCorreo.getText())){
-            
-                    error_message = "El correo es inválido";
-            
+            if (!CValidator.validarEmail(txtCorreo.getText())) {
+
+                error_message = "El correo es inválido";
+
             }
-            
+
         }
-                      
+
         return error_message;
     }
-    
-        
-        
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-          // TODO add your handling code here:
-        String mensaje="";
-        String mensaje2="";
-        
+        // TODO add your handling code here:
+        String mensaje = "";
+        String mensaje2 = "";
+
         boolean pasavalidacion;
-        
-        if (idusuario!=-1){
-            
-        mensaje=CUsuario.ValidarContrasena(psswdContrasena.getPassword());
-        
+
+        if (idusuario != -1) {
+
+            mensaje = CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+
 //        Integer id=-1;
 //        char[] aux_contrasena = psswdContrasena.getPassword();
 //        char[] aux_contrasena_rec = null;
@@ -712,13 +717,13 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //                
 //            }
 //        }
-        
-          pasavalidacion=CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(),idusuario);
 
-          if (!pasavalidacion){
-          mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
-          mensaje=mensaje+mensaje2;
-          }
+            pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
+
+            if (!pasavalidacion) {
+                mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
+                mensaje = mensaje + mensaje2;
+            }
 //        Integer aux1=aux_contrasena.getText().length;
 //        Integer aux2=psswdContrasena.getPassword().length;
 //        Integer menor=0;
@@ -735,8 +740,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //                
 //            }
 //        }
- 
-        
+
+
 //        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
 //        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
 //        
@@ -751,12 +756,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        
 //        for (int i=0; i< menorCon;i++){
 //        }
-        
-        
-        
-        
+
+
+
+
         }
-        
+
         if (mensaje.equals("") && mensaje2.equals("")) {
 
             Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
@@ -770,42 +775,42 @@ public class UsuarioEdit extends javax.swing.JDialog {
             Integer valoraux;
 
             Usuario UsuarioAux;
-        //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
-        
-        
+            //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
+
+
             Usuario UsuarioauxBE;
 //        if (ClienteAux==null && idusuario!=-1){
 //        auxCliente=UsuarioauxBE.getIdCliente();
 //        }
 //        else 
 //        {auxCliente=ClienteAux;}
-        
-        
+
+
 //        if (ClienteAux!=null){
 //        valoraux=auxCliente.getIdCliente();
 //        }
 //        else {
 //        valoraux=0;
 //        }
-        
-        
-        String error_message = Cusuario.validar(idusuario ,isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro)cboEstado.getSelectedItem(),(Perfil)cboPerfil.getSelectedItem());
-        
-            if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0 ) {
+
+
+            String error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
+
+            if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
 
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
 
             }
-        
-        
-        
-        String error_message2 = validarcampos();
-        
-        error_message=error_message+error_message2;
-        
-      
-        if (error_message == null || error_message.isEmpty()) {
-        
+
+
+
+            String error_message2 = validarcampos();
+
+            error_message = error_message + error_message2;
+
+
+            if (error_message == null || error_message.isEmpty()) {
+
                 if (idusuario == -1) {
                     CMail cmail = new CMail();
                     Usuario.agregarUsuario(perfil,
@@ -828,17 +833,17 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     //objeto usuario, objeto parametro
                     UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
                     //Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
-                    
+
                     //crear contrasena por defecto
                     //                    
                     Contrasena.agregarContrasena(CSeguridad.generaContraseniaAleatoria(),
                             UsuarioAux,
                             ListaEstado.get(0));
-                    
-                    String aux=String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
-                    
-                     cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel",UsuarioAux.geteMail(),"contrasena por defecto", "La contrasena por defecto es la siguiente :"+aux);
-                    
+
+                    String aux = String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
+
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", "La contrasena por defecto es la siguiente :" + aux);
+
                 } else {
                     //txtCliente.setVisible(false);
                     //getidusuario()
@@ -869,12 +874,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
 
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
-                    
-                    UsuarioauxBE= Usuario.BuscarXid(idusuario);
-                    ListaContrasena=Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
-                    
+
+                    UsuarioauxBE = Usuario.BuscarXid(idusuario);
+                    ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
+
                     ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size()-1),ListaEstado.get(0));
+                    Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size() - 1), ListaEstado.get(0));
                     ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                     Contrasena.agregarContrasena(psswdContrasena.getPassword(),
                             UsuarioauxBE,
@@ -886,7 +891,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
             } else {
                 ErrorDialog.mostrarError(error_message, this);
             }
-        
+
 //        CUsuario.agregarUsuario(txtPerfil.getText(), 
 //                txtAeropuerto.getText(), 
 // //               idcliente, 
@@ -894,20 +899,20 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //                (Parametro)cboEstado.getSelectedItem() , 
 //                numAcceso,
 //                primerAcceso); 
-   
-        //el idcliente puede salir de la tabla clientes, ahi usaria nombres, apellidos, tipodoc,numdoc y sacaria el idcliente
-            
-        //select idCliente from Cliente where Nombres nombres and Apellidos apellidos and TipoDoc tipodoc and NumDodc numdoc 
-        
+
+            //el idcliente puede salir de la tabla clientes, ahi usaria nombres, apellidos, tipodoc,numdoc y sacaria el idcliente
+
+            //select idCliente from Cliente where Nombres nombres and Apellidos apellidos and TipoDoc tipodoc and NumDodc numdoc 
+
 //(Parametro)cboTipoDoc.getSelectedItem()
-        }else{
+        } else {
             ErrorDialog.mostrarError(mensaje, this);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible (false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLogInActionPerformed
@@ -916,10 +921,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
     private void btnBuscarAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAeropuertoActionPerformed
         // TODO add your handling code here:
-        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this,true); 
+        AeropuertoPopup usuarioAeropuertoPopUp = new AeropuertoPopup(this, true);
         //usuarioAeropuertoPopUp.setVisible(true);
-         AeropuertoAux=usuarioAeropuertoPopUp.showDialog();
-         txtAeropuerto.setText(AeropuertoAux.getNombre());
+        AeropuertoAux = usuarioAeropuertoPopUp.showDialog();
+        if (AeropuertoAux != null) {
+            txtAeropuerto.setText(AeropuertoAux.getNombre());
+        } else {
+            txtAeropuerto.setText("");
+        }
     }//GEN-LAST:event_btnBuscarAeropuertoActionPerformed
 
     private void cboPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPerfilActionPerformed
@@ -927,7 +936,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     }//GEN-LAST:event_cboPerfilActionPerformed
 
     private void txtNombrestxtNomKeyRel(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombrestxtNomKeyRel
-         //TODO add your handling code here:
+        //TODO add your handling code here:
 //        char letra=evt.getKeyChar();
 //        if (!CValidator.validarSoloLetrasYEspacio(letra, txtNombres)){
 //            getToolkit().beep();
@@ -936,7 +945,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
     private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPaisActionPerformed
         // TODO add your handling code here:
-        
+
 
         if (cboPais.getSelectedIndex() != 0) {
             cboCiudad.removeAllItems();
@@ -964,13 +973,12 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
     private void txtTelefonotxtTelKeyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonotxtTelKeyPress
         // TODO add your handling code here:
-
     }//GEN-LAST:event_txtTelefonotxtTelKeyPress
 
     private void txtTelefonotxtTelKeyRel(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonotxtTelKeyRel
         // TODO add your handling code here:
-        char letra=evt.getKeyChar();
-        if (!CValidator.validarSoloNumeros(letra, txtTelefono)){
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txtTelefono)) {
             getToolkit().beep();
         }
 
@@ -982,30 +990,26 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
     private void txtNumeroDocKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDocKeyReleased
         // TODO add your handling code here:
-        char letra=evt.getKeyChar();
-        if (!CValidator.validarSoloNumeros(letra, txtNumeroDoc)){
-            getToolkit().beep(); 
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloNumeros(letra, txtNumeroDoc)) {
+            getToolkit().beep();
         }
-        
-        
+
+
     }//GEN-LAST:event_txtNumeroDocKeyReleased
 
     private void txtApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyReleased
         // TODO add your handling code here:
-        char letra=evt.getKeyChar();
-        if (!CValidator.validarSoloLetrasYEspacio(letra, txtNombres)){
-            getToolkit().beep(); 
-        }    
+        char letra = evt.getKeyChar();
+        if (!CValidator.validarSoloLetrasYEspacio(letra, txtNombres)) {
+            getToolkit().beep();
+        }
     }//GEN-LAST:event_txtApellidosKeyReleased
-    public int showDialog(){
-        setVisible(true);          
+    public int showDialog() {
+        setVisible(true);
         return 1;
     }
-    
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1036,7 +1040,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UsuarioEdit dialog = new UsuarioEdit(new javax.swing.JDialog(), true,-1);
+                UsuarioEdit dialog = new UsuarioEdit(new javax.swing.JDialog(), true, -1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
