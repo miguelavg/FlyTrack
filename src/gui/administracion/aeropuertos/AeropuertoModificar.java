@@ -355,7 +355,11 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                                     
         }
         else{
+             if (CAeropuerto.esUsado(txt_nombre.getText())==null ){
             
+               error_message = "El nombre de Aeropuerto esta siendo usado";
+            }
+             
             if (CValidator.esAlfanumerico(txt_nombre.getText())){
                 
                 error_message = "El nombre no puede ser alfanumérico";
