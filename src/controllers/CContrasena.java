@@ -118,8 +118,10 @@ public class CContrasena {
             
             contrasena.setText(contrasenaNueva);
             contrasena.setEstado(paramContrasenaActiva);
-            contrasena.setFechaActivacion(new Date());
-            contrasena.setFechaCaducidad(calcularCaducidad(Calendar.getInstance()));
+            Calendar cal = Calendar.getInstance();
+            contrasena.setFechaActivacion(cal.getTime());
+            contrasena.setFechaCaducidad(calcularCaducidad(cal));
+            contrasena.setFechaUltimoUso(null);
             contrasena.setUsuario(usuario);
             
             s.save(contrasena);

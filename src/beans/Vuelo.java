@@ -27,7 +27,7 @@ import org.hibernate.annotations.*;
 @Entity
 @Table(name = "Vuelo")
 @NamedQueries({
-    @NamedQuery(name = "Volar",  query = "from Vuelo"),
+    @NamedQuery(name = "Volar",  query = "from Vuelo order by idVuelo desc"),
     @NamedQuery(name = "Vuelos", query = "from Vuelo where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "VuelosXFecha", query = "from Vuelo where :fechaRegistro < fechaSalida")
 })
