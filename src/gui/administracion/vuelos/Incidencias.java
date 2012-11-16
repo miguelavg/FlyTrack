@@ -360,6 +360,17 @@ public class Incidencias extends javax.swing.JDialog {
         IncidenciaEdit VInci = new IncidenciaEdit(this, true, objV, 1);
         VInci.setModal(true);
         objInc = VInci.showDialog();
+
+        if (objInc != null) {
+            DefaultTableModel dtm = (DefaultTableModel) this.tbl_incidencia.getModel();
+            Calendar fec = Calendar.getInstance();
+            Parametro p = null;
+            if (cbm_incidencia.getSelectedIndex() > 0) {
+                p = (Parametro) cbm_incidencia.getSelectedItem();
+            }
+            llenarLineaIncidencia(dtm, objInc, fec, p);
+        }
+
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -372,71 +383,23 @@ public class Incidencias extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    public void llenarGrillaIncidencia() {
-
-        Parametro TipoDoc;
-        DefaultTableModel dtm = (DefaultTableModel) this.tbl_incidencia.getModel();
-        int rows = dtm.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            dtm.removeRow(0);
-        }
-
-
+    private void llenarLineaIncidencia(DefaultTableModel dtm, Incidencia inc, Calendar fec, Parametro p) {
         Object[] datos = new Object[5];
 
 
-        Calendar fec = Calendar.getInstance();
-        Parametro p = null;
-        if (cbm_incidencia.getSelectedIndex() > 0) {
-            p = (Parametro) cbm_incidencia.getSelectedItem();
-        }
+        datos[0] = inc.getIdIncidencia();
 
 
-        for (int i = 0; i < ListaInci.size(); i++) {
+        datos[1] = inc.getVuelo().getIdVuelo();
+        datos[2] = CValidator.formatDate(inc.getFecha());
+        datos[3] = inc.getDescripcion();
+        datos[4] = inc.getEstado().getValor();
 
+        fec.setTime(inc.getFecha());
 
-            datos[0] = ListaInci.get(i).getIdIncidencia();
-
-
-            datos[1] = ListaInci.get(i).getVuelo().getIdVuelo();
-            datos[2] = CValidator.formatDate(ListaInci.get(i).getFecha());
-            datos[3] = ListaInci.get(i).getDescripcion();
-            datos[4] = ListaInci.get(i).getEstado().getValor();
-
-            fec.setTime(ListaInci.get(i).getFecha());
-
-            if (p != null) {
-                if ((int) (ListaInci.get(i).getEstado().getIdParametro())
-                        == (p.getIdParametro())) {
-                    if ((dt_fechini.getSelectedDate() != null)
-                            && (dt_fechfin.getSelectedDate() != null)) {
-                        if ((dt_fechini.getSelectedDate().compareTo(fec) == -1)
-                                && (dt_fechfin.getSelectedDate().compareTo(fec) == 1)) {
-                            dtm.addRow(datos);
-                        }
-
-                    }
-                    if ((dt_fechini.getSelectedDate() == null)
-                            && (dt_fechfin.getSelectedDate() != null)) {
-                        if (dt_fechfin.getSelectedDate().compareTo(fec) == 1) {
-                            dtm.addRow(datos);
-                        }
-
-                    }
-                    if ((dt_fechini.getSelectedDate() != null)
-                            && (dt_fechfin.getSelectedDate() == null)) {
-                        if (dt_fechini.getSelectedDate().compareTo(fec) == -1) {
-                            dtm.addRow(datos);
-                        }
-
-                    }
-                    if ((dt_fechini.getSelectedDate() == null)
-                            && (dt_fechfin.getSelectedDate() == null)) {
-
-                        dtm.addRow(datos);
-                    }
-                }
-            } else {
+        if (p != null) {
+            if ((int) (inc.getEstado().getIdParametro())
+                    == (p.getIdParametro())) {
                 if ((dt_fechini.getSelectedDate() != null)
                         && (dt_fechfin.getSelectedDate() != null)) {
                     if ((dt_fechini.getSelectedDate().compareTo(fec) == -1)
@@ -457,6 +420,7 @@ public class Incidencias extends javax.swing.JDialog {
                     if (dt_fechini.getSelectedDate().compareTo(fec) == -1) {
                         dtm.addRow(datos);
                     }
+
                 }
                 if ((dt_fechini.getSelectedDate() == null)
                         && (dt_fechfin.getSelectedDate() == null)) {
@@ -464,6 +428,57 @@ public class Incidencias extends javax.swing.JDialog {
                     dtm.addRow(datos);
                 }
             }
+        } else {
+            if ((dt_fechini.getSelectedDate() != null)
+                    && (dt_fechfin.getSelectedDate() != null)) {
+                if ((dt_fechini.getSelectedDate().compareTo(fec) == -1)
+                        && (dt_fechfin.getSelectedDate().compareTo(fec) == 1)) {
+                    dtm.addRow(datos);
+                }
+
+            }
+            if ((dt_fechini.getSelectedDate() == null)
+                    && (dt_fechfin.getSelectedDate() != null)) {
+                if (dt_fechfin.getSelectedDate().compareTo(fec) == 1) {
+                    dtm.addRow(datos);
+                }
+
+            }
+            if ((dt_fechini.getSelectedDate() != null)
+                    && (dt_fechfin.getSelectedDate() == null)) {
+                if (dt_fechini.getSelectedDate().compareTo(fec) == -1) {
+                    dtm.addRow(datos);
+                }
+            }
+            if ((dt_fechini.getSelectedDate() == null)
+                    && (dt_fechfin.getSelectedDate() == null)) {
+
+                dtm.addRow(datos);
+            }
+        }
+
+
+    }
+
+    public void llenarGrillaIncidencia() {
+
+        DefaultTableModel dtm = (DefaultTableModel) this.tbl_incidencia.getModel();
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
+            dtm.removeRow(0);
+        }
+
+
+        Calendar fec = Calendar.getInstance();
+        Parametro p = null;
+        if (cbm_incidencia.getSelectedIndex() > 0) {
+            p = (Parametro) cbm_incidencia.getSelectedItem();
+        }
+
+
+        for (int i = 0; i < ListaInci.size(); i++) {
+
+            llenarLineaIncidencia(dtm, ListaInci.get(i), fec, p);
 
         }
 
@@ -538,5 +553,4 @@ public class Incidencias extends javax.swing.JDialog {
             cbm_incidencia.addItem(TipoDocBE);
         }
     }
-
 }
