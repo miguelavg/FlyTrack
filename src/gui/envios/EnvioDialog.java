@@ -470,9 +470,10 @@ public class EnvioDialog extends javax.swing.JDialog {
         a_origen = aeropuertoPU.showDialog();
 
         if (a_origen != null) {
-
             txt_origen.setText(a_origen.getNombre());
-        }
+        } else {
+            txt_origen.setText("");
+        } 
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
@@ -482,6 +483,8 @@ public class EnvioDialog extends javax.swing.JDialog {
 
         if (a_destino != null) {
             txt_destino.setText(a_destino.getNombre());
+        } else {
+            txt_destino.setText("");
         }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
@@ -496,6 +499,8 @@ public class EnvioDialog extends javax.swing.JDialog {
 
         if (c_cliente != null) {
             txt_cliente.setText(c_cliente.getNombres() + " " + c_cliente.getApellidos());
+        } else {
+            txt_cliente.setText("");
         }
     }//GEN-LAST:event_btn_clienteActionPerformed
 
@@ -517,8 +522,9 @@ public class EnvioDialog extends javax.swing.JDialog {
         a_actual = aeropuertoPU.showDialog();
 
         if (a_actual != null) {
-
             txt_actual.setText(a_actual.getNombre());
+        } else {
+            txt_actual.setText("");
         }
     }//GEN-LAST:event_btn_actualActionPerformed
 

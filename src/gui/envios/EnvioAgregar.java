@@ -104,7 +104,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.origen = Sesion.getUsuario().getIdAeropuerto();
             } else {
                 this.origen = null;
-                
+
             }
             this.actual = this.origen;
             this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
@@ -981,6 +981,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
         destinatario = ClientePU.showDialog();
         if (destinatario != null) {
             txt_destinatario.setText(destinatario.getNombres() + " " + destinatario.getApellidos());
+        } else {
+            txt_destinatario.setText("");
         }
     }//GEN-LAST:event_btn_destinatarioActionPerformed
 
@@ -1019,6 +1021,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
                     break;
                 }
             }
+        } else {
+            txt_remitente.setText("");
         }
 
     }//GEN-LAST:event_btn_remitenteActionPerformed
@@ -1159,23 +1163,26 @@ public class EnvioAgregar extends javax.swing.JDialog {
         destino = aeropuertoPU.showDialog();
         if (destino != null && destino.getNombre() != null) {
             txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
-        }
 
-        CEnvio cenvio = new CEnvio();
-        String error_message = cenvio.verificarTarifa(origen, destino);
 
-        if (error_message == null || error_message.isEmpty()) {
-            this.tarifa = cenvio.calcularTarifa(origen, destino);
-            double vTipoCambio = 1;
-            if (this.tipoCambio != null) {
-                vTipoCambio = this.tipoCambio.getTipoCambio();
+            CEnvio cenvio = new CEnvio();
+            String error_message = cenvio.verificarTarifa(origen, destino);
+
+            if (error_message == null || error_message.isEmpty()) {
+                this.tarifa = cenvio.calcularTarifa(origen, destino);
+                double vTipoCambio = 1;
+                if (this.tipoCambio != null) {
+                    vTipoCambio = this.tipoCambio.getTipoCambio();
+                }
+
+                txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+                recalcular();
+            } else {
+                ErrorDialog.mostrarError(error_message, this);
+                this.tarifa = null;
             }
-
-            txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-            recalcular();
         } else {
-            ErrorDialog.mostrarError(error_message, this);
-            this.tarifa = null;
+            txt_destino.setText("");
         }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
