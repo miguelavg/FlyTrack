@@ -56,7 +56,7 @@ public class MenuReportes extends javax.swing.JFrame {
 
         lblLogAuditoria2.setText("Reporte de Ventas");
 
-        btnLogAuditoria3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/central.png"))); // NOI18N
+        btnLogAuditoria3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gestion_almacen.png"))); // NOI18N
         btnLogAuditoria3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogAuditoria3ActionPerformed(evt);
