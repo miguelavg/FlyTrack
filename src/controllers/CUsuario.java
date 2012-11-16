@@ -27,6 +27,8 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 
 public class CUsuario {
+
+    
     public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto,String LogIn,
         Parametro estado,Integer numAcceso, boolean PrimerAcceso,
             String Nombre,String Apellidos, String correo, 
@@ -424,6 +426,40 @@ public class CUsuario {
         return error;
     }
      
-     
+    public static Usuario actualizarAccesos(Usuario usuario){
+        //Actualiza los acceso a inmediatamente despues del primer acceso donde cambia la contrasena
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
+            usuario.setNumAcceso(1);
+            usuario.setPrimerAcceso(true);
+            s.update(usuario);
+            tx.commit();
+            return usuario;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return usuario;
+        } finally {
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
+    
+    public static Usuario incrementarAccesos(Usuario usuario) {
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
+            usuario.setNumAcceso(usuario.getNumAcceso() + 1);
+            s.update(usuario);
+            tx.commit();
+            return usuario;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return usuario;
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
     
 }

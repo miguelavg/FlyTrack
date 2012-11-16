@@ -206,10 +206,14 @@ public class Login extends javax.swing.JFrame {
                     }
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
                     usuarioValidado = cambiarContrasenia.showDialog();
+                    if(condicionPrimerIngreso)
+                        usuarioValidado = CUsuario.actualizarAccesos(usuarioValidado);//actualizo los accesos de usuario para que no lo vuelva a bloquear
+
                 }
                 
                 if(usuarioValidado != null){
-                
+                    
+                    usuarioValidado = CUsuario.incrementarAccesos(usuarioValidado);
                     Sesion.setUsuario(usuarioValidado);
 
                     PrincipalFrame pf = new PrincipalFrame();
@@ -232,7 +236,7 @@ public class Login extends javax.swing.JFrame {
                     //Solo incremento si el usuario que ha intentado logearse es igual al
                     //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
                     // Si llega al limite de intentos fallidos se bloquea la cuenta
-                    if (numIntentosFallidos >= numMaxIntentosFallidos) {
+                    if (numIntentosFallidos >= numMaxIntentosFallidos && !usuarioAux.getPerfil().getNombre().equals("Administrador")) {
                         CSeguridad.bloquearCuenta(usuario);
                         ErrorDialog.mostrarError("Usuario: " +usuario + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);

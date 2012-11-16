@@ -68,6 +68,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
     Integer idusuario = -1;
     Integer idcontrasena = 0;
     Usuario UsuarioBE;
+    Contrasena ContrasenaAux;
 
     public void setIdusuario(Integer idusuario) {
         this.idusuario = idusuario;
@@ -659,12 +660,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
         String mensaje = "";
         String mensaje2 = "";
 
-        boolean pasavalidacion;
+        boolean pasavalidacion=true;
 
         if (idusuario != -1) {
 
+          if (psswdContrasena.getPassword().length!=0){  
             mensaje = CUsuario.ValidarContrasena(psswdContrasena.getPassword());
-
+            pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
+          }
 //        Integer id=-1;
 //        char[] aux_contrasena = psswdContrasena.getPassword();
 //        char[] aux_contrasena_rec = null;
@@ -718,8 +721,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //            }
 //        }
 
-            pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
-
             if (!pasavalidacion) {
                 mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
                 mensaje = mensaje + mensaje2;
@@ -756,10 +757,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        
 //        for (int i=0; i< menorCon;i++){
 //        }
-
-
-
-
         }
 
         if (mensaje.equals("") && mensaje2.equals("")) {
@@ -777,7 +774,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
             Usuario UsuarioAux;
             //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
 
-
             Usuario UsuarioauxBE;
 //        if (ClienteAux==null && idusuario!=-1){
 //        auxCliente=UsuarioauxBE.getIdCliente();
@@ -793,21 +789,15 @@ public class UsuarioEdit extends javax.swing.JDialog {
 //        valoraux=0;
 //        }
 
-
             String error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
 
             if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
-
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-
             }
-
-
 
             String error_message2 = validarcampos();
 
             error_message = error_message + error_message2;
-
 
             if (error_message == null || error_message.isEmpty()) {
 
@@ -875,15 +865,20 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
 
+                    if (psswdContrasena.getPassword().length!=0){  
+                    
                     UsuarioauxBE = Usuario.BuscarXid(idusuario);
-                    ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
+                    //ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
+                    ContrasenaAux=Contrasena.buscarContrasenaActivaPorUsuario(UsuarioauxBE.getIdUsuario());
 
                     ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.desactivarUltimaContrasena(ListaContrasena.get(ListaContrasena.size() - 1), ListaEstado.get(0));
+                    Contrasena.desactivarUltimaContrasena(ContrasenaAux, ListaEstado.get(0));
                     ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                     Contrasena.agregarContrasena(psswdContrasena.getPassword(),
                             UsuarioauxBE,
                             ListaEstado.get(0));
+                    }
+                    
                 }
                 this.setVisible(false);
                 this.dispose();
