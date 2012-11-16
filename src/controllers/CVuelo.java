@@ -156,7 +156,6 @@ public class CVuelo {
             }
 
 
-            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
             Query q = s.getNamedQuery("Volar");
 
 
