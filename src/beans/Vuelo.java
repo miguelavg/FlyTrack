@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +28,8 @@ import org.hibernate.annotations.*;
 @NamedQueries({
     @NamedQuery(name = "Volar",  query = "from Vuelo order by idVuelo desc"),
     @NamedQuery(name = "Vuelos", query = "from Vuelo where estado.valorUnico = 'ACTV'"),
-    @NamedQuery(name = "VuelosXFecha", query = "from Vuelo where :fechaRegistro < fechaSalida")
+    @NamedQuery(name = "VuelosXFecha", query = "from Vuelo where :fechaRegistro < fechaSalida"),
+    @NamedQuery(name = "VueloXIdVuelo", query = "from Vuelo where idVuelo = :idVuelo")    
 })
 @FilterDefs({
     @FilterDef(name = "VueloXOrigen", parameters = @ParamDef(name = "idOrigen", type = "integer")),

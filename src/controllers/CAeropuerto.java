@@ -8,9 +8,10 @@ import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
 import beans.Sesion;
+import java.awt.Cursor;
 import java.util.List;
 import org.hibernate.*;
-
+import java.awt.Cursor;
 /**
  *
  * @author miguelavg
@@ -36,8 +37,11 @@ public class CAeropuerto {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
+       
         
         try {
+           
+            
             Transaction tx = s.beginTransaction();
             Query q;
 //            Parametro pTipoDoc;            
@@ -214,6 +218,38 @@ public class CAeropuerto {
         return ListaAeropuerto;
         
     }
+
+    public static Aeropuerto esUsado(String text) {
+           
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        beans.Aeropuerto aero= null;
+        
+        try {
+            
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("AeroXNombre");
+            q.setParameter("nombre", text);
+           
+             aero= (beans.Aeropuerto)q.uniqueResult();
+                       
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            
+            s.close();
+        }
+        
+        return aero;
+        
+        
+    }
+    
+    
     public beans.Aeropuerto BuscarId(int id){
         
         SessionFactory sf = Sesion.getSessionFactory();
@@ -241,6 +277,35 @@ public class CAeropuerto {
         
         return aero;
     }
+    
+    public static beans.Aeropuerto BuscarNombre(String nombre){
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        beans.Aeropuerto aero= null;
+        
+        try {
+            
+            Transaction tx = s.beginTransaction();
+            Query q;
+            
+            q = s.getNamedQuery("AeroXNombre");
+            q.setParameter("aero", nombre);
+           
+             aero= (beans.Aeropuerto)q.uniqueResult();
+                       
+            }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+                }
+        finally {
+            
+            s.close();
+        }
+        
+        return aero;
+    }
+    
       public static List<Parametro> llenarComboPais(){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();

@@ -550,7 +550,9 @@ public class Vuelos extends javax.swing.JDialog {
 
         // if tbl_vuelos.   
         if (tbl_vuelos.getSelectedRow() > -1) {
-            Incidencias DialogoInc = new Incidencias(this, true, listaVuelos.get(tbl_vuelos.getSelectedRow()));
+            Vuelo v = CVuelo.buscarVueloId(listaVuelos.get(tbl_vuelos.getSelectedRow()).getIdVuelo());
+            
+            Incidencias DialogoInc = new Incidencias(this, true, v);
             DialogoInc.setVisible(true);
             Parametro TipoDoc;
             fechini = dt_fechini.getSelectedDate();

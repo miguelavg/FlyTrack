@@ -1109,7 +1109,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
             this.envio.setUnitario(unitario * vTipoCambio);
             this.envio.setMonto(total);
-            error_message = cenvio.calcularRuta(this.envio);
+            error_message = cenvio.calcularRuta(this.envio, this.envio.getFechaRegistro(), 1);
 
             if (error_message == null || error_message.isEmpty()) {
 
