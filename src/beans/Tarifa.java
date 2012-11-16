@@ -34,6 +34,7 @@ import org.hibernate.annotations.ParamDef;
     query = "from Tarifa where origen.idAeropuerto = :idorigen and destino.idAeropuerto = :iddestino"),
     @NamedQuery(name = "Tarifas",
     query = "from Tarifa"  ),
+    @NamedQuery(name = "TarifasActuales", query = "from Tarifa where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "TarifaxId",
     query = "from Tarifa where idTarifa= :id"  ),
     @NamedQuery(name = "TarifaxRuta",

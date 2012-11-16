@@ -325,8 +325,18 @@ public class CVuelo {
             
             v.getIncidencias().size();
             
-            for(Escala e : v.getEscalas()){
-                e.getEnvio().getEscalas().size();
+            for(Escala escala : v.getEscalas()){
+                //escala.getEnvio().getEscalas().size();
+                for(Escala escalaProfunda : escala.getEnvio().getEscalas()){
+                    if(escalaProfunda.getIdEscala() == escala.getIdEscala()){
+                        
+                    }
+                    
+                    if(escalaProfunda.getVuelo().getIdVuelo() == v.getIdVuelo()){
+                        
+                    }
+                }
+                
             }
 
         } catch (Exception e) {
@@ -367,7 +377,7 @@ public class CVuelo {
                     escala.getEnvio().setEstado(t);
                     
                 //  Cambiarle el estado a la escala
-                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "FIN");
+                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "FIN");
                     escala.setEstado(t);
                     
                 //  Incrementar el almacén
@@ -386,7 +396,7 @@ public class CVuelo {
                     escala.getEnvio().setEstado(t);
                   
                 //  Cambiarle el estado a la escala
-                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "FIN");
+                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "EFE");
                     escala.setEstado(t);
                     
                 //  Decrementar el almacén
@@ -412,26 +422,27 @@ public class CVuelo {
                 
                 for (Escala escala : objVuelo.getEscalas()) {
                     int numEscala = escala.getNumEscala();
+                    escala.setEstado(t);
 
-                    for (Escala escalasCanceladas : escala.getEnvio().getEscalas()) {
-                        if (escalasCanceladas.getNumEscala() >= numEscala) {
-                            escalasCanceladas.setEstado(t);
-                            int nVuelo = escalasCanceladas.getVuelo().getCapacidadActual();
-                            escalasCanceladas.getVuelo().setCapacidadActual(nVuelo - escalasCanceladas.getEnvio().getNumPaquetes());
+                    for (Escala escalaCancelada : escala.getEnvio().getEscalas()) {
+                        if (escalaCancelada.getNumEscala() >= numEscala) {
+                            escalaCancelada.setEstado(t);
+                            int nVuelo = escalaCancelada.getVuelo().getCapacidadActual();
+                            escalaCancelada.getVuelo().setCapacidadActual(nVuelo - escalaCancelada.getEnvio().getNumPaquetes());
                         }
                     }
                     
                     CEnvio cenvio = new CEnvio();
                     String error = cenvio.calcularRuta(escala.getEnvio(), ahora, numEscala);
 
-                    if(error == null || error.isEmpty()){
+                    if(error != null || !error.isEmpty()){
                         t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
                         escala.getEnvio().setEstado(t);
                     }
                 }
             }
 
-            s.update(objVuelo);
+            s.saveOrUpdate(objVuelo);
             tx.commit();
 
         } catch (Exception e) {
