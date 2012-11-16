@@ -11,6 +11,7 @@ import controllers.CAeropuerto;
 import controllers.CParametro;
 import controllers.CReportes;
 import controllers.CSerializer;
+import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.InformationDialog;
 import java.awt.Component;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import xml.XmlAeropuerto;
+import xml.XmlAeropuertoString;
 
 /**
  *
@@ -271,25 +273,106 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 
     }
     
-    private ArrayList<beans.Aeropuerto>  PasaValores(ArrayList<XmlAeropuerto> xmlAeropuertos){
+    private ArrayList<beans.Aeropuerto>  PasaValores(ArrayList<XmlAeropuertoString> xmlAeropuertos){
         
+        String error_message="";
         ArrayList<beans.Aeropuerto> aeropuertos = new ArrayList<beans.Aeropuerto>();
         for (int i= 0; i<xmlAeropuertos.size();i++){
             beans.Aeropuerto aero = new beans.Aeropuerto();
-            XmlAeropuerto xmlaero= (XmlAeropuerto)xmlAeropuertos.get(i);
-            aero.setCapacidadActual(xmlaero.getCapacidadActual());
-            aero.setCapacidadMax(xmlaero.getCapacidadMax());
-            aero.setCoordX(xmlaero.getCoordX());
-            aero.setCoordY(xmlaero.getCoordY());
+            XmlAeropuertoString xmlaero= (XmlAeropuertoString)xmlAeropuertos.get(i);
+            Integer s=i;
+            if (CValidator.isInteger(xmlaero.getCapacidadActual())&&(Integer.parseInt(xmlaero.getCapacidadActual())>=0)){
+            aero.setCapacidadActual(Integer.parseInt(xmlaero.getCapacidadActual()));
+            }
+            else {
+            //error="Los valores de la capacidad actual no son validos.";
+                //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                
+                        ErrorDialog.mostrarError("Los valores de la capacidad actual no son validos."+" "+s.toString(), this);
+                        aeropuertos=null;
+            break;        
+            }
+            
+            if (CValidator.isInteger(xmlaero.getCapacidadMax())&&(Integer.parseInt(xmlaero.getCapacidadMax())>=0)){
+            aero.setCapacidadMax(Integer.parseInt(xmlaero.getCapacidadMax()));
+            }
+            else {
+            //error="Los valores de la capacidad maxima no son validos.";
+                //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                        ErrorDialog.mostrarError("Los valores de la capacidad maxima no son validos."+" "+s.toString(), this);
+                        aeropuertos=null;
+            break;        
+            }
+            
+            //aero.setCapacidadMax(xmlaero.getCapacidadMax());
+            
+            
+            if (CValidator.isInteger(xmlaero.getCoordX())&&(Integer.parseInt(xmlaero.getCoordX())>=0)){
+            aero.setCoordX(Integer.parseInt(xmlaero.getCoordX()));
+            }
+            else {
+            //error="Los valores de la coordenada X no son validos.";
+               // error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                ErrorDialog.mostrarError("Los valores de la coordenada X no son validos."+" "+s.toString(), this);
+                aeropuertos=null;
+                break;        
+            }
+            //aero.setCoordX(xmlaero.getCoordX());
+            
+            if (CValidator.isInteger(xmlaero.getCoordY())&&(Integer.parseInt(xmlaero.getCoordY())>=0)){
+            aero.setCoordY(Integer.parseInt(xmlaero.getCoordY()));
+            }
+            else {
+            //error="Los valores de la coordenada Y no son validos.";
+                //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                ErrorDialog.mostrarError("Los valores de la coordenada Y no son validos."+" "+s.toString(), this);
+                aeropuertos=null;
+                break;        
+            }
+            
+            //aero.setCoordY(xmlaero.getCoordY());
             aero.setNombre(xmlaero.getNombre());
             
-            Parametro pais=cParametro.buscarId(xmlaero.getPais());
-            Parametro ciudad=cParametro.buscarId(xmlaero.getCiudad());
-            Parametro estado=cParametro.buscarId(xmlaero.getEstado());
             
-            aero.setPais(pais);
-            aero.setCiudad(ciudad);
-            aero.setEstado(estado);
+            Parametro pais=CParametro.buscarXValorUnicoyTipo("PAIS",xmlaero.getPais());
+            
+            if (pais!=null){
+                            aero.setPais(pais);
+            }
+            else {
+                //error="Los valores del pais no son validos.";
+                //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                ErrorDialog.mostrarError("Los valores del pais no son validos."+" "+s.toString(), this);
+                aeropuertos=null;
+                break;        
+            }
+            
+            Parametro ciudad=CParametro.buscarXValorUnicoyTipo("CIUDAD",xmlaero.getCiudad());
+            
+            if (ciudad!=null){
+                aero.setCiudad(ciudad);
+            }
+            else {
+                //error="Los valores de ciudad no son validos.";
+                //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                ErrorDialog.mostrarError("Los valores de ciudad no son validos." +" "+s.toString(), this);
+                aeropuertos=null;
+                break;        
+            }
+            
+            Parametro estado=CParametro.buscarXValorUnicoyTipo("ESTADO_AEROPUERTO",xmlaero.getEstado());
+            
+            if (estado!=null){
+                aero.setEstado(estado);
+            }
+            else {
+                //error="Los valores del estado no son validos.";
+                //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                ErrorDialog.mostrarError("Los valores del estado no son validos."+" "+s.toString(), this);
+                aeropuertos=null;
+                break;        
+            }
+
             aeropuertos.add(aero);
         }
         return aeropuertos;
@@ -301,26 +384,27 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 //        generaraeropuertos();
 //        serializar(listaaero, "PruebaCargaAero.xml");
 //                
-        
-        if (archivovalido){    
-            ArrayList xmlAeropuertos=CSerializer.deserializar(txtRuta.getText());
+
+        if (archivovalido) {
+            ArrayList xmlAeropuertos = CSerializer.deserializar(txtRuta.getText());
 //          ArrayList aeropuertos=CSerializer.deserializar("PruebaCargaAero.xml");
             ArrayList aeropuertos = PasaValores(xmlAeropuertos);
-            try{                   //CAeropuerto.ValidarCaga(vuelos);
-               for (int i = 0; i<aeropuertos.size();i++){
-                   beans.Aeropuerto aero=(beans.Aeropuerto)aeropuertos.get(i);
-                   CAeropuerto.cargarAeropuerto(aero);
+
+            if (aeropuertos != null) {
+                try {                   //CAeropuerto.ValidarCaga(vuelos);
+                    for (int i = 0; i < aeropuertos.size(); i++) {
+                        beans.Aeropuerto aero = (beans.Aeropuerto) aeropuertos.get(i);
+                        CAeropuerto.cargarAeropuerto(aero);
+                    }
+                    InformationDialog.mostrarInformacion("La operación se realizó con éxito ", this);
+                    this.dispose();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.", this);
+
                 }
-                InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
-                this.dispose();
-            }
-            catch(Exception e){
-                        e.printStackTrace();
-                        ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
-            
             }
         }
-        
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btnRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutaActionPerformed
