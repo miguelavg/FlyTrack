@@ -284,7 +284,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         }
         else{
             
-            if (CAeropuerto.esUsado(txt_Nombre.getText())==null ){
+            if (CAeropuerto.esUsado(txt_Nombre.getText())!=null ){
             
                error_message = "El nombre de Aeropuerto esta siendo usado";
             }
