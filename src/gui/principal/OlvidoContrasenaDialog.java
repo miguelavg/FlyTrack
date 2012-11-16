@@ -7,7 +7,9 @@ package gui.principal;
 import beans.Parametro;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
+import com.sun.org.apache.xerces.internal.impl.dtd.models.CMAny;
 import controllers.CContrasena;
+import controllers.CMail;
 import controllers.CParametro;
 import controllers.CSeguridad;
 import controllers.CUsuario;
@@ -130,9 +132,10 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
         contrasenaNueva.setFechaCaducidad(CContrasena.calcularCaducidad(cal));
         Parametro parametro = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "ACTV");
         contrasenaNueva.setEstado(parametro);
-        //cambio la contrasenia antigua activa a desactivada y agrego esta contrasenia activa
-        //al usuario
+        //cambio la contrasenia antigua activa a desactivada y agrego esta contrasenia activa al usuario
+        
         //la envio por correo
+//        new CMail().sendMail(from, username, username, username, username);
         //le digo al cliente que la contrasenia ya ha sido enviada a su correo
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed
 

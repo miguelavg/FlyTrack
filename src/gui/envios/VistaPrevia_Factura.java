@@ -348,8 +348,11 @@ public void cargartabla(){
                 
         int rslt = jfc.showSaveDialog(this);
         if (rslt == JFileChooser.APPROVE_OPTION) {
+            try{
             String strArch = jfc.getSelectedFile().getName();
             if (!strArch.trim().isEmpty()) {
+                try{
+                
                 String ruta = jfc.getSelectedFile().getPath().trim();
                 if (!ruta.isEmpty()) {
                     try {
@@ -364,23 +367,16 @@ public void cargartabla(){
                         //this.usuario.getNombre()
                         //alma.getNombre()
                         //this.palletElegido
-                        
                         String usuariologeado=Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos();
-                        
                         if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
                             CReportes.crearPDF_Trazabilidad_Factura(ruta, "Factura", usuariologeado, "FlyTrack", "Factura", anchos, this.envio);
-                            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
+                            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);                        
                         }
-
-
-
                         if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
                             CReportes.crearPDF_Trazabilidad_Factura(ruta, "Boleta", usuariologeado, "FlyTrack", "Boleta", anchos, this.envio);
                             CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la boleta en la ruta\n" + ruta);
+                            
                         }
-                        
-                        
-                        
                         //}
                         //else
                         //CReportes.mostrarMensajeAdvertencia("No existen registros en el historial.");
@@ -389,18 +385,36 @@ public void cargartabla(){
                         //  visualHelper.mostrarMensajeAdvertencia("No se ha ingresado información sobre el almacén.");
                     } catch (Exception e) {
                         e.printStackTrace();
-                        CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
-                        error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
                         ErrorDialog.mostrarError(error_message, this);
                     }
                 } else {
-                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
+                    //CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
+                    error_message = error_message + CValidator.buscarError("ERROR_FT015") + "\n";
+                    ErrorDialog.mostrarError(error_message, this);
                 }
+            }catch (Exception e) {
+                        e.printStackTrace();
+                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                        ErrorDialog.mostrarError(error_message, this);
+                    }       
             } else {
-                CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+                //CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+                error_message = error_message + CValidator.buscarError("ERROR_FT016") + "\n";
+                ErrorDialog.mostrarError(error_message, this);
             }
         }
-
+            catch (Exception e) {
+                        e.printStackTrace();
+                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                        ErrorDialog.mostrarError(error_message, this);
+                    }  
+        
+        
+        }
     }//GEN-LAST:event_btn_docPagoActionPerformed
 
     /**
