@@ -8,6 +8,7 @@ import beans.Cliente;
 import beans.Parametro;
 import controllers.CAeropuerto;
 import gui.clientes.ClientesPopUp;
+import java.awt.Cursor;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -261,9 +262,12 @@ public class AeropuertoPopup extends javax.swing.JDialog {
             TIpoEstado = (Parametro) cbm_estado.getSelectedItem();
         }
 
+          setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            
         listaAeropuertos = CAeropuerto.BuscarAeropuerto(
                 TipoPais, TipoCiudad, TIpoEstado);
-
+         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
         Object[] datos = new Object[9];
         int rows = dtm.getRowCount();

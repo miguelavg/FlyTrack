@@ -289,8 +289,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
-        ReporteFrame reporteFrame = new ReporteFrame();
-        reporteFrame.setVisible(true);
+//        ReporteFrame reporteFrame = new ReporteFrame();
+//        reporteFrame.setVisible(true);
+        
+        MenuReportes menuReportes = new MenuReportes();
+        menuReportes.setVisible(true);
+        
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed

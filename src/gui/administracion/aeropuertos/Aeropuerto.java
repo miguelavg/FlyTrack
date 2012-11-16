@@ -9,8 +9,10 @@ import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CAeropuerto;
 import controllers.CSeguridad;
+import java.awt.Cursor;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +27,9 @@ public class Aeropuerto extends javax.swing.JDialog {
     private beans.Aeropuerto objAero = new beans.Aeropuerto();
     List<beans.Aeropuerto> listaAeropuertos;
 
+    JTextField campoTexto = new JTextField();
+
+
     /**
      * Creates new form Aeropuerto
      */
@@ -33,6 +38,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         llenarComboPais();
         llenarComboEstado();
         definirPermisos();
+      
     }
 
     /**
@@ -290,13 +296,16 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-
+      setCursor(new Cursor(Cursor.WAIT_CURSOR));
         llenarGrillaAero();
-
+      setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void llenarGrillaAero() {
+        
+       
+        
         Parametro pais = null ;
         Parametro ciudad = null;
         Parametro estado = null;

@@ -122,9 +122,6 @@ public class CSeguridad {
     }
 
     public static void bloquearCuenta(String usuario) {
-        Usuario usuarioAnalizar = CUsuario.buscarXNombreUsuario(usuario);
-//        if(usuarioAnalizar.getEstado().getValor())
-        
         Session s = Sesion.openSessionFactory();
 
         try {

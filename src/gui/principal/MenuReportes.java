@@ -4,6 +4,11 @@
  */
 package gui.principal;
 
+import gui.reportes.ReporteAlmacen;
+import gui.reportes.ReporteEnvios;
+import gui.reportes.ReporteIncidencias;
+import gui.reportes.ReporteVentas;
+
 /**
  *
  * @author joao
@@ -15,6 +20,7 @@ public class MenuReportes extends javax.swing.JFrame {
      */
     public MenuReportes() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,141 +32,173 @@ public class MenuReportes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnLogAuditoria = new javax.swing.JButton();
         lblLogAuditoria = new javax.swing.JLabel();
-        btnLogAuditoria2 = new javax.swing.JButton();
-        lblLogAuditoria2 = new javax.swing.JLabel();
-        btnLogAuditoria3 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btnRptEnvio = new javax.swing.JButton();
         lblLogAuditoria3 = new javax.swing.JLabel();
-        btnLogAuditoria4 = new javax.swing.JButton();
+        btnRptMovAlmc = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnRptIncidencias = new javax.swing.JButton();
         lblLogAuditoria4 = new javax.swing.JLabel();
-        lblLogAuditoria5 = new javax.swing.JLabel();
+        btnRptVentas = new javax.swing.JButton();
+        lblLogAuditoria2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        btnLogAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
-        btnLogAuditoria.addActionListener(new java.awt.event.ActionListener() {
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnRptEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
+        btnRptEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogAuditoriaActionPerformed(evt);
+                btnRptEnvioActionPerformed(evt);
             }
         });
 
-        lblLogAuditoria.setText("Reporte de Envios");
+        lblLogAuditoria3.setText("Reporte de Movimiento ");
 
-        btnLogAuditoria2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa48x48.png"))); // NOI18N
-        btnLogAuditoria2.addActionListener(new java.awt.event.ActionListener() {
+        btnRptMovAlmc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gestion_almacen.png"))); // NOI18N
+        btnRptMovAlmc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogAuditoria2ActionPerformed(evt);
+                btnRptMovAlmcActionPerformed(evt);
             }
         });
 
-        lblLogAuditoria2.setText("Reporte de Ventas");
+        jLabel1.setText("Reporte de envíos");
 
-        btnLogAuditoria3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/report.jpeg"))); // NOI18N
-        btnLogAuditoria3.addActionListener(new java.awt.event.ActionListener() {
+        btnRptIncidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lightning-sign-icon.png"))); // NOI18N
+        btnRptIncidencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogAuditoria3ActionPerformed(evt);
-            }
-        });
-
-        lblLogAuditoria3.setText("Reporte de Movimiento");
-
-        btnLogAuditoria4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/report.jpeg"))); // NOI18N
-        btnLogAuditoria4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogAuditoria4ActionPerformed(evt);
+                btnRptIncidenciasActionPerformed(evt);
             }
         });
 
         lblLogAuditoria4.setText("Reporte de incidencias");
 
-        lblLogAuditoria5.setText(" de Almacen");
+        btnRptVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa48x48.png"))); // NOI18N
+        btnRptVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRptVentasActionPerformed(evt);
+            }
+        });
+
+        lblLogAuditoria2.setText("Reporte de Ventas");
+
+        jLabel2.setText("de almacén");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jLabel2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(lblLogAuditoria3)
+                        .addGap(50, 50, 50)
+                        .addComponent(lblLogAuditoria4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(btnRptEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel1)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(btnRptVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(lblLogAuditoria2)))))
+                .addGap(0, 12, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(btnRptMovAlmc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138)
+                .addComponent(btnRptIncidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRptEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRptVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblLogAuditoria2))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRptMovAlmc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRptIncidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLogAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLogAuditoria4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLogAuditoria)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(btnLogAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(btnLogAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblLogAuditoria2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblLogAuditoria3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(btnLogAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(lblLogAuditoria5)))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLogAuditoria4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(btnLogAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLogAuditoria))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(lblLogAuditoria))
+                    .addComponent(lblLogAuditoria))
+                .addGap(0, 217, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLogAuditoria2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLogAuditoria2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLogAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLogAuditoria)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnLogAuditoria3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLogAuditoria3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnLogAuditoria4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLogAuditoria4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLogAuditoria5)
-                .addGap(24, 24, 24))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
+    private void btnRptEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptEnvioActionPerformed
         // TODO add your handling code here:
+        ReporteEnvios reporteEnvio = new ReporteEnvios();
+        reporteEnvio.setVisible(true);
+    }//GEN-LAST:event_btnRptEnvioActionPerformed
 
-    }//GEN-LAST:event_btnLogAuditoriaActionPerformed
-
-    private void btnLogAuditoria2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoria2ActionPerformed
+    private void btnRptVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptVentasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogAuditoria2ActionPerformed
+        ReporteVentas reporteVentas = new ReporteVentas();
+        reporteVentas.setVisible(true);
+    }//GEN-LAST:event_btnRptVentasActionPerformed
 
-    private void btnLogAuditoria3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoria3ActionPerformed
+    private void btnRptMovAlmcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptMovAlmcActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogAuditoria3ActionPerformed
+        ReporteAlmacen reporteAlmacen = new ReporteAlmacen();
+        reporteAlmacen.setVisible(true);
+    }//GEN-LAST:event_btnRptMovAlmcActionPerformed
 
-    private void btnLogAuditoria4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoria4ActionPerformed
+    private void btnRptIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptIncidenciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogAuditoria4ActionPerformed
+        ReporteIncidencias reporteIncidencias = new ReporteIncidencias();
+        reporteIncidencias.setVisible(true);
+    }//GEN-LAST:event_btnRptIncidenciasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,14 +235,16 @@ public class MenuReportes extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogAuditoria;
-    private javax.swing.JButton btnLogAuditoria2;
-    private javax.swing.JButton btnLogAuditoria3;
-    private javax.swing.JButton btnLogAuditoria4;
+    private javax.swing.JButton btnRptEnvio;
+    private javax.swing.JButton btnRptIncidencias;
+    private javax.swing.JButton btnRptMovAlmc;
+    private javax.swing.JButton btnRptVentas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblLogAuditoria;
     private javax.swing.JLabel lblLogAuditoria2;
     private javax.swing.JLabel lblLogAuditoria3;
     private javax.swing.JLabel lblLogAuditoria4;
-    private javax.swing.JLabel lblLogAuditoria5;
     // End of variables declaration//GEN-END:variables
 }

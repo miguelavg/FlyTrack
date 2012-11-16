@@ -29,9 +29,12 @@ import org.hibernate.annotations.ParamDef;
 @Entity
 @Table(name = "Aeropuerto")
 @NamedQueries({
+    @NamedQuery(name = "AeroXNombre",
+    query = "from Aeropuerto where nombre = :nombre"),
+    
     @NamedQuery(name = "Aero",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV' order by idAeropuerto"),
-    @NamedQuery(name = "AeroXNombre",
+    @NamedQuery(name = "AeroXNombres",
     query = "from Aeropuerto where nombre = :aero"),
     @NamedQuery(name = "Aeropuertos",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
@@ -43,8 +46,15 @@ import org.hibernate.annotations.ParamDef;
     
     @NamedQuery(name = "AeropuertosxID",
     query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")
+
 })
+
 @FilterDefs({
+    @FilterDef(name = "AeropuertoXNombre",
+    parameters =
+    @ParamDef(name = "nombre", type = "string")),
+    
+    
     @FilterDef(name = "ParametroHijosXTipo",
     parameters =
     @ParamDef(name = "tipo", type = "string")),
