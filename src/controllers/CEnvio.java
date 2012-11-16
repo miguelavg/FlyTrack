@@ -58,7 +58,7 @@ public class CEnvio {
         }
     }
 
-    public String calcularRuta(Envio envio) {
+    public String calcularRuta(Envio envio, Date ahora, int numEscala) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -125,15 +125,14 @@ public class CEnvio {
             int idProg = p.getIdParametro();
 
 
-            long iFuturo = envio.getFechaRegistro().getTime() + limite_forward * 24 * 60 * 60 * 1000;
+            long iFuturo = ahora.getTime() + limite_forward * 24 * 60 * 60 * 1000;
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(iFuturo);
             Date futuro = cal.getTime();
 
-            long iPasado = envio.getFechaRegistro().getTime() - limite_backward * 24 * 60 * 60 * 1000;
+            long iPasado = ahora.getTime() - limite_backward * 24 * 60 * 60 * 1000;
             cal.setTimeInMillis(iPasado);
             Date pasado = cal.getTime();
-            Date ahora = envio.getFechaRegistro();
 
             Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalida");
             f_vuelos_s.setParameter("lower", ahora);
@@ -172,7 +171,7 @@ public class CEnvio {
             //   Recuperar los promedios de los vuelos históricos
 
             q = s.createQuery("select  v.origen.idAeropuerto, v.destino.idAeropuerto, avg(v.capacidadActual/v.capacidadMax) from Vuelo v where :lower < fechaSalida AND fechaSalida < :upper group by v.origen, v.destino order by 1 ,2");
-            q.setParameter("upper", envio.getFechaRegistro());
+            q.setParameter("upper", ahora);
             q.setParameter("lower", pasado);
 
             List<Object[]> lista = q.list();
@@ -187,8 +186,7 @@ public class CEnvio {
             ArrayList<Vuelo> solucion = recocido.simular();
 
             Escala e;
-            int i = 1;
-            Date fecha = envio.getFechaRegistro();
+            Date fecha = ahora;
             q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
             q.setParameter("tipo", "ESTADO_ESCALA");
             q.setParameter("valorUnico", "PROG");
@@ -209,12 +207,11 @@ public class CEnvio {
                     e = new Escala();
                     e.setEnvio(envio);
                     e.setVuelo(v);
-                    e.setNumEscala(i);
+                    e.setNumEscala(numEscala++);
                     e.setFechaInicio(fecha);
                     e.setEstado(p);
                     e.setOriginal(original);
                     fecha = v.getFechaLlegada();
-                    i++;
                     capacidad = e.getVuelo().getCapacidadActual();
                     e.getVuelo().setCapacidadActual(capacidad + envio.getNumPaquetes());
                     envio.getEscalas().add(e);
