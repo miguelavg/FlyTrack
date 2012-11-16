@@ -8,6 +8,7 @@ import beans.Parametro;
 import controllers.CAeropuerto;
 import controllers.CValidator;
 import gui.ErrorDialog;
+import java.awt.Cursor;
 import java.util.List;
 
 /**
@@ -402,7 +403,8 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                 
         String error_message = validarcampos();
         if (error_message.isEmpty()){
-
+                       setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        
                         CAeropuerto.modificarAeropuerto(
                     objAero.getIdAeropuerto(),
                     Integer.parseInt(txt_capacidad.getText()),
@@ -413,7 +415,8 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                     ListatipoEst.get(cbm_estado.getSelectedIndex()-1),
                     txt_nombre.getText(),
                     ListatipoPar.get(cbm_pais.getSelectedIndex()-1));
-            
+                      setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
             setVisible(false);
             dispose();
         }
