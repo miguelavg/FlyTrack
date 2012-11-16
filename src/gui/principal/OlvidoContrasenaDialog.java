@@ -150,7 +150,7 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
             }
         }
         else{
-            ErrorDialog.mostrarError("Ingrese el nombre de usuario", this);
+            ErrorDialog.mostrarError("Ingrese el nombre del usuario", this);
         }
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed
 
