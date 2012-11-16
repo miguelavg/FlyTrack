@@ -38,14 +38,20 @@ import org.hibernate.annotations.ParamDef;
 @NamedQueries({
     @NamedQuery(name = "Envios", query = "from Envio order by fechaRegistro desc"),
     @NamedQuery(name = "EnvioID", query = "from Envio where idenvio = :idenvio")
-    })
+})
 @FilterDefs({
-    @FilterDef(name = "EnviosXOrigen", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXDestino", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXActual", parameters = @ParamDef(name = "idAeropuerto", type = "integer")),
-    @FilterDef(name = "EnviosXEstado", parameters = @ParamDef(name = "idEstado", type = "integer")),
-    @FilterDef(name = "EnviosXCliente", parameters = @ParamDef(name = "idCliente", type = "integer")),
-    @FilterDef(name = "EnviosXNumEnvio",parameters = @ParamDef(name = "numEnvio", type = "integer"))
+    @FilterDef(name = "EnviosXOrigen", parameters =
+    @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXDestino", parameters =
+    @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXActual", parameters =
+    @ParamDef(name = "idAeropuerto", type = "integer")),
+    @FilterDef(name = "EnviosXEstado", parameters =
+    @ParamDef(name = "idEstado", type = "integer")),
+    @FilterDef(name = "EnviosXCliente", parameters =
+    @ParamDef(name = "idCliente", type = "integer")),
+    @FilterDef(name = "EnviosXNumEnvio", parameters =
+    @ParamDef(name = "numEnvio", type = "integer"))
 })
 @Filters({
     @Filter(name = "EnviosXOrigen", condition = "idOrigen = :idAeropuerto"),
@@ -258,8 +264,9 @@ public class Envio implements Serializable {
     public void setEstadoFactura(Parametro estadoFactura) {
         this.estadoFactura = estadoFactura;
     }
-    
-    public class CustomComparator implements Comparator<Escala> {
+
+    public class EscalasOrdenadasAsc implements Comparator<Escala> {
+
         @Override
         public int compare(Escala e1, Escala e2) {
             if (e1.getEstado().getIdParametro() > e2.getEstado().getIdParametro() || e1.getEstado().getIdParametro() == e2.getEstado().getIdParametro() && e1.getVuelo().getFechaSalida().before(e2.getVuelo().getFechaSalida())) {
@@ -271,10 +278,27 @@ public class Envio implements Serializable {
             return 0;
         }
     }
+    public class EscalasOrdenadasDesc implements Comparator<Escala> {
+
+        @Override
+        public int compare(Escala e1, Escala e2) {
+            if (e1.getEstado().getIdParametro() > e2.getEstado().getIdParametro() || e1.getEstado().getIdParametro() == e2.getEstado().getIdParametro() && e1.getVuelo().getFechaSalida().before(e2.getVuelo().getFechaSalida())) {
+                return 1;
+            }
+            if (e1.getEstado().getIdParametro() < e2.getEstado().getIdParametro() || e1.getEstado().getIdParametro() == e2.getEstado().getIdParametro() && e1.getVuelo().getFechaSalida().after(e2.getVuelo().getFechaSalida())) {
+                return -1;
+            }
+            return 0;
+        }
+    }
     
-    public List<Escala> getEscalasOrdenadas() {
-        Collections.sort(escalas, new CustomComparator());
+    public List<Escala> getEscalasOrdenadasAsc() {
+        Collections.sort(escalas, new EscalasOrdenadasAsc());
         return escalas;
     }
     
+    public List<Escala> getEscalasOrdenadasDesc() {
+        Collections.sort(escalas, new EscalasOrdenadasDesc());
+        return escalas;
+    }
 }

@@ -143,83 +143,71 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel10" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cmb_doc" min="-2" pref="185" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel13" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txt_numPaquetes" min="-2" pref="185" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel14" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txt_numEnvio" min="-2" pref="185" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel10" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmb_doc" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel13" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txt_numPaquetes" min="-2" pref="185" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel14" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txt_numEnvio" min="-2" pref="185" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="btn_guardar" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel5" min="-2" pref="120" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txt_remitente" min="-2" pref="185" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jLabel5" min="-2" pref="120" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="txt_remitente" min="-2" pref="185" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jLabel7" min="-2" pref="120" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="txt_destinatario" min="-2" pref="187" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="btn_remitente" min="-2" pref="30" max="-2" attributes="0"/>
-                                                      <Component id="btn_destinatario" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel11" min="-2" pref="120" max="-2" attributes="0"/>
-                                                      <Component id="jLabel4" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="cmb_estadoFactura" min="-2" pref="185" max="-2" attributes="0"/>
-                                                      <Component id="txt_numDoc" min="-2" pref="185" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel6" min="-2" pref="120" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="txt_actual" min="-2" pref="185" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel3" min="-2" pref="120" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cmb_estado" min="-2" pref="185" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel7" min="-2" pref="120" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txt_destinatario" min="-2" pref="187" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btn_remitente" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="btn_destinatario" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel6" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txt_actual" min="-2" pref="185" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel3" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmb_estado" min="-2" pref="185" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel18" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txt_destino" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btn_destino" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel2" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txt_origen" min="-2" pref="185" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel9" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmb_moneda" min="-2" pref="185" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="lbl_iva" min="-2" pref="120" max="-2" attributes="0"/>
                                       <Component id="jLabel17" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
@@ -236,43 +224,47 @@
                                       <Component id="txt_unitario" min="-2" pref="185" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel18" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_destino" min="-2" pref="185" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btn_destino" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btn_regresar" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel2" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_origen" min="-2" pref="185" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel9" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmb_moneda" min="-2" pref="185" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="btn_factura" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btn_anular" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btn_in" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btn_out" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btn_almacen" min="-2" pref="160" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btn_factura" min="-2" pref="120" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btn_in" min="-2" pref="160" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btn_almacen" min="-2" pref="160" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btn_ruta" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btn_bitacora" min="-2" pref="120" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btn_bitacora" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Component id="btn_ruta" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="btn_guardar" min="-2" pref="120" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel11" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cmb_estadoFactura" min="-2" pref="185" max="-2" attributes="0"/>
+                                              <Component id="txt_numDoc" min="-2" pref="185" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="btn_regresar" min="-2" pref="120" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btn_anular" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btn_out" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btn_recalcular" min="-2" pref="160" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -288,126 +280,128 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btn_factura" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_in" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="btn_out" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_ruta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="btn_anular" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btn_almacen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btn_bitacora" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btn_anular" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="btn_out" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="btn_recalcular" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btn_remitente" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="txt_remitente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_origen" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="txt_destino" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="btn_destino" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="cmb_moneda" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel8" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_unitario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txt_iva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="lbl_iva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel17" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_total" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel15" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_fechaReg" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel16" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_fechaRec" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btn_remitente" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="txt_remitente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btn_destinatario" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="txt_destinatario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel13" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_numPaquetes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_actual" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="cmb_estado" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel14" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_numEnvio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel10" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="cmb_doc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="txt_numDoc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="cmb_estadoFactura" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btn_almacen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="btn_bitacora" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btn_destinatario" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel7" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="txt_destinatario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel13" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_numPaquetes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_actual" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="cmb_estado" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel14" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_numEnvio" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel10" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="cmb_doc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_numDoc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cmb_estadoFactura" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_guardar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="btn_regresar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_origen" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="txt_destino" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="btn_destino" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="cmb_moneda" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel8" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_unitario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txt_iva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="lbl_iva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel17" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_total" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel15" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_fechaReg" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel16" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_fechaRec" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -782,6 +776,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Bit&#xe1;cora"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_recalcular">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/actualizar24x24.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Recalcular ruta"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_recalcularActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
