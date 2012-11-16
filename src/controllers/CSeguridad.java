@@ -122,8 +122,10 @@ public class CSeguridad {
     }
 
     public static void bloquearCuenta(String usuario) {
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+        Usuario usuarioAnalizar = CUsuario.buscarXNombreUsuario(usuario);
+//        if(usuarioAnalizar.getEstado().getValor())
+        
+        Session s = Sesion.openSessionFactory();
 
         try {
             Transaction tx = s.beginTransaction();
@@ -132,8 +134,8 @@ public class CSeguridad {
             f.setParameter("login", usuario);
             Usuario usuarioAux = (Usuario) q.uniqueResult();
 
-            if (usuarioAux != null
-                    && usuarioAux.getEstado().getValorUnico().equals("ACTV")) {
+            if (usuarioAux != null && 
+                usuarioAux.getEstado().getValorUnico().equals("ACTV")) {
                 q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
                 q.setParameter("tipo", usuarioAux.getEstado().getTipo());
                 q.setParameter("valorUnico", "INCTV");
@@ -147,6 +149,7 @@ public class CSeguridad {
             System.out.println(e.getMessage());
         } finally {
             s.close();
+            Sesion.openSessionFactory();
         }
     }
 
