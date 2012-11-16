@@ -13,6 +13,8 @@ import controllers.CMail;
 import controllers.CParametro;
 import controllers.CSeguridad;
 import controllers.CUsuario;
+import gui.ErrorDialog;
+import gui.InformationDialog;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,6 +31,7 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        this.pack();
     }
 
     /**
@@ -40,8 +43,8 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         btnEnviarCorreo = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -50,14 +53,14 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
         setTitle("FlyTrack - Recuperar contraseña");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Recuperar Contraseña");
-        jLabel1.setMaximumSize(new java.awt.Dimension(210, 50));
-        jLabel1.setMinimumSize(new java.awt.Dimension(210, 50));
-        jLabel1.setPreferredSize(new java.awt.Dimension(210, 50));
+        lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Recuperar Contraseña");
+        lblTitulo.setMaximumSize(new java.awt.Dimension(210, 50));
+        lblTitulo.setMinimumSize(new java.awt.Dimension(210, 50));
+        lblTitulo.setPreferredSize(new java.awt.Dimension(210, 50));
 
-        jLabel2.setText("Ingrese su usuario");
+        lblUsuario.setText("Ingrese su usuario");
 
         btnEnviarCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mail.png"))); // NOI18N
         btnEnviarCorreo.setText("Enviar Correo");
@@ -81,7 +84,7 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +95,7 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
@@ -101,10 +104,10 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -118,30 +121,42 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
 
     private void btnEnviarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarCorreoActionPerformed
         // TODO add your handling code here:
-        //jalo en user name
+        //1. Obtengo el usuario de la caja de texto
         String username = txtUsuario.getText();
-        //busco el usuario
-        Usuario usuarioBuscado = CUsuario.buscarXNombreUsuario(username);
-        //genero una contrasenia nueva
-        Contrasena contrasenaNueva = new Contrasena();
-        contrasenaNueva.setUsuario(usuarioBuscado);
-        contrasenaNueva.setText(CSeguridad.generaContraseniaAleatoria());
-        Calendar cal = Calendar.getInstance();
-        contrasenaNueva.setFechaActivacion(cal.getTime());
-        contrasenaNueva.setFechaUltimoUso(null);
-        contrasenaNueva.setFechaCaducidad(CContrasena.calcularCaducidad(cal));
-        Parametro parametro = CParametro.buscarXValorUnicoyTipo("ESTADO_CONTRASENIA", "ACTV");
-        contrasenaNueva.setEstado(parametro);
-        //cambio la contrasenia antigua activa a desactivada y agrego esta contrasenia activa al usuario
-        
-        //la envio por correo
-//        new CMail().sendMail(from, username, username, username, username);
-        //le digo al cliente que la contrasenia ya ha sido enviada a su correo
+        //2. Busco el usuario a partir del nombre extraido, si esta vacio no se hace nada
+        if(username != null && !username.isEmpty()){
+            Usuario usuarioBuscado = CUsuario.buscarXNombreUsuario(username);
+            if(usuarioBuscado != null){
+                //3. Desactivo la contrasena activa del usuario
+                CContrasena.desactivarContrasena(CSeguridad.getContrasenaActiva(usuarioBuscado.getIdUsuario()));
+                //4. Genero contrasena nueva
+                char[] contrasenaNueva = CSeguridad.generaContraseniaAleatoria();
+                //5. Agrego la contrasena al usuario como activa
+                CContrasena.agregarContrasenaActiva(contrasenaNueva, usuarioBuscado);
+                //6. Envio la nueva contrasena por correo
+                String descripcion = "La nueva contraseña para el ingreso será \"" + new String(contrasenaNueva)
+                        + "\". <br/> Se le recomiendar cambiar la contraseña una vez ingresado al sistema.";
+                new CMail().sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", usuarioBuscado.geteMail(),
+                        "Nueva Contraseña por medio de Olvido Contraseña", descripcion);
+                //7. Muestro un mensaje donde le digo al cliente que 
+                //ya ha sido enviado a su correo la nueva contrasenia
+                InformationDialog.mostrarInformacion("Su nueva contraseña ha sido enviada a su correo.", this);
+                
+                this.setVisible(Boolean.FALSE);
+                this.dispose();
+            }
+            else{
+                ErrorDialog.mostrarError("El usuario ingresado no existe", this);
+            }
+        }
+        else{
+            ErrorDialog.mostrarError("Ingrese el nombre de usuario", this);
+        }
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.setVisible(Boolean.FALSE);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -189,8 +204,8 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEnviarCorreo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

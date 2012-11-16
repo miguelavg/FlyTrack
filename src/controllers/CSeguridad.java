@@ -9,8 +9,12 @@ import beans.Sesion;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -170,7 +174,48 @@ public class CSeguridad {
     }
 
     public static char[] generaContraseniaAleatoria() {
-        return new char[]{'f', 'l', 'y', 't', 'r', 'a', 'c', 'k'};
+        int num_min_car_num = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_NUM").getValor());
+        int num_min_car_mayus = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS").getValor());
+        int num_min_car_minus = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS").getValor());
+        int num_min_car_esp = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP").getValor());
+        
+        ArrayList<Character> contrasenaNueva = new ArrayList<Character>();
+        
+        Random rnd = new Random(Calendar.getInstance().getTimeInMillis());
+        
+        for(int i=0; i < num_min_car_num; i++){
+            char valor = (char)('0' + rnd.nextInt('9' - '0' + 1));
+            contrasenaNueva.add(valor);
+        }
+        
+        for(int i=0; i < num_min_car_mayus; i++){
+            char valor = (char)('A' + rnd.nextInt('Z' - 'A' + 1));
+            contrasenaNueva.add(valor);
+        }
+        
+        for(int i=0; i < num_min_car_minus; i++){
+            char valor = (char)('a' + rnd.nextInt('z' - 'a' + 1));
+            contrasenaNueva.add(valor);
+        }
+        
+        char[] car_esp = new char[]{'!','@','#','$','%','^','&','*','(',')','_',
+                                    '+','-','=','{','}','|','[',']','\\',':',';',
+                                    '"','\'','<','>','?',',','.','/','`','~','¡',
+                                    '?','°','¬'};
+        for(int i=0; i < num_min_car_esp; i++){
+            char valor = car_esp[rnd.nextInt(car_esp.length)];
+            contrasenaNueva.add(valor);
+        }
+        
+        Collections.shuffle(contrasenaNueva);
+        
+        Character[] aux = contrasenaNueva.toArray(new Character[contrasenaNueva.size()]);
+        char[] passNueva = new char[aux.length];
+        for(int i=0; i < aux.length; i++){
+            passNueva[i] = aux[i].charValue();
+        }
+        return passNueva;
+        
     }
 
     public static List<Contrasena> getUltimasContrasenasXUsuario(int limite, int idUsuario) {
