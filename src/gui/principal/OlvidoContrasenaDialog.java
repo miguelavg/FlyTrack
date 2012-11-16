@@ -15,8 +15,16 @@ import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import gui.InformationDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -32,6 +40,32 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.pack();
+    }
+    
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(Boolean.FALSE);
+            dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "EXIT");
+        rootPane.getActionMap().put("EXIT", accion);
+        
+        stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            btnEnviarCorreo.doClick();
+          } 
+        } ;
+        inputMap.put(stroke, "LOGIN");
+        rootPane.getActionMap().put("LOGIN", accion);
+
+        return rootPane;
     }
 
     /**

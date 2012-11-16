@@ -34,6 +34,8 @@ import org.hibernate.annotations.ParamDef;
     
     @NamedQuery(name = "Aero",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV' order by idAeropuerto"),
+    @NamedQuery(name = "AeroXNombre",
+    query = "from Aeropuerto where nombre = :aero"),
     @NamedQuery(name = "Aeropuertos",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "AeropuertosXPais",
@@ -94,6 +96,7 @@ public class Aeropuerto implements Serializable {
     private int capacidadActual;
     private int coordX;
     private int coordY;
+    
     @ManyToOne
     @JoinColumn(name = "Pais")
     private Parametro pais;
@@ -160,6 +163,7 @@ public class Aeropuerto implements Serializable {
     public void setPais(Parametro pais) {
         this.pais = pais;
     }
+  
 
     public Parametro getCiudad() {
         return ciudad;
