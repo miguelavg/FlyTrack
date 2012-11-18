@@ -11,9 +11,6 @@
       <Dimension value="[450, 115]"/>
     </Property>
     <Property name="modal" type="boolean" value="true"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[450, 115]"/>
-    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -83,7 +80,7 @@
                           <Component id="lblUsuarios" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblPerfiles" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
