@@ -9,6 +9,7 @@ import controllers.*;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -969,7 +970,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
             int cAero = this.envio.getActual().getCapacidadMax();
             this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
             this.envio.setFechaRecojo(new Date());
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
             cenvio.guardarEnvio(this.envio);
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
         NotaSalida NotaSalida = new NotaSalida(this, true, this.envio);
         NotaSalida.setVisible(true);
@@ -1092,9 +1095,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
 
         CEnvio cenvio = new CEnvio();
-        CParametro cparametro = new CParametro();
         String error_message;
 
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        
         error_message = cenvio.validar(this.moneda, this.doc, this.origen, this.actual, this.destino, this.remitente, this.destinatario, this.tarifa, this.tipoCambio, txt_numPaquetes.getText());
         if (error_message == null || error_message.isEmpty()) {
             this.envio = new Envio();
@@ -1151,6 +1155,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.envio = null;
             ErrorDialog.mostrarError(error_message, this);
         }
+        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
@@ -1272,12 +1278,16 @@ public class EnvioAgregar extends javax.swing.JDialog {
         llenarEscalas(this.envio);
 
         btn_anular.setEnabled(false);
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         cenvio.guardarEnvio(this.envio);
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_anularActionPerformed
 
     private void btn_recalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_recalcularActionPerformed
         // TODO add your handling code here:
         CEnvio cenvio = new CEnvio();
+        
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
         String error_message = cenvio.calcularRuta(this.envio, this.envio.getFechaRegistro(), 1);
 
@@ -1293,6 +1303,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.envio = null;
             ErrorDialog.mostrarError(error_message, this);
         }
+        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_recalcularActionPerformed
 
     /**
