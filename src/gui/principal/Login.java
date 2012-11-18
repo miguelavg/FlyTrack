@@ -203,7 +203,7 @@ public class Login extends javax.swing.JFrame {
                 if(condicionCaducidad || condicionPrimerIngreso){
                     String error = "";
                     if(condicionCaducidad) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
-                    if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia. \n";
+                    if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contraseña. \n";
                     InformationDialog.mostrarInformacion(error, this);
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
@@ -242,16 +242,15 @@ public class Login extends javax.swing.JFrame {
                     //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
                     // Si llega al limite de intentos fallidos se bloquea la cuenta
                     if (numIntentosFallidos >= numMaxIntentosFallidos && !usuarioAux.getPerfil().getNombre().equals("Administrador")) {
+                        setCursor(new Cursor(Cursor.WAIT_CURSOR));
                         CSeguridad.bloquearCuenta(usuario);
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         ErrorDialog.mostrarError("Usuario: " +usuario + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
-                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
                 }
-                else{
-                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                }
             }
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
         else{
             ErrorDialog.mostrarError("Ingrese Usuario y Contraseña por favor", this);
