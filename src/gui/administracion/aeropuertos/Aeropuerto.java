@@ -321,7 +321,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         }
 
 
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(pais, ciudad, estado);
+        listaAeropuertos = CAeropuerto.BuscarAeropuerto(pais, ciudad, estado, -1);
 
 
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();

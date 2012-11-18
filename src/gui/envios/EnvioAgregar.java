@@ -1175,7 +1175,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_numEnvioActionPerformed
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
+        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true, actual.getIdAeropuerto());
         destino = aeropuertoPU.showDialog();
         if (destino != null && destino.getNombre() != null) {
             txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
@@ -1256,7 +1256,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         }
 
-        Parametro estadoEscala = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "INCTV");
+        Parametro estadoEscala = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "CAN");
         int cAero = this.envio.getActual().getCapacidadActual();
         this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
 
