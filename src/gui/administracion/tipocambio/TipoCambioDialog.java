@@ -143,9 +143,6 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
@@ -356,13 +353,6 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     private void btn_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_clienteActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        CTipoCambio ctipocambio = new CTipoCambio();
-        List<TipoCambio> tipos = ctipocambio.buscar(null, null);
-        llenarTablaParametro(tipos);
-    }//GEN-LAST:event_formWindowOpened
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:

@@ -403,7 +403,7 @@ public class ClientesEdit extends javax.swing.JDialog {
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         String error_message = validarcampos();
         if (error_message.isEmpty()){
             if (idCliente==-1){
@@ -423,6 +423,7 @@ public class ClientesEdit extends javax.swing.JDialog {
         else{
             ErrorDialog.mostrarError(error_message, this);
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnGuardarActionPerformed
     private String validarcampos(){
         String error_message = "";
