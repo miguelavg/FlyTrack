@@ -26,6 +26,22 @@ import org.hibernate.Transaction;
  * @author joao
  */
 public class CContrasena {
+
+    public static void actualizarFechaUltimoUso(Contrasena passIngresada) {
+        Session s = Sesion.openSessionFactory();
+        
+        try{
+            Transaction tx = s.beginTransaction();
+            passIngresada.setFechaUltimoUso(new Date());
+            s.update(passIngresada);
+            tx.commit();
+        } catch(Exception e){
+            System.out.println(e.getMessage());            
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
     
     public void agregarContrasena(char[] contrasena, Usuario usuario, Parametro estado){
 
