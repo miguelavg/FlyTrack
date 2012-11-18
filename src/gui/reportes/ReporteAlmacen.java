@@ -369,32 +369,32 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 //            estado = ((Parametro) cbm_estado.getSelectedItem());
 //        }
 
-
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(pais, ciudad, estado, -1);
-
-
-        DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
-        Object[] datos = new Object[9];
-
-        int rows = dtm.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            dtm.removeRow(0);
-        }
-
-        for (int i = 0; i < listaAeropuertos.size(); i++) {
-
-            datos[0] = listaAeropuertos.get(i).getNombre();
-            datos[1] = listaAeropuertos.get(i).getCiudad();
-            datos[2] = listaAeropuertos.get(i).getPais();
-//           datos[3] = listaAeropuertos.get(i).getCoordX();
-//           datos[4] = listaAeropuertos.get(i).getCoordY();
-            datos[3] = listaAeropuertos.get(i).getEstado().getValor().toString();
-            datos[4] = listaAeropuertos.get(i).getCapacidadMax();
-            datos[5] = listaAeropuertos.get(i).getCapacidadActual();
-
-            dtm.addRow(datos);
-
-        }
+//
+//        listaAeropuertos = CAeropuerto.BuscarAeropuerto(pais, ciudad, estado, -1);
+//
+//
+//        DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
+//        Object[] datos = new Object[9];
+//
+//        int rows = dtm.getRowCount();
+//        for (int i = rows - 1; i >= 0; i--) {
+//            dtm.removeRow(0);
+//        }
+//
+//        for (int i = 0; i < listaAeropuertos.size(); i++) {
+//
+//            datos[0] = listaAeropuertos.get(i).getNombre();
+//            datos[1] = listaAeropuertos.get(i).getCiudad();
+//            datos[2] = listaAeropuertos.get(i).getPais();
+////           datos[3] = listaAeropuertos.get(i).getCoordX();
+////           datos[4] = listaAeropuertos.get(i).getCoordY();
+//            datos[3] = listaAeropuertos.get(i).getEstado().getValor().toString();
+//            datos[4] = listaAeropuertos.get(i).getCapacidadMax();
+//            datos[5] = listaAeropuertos.get(i).getCapacidadActual();
+//
+//            dtm.addRow(datos);
+//
+//        }
 
     }
     /**
