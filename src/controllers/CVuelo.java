@@ -352,6 +352,11 @@ public class CVuelo {
 
         try {
             Transaction tx = s.beginTransaction();
+            
+            if(objVuelo.getEstado().equals("CAN")) {
+                return;
+            }
+            
             Parametro estadoVuelo = CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", Estado);
             objVuelo.setEstado(estadoVuelo);
             s.saveOrUpdate(objVuelo);
@@ -380,6 +385,10 @@ public class CVuelo {
             Transaction tx = s.beginTransaction();
             Parametro t;
             String estadoVuelo = escala.getVuelo().getEstado().getValorUnico();
+
+            if (escala.getEstado().getValorUnico().equals("CAN")) {
+                return;
+            }
 
             if (estadoVuelo.equals("FIN")) {
                 // Si el vuelo llegó
@@ -441,7 +450,12 @@ public class CVuelo {
                 escala.setEstado(t);
 
                 for (Escala escalaCancelada : escala.getEnvio().getEscalas()) {
-                    if (escalaCancelada.getNumEscala() >= numEscala && escalaCancelada.getEstado().getValorUnico().equals("PROG")) {
+                    if (escalaCancelada.getEstado().getValorUnico().equals("PROG")) {
+                        
+                        if(escalaCancelada.getNumEscala() < numEscala){
+                            numEscala = escalaCancelada.getNumEscala();
+                        }
+                        
                         escalaCancelada.setEstado(t);
                         int nVuelo = escalaCancelada.getVuelo().getCapacidadActual();
                         escalaCancelada.getVuelo().setCapacidadActual(nVuelo - escalaCancelada.getEnvio().getNumPaquetes());
@@ -459,7 +473,7 @@ public class CVuelo {
                 }
 
             }
-            
+
             s.saveOrUpdate(escala.getEnvio());
             tx.commit();
 

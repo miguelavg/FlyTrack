@@ -229,8 +229,8 @@ public class CUsuario {
             //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-            CUsuario.setNumAcceso(0);
-            CUsuario.setPrimerAcceso(false);
+//            CUsuario.setNumAcceso(0);
+//            CUsuario.setPrimerAcceso(false);
             
             CUsuario.setTipoDoc(TipoDoc);
             CUsuario.setApellidos(Apellidos);
