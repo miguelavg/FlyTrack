@@ -7,10 +7,13 @@ package gui.reportes;
 
 import beans.Aeropuerto;
 import beans.Cliente;
+import beans.Parametro;
+import controllers.CAeropuerto;
 import controllers.CCliente;
 import gui.administracion.aeropuertos.*;
 import java.io.File;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -343,44 +346,51 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
-//            Parametro TipoDoc = null;
-//            fechini = dt_fechini.getSelectedDate();
-//            fechfin = dt_fechfin.getSelectedDate();
-//            String codVuelo = txt_cod.getText();
-//
-//            if (cbm_estado.getSelectedIndex() > 0) {
-//                TipoDoc = (Parametro) cbm_estado.getSelectedItem();
-//                listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
-//            } else {
-//                listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, null);
-//            }
-//
-//
-//            llenarGrillaVuelo();
+        llenarGrillaAero();
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     
-        public void llenarGrillaVuelo() {
-//        Parametro TipoDoc;
-//        DefaultTableModel dtm = (DefaultTableModel) this.tbl_vuelos.getModel();
+ private void llenarGrillaAero() {
+        
+       
+        
+        //Aeropuerto aeropuerto = null ;
+        //Parametro ciudad = null;
+        //Parametro estado = null;
+
+//        if (cbm_Pais.getSelectedIndex() > 0) {
+//            pais = ((Parametro) cbm_Pais.getSelectedItem());
+//        }
+//        if (cbm_ciudad.getSelectedIndex() > 0) {
+//            ciudad = ((Parametro) cbm_ciudad.getSelectedItem());
+//        }
+//        if (cbm_estado.getSelectedIndex() > 0) {
+//            estado = ((Parametro) cbm_estado.getSelectedItem());
+//        }
+
+//
+//        listaAeropuertos = CAeropuerto.BuscarAeropuerto(pais, ciudad, estado, -1);
+//
+//
+//        DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
+//        Object[] datos = new Object[9];
+//
 //        int rows = dtm.getRowCount();
 //        for (int i = rows - 1; i >= 0; i--) {
 //            dtm.removeRow(0);
 //        }
 //
-//        Object[] datos = new Object[8];
+//        for (int i = 0; i < listaAeropuertos.size(); i++) {
 //
-//        for (int i = 0; i < listaVuelos.size(); i++) {
-//
-//            datos[0] = listaVuelos.get(i).getIdVuelo();
-//            datos[1] = listaVuelos.get(i).getOrigen().getNombre();
-//            datos[2] = listaVuelos.get(i).getDestino().getNombre();
-//            datos[3] = CValidator.formatDate(listaVuelos.get(i).getFechaSalida());
-//            datos[4] = CValidator.formatDate(listaVuelos.get(i).getFechaLlegada());
-//            datos[5] = listaVuelos.get(i).getEstado().getValor();
-//            datos[6] = String.valueOf(listaVuelos.get(i).getCapacidadMax());
-//            datos[7] = CValidator.formatNumber(listaVuelos.get(i).getAlquiler());
+//            datos[0] = listaAeropuertos.get(i).getNombre();
+//            datos[1] = listaAeropuertos.get(i).getCiudad();
+//            datos[2] = listaAeropuertos.get(i).getPais();
+////           datos[3] = listaAeropuertos.get(i).getCoordX();
+////           datos[4] = listaAeropuertos.get(i).getCoordY();
+//            datos[3] = listaAeropuertos.get(i).getEstado().getValor().toString();
+//            datos[4] = listaAeropuertos.get(i).getCapacidadMax();
+//            datos[5] = listaAeropuertos.get(i).getCapacidadActual();
 //
 //            dtm.addRow(datos);
 //

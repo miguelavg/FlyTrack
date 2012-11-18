@@ -12,6 +12,8 @@ import java.awt.Cursor;
 import java.util.List;
 import org.hibernate.*;
 import java.awt.Cursor;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -364,6 +366,59 @@ public class CAeropuerto {
         } finally {
             s.close();
         }
+
+        return null;
+
+    }
+    
+    
+        public static List<Aeropuerto> BuscarAeropuertoXEnvioXFechas(
+            Aeropuerto aeropuerto,
+            Calendar fechini, 
+            Calendar fechfinal//,
+            //int idActual
+                ) {
+
+        Date ini = null;
+        Date fin = null;
+        String inii = null;    
+        
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        List<Aeropuerto> ListaAeropuertos;
+
+//        try {
+//            Transaction tx = s.beginTransaction();
+//            Query q;
+//
+//            if (fechini != null) {
+//                inii = CValidator.formatDate(fechini.getTime());
+//                ini = fechini.getTime();
+//            }
+//
+//            if (fechfinal != null) {
+//                fin = fechfinal.getTime();
+//            }
+//
+//
+//            
+//            
+//            
+//            if (aeropuerto != null) {
+//            Filter f_origen = s.enableFilter("VueloXOrigen");
+//            f_origen.setParameter("idOrigen", aeropuerto.getIdAeropuerto());
+//            }
+//
+//            ListaAeropuertos = q.list();
+//
+//
+//            return ListaAeropuertos;
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            s.close();
+//        }
 
         return null;
 
