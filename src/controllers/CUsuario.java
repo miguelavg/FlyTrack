@@ -426,7 +426,7 @@ public class CUsuario {
         return error;
     }
      
-    public static Usuario actualizarAccesos(Usuario usuario){
+    public static Usuario inicializarAccesos(Usuario usuario){
         //Actualiza los acceso a inmediatamente despues del primer acceso donde cambia la contrasena
         Session s = Sesion.openSessionFactory();
         try{
