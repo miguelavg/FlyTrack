@@ -207,7 +207,7 @@ public class Login extends javax.swing.JFrame {
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
                     usuarioValidado = cambiarContrasenia.showDialog();
                     if(condicionPrimerIngreso)
-                        usuarioValidado = CUsuario.actualizarAccesos(usuarioValidado);//actualizo los accesos de usuario para que no lo vuelva a bloquear
+                        usuarioValidado = CUsuario.inicializarAccesos(usuarioValidado);//actualizo los accesos de usuario para que no lo vuelva a bloquear
 
                 }
                 

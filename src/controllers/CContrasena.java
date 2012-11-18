@@ -161,7 +161,7 @@ public class CContrasena {
     }
     
     
-        public Contrasena buscarContrasenaActivaPorUsuario(int id){
+    public Contrasena buscarContrasenaActivaPorUsuario(int id){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Contrasena Contrasena = new Contrasena();
