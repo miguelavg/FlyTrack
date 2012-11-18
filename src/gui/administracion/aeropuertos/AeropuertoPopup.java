@@ -25,6 +25,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     private List<Parametro> ListatipoHijo;
     private beans.Aeropuerto objAero = null;
     List<beans.Aeropuerto> listaAeropuertos;
+    private int idActual;
 
     /**
      * Creates new form AeropuertoPopup
@@ -35,6 +36,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
+        idActual = -1;
 
     }
 
@@ -44,7 +46,17 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
+        idActual = -1;
 
+    }
+    
+    public AeropuertoPopup(javax.swing.JDialog parent, boolean modal, int idActual) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        llenarComboPais();
+        llenarComboEstado();
+        this.idActual = idActual;
     }
 
     /**
@@ -265,7 +277,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
           setCursor(new Cursor(Cursor.WAIT_CURSOR));
             
         listaAeropuertos = CAeropuerto.BuscarAeropuerto(
-                TipoPais, TipoCiudad, TIpoEstado);
+                TipoPais, TipoCiudad, TIpoEstado, idActual);
          setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();

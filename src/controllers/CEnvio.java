@@ -51,6 +51,9 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
+            for(Escala e : envio.getEscalas()){
+                s.saveOrUpdate(e.getVuelo());
+            }
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());

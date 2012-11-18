@@ -229,8 +229,8 @@ public class CUsuario {
             //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-            CUsuario.setNumAcceso(0);
-            CUsuario.setPrimerAcceso(false);
+//            CUsuario.setNumAcceso(0);
+//            CUsuario.setPrimerAcceso(false);
             
             CUsuario.setTipoDoc(TipoDoc);
             CUsuario.setApellidos(Apellidos);
@@ -426,7 +426,7 @@ public class CUsuario {
         return error;
     }
      
-    public static Usuario actualizarAccesos(Usuario usuario){
+    public static Usuario inicializarAccesos(Usuario usuario){
         //Actualiza los acceso a inmediatamente despues del primer acceso donde cambia la contrasena
         Session s = Sesion.openSessionFactory();
         try{

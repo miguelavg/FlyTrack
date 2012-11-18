@@ -31,7 +31,8 @@ import org.hibernate.annotations.ParamDef;
 @NamedQueries({
     @NamedQuery(name = "AeroXNombre",
     query = "from Aeropuerto where nombre = :nombre"),
-    
+    @NamedQuery(name = "AeroTarifa",
+    query = "select t.destino from Tarifa t where t.destino.estado.valorUnico = 'ACTV' and t.origen.idAeropuerto = :id order by t.destino"),
     @NamedQuery(name = "Aero",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV' order by idAeropuerto"),
     @NamedQuery(name = "AeroXNombres",
@@ -40,41 +41,31 @@ import org.hibernate.annotations.ParamDef;
     query = "from Aeropuerto where estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "AeropuertosXPais",
     query = "from Aeropuerto a where a.pais = :pais and estado.valorUnico = 'ACTV'"),
-    
-    @NamedQuery(name = "ParametrosXCiudad",        
+    @NamedQuery(name = "ParametrosXCiudad",
     query = "from Aeropuerto a where a.ciudad = :ciudad and estado.valorUnico = 'ACTV'"),
-    
     @NamedQuery(name = "AeropuertosxID",
     query = "from Aeropuerto where idAeropuerto = :idaero  and estado.valorUnico = 'ACTV'")
-
 })
-
 @FilterDefs({
     @FilterDef(name = "AeropuertoXNombre",
     parameters =
     @ParamDef(name = "nombre", type = "string")),
-    
-    
     @FilterDef(name = "ParametroHijosXTipo",
     parameters =
     @ParamDef(name = "tipo", type = "string")),
-    
     @FilterDef(name = "AeropuertoxPais",
     parameters =
     @ParamDef(name = "Pais", type = "integer")),
-    
     @FilterDef(name = "AeropuertoxEstado",
     parameters =
     @ParamDef(name = "Estado", type = "integer")),
-    
     @FilterDef(name = "AeropuertoxCiudad",
     parameters =
     @ParamDef(name = "Ciudad", type = "integer")),
-    
     @FilterDef(name = "VuelosXAeropuertoSalida", parameters = {
         @ParamDef(name = "upper", type = "date"),
         @ParamDef(name = "lower", type = "date"),
-        @ParamDef(name = "idEstado", type = "integer")    
+        @ParamDef(name = "idEstado", type = "integer")
     }),
     @FilterDef(name = "VuelosXAeropuertoLlegada", parameters = {
         @ParamDef(name = "upper", type = "timestamp"),
@@ -96,7 +87,6 @@ public class Aeropuerto implements Serializable {
     private int capacidadActual;
     private int coordX;
     private int coordY;
-    
     @ManyToOne
     @JoinColumn(name = "Pais")
     private Parametro pais;
@@ -135,7 +125,7 @@ public class Aeropuerto implements Serializable {
     public void setIdAeropuerto(int id) {
         this.idAeropuerto = id;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -163,7 +153,6 @@ public class Aeropuerto implements Serializable {
     public void setPais(Parametro pais) {
         this.pais = pais;
     }
-  
 
     public Parametro getCiudad() {
         return ciudad;

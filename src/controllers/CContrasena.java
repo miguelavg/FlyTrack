@@ -11,6 +11,8 @@ import beans.Sesion;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import beans.seguridad.Contrasena;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +37,7 @@ public class CContrasena {
 
             Contrasena CContrasena = new Contrasena();
 
-            CContrasena.setText(contrasena);
+            CContrasena.setText(encriptarContrasena(contrasena));
             CContrasena.setUsuario(usuario);
             CContrasena.setEstado(estado);
             CContrasena.setFechaActivacion(new Date());
@@ -116,7 +118,7 @@ public class CContrasena {
             
             Contrasena contrasena = new Contrasena();
             
-            contrasena.setText(contrasenaNueva);
+            contrasena.setText(encriptarContrasena(contrasenaNueva));
             contrasena.setEstado(paramContrasenaActiva);
             Calendar cal = Calendar.getInstance();
             contrasena.setFechaActivacion(cal.getTime());
@@ -160,8 +162,7 @@ public class CContrasena {
         return listContrasenas;
     }
     
-    
-        public Contrasena buscarContrasenaActivaPorUsuario(int id){
+    public Contrasena buscarContrasenaActivaPorUsuario(int id){
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         Contrasena Contrasena = new Contrasena();
@@ -183,6 +184,26 @@ public class CContrasena {
             s.close();
         }
         return null;
+    }
+    
+    private static final char[] CONSTS_HEX = { '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f' };
+    public static char[] encriptarContrasena(char[] contrasenaAEncriptar){
+        try
+        {
+           MessageDigest msgd = MessageDigest.getInstance("MD5");
+           byte[] bytes = msgd.digest(new String(contrasenaAEncriptar).getBytes());
+           StringBuilder strbCadenaMD5 = new StringBuilder(2 * bytes.length);
+           for (int i = 0; i < bytes.length; i++)
+           {
+               int bajo = (int)(bytes[i] & 0x0f);
+               int alto = (int)((bytes[i] & 0xf0) >> 4);
+               strbCadenaMD5.append(CONSTS_HEX[alto]);
+               strbCadenaMD5.append(CONSTS_HEX[bajo]);
+           }
+           return strbCadenaMD5.toString().toCharArray();
+        } catch (NoSuchAlgorithmException e) {
+            return null; //cuidado cuando sea null
+        }
     }
     
 }

@@ -67,8 +67,8 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         if (envio.getEscalas() == null) {
             return;
         }
-
-        for (Escala e : envio.getEscalas()) {
+        
+        for (Escala e : envio.getEscalasOrdenadasDesc()) {
             Vuelo v = e.getVuelo();
 
             if (v == null) {
