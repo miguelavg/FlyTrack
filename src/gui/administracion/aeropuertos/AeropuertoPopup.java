@@ -36,11 +36,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(
-                null, null, null, 0);
          
         idActual = -1;
-
+        buscar();
     }
 
     public AeropuertoPopup(javax.swing.JFrame parent, boolean modal) {
@@ -49,7 +47,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
+       
         idActual = -1;
+         buscar();
 
     }
     
@@ -60,6 +60,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         llenarComboPais();
         llenarComboEstado();
         this.idActual = idActual;
+        buscar();
     }
 
     /**
@@ -82,10 +83,11 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         btn_regresar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_aeropuerto = new javax.swing.JTable(){{
+        tbl_aeropuerto = new javax.swing.JTable()
+        {
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;
-            };
+            } };
             btn_buscar1 = new javax.swing.JButton();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -268,46 +270,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        Parametro TipoPais = null;
-        Parametro TipoCiudad = null;
-        Parametro TIpoEstado = null;
-
-        if (cbm_Pais.getSelectedIndex() > 0) {
-            TipoPais = (Parametro) cbm_Pais.getSelectedItem();
-        }
-        if (cbm_ciudad.getSelectedIndex() > 0) {
-            TipoCiudad = (Parametro) cbm_ciudad.getSelectedItem();
-        }
-        if (cbm_estado.getSelectedIndex() > 0) {
-            TIpoEstado = (Parametro) cbm_estado.getSelectedItem();
-        }
-
-          setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            
-        listaAeropuertos = CAeropuerto.BuscarAeropuerto(
-                TipoPais, TipoCiudad, TIpoEstado, idActual);
-         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         
-        DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
-        Object[] datos = new Object[9];
-        int rows = dtm.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            dtm.removeRow(0);
-        }
-
-        for (int i = 0; i < listaAeropuertos.size(); i++) {
-
-            datos[0] = listaAeropuertos.get(i).getNombre();
-            datos[1] = listaAeropuertos.get(i).getCiudad();
-            datos[2] = listaAeropuertos.get(i).getPais();
-            datos[3] = listaAeropuertos.get(i).getCoordX();
-            datos[4] = listaAeropuertos.get(i).getCoordY();
-
-            datos[5] = listaAeropuertos.get(i).getCapacidadMax();
-            datos[6] = listaAeropuertos.get(i).getCapacidadActual();
-
-            dtm.addRow(datos);
-        }
+        buscar();
+      
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
@@ -457,4 +422,47 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_aeropuerto;
     // End of variables declaration//GEN-END:variables
+
+    private void buscar() {
+        Parametro TipoPais = null;
+        Parametro TipoCiudad = null;
+        Parametro TIpoEstado = null;
+
+        if (cbm_Pais.getSelectedIndex() > 0) {
+            TipoPais = (Parametro) cbm_Pais.getSelectedItem();
+        }
+        if (cbm_ciudad.getSelectedIndex() > 0) {
+            TipoCiudad = (Parametro) cbm_ciudad.getSelectedItem();
+        }
+        if (cbm_estado.getSelectedIndex() > 0) {
+            TIpoEstado = (Parametro) cbm_estado.getSelectedItem();
+        }
+
+          setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            
+        listaAeropuertos = CAeropuerto.BuscarAeropuerto(
+                TipoPais, TipoCiudad, TIpoEstado, idActual);
+         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
+        DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
+        Object[] datos = new Object[9];
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
+            dtm.removeRow(0);
+        }
+
+        for (int i = 0; i < listaAeropuertos.size(); i++) {
+
+            datos[0] = listaAeropuertos.get(i).getNombre();
+            datos[1] = listaAeropuertos.get(i).getCiudad();
+            datos[2] = listaAeropuertos.get(i).getPais();
+            datos[3] = listaAeropuertos.get(i).getCoordX();
+            datos[4] = listaAeropuertos.get(i).getCoordY();
+
+            datos[5] = listaAeropuertos.get(i).getCapacidadMax();
+            datos[6] = listaAeropuertos.get(i).getCapacidadActual();
+
+            dtm.addRow(datos);
+        }
+    }
 }
