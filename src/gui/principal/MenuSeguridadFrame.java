@@ -67,7 +67,6 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
         setMaximumSize(new java.awt.Dimension(450, 115));
         setMinimumSize(new java.awt.Dimension(450, 115));
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(450, 115));
         setResizable(false);
 
         btnPerfiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
@@ -139,7 +138,7 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsuarios)
                             .addComponent(lblPerfiles))
-                        .addGap(23, 23, 23))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();

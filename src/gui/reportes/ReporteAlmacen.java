@@ -6,7 +6,22 @@ package gui.reportes;
 
 
 import beans.Aeropuerto;
+import beans.Cliente;
+import controllers.CCliente;
 import gui.administracion.aeropuertos.*;
+import java.io.File;
+import java.util.List;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author jugox
@@ -17,9 +32,16 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      * Creates new form ReporteAlmacen
      */
     beans.Aeropuerto aeroori;
+    CCliente cliente= new CCliente(); 
+    ClienteDataSource clienteds= new ClienteDataSource();
+    
+    List <Cliente> ListaCliente;
+    
     public ReporteAlmacen() {
         initComponents();
         this.setLocationRelativeTo(null);
+        ListaCliente=cliente.Buscar("", "", null, "");
+        clienteds.setListaClientes(ListaCliente);
     }
 
     /**
@@ -110,6 +132,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btnRegresar.setText("Regresar");
@@ -224,7 +251,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 691, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -232,7 +259,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -259,7 +286,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,6 +309,30 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        //File jasper=new File();
+    try{
+    JasperReport reporte=JasperCompileManager.compileReport("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml");
+//    JasperReport reporte= (JasperReport) JRLoader.loadObjectFromFile("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml"); 
+    JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, clienteds); 
+    JRExporter exporter = new JRPdfExporter(); 
+    exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+    exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reporteEnPdf.pdf")); 
+    exporter.exportReport(); 
+        
+//        String Report="/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml";
+//        JasperReport JASP_REP=JasperCompileManager.compileReport(Report);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(JASP_REP, null, new JRBeanCollectionDataSource(ListaCliente)); 
+//        JasperViewer.viewReport(jasperPrint);
+//        
+        
+    }
+    catch(JRException e) 
+{ 
+    e.printStackTrace(); 
+} 
+
+
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -289,6 +340,53 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+//            Parametro TipoDoc = null;
+//            fechini = dt_fechini.getSelectedDate();
+//            fechfin = dt_fechfin.getSelectedDate();
+//            String codVuelo = txt_cod.getText();
+//
+//            if (cbm_estado.getSelectedIndex() > 0) {
+//                TipoDoc = (Parametro) cbm_estado.getSelectedItem();
+//                listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, TipoDoc);
+//            } else {
+//                listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, null);
+//            }
+//
+//
+//            llenarGrillaVuelo();
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    
+        public void llenarGrillaVuelo() {
+//        Parametro TipoDoc;
+//        DefaultTableModel dtm = (DefaultTableModel) this.tbl_vuelos.getModel();
+//        int rows = dtm.getRowCount();
+//        for (int i = rows - 1; i >= 0; i--) {
+//            dtm.removeRow(0);
+//        }
+//
+//        Object[] datos = new Object[8];
+//
+//        for (int i = 0; i < listaVuelos.size(); i++) {
+//
+//            datos[0] = listaVuelos.get(i).getIdVuelo();
+//            datos[1] = listaVuelos.get(i).getOrigen().getNombre();
+//            datos[2] = listaVuelos.get(i).getDestino().getNombre();
+//            datos[3] = CValidator.formatDate(listaVuelos.get(i).getFechaSalida());
+//            datos[4] = CValidator.formatDate(listaVuelos.get(i).getFechaLlegada());
+//            datos[5] = listaVuelos.get(i).getEstado().getValor();
+//            datos[6] = String.valueOf(listaVuelos.get(i).getCapacidadMax());
+//            datos[7] = CValidator.formatNumber(listaVuelos.get(i).getAlquiler());
+//
+//            dtm.addRow(datos);
+//
+//        }
+
+    }
     /**
      * @param args the command line arguments
      */
