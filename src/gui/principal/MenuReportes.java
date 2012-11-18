@@ -188,6 +188,7 @@ public class MenuReportes extends javax.swing.JFrame {
         Action actionListener = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
             setVisible(false);
+            dispose();
           } 
         } ;
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
