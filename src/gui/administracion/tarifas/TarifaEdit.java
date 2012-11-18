@@ -13,6 +13,7 @@ import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesEdit;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -428,6 +429,7 @@ public class TarifaEdit extends javax.swing.JDialog {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         String error_message = validarcampos();
         if (error_message.isEmpty()) {
             if (idtarifa == -1) {
@@ -458,6 +460,9 @@ public class TarifaEdit extends javax.swing.JDialog {
             ErrorDialog.mostrarError(error_message, this);
 
         }
+        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
         //TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed

@@ -11,6 +11,7 @@ import controllers.CContrasena;
 import controllers.CParametro;
 import controllers.CSeguridad;
 import controllers.CUsuario;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -214,6 +215,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
         //Solo se procede a realizar la accion si en los 3 textbox hay informacion
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if( txtPassActual.getPassword().length > 0 && txtPassNueva.getPassword().length > 0 && 
             txtPassNueva2.getPassword().length > 0){
             boolean actualContraseniasIguales = CSeguridad.passwordCorrecta(contrasenia.getText(), CContrasena.encriptarContrasena(this.txtPassActual.getPassword()));
@@ -229,6 +231,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                 CContrasena.agregarContrasenaActiva(txtPassNueva.getPassword(), usuario); //agrego la nueva contrasena activa
                 ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
                 usuario = new CUsuario().BuscarXid(usuario.getIdUsuario()); //actualizo el usuario, con las contrasenas
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 this.setVisible(Boolean.TRUE);
                 this.dispose();
             }
@@ -241,10 +244,12 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                     lblMensaje.setText("Ingrese sus datos válidos correctamente");
                 else
                     lblMensaje.setText("");
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         }
         else{
             lblMensaje.setText("Ingrese sus datos válidos correctamente");
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
         
     }//GEN-LAST:event_btnConfirmarActionPerformed

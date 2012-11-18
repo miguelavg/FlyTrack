@@ -15,6 +15,7 @@ import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import gui.InformationDialog;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
@@ -159,6 +160,7 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
         String username = txtUsuario.getText();
         //2. Busco el usuario a partir del nombre extraido, si esta vacio no se hace nada
         if(username != null && !username.isEmpty()){
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
             Usuario usuarioBuscado = CUsuario.buscarXNombreUsuario(username);
             if(usuarioBuscado != null){
                 //3. Desactivo la contrasena activa del usuario
@@ -176,11 +178,13 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
                 //ya ha sido enviado a su correo la nueva contrasenia
                 InformationDialog.mostrarInformacion("Su nueva contraseña ha sido enviada a su correo.", this);
                 
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 this.setVisible(Boolean.FALSE);
                 this.dispose();
             }
             else{
                 ErrorDialog.mostrarError("El usuario ingresado no existe", this);
+                setCursor(new Cursor(Cursor.WAIT_CURSOR));
             }
         }
         else{
