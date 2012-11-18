@@ -216,7 +216,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
         //Solo se procede a realizar la accion si en los 3 textbox hay informacion
         if( txtPassActual.getPassword().length > 0 && txtPassNueva.getPassword().length > 0 && 
             txtPassNueva2.getPassword().length > 0){
-            boolean actualContraseniasIguales = CSeguridad.passwordCorrecta(contrasenia.getText(), this.txtPassActual.getPassword());
+            boolean actualContraseniasIguales = CSeguridad.passwordCorrecta(contrasenia.getText(), CContrasena.encriptarContrasena(this.txtPassActual.getPassword()));
             boolean nuevasContraseniasIguales = CSeguridad.passwordCorrecta(txtPassNueva.getPassword(), txtPassNueva2.getPassword());
             boolean validacionesContrasenia = CSeguridad.validarContrasena(txtPassNueva.getPassword(), usuario.getIdUsuario());
             /*

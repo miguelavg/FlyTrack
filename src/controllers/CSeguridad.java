@@ -57,7 +57,7 @@ public class CSeguridad {
             if (passActiva == null) {
                 return null; //si el usuario no tiene password activa
             }
-            if (!passwordCorrecta(passActiva.getText(), pass)) {
+            if (!passwordCorrecta(passActiva.getText(), CContrasena.encriptarContrasena(pass))) {
                 return null; //si la password no coincide
             }
             //Si el usuario tiene contrasenia activa y justa esa coincide con la ingresada
