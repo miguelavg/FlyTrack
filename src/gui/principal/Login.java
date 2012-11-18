@@ -13,6 +13,7 @@ import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import gui.InformationDialog;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Date;
@@ -187,6 +188,7 @@ public class Login extends javax.swing.JFrame {
             //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
             Usuario usuarioValidado = null;
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
                 //VERIFICACION EXITOSA
                 lblError.setText("");
@@ -202,9 +204,8 @@ public class Login extends javax.swing.JFrame {
                     String error = "";
                     if(condicionCaducidad) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
                     if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia. \n";
-                    if(error != null && !error.isEmpty()){
-                        InformationDialog.mostrarInformacion(error, this);
-                    }
+                    InformationDialog.mostrarInformacion(error, this);
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
                     usuarioValidado = cambiarContrasenia.showDialog();
                     if(condicionPrimerIngreso)
@@ -221,6 +222,7 @@ public class Login extends javax.swing.JFrame {
 
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                     this.setVisible(Boolean.FALSE);
                     this.dispose();
@@ -243,7 +245,11 @@ public class Login extends javax.swing.JFrame {
                         CSeguridad.bloquearCuenta(usuario);
                         ErrorDialog.mostrarError("Usuario: " +usuario + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
+                }
+                else{
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
             }
         }
