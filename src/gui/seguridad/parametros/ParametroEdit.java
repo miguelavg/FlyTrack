@@ -312,7 +312,7 @@ public class ParametroEdit extends javax.swing.JDialog {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         CParametro cparametro = new CParametro();
-        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        
         String error_message = cparametro.validar(this.parametro, isNuevo, this.txt_valor.getText(), this.txt_valorUnico.getText(), this.txt_tipo.getText());
         if (error_message == null || error_message.isEmpty()) {
             this.parametro.setValor(txt_valor.getText());
