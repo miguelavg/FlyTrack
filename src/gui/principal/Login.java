@@ -8,6 +8,7 @@ import beans.Sesion;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
+import controllers.CContrasena;
 import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.ErrorDialog;
@@ -214,6 +215,8 @@ public class Login extends javax.swing.JFrame {
                 if(usuarioValidado != null){
                     
                     usuarioValidado = CUsuario.incrementarAccesos(usuarioValidado);
+                    Contrasena passIngresada = CSeguridad.getContrasenaActiva(usuarioValidado.getIdUsuario());
+                    CContrasena.actualizarFechaUltimoUso(passIngresada);
                     Sesion.setUsuario(usuarioValidado);
 
                     PrincipalFrame pf = new PrincipalFrame();

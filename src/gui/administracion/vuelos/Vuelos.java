@@ -431,8 +431,6 @@ public class Vuelos extends javax.swing.JDialog {
 
         Object[] datos = new Object[8];
 
-
-
         for (int i = 0; i < listaVuelos.size(); i++) {
 
             datos[0] = listaVuelos.get(i).getIdVuelo();
