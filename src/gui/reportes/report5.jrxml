@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="523564fc-9fbc-4017-b987-40b8c18e2769">
+	<style name="Title" fontName="DejaVu Sans" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="DejaVu Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="DejaVu Sans" fontSize="12"/>
+	<field name="nombres" class="java.lang.String"/>
+	<background>
+		<band height="822" splitType="Stretch">
+			<image vAlign="Bottom">
+				<reportElement uuid="02c025db-231a-4f6e-a96a-b5369b5e2c11" positionType="Float" mode="Opaque" x="0" y="313" width="85" height="409" backcolor="#000000"/>
+				<imageExpression><![CDATA["silhouette.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement uuid="993f34b3-5c41-4c36-860a-736eee18be3e" positionType="Float" x="-20" y="313" width="20" height="409" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<frame>
+				<reportElement uuid="ee378cdb-6ddf-4e67-989e-55e87b18bd0a" mode="Opaque" x="-20" y="722" width="105" height="100" forecolor="#666666" backcolor="#666666"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e29b82c0-abc7-4536-9ce0-f95aa660d05e" style="Column header" x="0" y="0" width="104" height="73" forecolor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="58" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement uuid="e28dcc46-5773-4fc2-93bc-24127d30a38b" style="Column header" x="0" y="77" width="104" height="20" forecolor="#000000"/>
+					<box leftPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center">
+						<font size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="011f4ce1-9178-4525-938a-b56bb02b0f56" mode="Transparent" x="42" y="73" width="20" height="1"/>
+				</line>
+			</frame>
+		</band>
+	</background>
+	<title>
+		<band height="152" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c9dc24e3-6a15-44b6-ac58-663ae84df08b" style="Title" x="0" y="0" width="555" height="115"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="54" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Prueba]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f818f3b3-6365-4202-9d40-a62cf6085dcc" style="SubTitle" x="234" y="115" width="321" height="37"/>
+				<textElement textAlignment="Right">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Silhouette SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ac0cc08-7d29-4882-aeea-9ca621c44d1c" x="265" y="47" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<frame>
+				<reportElement uuid="0c1b5264-eafa-4d8d-9c39-e0dcc88d9f06" mode="Opaque" x="97" y="5" width="458" height="20" backcolor="#666666"/>
+			</frame>
+			<staticText>
+				<reportElement uuid="40fe7147-cebb-44dc-907e-19bf12526b1e" x="22" y="5" width="100" height="20"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement uuid="117e0aa4-9cbb-4f05-839a-59f3c81b1765" x="97" y="1" width="458" height="15"/>
+			</frame>
+			<line>
+				<reportElement uuid="6834ea84-4cdc-4afd-9043-70aa92f8bf14" positionType="FixRelativeToBottom" x="97" y="16" width="458" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="49153c78-b815-4ec5-8e72-06d78cf5d814" x="22" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="100" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="6fb29c26-e323-488f-ba20-1b86af63b90a" style="Column header" x="424" y="0" width="131" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d1873aca-2e71-451d-be47-34a126b1b0f0" style="Column header" x="96" y="0" width="267" height="20" forecolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Silhouette Title Report]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
