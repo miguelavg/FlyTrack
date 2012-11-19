@@ -261,7 +261,7 @@ public class CUsuario {
         Usuario U2;
         try {
 
-            if (idusuario==-1){
+            //if (idusuario==-1){
             
 //            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
 //                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
@@ -309,13 +309,13 @@ public class CUsuario {
 //                }
                 
             }
-            }
-            
-            if (idusuario!=-1){
-            if ( aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
-                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-            }
-            }
+            //}
+//            
+//            if (idusuario!=-1){
+//            if ( aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
+//                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+//            }
+//            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
