@@ -15,6 +15,7 @@ import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.InformationDialog;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -391,11 +392,14 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             ArrayList aeropuertos = PasaValores(xmlAeropuertos);
 
             if (aeropuertos != null) {
-                try {                   //CAeropuerto.ValidarCaga(vuelos);
+                try {   
+                   setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                    //CAeropuerto.ValidarCaga(vuelos);
                     for (int i = 0; i < aeropuertos.size(); i++) {
                         beans.Aeropuerto aero = (beans.Aeropuerto) aeropuertos.get(i);
                         CAeropuerto.cargarAeropuerto(aero);
                     }
+                   setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     InformationDialog.mostrarInformacion("La operación se realizó con éxito ", this);
                     this.dispose();
                 } catch (Exception e) {

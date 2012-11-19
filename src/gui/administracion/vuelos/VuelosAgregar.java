@@ -13,6 +13,7 @@ import controllers.CVuelo;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Window;
 import java.util.Calendar;
 import java.util.List;
@@ -384,6 +385,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
             TipoDoc = (Parametro)cbm_estado.getSelectedItem();
          }
          
+      setCursor(new Cursor(Cursor.WAIT_CURSOR));
          String error_message = CVuelo.validar( 
                                 aeropuertoOrigen,
                                 aeropuertoDestino,
@@ -425,10 +427,13 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                     );
               this.setVisible(false);
               this.dispose();
+              
         }          
         } else {
             ErrorDialog.mostrarError(error_message, this);
-        }       
+             
+        }  
+         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed

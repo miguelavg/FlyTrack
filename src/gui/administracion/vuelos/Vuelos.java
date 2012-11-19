@@ -13,6 +13,7 @@ import controllers.CSeguridad;
 import controllers.CValidator;
 import controllers.CVuelo;
 import gui.administracion.aeropuertos.AeropuertoPopup;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.List;
@@ -38,6 +39,7 @@ public class Vuelos extends javax.swing.JDialog {
     private List<Vuelo> listaVuelos = null;
     private Calendar fechini, fechfin;
     private Parametro a_origen, a_destino;
+    private Integer vuelocarga = 0 ;
 
     /**
      * Creates new form Vuelos
@@ -109,6 +111,11 @@ public class Vuelos extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Vuelos");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -478,7 +485,8 @@ public class Vuelos extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-
+        
+          setCursor(new Cursor(Cursor.WAIT_CURSOR));
         Parametro TipoDoc = null;
         fechini = dt_fechini.getSelectedDate();
         fechfin = dt_fechfin.getSelectedDate();
@@ -493,6 +501,7 @@ public class Vuelos extends javax.swing.JDialog {
 
 
         llenarGrillaVuelo();
+          setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
@@ -570,6 +579,18 @@ public class Vuelos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Vuelo", "Advertencia", 1);
         }
     }//GEN-LAST:event_btnIncidenciaActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        
+        if (vuelocarga!= 1) {
+        vuelocarga=1;
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        listaVuelos = CVuelo.BuscarVuelo(null, null, null, null, null, null);
+        llenarGrillaVuelo();
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

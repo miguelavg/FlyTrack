@@ -13,6 +13,7 @@ import controllers.CValidator;
 import controllers.CVuelo;
 import gui.ErrorDialog;
 import gui.InformationDialog;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -432,6 +433,8 @@ public class VuelosCarga extends javax.swing.JDialog {
     
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
+        
+         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (archivovalido){
             ArrayList<xmlVueloString> xmlvuelos=CSerializer.deserializar(txtRuta.getText());
             ArrayList<Vuelo> vuelos = PasaValores(xmlvuelos);
@@ -456,6 +459,7 @@ public class VuelosCarga extends javax.swing.JDialog {
         else{
             ErrorDialog.mostrarError("El archivo no es válido",this);
         }
+         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btn_guardarActionPerformed
 
