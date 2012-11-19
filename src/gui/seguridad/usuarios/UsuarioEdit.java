@@ -122,9 +122,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
         }
         cboEstado.setSelectedIndex(1);
         if (this.isNuevo) {
-            this.setTitle("FlyTrack - Usuario - Crear");
+            this.setTitle("FlyTrack - Seguridad -  Usuario - Crear");
         } else {
-            this.setTitle("FlyTrack - Usuario - Editar");
+            this.setTitle("FlyTrack - Seguridad -  Usuario - Editar");
         }
 
     }
