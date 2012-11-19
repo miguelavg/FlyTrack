@@ -864,8 +864,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
                     
-                    //CMail cmail = new CMail();
-                    //cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", "FlyTrack", mensaje2, mensaje);
+                    CMail cmail = new CMail();
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(), "[FlyTrack] Se modificó su contraseña","Estimado usuario.\nSu contraseña ha sido modificada: " + this.psswdContrasena.getText() + ".\nSoporte FlyTrack.");
 
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
 
