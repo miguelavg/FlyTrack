@@ -657,59 +657,40 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
 
         }
-
         return error_message;
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        String mensaje = "";
-        String mensaje2 = "";
+        String mensaje = "";        
 
-        boolean pasavalidacion = true;
-
-        if (idusuario != -1) {
-
-            if (psswdContrasena.getPassword().length!=0){  
-              mensaje = CUsuario.ValidarContrasena(psswdContrasena.getPassword());
-              pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
-            }
-
-            if (!pasavalidacion) {
-                mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
-                mensaje = mensaje + mensaje2;
-            }
-
+        if (idusuario != -1) { //Estoy modificando
+            if (psswdContrasena.getPassword().length != 0)
+                mensaje += CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+            if (!CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario)) 
+                mensaje += "La contrasena debe ser distinta, ya existe una igual en el historico";
         }
 
-        if (mensaje.equals("") && mensaje2.equals("")) {
+        if (mensaje.equals("")) {//Creando
 
-            Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
-
-            Aeropuerto nuevoAeropuerto;
-
-            CUsuario Cusuario = new CUsuario();
-
-            Usuario UsuarioAux;
-            //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
-
-            Usuario UsuarioauxBE;
-
-            String error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
-
+            String error_message = "";
+            
             if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
-                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                error_message += CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
-            String error_message2 = validarcampos();
+            if (error_message == null || error_message.isEmpty() ){
+                error_message += new CUsuario().validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
+            }
 
-            error_message = error_message + error_message2;
+            error_message += validarcampos();
 
             if (error_message == null || error_message.isEmpty()) {
+                
+                Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
 
-                if (idusuario == -1) {
-                    CMail cmail = new CMail();
+                if (idusuario == -1) { //Agregar Usuario
                     Usuario.agregarUsuario(perfil, AeropuertoAux, txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
                             0, false, txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
@@ -717,17 +698,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                     ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                     //objeto usuario, objeto parametro
-                    UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
+                    Usuario UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
                     char[] contrasenaAleatoria = CSeguridad.generaContraseniaAleatoria();
                     Contrasena.agregarContrasena(contrasenaAleatoria, UsuarioAux, ListaEstado.get(0));
 
-                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
-                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + contrasenaAleatoria +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
+                    new CMail().sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
+                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + new String(contrasenaAleatoria) +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
 
-                } else {
+                } else { //Modificar usuario
                     
                     Usuario UsuarioBE = Usuario.BuscarXid(idusuario);
-
+                    Aeropuerto nuevoAeropuerto;
+                    
                     if (AeropuertoAux == null) {
                         nuevoAeropuerto = UsuarioBE.getIdAeropuerto();
                     } else {
@@ -744,7 +726,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                     if (psswdContrasena.getPassword().length != 0){  
                     
-                        UsuarioauxBE = Usuario.BuscarXid(idusuario);
+                        Usuario UsuarioauxBE = Usuario.BuscarXid(idusuario);
                         ContrasenaAux=Contrasena.buscarContrasenaActivaPorUsuario(UsuarioauxBE.getIdUsuario());
 
                         ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
@@ -752,8 +734,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                         ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                         Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioauxBE, ListaEstado.get(0));
                         
-                        CMail cmail = new CMail();
-                        cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
+                        new CMail().sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
                             "[FlyTrack] Se modificó su contraseña",
                             "Estimado usuario.\nSu contraseña ha sido modificada: " + new String(psswdContrasena.getPassword()) + ".\nSoporte FlyTrack.");
                     }
