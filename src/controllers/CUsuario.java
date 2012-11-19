@@ -351,7 +351,6 @@ public class CUsuario {
     public static Usuario buscarXNombreUsuario(String username) {
         Session s = Sesion.openSessionFactory();
         try {
-            //Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
             q.setParameter("username", username);
             Usuario user = (Usuario) q.uniqueResult();
@@ -447,6 +446,24 @@ public class CUsuario {
             return usuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return usuario;
+        } finally {
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
+
+    public static Usuario actualizarUsuario(Usuario usuario){
+        Session s = Sesion.openSessionFactory();
+        try{
+            
+            Query q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
+            q.setParameter("idusuario", usuario.getIdUsuario());
+            usuario = (Usuario)q.uniqueResult();
+            usuario.getContrasenias().size();
+            usuario.getPerfil().getPermisos().size();
+            return usuario;
+        } catch (Exception e){
             return usuario;
         } finally {
             s.close();

@@ -34,15 +34,15 @@ public class CSeguridad {
 
         try {
 
-            //-Existe usuario
-            //-Usuario activo
+            //-Existe usuario y Usuario activo
             Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
             q.setParameter("login", user);
             Usuario usuario = (Usuario) q.uniqueResult();
 
-            if (usuario == null) {
+            if (usuario == null) { 
                 return usuario; //si el usuario no existe
             }
+            
             usuario.getContrasenias().size();//LAZY QUERY: obtener las contrasenias
             List<Contrasena> contrasenias = usuario.getContrasenias();
             Contrasena passActiva = null;
@@ -56,6 +56,7 @@ public class CSeguridad {
             if (passActiva == null) {
                 return null; //si el usuario no tiene password activa
             }
+            
             if (!passwordCorrecta(passActiva.getText(), CContrasena.encriptarContrasena(pass))) {
                 return null; //si la password no coincide
             }
