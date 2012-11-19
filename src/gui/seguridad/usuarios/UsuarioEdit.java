@@ -667,9 +667,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         if (idusuario != -1) { //Estoy modificando
             if (psswdContrasena.getPassword().length != 0)
-                mensaje += CUsuario.ValidarContrasena(psswdContrasena.getPassword());
-            if (!CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario)) 
-                mensaje += "La contrasena debe ser distinta, ya existe una igual en el historico";
+                mensaje += CSeguridad.validarContrasenaConMensaje(psswdContrasena.getPassword(), idusuario);
         }
 
         if (mensaje.equals("")) {//Creando

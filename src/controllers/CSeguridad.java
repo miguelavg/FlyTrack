@@ -306,25 +306,80 @@ public class CSeguridad {
 
         return true;
     }
-
-    public static boolean validarContrasenaHist(char[] contrasenaAValidar, int idUsuario) {
-
+    
+    public static String validarContrasenaConMensaje(char[] contrasenaAValidar, int idUsuario){
         Parametro condicion;
-        boolean valor = true;
-        condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST");
-        List<Contrasena> contrasenasAContrastar = CSeguridad.getUltimasContrasenasXUsuario(Integer.parseInt(condicion.getValor()), idUsuario);
-        String passAValidar = new String(contrasenaAValidar);
-        for (Contrasena contrasenaAContrastar : contrasenasAContrastar) {
-            String passAContrastar = new String(contrasenaAContrastar.getText());
-            if (passAContrastar.equals(passAValidar)) {
-                valor = false;
-                break;
-            } else {
-                valor = true;
+        int count;
+        String mensaje = "";
+
+        try{
+            
+            condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA");
+            if (contrasenaAValidar.length < Integer.parseInt(condicion.getValor())) {
+                mensaje += "Password no tiene la longitud mínima\n";
             }
+
+            condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_NUM");
+            count = 0;
+            for (char car : contrasenaAValidar) {
+                if (Character.isDigit(car)) {
+                    count++;
+                }
+            }
+            if (count < Integer.parseInt(condicion.getValor())) {
+                mensaje += "Password no tiene la cantidad mínima de números\n";
+            }
+
+            condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS");
+            count = 0;
+            for (char car : contrasenaAValidar) {
+                if (Character.isUpperCase(car)) {
+                    count++;
+                }
+            }
+            if (count < Integer.parseInt(condicion.getValor())) {
+                mensaje += "Password no tiene la cantidad mínima de mayúsculas\n";
+            }
+
+            condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS");
+            count = 0;
+            for (char car : contrasenaAValidar) {
+                if (Character.isLowerCase(car)) {
+                    count++;
+                }
+            }
+            if (count < Integer.parseInt(condicion.getValor())) {
+                mensaje += "Password no tiene la cantidad mínima de minúsculas\n";
+            }
+
+            condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP");
+            count = 0;
+            for (char car : contrasenaAValidar) {
+                if (!Character.isDigit(car) && !Character.isLetter(car)) {
+                    count++;
+                }
+            }
+            if (count < Integer.parseInt(condicion.getValor())) {
+                mensaje += "Password no tiene la cantidad mínima de caracteres especiales\n";
+            }
+
+            condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST");
+            List<Contrasena> contrasenasAContrastar = CSeguridad.getUltimasContrasenasXUsuario(Integer.parseInt(condicion.getValor()), idUsuario);
+            String passAValidar = new String(contrasenaAValidar);
+
+            if (contrasenasAContrastar != null) {
+                for (Contrasena contrasenaAContrastar : contrasenasAContrastar) {
+                    String passAContrastar = new String(contrasenaAContrastar.getText());
+                    if (passAContrastar.equals(passAValidar)) {
+                        mensaje += "Password no cumple con ser distinta a las contraseñas anteriores\n";
+                    }
+                }
+            }
+
+            return mensaje;
+        } catch (NumberFormatException ex){
+            return mensaje;
         }
-
-        return valor;
-
     }
+
 }
