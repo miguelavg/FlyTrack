@@ -115,7 +115,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
         UsuarioTabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Flytrack - Usuario");
+        setTitle("Flytrack - Seguridad - Usuario");
         setModal(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
