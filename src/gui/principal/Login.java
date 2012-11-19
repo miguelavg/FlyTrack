@@ -256,8 +256,8 @@ public class Login extends javax.swing.JFrame {
 //                    usuarioValidado = cambiarContrasenia.showDialog();
                     cambiarContrasenia.showDialog();
                     if(condicionPrimerIngreso)
-                        CUsuario.inicializarAccesos(existeUsuario);
-//                        usuarioValidado = CUsuario.inicializarAccesos(usuarioValidado);//actualizo los accesos de usuario para que no lo vuelva a bloquear
+                        CUsuario.inicializarAccesos(existeUsuario);//actualizo los accesos de usuario para que no lo vuelva a bloquear
+//                        usuarioValidado = CUsuario.inicializarAccesos(usuarioValidado);
 
                 }
                 
@@ -266,7 +266,7 @@ public class Login extends javax.swing.JFrame {
 //                    usuarioValidado = CUsuario.incrementarAccesos(usuarioValidado);
                     CUsuario.incrementarAccesos(existeUsuario);
                     CContrasena.actualizarFechaUltimoUso(CSeguridad.getContrasenaActiva(existeUsuario.getIdUsuario()));
-                    Sesion.setUsuario(existeUsuario);
+                    Sesion.setUsuario(CUsuario.actualizarUsuario(existeUsuario));
 
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);

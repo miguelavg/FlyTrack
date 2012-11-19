@@ -447,4 +447,22 @@ public class CUsuario {
             Sesion.closeSessionFactory();
         }
     }
+
+    public static Usuario actualizarUsuario(Usuario usuario){
+        Session s = Sesion.openSessionFactory();
+        try{
+            
+            Query q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
+            q.setParameter("idusuario", usuario.getIdUsuario());
+            usuario = (Usuario)q.uniqueResult();
+            usuario.getContrasenias().size();
+            usuario.getPerfil().getPermisos().size();
+            return usuario;
+        } catch (Exception e){
+            return usuario;
+        } finally {
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
 }
