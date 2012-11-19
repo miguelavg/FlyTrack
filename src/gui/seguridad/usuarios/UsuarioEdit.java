@@ -689,8 +689,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
 
                 if (idusuario == -1) { //Agregar Usuario
-                    Usuario.agregarUsuario(perfil, AeropuertoAux, txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
-                            0, false, txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
+                    Usuario.agregarUsuarioNuevo(perfil, AeropuertoAux, txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
+                            txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
 

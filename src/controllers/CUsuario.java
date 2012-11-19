@@ -29,12 +29,9 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class CUsuario {
 
     
-    public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto,String LogIn,
-        Parametro estado,Integer numAcceso, boolean PrimerAcceso,
-            String Nombre,String Apellidos, String correo, 
-            String telefono,String NumeroDoc, 
-            Parametro TipoDoc, Parametro Ciudad, Parametro Pais
-            
+    public void agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+                                    Parametro estado,String Nombre,String Apellidos, String correo, 
+                                    String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais
             ){
         
         SessionFactory sf = Sesion.getSessionFactory();
@@ -47,11 +44,10 @@ public class CUsuario {
             
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-            CUsuario.setNumAcceso(numAcceso);
-            CUsuario.setPrimerAcceso(PrimerAcceso);
+            CUsuario.setNumAcceso(0);
+            CUsuario.setPrimerAcceso(false);
             
             
             CUsuario.setTipoDoc(TipoDoc);
@@ -59,7 +55,7 @@ public class CUsuario {
             CUsuario.setNombres(Nombre);
             CUsuario.setNumDoc(NumeroDoc);
             CUsuario.setTelefono(telefono);
-            CUsuario.seteMail( correo);
+            CUsuario.seteMail(correo);
             CUsuario.setCiudad(Ciudad);
             CUsuario.setPais(Pais);
             
@@ -149,28 +145,23 @@ public class CUsuario {
     }
     
     public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, String LogIn,
-            Parametro estado,String Nombre, String Apellidos, String correo, 
-            String telefono,String NumeroDoc, 
-            Parametro TipoDoc, Parametro Ciudad, Parametro Pais
-            ){
+                                Parametro estado,String Nombre, String Apellidos, String correo, 
+                                String telefono,String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, 
+                                Parametro Pais){
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession( );
         
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
             
-            //Usuario CUsuario = (Usuario)s.load(Usuario.class, idUsuario);\
             Usuario CUsuario = new Usuario();
+            
             CUsuario.setIdUsuario(idUsuario);
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-//            CUsuario.setNumAcceso(0);
-//            CUsuario.setPrimerAcceso(false);
             
             CUsuario.setTipoDoc(TipoDoc);
             CUsuario.setApellidos(Apellidos);
