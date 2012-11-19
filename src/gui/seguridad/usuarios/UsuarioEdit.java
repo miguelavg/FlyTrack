@@ -715,12 +715,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                     //objeto usuario, objeto parametro
                     UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
-                    Contrasena.agregarContrasena(CSeguridad.generaContraseniaAleatoria(), UsuarioAux, ListaEstado.get(0));
-
-                    String aux = String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
+                    char[] contrasenaAleatoria = CSeguridad.generaContraseniaAleatoria();
+                    Contrasena.agregarContrasena(contrasenaAleatoria, UsuarioAux, ListaEstado.get(0));
 
                     cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
-                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + aux +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
+                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + contrasenaAleatoria +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
 
                 } else {
                     
