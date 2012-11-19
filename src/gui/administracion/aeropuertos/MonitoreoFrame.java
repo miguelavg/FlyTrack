@@ -48,83 +48,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-               Graphics c = this.getGraphics();
-        
-        for (int j = 0; j <ListaAeropuerto.size(); j++){
-            
-                 c.setColor(Color.WHITE);
-                 
-                 c.drawString(ListaAeropuerto.get(j).getPais().getValor()+'-'+ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX()+15, ListaAeropuerto.get(j).getCoordY());
-                 c.setColor(Color.red);
-                 c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
               
-                 c.drawOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
-                // c.draw3DRect(, rootPaneCheckingEnabled);
-                         
-                // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );       
-           }  
         
-        c.setColor(Color.GREEN);
-        c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
-              
-        c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
-        
-            
-                
-        
-       /* if (envio == null) {
-            return;
-        }
-
-        if (envio.getEscalas() == null) {
-            return;
-        }
-
-        for (Escala e : envio.getEscalas()) {
-            Vuelo v = e.getVuelo();
-
-            if (v == null) {
-                continue;
-            }
-
-            Parametro p = v.getEstado();
-
-            if (p == null) {
-                continue;
-            }
-
-            if (p.getValorUnico().equals("CAN")) {
-                g.setColor(Color.RED);
-            }
-
-            if (p.getValorUnico().equals("FIN")) {
-                g.setColor(Color.BLUE);
-            }
-
-            if (p.getValorUnico().equals("PROG") || p.getValorUnico().equals("RET")) {
-                g.setColor(Color.YELLOW);
-            }
-
-            if (p.getValorUnico().equals("VUE")) {
-                g.setColor(Color.GREEN);
-            }
-
-            Aeropuerto o = v.getOrigen();
-            Aeropuerto d = v.getDestino();
-
-            if (o != null && d != null) {
-                Graphics2D g2 = (Graphics2D) g;
-                Stroke stroke = new BasicStroke(2.0f);
-                g2.setStroke(stroke);
-                g2.drawLine(o.getCoordX(), o.getCoordY(), d.getCoordX(), d.getCoordY());
-            }
-
-        }
-
-        g.dispose();
-        
-        
-        */
+        pintar();
+       
+    
     }
 
     /**
@@ -169,6 +97,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         Graphics c = this.getGraphics();
+        pintar();
          c.setColor(Color.WHITE);
            c.fillOval(evt.getX(),evt.getY(), 10,10 );
         c.drawOval(evt.getX(),evt.getY(), 10,10 );
@@ -218,4 +147,28 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    private void pintar() {
+        
+         Graphics c = this.getGraphics();
+        
+        for (int j = 0; j <ListaAeropuerto.size(); j++){
+            
+                 c.setColor(Color.WHITE);
+                 
+                 c.drawString(ListaAeropuerto.get(j).getPais().getValor()+'-'+ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX()+15, ListaAeropuerto.get(j).getCoordY());
+                 c.setColor(Color.red);
+                 c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
+              
+                 c.drawOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
+                // c.draw3DRect(, rootPaneCheckingEnabled);
+                         
+                // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );       
+           }  
+        
+        c.setColor(Color.GREEN);
+        c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+              
+        c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+    }
 }
