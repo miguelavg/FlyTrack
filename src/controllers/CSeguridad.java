@@ -198,10 +198,11 @@ public class CSeguridad {
             contrasenaNueva.add(valor);
         }
         
-        char[] car_esp = new char[]{'!','@','#','$','%','^','&','*','(',')','_',
-                                    '+','-','=','{','}','|','[',']',':',';',
-                                    '<','>','?',',','.','/','~','¡',
-                                    '?','°','¬'};
+//        char[] car_esp = new char[]{'!','@','#','$','%','^','&','*','(',')','_',
+//                                    '+','-','=','{','}','|','[',']',':',';',
+//                                    '<','>','?',',','.','/','~','¡',
+//                                    '?','°','¬'};
+        char[] car_esp = new char[]{'!','@','#','$','%','^','&','*','(',')'};
         for(int i=0; i < num_min_car_esp; i++){
             char valor = car_esp[rnd.nextInt(car_esp.length)];
             contrasenaNueva.add(valor);
