@@ -657,7 +657,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
 
         }
-
         return error_message;
     }
 
@@ -685,7 +684,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         if (mensaje.equals("") && mensaje2.equals("")) {
 
-            Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
+
 
             Aeropuerto nuevoAeropuerto;
 
@@ -695,18 +694,22 @@ public class UsuarioEdit extends javax.swing.JDialog {
             //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
 
             Usuario UsuarioauxBE;
-
-            String error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
-
+            String error_message="";
+            
             if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
+            if (error_message == null || error_message.isEmpty() ){
+            error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
+            }
             String error_message2 = validarcampos();
 
             error_message = error_message + error_message2;
 
             if (error_message == null || error_message.isEmpty()) {
+                
+                Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
 
                 if (idusuario == -1) {
                     CMail cmail = new CMail();
