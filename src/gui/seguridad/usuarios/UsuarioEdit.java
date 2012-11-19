@@ -666,104 +666,21 @@ public class UsuarioEdit extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         String mensaje = "";
         String mensaje2 = "";
-        
-        boolean pasavalidacion=true;
+
+        boolean pasavalidacion = true;
 
         if (idusuario != -1) {
 
-          if (psswdContrasena.getPassword().length!=0){  
-            mensaje = CUsuario.ValidarContrasena(psswdContrasena.getPassword());
-            pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
-          }
-//        Integer id=-1;
-//        char[] aux_contrasena = psswdContrasena.getPassword();
-//        char[] aux_contrasena_rec = null;
-//        
-//        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
-//        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
-//        
-////        for (int i = 0; i < UsuarioBE.getContrasenias().size(); i++) {
-////            Contrasena con = UsuarioBE.getContrasenias().get(i);
-////            Integer idaux = con.getIdContrasena();
-////            if (idaux > id) {
-////                aux_contrasena = con;
-////                id = idaux;
-////            }
-////        }
-//        boolean esigual=true;
-//        fuera:
-//        for (int i = UsuarioBE.getContrasenias().size(); i > UsuarioBE.getContrasenias().size() - numeroContrasenas; i--) {
-//            if (i > 0) {
-//                aux_contrasena_rec = UsuarioBE.getContrasenias().get(i - 1).getText();
-//                Integer menor;
-//                Integer aux1 = aux_contrasena_rec.length;
-//                Integer aux2 = psswdContrasena.getPassword().length;
-//                if (aux1 <= aux2) {
-//                    menor = aux1;
-//                } else {
-//                    menor = aux2;
-//                }
-//                for (int j = 0; j < menor; j++) {
-//                    char c_caracter = psswdContrasena.getPassword()[j];
-//                    char c_caracter2 = aux_contrasena_rec[j];
-//
-//                    if (c_caracter != c_caracter2) {
-//                        //mensaje2 = "La contrasena debe ser distinta";
-//                        esigual = false;
-//                        //break fuera;
-//
-//                    }
-//                }
-//                if (esigual){
-//                    break fuera;
-//                }
-//                else {
-//                    if (i == UsuarioBE.getContrasenias().size() - numeroContrasenas + 1) {
-//                        esigual = false;
-//                    } else {
-//                        esigual = true;
-//                    }
-//                }
-//                
-//            }
-//        }
+            if (psswdContrasena.getPassword().length!=0){  
+              mensaje = CUsuario.ValidarContrasena(psswdContrasena.getPassword());
+              pasavalidacion = CSeguridad.validarContrasenaHist(psswdContrasena.getPassword(), idusuario);
+            }
 
             if (!pasavalidacion) {
                 mensaje2 = "La contrasena debe ser distinta, ya existe una igual en el historico";
                 mensaje = mensaje + mensaje2;
             }
-//        Integer aux1=aux_contrasena.getText().length;
-//        Integer aux2=psswdContrasena.getPassword().length;
-//        Integer menor=0;
-//        if (aux1<=aux2) {menor=aux1;}
-//        else {menor=aux2;}
-//        
-//        
-//        for (int i = 0; i < menor; i++) {
-//            char c_caracter = psswdContrasena.getPassword()[i];
-//            char c_caracter2 = aux_contrasena.getText()[i];
-//
-//            if (c_caracter == c_caracter2) {
-//                mensaje2 = "La contrasena debe ser distinta";
-//                
-//            }
-//        }
 
-
-//        ListaEstado = ParametroBL.buscar("", "PASS_NUM_CONT_HIST", "SEGURIDAD", null);
-//        Integer numeroContrasenas= Integer.parseInt(ListaEstado.get(0).getValor());
-//        
-//        Integer menorCon=0;
-//        Integer aux3=UsuarioBE.getContrasenias().size();
-//        Integer aux4=numeroContrasenas;
-//        
-//        if (aux3<=aux4) {menorCon=aux3;}
-//        else {menorCon=aux4;}
-//        
-//        String contrasenaNueva=Character.toString(psswdContrasena.getPassword());
-//        
-//        for (int i=0; i< menorCon;i++){
-//        }
         }
 
         if (mensaje.equals("") && mensaje2.equals("")) {
@@ -782,19 +699,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
             //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
 
             Usuario UsuarioauxBE;
-//        if (ClienteAux==null && idusuario!=-1){
-//        auxCliente=UsuarioauxBE.getIdCliente();
-//        }
-//        else 
-//        {auxCliente=ClienteAux;}
-
-
-//        if (ClienteAux!=null){
-//        valoraux=auxCliente.getIdCliente();
-//        }
-//        else {
-//        valoraux=0;
-//        }
 
             String error_message = Cusuario.validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
 
@@ -810,41 +714,22 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                 if (idusuario == -1) {
                     CMail cmail = new CMail();
-                    Usuario.agregarUsuario(perfil,
-                            AeropuertoAux,
-                            //aeropuerto,
-                            //txtAeropuerto.getText(), 
-                            //               idcliente, 
-                            //ClienteAux,
-                            txtLogIn.getText(),
-                            (Parametro) cboEstado.getSelectedItem(),
-                            0,
-                            false,
-                            txtNombres.getText(),
-                            txtApellidos.getText(), txtCorreo.getText(),
+                    Usuario.agregarUsuario(perfil, AeropuertoAux, txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
+                            0, false, txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
 
-                    //Perfil=PerfilBL.BuscarXid(90);
                     ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                     //objeto usuario, objeto parametro
                     UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
-                    //Usuario.BuscarXidCliente(ClienteAux.getIdCliente());
+                    char[] contrasenaAleatoria = CSeguridad.generaContraseniaAleatoria();
+                    Contrasena.agregarContrasena(contrasenaAleatoria, UsuarioAux, ListaEstado.get(0));
 
-                    //crear contrasena por defecto
-                    //                    
-                    Contrasena.agregarContrasena(CSeguridad.generaContraseniaAleatoria(),
-                            UsuarioAux,
-                            ListaEstado.get(0));
-
-                    String aux = String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
-
-                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "[FlyTrack] Contraseña por defecto.", 
-                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + aux +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
+                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + contrasenaAleatoria +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
 
                 } else {
-                    //txtCliente.setVisible(false);
-                    //getidusuario()
+                    
                     Usuario UsuarioBE = Usuario.BuscarXid(idusuario);
 
                     if (AeropuertoAux == null) {
@@ -852,13 +737,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     } else {
                         nuevoAeropuerto = AeropuertoAux;
                     }
-
-//        if (ClienteAux==null){
-//        nuevoCliente=UsuarioBE.getIdCliente();
-//        }
-//        else 
-//        {nuevoCliente=ClienteAux;}
-
 
                     Usuario.modificarUsuario(idusuario,
                             perfil,
@@ -876,20 +754,15 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             "[FlyTrack] Se modificó su contraseña",
                             "Estimado usuario.\nSu contraseña ha sido modificada: " + this.psswdContrasena.getText() + ".\nSoporte FlyTrack.");
 
-                    //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
-
-                    if (psswdContrasena.getPassword().length!=0){  
+                    if (psswdContrasena.getPassword().length != 0){  
                     
-                    UsuarioauxBE = Usuario.BuscarXid(idusuario);
-                    //ListaContrasena = Contrasena.buscarContrasena(UsuarioauxBE.getIdUsuario());
-                    ContrasenaAux=Contrasena.buscarContrasenaActivaPorUsuario(UsuarioauxBE.getIdUsuario());
+                        UsuarioauxBE = Usuario.BuscarXid(idusuario);
+                        ContrasenaAux=Contrasena.buscarContrasenaActivaPorUsuario(UsuarioauxBE.getIdUsuario());
 
-                    ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.desactivarUltimaContrasena(ContrasenaAux, ListaEstado.get(0));
-                    ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
-                    Contrasena.agregarContrasena(psswdContrasena.getPassword(),
-                            UsuarioauxBE,
-                            ListaEstado.get(0));
+                        ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
+                        Contrasena.desactivarUltimaContrasena(ContrasenaAux, ListaEstado.get(0));
+                        ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
+                        Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioauxBE, ListaEstado.get(0));
                     }
                     
                 }
@@ -900,19 +773,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 ErrorDialog.mostrarError(error_message, this);
             }
 
-//        CUsuario.agregarUsuario(txtPerfil.getText(), 
-//                txtAeropuerto.getText(), 
-// //               idcliente, 
-//                login   txtLogIn.getText(),
-//                (Parametro)cboEstado.getSelectedItem() , 
-//                numAcceso,
-//                primerAcceso); 
-
-            //el idcliente puede salir de la tabla clientes, ahi usaria nombres, apellidos, tipodoc,numdoc y sacaria el idcliente
-
-            //select idCliente from Cliente where Nombres nombres and Apellidos apellidos and TipoDoc tipodoc and NumDodc numdoc 
-
-//(Parametro)cboTipoDoc.getSelectedItem()
         } else {
             ErrorDialog.mostrarError(mensaje, this);
         }
