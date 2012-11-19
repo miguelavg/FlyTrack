@@ -36,48 +36,35 @@ import org.hibernate.annotations.ParamDef;
 @Table(name = "Usuario")
 @NamedQueries({
     @NamedQuery(name = "Usuario",
-    query = "from Usuario"),
+                query = "from Usuario"),
     @NamedQuery(name = "LoginUsuario",
-    query = "from Usuario where login = :login and estado.valorUnico = 'ACTV'"),
+                query = "from Usuario where login = :login and estado.valorUnico = 'ACTV'"),
     @NamedQuery(name = "UsuarioxId",
-    query = "from Usuario where idUsuario = :idusuario "),
-//    @NamedQuery(name = "UsuarioxIdClienteAux",
-//    query = "from Usuario where idcliente = :idcliente "),
+                query = "from Usuario where idUsuario = :idusuario "),
     @NamedQuery(name = "UsuarioxNombreUsuario",
-    query = "from Usuario where logIn = :username "),
+                query = "from Usuario where logIn = :username "),
     @NamedQuery(name = "UsuarioxNumDoc",
-    query = "from Usuario where numdoc = :documento "),
+                query = "from Usuario where numdoc = :documento "),
     @NamedQuery(name = "UsuarioxIdentidad",
-    query = "from Usuario where tipodoc = :tipodoc and numdoc = :numdoc ")
+                query = "from Usuario where tipodoc = :tipodoc and numdoc = :numdoc ")
 })
 @FilterDefs({
-    @FilterDef(name = "UsuarioxIdperfil",
-    parameters =
-    @ParamDef(name = "idperfil", type = "integer")),
-    @FilterDef(name = "UsuarioxIdaeropuerto",
-    parameters =
-    @ParamDef(name = "idaeropuerto", type = "integer")),
-    @FilterDef(name = "UsuarioxTipoDoc",
-    parameters =
-    @ParamDef(name = "tipodoc", type = "integer")),
-//    @FilterDef(name = "UsuarioxIdcliente",
-//    parameters =
-//    @ParamDef(name = "idcliente", type = "integer")),
-    @FilterDef(name = "UsuarioxNombre",
-    parameters =
-    @ParamDef(name = "nombres", type = "string")),
-    @FilterDef(name = "UsuarioxLogin",
-    parameters =
-    @ParamDef(name = "login", type = "string")),
-    @FilterDef(name = "UsuarioxApellido",
-    parameters =
-    @ParamDef(name = "apellidos", type = "string")),
-    @FilterDef(name = "UsuarioxNumDoc",
-    parameters =
-    @ParamDef(name = "numdoc", type = "string")),
-    @FilterDef(name = "UsuarioxEstado",
-    parameters =
-    @ParamDef(name = "estado", type = "integer"))
+    @FilterDef( name = "UsuarioxIdperfil",
+                parameters = @ParamDef(name = "idperfil", type = "integer")),
+    @FilterDef( name = "UsuarioxIdaeropuerto",
+                parameters = @ParamDef(name = "idaeropuerto", type = "integer")),
+    @FilterDef( name = "UsuarioxTipoDoc",
+                parameters = @ParamDef(name = "tipodoc", type = "integer")),
+    @FilterDef( name = "UsuarioxNombre",
+                parameters = @ParamDef(name = "nombres", type = "string")),
+    @FilterDef( name = "UsuarioxLogin",
+                parameters = @ParamDef(name = "login", type = "string")),
+    @FilterDef( name = "UsuarioxApellido",
+                parameters = @ParamDef(name = "apellidos", type = "string")),
+    @FilterDef( name = "UsuarioxNumDoc",
+                parameters = @ParamDef(name = "numdoc", type = "string")),
+    @FilterDef( name = "UsuarioxEstado",
+                parameters = @ParamDef(name = "estado", type = "integer"))
 })
 @Filters({
     @Filter(name = "UsuarioxIdperfil", condition = "idPerfil = :idperfil"),
@@ -258,13 +245,6 @@ public class Usuario implements Serializable {
         this.aeropuerto = aeropuerto;
     }
 
-//    public Cliente getIdCliente() {
-//    return cliente;
-//    }
-//
-//    public void setIdCliente(Cliente cliente) {
-//    this.cliente = cliente;
-//    }
     public Parametro getEstado() {
         return estado;
     }
@@ -272,15 +252,6 @@ public class Usuario implements Serializable {
     public void setEstado(Parametro estado) {
         this.estado = estado;
     }
-//    
-//    public int getIdUsuario(){
-//    return idUsuario;
-//    }    
-//
-//    public void setIdUsuario(int idUsuario){
-//    this.idUsuario=idUsuario;
-//    }    
-//    
 
     @Override
     public String toString() {
