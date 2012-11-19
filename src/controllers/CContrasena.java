@@ -11,11 +11,14 @@ import beans.Sesion;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
 import beans.seguridad.Contrasena;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -207,7 +210,7 @@ public class CContrasena {
         try
         {
            MessageDigest msgd = MessageDigest.getInstance("MD5");
-           byte[] bytes = msgd.digest(new String(contrasenaAEncriptar).getBytes());
+           byte[] bytes = msgd.digest(new String(contrasenaAEncriptar).getBytes("UTF-8"));
            StringBuilder strbCadenaMD5 = new StringBuilder(2 * bytes.length);
            for (int i = 0; i < bytes.length; i++)
            {
@@ -217,6 +220,8 @@ public class CContrasena {
                strbCadenaMD5.append(CONSTS_HEX[bajo]);
            }
            return strbCadenaMD5.toString().toCharArray();
+        } catch (UnsupportedEncodingException ex) {
+            return null; //cuidado cuando sea null
         } catch (NoSuchAlgorithmException e) {
             return null; //cuidado cuando sea null
         }

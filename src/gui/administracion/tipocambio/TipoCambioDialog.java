@@ -12,6 +12,7 @@ import controllers.CParametro;
 import controllers.CSeguridad;
 import controllers.CTipoCambio;
 import controllers.CValidator;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,9 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         initComponents();
         llenarCombos();
         definirPermisos();
+        listaCargada = false;
     }
+    private boolean listaCargada;
 
     @Override
     protected JRootPane createRootPane() {
@@ -140,8 +143,8 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
@@ -339,21 +342,17 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         if (cmb_destino.getSelectedIndex() > 0) {
             destino = (Parametro) cmb_destino.getSelectedItem();
         }
+        
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         CTipoCambio ctipocambio = new CTipoCambio();
         List<TipoCambio> tipos = ctipocambio.buscar(this.origen, this.destino);
         llenarTablaParametro(tipos);
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_clienteActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        CTipoCambio ctipocambio = new CTipoCambio();
-        List<TipoCambio> tipos = ctipocambio.buscar(null, null);
-        llenarTablaParametro(tipos);
-    }//GEN-LAST:event_formWindowOpened
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
@@ -397,6 +396,17 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (!listaCargada) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            CTipoCambio ctipocambio = new CTipoCambio();
+            List<TipoCambio> tipos = ctipocambio.buscar(null, null);
+            llenarTablaParametro(tipos);
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -452,13 +462,13 @@ public class TipoCambioDialog extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
+
         boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
-        
+
         boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
-        
+
         boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 

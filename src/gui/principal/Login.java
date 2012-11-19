@@ -13,6 +13,7 @@ import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import gui.InformationDialog;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Date;
@@ -103,6 +104,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         lblOlvidoPass.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblOlvidoPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblOlvidoPass.setText("Olvidé mi contraseña");
         lblOlvidoPass.setMaximumSize(new java.awt.Dimension(150, 20));
         lblOlvidoPass.setMinimumSize(new java.awt.Dimension(150, 20));
@@ -187,6 +189,7 @@ public class Login extends javax.swing.JFrame {
             //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
             Usuario usuarioValidado = null;
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
                 //VERIFICACION EXITOSA
                 lblError.setText("");
@@ -201,10 +204,9 @@ public class Login extends javax.swing.JFrame {
                 if(condicionCaducidad || condicionPrimerIngreso){
                     String error = "";
                     if(condicionCaducidad) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
-                    if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contrasenia. \n";
-                    if(error != null && !error.isEmpty()){
-                        InformationDialog.mostrarInformacion(error, this);
-                    }
+                    if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contraseña. \n";
+                    InformationDialog.mostrarInformacion(error, this);
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
                     usuarioValidado = cambiarContrasenia.showDialog();
                     if(condicionPrimerIngreso)
@@ -221,6 +223,7 @@ public class Login extends javax.swing.JFrame {
 
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                     this.setVisible(Boolean.FALSE);
                     this.dispose();
@@ -240,12 +243,15 @@ public class Login extends javax.swing.JFrame {
                     //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
                     // Si llega al limite de intentos fallidos se bloquea la cuenta
                     if (numIntentosFallidos >= numMaxIntentosFallidos && !usuarioAux.getPerfil().getNombre().equals("Administrador")) {
+                        setCursor(new Cursor(Cursor.WAIT_CURSOR));
                         CSeguridad.bloquearCuenta(usuario);
+                        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         ErrorDialog.mostrarError("Usuario: " +usuario + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
                     }
                 }
             }
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
         else{
             ErrorDialog.mostrarError("Ingrese Usuario y Contraseña por favor", this);

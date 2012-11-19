@@ -43,7 +43,7 @@ public class CMail {
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             msg.setFrom(new InternetAddress(from));
             msg.setSubject(subject);
-            msg.setContent(message,"text/area");
+            msg.setText(message);
         }
         catch(Exception e){
             //System.out.println(">> Erro: Completar Message" + e);
@@ -62,5 +62,5 @@ public class CMail {
             //System.out.println(">> Erro: Envio Message" + e);
             //ErrorDialog.mostrarError("Error al enviar mensaje", this);
         }
-    }    
+    }
 }

@@ -38,7 +38,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         llenarComboEstado();
          
         idActual = -1;
-        buscar();
+        
     }
 
     public AeropuertoPopup(javax.swing.JFrame parent, boolean modal) {
@@ -49,7 +49,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         llenarComboEstado();
        
         idActual = -1;
-         buscar();
+      
 
     }
     
@@ -93,6 +93,11 @@ public class AeropuertoPopup extends javax.swing.JDialog {
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             setTitle("FlyTrack - Buscar aeropuertos");
             setResizable(false);
+            addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowActivated(java.awt.event.WindowEvent evt) {
+                    formWindowActivated(evt);
+                }
+            });
 
             jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -331,6 +336,14 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+           buscar();
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
+    }//GEN-LAST:event_formWindowActivated
 
     private void llenarComboPais() {
 

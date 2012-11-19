@@ -111,12 +111,16 @@ public class CTipoCambio {
                 if (tipos.size() > 0) {
                     t = tipos.get(0);;
                     if (isNuevo) {
-                        error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
+                        error_message = error_message + CValidator.buscarError("ERROR_FT017") + "\n";
                     } else {
                         if (t.getIdTipoCambio() != tipoCambio.getIdTipoCambio()) {
-                            error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
+                            error_message = error_message + CValidator.buscarError("ERROR_FT017") + "\n";
                         }
                     }
+                }
+                
+                if(monedaOrigen.getIdParametro() == monedaDestino.getIdParametro()){
+                    error_message = error_message + CValidator.buscarError("ERROR_FT003") + "\n";
                 }
 
             }

@@ -20,6 +20,7 @@ import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesEdit;
 import gui.clientes.ClientesPopUp;
 import gui.envios.*;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -39,26 +40,26 @@ public class TarifaFrame extends javax.swing.JDialog {
     /**
      * Creates new form Envio
      */
-    
     Aeropuerto AeroOri;
     Aeropuerto AeroDes;
     CAeropuerto AeropuertoBL = new CAeropuerto();
     List<Tarifa> ListaTarifa;
     CTarifa TarifaBL = new CTarifa();
-    CTipoCambio TipoCambioBL= new CTipoCambio();
+    CTipoCambio TipoCambioBL = new CTipoCambio();
     CParametro ParametroBL = new CParametro();
-    
+
     public TarifaFrame() {
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
-        CTipoCambio ctipocambio = new CTipoCambio();
-        ListaTarifa = TarifaBL.Buscar(null, null,"", "");
-        llenartabla();
+//        CTipoCambio ctipocambio = new CTipoCambio();
+        //ListaTarifa = TarifaBL.Buscar(null, null, "", "");
+        listaCargada = false;
 //        tablaTarifa.set(0, 0);
         definirPermisos();
     }
-    
+    private boolean listaCargada;
+
     @Override
     protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
@@ -111,6 +112,11 @@ public class TarifaFrame extends javax.swing.JDialog {
         setTitle("Flytrack - Tarifas");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setModal(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -330,26 +336,26 @@ public class TarifaFrame extends javax.swing.JDialog {
         AeroOri = AeropuertoPU.showDialog();
 
         if (AeroOri != null) {
-            txtAeroOri.setText(AeroOri.getNombre()+ ", "+AeroOri.getCiudad().getValor());
+            txtAeroOri.setText(AeroOri.getNombre() + ", " + AeroOri.getCiudad().getValor());
         } else {
             txtAeroOri.setText("");
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+
         AeropuertoPopup AeropuertoPU = new AeropuertoPopup(this, true);
         AeroDes = AeropuertoPU.showDialog();
 
         if (AeroDes != null) {
-            txtAeroDes.setText(AeroDes.getNombre()+ ", "+AeroDes.getCiudad().getValor());
+            txtAeroDes.setText(AeroDes.getNombre() + ", " + AeroDes.getCiudad().getValor());
         } else {
             txtAeroDes.setText("");
         }
-               
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtAeroDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroDesActionPerformed
@@ -358,13 +364,13 @@ public class TarifaFrame extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        
-        ListaTarifa=TarifaBL.Buscar(AeroOri,AeroDes,"","");
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        ListaTarifa = TarifaBL.Buscar(AeroOri, AeroDes, "", "");
         llenartabla();
-        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void llenartabla(){
+    private void llenartabla() {
         DefaultTableModel dtm = (DefaultTableModel) tablaTarifa.getModel();
 
         for (int i = dtm.getRowCount(); i > 0; i--) {
@@ -379,79 +385,88 @@ public class TarifaFrame extends javax.swing.JDialog {
             llenarLineaTabla(t, dtm);
         }
     }
-    private void llenarLineaTabla  (Tarifa t,  DefaultTableModel dtm){
-        
+
+    private void llenarLineaTabla(Tarifa t, DefaultTableModel dtm) {
+
         Aeropuerto origen;
         Aeropuerto destino;
-        Double monto=0.00;
-        origen=TarifaBL.BuscarAeropuertoXId(t.getOrigen());
-        destino=TarifaBL.BuscarAeropuertoXId(t.getDestino());
-        
+        Double monto = 0.00;
+        origen = TarifaBL.BuscarAeropuertoXId(t.getOrigen());
+        destino = TarifaBL.BuscarAeropuertoXId(t.getDestino());
+
         Parametro moneda;
         moneda = ParametroBL.buscarId(t.getMoneda().getIdParametro());
-        if (t.getMoneda().getValor().equals("Soles")){
-            
+        if (t.getMoneda().getValor().equals("Soles")) {
+
             //TipoCambio tipocambio;
             //tipocambio = TarifaBL.BuscarCambio(t.getMoneda().getIdParametro(),0);
-            monto=t.getMonto();//*tipocambio.getTipoCambio();
-        }
-        else {
-            if (t.getMoneda().getValor().equals("Euros")){
-            
+            monto = t.getMonto();//*tipocambio.getTipoCambio();
+        } else {
+            if (t.getMoneda().getValor().equals("Euros")) {
+
                 //TipoCambio tipocambio;
                 //tipocambio = TarifaBL.BuscarCambio(t.getMoneda().getIdParametro(),0);
-                monto=t.getMonto();///tipocambio.getTipoCambio();
-            }
-            else{
-                monto= t.getMonto();
+                monto = t.getMonto();///tipocambio.getTipoCambio();
+            } else {
+                monto = t.getMonto();
             }
         }
-        
+
         Object[] datos = new Object[4];
         datos[0] = t.getIdTarifa();
         datos[1] = origen.getNombre();
         datos[2] = destino.getNombre();
         datos[3] = CValidator.formatNumber(monto);
-       
+
         dtm.addRow(datos);
     }
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        // TODO add your handling code here:
-        CTipoCambio ctipocambio = new CTipoCambio();
-        ListaTarifa = TarifaBL.Buscar(null, null,"", "");
-        llenartabla();
-    }
+
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
 
-        TarifaEdit tarifaEditGUI = new TarifaEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
+        TarifaEdit tarifaEditGUI = new TarifaEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         int result = tarifaEditGUI.showDialog();
         //cargartabla();//le decimos al compilador que queremos que se vea la ventana
-        ListaTarifa=TarifaBL.Buscar(null,null,"","");
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        ListaTarifa = TarifaBL.Buscar(null, null, "", "");
         llenartabla();
-        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dtm = (DefaultTableModel) this.tablaTarifa.getModel();
-              
-        if (tablaTarifa.getSelectedRow()>-1){
-            Integer id=(Integer)tablaTarifa.getValueAt(tablaTarifa.getSelectedRow(), 0);
-            TarifaEdit MiVentana = new TarifaEdit(this,true,id);        
+
+        if (tablaTarifa.getSelectedRow() > -1) {
+            Integer id = (Integer) tablaTarifa.getValueAt(tablaTarifa.getSelectedRow(), 0);
+            TarifaEdit MiVentana = new TarifaEdit(this, true, id);
             //MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
             MiVentana.showDialog();
-            ListaTarifa=TarifaBL.Buscar(null, null,"", "");
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            ListaTarifa = TarifaBL.Buscar(null, null, "", "");
             llenartabla();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
-        
-        
+
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (!listaCargada) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            ListaTarifa = TarifaBL.Buscar(null, null, "", "");
+            llenartabla();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            listaCargada = true;
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -506,21 +521,21 @@ public class TarifaFrame extends javax.swing.JDialog {
     private javax.swing.JTextField txtAeroOri;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
+    private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
+
         boolean crear = CSeguridad.validarPermiso(3, "Tarifas", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
-        
+
         boolean modificar = CSeguridad.validarPermiso(3, "Tarifas", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
-        
+
         boolean buscar = CSeguridad.validarPermiso(3, "Tarifas", "Buscar/Listar", permisos);
         this.btnBuscar.setEnabled(buscar);
 
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Tarifas", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
-        
+
         this.setLocationRelativeTo(null);
         pack();
     }

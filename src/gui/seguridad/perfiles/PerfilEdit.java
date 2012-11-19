@@ -12,6 +12,7 @@ import controllers.CParametro;
 import controllers.CPerfil;
 import controllers.CPermiso;
 import gui.ErrorDialog;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -1701,7 +1702,7 @@ public class PerfilEdit extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String error_message = null;
-        
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if(idperfil == -1){
             error_message = CPerfil.validar(idperfil, txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
         }
@@ -1722,6 +1723,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         } else {
             ErrorDialog.mostrarError(error_message, this);
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
