@@ -113,13 +113,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
             //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
             //txtNombres.setDocument(regexDocument);
             //txtNombres.setmax
-
+            
+             this.isNuevo = false;
         } else {
             lblContrasena.setVisible(false);
             psswdContrasena.setVisible(false);
         }
-
         cboEstado.setSelectedIndex(1);
+        if (this.isNuevo) {
+            this.setTitle("FlyTrack - Usuario - Crear");
+        } else {
+            this.setTitle("FlyTrack - Usuario - Editar");
+        }
 
     }
 
@@ -832,7 +837,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                     String aux = String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
 
-                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "[FlyTrack] Contraseña por defecto.", 
                             "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + aux +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
 
                 } else {
@@ -865,7 +870,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
                     
                     CMail cmail = new CMail();
-                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(), "[FlyTrack] Se modificó su contraseña","Estimado usuario.\nSu contraseña ha sido modificada: " + this.psswdContrasena.getText() + ".\nSoporte FlyTrack.");
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
+                            "[FlyTrack] Se modificó su contraseña",
+                            "Estimado usuario.\nSu contraseña ha sido modificada: " + this.psswdContrasena.getText() + ".\nSoporte FlyTrack.");
 
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
 
