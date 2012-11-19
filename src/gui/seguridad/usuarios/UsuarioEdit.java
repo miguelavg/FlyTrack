@@ -722,7 +722,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     Contrasena.agregarContrasena(contrasenaAleatoria, UsuarioAux, ListaEstado.get(0));
 
                     cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
-                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + contrasenaAleatoria +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
+                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + new String(contrasenaAleatoria) +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
 
                 } else {
                     
