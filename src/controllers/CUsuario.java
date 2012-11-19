@@ -67,7 +67,7 @@ public class CUsuario {
 
     }
 
-    public static List<Usuario> buscar(Perfil perfil, Aeropuerto aeropuerto, Parametro tipodoc, String nombre, String apellido, String numdoc, String login) {
+    public static List<Usuario> buscar(Perfil perfil, Aeropuerto aeropuerto, Parametro tipodoc, String nombre, String apellido, String numdoc, String login, Parametro estado) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
@@ -98,18 +98,23 @@ public class CUsuario {
             
             if(apellido != null && !apellido.isEmpty()){
                 Filter f_apellidos = s.enableFilter("UsuarioxApellido");
-                f_apellidos.setParameter("apellidos", "%" + nombre + "%");
+                f_apellidos.setParameter("apellidos", "%" + apellido + "%");
             }
             
             if(numdoc != null && !numdoc.isEmpty()){
                 Filter f_numdoc = s.enableFilter("UsuarioxNumDoc");
-                f_numdoc.setParameter("numdoc", "%" + nombre + "%");
+                f_numdoc.setParameter("numdoc", "%" + numdoc + "%");
             }
             
             if(login != null && !login.isEmpty()){
                 Filter f_login = s.enableFilter("UsuarioxLogin");
-                f_login.setParameter("login", "%" + nombre + "%");
+                f_login.setParameter("login", "%" + login + "%");
             }
+            
+            if(estado != null){
+                Filter f_estado = s.enableFilter("UsuarioxEstado");
+                f_estado.setParameter("estado", estado.getIdParametro());
+            }            
             
             usuarios = q.list();
             

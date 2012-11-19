@@ -49,6 +49,12 @@ public class UsuarioPopup extends javax.swing.JDialog {
         for (Perfil perfil : perfiles) {
             cmb_perfil.addItem(perfil);
         }
+        
+        List<Parametro> estados=CParametro.buscar("", null, "ESTADO_USUARIO", null);
+        for (Parametro p : estados){ 
+            cboEstado.addItem(p);
+        }
+        
     }
 
     private void llenarTabla(List<Usuario> usuarios) {
@@ -58,15 +64,18 @@ public class UsuarioPopup extends javax.swing.JDialog {
             dtm.removeRow(0);
         }
 
-        Object[] datos = new Object[6];
+        Object[] datos = new Object[9];
 
         for (Usuario usr : usuarios) {
             datos[0] = usr;
             datos[1] = usr.getNombres();
             datos[2] = usr.getApellidos();
-            datos[3] = usr.geteMail();
-            datos[4] = usr.getTipoDoc();
-            datos[5] = usr.getNumDoc();
+            datos[3] = usr.getPerfil().getNombre();
+            datos[4] = usr.getIdAeropuerto().getNombre();
+            datos[5] = usr.getEstado();
+            datos[6] = usr.geteMail();
+            datos[7] = usr.getTipoDoc();
+            datos[8] = usr.getNumDoc();
 
             dtm.addRow(datos);
         }
@@ -99,12 +108,13 @@ public class UsuarioPopup extends javax.swing.JDialog {
         txt_aeropuerto = new javax.swing.JTextField();
         btn_aeropuerto = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cboEstado = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_usuarios = new javax.swing.JTable();
         btn_seleccionar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FlyTrack - Buscar usuario");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -162,6 +172,10 @@ public class UsuarioPopup extends javax.swing.JDialog {
 
         jLabel12.setText("Login:");
 
+        jLabel13.setText("Estado:");
+
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,17 +203,24 @@ public class UsuarioPopup extends javax.swing.JDialog {
                     .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_numdoc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_perfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_numdoc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmb_perfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -223,12 +244,15 @@ public class UsuarioPopup extends javax.swing.JDialog {
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmb_perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_aeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_aeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_aeropuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,9 +267,17 @@ public class UsuarioPopup extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Login", "Nombre", "Apellido", "Email", "Tipo Doc.", "Num. Doc."
+                "Login", "Nombre", "Apellido", "Perfil", "Aeropuerto", "Estado", "Email", "Tipo Doc.", "Num. Doc."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tbl_usuarios);
 
         btn_seleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/edit.png"))); // NOI18N
@@ -297,7 +329,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -309,6 +341,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         Parametro tipodoc;
         Perfil perfil;
+        Parametro estado;
         
         if (cmb_tipodoc.getSelectedIndex() != 0) {
             tipodoc = (Parametro) cmb_tipodoc.getSelectedItem();
@@ -317,11 +350,18 @@ public class UsuarioPopup extends javax.swing.JDialog {
         }
         
         if (cmb_perfil.getSelectedIndex() != 0) {
-            perfil = (Perfil) cmb_tipodoc.getSelectedItem();
+            perfil = (Perfil) cmb_perfil.getSelectedItem();
         } else {
             perfil = null;
         }
-        List<Usuario> usuarios = CUsuario.buscar(perfil, aeropuerto, tipodoc, txt_nombre.getText(), txt_apellido.getText(), txt_numdoc.getText(), txt_login.getText());
+        
+        if (cboEstado.getSelectedIndex() != 0) {
+            estado = (Parametro) cboEstado.getSelectedItem();
+        } else {
+            estado = null;
+        }
+        
+        List<Usuario> usuarios = CUsuario.buscar(perfil, aeropuerto, tipodoc, txt_nombre.getText(), txt_apellido.getText(), txt_numdoc.getText(), txt_login.getText(),estado);
         llenarTabla(usuarios);
 
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -345,7 +385,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (!listaCargada) {
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            List<Usuario> usuarios = CUsuario.buscar(null, null, null, null, null, null, null);
+            List<Usuario> usuarios = CUsuario.buscar(null, null, null, null, null, null, null,null);
             llenarTabla(usuarios);
             llenarCombos();
             listaCargada = true;
@@ -408,11 +448,13 @@ public class UsuarioPopup extends javax.swing.JDialog {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JButton btn_seleccionar;
+    private javax.swing.JComboBox cboEstado;
     private javax.swing.JComboBox cmb_perfil;
     private javax.swing.JComboBox cmb_tipodoc;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

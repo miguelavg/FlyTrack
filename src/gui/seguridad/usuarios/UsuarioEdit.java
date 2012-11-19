@@ -109,7 +109,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         llenarcombos();
         if (idusuario != -1) {
             cargarcampos();
-            txtNumeroDoc.enable(false);
+            txtNumeroDoc.setEditable(false);
 //                String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
             //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
             //txtNombres.setDocument(regexDocument);
@@ -117,10 +117,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
             
              this.isNuevo = false;
         } else {
+            cboEstado.setSelectedIndex(1);
             lblContrasena.setVisible(false);
             psswdContrasena.setVisible(false);
         }
-        cboEstado.setSelectedIndex(1);
+
         if (this.isNuevo) {
             this.setTitle("FlyTrack - Seguridad -  Usuario - Crear");
         } else {
@@ -306,6 +307,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel12.setText("Número Doc:");
 
+        txtNumeroDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroDocActionPerformed(evt);
+            }
+        });
         txtNumeroDoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNumeroDocKeyReleased(evt);
@@ -528,8 +534,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
             }
         }
-        cboTipoDoc.setEnabled(false);
-        txtNumeroDoc.setEditable(false);
+        cboTipoDoc.setEnabled(false);        
+        //txtNumeroDoc.setEditable(false);
     }
 
     public void llenarcomboEstado() {
@@ -853,6 +859,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
             getToolkit().beep();
         }
     }//GEN-LAST:event_txtApellidosKeyReleased
+
+    private void txtNumeroDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroDocActionPerformed
     public int showDialog() {
         setVisible(true);
         return 1;

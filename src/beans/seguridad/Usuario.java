@@ -72,7 +72,7 @@ import org.hibernate.annotations.ParamDef;
     @Filter(name = "UsuarioxNombre", condition = "nombres like :nombres"),
     @Filter(name = "UsuarioxLogin", condition = "Login like :login"),
     @Filter(name = "UsuarioxNumDoc", condition = "numdoc like :numdoc"),
-    @Filter(name = "UsuarioxApellido", condition = "apellidos like :apellido"),
+    @Filter(name = "UsuarioxApellido", condition = "apellidos like :apellidos"),
     @Filter(name = "UsuarioxEstado", condition = "Estado = :estado"),
     @Filter(name = "UsuarioxTipoDoc", condition = "tipodoc = :tipodoc")
 })
