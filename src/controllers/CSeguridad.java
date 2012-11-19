@@ -36,13 +36,12 @@ public class CSeguridad {
 
             //-Existe usuario
             //-Usuario activo
-            Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("LoginUsuario").setMaxResults(1);
             q.setParameter("login", user);
             Usuario usuario = (Usuario) q.uniqueResult();
 
             if (usuario == null) {
-                return null; //si el usuario no existe
+                return usuario; //si el usuario no existe
             }
             usuario.getContrasenias().size();//LAZY QUERY: obtener las contrasenias
             List<Contrasena> contrasenias = usuario.getContrasenias();

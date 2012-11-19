@@ -82,7 +82,6 @@ import org.hibernate.annotations.ParamDef;
 @Filters({
     @Filter(name = "UsuarioxIdperfil", condition = "idPerfil = :idperfil"),
     @Filter(name = "UsuarioxIdaeropuerto", condition = "idAeropuerto = :idaeropuerto"),
-//    @Filter(name = "UsuarioxIdcliente", condition = "idCliente = :idcliente"),
     @Filter(name = "UsuarioxNombre", condition = "nombres like :nombres"),
     @Filter(name = "UsuarioxLogin", condition = "Login like :login"),
     @Filter(name = "UsuarioxNumDoc", condition = "numdoc like :numdoc"),
@@ -101,9 +100,6 @@ public class Usuario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idAeropuerto")
     private Aeropuerto aeropuerto;
-//    @OneToOne
-//    @JoinColumn(name = "idCliente")
-//    private Cliente cliente;
     private String logIn;
     @ManyToOne
     @JoinColumn(name = "estado")
@@ -117,8 +113,6 @@ public class Usuario implements Serializable {
     private String NumDoc;
     private String Telefono;
     private String CorreoElectronico;
-    //private String Celular;
-    //private String Direccion;
     @ManyToOne
     @JoinColumn(name = "TipoDoc")
     private Parametro tipoDoc;
