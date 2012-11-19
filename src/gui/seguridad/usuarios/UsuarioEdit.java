@@ -659,7 +659,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
         String mensaje = "";
         String mensaje2 = "";
-
+        
         boolean pasavalidacion=true;
 
         if (idusuario != -1) {
@@ -863,6 +863,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
+                    
+                    //CMail cmail = new CMail();
+                    //cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", "FlyTrack", mensaje2, mensaje);
 
                     //UsuarioAux = CUsuario.buscarXNombreUsuario(txtNombres.getText());
 
