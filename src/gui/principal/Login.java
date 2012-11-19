@@ -17,6 +17,7 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -181,31 +182,69 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        String usuario = txtUser.getText();
+        String username = txtUser.getText();
         char[] password = txtPass.getPassword();
 
-        if( !usuario.isEmpty()  && password.length > 0 && 
+        if( !username.isEmpty()  && username.length() > 0 && 
             password != null    && password.length > 0){
             //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            Usuario usuarioValidado = null;
             
-            //verificar que el username exista
-            //verificar que el username este activo
-            //verificar que el username tenga contrasena activa
-            //verificar que la contrasena coincida con la contrasena activa
             
-            if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
+            //- Verificar que el username exista
+            //- Verificar que el username este activo
+            //- Verificar que el username tenga contrasena activa
+            //- Verificar que la contrasena coincida con la contrasena activa
+            Usuario existeUsuario = CUsuario.buscarXNombreUsuario(username);
+            boolean usuarioActivo;
+            Contrasena existeContrasenaActiva;
+            boolean contrasenasIguales;
+            
+            if(existeUsuario != null){
+                usuarioActivo = existeUsuario.getEstado().getValorUnico().equals("ACTV");
+                if(usuarioActivo){
+                    List<Contrasena> contrasenias = existeUsuario.getContrasenias();
+
+                    existeContrasenaActiva = null;
+                    for (Contrasena passAnalizada : contrasenias) {
+                        if (passAnalizada.getEstado().getValorUnico().equals("ACTV")) {
+                            existeContrasenaActiva = passAnalizada;
+                            break;
+                        }
+                    }
+
+                    if(existeContrasenaActiva != null){
+                        contrasenasIguales = CSeguridad.passwordCorrecta(existeContrasenaActiva.getText(), 
+                                                                        CContrasena.encriptarContrasena(password));
+                    }
+                    else{
+                        contrasenasIguales = false;
+                    }
+                }
+                else{
+                    existeContrasenaActiva = null;
+                    contrasenasIguales = false;
+                }
+                
+            } else{
+                usuarioActivo = false;
+                existeContrasenaActiva = null;
+                contrasenasIguales = false;
+            }
+            
+            
+            if (existeUsuario != null && usuarioActivo &&
+                existeContrasenaActiva != null && contrasenasIguales ) {
                 //VERIFICACION EXITOSA
                 lblError.setText("");
                 
                 //Se debe cambiar la contrasenia en el login cuando:
                 //- El primer acceso de la cuenta
                 //- La contrasenia ya caduco
-                Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(usuarioValidado.getIdUsuario());
+                Contrasena contrasenaActiva = existeContrasenaActiva;
                 boolean condicionCaducidad = contrasenaActiva.getFechaCaducidad().before(new Date());
-                boolean condicionPrimerIngreso = !usuarioValidado.getPrimerAcceso();
+                boolean condicionPrimerIngreso = !existeUsuario.getPrimerAcceso();
 
                 if(condicionCaducidad || condicionPrimerIngreso){
                     String error = "";
@@ -213,19 +252,21 @@ public class Login extends javax.swing.JFrame {
                     if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contraseña. \n";
                     InformationDialog.mostrarInformacion(error, this);
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioValidado, contrasenaActiva);
-                    usuarioValidado = cambiarContrasenia.showDialog();
+                    CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, existeUsuario, contrasenaActiva);
+//                    usuarioValidado = cambiarContrasenia.showDialog();
+                    cambiarContrasenia.showDialog();
                     if(condicionPrimerIngreso)
-                        usuarioValidado = CUsuario.inicializarAccesos(usuarioValidado);//actualizo los accesos de usuario para que no lo vuelva a bloquear
+                        CUsuario.inicializarAccesos(existeUsuario);
+//                        usuarioValidado = CUsuario.inicializarAccesos(usuarioValidado);//actualizo los accesos de usuario para que no lo vuelva a bloquear
 
                 }
                 
-                if(usuarioValidado != null){
+//                if(usuarioValidado != null){
                     
-                    usuarioValidado = CUsuario.incrementarAccesos(usuarioValidado);
-                    Contrasena passIngresada = CSeguridad.getContrasenaActiva(usuarioValidado.getIdUsuario());
-                    CContrasena.actualizarFechaUltimoUso(passIngresada);
-                    Sesion.setUsuario(usuarioValidado);
+//                    usuarioValidado = CUsuario.incrementarAccesos(usuarioValidado);
+                    CUsuario.incrementarAccesos(existeUsuario);
+                    CContrasena.actualizarFechaUltimoUso(CSeguridad.getContrasenaActiva(existeUsuario.getIdUsuario()));
+                    Sesion.setUsuario(existeUsuario);
 
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);
@@ -233,26 +274,34 @@ public class Login extends javax.swing.JFrame {
 
                     this.setVisible(Boolean.FALSE);
                     this.dispose();
-                }
+//                }
             } else {
                 //VERIFICACION FALLO
-                lblError.setText("Usuario y/o Contraseña Inválidos");
-                Usuario usuarioAux = CUsuario.buscarXNombreUsuario(usuario);
-                if(usuarioAux != null){// Si el nombre de usuario existe
-                    if (usuario.equals(userAnteriorIntentoLogin)) {
+                if(existeUsuario == null){
+                    lblError.setText("El nombre de usuario ingresado no existe");
+                }
+                else if(!usuarioActivo){
+                    lblError.setText("El usuario se encuentra bloqueado");
+                }
+                else{
+                    lblError.setText("Usuario y/o Contraseña Inválidos");
+                }
+                
+                if(existeUsuario != null){// Si el nombre de usuario existe
+                    if (username.equals(userAnteriorIntentoLogin)) {
                         numIntentosFallidos++;
                     } else {
                         numIntentosFallidos = 1;
                     }
-                    userAnteriorIntentoLogin = usuario;
+                    userAnteriorIntentoLogin = username;
                     //Solo incremento si el usuario que ha intentado logearse es igual al
                     //usuario guardado, si no es asi, intetos fallidos regresa a 1 xD
                     // Si llega al limite de intentos fallidos se bloquea la cuenta
-                    if (numIntentosFallidos >= numMaxIntentosFallidos && !usuarioAux.getPerfil().getNombre().equals("Administrador")) {
+                    if (numIntentosFallidos >= numMaxIntentosFallidos && !existeUsuario.getPerfil().getNombre().equals("Administrador")) {
                         setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                        CSeguridad.bloquearCuenta(usuario);
+                        CSeguridad.bloquearCuenta(username);
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                        ErrorDialog.mostrarError("Usuario: " +usuario + 
+                        ErrorDialog.mostrarError("Usuario: " + username + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
                     }
                 }

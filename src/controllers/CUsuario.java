@@ -346,7 +346,6 @@ public class CUsuario {
     public static Usuario buscarXNombreUsuario(String username) {
         Session s = Sesion.openSessionFactory();
         try {
-            //Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
             q.setParameter("username", username);
             Usuario user = (Usuario) q.uniqueResult();
