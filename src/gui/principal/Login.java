@@ -190,6 +190,12 @@ public class Login extends javax.swing.JFrame {
             //manejar el numero de intentos fallidos aqui
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
             Usuario usuarioValidado = null;
+            
+            //verificar que el username exista
+            //verificar que el username este activo
+            //verificar que el username tenga contrasena activa
+            //verificar que la contrasena coincida con la contrasena activa
+            
             if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
                 //VERIFICACION EXITOSA
                 lblError.setText("");
