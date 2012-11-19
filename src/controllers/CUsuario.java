@@ -194,8 +194,7 @@ public class CUsuario {
                                 String telefono,String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, 
                                 Parametro Pais){
         
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+        Session s = Sesion.openSessionFactory();
 
         try {
             Transaction tx = s.beginTransaction();
@@ -223,6 +222,7 @@ public class CUsuario {
             System.out.println(e.getMessage());
         } finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
 
     }

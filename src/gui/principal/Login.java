@@ -188,8 +188,8 @@ public class Login extends javax.swing.JFrame {
             password != null    && password.length > 0){
             //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
-            Usuario usuarioValidado = null;
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            Usuario usuarioValidado = null;
             if ((usuarioValidado = CSeguridad.verificarContrasenia(usuario, password)) != null) {
                 //VERIFICACION EXITOSA
                 lblError.setText("");
