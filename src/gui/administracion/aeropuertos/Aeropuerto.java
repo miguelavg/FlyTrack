@@ -64,7 +64,12 @@ public class Aeropuerto extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         btn_agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_aeropuerto = new javax.swing.JTable();
+        tbl_aeropuerto = new javax.swing.JTable()
+        {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         btn_modificar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
