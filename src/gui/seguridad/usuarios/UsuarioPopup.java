@@ -307,13 +307,13 @@ public class UsuarioPopup extends javax.swing.JDialog {
         // TODO add your handling code here:
         //        DefaultComboBoxModel dtcbotipodoc = (DefaultComboBoxModel) this.cboTipoDoc.getModel();
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        Parametro tipoDoc;
+        Parametro tipodoc;
         Perfil perfil;
         
         if (cmb_tipodoc.getSelectedIndex() != 0) {
-            tipoDoc = (Parametro) cmb_tipodoc.getSelectedItem();
+            tipodoc = (Parametro) cmb_tipodoc.getSelectedItem();
         } else {
-            tipoDoc = null;
+            tipodoc = null;
         }
         
         if (cmb_perfil.getSelectedIndex() != 0) {
@@ -321,7 +321,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
         } else {
             perfil = null;
         }
-        List<Usuario> usuarios = CUsuario.buscar(perfil, aeropuerto, tipoDoc, txt_nombre.getText(), txt_apellido.getText(), txt_numdoc.getText(), txt_login.getText());
+        List<Usuario> usuarios = CUsuario.buscar(perfil, aeropuerto, tipodoc, txt_nombre.getText(), txt_apellido.getText(), txt_numdoc.getText(), txt_login.getText());
         llenarTabla(usuarios);
 
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
