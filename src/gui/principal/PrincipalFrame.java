@@ -159,6 +159,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         lblCambiarPass.setForeground(new java.awt.Color(253, 2, 2));
         lblCambiarPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCambiarPass.setText("Cambiar Contraseña");
+        lblCambiarPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lblCambiarPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCambiarPassMouseClicked(evt);
@@ -340,7 +341,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
         Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(usuarioActivo.getIdUsuario());
         CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioActivo, contrasenaActiva);
 //        usuarioValidado = cambiarContrasenia.showDialog();
-        Sesion.setUsuario(cambiarContrasenia.showDialog());
+        usuarioActivo = cambiarContrasenia.showDialog();
+        if(usuarioActivo != null)
+            Sesion.setUsuario(usuarioActivo);
 
     }//GEN-LAST:event_lblCambiarPassMouseClicked
 
