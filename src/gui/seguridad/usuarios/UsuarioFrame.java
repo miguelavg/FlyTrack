@@ -183,6 +183,11 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
         jLabel7.setText("Cliente:");
 
+        txtCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClienteActionPerformed(evt);
+            }
+        });
         txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtClienteKeyReleased(evt);
@@ -560,6 +565,10 @@ public class UsuarioFrame extends javax.swing.JDialog {
             listaCargada = true;
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClienteActionPerformed
 
     /**
      * @param args the command line arguments

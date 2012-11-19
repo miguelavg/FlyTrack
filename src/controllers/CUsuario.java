@@ -20,12 +20,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+
 /**
  *
  * @author joao
  */
-
-
 public class CUsuario {
 
     
@@ -36,12 +35,12 @@ public class CUsuario {
         
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        
+
         try {
             Transaction tx = s.beginTransaction();
-            
+
             Usuario CUsuario = new Usuario();
-            
+
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
             CUsuario.setLogIn(LogIn);
@@ -58,89 +57,137 @@ public class CUsuario {
             CUsuario.seteMail(correo);
             CUsuario.setCiudad(Ciudad);
             CUsuario.setPais(Pais);
-            
-            int i = (Integer)s.save(CUsuario);
+
+            int i = (Integer) s.save(CUsuario);
             tx.commit();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-                }
-        finally {
+        } finally {
             s.close();
         }
-        
+
     }
-    
-    public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto,String nombre,Parametro Estado)
-    {
+
+    public static List<Usuario> buscar(Perfil perfil, Aeropuerto aeropuerto, Parametro tipodoc, String nombre, String apellido, String numdoc, String login) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         
+        List<Usuario> usuarios = null;
+
+        try {
+            Query q = s.getNamedQuery("Usuario");
+            
+            if(perfil != null){
+                Filter f_perfil = s.enableFilter("UsuarioxIdperfil");
+                f_perfil.setParameter("idperfil", perfil.getIdPerfil());
+            }
+            
+            if(aeropuerto != null){
+                Filter f_aeropuerto = s.enableFilter("UsuarioxIdaeropuerto");
+                f_aeropuerto.setParameter("idaeropuerto", aeropuerto.getIdAeropuerto());
+            }
+            
+            if(tipodoc != null){
+                Filter f_tipodoc = s.enableFilter("UsuarioxTipoDoc");
+                f_tipodoc.setParameter("tipodoc", tipodoc.getIdParametro());
+            }
+            
+            if(nombre != null && !nombre.isEmpty()){
+                Filter f_nombre = s.enableFilter("UsuarioxNombre");
+                f_nombre.setParameter("nombres", "%" + nombre + "%");
+            }
+            
+            if(apellido != null && !apellido.isEmpty()){
+                Filter f_apellidos = s.enableFilter("UsuarioxApellido");
+                f_apellidos.setParameter("apellidos", "%" + nombre + "%");
+            }
+            
+            if(numdoc != null && !numdoc.isEmpty()){
+                Filter f_numdoc = s.enableFilter("UsuarioxNumDoc");
+                f_numdoc.setParameter("numdoc", "%" + nombre + "%");
+            }
+            
+            if(login != null && !login.isEmpty()){
+                Filter f_login = s.enableFilter("UsuarioxLogin");
+                f_login.setParameter("login", "%" + nombre + "%");
+            }
+            
+            usuarios = q.list();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return usuarios;
+    }
+
+    public List<Usuario> Buscar(Perfil perfil, Aeropuerto aeropuerto, String nombre, Parametro Estado) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+
         try {
             Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("Usuario");
-           
-           
-            if (perfil!=null ){
+
+
+            if (perfil != null) {
                 Filter f = s.enableFilter("UsuarioxIdperfil");
-                f.setParameter("idperfil",perfil.getIdPerfil());
+                f.setParameter("idperfil", perfil.getIdPerfil());
             }
 
-            if (aeropuerto!=null ){
+            if (aeropuerto != null) {
                 Filter f2 = s.enableFilter("UsuarioxIdaeropuerto");
-                f2.setParameter("idaeropuerto",aeropuerto.getIdAeropuerto());
+                f2.setParameter("idaeropuerto", aeropuerto.getIdAeropuerto());
             }
 
-            if (!nombre.trim().equals("") ){
+            if (!nombre.trim().equals("")) {
 //                Filter f3 = s.enableFilter("UsuarioxIdcliente");
 //                f3.setParameter("idcliente",cliente.getIdCliente());
 //                
                 Filter f3 = s.enableFilter("UsuarioxNombre");
-                f3.setParameter("nombres",nombre);
-                
+                f3.setParameter("nombres", nombre);
+
             }
 
             //&& Estado.getIdParametro()!=0
-            if (Estado!=null ){
+            if (Estado != null) {
                 Filter f5 = s.enableFilter("UsuarioxEstado");
-                f5.setParameter("estado",Estado.getIdParametro());
+                f5.setParameter("estado", Estado.getIdParametro());
             }
-            
-            return (List<Usuario>)q.list();
-                      
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());            
-        }
-        finally {
+
+            return (List<Usuario>) q.list();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
             s.close();
         }
-        
+
         return null;
     }
-     
-    public Usuario BuscarXid(int id){
+
+    public Usuario BuscarXid(int id) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-          Usuario CUsuario = new Usuario();
-        
+        Usuario CUsuario = new Usuario();
+
         try {
             Transaction tx = s.beginTransaction();
             Query q;
             q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
             q.setParameter("idusuario", id);
-            CUsuario=(Usuario)q.uniqueResult();
+            CUsuario = (Usuario) q.uniqueResult();
             CUsuario.getContrasenias().size();//LAZY QUERY
             CUsuario.getPerfil().getPermisos().size();//LAZY QUERY
             return CUsuario;
-            }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             s.close();
         }
-        
+
         return null;
     }
     
@@ -150,8 +197,8 @@ public class CUsuario {
                                 Parametro Pais){
         
         SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession( );
-        
+        Session s = sf.openSession();
+
         try {
             Transaction tx = s.beginTransaction();
             
@@ -168,23 +215,21 @@ public class CUsuario {
             CUsuario.setNombres(Nombre);
             CUsuario.setNumDoc(NumeroDoc);
             CUsuario.setTelefono(telefono);
-            CUsuario.seteMail( correo);
+            CUsuario.seteMail(correo);
             CUsuario.setCiudad(Ciudad);
             CUsuario.setPais(Pais);
-            
+
             s.update(CUsuario);
             tx.commit();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-                }
-        finally {
+        } finally {
             s.close();
         }
-        
+
     }
-      
-    public String validar(Integer idusuario, boolean isNuevo, String aeropuerto, String logIn,Parametro estado, Perfil perfil) {
+
+    public String validar(Integer idusuario, boolean isNuevo, String aeropuerto, String logIn, Parametro estado, Perfil perfil) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -192,41 +237,39 @@ public class CUsuario {
         Usuario U2;
         try {
 
-            if (idusuario==-1){
-            
+            if (idusuario == -1) {
+
 //            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
 //                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
 //            }
-            if (aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null ) {
-                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-            }
-            
-            else {
-           Query q;
-           Query q1;
-           
-           q = s.getNamedQuery("Usuario");
-           Filter f = s.enableFilter("UsuarioxLogin");
-           f.setParameter("login",logIn);
-        
-           List<Usuario> ListaUsuarios;
-           List<Usuario> ListaAuxUsuarios;
-          
-           ListaUsuarios= q.list();
-           s.disableFilter("UsuarioxLogin");
-           
-                if (ListaUsuarios.size() > 0) {
-                    U = ListaUsuarios.get(0);
-                    if (U!=null){
-                        error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
-                    }
-                }
-                
+                if (aeropuerto.isEmpty() || logIn.isEmpty() || estado == null || perfil == null) {
+                    error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                } else {
+                    Query q;
+                    Query q1;
 
-           //q = s.getNamedQuery("Usuario");
+                    q = s.getNamedQuery("Usuario");
+                    Filter f = s.enableFilter("UsuarioxLogin");
+                    f.setParameter("login", logIn);
+
+                    List<Usuario> ListaUsuarios;
+                    List<Usuario> ListaAuxUsuarios;
+
+                    ListaUsuarios = q.list();
+                    s.disableFilter("UsuarioxLogin");
+
+                    if (ListaUsuarios.size() > 0) {
+                        U = ListaUsuarios.get(0);
+                        if (U != null) {
+                            error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
+                        }
+                    }
+
+
+                    //q = s.getNamedQuery("Usuario");
 //           Filter f2 = s.enableFilter("UsuarioxIdcliente");
 //           f2.setParameter("idcliente",idcliente);
-        
+
 //           q1 = s.getNamedQuery("UsuarioxIdClienteAux");
 //           q1.setParameter("idcliente",idcliente );
 //           
@@ -238,14 +281,14 @@ public class CUsuario {
 //                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
 //                    }
 //                }
-                
+
+                }
             }
-            }
-            
-            if (idusuario!=-1){
-            if ( aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
-                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-            }
+
+            if (idusuario != -1) {
+                if (aeropuerto.isEmpty() || logIn.isEmpty() || estado == null || perfil == null) {
+                    error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
+                }
             }
 
         } catch (Exception e) {
@@ -256,7 +299,7 @@ public class CUsuario {
 
         return error_message;
     }
-     
+
 //    public Usuario BuscarXidCliente(int id){
 //        SessionFactory sf = Sesion.getSessionFactory();
 //        Session s = sf.openSession();
@@ -280,94 +323,87 @@ public class CUsuario {
 //        }
 //        return null;
 //    }
-    
-    public static Usuario buscarXNombreUsuario(String username){
+    public static Usuario buscarXNombreUsuario(String username) {
         Session s = Sesion.openSessionFactory();
-        try{
+        try {
             //Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
             q.setParameter("username", username);
-            Usuario user = (Usuario)q.uniqueResult();
-            if(user != null) {
+            Usuario user = (Usuario) q.uniqueResult();
+            if (user != null) {
                 user.getContrasenias().size();
                 //user.getPerfil().getPermisos().size(); <-- no es necesario pues solo se usara para el Olvido Contrasenia
             }
             return user;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally{
+        } finally {
             s.close();
             Sesion.closeSessionFactory();
         }
-        
+
         return null;
     }
-    
-    public static Usuario buscarXNumDocumento(String documento){
+
+    public static Usuario buscarXNumDocumento(String documento) {
         Session s = Sesion.openSessionFactory();
-        try{
+        try {
             Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("UsuarioxNumDoc").setMaxResults(1);
             q.setParameter("documento", documento);
-            Usuario user = (Usuario)q.uniqueResult();
+            Usuario user = (Usuario) q.uniqueResult();
             user.getContrasenias().size();
             return user;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally{
+        } finally {
             s.close();
             Sesion.closeSessionFactory();
         }
-        
+
         return null;
     }
-     
-    public String ValidarDocumento(Parametro tipodoc, String numero){
-        String error="";
-        
+
+    public String ValidarDocumento(Parametro tipodoc, String numero) {
+        String error = "";
+
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        Usuario usuario=null;
-        
+        Usuario usuario = null;
+
         try {
             Transaction tx = s.beginTransaction();
             Query q;
             q = s.getNamedQuery("UsuarioxIdentidad").setMaxResults(1);
             q.setParameter("tipodoc", tipodoc);
             q.setParameter("numdoc", numero);
-            
-            usuario=(Usuario)q.uniqueResult();
-            
-                       }
-        catch(Exception e){
+
+            usuario = (Usuario) q.uniqueResult();
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             s.close();
         }
-        
-        if (usuario!=null){
-            error="Ya existe un usuario registrado con ese número de documento";
+
+        if (usuario != null) {
+            error = "Ya existe un usuario registrado con ese número de documento";
         }
-        
+
         return error;
     }
-     
-    public static Usuario inicializarAccesos(Usuario usuario){
+
+    public static Usuario inicializarAccesos(Usuario usuario) {
         //Actualiza los acceso a inmediatamente despues del primer acceso donde cambia la contrasena
         Session s = Sesion.openSessionFactory();
-        try{
+        try {
             Transaction tx = s.beginTransaction();
             usuario.setNumAcceso(1);
             usuario.setPrimerAcceso(true);
             s.update(usuario);
             tx.commit();
             return usuario;
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return usuario;
         } finally {
@@ -375,22 +411,21 @@ public class CUsuario {
             Sesion.closeSessionFactory();
         }
     }
-    
+
     public static Usuario incrementarAccesos(Usuario usuario) {
         Session s = Sesion.openSessionFactory();
-        try{
+        try {
             Transaction tx = s.beginTransaction();
             usuario.setNumAcceso(usuario.getNumAcceso() + 1);
             s.update(usuario);
             tx.commit();
             return usuario;
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return usuario;
-        } finally{
+        } finally {
             s.close();
             Sesion.closeSessionFactory();
         }
     }
-    
 }
