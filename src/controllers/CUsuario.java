@@ -27,12 +27,12 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class CUsuario {
 
-    public void agregarUsuario(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
-            Parametro estado, Integer numAcceso, boolean PrimerAcceso,
-            String Nombre, String Apellidos, String correo,
-            String telefono, String NumeroDoc,
-            Parametro TipoDoc, Parametro Ciudad, Parametro Pais) {
-
+    
+    public void agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+                                    Parametro estado,String Nombre,String Apellidos, String correo, 
+                                    String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais
+            ){
+        
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
 
@@ -43,13 +43,12 @@ public class CUsuario {
 
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-            CUsuario.setNumAcceso(numAcceso);
-            CUsuario.setPrimerAcceso(PrimerAcceso);
-
-
+            CUsuario.setNumAcceso(0);
+            CUsuario.setPrimerAcceso(false);
+            
+            
             CUsuario.setTipoDoc(TipoDoc);
             CUsuario.setApellidos(Apellidos);
             CUsuario.setNombres(Nombre);
@@ -191,89 +190,26 @@ public class CUsuario {
 
         return null;
     }
-
-    public static String ValidarContrasena(char[] contra) {
-
-        String mensaje = "";
-        List<Parametro> Condiciones;
-        CParametro ParametroC = new CParametro();
-        Condiciones = ParametroC.buscar(null, null, "SEGURIDAD", null);
-        for (Parametro cond : Condiciones) {
-            if (cond.getValorUnico().equals("PASS_LONG_MINIMA")) {
-                if (contra.length < Integer.parseInt(cond.getValor())) {
-                    mensaje = "Password no tiene la longitud mínima\n";
-                }
-            }
-            if (cond.getValorUnico().equals("PASS_NUM_MINIMO_CAR_ALFANUM")) {
-                int numlet = 0;
-                for (int s = 0; s < contra.length; s++) {
-                    Character car = contra[s];
-
-                    if (car.isLetter(car)) {
-                        numlet++;
-                    }
-
-                }
-                if (numlet < Integer.parseInt(cond.getValor())) {
-                    mensaje = "Password no tiene cantidad mínima de letras\n";
-                }
-            }
-            if (cond.getValorUnico().equals("PASS_NUM_MINIMO_CAR_NUM")) {
-                int numnum = 0;
-                for (int s = 0; s < contra.length; s++) {
-                    Character car = contra[s];
-
-                    if (car.isDigit(car)) {
-                        numnum++;
-                    }
-
-                }
-                if (numnum < Integer.parseInt(cond.getValor())) {
-                    mensaje = "Password No tiene cantidad mínima de números\n";
-                }
-            }
-            if (cond.getValorUnico().equals("PASS_NUM_MINIMO_CAR_ESP")) {
-                int numesp = 0;
-                for (int s = 0; s < contra.length; s++) {
-                    Character car = contra[s];
-
-                    if ((!car.isDigit(car) && (!car.isLetter(car)))) {
-                        numesp++;
-                    }
-
-                }
-                if (numesp < Integer.parseInt(cond.getValor())) {
-                    mensaje = "Password no tiene cantidad mínima de caracteres especiales\n";
-                }
-            }
-        }
-
-        return mensaje;
-    }
-
-    public void modificarUsuario(Integer idUsuario, Perfil perfil, Aeropuerto aeropuerto, String LogIn,
-            Parametro estado, String Nombre, String Apellidos, String correo,
-            String telefono, String NumeroDoc,
-            Parametro TipoDoc, Parametro Ciudad, Parametro Pais) {
-
+    
+    public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+                                Parametro estado,String Nombre, String Apellidos, String correo, 
+                                String telefono,String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, 
+                                Parametro Pais){
+        
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
 
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
-
-            //Usuario CUsuario = (Usuario)s.load(Usuario.class, idUsuario);\
+            
             Usuario CUsuario = new Usuario();
+            
             CUsuario.setIdUsuario(idUsuario);
             CUsuario.setPerfil(perfil);
             CUsuario.setIdAeropuerto(aeropuerto);
-            //CUsuario.setIdCliente(cliente);
             CUsuario.setLogIn(LogIn);
             CUsuario.setEstado(estado);
-//            CUsuario.setNumAcceso(0);
-//            CUsuario.setPrimerAcceso(false);
-
+            
             CUsuario.setTipoDoc(TipoDoc);
             CUsuario.setApellidos(Apellidos);
             CUsuario.setNombres(Nombre);

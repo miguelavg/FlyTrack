@@ -30,6 +30,7 @@ import org.hibernate.Transaction;
  */
 public class CContrasena {
 
+    //Manolin
     public static void actualizarFechaUltimoUso(Contrasena passIngresada) {
         Session s = Sesion.openSessionFactory();
         
@@ -73,6 +74,7 @@ public class CContrasena {
         }
     }
     
+    //Manolin
     public static Date calcularCaducidad(Calendar calendarioActual){
         Parametro parametro = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_CADUCIDAD_DIAS");
         int diasMover = Integer.parseInt(parametro.getValor());
@@ -109,6 +111,7 @@ public class CContrasena {
         }
     }
     
+    //Manolin
     public static boolean desactivarContrasena(Contrasena contrasena){
         Session s = Sesion.openSessionFactory();
         
@@ -126,9 +129,9 @@ public class CContrasena {
             Sesion.closeSessionFactory();
             return true;
         }
-        
     }
     
+    //Manolin
     public static boolean agregarContrasenaActiva(char[] contrasenaNueva, Usuario usuario){
         Session s = Sesion.openSessionFactory();
         try{
@@ -150,7 +153,7 @@ public class CContrasena {
             
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return true;
+            return false;
         } finally {
             s.close();
             Sesion.closeSessionFactory();
@@ -205,6 +208,7 @@ public class CContrasena {
         return null;
     }
     
+    //Manolin
     private static final char[] CONSTS_HEX = { '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f' };
     public static char[] encriptarContrasena(char[] contrasenaAEncriptar){
         try
