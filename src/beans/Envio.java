@@ -37,7 +37,8 @@ import org.hibernate.annotations.ParamDef;
 @Table(name = "Envio")
 @NamedQueries({
     @NamedQuery(name = "Envios", query = "from Envio order by fechaRegistro desc"),
-    @NamedQuery(name = "EnvioID", query = "from Envio where idenvio = :idenvio")
+    @NamedQuery(name = "EnvioID", query = "from Envio where idenvio = :idenvio"),
+    
 })
 @FilterDefs({
     @FilterDef(name = "EnviosXOrigen", parameters =
@@ -51,7 +52,9 @@ import org.hibernate.annotations.ParamDef;
     @FilterDef(name = "EnviosXCliente", parameters =
     @ParamDef(name = "idCliente", type = "integer")),
     @FilterDef(name = "EnviosXNumEnvio", parameters =
-    @ParamDef(name = "numEnvio", type = "integer"))
+    @ParamDef(name = "numEnvio", type = "integer")),
+    @FilterDef(name = "EnviosXFecha", parameters =
+    @ParamDef(name = "fecharegistro", type = "timestamp"))
 })
 @Filters({
     @Filter(name = "EnviosXOrigen", condition = "idOrigen = :idAeropuerto"),
