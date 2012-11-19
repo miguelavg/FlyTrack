@@ -11,6 +11,7 @@ import controllers.CAeropuerto;
 import controllers.CIncidencia;
 import controllers.CValidator;
 import controllers.CVuelo;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.Date;
@@ -102,6 +103,9 @@ public class Incidencias extends javax.swing.JDialog {
         setTitle("FlyTrack - Administración - Vuelos - Incidencia");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -338,12 +342,14 @@ public class Incidencias extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-
+        
+        setCursor(new Cursor (Cursor.WAIT_CURSOR));
         ListaInci = objV.getIncidencias(); //CIncidencia.BuscarIncidencia(p,dt_fechini.getSelectedDate(),dt_fechfin.getSelectedDate());   
         if (ListaInci != null) {
 
             llenarGrillaIncidencia();
         }
+          setCursor(new Cursor (Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void tbl_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_incidenciaMouseClicked
@@ -376,12 +382,19 @@ public class Incidencias extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
 
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        setCursor(new Cursor (Cursor.WAIT_CURSOR));
         ListaInci = objV.getIncidencias(); //CIncidencia.BuscarIncidencia(p,dt_fechini.getSelectedDate(),dt_fechfin.getSelectedDate());   
         if (ListaInci != null) {
 
             llenarGrillaIncidencia();
         }
-    }//GEN-LAST:event_formWindowOpened
+          setCursor(new Cursor (Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_formWindowActivated
 
     private void llenarLineaIncidencia(DefaultTableModel dtm, Incidencia inc, Calendar fec, Parametro p) {
         Object[] datos = new Object[5];

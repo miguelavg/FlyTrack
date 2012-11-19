@@ -28,7 +28,7 @@ public class Aeropuerto extends javax.swing.JDialog {
     List<beans.Aeropuerto> listaAeropuertos;
 
     JTextField campoTexto = new JTextField();
-
+    Integer aeropuertolleno=0;
 
     /**
      * Creates new form Aeropuerto
@@ -64,7 +64,12 @@ public class Aeropuerto extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         btn_agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_aeropuerto = new javax.swing.JTable();
+        tbl_aeropuerto = new javax.swing.JTable()
+        {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         btn_modificar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -72,6 +77,9 @@ public class Aeropuerto extends javax.swing.JDialog {
         setTitle("FlyTrack - Administración - Aeropuertos");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -414,8 +422,19 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        llenarGrillaAero();
+       
     }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if (aeropuertolleno!=1) {
+           aeropuertolleno =1;
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+           
+           llenarGrillaAero();
+           setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } 
+        
+    }//GEN-LAST:event_formWindowActivated
 
     private void llenarComboPais() {
 
