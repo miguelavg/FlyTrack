@@ -688,12 +688,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
             Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
 
             Aeropuerto nuevoAeropuerto;
-            Cliente nuevoCliente;
-
-            Cliente auxCliente;
 
             CUsuario Cusuario = new CUsuario();
-            Integer valoraux;
 
             Usuario UsuarioAux;
             //solo valido  cuando es nuevo, que todos los campos esten llenos, los demas no
@@ -741,18 +737,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     Usuario.modificarUsuario(idusuario,
                             perfil,
                             nuevoAeropuerto,
-                            //AeropuertoAux, 
-                            //nuevoCliente,
-                            //ClienteAux, 
                             txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
                             txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
-                    
-                    CMail cmail = new CMail();
-                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
-                            "[FlyTrack] Se modificó su contraseña",
-                            "Estimado usuario.\nSu contraseña ha sido modificada: " + this.psswdContrasena.getText() + ".\nSoporte FlyTrack.");
 
                     if (psswdContrasena.getPassword().length != 0){  
                     
@@ -763,6 +751,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
                         Contrasena.desactivarUltimaContrasena(ContrasenaAux, ListaEstado.get(0));
                         ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
                         Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioauxBE, ListaEstado.get(0));
+                        
+                        CMail cmail = new CMail();
+                        cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
+                            "[FlyTrack] Se modificó su contraseña",
+                            "Estimado usuario.\nSu contraseña ha sido modificada: " + new String(psswdContrasena.getPassword()) + ".\nSoporte FlyTrack.");
                     }
                     
                 }
