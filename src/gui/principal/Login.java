@@ -104,6 +104,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         lblOlvidoPass.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblOlvidoPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblOlvidoPass.setText("Olvidé mi contraseña");
         lblOlvidoPass.setMaximumSize(new java.awt.Dimension(150, 20));
         lblOlvidoPass.setMinimumSize(new java.awt.Dimension(150, 20));

@@ -71,7 +71,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSeguridad = new javax.swing.JButton();
         lblSeguridad = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblCambiarPass = new javax.swing.JLabel();
+        lblCopyright = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack");
@@ -154,12 +155,23 @@ public class PrincipalFrame extends javax.swing.JFrame {
         lblSeguridad.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         lblSeguridad.setText("Seguridad");
 
+        lblCambiarPass.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        lblCambiarPass.setForeground(new java.awt.Color(253, 2, 2));
+        lblCambiarPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCambiarPass.setText("Cambiar Contraseña");
+        lblCambiarPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblCambiarPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCambiarPassMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 48, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnClientes)
@@ -174,10 +186,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(lblSeguridad))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAdministracion)
-                        .addGap(36, 36, 36)
-                        .addComponent(lblAdministracion))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnSimulacion)
                         .addGap(36, 36, 36)
                         .addComponent(lblSimulacion))
@@ -188,19 +196,30 @@ public class PrincipalFrame extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCerrarSesion)
-                            .addComponent(lblReportes))))
-                .addGap(244, 244, 244))
+                            .addComponent(lblReportes)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdministracion)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(lblAdministracion))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(263, 263, 263)
+                                .addComponent(lblCambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAdministracion))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(lblAdministracion)))
+                        .addComponent(lblAdministracion))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdministracion))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -239,7 +258,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        jLabel3.setText("Copyleft (l). Todos los derechos compartidos.");
+        lblCopyright.setText("Copyleft (l). Todos los derechos compartidos.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,7 +267,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(lblCopyright)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,7 +275,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(lblCopyright)
                 .addContainerGap())
         );
 
@@ -315,6 +334,18 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1KeyPressed
+
+    private void lblCambiarPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCambiarPassMouseClicked
+        // TODO add your handling code here:
+        Usuario usuarioActivo = Sesion.getUsuario();
+        Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(usuarioActivo.getIdUsuario());
+        CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, usuarioActivo, contrasenaActiva);
+//        usuarioValidado = cambiarContrasenia.showDialog();
+        usuarioActivo = cambiarContrasenia.showDialog();
+        if(usuarioActivo != null)
+            Sesion.setUsuario(usuarioActivo);
+
+    }//GEN-LAST:event_lblCambiarPassMouseClicked
 
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
@@ -384,11 +415,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSeguridad;
     private javax.swing.JButton btnSimulacion;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAdministracion;
+    private javax.swing.JLabel lblCambiarPass;
     private javax.swing.JLabel lblCerrarSesion;
     private javax.swing.JLabel lblClientes;
+    private javax.swing.JLabel lblCopyright;
     private javax.swing.JLabel lblEnvios;
     private javax.swing.JLabel lblReportes;
     private javax.swing.JLabel lblSeguridad;
