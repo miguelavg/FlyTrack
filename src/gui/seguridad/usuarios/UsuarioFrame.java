@@ -112,7 +112,11 @@ public class UsuarioFrame extends javax.swing.JDialog {
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        UsuarioTabla = new javax.swing.JTable();
+        UsuarioTabla = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Flytrack - Seguridad - Usuario");
