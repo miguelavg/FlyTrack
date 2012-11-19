@@ -334,22 +334,22 @@ public class CUsuario {
                 }
                 
 
-                    q = s.getNamedQuery("Usuario");
-                    Filter f = s.enableFilter("UsuarioxLogin");
-                    f.setParameter("login", logIn);
-
-                    List<Usuario> ListaUsuarios;
-                    List<Usuario> ListaAuxUsuarios;
-
-                    ListaUsuarios = q.list();
-                    s.disableFilter("UsuarioxLogin");
-
-                    if (ListaUsuarios.size() > 0) {
-                        U = ListaUsuarios.get(0);
-                        if (U != null) {
-                            error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
-                        }
-                    }
+//                    q = s.getNamedQuery("Usuario");
+//                    Filter f = s.enableFilter("UsuarioxLogin");
+//                    f.setParameter("login", logIn);
+//
+//                    List<Usuario> ListaUsuarios;
+//                    List<Usuario> ListaAuxUsuarios;
+//
+//                    ListaUsuarios = q.list();
+//                    s.disableFilter("UsuarioxLogin");
+//
+//                    if (ListaUsuarios.size() > 0) {
+//                        U = ListaUsuarios.get(0);
+//                        if (U != null) {
+//                            error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
+//                        }
+//                    }
 
 
                     //q = s.getNamedQuery("Usuario");
