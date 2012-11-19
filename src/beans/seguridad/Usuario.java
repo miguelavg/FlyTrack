@@ -94,34 +94,46 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
+    
     @ManyToOne
     @JoinColumn(name = "idPerfil")
     private Perfil perfil;
+    
     @ManyToOne
     @JoinColumn(name = "idAeropuerto")
     private Aeropuerto aeropuerto;
+    
     private String logIn;
+    
     @ManyToOne
     @JoinColumn(name = "estado")
     private Parametro estado;
+    
     private int numAcceso;
     private boolean primerAcceso;
+    
     @OneToMany(mappedBy = "usuario")
     private List<Contrasena> contrasenias;
+    
     private String Nombres;
     private String Apellidos;
-    private String NumDoc;
-    private String Telefono;
-    private String CorreoElectronico;
+    
     @ManyToOne
     @JoinColumn(name = "TipoDoc")
     private Parametro tipoDoc;
+    private String NumDoc;
+    
+    private String Telefono;
+    
     @ManyToOne
     @JoinColumn(name = "Ciudad")
     private Parametro ciudad;
+    
     @ManyToOne
     @JoinColumn(name = "Pais")
     private Parametro pais;
+    
+    private String CorreoElectronico;
 
     public String getNombres() {
         return Nombres;
