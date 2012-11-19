@@ -30,11 +30,9 @@ public class CUsuario {
     
     public void agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
                                     Parametro estado,String Nombre,String Apellidos, String correo, 
-                                    String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais
-            ){
+                                    String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais){
         
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+        Session s = Sesion.openSessionFactory();
 
         try {
             Transaction tx = s.beginTransaction();
@@ -64,6 +62,7 @@ public class CUsuario {
             System.out.println(e.getMessage());
         } finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
 
     }
@@ -169,14 +168,12 @@ public class CUsuario {
     }
 
     public Usuario BuscarXid(int id) {
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+        Session s = Sesion.openSessionFactory();
         Usuario CUsuario = new Usuario();
 
         try {
             Transaction tx = s.beginTransaction();
-            Query q;
-            q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
+            Query q = s.getNamedQuery("UsuarioxId").setMaxResults(1);
             q.setParameter("idusuario", id);
             CUsuario = (Usuario) q.uniqueResult();
             CUsuario.getContrasenias().size();//LAZY QUERY
@@ -186,6 +183,7 @@ public class CUsuario {
             System.out.println(e.getMessage());
         } finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
 
         return null;
