@@ -23,6 +23,7 @@ import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
 import controllers.ExpresionesRegulares;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.HashSet;
 import java.util.List;
@@ -113,13 +114,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
             //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
             //txtNombres.setDocument(regexDocument);
             //txtNombres.setmax
-
+            
+             this.isNuevo = false;
         } else {
             lblContrasena.setVisible(false);
             psswdContrasena.setVisible(false);
         }
-
         cboEstado.setSelectedIndex(1);
+        if (this.isNuevo) {
+            this.setTitle("FlyTrack - Usuario - Crear");
+        } else {
+            this.setTitle("FlyTrack - Usuario - Editar");
+        }
 
     }
 
@@ -657,6 +663,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         String mensaje = "";
         String mensaje2 = "";
 
@@ -741,6 +748,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
                             txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
                             txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
                             (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
+                    
+                    CMail cmail = new CMail();
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
+                            "[FlyTrack] Se modificó su contraseña",
+                            "Estimado usuario.\nSu contraseña ha sido modificada: " + this.psswdContrasena.getText() + ".\nSoporte FlyTrack.");
 
                     if (psswdContrasena.getPassword().length != 0){  
                     
@@ -764,6 +776,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
         } else {
             ErrorDialog.mostrarError(mensaje, this);
         }
+        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

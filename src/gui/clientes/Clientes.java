@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
- 
 package gui.clientes;
 
 /**
@@ -16,6 +15,7 @@ import beans.seguridad.Permiso;
 import controllers.CCliente;
 import controllers.CParametro;
 import controllers.CSeguridad;
+import java.awt.Cursor;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -26,6 +26,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+
 public class Clientes extends javax.swing.JDialog {
 
     /**
@@ -34,24 +35,27 @@ public class Clientes extends javax.swing.JDialog {
     CCliente ClienteBL = new CCliente();
     CParametro ParametroBL = new CParametro();
     List<Parametro> ListaTipoDoc;
+
     public Clientes() {
         initComponents();
         llenarcombos();
         definirPermisos();
+        listaCargada = false;
     }
-    
-    public void llenarcombos(){
-        
-         ListaTipoDoc=ParametroBL.buscar("", null, "TIPO_DOC", null);
-        
-        
-        for (Parametro p : ListaTipoDoc)
-        {
+    private boolean listaCargada;
+
+    public void llenarcombos() {
+
+        ListaTipoDoc = ParametroBL.buscar("", null, "TIPO_DOC", null);
+
+
+        for (Parametro p : ListaTipoDoc) {
             //Parametro TipoDocBE =(Parametro)ListaTipoDoc.get(i);
-            
+
             cboTipoDoc.addItem(p);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,6 +111,11 @@ public class Clientes extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Flrytack - Clientes");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -323,50 +332,53 @@ public class Clientes extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
 //        DefaultComboBoxModel dtcbotipodoc = (DefaultComboBoxModel) this.cboTipoDoc.getModel();
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         Parametro TipoDoc;
-        if(cboTipoDoc.getSelectedIndex()!=0){
-        
-            TipoDoc=(Parametro)cboTipoDoc.getSelectedItem();
-            
+        if (cboTipoDoc.getSelectedIndex() != 0) {
+
+            TipoDoc = (Parametro) cboTipoDoc.getSelectedItem();
+
+        } else {
+            TipoDoc = null;
         }
-        else {
-            TipoDoc=null;
-        }
-        List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(),txtApellido.getText(),TipoDoc,txtNumDoc.getText());
-        
-        
+        List<Cliente> listaClientes = ClienteBL.Buscar(txtNombre.getText(), txtApellido.getText(), TipoDoc, txtNumDoc.getText());
+
+
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-        int rows=dtm.getRowCount();
-        for (int i=rows-1; i>=0; i--){
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-       
+
         TableColumn column = null;
-        column= ClienteTabla.getColumnModel().getColumn(0);
+        column = ClienteTabla.getColumnModel().getColumn(0);
         column.setMaxWidth(0);
         Object[] datos = new Object[9];
-       for (int i = 0; i < listaClientes.size(); i++) {
-           
-           datos[0] = listaClientes.get(i).getIdCliente();
-           datos[1] = listaClientes.get(i).getNombres();
-           datos[2] = listaClientes.get(i).getApellidos();
-           datos[3] = listaClientes.get(i).getTelefono();
-           datos[4] = listaClientes.get(i).geteMail();           
-           datos[5] = listaClientes.get(i).getTipoDoc();
-           datos[6] = listaClientes.get(i).getNumDoc();           
-           
-           dtm.addRow(datos);
-       }
+        for (int i = 0; i < listaClientes.size(); i++) {
+
+            datos[0] = listaClientes.get(i).getIdCliente();
+            datos[1] = listaClientes.get(i).getNombres();
+            datos[2] = listaClientes.get(i).getApellidos();
+            datos[3] = listaClientes.get(i).getTelefono();
+            datos[4] = listaClientes.get(i).geteMail();
+            datos[5] = listaClientes.get(i).getTipoDoc();
+            datos[6] = listaClientes.get(i).getNumDoc();
+
+            dtm.addRow(datos);
+        }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
 
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        ClientesEdit clienteAgregarGUI = new ClientesEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
+        ClientesEdit clienteAgregarGUI = new ClientesEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         int result = clienteAgregarGUI.showDialog();
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         cargartabla();//le decimos al compilador que queremos que se vea la ventana
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         //le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -377,22 +389,21 @@ public class Clientes extends javax.swing.JDialog {
 //        MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
 //        MiVentana.setSize(638,484);//le damos el tamaño deseado a nuestra ventana
         //MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
-    
     }//GEN-LAST:event_btnCargaMasActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-        
-        
-        if (ClienteTabla.getSelectedRow()>-1){
-            Integer id=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
-            ClientesEdit MiVentana = new ClientesEdit(this,true,id);        
-            MiVentana.idCliente=(Integer)ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+
+
+        if (ClienteTabla.getSelectedRow() > -1) {
+            Integer id = (Integer) ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
+            ClientesEdit MiVentana = new ClientesEdit(this, true, id);
+            MiVentana.idCliente = (Integer) ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
             MiVentana.showDialog();
             cargartabla();
         }
-        
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -405,28 +416,39 @@ public class Clientes extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btn_regresar1ActionPerformed
 
-    public void cargartabla(){
-    
-        List<Cliente> ListaClientes=ClienteBL.Buscar("","",null,"");
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (!listaCargada) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            cargartabla();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            listaCargada = true;
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    public void cargartabla() {
+
+        List<Cliente> ListaClientes = ClienteBL.Buscar("", "", null, "");
         DefaultTableModel dtm = (DefaultTableModel) this.ClienteTabla.getModel();
-        int rows=dtm.getRowCount();
-        for (int i=rows-1; i>=0; i--){
+        int rows = dtm.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
         Object[] datos = new Object[9];
-       for (int i = 0; i < ListaClientes.size(); i++) {
-           
-           datos[0] = ListaClientes.get(i).getIdCliente();
-           datos[1] = ListaClientes.get(i).getNombres();
-           datos[2] = ListaClientes.get(i).getApellidos();
-           datos[3] = ListaClientes.get(i).getTelefono();
-           datos[4] = ListaClientes.get(i).geteMail();           
-           datos[5] = ListaClientes.get(i).getTipoDoc();
-           datos[6] = ListaClientes.get(i).getNumDoc();           
-           
-           dtm.addRow(datos);
-       }
+        for (int i = 0; i < ListaClientes.size(); i++) {
+
+            datos[0] = ListaClientes.get(i).getIdCliente();
+            datos[1] = ListaClientes.get(i).getNombres();
+            datos[2] = ListaClientes.get(i).getApellidos();
+            datos[3] = ListaClientes.get(i).getTelefono();
+            datos[4] = ListaClientes.get(i).geteMail();
+            datos[5] = ListaClientes.get(i).getTipoDoc();
+            datos[6] = ListaClientes.get(i).getNumDoc();
+
+            dtm.addRow(datos);
+        }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -486,8 +508,8 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JTextField txtNumDoc;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
-        
+    private void definirPermisos() {
+
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(2, "Clientes", "Crear", permisos);
         btnAgregar.setEnabled(crear);
@@ -497,9 +519,8 @@ public class Clientes extends javax.swing.JDialog {
         btnBuscar.setEnabled(buscar);
         boolean cargaMasiva = CSeguridad.validarPermiso(2, "Clientes", "Carga Masiva", permisos);
         btnCargaMas.setEnabled(cargaMasiva);
-        
+
         this.setLocationRelativeTo(null);
         pack();
     }
-
 }

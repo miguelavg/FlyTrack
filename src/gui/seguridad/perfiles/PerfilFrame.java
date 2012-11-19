@@ -20,6 +20,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import gui.seguridad.perfiles.PerfilEdit;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -28,31 +29,34 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+
 /**
  *
  * @author msolorzano
  */
 public class PerfilFrame extends javax.swing.JDialog {
+
     CPerfil CPerfil = new CPerfil();
+
     /**
      * Creates new form PerfilFrame
      */
     public PerfilFrame() {
         initComponents();
-        
-        llenarTabla();
         definirPermisos();
+        listaCargada = false;
     }
+    private boolean listaCargada;
 
-    protected JRootPane createRootPane() { 
+    protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
         KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
-        Action actionListener = new AbstractAction() { 
-          public void actionPerformed(ActionEvent actionEvent) { 
-            setVisible(false);
-          } 
-        } ;
+        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0);
+        Action actionListener = new AbstractAction() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(false);
+            }
+        };
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(strokeESC, "ESCAPE");
         rootPane.getActionMap().put("ESCAPE", actionListener);
@@ -62,33 +66,32 @@ public class PerfilFrame extends javax.swing.JDialog {
         return rootPane;
     }
 
-    
-    private void llenarTabla(){
-          
+    private void llenarTabla() {
+
         List<Perfil> listaPerfiles = CPerfil.Buscar();
         //cboEstado.getSelectedItem());
-        
+
         DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
-        
-        int filas=dtm.getRowCount();
-        
-        for (int i=filas-1; i>=0; i--){
+
+        int filas = dtm.getRowCount();
+
+        for (int i = filas - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-        
-       Object[] datos = new Object[4];
-       for (int i = 0; i < listaPerfiles.size(); i++) {
-           datos[0] = listaPerfiles.get(i).getNombre();
-           datos[1] = listaPerfiles.get(i).getDescripcion();
-           datos[2] = listaPerfiles.get(i).getEstado();
-           datos[3] = listaPerfiles.get(i).getIdPerfil();
-           
-           dtm.addRow(datos);
-       } 
-        
-        
+
+        Object[] datos = new Object[4];
+        for (int i = 0; i < listaPerfiles.size(); i++) {
+            datos[0] = listaPerfiles.get(i).getNombre();
+            datos[1] = listaPerfiles.get(i).getDescripcion();
+            datos[2] = listaPerfiles.get(i).getEstado();
+            datos[3] = listaPerfiles.get(i).getIdPerfil();
+
+            dtm.addRow(datos);
+        }
+
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,6 +114,11 @@ public class PerfilFrame extends javax.swing.JDialog {
         setTitle("Flytrack - Seguridad - Perfil");
         setModal(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -227,7 +235,7 @@ public class PerfilFrame extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,12 +243,11 @@ public class PerfilFrame extends javax.swing.JDialog {
 
     private void PerfilTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerfilTablaMouseClicked
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_PerfilTablaMouseClicked
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        PerfilEdit perfilAgregarGUI = new PerfilEdit(this,true,-1); //llamamos a la clase y creamos un objeto llamado MiVentana
+        PerfilEdit perfilAgregarGUI = new PerfilEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         perfilAgregarGUI.setVisible(true);
         llenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -248,14 +255,14 @@ public class PerfilFrame extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dtm = (DefaultTableModel) this.PerfilTabla.getModel();
-       
-        if (PerfilTabla.getSelectedRow()>-1){
-         
-            Integer id=(Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
 
-            PerfilEdit PerfilAgregarGUI = new PerfilEdit(this,true,id); 
+        if (PerfilTabla.getSelectedRow() > -1) {
+
+            Integer id = (Integer) PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3);
+
+            PerfilEdit PerfilAgregarGUI = new PerfilEdit(this, true, id);
             //PerfilAgregarGUI.setVisibl*e(true);
-            PerfilAgregarGUI.setIdperfil((Integer)PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
+            PerfilAgregarGUI.setIdperfil((Integer) PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
             PerfilAgregarGUI.setVisible(Boolean.TRUE);
             llenarTabla();
         }
@@ -265,6 +272,16 @@ public class PerfilFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (!listaCargada) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            llenarTabla();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            listaCargada = true;
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -311,8 +328,8 @@ public class PerfilFrame extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void definirPermisos(){
-        
+    private void definirPermisos() {
+
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
         boolean crear = CSeguridad.validarPermiso(3, "Perfiles", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
@@ -320,9 +337,9 @@ public class PerfilFrame extends javax.swing.JDialog {
         this.btnModificar.setEnabled(modificar);
 //        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfil", "Carga Masiva", permisos);
 //        this.btnCargaMasiva.setEnabled(cargaMasiva);
-        
+
         this.setLocationRelativeTo(null);
         pack();
-        
+
     }
 }

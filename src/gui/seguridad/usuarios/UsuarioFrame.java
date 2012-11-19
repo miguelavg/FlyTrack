@@ -18,6 +18,7 @@ import controllers.CUsuario;
 import controllers.CValidator;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -61,7 +62,10 @@ public class UsuarioFrame extends javax.swing.JDialog {
         llenarcomboEstado();
         llenarcomboPerfiles();
         definirPermisos();
+        listaCargada = false;
     }
+    
+    private boolean listaCargada;
 
     @Override
     protected JRootPane createRootPane() {
@@ -114,6 +118,11 @@ public class UsuarioFrame extends javax.swing.JDialog {
         setTitle("Flytrack - Usuario");
         setModal(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -407,7 +416,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
 //        Perfil perfil=(Perfil)cboPerfil.getSelectedItem();
 //        Parametro estado=(Parametro)cboEstado.getSelectedItem();
         //Aeropuerto aeropuerto;   aeropuerto.getIdAeropuerto()
-
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         Parametro estado;
         Perfil perfil;
 
@@ -461,7 +470,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
             dtm.addRow(datos);
         }
-
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         //mostrarListaAlerta(listaAlerta);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -502,7 +511,7 @@ public class UsuarioFrame extends javax.swing.JDialog {
             datos[0] = listaUsuarios.get(i).getNombres();
             datos[1] = listaUsuarios.get(i).getApellidos();
             datos[2] = listaUsuarios.get(i).getPerfil().getNombre();
-            datos[3] = listaUsuarios.get(i).getIdAeropuerto()!= null ? listaUsuarios.get(i).getIdAeropuerto().getNombre() : null;
+            datos[3] = listaUsuarios.get(i).getIdAeropuerto() != null ? listaUsuarios.get(i).getIdAeropuerto().getNombre() : null;
             datos[4] = listaUsuarios.get(i).geteMail();
             datos[5] = listaUsuarios.get(i).getEstado();
             datos[6] = listaUsuarios.get(i).getTipoDoc();
@@ -537,6 +546,16 @@ public class UsuarioFrame extends javax.swing.JDialog {
             getToolkit().beep();
         }
     }//GEN-LAST:event_txtClienteKeyReleased
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if(!listaCargada){
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            cargartabla();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            listaCargada = true;
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

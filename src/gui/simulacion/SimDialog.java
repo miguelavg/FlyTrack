@@ -7,6 +7,7 @@ package gui.simulacion;
 import controllers.CSimulator;
 import gui.InformationDialog;
 import gui.envios.*;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,10 @@ public class SimDialog extends javax.swing.JDialog {
     public SimDialog() {
         initComponents();
         this.setLocationRelativeTo(null);
+        listaCargada = false;
     }
     private ArrayList<VueloLite> vInicial;
+    private boolean listaCargada;
 
     @Override
     protected JRootPane createRootPane() {
@@ -266,8 +269,8 @@ public class SimDialog extends javax.swing.JDialog {
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         setName("envioDialog"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
@@ -556,6 +559,8 @@ public class SimDialog extends javax.swing.JDialog {
 
     private void btn_simularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simularActionPerformed
         // TODO add your handling code here:
+
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         DefaultTableModel dtm = (DefaultTableModel) tbl_aeropuertos.getModel();
         ArrayList<AeroLite> aeroLites = reconstruirAeroLites(dtm);
 
@@ -587,24 +592,26 @@ public class SimDialog extends javax.swing.JDialog {
         for (VueloLite vI : this.vInicial) {
             if (vI.getNecesidad() > 0) {
                 vNecesidad = vNecesidad + "Aumentar en " + vI.getNecesidad() + " la capacidad del vuelo " + vI.getOrigen().getNombre() + " - " + vI.getDestino().getNombre() + "\n";
-            } 
+            }
         }
-        
-        if(!aNecesidad.isEmpty()){
+
+        if (!aNecesidad.isEmpty()) {
             aNecesidad = "Se recomienda: \n" + aNecesidad;
         }
-        if(!vNecesidad.isEmpty()){
+        if (!vNecesidad.isEmpty()) {
             vNecesidad = "Se recomienda: \n" + vNecesidad;
         }
-        
+
         String mensaje = aNecesidad + "\n" + vNecesidad;
-        
-        if(aNecesidad.isEmpty() && vNecesidad.isEmpty()){
+
+        if (aNecesidad.isEmpty() && vNecesidad.isEmpty()) {
             mensaje = "La distribución de los almacenes y vuelos es correcta.";
         }
-        
+
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
         InformationDialog.mostrarInformacion(mensaje, this);
-        
+
     }//GEN-LAST:event_btn_simularActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -613,10 +620,15 @@ public class SimDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        llenarTablas();
-    }//GEN-LAST:event_formWindowOpened
+        if (!listaCargada) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            llenarTablas();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            listaCargada = true;
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
