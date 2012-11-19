@@ -64,9 +64,9 @@ public class UsuarioPopup extends javax.swing.JDialog {
             datos[0] = usr;
             datos[1] = usr.getNombres();
             datos[2] = usr.getApellidos();
-            datos[3] = usr.getTelefono();
-            datos[4] = usr.geteMail();
-            datos[5] = usr.getTipoDoc();
+            datos[3] = usr.geteMail();
+            datos[4] = usr.getTipoDoc();
+            datos[5] = usr.getNumDoc();
 
             dtm.addRow(datos);
         }
