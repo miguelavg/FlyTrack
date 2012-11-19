@@ -409,16 +409,16 @@ public class CAeropuerto {
             q = s.getNamedQuery("AeropuertosxID");
             q.setParameter("idaero", aeropuerto.getIdAeropuerto());
         
-            Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalidaAux");
-            f_vuelos_s.setParameter("lower", ini);
-            f_vuelos_s.setParameter("upper", fin);
-            f_vuelos_s.setParameter("idEstado1", idparsalida1);
-            f_vuelos_s.setParameter("idEstado2", idparsalida2);
-
-            Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
-            f_vuelos_l.setParameter("lower", ini);
-            f_vuelos_l.setParameter("upper", fin);
-            f_vuelos_l.setParameter("idEstado", idparentrada);
+//            Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalidaAux");
+//            f_vuelos_s.setParameter("lower", ini);
+//            f_vuelos_s.setParameter("upper", fin);
+//            f_vuelos_s.setParameter("idEstado1", idparsalida1);
+//            f_vuelos_s.setParameter("idEstado2", idparsalida2);
+//
+//            Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
+//            f_vuelos_l.setParameter("lower", ini);
+//            f_vuelos_l.setParameter("upper", fin);
+//            f_vuelos_l.setParameter("idEstado", idparentrada);
         //}
         
             ListaAeropuertos = q.list();

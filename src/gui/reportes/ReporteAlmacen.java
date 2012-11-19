@@ -13,6 +13,7 @@ import controllers.CCliente;
 import controllers.CParametro;
 import controllers.CValidator;
 import gui.administracion.aeropuertos.*;
+import java.awt.Cursor;
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
@@ -45,6 +46,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     
     List <Cliente> ListaCliente;
     List<beans.Aeropuerto> listaAeropuertos;
+    List<beans.Vuelo> listaVuelos=null;
     Calendar fechini, fechfin;
     
     public ReporteAlmacen() {
@@ -328,12 +330,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
     exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reporteEnPdf.pdf")); 
     exporter.exportReport(); 
-        
-//        String Report="/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml";
-//        JasperReport JASP_REP=JasperCompileManager.compileReport(Report);
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(JASP_REP, null, new JRBeanCollectionDataSource(ListaCliente)); 
-//        JasperViewer.viewReport(jasperPrint);
-//        
+ 
         
     }
     catch(JRException e) 
@@ -379,19 +376,20 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      fechini = dt_fechini.getSelectedDate();
      fechfin = dt_fechfin.getSelectedDate();
      
-     Integer idparentrada;
-     Integer idparsalida1;
-     Integer idparsalida2;
-     Integer idparsalida3;
+     Parametro parentrada;
+     Parametro parsalida1;
+     Parametro parsalida2;
+     
      
      ListaEstado = ParametroBL.buscar("", "FIN", "ESTADO_VUELO", null);
-     idparentrada=ListaEstado.get(0).getIdParametro();
+     parentrada=ListaEstado.get(0);
      ListaEstado = ParametroBL.buscar("", "PROG", "ESTADO_VUELO", null);
-     idparsalida1=ListaEstado.get(0).getIdParametro();
+     parsalida1=ListaEstado.get(0);
      ListaEstado = ParametroBL.buscar("", "CAN", "ESTADO_VUELO", null);
-     idparsalida2=ListaEstado.get(0).getIdParametro();
+     parsalida2=ListaEstado.get(0);
      
-     listaAeropuertos = CAeropuerto.BuscarAeropuertoXEnvioXFechas(aeroori, fechini, fechfin,idparentrada,idparsalida1,idparsalida2);
+     listaAeropuertos = CAeropuerto.BuscarAeropuertoXEnvioXFechas(aeroori, fechini, fechfin,parentrada.getIdParametro(),parsalida1.getIdParametro(),parsalida2.getIdParametro());
+     
 
 
         DefaultTableModel dtm = (DefaultTableModel) this.tblAlmacen.getModel();
@@ -407,11 +405,27 @@ public class ReporteAlmacen extends javax.swing.JFrame {
          if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
          {
          datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
+         
+//         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor().equals(parentrada.getValor())){         
+//         datos[1] = "Llegada";
+//         }
+//         else {datos[1] = "";}
+         
          datos[1] = "Llegada";
          datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
          datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
          datos[4] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
          dtm.addRow(datos);
+         
+//         for (int j=0;listaAeropuertos.size()>j;j++)
+//            {listaAeropuertos.get(j).getVuelosLlegada().size();
+//            listaAeropuertos.get(j).getVuelosSalida().size();
+//            };
+         //incidencias, escala, envio por almancen
+            listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
+            listaAeropuertos.get(0).getVuelosLlegada().get(i).getEscalas().size();
+            //listaAeropuertos.get(0).getVuelosLlegada().get(i).get`
+         listaVuelos.add(listaAeropuertos.get(0).getVuelosLlegada().get(i));
          }
      }
 
@@ -419,14 +433,30 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
          if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
          datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
+         
+//         if (!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida1.getValor())&&!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida2.getValor())){         
+//         datos[1] = "Salida";
+//         }
+//         else {datos[1] = "";}
          datos[1] = "Salida";
          datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
          datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
          datos[4] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
          dtm.addRow(datos);
+         listaVuelos.add(listaAeropuertos.get(0).getVuelosSalida().get(i));
          }
      }
     }
+ 
+ 
+//    private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
+//        // TODO add your handling code here:
+//        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//                  llenarGrillaAero();
+//        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+//        
+//    }        
+// 
     /**
      * @param args the command line arguments
      */
