@@ -10,6 +10,7 @@ import controllers.CParametro;
 import controllers.CTipoCambio;
 import controllers.CValidator;
 import gui.ErrorDialog;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 import java.util.List;
@@ -306,7 +307,7 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         if (cmb_destino.getSelectedIndex() > 0) {
             monedaDestino = (Parametro) cmb_destino.getSelectedItem();
         }
-
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         CTipoCambio ctipocambio = new CTipoCambio();
         String error_message = ctipocambio.validar(this.tipoCambio, isNuevo, this.txt_tipocambio.getText(), this.monedaOrigen, this.monedaDestino);
         if (error_message == null || error_message.isEmpty()) {
@@ -320,6 +321,7 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         } else {
             ErrorDialog.mostrarError(error_message, this);
         }
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void cmb_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_origenActionPerformed

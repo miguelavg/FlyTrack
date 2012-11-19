@@ -14,6 +14,7 @@ import controllers.CEnvio;
 import controllers.CSeguridad;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,9 @@ public class EnvioDialog extends javax.swing.JDialog {
             this.cmb_estado.addItem(p);
         }
         definirPermisos();
+        listaCargada = false;
     }
+    private boolean listaCargada;
 
     @Override
     protected JRootPane createRootPane() {
@@ -156,6 +159,11 @@ public class EnvioDialog extends javax.swing.JDialog {
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         setName("envioDialog"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setName("tituloPanel"); // NOI18N
@@ -473,7 +481,7 @@ public class EnvioDialog extends javax.swing.JDialog {
             txt_origen.setText(a_origen.getNombre());
         } else {
             txt_origen.setText("");
-        } 
+        }
     }//GEN-LAST:event_btn_origenActionPerformed
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
@@ -534,8 +542,9 @@ public class EnvioDialog extends javax.swing.JDialog {
         if (cmb_estado.getSelectedIndex() > 0) {
             p_estado = (Parametro) cmb_estado.getSelectedItem();
         }
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         List<Envio> envios = cenvio.buscar(a_actual, a_origen, a_destino, p_estado, c_cliente, txt_numenvio.getText());
-
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         llenarTabla(envios);
     }//GEN-LAST:event_btn_buscarActionPerformed
 
@@ -587,6 +596,17 @@ public class EnvioDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_regresar1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (!listaCargada) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            List<Envio> envios = cenvio.buscar(null, null, null, null, null, null);
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            llenarTabla(envios);
+            listaCargada = true;
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

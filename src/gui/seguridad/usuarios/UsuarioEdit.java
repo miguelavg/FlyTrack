@@ -184,7 +184,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Usuario_editar");
+        setTitle("FlyTrack - Usuario");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -832,7 +832,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
                     String aux = String.copyValueOf(CSeguridad.generaContraseniaAleatoria());
 
-                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", "La contrasena por defecto es la siguiente :" + aux);
+                    cmail.sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
+                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + aux +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
 
                 } else {
                     //txtCliente.setVisible(false);
