@@ -478,7 +478,9 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         isNuevo = false;
 
+        if (UsuarioBE.getIdAeropuerto()!=null){
         txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
+        }
         txtLogIn.setText(UsuarioBE.getLogIn());
         //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
 
@@ -675,13 +677,16 @@ public class UsuarioEdit extends javax.swing.JDialog {
         if (mensaje.equals("")) {//Creando
 
             String error_message = "";
+            String login_actual="";
             
             if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
                 error_message += CValidator.buscarError("ERROR_FT001") + "\n";
             }
 
             if (error_message == null || error_message.isEmpty() ){
-                error_message += new CUsuario().validar(idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
+                UsuarioBE = Usuario.BuscarXid(idusuario);
+                login_actual=UsuarioBE.getLogIn();
+                error_message += new CUsuario().validar(login_actual,idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
             }
 
             error_message += validarcampos();

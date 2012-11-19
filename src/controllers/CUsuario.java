@@ -253,7 +253,7 @@ public class CUsuario {
         
     }
       
-    public String validar(Integer idusuario, boolean isNuevo, String aeropuerto, String logIn,Parametro estado, Perfil perfil) {
+    public String validar(String login_actual,Integer idusuario, boolean isNuevo, String aeropuerto, String logIn,Parametro estado, Perfil perfil) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         String error_message = "";
@@ -273,6 +273,8 @@ public class CUsuario {
             else {
            Query q;
            Query q1;
+           
+           if (!login_actual.equals(logIn) ){
            
            q = s.getNamedQuery("Usuario");
            Filter f = s.enableFilter("UsuarioxLogin");
@@ -307,7 +309,7 @@ public class CUsuario {
 //                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
 //                    }
 //                }
-                
+            }
             }
             //}
 //            
