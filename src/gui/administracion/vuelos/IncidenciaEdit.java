@@ -9,6 +9,7 @@ import beans.Parametro;
 import beans.Vuelo;
 import controllers.CIncidencia;
 import controllers.CVuelo;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -242,7 +243,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
-
+          setCursor(new Cursor (Cursor.WAIT_CURSOR));
         Parametro p = null;
         boolean bandera = false;
         if (cbm_incidencia.getSelectedIndex() > 0) {
@@ -317,6 +318,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
             
             this.dispose();
         }
+          setCursor(new Cursor (Cursor.DEFAULT_CURSOR));
    }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
