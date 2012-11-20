@@ -8,7 +8,7 @@ import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import gui.administracion.parametros.ParametroDialog;
-import gui.seguridad.perfiles.PerfilFrame;
+import gui.seguridad.perfiles.PerfilDialog;
 import gui.seguridad.pistas.PistasDialog;
 import gui.seguridad.usuarios.UsuarioFrame;
 import java.awt.event.ActionEvent;
@@ -147,7 +147,7 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
 
     private void btnPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilesActionPerformed
         // TODO add your handling code here:
-        PerfilFrame perfilframe = new PerfilFrame();
+        PerfilDialog perfilframe = new PerfilDialog();
         perfilframe.setVisible(true);
     }//GEN-LAST:event_btnPerfilesActionPerformed
 
