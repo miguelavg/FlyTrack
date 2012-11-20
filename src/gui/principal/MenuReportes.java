@@ -5,11 +5,14 @@
 package gui.principal;
 
 //import gui.reportes.ReporteAlmacen;
+import beans.Sesion;
+import beans.seguridad.Permiso;
 import gui.reportes.ReporteEnvios;
 import gui.reportes.ReporteIncidencias;
 import gui.reportes.ReporteVentas;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.InputMap;
@@ -28,7 +31,7 @@ public class MenuReportes extends javax.swing.JFrame {
      */
     public MenuReportes() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        definirPermisos();
     }
 
     /**
@@ -246,4 +249,12 @@ public class MenuReportes extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogAuditoria4;
     private javax.swing.JLabel lblLogAuditoria5;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
+        this.setLocationRelativeTo(null);
+        pack();
+    }
+
 }
