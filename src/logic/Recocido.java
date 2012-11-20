@@ -135,10 +135,10 @@ public class Recocido {
         Collections.sort(moves, new CustomComparator());
 
         for (MovimientoAlmacen m : moves) {
-            if (m.getTipo().equals("I")) {
+            if (m.getTipo().equals("I") && m.getFecha().before(out) && m.getFecha().after(in)) {
                 actual = actual + m.getCantidad();
             }
-            if (m.getTipo().equals("O")) {
+            if (m.getTipo().equals("O") && m.getFecha().before(out) && m.getFecha().after(in)) {
                 actual = actual - m.getCantidad();
             }
             if (max < actual) {
@@ -169,7 +169,7 @@ public class Recocido {
 
             // Mientras no hayamos llegado al final...
 
-            while (iActual != iFinal && aActual.getCapacidadMax() > aActual.getCapacidadActual()) {
+            while (iActual != iFinal && aActual.getCapacidadMax() >= aActual.getCapacidadActual() + numPaquetes) {
                 posibles = new ArrayList<Vuelo>();
 
                 // Calcular los vuelos posibles, el beta y el tau

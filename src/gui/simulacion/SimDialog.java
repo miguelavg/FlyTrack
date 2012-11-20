@@ -99,12 +99,13 @@ public class SimDialog extends javax.swing.JDialog {
     }
 
     private void llenarLineaTablaVueloLite(VueloLite v, DefaultTableModel dtm) {
-        Object[] datos = new Object[5];
+        Object[] datos = new Object[6];
         datos[0] = v.getNum();
         datos[1] = v.getOrigen();
         datos[2] = v.getDestino();
         datos[3] = v.getCapacidadMax();
         datos[4] = v.getAlquiler();
+        datos[5] = v.getPlleno();
         dtm.addRow(datos);
     }
 
@@ -194,9 +195,10 @@ public class SimDialog extends javax.swing.JDialog {
             AeroLite destino = (AeroLite) dtm.getValueAt(i, 2);
             int capacidadMax = (Integer) dtm.getValueAt(i, 3);
             double alquiler = (Double) dtm.getValueAt(i, 4);
+            double plleno = (Double) dtm.getValueAt(i, 5);
             if (origen != null && destino != null && capacidadMax > 0 && alquiler >= 0 && num > 0) {
                 for (int j = 0; j < num; j++) {
-                    VueloLite v = new VueloLite(origen, destino, j, capacidadMax, alquiler);
+                    VueloLite v = new VueloLite(origen, destino, j, capacidadMax, alquiler, plleno);
                     v.setEvt(k++);
                     v.setDur(randomizer.nextInt(9));
                     v.setCapacidadActual((int) (randomizer.nextDouble() * capacidadMax));
@@ -417,14 +419,14 @@ public class SimDialog extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Origen", "Destino", "Max. paq.", "Alquiler"
+                "#", "Origen", "Destino", "Max. paq.", "Alquiler", "% lleno"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true
+                true, false, false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -290,11 +290,14 @@ public class VuelosCarga extends javax.swing.JDialog {
         Integer dialle;
         Integer horalle;
         Integer minlle;
+        ArrayList<Vuelo> listavuelos=null;
         
-        
-        ArrayList<Vuelo> listavuelos = new ArrayList<Vuelo>();
+        try{
+        listavuelos = new ArrayList<Vuelo>();
         for (Integer s=0; s<xmlvuelos.size();s++){
             
+          
+             xmlVueloString xmlvuelosaux=(xmlVueloString)xmlvuelos.get(s);
             
             if  (!CValidator.isDouble(xmlvuelos.get(s).getAlquiler()) || Double.parseDouble(xmlvuelos.get(s).getAlquiler())<=0){
                 ErrorDialog.mostrarError("Monto alquiler inválido en registro "+ s.toString(), this);
@@ -421,8 +424,18 @@ public class VuelosCarga extends javax.swing.JDialog {
             vuelo.setEstado(estado);
             listavuelos.add(vuelo);
             
+        }
+            
+           
                
             
+            
+        
+        }
+            catch(ClassCastException e){
+                    
+                    ErrorDialog.mostrarError("Ocurrió un error al cargar el archivo.",this);
+                    return null;    
             
         }
         return listavuelos;
@@ -437,8 +450,12 @@ public class VuelosCarga extends javax.swing.JDialog {
          setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (archivovalido){
             try{
-            ArrayList<xmlVueloString> xmlvuelos=CSerializer.deserializar(txtRuta.getText());
-            ArrayList<Vuelo> vuelos = PasaValores(xmlvuelos);
+             
+            ArrayList xmlvuelos=(ArrayList<xmlVueloString>)CSerializer.deserializar(txtRuta.getText());
+            if (xmlvuelos!=null){
+                
+                ArrayList<Vuelo> vuelos = PasaValores(xmlvuelos);
+                
             
             if (vuelos!=null){
             
@@ -451,17 +468,19 @@ public class VuelosCarga extends javax.swing.JDialog {
                         this.dispose();
                     }
                     catch(Exception e){
-                        e.printStackTrace();
+                       
                         ErrorDialog.mostrarError("Ocurrió un error al hacer la carga",this);
 
                     }
                 }
             
             }
-            catch(Exception e){
-                    e.printStackTrace();
+            }
+            catch(ClassCastException e){
+                    
                     ErrorDialog.mostrarError("Ocurrió un error al cargar el archivo.",this);
 
+            
             }
         }
         else{
