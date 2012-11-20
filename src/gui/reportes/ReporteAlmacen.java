@@ -59,6 +59,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     ArrayList<beans.Vuelo> listaVuelos= new  ArrayList<beans.Vuelo>();
     Calendar fechini, fechfin;
     
+    //boolean exportar=false;
+    
     public ReporteAlmacen() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -104,6 +106,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWIndowActivated(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -366,6 +373,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             JasperViewer jviewer = new JasperViewer(jasperPrint,false);
             jviewer.setTitle(nombreReporteAlmacen);
             jviewer.setVisible(true);
+            //exportar=true;
             
             CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
         } catch (JRException e) {
@@ -393,6 +401,14 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         llenarGrillaAero();
         
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void formWIndowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWIndowActivated
+        // TODO add your handling code here:
+//                // TODO add your handling code here:
+//        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//                  llenarGrillaAero();
+//        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_formWIndowActivated
 
     
  private void llenarGrillaAero() {
@@ -500,13 +516,6 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     }
  
  
-//    private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
-//        // TODO add your handling code here:
-//        setCursor(new Cursor(Cursor.WAIT_CURSOR));
-//                  llenarGrillaAero();
-//        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//        
-//    }        
 // 
     /**
      * @param args the command line arguments
