@@ -8,6 +8,7 @@ import beans.Sesion;
 import beans.seguridad.Pista;
 import beans.seguridad.Usuario;
 import java.util.Calendar;
+import java.util.List;
 import org.hibernate.*;
 
 /**
@@ -47,6 +48,20 @@ public class CPista {
             tx.commit();
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
+
+    public static List<Pista> obtenerPistas(){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Query q = s.getNamedQuery("Pistas");
+            return (List<Pista>)q.list();
+        } catch(Exception e){
+//            System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
+            return null;
         } finally{
             s.close();
             Sesion.closeSessionFactory();

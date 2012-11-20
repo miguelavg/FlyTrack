@@ -12,6 +12,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Pista")
+@NamedQueries({
+    @NamedQuery(name = "Pistas", query = "from Pista"),
+})
 public class Pista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,6 +85,42 @@ public class Pista {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String getModuloPrincipal() {
+        return moduloPrincipal;
+    }
+
+    public String getModuloSecundario() {
+        return moduloSecundario;
+    }
+
+    public String getClase() {
+        return clase;
+    }
+
+    public String getMetodo() {
+        return metodo;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public String getEstadoAnterior() {
+        return estadoAnterior;
+    }
+
+    public String getEstadoActual() {
+        return estadoActual;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
 }
