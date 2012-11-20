@@ -163,7 +163,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
 
         jLabel1.setText("Bienvenido, ");
 

@@ -242,7 +242,7 @@ public class Login extends javax.swing.JFrame {
             if (existeUsuario != null && usuarioActivo &&
                 existeContrasenaActiva != null && contrasenasIguales ) {
                 
-                CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Acceso con éxito");
+                
                 
                 //VERIFICACION EXITOSA
                 lblError.setText("");
@@ -279,6 +279,8 @@ public class Login extends javax.swing.JFrame {
                     Sesion.setUsuario(CUsuario.actualizarUsuario(existeUsuario));
                     Sesion.setCambioPerfil(false);//Cuando se inicia Sesion no se ha modificado el perfil que tiene este usuario asignado
 
+                    CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Acceso con éxito");
+                    
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -314,6 +316,8 @@ public class Login extends javax.swing.JFrame {
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         ErrorDialog.mostrarError("Usuario: " + username + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
+                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed",
+                                            null, null,"Se ha bloqueado la cuenta del usuario " + username);
                     }
                 }
             }

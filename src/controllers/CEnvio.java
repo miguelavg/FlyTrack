@@ -44,32 +44,32 @@ public class CEnvio {
         return p;
     }
 
-    private String genMailRem(Envio envio) {
+    private static String genMailRem(Envio envio) {
         String ret;
-        
+
         ret = "Su envío está en estado " + envio.getEstado().getValor() + ".\n";
-        
+
         ret = ret + "Su bitácora es la siguiente: \n";
-        
-        for(Escala escala : envio.getEscalasOrdenadasAsc()){
-            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen() + " - " + escala.getVuelo().getDestino() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
+
+        for (Escala escala : envio.getEscalasOrdenadasAsc()) {
+            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen().getNombre() + ", " + escala.getVuelo().getOrigen().getCiudad() + ", " + escala.getVuelo().getOrigen().getPais()  + " - " + escala.getVuelo().getDestino().getNombre() + ", " + escala.getVuelo().getDestino().getCiudad() + ", " + escala.getVuelo().getDestino().getPais() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
         }
-        
+
         ret = ret + "\n" + "Soporte FlyTrack";
         return ret;
     }
 
-    private String genMailDest(Envio envio) {
+    private static String genMailDest(Envio envio) {
         String ret;
-        
+
         ret = "Se ha registrado un envío para usted. El estado es " + envio.getEstado().getValor() + ".\n";
-        
+
         ret = ret + "Su bitácora es la siguiente: \n";
-        
-        for(Escala escala : envio.getEscalasOrdenadasAsc()){
-            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen() + " - " + escala.getVuelo().getDestino() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
+
+        for (Escala escala : envio.getEscalasOrdenadasAsc()) {
+            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen().getNombre() + ", " + escala.getVuelo().getOrigen().getCiudad() + ", " + escala.getVuelo().getOrigen().getPais()  + " - " + escala.getVuelo().getDestino().getNombre() + ", " + escala.getVuelo().getDestino().getCiudad() + ", " + escala.getVuelo().getDestino().getPais() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
         }
-        
+
         ret = ret + "\n" + "Soporte FlyTrack";
         return ret;
     }
@@ -85,23 +85,32 @@ public class CEnvio {
                 s.saveOrUpdate(e.getVuelo());
             }
 
+            tx.commit();
+
+            enviarCorreos(envio);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+    }
+
+    public static void enviarCorreos(Envio envio) {
+        try {
             new CMail().sendMail("flytrack.no.reply@gmail.com",
                     "manuelmanuel",
                     envio.getRemitente().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
                     genMailRem(envio));
-            
+
             new CMail().sendMail("flytrack.no.reply@gmail.com",
                     "manuelmanuel",
                     envio.getDestinatario().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
                     genMailDest(envio));
-
-            tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            s.close();
         }
     }
 
