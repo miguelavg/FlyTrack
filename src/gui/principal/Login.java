@@ -255,28 +255,22 @@ public class Login extends javax.swing.JFrame {
                     InformationDialog.mostrarInformacion(error, this);
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, existeUsuario, contrasenaActiva);
-//                    usuarioValidado = cambiarContrasenia.showDialog();
                     cambiarContrasenia.showDialog();
                     if(condicionPrimerIngreso)
                         CUsuario.inicializarAccesos(existeUsuario);//actualizo los accesos de usuario para que no lo vuelva a bloquear
-//                        usuarioValidado = CUsuario.inicializarAccesos(usuarioValidado);
 
                 }
                 
-//                if(usuarioValidado != null){
-                    
-//                    usuarioValidado = CUsuario.incrementarAccesos(usuarioValidado);
-                    CUsuario.incrementarAccesos(existeUsuario);
-                    CContrasena.actualizarFechaUltimoUso(CSeguridad.getContrasenaActiva(existeUsuario.getIdUsuario()));
-                    Sesion.setUsuario(CUsuario.actualizarUsuario(existeUsuario));
+                CUsuario.incrementarAccesos(existeUsuario);
+                CContrasena.actualizarFechaUltimoUso(CSeguridad.getContrasenaActiva(existeUsuario.getIdUsuario()));
+                Sesion.setUsuario(CUsuario.actualizarUsuario(existeUsuario));
 
-                    PrincipalFrame pf = new PrincipalFrame();
-                    pf.setVisible(Boolean.TRUE);
-                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                PrincipalFrame pf = new PrincipalFrame();
+                pf.setVisible(Boolean.TRUE);
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
-                    this.setVisible(Boolean.FALSE);
-                    this.dispose();
-//                }
+                this.setVisible(Boolean.FALSE);
+                this.dispose();
             } else {
                 //VERIFICACION FALLO
                 if(existeUsuario == null){
