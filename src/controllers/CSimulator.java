@@ -47,7 +47,7 @@ public class CSimulator {
         Session s = sf.openSession();
         ArrayList<AeroLite> aeroLites = null;
         Random rnd = new Random();
-        
+
         try {
 
             Query q = s.getNamedQuery("Aero");
@@ -76,23 +76,24 @@ public class CSimulator {
             Query q = s.createQuery("select v.origen.idAeropuerto, v.destino.idAeropuerto,  count(v),  avg(v.capacidadMax), avg(v.costoAlquiler), avg(v.capacidadActual/v.capacidadMax) from Vuelo v group by v.origen, v.destino order by 1, 2");
             List<Object[]> objVuelos = q.list();
             vueloLites = new ArrayList<VueloLite>();
-            
+
             q = s.createQuery("select count(v) from Vuelo v");
-            int aVuelos = (Integer) q.uniqueResult();
-            
+            int aVuelos = ((Long) q.uniqueResult()).intValue();
+
             Parametro pNumVuelos = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "num_vuelos");
             int numVuelos = Integer.parseInt(pNumVuelos.getValor());
-            
-            double regla =  numVuelos / ((double) aVuelos);
+
+            double regla = numVuelos / ((double) aVuelos);
 
             for (Object[] obj : objVuelos) {
                 AeroLite origen = buscarAeroLite((Integer) obj[0], aeroLites);
                 AeroLite destino = buscarAeroLite((Integer) obj[1], aeroLites);
-                int num = ((Long) obj[2]).intValue();
-                //int cap = ((Double) obj[3]).intValue() * regla;
+                Long numPre = (Long) obj[2];
+                int num = (int) (numPre.doubleValue() * regla);
+                int cap = ((Double) obj[3]).intValue();
                 double alq = (Double) obj[4];
                 double plleno = (Double) obj[5];
-                //vueloLites.add(new VueloLite(origen, destino, num, cap, alq, plleno));
+                vueloLites.add(new VueloLite(origen, destino, num, cap, alq, plleno));
             }
 
         } catch (Exception e) {
@@ -113,10 +114,20 @@ public class CSimulator {
             List<Object[]> objVuelos = q.list();
             envioLites = new ArrayList<EnvioLite>();
 
+            q = s.createQuery("select count(e) from Envio e");
+            int aEnvios = ((Long) q.uniqueResult()).intValue();
+            Parametro pNumEnvios = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "num_envios");
+            int numVuelos = Integer.parseInt(pNumEnvios.getValor());
+
+            double regla = numVuelos / ((double) aEnvios);
+
             for (Object[] obj : objVuelos) {
                 AeroLite origen = buscarAeroLite((Integer) obj[0], aeroLites);
                 AeroLite destino = buscarAeroLite((Integer) obj[1], aeroLites);
-                int num = ((Long) obj[2]).intValue();
+
+                Long numPre = (Long) obj[2];
+                int num = (int) (numPre.doubleValue() * regla);
+
                 envioLites.add(new EnvioLite(origen, destino, num));
             }
 
@@ -128,9 +139,10 @@ public class CSimulator {
         return envioLites;
     }
 
-    public static void simular(ArrayList<EnvioLite> envioLites) {
+    public static int simular(ArrayList<EnvioLite> envioLites, ArrayList<AeroLite> aeroLites, ArrayList<VueloLite> vueloLites) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
+        int fallas = 0;
 
         try {
             Query q = s.getNamedQuery("ParametrosXTipoXValorUnico").setMaxResults(1);
@@ -156,21 +168,50 @@ public class CSimulator {
             p = (Parametro) q.uniqueResult();
             double costoAlmacen = Double.parseDouble(p.getValor());
 
+            q.setParameter("tipo", "SIM_PARAM");
+            q.setParameter("valorUnico", "p_umbral");
+            p = (Parametro) q.uniqueResult();
+            double ulleno = Double.parseDouble(p.getValor());
+
+            double plleno;
+
+
 
             RecocidoLite rl = new RecocidoLite(alfaGrasp, intentos, costoAlmacen, envioLites);
 
 
             for (EnvioLite e : envioLites) {
-                rl.grasp(e);
+                for (AeroLite a : aeroLites) {
+                    a.setCongestiona(false);
+                    plleno = a.getCapacidadActual() / ((double) a.getCapacidadMax());
+
+                    if (plleno > ulleno) {
+                        int tCongestiona = a.gettCongestiona();
+                        a.settCongestiona(tCongestiona + 1);
+                    }
+                }
+
+                for (VueloLite v : vueloLites) {
+                    v.setCongestiona(false);
+                    plleno = v.getCapacidadActual() / ((double) v.getCapacidadMax());
+
+                    if (plleno > ulleno) {
+                        int tCongestiona = v.gettCongestiona();
+                        v.settCongestiona(tCongestiona + 1);
+                    }
+                }
+
+                fallas = fallas + rl.grasp(e);
+
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             s.close();
-            return;
-
         }
+
+        return fallas;
 
     }
 }
