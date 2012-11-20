@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -357,25 +358,24 @@ public void cargartabla(){
     
     
     private void btn_docPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_docPagoActionPerformed
-//        JFileChooser jfc = new JFileChooser();
-//                String error_message = "";
-//                
-//        int rslt = jfc.showSaveDialog(this);
-//        if (rslt == JFileChooser.APPROVE_OPTION) {
-//            try{
-//            String strArch = jfc.getSelectedFile().getName();
-//            if (!strArch.trim().isEmpty()) {
-//                try{
-//                
-//                String ruta = jfc.getSelectedFile().getPath().trim();
-//                if (!ruta.isEmpty()) {
-//                    try {
-//                        //beAlmacen alma = (new blHelper()).obtenerDatosAlmacen();
-//                        //if (alma.getNombre() != null){
-//                        //if (this.tblReporte.getRowCount()>=1){
-//                        if (!ruta.endsWith(".pdf")) {
-//                            ruta += ".pdf";
-//                        }
+        JFileChooser jfc = new JFileChooser();
+                String error_message = "";
+                
+        int rslt = jfc.showSaveDialog(this);
+        if (rslt == JFileChooser.APPROVE_OPTION) {
+            try{
+            String strArch = jfc.getSelectedFile().getName();
+            if (!strArch.trim().isEmpty()) {
+                try{
+                String ruta = jfc.getSelectedFile().getPath().trim();
+                if (!ruta.isEmpty()) {
+                    try {
+                        //beAlmacen alma = (new blHelper()).obtenerDatosAlmacen();
+                        //if (alma.getNombre() != null){
+                        //if (this.tblReporte.getRowCount()>=1){
+                        if (!ruta.endsWith(".pdf")) {
+                            ruta += ".pdf";
+                        }
 //                        //System.out.println(this.usuario.getNombre());
 //                        float[] anchos = {5f, 11f, 5f,5f};
 //                        //this.usuario.getNombre()
@@ -397,57 +397,60 @@ public void cargartabla(){
 //                        //}
 //                        //else
 //                        //  visualHelper.mostrarMensajeAdvertencia("No se ha ingresado información sobre el almacén.");
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
-//                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-//                        ErrorDialog.mostrarError(error_message, this);
-//                    }
-//                } else {
-//                    //CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
-//                    error_message = error_message + CValidator.buscarError("ERROR_FT015") + "\n";
-//                    ErrorDialog.mostrarError(error_message, this);
-//                }
-//            }catch (Exception e) {
-//                        e.printStackTrace();
-//                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
-//                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-//                        ErrorDialog.mostrarError(error_message, this);
-//                    }       
-//            } else {
-//                //CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
-//                error_message = error_message + CValidator.buscarError("ERROR_FT016") + "\n";
-//                ErrorDialog.mostrarError(error_message, this);
-//            }
-//        }
-//            catch (Exception e) {
-//                        e.printStackTrace();
-//                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
-//                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-//                        ErrorDialog.mostrarError(error_message, this);
-//                    }  
-//        }
-        
-        if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
-            try {
-                JasperReport reporte = JasperCompileManager.compileReport("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/factura.jrxml");
-//    JasperReport reporte= (JasperReport) JRLoader.loadObjectFromFile("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml"); 
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
-                JRExporter exporter = new JRPdfExporter();
-                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-                String nombredocFactura = "Factura" + this.envio.getNumDocVenta() + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
-                exporter.exportReport();
+                        if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
+                            try {
+                                JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/factura.jrxml");
+                                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
+                                JRExporter exporter = new JRPdfExporter();
+                                
+                                JasperExportManager.exportReportToPdfFile(jasperPrint, ruta);
+                                
+                                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                                String nombredocFactura = "Factura" + this.envio.getNumDocVenta() + ".pdf";
+                                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
+                                exporter.exportReport();
 
-                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Factura Nro "+ this.envio.getNumDocVenta()+"\n" );
+                                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Factura Nro " + this.envio.getNumDocVenta() + "\n");
 
-            } catch (JRException e) {
-                e.printStackTrace();
+                            } catch (JRException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        
+                        
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                        ErrorDialog.mostrarError(error_message, this);
+                    }
+                } else {
+                    //CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo del documento de pago.");
+                    error_message = error_message + CValidator.buscarError("ERROR_FT015") + "\n";
+                    ErrorDialog.mostrarError(error_message, this);
+                }
+            }catch (Exception e) {
+                        e.printStackTrace();
+                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                        ErrorDialog.mostrarError(error_message, this);
+                    }       
+            } else {
+                //CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+                error_message = error_message + CValidator.buscarError("ERROR_FT016") + "\n";
+                ErrorDialog.mostrarError(error_message, this);
             }
-            
-            
-            
         }
+            catch (Exception e) {
+                        e.printStackTrace();
+                        //CReportes.mostrarMensajeError("Ocurrió un error al generar el documento de pago.");
+                        error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
+                        ErrorDialog.mostrarError(error_message, this);
+                    }  
+        }
+        
+
         
         if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
             try {
@@ -460,14 +463,10 @@ public void cargartabla(){
                 exporter.exportReport();
                 
                 CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro"+this.envio.getNumDocVenta()+"\n" );
-
-
             } catch (JRException e) {
                 e.printStackTrace();
             }
-        }
-        
-        
+        }        
 
 
 
