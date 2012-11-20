@@ -672,6 +672,76 @@ public class UsuarioEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         String mensaje = "";        
+        
+        //validar que ha elegido un perfil
+        if(cboPerfil.getSelectedIndex() == 0)
+            mensaje += "No ha seleccionado un perfil. Seleccione uno";
+        //validar que ha elegido un estado
+        if(cboEstado.getSelectedIndex() == 0)
+            mensaje += "No ha seleccionado un estado. Seleccione uno";
+        //validar que ha elegido un aeropuerto
+        if(txtAeropuerto.getText().isEmpty())
+            mensaje += "No ha seleccionado un aeropuerto. Seleccione uno";
+        //validar que ha puesto un login
+        if(txtLogIn.getText().isEmpty()){
+            mensaje += "No ha ingresado un LogIn.";
+        }
+        else if(CUsuario.buscarXNombreUsuario(txtLogIn.getText()) != null){
+            //validar que el login puesto no exista por otro usuario
+            mensaje += "El LogIn ingresado ya existe.";
+        }
+        //validar que nombres no este vacio
+        if(txtNombres.getText().isEmpty())
+            mensaje += "No ha ingresado nombres.";
+        //validar que apellidos no este vacio
+        if(txtApellidos.getText().isEmpty())
+            mensaje += "No ha ingresado apellidos.";
+        //validar que el correo no este vacio
+        if(txtCorreo.getText().isEmpty())
+            mensaje += "No ha ingresado correo electrónico.";
+        //validar que el telefonoo no este vacio
+        if(txtTelefono.getText().isEmpty())
+            mensaje += "No ha ingresado telefono.";
+        //validar que haya elegido un pais
+        if(cboPais.getSelectedIndex() == 0)
+            mensaje += "No ha elegido un pais.";
+        //validar que haya elegido una ciudad
+        if(cboCiudad.getSelectedIndex() == 0)
+            mensaje += "No ha elegido un pais.";
+        //validar que haya elegido un tipodoc
+        if(cboTipoDoc.getSelectedIndex() == 0)
+            mensaje += "No ha elegido un pais.";
+        //validar que haya puesto un num doc
+        if(txtNumeroDoc.getText().isEmpty())
+            mensaje += "No ha ingresado numero de documento.";
+        //si se trata de modificar, validar que la pass cumpla los requisitos
+        if(idusuario != -1 && psswdContrasena.getPassword().length != 0)
+            mensaje += CSeguridad.validarContrasenaConMensaje(psswdContrasena.getPassword(), idusuario);
+        
+        if(!mensaje.isEmpty()){ //Cumple todas las validaciones
+            if(idusuario != -1){ 
+                //Modificando usuario
+                if(psswdContrasena.getPassword().length != 0){
+                    //Modifico la password de dicho usuario
+                }
+                //Mando el correo
+            }
+            else{ 
+                //Creando usuario
+                new CUsuario().
+                    agregarUsuarioNuevo((Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), 
+                                        (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
+                                        txtCorreo.getText(), txtTelefono.getText(), txtNumeroDoc.getText(), 
+                                        (Parametro) cboTipoDoc.getSelectedItem(), (Parametro) cboCiudad.getSelectedItem(), 
+                                        (Parametro) cboPais.getSelectedItem());
+                //Creando contrasena
+                //Mando el correo
+            }
+        }
+        else{
+            ErrorDialog.mostrarError(mensaje, this);
+        }
+        
 
         if (idusuario != -1) { //Estoy modificando
             if (psswdContrasena.getPassword().length != 0)

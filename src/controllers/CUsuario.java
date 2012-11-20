@@ -237,85 +237,35 @@ public class CUsuario {
         Session s = sf.openSession();
         String error_message = "";
         Usuario U;
-        Usuario U2;
         try {
 
-            //if (idusuario==-1){
-            
-//            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
-//                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-//            }
             if (aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null ) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             
             else {
-           Query q;
-           Query q1;
-           
-           if (!login_actual.equals(logIn) ){
-           
-           q = s.getNamedQuery("Usuario");
-           Filter f = s.enableFilter("UsuarioxLogin");
-           f.setParameter("login",logIn);
-        
-           List<Usuario> ListaUsuarios;
-           List<Usuario> ListaAuxUsuarios;
-          
-           ListaUsuarios= q.list();
-           s.disableFilter("UsuarioxLogin");
-           
-                if (ListaUsuarios.size() > 0) {
-                    U = ListaUsuarios.get(0);
-                    if (U!=null){
-                        error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
-                    }
-                }
-                
+                Query q;
 
-//                    q = s.getNamedQuery("Usuario");
-//                    Filter f = s.enableFilter("UsuarioxLogin");
-//                    f.setParameter("login", logIn);
-//
-//                    List<Usuario> ListaUsuarios;
-//                    List<Usuario> ListaAuxUsuarios;
-//
-//                    ListaUsuarios = q.list();
-//                    s.disableFilter("UsuarioxLogin");
-//
-//                    if (ListaUsuarios.size() > 0) {
-//                        U = ListaUsuarios.get(0);
-//                        if (U != null) {
-//                            error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
-//                        }
-//                    }
+                if (!login_actual.equals(logIn) ){
 
+                q = s.getNamedQuery("Usuario");
+                Filter f = s.enableFilter("UsuarioxLogin");
+                f.setParameter("login",logIn);
 
-                    //q = s.getNamedQuery("Usuario");
-//           Filter f2 = s.enableFilter("UsuarioxIdcliente");
-//           f2.setParameter("idcliente",idcliente);
+                List<Usuario> ListaUsuarios;
 
-//           q1 = s.getNamedQuery("UsuarioxIdClienteAux");
-//           q1.setParameter("idcliente",idcliente );
-//           
-//           ListaAuxUsuarios= q1.list();
-//                
-//                if (ListaAuxUsuarios.size() > 0) {
-//                    U2 = ListaAuxUsuarios.get(0);
-//                    if (U2!=null){
-//                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
-//                    }
-//                }
+                ListaUsuarios= q.list();
+                s.disableFilter("UsuarioxLogin");
+
+                     if (ListaUsuarios.size() > 0) {
+                         U = ListaUsuarios.get(0);
+                         if (U!=null){
+                             error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
+                         }
+                     }                
+
+                 }
             }
-            }
-            //}
-//            
-//            if (idusuario!=-1){
-//            if ( aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
-//                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-//            }
-//            }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -349,6 +299,7 @@ public class CUsuario {
 //        return null;
 //    }
     public static Usuario buscarXNombreUsuario(String username) {
+        //Si no lo encuentra te devuelve null
         Session s = Sesion.openSessionFactory();
         try {
             Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
