@@ -265,8 +265,7 @@ public class PerfilDialog extends javax.swing.JDialog {
             //PerfilAgregarGUI.setVisibl*e(true);
             PerfilAgregarGUI.setIdperfil((Integer) PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
             PerfilAgregarGUI.setVisible(Boolean.TRUE);
-            if(id == Sesion.getUsuario().getPerfil().getIdPerfil()){
-                Sesion.setUsuario(CUsuario.actualizarUsuario(Sesion.getUsuario()));
+            if(Sesion.huboCambioPerfil()){
                 definirPermisos();
             }
             llenarTabla();

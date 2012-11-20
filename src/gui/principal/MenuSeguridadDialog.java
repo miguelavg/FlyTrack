@@ -149,7 +149,9 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         PerfilDialog perfilframe = new PerfilDialog();
         perfilframe.setVisible(true);
-        definirPermisos();
+        if(Sesion.huboCambioPerfil()){
+            definirPermisos();
+        }
     }//GEN-LAST:event_btnPerfilesActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed

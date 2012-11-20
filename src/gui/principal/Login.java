@@ -265,7 +265,7 @@ public class Login extends javax.swing.JFrame {
                     CUsuario.incrementarAccesos(existeUsuario);
                     CContrasena.actualizarFechaUltimoUso(CSeguridad.getContrasenaActiva(existeUsuario.getIdUsuario()));
                     Sesion.setUsuario(CUsuario.actualizarUsuario(existeUsuario));
-                    Sesion.setCambioPerfil(false);
+                    Sesion.setCambioPerfil(false);//Cuando se inicia Sesion no se ha modificado el perfil que tiene este usuario asignado
 
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);

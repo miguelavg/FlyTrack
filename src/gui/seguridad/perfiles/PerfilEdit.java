@@ -1663,8 +1663,10 @@ public class PerfilEdit extends javax.swing.JDialog {
             else{//Modificar Perfil
                 Perfil perfilModificado = CPerfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem());
                 String huboCambios = modificarPermisos(perfilModificado);
-                if(idperfil == Sesion.getUsuario().getPerfil().getIdPerfil()){ //Si el perfil que modifico es del usuario que esta en la sesion
+                if( idperfil == Sesion.getUsuario().getPerfil().getIdPerfil() && //Si el perfil que modifico es del usuario que esta en la sesion
+                    !huboCambios.isEmpty()){ //y ademas se nota que hubo cambios
                     Sesion.setUsuario(CUsuario.actualizarUsuario(Sesion.getUsuario())); //debo actualizar el usuario y por ende sus permisos porque han cambiado
+                    Sesion.setCambioPerfil(true); //le indicas a la sesion que ha cambiado el perfil
                 }
             }
             this.setVisible(false);
