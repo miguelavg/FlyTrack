@@ -53,7 +53,9 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         pintar();
         
         if (bandera ==false ){
-         lbl_mapa.paint(g);    
+       
+         pintar();
+         this.update(g);     
            // this.repaint();
         }       
     
