@@ -96,7 +96,7 @@ public class CValidator {
                 String texto="";
                 for (int i=0; i< caja.getText().length();i++){
 
-                    if (Character.isLetter(caja.getText().charAt(i))|| input==' ' )
+                    if (Character.isLetter(caja.getText().charAt(i))|| caja.getText().charAt(i)==' ' )
                     {
                         texto +=caja.getText().charAt(i);
                     }
