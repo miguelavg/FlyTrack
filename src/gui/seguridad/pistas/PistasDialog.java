@@ -286,6 +286,7 @@ public class PistasDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         List<Pista> pistas = CPista.obtenerPistas();
         llenarTabla(pistas);
+        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cmbModPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbModPrincipalActionPerformed

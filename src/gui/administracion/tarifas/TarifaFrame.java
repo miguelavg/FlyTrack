@@ -12,6 +12,7 @@ import beans.TipoCambio;
 import beans.seguridad.Permiso;
 import controllers.CAeropuerto;
 import controllers.CParametro;
+import controllers.CPista;
 import controllers.CSeguridad;
 import controllers.CTarifa;
 import controllers.CTipoCambio;
@@ -367,6 +368,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         ListaTarifa = TarifaBL.Buscar(AeroOri, AeroDes, "", "");
         llenartabla();
+        CPista.guardarPista("Tarifa", "Buscar", "TarifaFrame", "btnBuscarActionPerformed",null, null,"Se ha realizado una busqueda de tarifas");
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -430,6 +432,7 @@ public class TarifaFrame extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         ListaTarifa = TarifaBL.Buscar(null, null, "", "");
         llenartabla();
+        CPista.guardarPista("Tarifa", "Agregar", "TarifaFrame", "btnAgregarActionPerformed",null, null,"Se ha agregado una tarifa");
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -449,6 +452,7 @@ public class TarifaFrame extends javax.swing.JDialog {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
 
+        CPista.guardarPista("Tarifa", "Modificar", "TarifaFrame", "btnModificarActionPerformed",null, null,"Se ha modificado una tarifa");
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
