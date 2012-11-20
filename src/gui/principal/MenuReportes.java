@@ -176,7 +176,7 @@ public class MenuReportes extends javax.swing.JFrame {
 
     private void btnRptMovAlmcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptMovAlmcActionPerformed
         // TODO add your handling code here:
-        gui.jrxml.ReporteAlmacen reporteAlmacen = new gui.jrxml.ReporteAlmacen();
+        gui.reportes.ReporteAlmacen reporteAlmacen = new gui.reportes.ReporteAlmacen();
         reporteAlmacen.setVisible(true);
     }//GEN-LAST:event_btnRptMovAlmcActionPerformed
 
