@@ -13,6 +13,7 @@ import beans.seguridad.Perfil;
 import beans.seguridad.Permiso;
 import controllers.CParametro;
 import controllers.CPerfil;
+import controllers.CPista;
 import controllers.CSeguridad;
 import controllers.CUsuario;
 import controllers.CValidator;
@@ -476,6 +477,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         usuarioAgregarGUI.setVisible(true);
         cargartabla();
+        CPista.guardarPista("Usuario", "Agregar", "UsuarioDialog", "btnAgregarActionPerformed", null, null,"Ha agregado un usuario");
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -547,7 +549,10 @@ public class UsuarioDialog extends javax.swing.JDialog {
             datos[9] = listaUsuarios.get(i).getIdUsuario();
 
             dtm.addRow(datos);
+        
         }
+        CPista.guardarPista("Usuario", "Buscar", "UsuarioDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda");
+        
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         //mostrarListaAlerta(listaAlerta);
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -569,6 +574,8 @@ public class UsuarioDialog extends javax.swing.JDialog {
             usuarioAgregarGUI.showDialog();
             cargartabla();
         }
+        
+        CPista.guardarPista("Usuario", "Modificar", "UsuarioDialog", "btnModificarActionPerformed", null, null,"Ha modificar un usuario");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public void cargartabla() {
