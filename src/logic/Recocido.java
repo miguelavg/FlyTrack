@@ -135,10 +135,10 @@ public class Recocido {
         Collections.sort(moves, new CustomComparator());
 
         for (MovimientoAlmacen m : moves) {
-            if (m.getTipo().equals("I")) {
+            if (m.getTipo().equals("I") && m.getFecha().before(out) && m.getFecha().after(in)) {
                 actual = actual + m.getCantidad();
             }
-            if (m.getTipo().equals("O")) {
+            if (m.getTipo().equals("O") && m.getFecha().before(out) && m.getFecha().after(in)) {
                 actual = actual - m.getCantidad();
             }
             if (max < actual) {
