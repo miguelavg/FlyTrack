@@ -74,7 +74,6 @@ public class Login extends javax.swing.JFrame {
         setTitle("FlyTrack - Iniciar Sesión");
         setMaximumSize(new java.awt.Dimension(315, 240));
         setMinimumSize(new java.awt.Dimension(315, 240));
-        setPreferredSize(new java.awt.Dimension(315, 240));
         setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -177,7 +176,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lblOlvidoPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
