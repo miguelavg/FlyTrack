@@ -12,6 +12,7 @@ import controllers.CAeropuerto;
 import controllers.CCliente;
 import controllers.CParametro;
 import controllers.CValidator;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.*;
 import java.awt.Cursor;
 import java.io.File;
@@ -41,7 +42,10 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      */
     beans.Aeropuerto aeroori;
     CCliente cliente= new CCliente(); 
-    ClienteDataSource clienteds= new ClienteDataSource();
+    //ClienteDataSource clienteds= new ClienteDataSource();
+    
+    AlmacenDataSource vuelods= new AlmacenDataSource();
+    
     List<Parametro> ListaEstado;
     CParametro ParametroBL = new CParametro();
     
@@ -53,8 +57,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     public ReporteAlmacen() {
         initComponents();
         this.setLocationRelativeTo(null);
-        ListaCliente=cliente.Buscar("", "", null, "");
-        clienteds.setListaClientes(ListaCliente);
+        //ListaCliente=cliente.Buscar("", "", null, "");
+        
     }
 
     /**
@@ -81,7 +85,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         txtOrigen = new javax.swing.JTextPane();
         btn_origen = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAlmacen = new javax.swing.JTable();
 
@@ -229,11 +233,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
-        jButton3.setText("Exportar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnExportarActionPerformed(evt);
             }
         });
 
@@ -263,7 +267,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 691, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
@@ -272,7 +276,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -320,28 +324,33 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
         //File jasper=new File();
-    try{
-    JasperReport reporte=JasperCompileManager.compileReport("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml");
+    vuelods.setListaVuelos(listaVuelos);
+    if (aeroori!=null){
+        try {
+            JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/reporteAlmacen.jrxml");
 //    JasperReport reporte= (JasperReport) JRLoader.loadObjectFromFile("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml"); 
-    JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, clienteds); 
-    JRExporter exporter = new JRPdfExporter(); 
-    exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-    exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reporteEnPdf.pdf")); 
-    exporter.exportReport(); 
- 
-        
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, vuelods);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            String nombreReporteAlmacen = "Reporte" + this.aeroori.getNombre() + ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
+            exporter.exportReport();
+        } catch (JRException e) {
+            e.printStackTrace();
+            ErrorDialog.mostrarError("Ocurrió un error al crear el archivo pdf.", this);
+            
+        }
     }
-    catch(JRException e) 
-{ 
-    e.printStackTrace(); 
-} 
+    else {
+    ErrorDialog.mostrarError("Debe ingresar un aeropuerto.", this);
+    }
 
 
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
@@ -373,7 +382,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 //        if (cbm_estado.getSelectedIndex() > 0) {
 //            estado = ((Parametro) cbm_estado.getSelectedItem());
 //        }
-
+     if (aeroori!=null){
      fechini = dt_fechini.getSelectedDate();
      fechfin = dt_fechfin.getSelectedDate();
      
@@ -390,8 +399,6 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      parsalida2=ListaEstado.get(0);
      
      listaAeropuertos = CAeropuerto.BuscarAeropuertoXEnvioXFechas(aeroori, fechini, fechfin,parentrada.getIdParametro(),parsalida1.getIdParametro(),parsalida2.getIdParametro());
-     
-
 
      DefaultTableModel dtm = (DefaultTableModel) this.tblAlmacen.getModel();
      Object[] datos = new Object[5];
@@ -409,13 +416,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 //     }
     
     //listaAeropuertos.get(0).getVuelosLlegada().get(i).get
-     
 
-     
      for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
-
-         
-         
          if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
          {
             datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
@@ -425,9 +427,10 @@ public class ReporteAlmacen extends javax.swing.JFrame {
    //         }
    //         else {datos[1] = "";}
 
-            datos[1] = "Llegada";
+            datos[1] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
             datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
-            datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
+            //datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
+            datos[3] = "Llegada";
             datos[4] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
             dtm.addRow(datos);
 
@@ -451,13 +454,18 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 //         datos[1] = "Salida";
 //         }
 //         else {datos[1] = "";}
-         datos[1] = "Salida";
+         datos[1] = listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
          datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
-         datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
+         //datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
+         datos[3]= "Salida";
          datos[4] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
          dtm.addRow(datos);
          listaVuelos.add(listaAeropuertos.get(0).getVuelosSalida().get(i));
          }
+     }
+     }
+     else {
+     ErrorDialog.mostrarError("Debe ingresar un aeropuerto.", this);
      }
     }
  
@@ -506,12 +514,12 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btn_origen;
     private datechooser.beans.DateChooserCombo dt_fechfin;
     private datechooser.beans.DateChooserCombo dt_fechini;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

@@ -411,12 +411,12 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                             InformationDialog.mostrarInformacion("La operación se realizó con éxito ", this);
                             this.dispose();
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
                             ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
                         }
                     }
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
             }
         }else {
