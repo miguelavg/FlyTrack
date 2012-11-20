@@ -568,7 +568,7 @@ public class PerfilEdit extends javax.swing.JDialog {
 //            resultado += CPermiso.eliminarPermiso(permisoAux);
 //        }
         
-        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Paramtetros");
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Crear", 3, "Parametros");
         if(this.chkAdministracion_Parametros_Crear.isSelected() && permisoAux == null){
             resultado += CPermiso.crearPermiso(perfilBuscado, "Crear", 3, "Parametros");
         }
@@ -576,7 +576,7 @@ public class PerfilEdit extends javax.swing.JDialog {
             resultado += CPermiso.eliminarPermiso(permisoAux);
         }
         
-        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Paramtetros");
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Modificar", 3, "Parametros");
         if(this.chkAdministracion_Parametros_Modificar.isSelected() && permisoAux == null){
             resultado += CPermiso.crearPermiso(perfilBuscado, "Modificar", 3, "Parametros");
         }
@@ -584,7 +584,7 @@ public class PerfilEdit extends javax.swing.JDialog {
             resultado += CPermiso.eliminarPermiso(permisoAux);
         }
         
-        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Paramtetros");
+        permisoAux = CPermiso.encontrarPermiso(permisos, "Buscar/Listar", 3, "Parametros");
         if(this.chkAdministracion_Parametros_Buscar.isSelected() && permisoAux == null){
             resultado += CPermiso.crearPermiso(perfilBuscado, "Buscar/Listar", 3, "Parametros");
         }
