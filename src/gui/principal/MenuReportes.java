@@ -33,6 +33,7 @@ public class MenuReportes extends javax.swing.JFrame {
     public MenuReportes() {
         initComponents();
         definirPermisos();
+        btnRptEnvio.setVisible(false);
     }
 
     /**
@@ -87,6 +88,7 @@ public class MenuReportes extends javax.swing.JFrame {
         });
 
         btnRptEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
+        btnRptEnvio.setEnabled(false);
         btnRptEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRptEnvioActionPerformed(evt);
