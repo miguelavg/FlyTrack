@@ -82,12 +82,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
-            }
-        });
-
         btnEnvios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/envio4848.png"))); // NOI18N
         btnEnvios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,10 +339,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         MenuSeguridadFrame menuSeguridad = new MenuSeguridadFrame();
         menuSeguridad.setVisible(true);
     }//GEN-LAST:event_btnSeguridadActionPerformed
-
-    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1KeyPressed
 
     private void lblCambiarPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCambiarPassMouseClicked
         // TODO add your handling code here:
