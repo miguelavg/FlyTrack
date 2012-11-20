@@ -375,7 +375,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             jviewer.setVisible(true);
             //exportar=true;
             
-            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
         } catch (JRException e) {
             e.printStackTrace();
             ErrorDialog.mostrarError("Ocurrió un error ", this);

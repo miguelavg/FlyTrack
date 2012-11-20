@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad443fe1-23e9-4e0d-8c2b-e49e26cde6ca">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="SansSerif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="SansSerif" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="SansSerif" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="SansSerif" fontSize="12"/>
+	<field name="escala" class="java.lang.String"/>
+	<field name="codvuelo" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="destino" class="java.lang.String"/>
+	<field name="fechasalida" class="java.lang.String"/>
+	<field name="fechallegada" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<image>
+				<reportElement uuid="a737e753-ff95-4533-b2fb-af7b04d2fffb" x="0" y="6" width="555" height="53"/>
+				<imageExpression><![CDATA["/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/wood.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="1ae3f557-3495-418f-ab7e-b2528b54cf82" style="Title" x="0" y="5" width="315" height="33" forecolor="#FEFEFE" backcolor="#FFFAFA"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Reporte de Bitácora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9a35e2cb-53c2-485b-870e-27ebfdb41604" style="SubTitle" x="413" y="37" width="82" height="22" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[RedEx]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="a684d159-5606-43d6-aaf0-00387a470913" x="504" y="17" width="52" height="43"/>
+				<imageExpression><![CDATA["/home/joao/NetBeansProjects/FlyTrack/src/imagenes/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="25d9951d-5a00-4a84-8627-68b864a73fe4" x="0" y="4" width="553" height="35" backcolor="#4E404E"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="96817d62-a47b-4e20-b9f2-63a0831b3b67" x="0" y="13" width="55" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Escala]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="52" y="13" width="75" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod Vuelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="109" y="13" width="76" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="210" y="13" width="89" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="320" y="13" width="88" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="396" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Llegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="471" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="0" y="2" width="61" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{escala}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="127" y="3" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="67" y="2" width="39" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{codvuelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="210" y="2" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="315" y="2" width="39" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fechasalida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="396" y="2" width="39" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fechallegada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="495" y="0" width="57" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d58dfa80-49b5-4fb8-a3d0-897f06bd6cf9" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="87d52712-9587-4180-b514-96e51aa19ea1" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="372ba6ca-1863-4ee6-98c1-a6d668d3a484" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

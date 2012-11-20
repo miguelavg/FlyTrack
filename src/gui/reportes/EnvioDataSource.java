@@ -81,9 +81,6 @@ public class EnvioDataSource  implements JRDataSource {
     { 
         valor = CValidator.formatNumber((getEnvio().getMonto())+(getEnvio().getImpuesto()/100*getEnvio().getMonto())); 
     } 
-        
-    
-    
     
      
     return valor; 

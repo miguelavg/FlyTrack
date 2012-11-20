@@ -9,18 +9,33 @@ import controllers.*;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import gui.reportes.EscalaDataSource;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -46,7 +61,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private boolean isNuevo;
     private boolean wasNuevo;
     private double iva;
-
+    EscalaDataSource escalads= new EscalaDataSource();
+    
     public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -372,7 +388,6 @@ public class EnvioAgregar extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Envíos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -657,6 +672,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
         btn_bitacora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lists.png"))); // NOI18N
         btn_bitacora.setText("Bitácora");
+        btn_bitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bitacoraActionPerformed(evt);
+            }
+        });
 
         btn_recalcular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/actualizar24x24.png"))); // NOI18N
         btn_recalcular.setText("Recalcular ruta");
@@ -1287,6 +1307,69 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private void txt_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_origenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_origenActionPerformed
+
+    private void btn_bitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacoraActionPerformed
+        // TODO add your handling code here:
+            escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
+    if (envio!=null){
+        try {
+            //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/ReporteBitacora.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, escalads);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual=new Date(); 
+            fechaactual = Calendar.getInstance().getTime(); 
+            String reportDate = df.format(fechaactual);
+            
+            String nombreReporteBitacora = "Bitacora" + this.envio.getIdEnvio()+reportDate+ ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
+            exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            //setModal(false);
+            jviewer.setTitle(nombreReporteBitacora);
+            jviewer.setVisible(true);
+            setModal(false);
+            this.setAlwaysOnTop(false);
+            this.setModal(false);
+            //this.set
+            //exportar=true;
+//            JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
+//            viewer.setSize(800,600); 
+//            viewer.setLocationRelativeTo(null); 
+//            
+//           
+//
+//            viewer.getContentPane().add(jviewer);
+            //viewer.show();
+            
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+        } catch (JRException e) {
+            e.printStackTrace();
+            ErrorDialog.mostrarError("Ocurrió un error ", this);
+            
+        }
+    }
+    else {
+    ErrorDialog.mostrarError("Debe registrar un envio.", this);
+    }
+        
+        
+    }//GEN-LAST:event_btn_bitacoraActionPerformed
 
     /**
      * @param args the command line arguments
