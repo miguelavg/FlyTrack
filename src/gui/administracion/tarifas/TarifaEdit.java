@@ -355,7 +355,7 @@ public class TarifaEdit extends javax.swing.JDialog {
         for (int i = 1; i < cboMoneda.getItemCount(); i++) {
             Parametro moneda = (Parametro) cboMoneda.getItemAt(i);
             if (moneda.getIdParametro() == TarifaBE.getMoneda().getIdParametro()) {
-                cboMoneda.setSelectedIndex(i);
+                cboMoneda.setSelectedIndex(i+1);
                 break;
             }
         }

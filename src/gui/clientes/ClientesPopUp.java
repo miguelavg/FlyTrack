@@ -182,7 +182,15 @@ public class ClientesPopUp extends javax.swing.JDialog {
             new String [] {
                 "Id", "Nombre", "Apellido", "Teléfono", "Email", "Tipo Doc.", "Num. Doc."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(ClienteTabla);
         ClienteTabla.getColumnModel().getColumn(0).setMinWidth(0);
         ClienteTabla.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -321,7 +329,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         // TODO add your handling code here:
 
-        if (ClienteTabla.getSelectedRow() > 0) {
+        if (ClienteTabla.getSelectedRow() >= 0) {
             Integer id = (Integer) ClienteTabla.getValueAt(ClienteTabla.getSelectedRow(), 0);
             cliente = ClienteBL.BuscarXid(id);
             setVisible(false);
