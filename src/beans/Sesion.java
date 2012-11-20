@@ -41,6 +41,7 @@ public class Sesion {
     }
     
     private static Usuario usuario;
+    private static boolean cambioPerfil;
 
     public static Usuario getUsuario() {
         return usuario;
@@ -48,6 +49,14 @@ public class Sesion {
 
     public static void setUsuario(Usuario aUsuario) {
         usuario = aUsuario;
+    }
+
+    public static boolean huboCambioPerfil() {
+        return cambioPerfil;
+    }
+
+    public static void setCambioPerfil(boolean CambioPerfil) {
+        cambioPerfil = CambioPerfil;
     }
     
 }
