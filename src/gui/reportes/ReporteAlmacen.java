@@ -401,16 +401,20 @@ public class ReporteAlmacen extends javax.swing.JFrame {
          dtm.removeRow(0);
      }
      
-     
+     listaAeropuertos.get(0).getVuelosLlegada().size();
+//     for (int i=0; i < listaAeropuertos.get(0).getVuelosLlegada().size();i++){
+//         listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
+//
+//         listaAeropuertos.get(0).getVuelosLlegada().get(i).getEscalas().size();
+//     }
     
-    //listaAeropuertos.get(0).getVuelosLlegada().get(i).get`
+    //listaAeropuertos.get(0).getVuelosLlegada().get(i).get
+     
 
      
      for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
 
-         listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
-
-         listaAeropuertos.get(0).getVuelosLlegada().get(i).getEscalas().size();
+         
          
          if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
          {
