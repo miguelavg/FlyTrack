@@ -58,13 +58,19 @@ public class TarifaEdit extends javax.swing.JDialog {
         jLabel10.setVisible(false);
         cboEstado.setSelectedIndex(1);
         cboMoneda.setSelectedIndex(2);
-
+        this.isNuevo = true;
         if (idtarifa != -1) {
             cargarcampos();
+            this.isNuevo = false;
+        }
+        if (this.isNuevo) {
+            this.setTitle("FlyTrack - Administración - Tarifa - Agregar");
+        } else {
+            this.setTitle("FlyTrack - Administración - Tarifa - Modificar");
         }
 
     }
-    
+    private boolean isNuevo;
     @Override
     protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
