@@ -150,13 +150,13 @@ public class CValidator {
         
             for (int s=0; s<input.length();s++){
                Character c=input.charAt(s);
-               if (Character.isLetter(c)||Character.isDigit(c)|| c==' ') {
-                   return true;
+               if (!Character.isLetter(c)||!Character.isDigit(c)|| c!=' ') {
+                   return false;
                }
             }
                                             
         
-        return false;
+        return true;
     }
 
     public static String formatDate(Date date) {

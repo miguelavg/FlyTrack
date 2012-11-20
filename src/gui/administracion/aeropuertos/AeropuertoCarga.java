@@ -39,8 +39,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
     
     public AeropuertoCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -63,6 +63,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Cargar aeropuertos");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -289,7 +290,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             //error="Los valores de la capacidad actual no son validos.";
                 //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
                 
-                        ErrorDialog.mostrarError("Los valores de la capacidad actual no son validos."+" "+s.toString(), this);
+                        ErrorDialog.mostrarError("Los valores de la capacidad actual no son validos."+"  Error en el objeto  "+s.toString(), this);
                         aeropuertos=null;
             break;        
             }
@@ -300,7 +301,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else {
             //error="Los valores de la capacidad maxima no son validos.";
                 //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-                        ErrorDialog.mostrarError("Los valores de la capacidad maxima no son validos."+" "+s.toString(), this);
+                        ErrorDialog.mostrarError("Los valores de la capacidad maxima no son validos."+"  Error en el objeto   "+s.toString(), this);
                         aeropuertos=null;
             break;        
             }
@@ -314,7 +315,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else {
             //error="Los valores de la coordenada X no son validos.";
                // error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-                ErrorDialog.mostrarError("Los valores de la coordenada X no son validos."+" "+s.toString(), this);
+                ErrorDialog.mostrarError("Los valores de la coordenada X no son validos."+"  Error en el objeto   "+s.toString(), this);
                 aeropuertos=null;
                 break;        
             }
@@ -326,14 +327,25 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else {
             //error="Los valores de la coordenada Y no son validos.";
                 //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-                ErrorDialog.mostrarError("Los valores de la coordenada Y no son validos."+" "+s.toString(), this);
+                ErrorDialog.mostrarError("Los valores de la coordenada Y no son validos."+"   Error en el objeto   "+s.toString(), this);
                 aeropuertos=null;
                 break;        
             }
             
             //aero.setCoordY(xmlaero.getCoordY());
-            aero.setNombre(xmlaero.getNombre());
+            beans.Aeropuerto aeropuerto=CAeropuerto.BuscarNombre(xmlaero.getNombre());
             
+            if (aeropuerto == null) {
+                aero.setNombre(xmlaero.getNombre());
+            } else {
+                ErrorDialog.mostrarError("Los valores del nombre del aeropuerto no son validos." + "  Error en el objeto   " + s.toString(), this);
+                aeropuertos = null;
+                break;
+
+            }
+                
+                
+                
             
             Parametro pais=CParametro.buscarXValorUnicoyTipo("PAIS",xmlaero.getPais());
             
@@ -343,7 +355,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else {
                 //error="Los valores del pais no son validos.";
                 //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-                ErrorDialog.mostrarError("Los valores del pais no son validos."+" "+s.toString(), this);
+                ErrorDialog.mostrarError("Los valores del pais no son validos."+"  Error en el objeto   "+s.toString(), this);
                 aeropuertos=null;
                 break;        
             }
@@ -356,7 +368,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else {
                 //error="Los valores de ciudad no son validos.";
                 //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-                ErrorDialog.mostrarError("Los valores de ciudad no son validos." +" "+s.toString(), this);
+                ErrorDialog.mostrarError("Los valores de ciudad no son validos." +"  Error en el objeto   "+s.toString(), this);
                 aeropuertos=null;
                 break;        
             }
@@ -369,7 +381,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             else {
                 //error="Los valores del estado no son validos.";
                 //error_message = error_message + CValidator.buscarError("ERROR_FT014") + "\n";
-                ErrorDialog.mostrarError("Los valores del estado no son validos."+" "+s.toString(), this);
+                ErrorDialog.mostrarError("Los valores del estado no son validos."+"  Error en el objeto   "+s.toString(), this);
                 aeropuertos=null;
                 break;        
             }
@@ -388,10 +400,13 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (archivovalido) {
             ArrayList xmlAeropuertos = CSerializer.deserializar(txtRuta.getText());
-//          ArrayList aeropuertos=CSerializer.deserializar("PruebaCargaAero.xml");
+//          ArrayList aeropuertos=CSerializer.deserializar("PruebaCargaAero.xml");\
+            
+            if (xmlAeropuertos!=null){
             ArrayList aeropuertos = PasaValores(xmlAeropuertos);
-
-            if (aeropuertos != null) {
+            
+            
+            if (aeropuertos != null  && xmlAeropuertos!=null) {
                 try {   
                    setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     //CAeropuerto.ValidarCaga(vuelos);
@@ -404,10 +419,14 @@ setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     this.dispose();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.", this);
+                    ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
 
                 }
             }
+            }
+            else {ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);}
+            
+            
         }
         
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
