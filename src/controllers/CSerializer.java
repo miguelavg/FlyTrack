@@ -42,6 +42,7 @@ public class CSerializer {
             fr.close();
         } catch (IOException e) {
             System.out.println(e.toString());
+            return lista;
         }
 
         return lista ;

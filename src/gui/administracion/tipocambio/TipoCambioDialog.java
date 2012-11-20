@@ -472,9 +472,6 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Aeropuertos", permisos);
-//        this.btn_cargaMasiva.setEnabled(cargaMasiva);
-
         this.setLocationRelativeTo(null);
         pack();
 

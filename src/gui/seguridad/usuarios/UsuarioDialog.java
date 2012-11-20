@@ -38,7 +38,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
  *
  * @author msolorzano
  */
-public class UsuarioFrame extends javax.swing.JDialog {
+public class UsuarioDialog extends javax.swing.JDialog {
 
     CUsuario CUsuario = new CUsuario();
     List<Parametro> ListaTipoDoc;
@@ -50,9 +50,9 @@ public class UsuarioFrame extends javax.swing.JDialog {
     CPerfil PerfilBL = new CPerfil();
 
     /**
-     * Creates new form UsuarioFrame
+     * Creates new form UsuarioDialog
      */
-    public UsuarioFrame() {
+    public UsuarioDialog() {
         initComponents();
         //llenarcomboTipoDoc(); 
 
@@ -653,20 +653,20 @@ public class UsuarioFrame extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UsuarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UsuarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UsuarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UsuarioFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsuarioDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UsuarioFrame().setVisible(true);
+                new UsuarioDialog().setVisible(true);
             }
         });
     }
@@ -702,10 +702,13 @@ public class UsuarioFrame extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Usuarios", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Usuarios", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
+        
         boolean buscar = CSeguridad.validarPermiso(3, "Usuarios", "Buscar/Listar", permisos);
         this.btnBuscar.setEnabled(buscar);
 

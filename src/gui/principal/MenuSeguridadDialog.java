@@ -8,8 +8,9 @@ import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import gui.administracion.parametros.ParametroDialog;
-import gui.seguridad.perfiles.PerfilFrame;
-import gui.seguridad.usuarios.UsuarioFrame;
+import gui.seguridad.perfiles.PerfilDialog;
+import gui.seguridad.pistas.PistasDialog;
+import gui.seguridad.usuarios.UsuarioDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -18,12 +19,12 @@ import javax.swing.*;
  *
  * @author ronald
  */
-public class MenuSeguridadFrame extends javax.swing.JDialog {
+public class MenuSeguridadDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form MenuSeguridadFrame
+     * Creates new form MenuSeguridadDialog
      */
-    public MenuSeguridadFrame() {
+    public MenuSeguridadDialog() {
         initComponents();
         definirPermisos();
     }
@@ -65,7 +66,6 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Seguridad");
-        setMaximumSize(new java.awt.Dimension(450, 115));
         setMinimumSize(new java.awt.Dimension(450, 115));
         setModal(true);
         setResizable(false);
@@ -147,19 +147,21 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
 
     private void btnPerfilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilesActionPerformed
         // TODO add your handling code here:
-        PerfilFrame perfilframe = new PerfilFrame();
+        PerfilDialog perfilframe = new PerfilDialog();
         perfilframe.setVisible(true);
     }//GEN-LAST:event_btnPerfilesActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
-        UsuarioFrame usuarioframe = new UsuarioFrame();
+        UsuarioDialog usuarioframe = new UsuarioDialog();
         usuarioframe.setVisible(true);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
         // TODO add your handling code here:
-        
+        PistasDialog pistaDL = new PistasDialog();
+        pistaDL.setModal(true);
+        pistaDL.setVisible(true);
     }//GEN-LAST:event_btnLogAuditoriaActionPerformed
 
     /**
@@ -179,20 +181,20 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuSeguridadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuSeguridadDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuSeguridadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuSeguridadDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuSeguridadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuSeguridadDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuSeguridadFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuSeguridadDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuSeguridadFrame().setVisible(true);
+                new MenuSeguridadDialog().setVisible(true);
             }
         });
     }
@@ -208,12 +210,15 @@ public class MenuSeguridadFrame extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean usuarios = CSeguridad.validarPermiso(2, "Seguridad", "Usuarios", permisos);
         this.btnUsuarios.setEnabled(usuarios);
         this.lblUsuarios.setEnabled(usuarios);
+        
         boolean perfiles = CSeguridad.validarPermiso(2, "Seguridad", "Perfiles", permisos);
         this.btnPerfiles.setEnabled(perfiles);
         this.lblPerfiles.setEnabled(perfiles);
+        
         boolean logAuditoria = CSeguridad.validarPermiso(2, "Seguridad", "LogAuditoria", permisos);
         this.btnLogAuditoria.setEnabled(logAuditoria);
         this.lblLogAuditoria.setEnabled(logAuditoria);

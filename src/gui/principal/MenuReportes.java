@@ -4,12 +4,16 @@
  */
 package gui.principal;
 
-import gui.reportes.ReporteAlmacen;
+//import gui.reportes.ReporteAlmacen;
+import beans.Sesion;
+import beans.seguridad.Permiso;
+import controllers.CSeguridad;
 import gui.reportes.ReporteEnvios;
 import gui.reportes.ReporteIncidencias;
 import gui.reportes.ReporteVentas;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.InputMap;
@@ -28,7 +32,7 @@ public class MenuReportes extends javax.swing.JFrame {
      */
     public MenuReportes() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        definirPermisos();
     }
 
     /**
@@ -145,10 +149,11 @@ public class MenuReportes extends javax.swing.JFrame {
                                             .addComponent(btnRptEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnRptMovAlmc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel1)
-                                            .addComponent(lblLogAuditoria3)
-                                            .addComponent(lblLogAuditoria4)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblLogAuditoria4)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel1)
+                                                .addComponent(lblLogAuditoria3))))
                                     .addComponent(btnRptIncidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblLogAuditoria5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -172,7 +177,7 @@ public class MenuReportes extends javax.swing.JFrame {
 
     private void btnRptMovAlmcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptMovAlmcActionPerformed
         // TODO add your handling code here:
-        ReporteAlmacen reporteAlmacen = new ReporteAlmacen();
+        gui.jrxml.ReporteAlmacen reporteAlmacen = new gui.jrxml.ReporteAlmacen();
         reporteAlmacen.setVisible(true);
     }//GEN-LAST:event_btnRptMovAlmcActionPerformed
 
@@ -245,4 +250,24 @@ public class MenuReportes extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogAuditoria4;
     private javax.swing.JLabel lblLogAuditoria5;
     // End of variables declaration//GEN-END:variables
+
+    private void definirPermisos(){
+        List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
+        boolean ventas = CSeguridad.validarPermiso(2, "Reportes", "Ventas", permisos);
+        this.btnRptVentas.setEnabled(ventas);
+        
+        boolean envios = CSeguridad.validarPermiso(2, "Reportes", "Envios", permisos);
+        this.btnRptEnvio.setEnabled(envios);
+        
+        boolean movAlmacen = CSeguridad.validarPermiso(2, "Reportes", "MovAlmacen", permisos);
+        this.btnRptMovAlmc.setEnabled(movAlmacen);
+        
+        boolean incidencias = CSeguridad.validarPermiso(2, "Reportes", "Incidencias", permisos);
+        this.btnRptIncidencias.setEnabled(incidencias);
+        
+        this.setLocationRelativeTo(null);
+        pack();
+    }
+
 }

@@ -358,7 +358,7 @@
                                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="chkAdministracion_Vuelos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chkAdministracion_Vuelos_Eventos" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="chkAdministracion_Vuelos_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="chkAdministracion_Vuelos_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="chkAdministracion_Vuelos_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -388,7 +388,6 @@
                                                   <Component id="chkAdministracion_TipoCambio_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="chkAdministracion_TipoCambio_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="chkAdministracion_TipoCambio_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="chkAdministracion_TipoCambio_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                                   <Component id="chkAdministracion_Aeropuertos_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -469,7 +468,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="chkAdministracion_Vuelos_Crear" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Component id="chkAdministracion_Vuelos_Modificar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chkAdministracion_Vuelos_Eventos" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chkAdministracion_Vuelos_Buscar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -481,8 +480,6 @@
                                   <Component id="chkAdministracion_TipoCambio_Modificar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chkAdministracion_TipoCambio_Buscar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chkAdministracion_TipoCambio_CargaMasiva" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
@@ -581,13 +578,13 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_Vuelos_BuscarActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_Modificar">
+                <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_Eventos">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                    <Property name="text" type="java.lang.String" value="Eventos"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_Vuelos_ModificarActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_Vuelos_EventosActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chkAdministracion_Vuelos_Crear">
@@ -662,15 +659,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_TipoCambio_BuscarActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkAdministracion_TipoCambio_CargaMasiva">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAdministracion_TipoCambio_CargaMasivaActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JCheckBox" name="chkAdministracion_Parametros">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Par&#xe1;metros"/>
@@ -737,7 +725,6 @@
                                               <Component id="chkSeguridad_Usuarios_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="chkSeguridad_Usuarios_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="chkSeguridad_Usuarios_Buscar" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="chkSeguridad_Usuarios_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -749,10 +736,10 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="chkSeguridad_Perfiles_Modificar" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="chkSeguridad_Perfiles_Crear" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="chkSeguridad_Perfiles_CargaMasiva" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
@@ -779,13 +766,9 @@
                                   <Component id="chkSeguridad_Perfiles_Crear" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chkSeguridad_Perfiles_Modificar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chkSeguridad_Perfiles_CargaMasiva" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkSeguridad_Usuarios_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="chkSeguridad_LogAuditoria" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
@@ -829,15 +812,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Usuarios_BuscarActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Usuarios_CargaMasiva">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Usuarios_CargaMasivaActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JCheckBox" name="chkSeguridad_Perfiles">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Perfiles"/>
@@ -863,15 +837,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Perfiles_ModificarActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkSeguridad_Perfiles_CargaMasiva">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkSeguridad_Perfiles_CargaMasivaActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chkSeguridad_LogAuditoria">
@@ -900,7 +865,6 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="chkEnvios_CargaMasiva" min="-2" max="-2" attributes="0"/>
                               <Component id="chkEnvios_Buscar" min="-2" max="-2" attributes="0"/>
                               <Component id="chkEnvios_Modificar" min="-2" max="-2" attributes="0"/>
                               <Component id="chkEnvios_Crear" min="-2" max="-2" attributes="0"/>
@@ -918,9 +882,7 @@
                           <Component id="chkEnvios_Modificar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chkEnvios_Buscar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="chkEnvios_CargaMasiva" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -941,12 +903,6 @@
                 <Component class="javax.swing.JCheckBox" name="chkEnvios_Buscar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Buscar / Listar"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="chkEnvios_CargaMasiva">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Carga Masiva"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>

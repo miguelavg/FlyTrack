@@ -47,7 +47,6 @@ public class Vuelos extends javax.swing.JDialog {
     public Vuelos() {
         initComponents();
         llenarComboEstado();
-        this.setLocationRelativeTo(null);
         definirPermisos();
     }
 
@@ -105,8 +104,8 @@ public class Vuelos extends javax.swing.JDialog {
                 return false;
             }
         };
-        jButton1 = new javax.swing.JButton();
-        btnIncidencia = new javax.swing.JButton();
+        btnCargaMasiva = new javax.swing.JButton();
+        btnEventos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Vuelos");
@@ -338,19 +337,19 @@ public class Vuelos extends javax.swing.JDialog {
         tbl_vuelos.getColumnModel().getColumn(6).setPreferredWidth(80);
         tbl_vuelos.getColumnModel().getColumn(7).setPreferredWidth(75);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
-        jButton1.setText("Carga Masiva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCargaMasiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/xml.png"))); // NOI18N
+        btnCargaMasiva.setText("Carga Masiva");
+        btnCargaMasiva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCargaMasivaActionPerformed(evt);
             }
         });
 
-        btnIncidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/incidencia24x24.png"))); // NOI18N
-        btnIncidencia.setText("Incidencia");
-        btnIncidencia.addActionListener(new java.awt.event.ActionListener() {
+        btnEventos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/incidencia24x24.png"))); // NOI18N
+        btnEventos.setText("Eventos");
+        btnEventos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncidenciaActionPerformed(evt);
+                btnEventosActionPerformed(evt);
             }
         });
 
@@ -365,9 +364,9 @@ public class Vuelos extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCargaMasiva, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -376,8 +375,8 @@ public class Vuelos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCargaMasiva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -473,11 +472,11 @@ public class Vuelos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMasivaActionPerformed
         // TODO add your handling code here:
         VuelosCarga DialogoCarga = new VuelosCarga(this, true);
         DialogoCarga.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCargaMasivaActionPerformed
 
     private void tbl_vuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_vuelosMouseClicked
         // TODO add your handling code here:
@@ -544,7 +543,7 @@ public class Vuelos extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btn_regresar2ActionPerformed
 
-    private void btnIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciaActionPerformed
+    private void btnEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEventosActionPerformed
         // TODO add your handling code here:
 
 //         if (objV.getEstado().getValorUnico().compareTo("FIN")== 0){
@@ -578,7 +577,7 @@ public class Vuelos extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Vuelo", "Advertencia", 1);
         }
-    }//GEN-LAST:event_btnIncidenciaActionPerformed
+    }//GEN-LAST:event_btnEventosActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
@@ -634,7 +633,8 @@ public class Vuelos extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnIncidencia;
+    private javax.swing.JButton btnCargaMasiva;
+    private javax.swing.JButton btnEventos;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_origenAero;
     private javax.swing.JButton btn_origenDest;
@@ -642,7 +642,6 @@ public class Vuelos extends javax.swing.JDialog {
     private javax.swing.JComboBox cbm_estado;
     private datechooser.beans.DateChooserCombo dt_fechfin;
     private datechooser.beans.DateChooserCombo dt_fechini;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -666,14 +665,14 @@ public class Vuelos extends javax.swing.JDialog {
         boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
         
-        boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
-        this.btnIncidencia.setEnabled(modificar);
+        boolean eventos = CSeguridad.validarPermiso(3, "Vuelos", "Eventos", permisos);
+        this.btnEventos.setEnabled(eventos);
         
         boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);
-//        this.btnCargaMasiva.setEnabled(cargaMasiva);
+        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Vuelos", "Carga Masiva", permisos);
+        this.btnCargaMasiva.setEnabled(cargaMasiva);
 
         this.setLocationRelativeTo(null);
         pack();
