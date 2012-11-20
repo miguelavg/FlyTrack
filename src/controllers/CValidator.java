@@ -148,7 +148,12 @@ public class CValidator {
     
     public static boolean esAlfanumerico(String input){
         
-     
+            for (int s=0; s<input.length();s++){
+               Character c=input.charAt(s);
+               if (Character.isLetter(c)) {
+                   return true;
+               }
+            }
             
             for (Integer c=0;c<10;c++){
                
@@ -156,9 +161,7 @@ public class CValidator {
                     
                     return true;
                 }
-            }
-            
-        
+            }                    
         
         return false;
     }
