@@ -316,6 +316,8 @@ public class Login extends javax.swing.JFrame {
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         ErrorDialog.mostrarError("Usuario: " + username + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
+                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed",
+                                            null, null,"Se ha bloqueado la cuenta del usuario " + username);
                     }
                 }
             }
