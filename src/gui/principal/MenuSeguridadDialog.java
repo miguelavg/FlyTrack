@@ -10,7 +10,7 @@ import controllers.CSeguridad;
 import gui.administracion.parametros.ParametroDialog;
 import gui.seguridad.perfiles.PerfilDialog;
 import gui.seguridad.pistas.PistasDialog;
-import gui.seguridad.usuarios.UsuarioFrame;
+import gui.seguridad.usuarios.UsuarioDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -153,7 +153,7 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
-        UsuarioFrame usuarioframe = new UsuarioFrame();
+        UsuarioDialog usuarioframe = new UsuarioDialog();
         usuarioframe.setVisible(true);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
