@@ -50,11 +50,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     public void paint(Graphics g) {
         super.paint(g);
        
-        pintar();
+        pintar(g);
         
         if (bandera ==false ){
        
-         pintar();
+         pintar(g);
          this.update(g);     
            // this.repaint();
         }       
@@ -107,6 +107,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
          c.setColor(Color.WHITE);
            c.fillOval(evt.getX(),evt.getY(), 10,10 );
         c.drawOval(evt.getX(),evt.getY(), 10,10 );
+        paint(c);
       int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posición?", "Advertencia", JOptionPane.YES_NO_OPTION);
          if (JOptionPane.YES_OPTION == result) {
              objAero.setCoordX(evt.getX());
@@ -158,9 +159,9 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_mapa;
     // End of variables declaration//GEN-END:variables
 
-    private void pintar() {
+    private void pintar( Graphics c) {
         
-        Graphics c = this.getGraphics();
+       
         
         for (int j = 0; j <ListaAeropuerto.size(); j++){
             
