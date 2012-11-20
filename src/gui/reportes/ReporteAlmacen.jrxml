@@ -33,7 +33,7 @@
 			</staticText>
 			<image>
 				<reportElement uuid="a684d159-5606-43d6-aaf0-00387a470913" x="504" y="17" width="52" height="43"/>
-				<imageExpression><![CDATA["/home/joao/NetBeansProjects/FlyTrack/src/imagenes/logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
