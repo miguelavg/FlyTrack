@@ -399,6 +399,9 @@ public class SimDialog extends javax.swing.JDialog {
             }
         });
         jScrollPane4.setViewportView(tbl_aeropuertos);
+        tbl_aeropuertos.getColumnModel().getColumn(1).setMinWidth(0);
+        tbl_aeropuertos.getColumnModel().getColumn(1).setPreferredWidth(0);
+        tbl_aeropuertos.getColumnModel().getColumn(1).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

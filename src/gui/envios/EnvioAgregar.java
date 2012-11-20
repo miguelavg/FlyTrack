@@ -62,7 +62,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private boolean wasNuevo;
     private double iva;
     EscalaDataSource escalads;
-    
+
     public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -1114,6 +1114,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             this.envio.setFechaRegistro(new Date());
             this.envio.setFechaRecojo(null);
             this.envio.setImpuesto(Double.parseDouble(txt_iva.getText()));
+            this.envio.setIva(this.iva);
 
             int numPaquetes = this.envio.getNumPaquetes();
             double unitario = tarifa.getMonto();
@@ -1134,9 +1135,11 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 llenarEscalas(this.envio);
                 this.isNuevo = false;
 
-                cenvio.guardarEnvio(this.envio);
+                //cenvio.guardarEnvio(this.envio);
 
                 this.envio.setNumDocVenta(CEnvio.getNextNumDoc(doc.getValorUnico()));
+                cenvio.guardarEnvio(this.envio);
+
                 llenarCombos(this.isNuevo, this.moneda, this.doc, this.estado, this.estadoFactura);
                 this.txt_numEnvio.setText(String.valueOf(this.envio.getIdEnvio()));
                 this.txt_numDoc.setText(String.valueOf(this.envio.getNumDocVenta()));
@@ -1310,45 +1313,43 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void btn_bitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacoraActionPerformed
         // TODO add your handling code here:
-        escalads= new EscalaDataSource();
+        escalads = new EscalaDataSource();
         escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
-    if (escalads!=null){
-        try {
-            //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
-            String master = System.getProperty("user.dir") +
-                                "/src/gui/reportes/ReporteBitacora.jasper";
-            
-            JasperReport masterReport = null;
-            try
-            {
-                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
-            }
-            catch (JRException e)
-            {
-                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
-                return;
-            }
-            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, escalads);
-            JRExporter exporter = new JRPdfExporter();
-            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
-            Date fechaactual=new Date(); 
-            fechaactual = Calendar.getInstance().getTime(); 
-            String reportDate = df.format(fechaactual);
-            
-            String nombreReporteBitacora = "Bitacora" + this.envio.getIdEnvio()+reportDate+ ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
-            exporter.exportReport();
-            
-            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
-            //setModal(false);
-            jviewer.setTitle(nombreReporteBitacora);
-            jviewer.setVisible(true);
-            jviewer.setAlwaysOnTop(true);
-           
+        if (escalads != null) {
+            try {
+                //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/ReporteBitacora.jasper";
 
-            //this.set
-            //exportar=true;
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                    return;
+                }
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, escalads);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+                Date fechaactual = new Date();
+                fechaactual = Calendar.getInstance().getTime();
+                String reportDate = df.format(fechaactual);
+
+                String nombreReporteBitacora = "Bitacora" + this.envio.getIdEnvio() + reportDate + ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+
+                jviewer.setTitle(nombreReporteBitacora);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+
+
+                //this.set
+                //exportar=true;
 //            JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
 //            viewer.setSize(800,600); 
 //            viewer.setLocationRelativeTo(null); 
@@ -1356,20 +1357,19 @@ public class EnvioAgregar extends javax.swing.JDialog {
 //           
 //
 //            viewer.getContentPane().add(jviewer);
-            //viewer.show();
-            
-            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
-        } catch (JRException e) {
-            e.printStackTrace();
-            ErrorDialog.mostrarError("Ocurrió un error ", this);
-            
+                //viewer.show();
+
+                //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+            } catch (JRException e) {
+                e.printStackTrace();
+                ErrorDialog.mostrarError("Ocurrió un error ", this);
+
+            }
+        } else {
+            ErrorDialog.mostrarError("Debe registrar un envio.", this);
         }
-    }
-    else {
-    ErrorDialog.mostrarError("Debe registrar un envio.", this);
-    }
-        
-        
+
+
     }//GEN-LAST:event_btn_bitacoraActionPerformed
 
     /**
