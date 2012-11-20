@@ -27,12 +27,12 @@ import javax.swing.KeyStroke;
  *
  * @author ronald
  */
-public class MenuAdministracionFrame extends javax.swing.JDialog {
+public class MenuAdministracionDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form MenuAdministracionFrame
+     * Creates new form MenuAdministracionDialog
      */
-    public MenuAdministracionFrame() {
+    public MenuAdministracionDialog() {
         initComponents();
         definirPermisos();
     }
@@ -246,13 +246,13 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministracionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAdministracionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministracionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAdministracionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministracionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAdministracionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministracionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAdministracionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -261,7 +261,7 @@ public class MenuAdministracionFrame extends javax.swing.JDialog {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuAdministracionFrame().setVisible(true);
+                new MenuAdministracionDialog().setVisible(true);
             }
         });
     }
