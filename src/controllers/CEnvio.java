@@ -44,6 +44,36 @@ public class CEnvio {
         return p;
     }
 
+    private String genMailRem(Envio envio) {
+        String ret;
+        
+        ret = "Su envío está en estado " + envio.getEstado().getValor() + ".\n";
+        
+        ret = ret + "Su bitácora es la siguiente: \n";
+        
+        for(Escala escala : envio.getEscalasOrdenadasAsc()){
+            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen() + " - " + escala.getVuelo().getDestino() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
+        }
+        
+        ret = ret + "\n" + "Soporte FlyTrack";
+        return ret;
+    }
+
+    private String genMailDest(Envio envio) {
+        String ret;
+        
+        ret = "Se ha registrado un envío para usted. El estado es " + envio.getEstado().getValor() + ".\n";
+        
+        ret = ret + "Su bitácora es la siguiente: \n";
+        
+        for(Escala escala : envio.getEscalasOrdenadasAsc()){
+            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen() + " - " + escala.getVuelo().getDestino() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
+        }
+        
+        ret = ret + "\n" + "Soporte FlyTrack";
+        return ret;
+    }
+
     public void guardarEnvio(Envio envio) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
@@ -51,9 +81,22 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
-            for(Escala e : envio.getEscalas()){
+            for (Escala e : envio.getEscalas()) {
                 s.saveOrUpdate(e.getVuelo());
             }
+
+            new CMail().sendMail("flytrack.no.reply@gmail.com",
+                    "manuelmanuel",
+                    envio.getRemitente().geteMail(),
+                    "[FlyTrack] Envío #" + envio.getIdEnvio(),
+                    genMailRem(envio));
+            
+            new CMail().sendMail("flytrack.no.reply@gmail.com",
+                    "manuelmanuel",
+                    envio.getDestinatario().geteMail(),
+                    "[FlyTrack] Envío #" + envio.getIdEnvio(),
+                    genMailDest(envio));
+
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -147,7 +190,7 @@ public class CEnvio {
             f_vuelos_l.setParameter("lower", ahora);
             f_vuelos_l.setParameter("upper", futuro);
             f_vuelos_l.setParameter("idEstado", idProg);
-            
+
             q = s.getNamedQuery("Aeropuertos");
             List<Aeropuerto> aeros = q.list();
 
