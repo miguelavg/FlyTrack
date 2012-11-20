@@ -91,31 +91,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public UsuarioEdit(javax.swing.JDialog parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
-
-//       
-//        String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
-//        RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-//        txtNombres.setDocument(regexDocument);
-
-
         this.setLocationRelativeTo(null);
 
         idusuario = id;
         isNuevo = true;
 
-        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
         llenarcombos();
         if (idusuario != -1) {
             cargarcampos();
             txtNumeroDoc.setEditable(false);
-//                String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
-            //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-            //txtNombres.setDocument(regexDocument);
-            //txtNombres.setmax
-            
-             this.isNuevo = false;
+            this.isNuevo = false;
         } else {
             cboEstado.setSelectedIndex(1);
             lblContrasena.setVisible(false);
@@ -488,7 +475,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
         }
         txtLogIn.setText(UsuarioBE.getLogIn());
-        //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
 
         for (int i = 1; i < cboPerfil.getItemCount(); i++) {
             Perfil Perfil = (Perfil) cboPerfil.getItemAt(i);
@@ -535,27 +521,21 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
         }
         cboTipoDoc.setEnabled(false);        
-        //txtNumeroDoc.setEditable(false);
     }
 
     public void llenarcomboEstado() {
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
 
-        //for (Parametro p : ListaEstado)
         for (int i = 0; i < ListaEstado.size(); i++) {
             Parametro TipoDocBE = (Parametro) ListaEstado.get(i);
-
             cboEstado.addItem(TipoDocBE);
         }
     }
 
     public void llenarcomboPerfiles() {
         ListaPerfiles = PerfilBL.Buscar();
-        //int i=0;i<ListaPerfiles.size();i++
-        //Perfil p: ListaPerfiles
         for (int i = 0; i < ListaPerfiles.size(); i++) {
             Perfil CPerfil = (Perfil) ListaPerfiles.get(i);
-            //CPerfil
             cboPerfil.addItem(CPerfil);
         }
     }
@@ -569,7 +549,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         for (int i = 0; i < ListaTipoDoc.size(); i++) {
             Parametro TipoDocBE = (Parametro) ListaTipoDoc.get(i);
-
             cboTipoDoc.addItem(TipoDocBE);
         }
 
@@ -577,44 +556,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         for (int i = 0; i < ListaPaises.size(); i++) {
             Parametro Pais = (Parametro) ListaPaises.get(i);
-
             cboPais.addItem(Pais);
         }
 
         cboPais.setSelectedIndex(0);
         carga = true;
 
-
     }
 
-//        private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {                                        
-//        // TODO add your handling code here:
-//        if (cboPais.getSelectedIndex()!=0){
-//            cboCiudad.removeAllItems();
-//
-//
-//            cboCiudad.addItem("Seleccionar");
-//             ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()-1).getHijos();
-//                for (int i=0;i<ListaCiudades.size();i++)
-//            {
-//                Parametro TipoDocBE =(Parametro)ListaCiudades.get(i);
-//
-//                cboCiudad.addItem(TipoDocBE);
-//            }
-//
-//            if (carga && idusuario!=-1){
-//                for(int i=1;i<cboCiudad.getItemCount();i++){
-//                   Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
-//                   if (ciudad.getIdParametro()==UsuarioBE.getCiudad().getIdParametro())
-//                   {
-//                   cboCiudad.setSelectedIndex(i);
-//                   break;
-//
-//                   }
-//               }
-//            }
-//        }
-//    }  
     private String validarcampos() {
         String error_message = "";
 
@@ -626,10 +575,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         } else {
 
-            if (CValidator.esAlfanumerico(txtNombres.getText())) {
-
-                error_message = "El nombre no puede ser alfanumérico";
-            }
 
             if (idusuario == -1) {
 
@@ -645,22 +590,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
             if (CValidator.esAlfanumerico(txtApellidos.getText())) {
 
                 error_message = "El Apellido es inválido";
-
-            }
-
-            if (!CValidator.isInteger(txtTelefono.getText())) {
-
-                error_message = "El teléfono es inválido";
-
-            }
-
-            if (!CValidator.isInteger(txtNumeroDoc.getText())) {
-
-                error_message = "El teléfono es inválido";
-            }
-            if (!CValidator.validarEmail(txtCorreo.getText())) {
-
-                error_message = "El correo es inválido";
 
             }
 
