@@ -336,7 +336,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void btnSeguridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguridadActionPerformed
         // TODO add your handling code here:
-        MenuSeguridadFrame menuSeguridad = new MenuSeguridadFrame();
+        MenuSeguridadDialog menuSeguridad = new MenuSeguridadDialog();
         menuSeguridad.setVisible(true);
     }//GEN-LAST:event_btnSeguridadActionPerformed
 
