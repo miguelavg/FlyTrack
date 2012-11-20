@@ -451,6 +451,12 @@ public class SimDialog extends javax.swing.JDialog {
         jScrollPane5.setViewportView(tbl_vuelos);
         tbl_vuelos.getColumnModel().getColumn(0).setMinWidth(40);
         tbl_vuelos.getColumnModel().getColumn(0).setMaxWidth(40);
+        tbl_vuelos.getColumnModel().getColumn(4).setMinWidth(0);
+        tbl_vuelos.getColumnModel().getColumn(4).setPreferredWidth(0);
+        tbl_vuelos.getColumnModel().getColumn(4).setMaxWidth(0);
+        tbl_vuelos.getColumnModel().getColumn(5).setMinWidth(0);
+        tbl_vuelos.getColumnModel().getColumn(5).setPreferredWidth(0);
+        tbl_vuelos.getColumnModel().getColumn(5).setMaxWidth(0);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
         jLabel9.setText("Vuelos");
