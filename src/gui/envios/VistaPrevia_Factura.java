@@ -39,7 +39,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
     /**
      * Creates new form VistaPrevia_Factura
      */
-    EnvioDataSource enviods= new EnvioDataSource();
+    EnvioDataSource enviods;//= new EnvioDataSource();
     
     public VistaPrevia_Factura(Envio envio) {
         initComponents();
@@ -47,7 +47,7 @@ public class VistaPrevia_Factura extends javax.swing.JDialog {
         cargarcampos();
         cargartabla();
         
-        enviods.setEnvio(this.envio);
+        //enviods.setEnvio(this.envio);
         
     }
     private Envio envio;
@@ -451,6 +451,8 @@ public void cargartabla(){
 //        }
         
         if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
+            enviods= new EnvioDataSource();
+            enviods.setEnvio(this.envio);
             try {
                 JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/factura.jrxml");
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
@@ -471,8 +473,10 @@ public void cargartabla(){
         }
 
         if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
+            enviods= new EnvioDataSource();
+            enviods.setEnvio(this.envio);
             try {
-                JasperReport reporte = JasperCompileManager.compileReport("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/boleta.jrxml");
+                JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/boleta.jrxml");
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
                 JRExporter exporter = new JRPdfExporter();
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
