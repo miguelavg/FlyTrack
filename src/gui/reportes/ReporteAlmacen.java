@@ -49,7 +49,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     CCliente cliente= new CCliente(); 
     //ClienteDataSource clienteds= new ClienteDataSource();
     
-    AlmacenDataSource vuelods= new AlmacenDataSource();
+    AlmacenDataSource vuelods;//= new AlmacenDataSource();
     
     List<Parametro> ListaEstado;
     CParametro ParametroBL = new CParametro();
@@ -339,6 +339,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
         //File jasper=new File();
+    vuelods= new AlmacenDataSource();
     vuelods.setListaVuelos(listaVuelos);
     if (aeroori!=null){
         try {
@@ -375,7 +376,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             jviewer.setVisible(true);
             //exportar=true;
             
-            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
         } catch (JRException e) {
             e.printStackTrace();
             ErrorDialog.mostrarError("Ocurrió un error ", this);
