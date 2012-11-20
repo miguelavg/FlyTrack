@@ -690,7 +690,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                                         "manuelmanuel", 
                                         usuario.geteMail(),
                                         "[FlyTrack] Modificar contraseña",
-                                        "Estimado usuario.\n\nSu contraseña ha sido modificada: " + 
+                                        "Estimado usuario " + usuario.getLogIn() + " .\n\nSu contraseña ha sido modificada: " + 
                                         new String(psswdContrasena.getPassword()) + ".\n\nSoporte FlyTrack.");
                 }
             }
@@ -711,7 +711,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                                         "manuelmanuel", 
                                         usuario.geteMail(), 
                                         "[Flytrack] Contraseña por defecto", 
-                                        "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + 
+                                        "Bienvenido a FlyTrack " + usuario.getLogIn() + " . \n\nSu contraseña de acceso es la siguiente :" + 
                                         new String(contrasenaNueva) + "\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. "+
                                         "\n\nSoporte Flytrack.");
                 }

@@ -169,10 +169,12 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
                 //5. Agrego la contrasena al usuario como activa
                 CContrasena.agregarContrasenaActiva(contrasenaNueva, usuarioBuscado);
                 //6. Envio la nueva contrasena por correo
-                String descripcion = "La nueva contraseña para el ingreso será \"" + new String(contrasenaNueva)
-                        + "\". <br/> Se le recomiendar cambiar la contraseña una vez ingresado al sistema.";
-                new CMail().sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", usuarioBuscado.geteMail(),
-                        "Nueva Contraseña por medio de Olvido Contraseña", descripcion);
+                new CMail().sendMail("flytrack.no.reply@gmail.com", 
+                                    "manuelmanuel", 
+                                    usuarioBuscado.geteMail(),
+                                    "[Flytrack] Nueva Contraseña", 
+                                    "Estimado usuario " + usuarioBuscado.getLogIn() + " : \n\nLa nueva contraseña para el ingreso será \"" 
+                                    + new String(contrasenaNueva) + "\". <br/> Se le recomiendar cambiar la contraseña una vez ingresado al sistema.");
                 //7. Muestro un mensaje donde le digo al cliente que 
                 //ya ha sido enviado a su correo la nueva contrasenia
                 InformationDialog.mostrarInformacion("Su nueva contraseña ha sido enviada a su correo.", this);
