@@ -34,11 +34,8 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        llenarComboPais();
-        llenarComboEstado();
-         
         idActual = -1;
-        
+
     }
 
     public AeropuertoPopup(javax.swing.JFrame parent, boolean modal) {
@@ -47,12 +44,12 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         llenarComboPais();
         llenarComboEstado();
-       
+
         idActual = -1;
-      
+
 
     }
-    
+
     public AeropuertoPopup(javax.swing.JDialog parent, boolean modal, int idActual) {
         super(parent, modal);
         initComponents();
@@ -275,9 +272,9 @@ public class AeropuertoPopup extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-        
+
         buscar();
-      
+
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
@@ -340,9 +337,12 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
-           buscar();
+        buscar();
+        llenarComboPais();
+        llenarComboEstado();
+
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void llenarComboPais() {
@@ -440,7 +440,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         Parametro TipoPais = null;
         Parametro TipoCiudad = null;
         Parametro TIpoEstado = null;
-
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (cbm_Pais.getSelectedIndex() > 0) {
             TipoPais = (Parametro) cbm_Pais.getSelectedItem();
         }
@@ -450,13 +450,12 @@ public class AeropuertoPopup extends javax.swing.JDialog {
         if (cbm_estado.getSelectedIndex() > 0) {
             TIpoEstado = (Parametro) cbm_estado.getSelectedItem();
         }
+        ;
 
-          setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            
         listaAeropuertos = CAeropuerto.BuscarAeropuerto(
                 TipoPais, TipoCiudad, TIpoEstado, idActual);
-         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        
+
+
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_aeropuerto.getModel();
         Object[] datos = new Object[9];
         int rows = dtm.getRowCount();
@@ -477,5 +476,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
 
             dtm.addRow(datos);
         }
+
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 }

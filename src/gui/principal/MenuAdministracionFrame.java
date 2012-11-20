@@ -12,7 +12,7 @@ import gui.administracion.vuelos.Vuelos;
 import gui.administracion.aeropuertos.Aeropuerto;
 import gui.administracion.tipocambio.TipoCambioDialog;
 import gui.clientes.ClientesPopUp;
-import gui.seguridad.parametros.ParametroDialog;
+import gui.administracion.parametros.ParametroDialog;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.List;

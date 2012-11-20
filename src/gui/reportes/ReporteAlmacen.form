@@ -135,11 +135,11 @@
                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="dtFechaIni" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="dt_fechini" min="-2" pref="209" max="-2" attributes="0"/>
                           <EmptySpace pref="101" max="32767" attributes="0"/>
                           <Component id="jLabel5" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="dtFechaFin" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="dt_fechfin" min="-2" pref="209" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -162,9 +162,9 @@
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                   <Component id="jLabel5" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="dtFechaIni" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dt_fechini" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="dtFechaFin" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="dt_fechfin" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -190,7 +190,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="datechooser.beans.DateChooserCombo" name="dtFechaFin">
+        <Component class="datechooser.beans.DateChooserCombo" name="dt_fechfin">
           <Properties>
             <Property name="dch_nothingAllowed" type="boolean" value="false"/>
             <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
@@ -211,7 +211,7 @@
             <Property name="text" type="java.lang.String" value="Fecha Inicial:"/>
           </Properties>
         </Component>
-        <Component class="datechooser.beans.DateChooserCombo" name="dtFechaIni">
+        <Component class="datechooser.beans.DateChooserCombo" name="dt_fechini">
           <Properties>
             <Property name="dch_nothingAllowed" type="boolean" value="false"/>
             <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
@@ -328,18 +328,24 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tblAlmacen">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="0">
-                    <Column editable="true" title="Fecha" type="java.lang.Object"/>
-                    <Column editable="false" title="Movimiento" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="0">
+                    <Column editable="false" title="Fecha" type="java.lang.Object"/>
                     <Column editable="false" title="Vuelo" type="java.lang.Object"/>
+                    <Column editable="false" title="Aeropuerto" type="java.lang.Object"/>
+                    <Column editable="false" title="Tipo" type="java.lang.Object"/>
                     <Column editable="false" title="N&#xb0;Paquetes" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>

@@ -7,7 +7,7 @@ package gui.principal;
 import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CSeguridad;
-import gui.seguridad.parametros.ParametroDialog;
+import gui.administracion.parametros.ParametroDialog;
 import gui.seguridad.perfiles.PerfilFrame;
 import gui.seguridad.usuarios.UsuarioFrame;
 import java.awt.event.ActionEvent;

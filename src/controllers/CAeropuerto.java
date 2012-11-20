@@ -374,54 +374,68 @@ public class CAeropuerto {
     
         public static List<Aeropuerto> BuscarAeropuertoXEnvioXFechas(
             Aeropuerto aeropuerto,
-            Calendar fechini, 
-            Calendar fechfinal//,
+            Calendar fechini,
+            Calendar fechfinal,
             //int idActual
-                ) {
+            Integer idparentrada,
+            Integer idparsalida1,
+            Integer idparsalida2) {
 
         Date ini = null;
         Date fin = null;
-        String inii = null;    
-        
+        String inii = null;
+
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         List<Aeropuerto> ListaAeropuertos;
 
-//        try {
-//            Transaction tx = s.beginTransaction();
-//            Query q;
-//
-//            if (fechini != null) {
-//                inii = CValidator.formatDate(fechini.getTime());
-//                ini = fechini.getTime();
-//            }
-//
-//            if (fechfinal != null) {
-//                fin = fechfinal.getTime();
-//            }
-//
-//
-//            
-//            
-//            
-//            if (aeropuerto != null) {
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;        
+
+            if (fechini != null) {
+                inii = CValidator.formatDate(fechini.getTime());
+                ini = fechini.getTime();
+            }
+
+            if (fechfinal != null) {
+                fin = fechfinal.getTime();
+            }
+
+            //if (aeropuerto != null) {
 //            Filter f_origen = s.enableFilter("VueloXOrigen");
 //            f_origen.setParameter("idOrigen", aeropuerto.getIdAeropuerto());
-//            }
+            
+            q = s.getNamedQuery("AeropuertosxID");
+            q.setParameter("idaero", aeropuerto.getIdAeropuerto());
+        
+//            Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalidaAux");
+//            f_vuelos_s.setParameter("lower", ini);
+//            f_vuelos_s.setParameter("upper", fin);
+//            f_vuelos_s.setParameter("idEstado1", idparsalida1);
+//            f_vuelos_s.setParameter("idEstado2", idparsalida2);
 //
-//            ListaAeropuertos = q.list();
-//
-//
-//            return ListaAeropuertos;
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            s.close();
-//        }
+//            Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
+//            f_vuelos_l.setParameter("lower", ini);
+//            f_vuelos_l.setParameter("upper", fin);
+//            f_vuelos_l.setParameter("idEstado", idparentrada);
+        //}
+        
+            ListaAeropuertos = q.list();
+            
+            for (int i=0;ListaAeropuertos.size()>i;i++)
+            {ListaAeropuertos.get(i).getVuelosLlegada().size();
+            ListaAeropuertos.get(i).getVuelosSalida().size();
+            };
 
+            return ListaAeropuertos;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
         return null;
-
     }
 
     public static List<Parametro> llenarComboEstado() {

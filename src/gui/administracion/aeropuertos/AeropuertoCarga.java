@@ -385,7 +385,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 //        generaraeropuertos();
 //        serializar(listaaero, "PruebaCargaAero.xml");
 //                
-
+setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (archivovalido) {
             ArrayList xmlAeropuertos = CSerializer.deserializar(txtRuta.getText());
 //          ArrayList aeropuertos=CSerializer.deserializar("PruebaCargaAero.xml");
@@ -409,6 +409,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
                 }
             }
         }
+        
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btnRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutaActionPerformed

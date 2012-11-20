@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package gui.administracion.aeropuertos;
- 
+
 import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Permiso;
@@ -26,19 +26,15 @@ public class Aeropuerto extends javax.swing.JDialog {
     private List<Parametro> ListatipoHijo;
     private beans.Aeropuerto objAero = new beans.Aeropuerto();
     List<beans.Aeropuerto> listaAeropuertos;
-
     JTextField campoTexto = new JTextField();
-    Integer aeropuertolleno=0;
+    Integer aeropuertolleno = 0;
 
     /**
      * Creates new form Aeropuerto
      */
     public Aeropuerto() {
         initComponents();
-        llenarComboPais();
-        llenarComboEstado();
         definirPermisos();
-      
     }
 
     /**
@@ -304,17 +300,17 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-      setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         llenarGrillaAero();
-      setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void llenarGrillaAero() {
-        
-       
-        
-        Parametro pais = null ;
+
+
+
+        Parametro pais = null;
         Parametro ciudad = null;
         Parametro estado = null;
 
@@ -356,7 +352,6 @@ public class Aeropuerto extends javax.swing.JDialog {
         }
 
     }
-    
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
@@ -381,8 +376,9 @@ public class Aeropuerto extends javax.swing.JDialog {
             AeropuertoModificar MiVentana = new AeropuertoModificar(this, true, listaAeropuertos.get(tbl_aeropuerto.getSelectedRow())); //llamamos a la clase y creamos un objeto llamado MiVentana
             MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
             llenarGrillaAero();
-        }else
-            JOptionPane.showMessageDialog(this,"Debe seleccionar un Aeropuerto","Advertencia",1);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Aeropuerto", "Advertencia", 1);
+        }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
@@ -422,18 +418,17 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-       
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if (aeropuertolleno!=1) {
-           aeropuertolleno =1;
+        if (aeropuertolleno != 1) {
+            aeropuertolleno = 1;
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
-           
-           llenarGrillaAero();
-           setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        } 
-        
+            llenarComboPais();
+            llenarComboEstado();
+            llenarGrillaAero();
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
     }//GEN-LAST:event_formWindowActivated
 
     private void llenarComboPais() {
@@ -513,13 +508,13 @@ public class Aeropuerto extends javax.swing.JDialog {
 
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
-        
+
         boolean crear = CSeguridad.validarPermiso(3, "Aeropuertos", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
-        
+
         boolean modificar = CSeguridad.validarPermiso(3, "Aeropuertos", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
-        
+
         boolean buscar = CSeguridad.validarPermiso(3, "Aeropuertos", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 

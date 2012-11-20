@@ -20,22 +20,21 @@ public class AeropuertoModificar extends javax.swing.JDialog {
     /**
      * Creates new form aeropuerto_detalle
      */
-     private List<Parametro> ListatipoPar; 
-     private List<Parametro> ListatipoEst; 
-     private List<Parametro> ListatipoHijo;
-     private  beans.Aeropuerto objAero= null;
-     public AeropuertoModificar(javax.swing.JDialog parent, boolean modal, beans.Aeropuerto obj) {
-       
-        
+    private List<Parametro> ListatipoPar;
+    private List<Parametro> ListatipoEst;
+    private List<Parametro> ListatipoHijo;
+    private beans.Aeropuerto objAero = null;
+
+    public AeropuertoModificar(javax.swing.JDialog parent, boolean modal, beans.Aeropuerto obj) {
+
+
         super(parent, true);
         initComponents();
         this.setLocationRelativeTo(null);
-        llenarComboPais();
-        llenarComboEstado();
         objAero = obj;
-        llenarComponentes();
-        //limpiarComponentes();
-      }
+        siCargado = false;
+    }
+    private boolean siCargado;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,6 +115,11 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Aeropuertos - Modificar");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -346,89 +350,84 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nombreActionPerformed
 
-    
-    private String validarcampos(){
+    private String validarcampos() {
         String error_message = "";
-        if (txt_nombre.getText().isEmpty()||txt_capacidad.getText().isEmpty()
-                ||cbm_pais.getSelectedIndex()==0 || cbm_ciudad.getSelectedIndex()==0 ||cbm_estado.getSelectedIndex()==0 ){
-            
+        if (txt_nombre.getText().isEmpty() || txt_capacidad.getText().isEmpty()
+                || cbm_pais.getSelectedIndex() == 0 || cbm_ciudad.getSelectedIndex() == 0 || cbm_estado.getSelectedIndex() == 0) {
+
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-                                    
-        }
-        else{
-             if (CAeropuerto.esUsado(txt_nombre.getText())!=null ){
-            
-               error_message = "El nombre de Aeropuerto esta siendo usado";
+
+        } else {
+            if (CAeropuerto.esUsado(txt_nombre.getText()) != null) {
+
+                error_message = "El nombre de Aeropuerto esta siendo usado";
             }
-             
-            if (CValidator.esAlfanumerico(txt_nombre.getText())){
-                
+
+            if (CValidator.esAlfanumerico(txt_nombre.getText())) {
+
                 error_message = "El nombre no puede ser alfanumérico";
             }
-            
+
 //            if (idCliente==-1){
 //
 //                error_message = error_message+ ClienteBL.ValidarDocumento((Parametro)cboTipoDoc.getSelectedItem(),txtNumeroDoc.getText());
 //            }
 //            
-            if (CValidator.esAlfanumerico(txt_nombre.getText())){
-                
+            if (CValidator.esAlfanumerico(txt_nombre.getText())) {
+
                 error_message = "El nombre es inválido";
-                
+
             }
-            
-            if (!CValidator.isInteger(txt_capacidad.getText())){
-                
+
+            if (!CValidator.isInteger(txt_capacidad.getText())) {
+
                 error_message = "La capacidad maxima es inválida";
-                
-            }
-            else{
-                if (Integer.parseInt(txt_capacidad.getText())==0){
+
+            } else {
+                if (Integer.parseInt(txt_capacidad.getText()) == 0) {
                     error_message = "El capacidad maxima tiene que ser mayor que 0";
                 }
             }
-           
-            
+
+
         }
-                      
+
         return error_message;
     }
-    
-    
+
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        
-          beans.Aeropuerto objAeropuerto = new beans.Aeropuerto();
-        
-                
+
+        beans.Aeropuerto objAeropuerto = new beans.Aeropuerto();
+
+
         String error_message = validarcampos();
-        if (error_message.isEmpty()){
-                       setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        
-                        CAeropuerto.modificarAeropuerto(
+        if (error_message.isEmpty()) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+
+            CAeropuerto.modificarAeropuerto(
                     objAero.getIdAeropuerto(),
                     Integer.parseInt(txt_capacidad.getText()),
                     0,
-                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex()-1),
+                    ListatipoHijo.get(cbm_ciudad.getSelectedIndex() - 1),
                     Integer.parseInt(txt_X.getText()),
                     Integer.parseInt(txt_Y.getText()),
-                    ListatipoEst.get(cbm_estado.getSelectedIndex()-1),
+                    ListatipoEst.get(cbm_estado.getSelectedIndex() - 1),
                     txt_nombre.getText(),
-                    ListatipoPar.get(cbm_pais.getSelectedIndex()-1));
-                      setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        
+                    ListatipoPar.get(cbm_pais.getSelectedIndex() - 1));
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
             setVisible(false);
             dispose();
-        }
-        else{
+        } else {
             ErrorDialog.mostrarError(error_message, this);
         }
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
@@ -439,8 +438,8 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         // TODO add your handling code here:
         MonitoreoFrame Mapa = new MonitoreoFrame(objAero);
         objAero = Mapa.ShowDialog();
-        
-       
+
+
         txt_X.setText(String.valueOf(objAero.getCoordX()));
         txt_Y.setText(String.valueOf(objAero.getCoordY()));
     }//GEN-LAST:event_btn_ubicarActionPerformed
@@ -460,8 +459,8 @@ public class AeropuertoModificar extends javax.swing.JDialog {
 //                cbm_ciudad.addItem(TipoDocBE);
 //            }
 //        }
-        
-        
+
+
         cbm_ciudad.removeAllItems();
         cbm_ciudad.addItem("Seleccionar");
 
@@ -472,8 +471,8 @@ public class AeropuertoModificar extends javax.swing.JDialog {
                 Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
                 cbm_ciudad.addItem(TipoDocBE);
             }
-        }  
-        
+        }
+
     }//GEN-LAST:event_cbm_paisActionPerformed
 
     private void txt_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyReleased
@@ -490,43 +489,54 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         if (!CValidator.validarSoloNumeros(letra, txt_capacidad)) {
             getToolkit().beep();
         }// TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_capacidadKeyReleased
 
     private void txt_capacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_capacidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_capacidadActionPerformed
 
-    
-    private void llenarComboPais(){
-      
-        
-      ListatipoPar = CAeropuerto.llenarComboPais();
-        
-      for (int i=0;i<ListatipoPar.size();i++)
-          
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoPar.get(i);
-            
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (!siCargado) {
+            setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            llenarComboPais();
+            llenarComboEstado();
+            llenarComponentes();
+            //limpiarComponentes();
+            siCargado = true;
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void llenarComboPais() {
+
+
+        ListatipoPar = CAeropuerto.llenarComboPais();
+
+        for (int i = 0; i < ListatipoPar.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoPar.get(i);
+
             cbm_pais.addItem(TipoDocBE);
         }
-     }
-     private void llenarComboEstado(){
-      
-        
+    }
+
+    private void llenarComboEstado() {
+
+
         ListatipoEst = CAeropuerto.llenarComboEstado();
-      for (int i=0;i<ListatipoEst.size();i++)
-        {
-            Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
-            
+        for (int i = 0; i < ListatipoEst.size(); i++) {
+            Parametro TipoDocBE = (Parametro) ListatipoEst.get(i);
+
             cbm_estado.addItem(TipoDocBE);
         }
 
-     }
+    }
+
     /**
      * @param args the command line arguments
      */
-    public  void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -553,7 +563,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AeropuertoModificar(new javax.swing.JDialog(),true,objAero).setVisible(true);
+                new AeropuertoModificar(new javax.swing.JDialog(), true, objAero).setVisible(true);
             }
         });
     }
@@ -588,39 +598,37 @@ public class AeropuertoModificar extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void llenarComponentes() {
-     txt_capacidad.setText(String.valueOf(objAero.getCapacidadMax()));
-     txt_capaActu.setText(String.valueOf(objAero.getCapacidadActual()));
-     
-     for (int k=0 ; k<ListatipoEst.size(); k ++){
-        if (objAero.getEstado().getValor().compareTo(ListatipoEst.get(k).getValor())==0)  {
-            cbm_estado.setSelectedIndex(k+1);
-            break;
-        }
-     }
-     
-     
-     
-     for (int j=0; j< ListatipoPar.size() ; j ++) {
-       if (objAero.getPais().getValor().compareTo(ListatipoPar.get(j).getValor())==0){
-           cbm_pais.setSelectedIndex(j+1);
-           break;
-       }     
-     }
-     
-     for (int i=0; i < ListatipoHijo.size() ; i ++) {
-       if (objAero.getCiudad().getValor().compareTo(ListatipoHijo.get(i).getValor())==0){
-           cbm_ciudad.setSelectedIndex(i+1);
-           break;
-       }     
-     }
-  
-     txt_X.setText(String.valueOf(objAero.getCoordX()));
-     txt_Y.setText(String.valueOf(objAero.getCoordY()));
-     
-     this.txt_nombre.setText(objAero.getNombre());
-     
-     
-    }
+        txt_capacidad.setText(String.valueOf(objAero.getCapacidadMax()));
+        txt_capaActu.setText(String.valueOf(objAero.getCapacidadActual()));
 
-   
+        for (int k = 0; k < ListatipoEst.size(); k++) {
+            if (objAero.getEstado().getValor().compareTo(ListatipoEst.get(k).getValor()) == 0) {
+                cbm_estado.setSelectedIndex(k + 1);
+                break;
+            }
+        }
+
+
+
+        for (int j = 0; j < ListatipoPar.size(); j++) {
+            if (objAero.getPais().getValor().compareTo(ListatipoPar.get(j).getValor()) == 0) {
+                cbm_pais.setSelectedIndex(j + 1);
+                break;
+            }
+        }
+
+        for (int i = 0; i < ListatipoHijo.size(); i++) {
+            if (objAero.getCiudad().getValor().compareTo(ListatipoHijo.get(i).getValor()) == 0) {
+                cbm_ciudad.setSelectedIndex(i + 1);
+                break;
+            }
+        }
+
+        txt_X.setText(String.valueOf(objAero.getCoordX()));
+        txt_Y.setText(String.valueOf(objAero.getCoordY()));
+
+        this.txt_nombre.setText(objAero.getNombre());
+
+
+    }
 }
