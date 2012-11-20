@@ -358,10 +358,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
 
         } else {
-            if (CAeropuerto.esUsado(txt_nombre.getText()) != null) {
-
-                error_message = "El nombre de Aeropuerto esta siendo usado";
-            }
+           
 
             if (CValidator.esAlfanumerico(txt_nombre.getText())) {
 
