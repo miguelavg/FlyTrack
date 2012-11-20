@@ -29,6 +29,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     /**
      * Creates new form MonitoreoFrame
      */
+    public boolean bandera=true; 
     beans.Aeropuerto objAero = null;
     private List<Aeropuerto> ListaAeropuerto = null;
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
@@ -48,10 +49,13 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-              
-        
-        pintar();
        
+        pintar();
+        
+        if (bandera ==false ){
+         lbl_mapa.paint(g);    
+           // this.repaint();
+        }       
     
     }
 
@@ -64,19 +68,18 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lbl_mapa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Ubicar aeropuerto");
         setMinimumSize(new java.awt.Dimension(1024, 582));
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(1024, 582));
         setResizable(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbl_mapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map.png"))); // NOI18N
+        lbl_mapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                lbl_mapaMouseClicked(evt);
             }
         });
 
@@ -84,30 +87,35 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addComponent(lbl_mapa)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lbl_mapa, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void lbl_mapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_mapaMouseClicked
         // TODO add your handling code here:
+        bandera = true;
         Graphics c = this.getGraphics();
-        pintar();
+       // pintar();
          c.setColor(Color.WHITE);
            c.fillOval(evt.getX(),evt.getY(), 10,10 );
         c.drawOval(evt.getX(),evt.getY(), 10,10 );
       int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posición?", "Advertencia", JOptionPane.YES_NO_OPTION);
          if (JOptionPane.YES_OPTION == result) {
              objAero.setCoordX(evt.getX());
+             
              objAero.setCoordY(evt.getY());
              this.dispose();
          }
-    }//GEN-LAST:event_jLabel1MouseClicked
+         else {
+             bandera =false;
+         }
+    }//GEN-LAST:event_lbl_mapaMouseClicked
 
    
     /**
@@ -145,12 +153,12 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbl_mapa;
     // End of variables declaration//GEN-END:variables
 
     private void pintar() {
         
-         Graphics c = this.getGraphics();
+        Graphics c = this.getGraphics();
         
         for (int j = 0; j <ListaAeropuerto.size(); j++){
             
