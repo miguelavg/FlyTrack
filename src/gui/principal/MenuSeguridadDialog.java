@@ -9,6 +9,7 @@ import beans.seguridad.Permiso;
 import controllers.CSeguridad;
 import gui.administracion.parametros.ParametroDialog;
 import gui.seguridad.perfiles.PerfilFrame;
+import gui.seguridad.pistas.PistasDialog;
 import gui.seguridad.usuarios.UsuarioFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -158,7 +159,9 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
 
     private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
         // TODO add your handling code here:
-        
+        PistasDialog pistaDL = new PistasDialog();
+        pistaDL.setModal(true);
+        pistaDL.setVisible(true);
     }//GEN-LAST:event_btnLogAuditoriaActionPerformed
 
     /**
@@ -207,12 +210,15 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
     private void definirPermisos(){
         
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean usuarios = CSeguridad.validarPermiso(2, "Seguridad", "Usuarios", permisos);
         this.btnUsuarios.setEnabled(usuarios);
         this.lblUsuarios.setEnabled(usuarios);
+        
         boolean perfiles = CSeguridad.validarPermiso(2, "Seguridad", "Perfiles", permisos);
         this.btnPerfiles.setEnabled(perfiles);
         this.lblPerfiles.setEnabled(perfiles);
+        
         boolean logAuditoria = CSeguridad.validarPermiso(2, "Seguridad", "LogAuditoria", permisos);
         this.btnLogAuditoria.setEnabled(logAuditoria);
         this.lblLogAuditoria.setEnabled(logAuditoria);
