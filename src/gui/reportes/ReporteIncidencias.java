@@ -10,14 +10,26 @@ import beans.Vuelo;
 import controllers.CIncidencia;
 import controllers.CValidator;
 import controllers.CVuelo;
+import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.administracion.vuelos.Incidencias;
 import java.awt.Cursor;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -32,6 +44,7 @@ public class ReporteIncidencias extends javax.swing.JFrame {
     ArrayList<Incidencia> listaIncidencias;
     Calendar fechini;
     Calendar fechfin;
+    IncidenciaDataSource incidenciads;
     public ReporteIncidencias() {
         initComponents();
     }
@@ -261,6 +274,56 @@ public class ReporteIncidencias extends javax.swing.JFrame {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
+    incidenciads= new IncidenciaDataSource();
+    incidenciads.setListaIncidencias(listaIncidencias);
+    
+    if (incidenciads!=null){
+        try {
+            //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/ReporteIncidencias.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, incidenciads);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual=new Date(); 
+            fechaactual = Calendar.getInstance().getTime(); 
+            String reportDate = df.format(fechaactual);
+            
+            String nombreReporteAlmacen = "Reporte de incidencias" +reportDate+ ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
+            exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle(nombreReporteAlmacen);
+            jviewer.setVisible(true);
+            //exportar=true;
+            
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+        } catch (JRException e) {
+            e.printStackTrace();
+            ErrorDialog.mostrarError("Ocurrió un error ", this);
+            
+        }
+    }
+    else {
+    ErrorDialog.mostrarError("No se han seleccionado datos validos.", this);
+    }
+        
+        
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btn_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenActionPerformed
