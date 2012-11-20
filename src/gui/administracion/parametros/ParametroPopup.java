@@ -296,9 +296,10 @@ public class ParametroPopup extends javax.swing.JDialog {
         if (fila > -1) {
             int id = (Integer) tbl_parametros.getValueAt(fila, 0);
             parametro = cparametro.buscarId(id);
+
+            this.setVisible(false);
+            this.dispose();
         }
-        this.setVisible(false);
-        this.dispose();
     }//GEN-LAST:event_btn_seleccionarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed

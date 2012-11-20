@@ -41,6 +41,7 @@ public class Clientes extends javax.swing.JDialog {
         llenarcombos();
         definirPermisos();
         listaCargada = false;
+        cargartabla();
     }
     private boolean listaCargada;
 

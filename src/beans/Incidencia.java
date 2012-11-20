@@ -55,12 +55,15 @@ import org.hibernate.annotations.*;
 @FilterDefs({
     @FilterDef(name = "IncidenciaXTipo", parameters = @ParamDef(name = "tipo", type = "integer")),
     @FilterDef(name = "IncidenciaXFechaini", parameters = @ParamDef(name = "fechai", type = "timestamp")),
+    
+    @FilterDef(name = "IncidenciaXVuelo", parameters = @ParamDef(name = "idvuelo", type = "integer")),
     @FilterDef(name = "IncidenciaXFechafin", parameters = @ParamDef(name = "fechaf", type = "timestamp"))
 })
 @Filters({
     @Filter(name = "IncidenciaXOrigen", condition = "tipo = :tipo"),
-    @Filter(name = "IncidenciaXFechaini", condition = "fecha < :fechai"),
-    @Filter(name = "IncidenciaXFechafin", condition = "fecha > :fechaf")
+    @Filter(name = "IncidenciaXFechaini", condition = "fecha > :fechai"),
+    @Filter(name = "IncidenciaXVuelo", condition = "idvuelo=:idvuelo"),
+    @Filter(name = "IncidenciaXFechafin", condition = "fecha < :fechaf")
 })
 
 public class Incidencia implements Serializable {

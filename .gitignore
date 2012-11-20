@@ -4,6 +4,7 @@
 # Package Files #
 *.war
 *.ear
+*.pdf
 
 # Netbeans' Folders #
 /build/
