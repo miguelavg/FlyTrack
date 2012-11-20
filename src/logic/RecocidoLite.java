@@ -13,35 +13,18 @@ import java.util.Random;
  */
 public class RecocidoLite {
 
-    private int kSA;                            // iteraciones por temperatura
-    private double temperaturaInicial;          // temperatura inicial
-    private double temperatura;                 // temperatura actual
-    private double temperaturaFinal;            // temperatura final
-    private double alfaSA;                      // coeficiente de reducción de temperatura
     private double alfaGrasp;                   // coeficiente de relajación del grasp construcción
-    private double pParada;                     // porcentaje de malas iteraciones para parar
     private int intentos;                       // intentos de malos grasp
     private double vCostoAlmacen;               // costo de los almacenes
     private ArrayList<VueloLite> solucion;      // ruta solución
     private ArrayList<VueloLite> alterado;      // ruta alterada
     private ArrayList<EnvioLite> envios;
 
-    public RecocidoLite(int kSA, double temperaturaInicial, double temperaturaFinal, double alfaSA, double alfaGrasp, double pParada, int intentos, double vCostoAlmacen, ArrayList<EnvioLite> envios) {
-        this.kSA = kSA;
-        this.temperaturaInicial = temperaturaInicial;
-        this.temperatura = temperaturaInicial;
-        this.temperaturaFinal = temperaturaFinal;
-        this.alfaSA = alfaSA;
+    public RecocidoLite(double alfaGrasp, int intentos, double vCostoAlmacen, ArrayList<EnvioLite> envios) {
         this.alfaGrasp = alfaGrasp;
-        this.pParada = pParada;
         this.intentos = intentos;
         this.vCostoAlmacen = vCostoAlmacen;
         this.envios = envios;
-    }
-
-    private double enfriar() {
-        this.temperatura = this.alfaSA * this.temperatura;
-        return this.temperatura;
     }
 
     private int estadoEnergia(ArrayList<VueloLite> vuelos, int evt) {

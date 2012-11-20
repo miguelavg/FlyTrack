@@ -32,7 +32,7 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "AeroXNombre",
     query = "from Aeropuerto where nombre = :nombre"),
     @NamedQuery(name = "AeroTarifa",
-    query = "select t.destino from Tarifa t where t.destino.estado.valorUnico = 'ACTV' and t.origen.idAeropuerto = :id order by t.destino"),
+    query = "from Aeropuerto a where a.idAeropuerto in (select t.destino.idAeropuerto from Tarifa t where t.origen.idAeropuerto = :idActual)"), //"select t.destino from Tarifa t where t.destino.estado.valorUnico = 'ACTV' and t.origen.idAeropuerto = :id order by t.destino"),
     @NamedQuery(name = "Aero",
     query = "from Aeropuerto where estado.valorUnico = 'ACTV' order by idAeropuerto"),
     @NamedQuery(name = "AeroXNombres",

@@ -18,14 +18,16 @@ public class VueloLite {
     int capacidadMax;
     int necesidad;
     double alquiler;
+    double plleno;
 
-    public VueloLite(AeroLite origen, AeroLite destino, int num, int capacidadMax, double alquiler) {
+    public VueloLite(AeroLite origen, AeroLite destino, int num, int capacidadMax, double alquiler, double plleno) {
         this.origen = origen;
         this.destino = destino;
         this.num = num;
         this.capacidadMax = capacidadMax;
         this.alquiler = alquiler;
         this.necesidad = 0;
+        this.plleno = plleno;
     }
     
     public AeroLite getOrigen() {
@@ -99,4 +101,14 @@ public class VueloLite {
     public void setNecesidad(int necesidad) {
         this.necesidad = necesidad;
     }
+
+    public double getPlleno() {
+        return plleno;
+    }
+
+    public void setPlleno(double plleno) {
+        this.plleno = plleno;
+    }
+    
+    
 }

@@ -280,11 +280,12 @@ public class AeropuertoPopup extends javax.swing.JDialog {
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed
         // TODO add your handling code here:
         cbm_ciudad.removeAllItems();
+        cbm_ciudad.addItem("Seleccionar");
         Parametro p = null;
         if (cbm_Pais.getSelectedIndex() > 0) {
             p = (Parametro) cbm_Pais.getSelectedItem();
             ListatipoHijo = p.getHijos();
-            cbm_ciudad.addItem("Seleccionar");
+            
             for (int i = 0; i < ListatipoHijo.size(); i++) {
                 Parametro TipoDocBE = (Parametro) ListatipoHijo.get(i);
 
@@ -331,6 +332,7 @@ public class AeropuertoPopup extends javax.swing.JDialog {
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         // TODO add your handling code here:
+        objAero = null;
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
 
