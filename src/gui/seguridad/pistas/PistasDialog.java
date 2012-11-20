@@ -7,7 +7,15 @@ package gui.seguridad.pistas;
 import beans.*;
 import beans.seguridad.*;
 import controllers.CPista;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +34,7 @@ public class PistasDialog extends javax.swing.JDialog {
     
     public PistasDialog(){
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     private void llenarTabla(List<Pista> pistas){
@@ -34,7 +43,7 @@ public class PistasDialog extends javax.swing.JDialog {
         for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-        Object[] datos = new Object[9];
+        Object[] datos = new Object[10];
         for (int i = 0; i < pistas.size(); i++) {
 
             datos[0] = pistas.get(i).getIdPista();
@@ -253,6 +262,32 @@ public class PistasDialog extends javax.swing.JDialog {
         llenarTabla(pistas);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+              setVisible(false);
+              dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "EXIT");
+        rootPane.getActionMap().put("EXIT", accion);
+        
+        stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            btnBuscar.doClick();
+          } 
+        } ;
+        inputMap.put(stroke, "BUSCAR");
+        rootPane.getActionMap().put("BUSCAR", accion);
+
+        return rootPane;
+    }
+    
     /**
      * @param args the command line arguments
      */
