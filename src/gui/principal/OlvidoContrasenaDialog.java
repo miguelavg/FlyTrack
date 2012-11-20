@@ -7,7 +7,6 @@ package gui.principal;
 import beans.Parametro;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
-import com.sun.org.apache.xerces.internal.impl.dtd.models.CMAny;
 import controllers.CContrasena;
 import controllers.CMail;
 import controllers.CParametro;
