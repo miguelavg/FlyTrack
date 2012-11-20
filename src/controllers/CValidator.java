@@ -150,18 +150,11 @@ public class CValidator {
         
             for (int s=0; s<input.length();s++){
                Character c=input.charAt(s);
-               if (Character.isLetter(c)) {
+               if (Character.isLetter(c)||Character.isDigit(c)|| c==' ') {
                    return true;
                }
             }
-            
-            for (Integer c=0;c<10;c++){
-               
-                if (input.contains(c.toString())){
-                    
-                    return true;
-                }
-            }                    
+                                            
         
         return false;
     }
