@@ -169,7 +169,7 @@ public class Recocido {
 
             // Mientras no hayamos llegado al final...
 
-            while (iActual != iFinal && aActual.getCapacidadMax() > aActual.getCapacidadActual()) {
+            while (iActual != iFinal && aActual.getCapacidadMax() >= aActual.getCapacidadActual() + numPaquetes) {
                 posibles = new ArrayList<Vuelo>();
 
                 // Calcular los vuelos posibles, el beta y el tau

@@ -334,9 +334,9 @@ public class CAeropuerto {
 
             if (idActual > 0) {
                 q = s.getNamedQuery("AeroTarifa");
-                q.setParameter("id", idActual);
+                q.setParameter("idActual", idActual);
             } else {
-                q = s.getNamedQuery("Aero");
+            q = s.getNamedQuery("Aero");
             }
 
             if (Pais != null) {
@@ -370,9 +370,8 @@ public class CAeropuerto {
         return null;
 
     }
-    
-    
-        public static List<Aeropuerto> BuscarAeropuertoXEnvioXFechas(
+
+    public static List<Aeropuerto> BuscarAeropuertoXEnvioXFechas(
             Aeropuerto aeropuerto,
             Calendar fechini,
             Calendar fechfinal,
@@ -391,7 +390,7 @@ public class CAeropuerto {
 
         try {
             Transaction tx = s.beginTransaction();
-            Query q;        
+            Query q;
 
             if (fechini != null) {
                 inii = CValidator.formatDate(fechini.getTime());
@@ -405,28 +404,28 @@ public class CAeropuerto {
             //if (aeropuerto != null) {
 //            Filter f_origen = s.enableFilter("VueloXOrigen");
 //            f_origen.setParameter("idOrigen", aeropuerto.getIdAeropuerto());
-            
+
             q = s.getNamedQuery("AeropuertosxID");
             q.setParameter("idaero", aeropuerto.getIdAeropuerto());
-            if (fechini!=null){
+            if (fechini != null) {
                 Filter f_vuelos_s = s.enableFilter("VuelosXAeropuertoSalidaAux");
                 f_vuelos_s.setParameter("lower", ini);
                 f_vuelos_s.setParameter("upper", fin);
                 f_vuelos_s.setParameter("idEstado1", idparsalida1);
                 f_vuelos_s.setParameter("idEstado2", idparsalida2);
             }
-            if (fechfinal!=null){
-                        Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
-                        f_vuelos_l.setParameter("lower", ini);
-                        f_vuelos_l.setParameter("upper", fin);
-                        f_vuelos_l.setParameter("idEstado", idparentrada);
+            if (fechfinal != null) {
+                Filter f_vuelos_l = s.enableFilter("VuelosXAeropuertoLlegada");
+                f_vuelos_l.setParameter("lower", ini);
+                f_vuelos_l.setParameter("upper", fin);
+                f_vuelos_l.setParameter("idEstado", idparentrada);
             }
-        
+
             ListaAeropuertos = q.list();
-            
-            for (int i=0;ListaAeropuertos.size()>i;i++)
-            {ListaAeropuertos.get(i).getVuelosLlegada().size();
-            ListaAeropuertos.get(i).getVuelosSalida().size();
+
+            for (int i = 0; ListaAeropuertos.size() > i; i++) {
+                ListaAeropuertos.get(i).getVuelosLlegada().size();
+                ListaAeropuertos.get(i).getVuelosSalida().size();
             };
 
             return ListaAeropuertos;
