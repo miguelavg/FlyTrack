@@ -91,7 +91,7 @@ public class CValidator {
     
     public static boolean validarSoloLetrasYEspacio( char input , JTextField caja){
         if (input!=8){
-            if (!Character.isLetter(input)|| input!=' '){
+            if (!Character.isLetter(input) && input!=' '){
 //                
                 String texto="";
                 for (int i=0; i< caja.getText().length();i++){
