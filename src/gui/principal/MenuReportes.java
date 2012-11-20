@@ -4,7 +4,7 @@
  */
 package gui.principal;
 
-import gui.reportes.ReporteAlmacen;
+//import gui.reportes.ReporteAlmacen;
 import gui.reportes.ReporteEnvios;
 import gui.reportes.ReporteIncidencias;
 import gui.reportes.ReporteVentas;
@@ -145,10 +145,11 @@ public class MenuReportes extends javax.swing.JFrame {
                                             .addComponent(btnRptEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnRptMovAlmc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel1)
-                                            .addComponent(lblLogAuditoria3)
-                                            .addComponent(lblLogAuditoria4)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblLogAuditoria4)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel1)
+                                                .addComponent(lblLogAuditoria3))))
                                     .addComponent(btnRptIncidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblLogAuditoria5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -172,7 +173,7 @@ public class MenuReportes extends javax.swing.JFrame {
 
     private void btnRptMovAlmcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRptMovAlmcActionPerformed
         // TODO add your handling code here:
-        ReporteAlmacen reporteAlmacen = new ReporteAlmacen();
+        gui.jrxml.ReporteAlmacen reporteAlmacen = new gui.jrxml.ReporteAlmacen();
         reporteAlmacen.setVisible(true);
     }//GEN-LAST:event_btnRptMovAlmcActionPerformed
 

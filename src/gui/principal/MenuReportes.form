@@ -85,10 +85,12 @@
                                           <Component id="btnRptMovAlmc" min="-2" pref="60" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblLogAuditoria3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblLogAuditoria4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblLogAuditoria3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Component id="btnRptIncidencias" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>

@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.reportes;
+package gui.jrxml;
 
 
+import gui.reportes.*;
 import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
@@ -330,8 +331,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     vuelods.setListaVuelos(listaVuelos);
     if (aeroori!=null){
         try {
-            JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/reporteAlmacen.jrxml");
-//    JasperReport reporte= (JasperReport) JRLoader.loadObjectFromFile("/home/joao/NetBeansProjects/FlyTrack/src/gui/reportes/ReportePrueba.jrxml"); 
+            JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, vuelods);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -340,7 +341,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             exporter.exportReport();
         } catch (JRException e) {
             e.printStackTrace();
-            ErrorDialog.mostrarError("Ocurrió un error al crear el archivo pdf.", this);
+            ErrorDialog.mostrarError("Ocurrió un error ", this);
             
         }
     }
