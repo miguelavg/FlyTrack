@@ -4,7 +4,10 @@
  */
 package gui.simulacion;
 
+import beans.Parametro;
+import controllers.CParametro;
 import controllers.CSimulator;
+import controllers.CValidator;
 import gui.InformationDialog;
 import gui.envios.*;
 import java.awt.Cursor;
@@ -38,6 +41,7 @@ public class SimDialog extends javax.swing.JDialog {
         listaCargada = false;
     }
     private ArrayList<VueloLite> vInicial;
+    private ArrayList<EnvioLite> eInicial;
     private boolean listaCargada;
 
     @Override
@@ -142,6 +146,7 @@ public class SimDialog extends javax.swing.JDialog {
             ArrayList<EnvioLite> envioLites = CSimulator.calcularEnvios(aeroLites);
             llenarTablaEnvioLites(envioLites);
             this.vInicial = vueloLites;
+            this.eInicial = envioLites;
         }
     }
 
@@ -175,6 +180,9 @@ public class SimDialog extends javax.swing.JDialog {
             if (aeroLite != null && capacidadActual >= 0 && capacidadMax > 0) {
                 aeroLite.setCapacidadActual(capacidadActual);
                 aeroLite.setCapacidadMax(capacidadMax);
+                aeroLite.setCongestiona(false);
+                aeroLite.setNecesidad(0);
+                aeroLite.settCongestiona(0);
                 aeroLites.add(aeroLite);
             }
         }
@@ -201,7 +209,9 @@ public class SimDialog extends javax.swing.JDialog {
                     VueloLite v = new VueloLite(origen, destino, j, capacidadMax, alquiler, plleno);
                     v.setEvt(k++);
                     v.setDur(randomizer.nextInt(9));
-                    v.setCapacidadActual((int) (randomizer.nextDouble() * capacidadMax));
+                    v.setCapacidadActual((int) (plleno * capacidadMax));
+                    v.setNecesidad(0);
+                    v.setCongestiona(false);
                     vueloLites.add(v);
                     v.getOrigen().getVuelosSalida().add(v);
                     v.getDestino().getVuelosLlegada().add(v);
@@ -270,6 +280,7 @@ public class SimDialog extends javax.swing.JDialog {
         setMinimumSize(new java.awt.Dimension(770, 601));
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         setName("envioDialog"); // NOI18N
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -572,14 +583,23 @@ public class SimDialog extends javax.swing.JDialog {
         dtm = (DefaultTableModel) tbl_envios.getModel();
         ArrayList<EnvioLite> envioLites = reconstruirEnvioLites(dtm);
 
-        CSimulator.simular(envioLites);
+        int fallas = CSimulator.simular(envioLites, aeroLites, vueloLites);
+
+        Parametro pUmbral = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "p_umbral");
+        double umbral = Double.parseDouble(pUmbral.getValor());
 
         String aNecesidad = "";
         String vNecesidad = "";
+        String aLleno = "";
+        String eLleno = "";
 
         for (AeroLite a : aeroLites) {
             if (a.getNecesidad() > 0) {
-                aNecesidad = aNecesidad + "Aumentar en " + a.getNecesidad() + " la capacidad del aeropuerto " + a.getNombre() + "\n";
+                aNecesidad = aNecesidad + "El aeropuerto " + a.getNombre() + " congestiona a " + a.getNecesidad() + "envíos.\n";
+            }
+            if (a.gettCongestiona() > 0) {
+                double tLleno = a.gettCongestiona() / ((double) envioLites.size());
+                aLleno = aLleno + "El aeropuerto " + a.getNombre() + " está por encima del " + CValidator.formatNumber(umbral * 100) + "% de su capacidad el " + CValidator.formatNumber(tLleno * 100) + "% del tiempo.\n";
             }
         }
 
@@ -593,20 +613,48 @@ public class SimDialog extends javax.swing.JDialog {
 
         for (VueloLite vI : this.vInicial) {
             if (vI.getNecesidad() > 0) {
-                vNecesidad = vNecesidad + "Aumentar en " + vI.getNecesidad() + " la capacidad del vuelo " + vI.getOrigen().getNombre() + " - " + vI.getDestino().getNombre() + "\n";
+                vNecesidad = vNecesidad + "El vuelo " + vI.getOrigen().getNombre() + " - " + vI.getDestino().getNombre() + " congestiona a " + vI.getNecesidad() + " \n";
             }
         }
 
         if (!aNecesidad.isEmpty()) {
-            aNecesidad = "Se recomienda: \n" + aNecesidad;
+            aNecesidad = "Congestionamientos detectados: \n" + aNecesidad;
         }
         if (!vNecesidad.isEmpty()) {
-            vNecesidad = "Se recomienda: \n" + vNecesidad;
+            vNecesidad = "Congestionamientos detectados: \n" + vNecesidad;
         }
 
-        String mensaje = aNecesidad + "\n" + vNecesidad;
+        if (!aLleno.isEmpty()) {
+            aLleno = "Posibles congestionamientos: \n" + aLleno;
+        }
+        
+        for(EnvioLite e : this.eInicial){
+            e.setCompletados(0);
+        }
+                
 
-        if (aNecesidad.isEmpty() && vNecesidad.isEmpty()) {
+        for (EnvioLite eI : this.eInicial) {
+            for (EnvioLite e : envioLites) {
+                if (e.getOrigen().getId() == eI.getOrigen().getId() && e.getDestino().getId() == eI.getDestino().getId() && !e.isCompletado()) {
+                    eI.setCompletados(eI.getCompletados() + 1);
+                }
+            }
+        }
+
+        if (fallas > 0) {
+            eLleno = "No se concretaron " + fallas + " envíos:\n";
+
+            for (EnvioLite e : eInicial) {
+                if (!e.isCompletado()) {
+                    eLleno = eLleno + e.getOrigen() + " - " + e.getDestino() + " (" + e.getCompletados() + ")\n";
+                }
+            }
+
+        }
+
+        String mensaje = aNecesidad + "\n" + vNecesidad + "\n" + aLleno + "\n" + eLleno;
+
+        if (aNecesidad.isEmpty() && vNecesidad.isEmpty() && aLleno.isEmpty() && eLleno.isEmpty()) {
             mensaje = "La distribución de los almacenes y vuelos es correcta.";
         }
 

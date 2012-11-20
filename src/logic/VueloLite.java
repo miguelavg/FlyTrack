@@ -11,14 +11,16 @@ package logic;
 public class VueloLite {
     private AeroLite origen;
     private AeroLite destino;
-    int evt;
-    int dur;
-    int num;
-    int capacidadActual;
-    int capacidadMax;
-    int necesidad;
-    double alquiler;
-    double plleno;
+    private int evt;
+    private int dur;
+    private int num;
+    private int capacidadActual;
+    private int capacidadMax;
+    private int necesidad;
+    private int tCongestiona;
+    private boolean congestiona;
+    private double alquiler;
+    private double plleno;
 
     public VueloLite(AeroLite origen, AeroLite destino, int num, int capacidadMax, double alquiler, double plleno) {
         this.origen = origen;
@@ -28,6 +30,8 @@ public class VueloLite {
         this.alquiler = alquiler;
         this.necesidad = 0;
         this.plleno = plleno;
+        this.congestiona = false;
+        this.tCongestiona = 0;
     }
     
     public AeroLite getOrigen() {
@@ -108,6 +112,22 @@ public class VueloLite {
 
     public void setPlleno(double plleno) {
         this.plleno = plleno;
+    }
+
+    public boolean isCongestiona() {
+        return congestiona;
+    }
+
+    public void setCongestiona(boolean congestiona) {
+        this.congestiona = congestiona;
+    }
+
+    public int gettCongestiona() {
+        return tCongestiona;
+    }
+
+    public void settCongestiona(int tCongestiona) {
+        this.tCongestiona = tCongestiona;
     }
     
     
