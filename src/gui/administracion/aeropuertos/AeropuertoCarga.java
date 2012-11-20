@@ -5,22 +5,18 @@
 package gui.administracion.aeropuertos;
 
 import beans.Parametro;
-import beans.Vuelo;
 import com.thoughtworks.xstream.XStream;
 import controllers.CAeropuerto;
 import controllers.CParametro;
-import controllers.CReportes;
 import controllers.CSerializer;
 import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.InformationDialog;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import xml.XmlAeropuerto;
 import xml.XmlAeropuertoString;
 
 /**
@@ -39,8 +35,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
     
     public AeropuertoCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -63,6 +59,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Cargar aeropuertos");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -396,38 +393,36 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 //        generaraeropuertos();
 //        serializar(listaaero, "PruebaCargaAero.xml");
 //                
-setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (archivovalido) {
-            ArrayList xmlAeropuertos = CSerializer.deserializar(txtRuta.getText());
+            try {
+                ArrayList<XmlAeropuertoString> xmlAeropuertos = CSerializer.deserializar(txtRuta.getText());
 //          ArrayList aeropuertos=CSerializer.deserializar("PruebaCargaAero.xml");\
-            
-            if (xmlAeropuertos!=null){
-            ArrayList aeropuertos = PasaValores(xmlAeropuertos);
-            
-            
-            if (aeropuertos != null  && xmlAeropuertos!=null) {
-                try {   
-                   setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                    //CAeropuerto.ValidarCaga(vuelos);
-                    for (int i = 0; i < aeropuertos.size(); i++) {
-                        beans.Aeropuerto aero = (beans.Aeropuerto) aeropuertos.get(i);
-                        CAeropuerto.cargarAeropuerto(aero);
+                ArrayList<beans.Aeropuerto> aeropuertos = PasaValores(xmlAeropuertos);
+                    if (aeropuertos != null ) {
+                        try {
+                            //setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                            //CAeropuerto.ValidarCaga(vuelos);
+                            for (int i = 0; i < aeropuertos.size(); i++) {
+                                beans.Aeropuerto aero = (beans.Aeropuerto) aeropuertos.get(i);
+                                CAeropuerto.cargarAeropuerto(aero);
+                            }
+                            //setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                            InformationDialog.mostrarInformacion("La operación se realizó con éxito ", this);
+                            this.dispose();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
+                        }
                     }
-                   setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    InformationDialog.mostrarInformacion("La operación se realizó con éxito ", this);
-                    this.dispose();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
-
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
             }
-            }
-            else {ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);}
-            
-            
+        }else {
+        ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);    
         }
-        
+
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 

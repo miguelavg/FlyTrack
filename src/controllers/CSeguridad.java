@@ -178,6 +178,7 @@ public class CSeguridad {
         int num_min_car_mayus = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MAYUS").getValor());
         int num_min_car_minus = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_MINUS").getValor());
         int num_min_car_esp = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_MINIMO_CAR_ESP").getValor());
+        int num_long_min = Integer.parseInt(CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_LONG_MINIMA").getValor());
         
         ArrayList<Character> contrasenaNueva = new ArrayList<Character>();
         
@@ -206,6 +207,14 @@ public class CSeguridad {
         for(int i=0; i < num_min_car_esp; i++){
             char valor = car_esp[rnd.nextInt(car_esp.length)];
             contrasenaNueva.add(valor);
+        }
+        
+        if(contrasenaNueva.size() < num_long_min){
+            int cantCaracAgregar = num_long_min - contrasenaNueva.size(); 
+            for(int i=0; i < cantCaracAgregar; i++){
+                char valor = (char)('a' + rnd.nextInt('z' - 'a' + 1));
+                contrasenaNueva.add(valor);
+            }
         }
         
         Collections.shuffle(contrasenaNueva);
@@ -293,14 +302,17 @@ public class CSeguridad {
 
         condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST");
         List<Contrasena> contrasenasAContrastar = CSeguridad.getUltimasContrasenasXUsuario(Integer.parseInt(condicion.getValor()), idUsuario);
-        String passAValidar = new String(contrasenaAValidar);
+//        String passAValidar = new String(contrasenaAValidar);
 
         if (contrasenasAContrastar != null) {
             for (Contrasena contrasenaAContrastar : contrasenasAContrastar) {
-                String passAContrastar = new String(contrasenaAContrastar.getText());
-                if (passAContrastar.equals(passAValidar)) {
+                if(passwordCorrecta(contrasenaAContrastar.getText(), CContrasena.encriptarContrasena(contrasenaAValidar))){
                     return false;
                 }
+//                String passAContrastar = new String(contrasenaAContrastar.getText());
+//                if (passAContrastar.equals(passAValidar)) {
+//                    return false;
+//                }
             }
         }
 
@@ -365,14 +377,17 @@ public class CSeguridad {
 
             condicion = CParametro.buscarXValorUnicoyTipo("SEGURIDAD", "PASS_NUM_CONT_HIST");
             List<Contrasena> contrasenasAContrastar = CSeguridad.getUltimasContrasenasXUsuario(Integer.parseInt(condicion.getValor()), idUsuario);
-            String passAValidar = new String(contrasenaAValidar);
+//            String passAValidar = new String(contrasenaAValidar);
 
             if (contrasenasAContrastar != null) {
                 for (Contrasena contrasenaAContrastar : contrasenasAContrastar) {
-                    String passAContrastar = new String(contrasenaAContrastar.getText());
-                    if (passAContrastar.equals(passAValidar)) {
+                    if(CSeguridad.passwordCorrecta(contrasenaAContrastar.getText(), CContrasena.encriptarContrasena(contrasenaAValidar))){
                         mensaje += "Password no cumple con ser distinta a las contraseñas anteriores\n";
                     }
+//                    String passAContrastar = new String(contrasenaAContrastar.getText());
+//                    if (passAContrastar.equals(passAValidar)) {
+//                        
+//                    }
                 }
             }
 

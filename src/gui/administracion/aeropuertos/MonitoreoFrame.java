@@ -50,13 +50,14 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     public void paint(Graphics g) {
         super.paint(g);
        
+       
         pintar(g);
-        
         if (bandera ==false ){
        
-         pintar(g);
-         this.update(g);     
-           // this.repaint();
+        bandera =true;
+        this.update(g);  
+        
+        //this.repaint();
         }       
     
     }
@@ -107,7 +108,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
          c.setColor(Color.WHITE);
            c.fillOval(evt.getX(),evt.getY(), 10,10 );
         c.drawOval(evt.getX(),evt.getY(), 10,10 );
-        paint(c);
+       
       int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posición?", "Advertencia", JOptionPane.YES_NO_OPTION);
          if (JOptionPane.YES_OPTION == result) {
              objAero.setCoordX(evt.getX());
@@ -116,7 +117,8 @@ public class MonitoreoFrame extends javax.swing.JDialog {
              this.dispose();
          }
          else {
-             bandera =false;
+             bandera = false;
+             paint(c);
          }
     }//GEN-LAST:event_lbl_mapaMouseClicked
 
