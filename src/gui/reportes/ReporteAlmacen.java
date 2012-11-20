@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.jrxml;
+package gui.reportes;
 
 
 import gui.reportes.*;
@@ -12,13 +12,17 @@ import beans.Parametro;
 import controllers.CAeropuerto;
 import controllers.CCliente;
 import controllers.CParametro;
+import controllers.CReportes;
 import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.*;
 import java.awt.Cursor;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
@@ -54,6 +58,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     List<beans.Aeropuerto> listaAeropuertos;
     ArrayList<beans.Vuelo> listaVuelos= new  ArrayList<beans.Vuelo>();
     Calendar fechini, fechfin;
+    
+    //boolean exportar=false;
     
     public ReporteAlmacen() {
         initComponents();
@@ -100,6 +106,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWIndowActivated(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -331,14 +342,40 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     vuelods.setListaVuelos(listaVuelos);
     if (aeroori!=null){
         try {
-            JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
-
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, vuelods);
+            //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/ReporteAlmacen.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, vuelods);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            String nombreReporteAlmacen = "Reporte" + this.aeroori.getNombre() + ".pdf";
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual=new Date(); 
+            fechaactual = Calendar.getInstance().getTime(); 
+            String reportDate = df.format(fechaactual);
+            
+            String nombreReporteAlmacen = "Reporte" + this.aeroori.getNombre() +reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
             exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle(nombreReporteAlmacen);
+            jviewer.setVisible(true);
+            //exportar=true;
+            
+            CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
         } catch (JRException e) {
             e.printStackTrace();
             ErrorDialog.mostrarError("Ocurrió un error ", this);
@@ -364,6 +401,14 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         llenarGrillaAero();
         
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void formWIndowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWIndowActivated
+        // TODO add your handling code here:
+//                // TODO add your handling code here:
+//        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//                  llenarGrillaAero();
+//        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_formWIndowActivated
 
     
  private void llenarGrillaAero() {
@@ -471,13 +516,6 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     }
  
  
-//    private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
-//        // TODO add your handling code here:
-//        setCursor(new Cursor(Cursor.WAIT_CURSOR));
-//                  llenarGrillaAero();
-//        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//        
-//    }        
 // 
     /**
      * @param args the command line arguments
