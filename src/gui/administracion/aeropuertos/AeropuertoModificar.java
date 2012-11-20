@@ -405,7 +405,7 @@ public class AeropuertoModificar extends javax.swing.JDialog {
             CAeropuerto.modificarAeropuerto(
                     objAero.getIdAeropuerto(),
                     Integer.parseInt(txt_capacidad.getText()),
-                    0,
+                    Integer.parseInt(txt_capaActu.getText()),
                     ListatipoHijo.get(cbm_ciudad.getSelectedIndex() - 1),
                     Integer.parseInt(txt_X.getText()),
                     Integer.parseInt(txt_Y.getText()),
