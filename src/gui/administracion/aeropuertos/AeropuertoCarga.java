@@ -39,8 +39,8 @@ public class AeropuertoCarga extends javax.swing.JDialog {
     
     public AeropuertoCarga(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(null);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -63,6 +63,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Cargar aeropuertos");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
