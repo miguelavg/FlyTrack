@@ -11,6 +11,7 @@ import beans.Parametro;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
+import controllers.CAeropuerto;
 import controllers.CCliente;
 import controllers.CContrasena;
 import controllers.CMail;
@@ -673,6 +674,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
         if(mensaje.isEmpty()){ //Cumple todas las validaciones
             if(idusuario != -1){ 
                 //Modificando usuario
+                if (AeropuertoAux==null){
+                    AeropuertoAux=CAeropuerto.BuscarNombre(txtAeropuerto.getText());
+                }                
+                
                 Usuario usuario = new CUsuario().
                     modificarUsuario(idusuario, (Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), //cuidado con AeropuertoAux
                                     (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
