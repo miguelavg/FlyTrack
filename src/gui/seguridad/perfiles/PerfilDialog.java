@@ -34,14 +34,14 @@ import javax.swing.KeyStroke;
  *
  * @author msolorzano
  */
-public class PerfilFrame extends javax.swing.JDialog {
+public class PerfilDialog extends javax.swing.JDialog {
 
     CPerfil CPerfil = new CPerfil();
 
     /**
-     * Creates new form PerfilFrame
+     * Creates new form PerfilDialog
      */
-    public PerfilFrame() {
+    public PerfilDialog() {
         initComponents();
         definirPermisos();
         listaCargada = false;
@@ -300,20 +300,20 @@ public class PerfilFrame extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PerfilFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PerfilDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PerfilFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PerfilDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PerfilFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PerfilDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PerfilFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PerfilDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PerfilFrame().setVisible(true);
+                new PerfilDialog().setVisible(true);
             }
         });
     }
@@ -331,12 +331,12 @@ public class PerfilFrame extends javax.swing.JDialog {
     private void definirPermisos() {
 
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
         boolean crear = CSeguridad.validarPermiso(3, "Perfiles", "Crear", permisos);
         this.btnAgregar.setEnabled(crear);
+        
         boolean modificar = CSeguridad.validarPermiso(3, "Perfiles", "Modificar", permisos);
         this.btnModificar.setEnabled(modificar);
-//        boolean cargaMasiva = CSeguridad.validarPermiso(3, "Perfil", "Carga Masiva", permisos);
-//        this.btnCargaMasiva.setEnabled(cargaMasiva);
 
         this.setLocationRelativeTo(null);
         pack();
