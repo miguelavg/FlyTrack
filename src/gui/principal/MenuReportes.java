@@ -7,6 +7,7 @@ package gui.principal;
 //import gui.reportes.ReporteAlmacen;
 import beans.Sesion;
 import beans.seguridad.Permiso;
+import controllers.CSeguridad;
 import gui.reportes.ReporteEnvios;
 import gui.reportes.ReporteIncidencias;
 import gui.reportes.ReporteVentas;
@@ -252,6 +253,18 @@ public class MenuReportes extends javax.swing.JFrame {
 
     private void definirPermisos(){
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
+        
+        boolean ventas = CSeguridad.validarPermiso(2, "Reportes", "Ventas", permisos);
+        this.btnRptVentas.setEnabled(ventas);
+        
+        boolean envios = CSeguridad.validarPermiso(2, "Reportes", "Envios", permisos);
+        this.btnRptEnvio.setEnabled(envios);
+        
+        boolean movAlmacen = CSeguridad.validarPermiso(2, "Reportes", "MovAlmacen", permisos);
+        this.btnRptMovAlmc.setEnabled(movAlmacen);
+        
+        boolean incidencias = CSeguridad.validarPermiso(2, "Reportes", "Incidencias", permisos);
+        this.btnRptIncidencias.setEnabled(incidencias);
         
         this.setLocationRelativeTo(null);
         pack();
