@@ -283,7 +283,8 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
     private String validarcampos() {
         String error_message = "";
         if (txt_Nombre.getText().isEmpty() || txt_capacidad.getText().isEmpty()
-                || cbm_pais.getSelectedIndex() == 0 || cbm_ciudad.getSelectedIndex() == 0 || cbm_estado.getSelectedIndex() == 0) {
+                || cbm_pais.getSelectedIndex() == 0 || cbm_ciudad.getSelectedIndex() == 0 || cbm_estado.getSelectedIndex() == 0
+                || txt_X.getText().isEmpty() || txt_Y.getText().isEmpty() ) {
 
             error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
 
