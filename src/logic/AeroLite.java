@@ -16,7 +16,9 @@ public class AeroLite {
     private String nombre;
     private int capacidadMax;
     private int capacidadActual;
-    int necesidad;
+    private boolean congestiona;
+    private int tCongestiona;
+    private int necesidad;
     private ArrayList<VueloLite> vuelosSalida = new ArrayList<VueloLite>();
     private ArrayList<VueloLite> vuelosLlegada= new ArrayList<VueloLite>();
 
@@ -29,6 +31,7 @@ public class AeroLite {
         this.capacidadMax = capacidadMax;
         this.capacidadActual = capacidadActual;
         this.necesidad = 0;
+        this.congestiona = false;
     }
 
     public int getId() {
@@ -86,6 +89,22 @@ public class AeroLite {
 
     public void setNecesidad(int necesidad) {
         this.necesidad = necesidad;
+    }
+
+    public boolean isCongestiona() {
+        return congestiona;
+    }
+
+    public void setCongestiona(boolean congestiona) {
+        this.congestiona = congestiona;
+    }
+
+    public int gettCongestiona() {
+        return tCongestiona;
+    }
+
+    public void settCongestiona(int tCongestiona) {
+        this.tCongestiona = tCongestiona;
     }
     
     @Override

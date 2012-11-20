@@ -104,10 +104,14 @@ public class RecocidoLite {
                         }
 
                     } else {
-                        if (vuelo.getCapacidadMax() < vuelo.getCapacidadActual()) {
+                        if (vuelo.getCapacidadMax() < vuelo.getCapacidadActual() && !vuelo.isCongestiona()) {
                             vuelo.setNecesidad(vuelo.getNecesidad() + 1);
+                            vuelo.setCongestiona(true);
                         } else {
-                            aActual.setNecesidad(aActual.getNecesidad() + 1);
+                            if (!aActual.isCongestiona()) {
+                                aActual.setNecesidad(aActual.getNecesidad() + 1);
+                                aActual.setCongestiona(true);
+                            }
                         }
                     }
                 }
@@ -130,6 +134,17 @@ public class RecocidoLite {
 
                 aleatorio = rcl.get(rnd.nextInt(rcl.size()));
                 construccion.add(aleatorio);
+                
+                int vCapacidad = aleatorio.getCapacidadActual();
+                aleatorio.setCapacidadActual(vCapacidad + 1);
+                
+                int oCapacidad = aleatorio.getOrigen().getCapacidadActual();
+                aleatorio.getOrigen().setCapacidadActual(oCapacidad + 1);
+                
+                int dCapacidad = aleatorio.getDestino().getCapacidadActual();
+                aleatorio.getDestino().setCapacidadActual(dCapacidad + 1);
+                
+                
 
                 aActual = aleatorio.getDestino();
                 iActual = aActual.getId();
@@ -140,7 +155,6 @@ public class RecocidoLite {
             }
 
             if (iActual != iFinal) {
-                aActual.setNecesidad(aActual.getNecesidad() + 1);
                 return null;
             }
 
@@ -151,11 +165,12 @@ public class RecocidoLite {
         return null;
     }
 
-    public ArrayList<VueloLite> grasp(EnvioLite envio) {
+    public int grasp(EnvioLite envio) {
 
         int energia = Integer.MAX_VALUE;
         int iEnergia;
         this.solucion = null;
+        int respuesta = 0;
 
 
         for (int i = 0; i < this.intentos; i++) {
@@ -169,6 +184,12 @@ public class RecocidoLite {
             }
         }
 
-        return solucion;
+        if (this.solucion == null) {
+            respuesta = 1;
+        } else {
+            envio.setCompletado(true);
+        }
+
+        return respuesta;
     }
 }
