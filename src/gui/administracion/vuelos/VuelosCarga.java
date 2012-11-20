@@ -452,7 +452,7 @@ public class VuelosCarga extends javax.swing.JDialog {
                     }
                     catch(Exception e){
                         e.printStackTrace();
-                        ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
+                        ErrorDialog.mostrarError("Ocurrió un error al hacer la carga",this);
 
                     }
                 }
