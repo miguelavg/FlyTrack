@@ -11,6 +11,7 @@ import beans.seguridad.Permiso;
 import beans.seguridad.Usuario;
 import controllers.CPerfil;
 import controllers.CSeguridad;
+import controllers.CUsuario;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
@@ -264,6 +265,10 @@ public class PerfilDialog extends javax.swing.JDialog {
             //PerfilAgregarGUI.setVisibl*e(true);
             PerfilAgregarGUI.setIdperfil((Integer) PerfilTabla.getValueAt(PerfilTabla.getSelectedRow(), 3));
             PerfilAgregarGUI.setVisible(Boolean.TRUE);
+            if(id == Sesion.getUsuario().getPerfil().getIdPerfil()){
+                Sesion.setUsuario(CUsuario.actualizarUsuario(Sesion.getUsuario()));
+                definirPermisos();
+            }
             llenarTabla();
         }
     }//GEN-LAST:event_btnModificarActionPerformed

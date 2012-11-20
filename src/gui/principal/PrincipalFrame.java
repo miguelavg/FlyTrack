@@ -338,6 +338,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         MenuSeguridadDialog menuSeguridad = new MenuSeguridadDialog();
         menuSeguridad.setVisible(true);
+        definirPermisos();
     }//GEN-LAST:event_btnSeguridadActionPerformed
 
     private void lblCambiarPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCambiarPassMouseClicked
