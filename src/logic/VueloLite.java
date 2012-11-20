@@ -21,6 +21,7 @@ public class VueloLite {
     private boolean congestiona;
     private double alquiler;
     private double plleno;
+    private boolean rojo;
 
     public VueloLite(AeroLite origen, AeroLite destino, int num, int capacidadMax, double alquiler, double plleno) {
         this.origen = origen;
@@ -32,6 +33,7 @@ public class VueloLite {
         this.plleno = plleno;
         this.congestiona = false;
         this.tCongestiona = 0;
+        this.rojo = false;
     }
     
     public AeroLite getOrigen() {
@@ -128,6 +130,14 @@ public class VueloLite {
 
     public void settCongestiona(int tCongestiona) {
         this.tCongestiona = tCongestiona;
+    }
+
+    public boolean isRojo() {
+        return rojo;
+    }
+
+    public void setRojo(boolean rojo) {
+        this.rojo = rojo;
     }
     
     

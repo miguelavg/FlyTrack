@@ -594,12 +594,15 @@ public class SimDialog extends javax.swing.JDialog {
         String eLleno = "";
 
         for (AeroLite a : aeroLites) {
+            a.setRojo(false);
             if (a.getNecesidad() > 0) {
-                aNecesidad = aNecesidad + "El aeropuerto " + a.getNombre() + " congestiona a " + a.getNecesidad() + "envíos.\n";
+                aNecesidad = aNecesidad + "+ El aeropuerto " + a.getNombre() + " congestiona a " + a.getNecesidad() + "envíos.\n";
+                a.setRojo(true);
             }
             if (a.gettCongestiona() > 0) {
                 double tLleno = a.gettCongestiona() / ((double) envioLites.size());
-                aLleno = aLleno + "El aeropuerto " + a.getNombre() + " está por encima del " + CValidator.formatNumber(umbral * 100) + "% de su capacidad el " + CValidator.formatNumber(tLleno * 100) + "% del tiempo.\n";
+                aLleno = aLleno + "+ " + a.getNombre() + " - " + CValidator.formatNumber(tLleno * 100) + "% del tiempo.\n";
+                a.setRojo(true);
             }
         }
 
@@ -612,8 +615,10 @@ public class SimDialog extends javax.swing.JDialog {
         }
 
         for (VueloLite vI : this.vInicial) {
+            vI.setRojo(false);
             if (vI.getNecesidad() > 0) {
-                vNecesidad = vNecesidad + "El vuelo " + vI.getOrigen().getNombre() + " - " + vI.getDestino().getNombre() + " congestiona a " + vI.getNecesidad() + " \n";
+                vNecesidad = vNecesidad + "+ El vuelo " + vI.getOrigen().getNombre() + " - " + vI.getDestino().getNombre() + " congestiona a " + vI.getNecesidad() + " \n";
+                vI.setRojo(true);
             }
         }
 
@@ -625,7 +630,7 @@ public class SimDialog extends javax.swing.JDialog {
         }
 
         if (!aLleno.isEmpty()) {
-            aLleno = "Posibles congestionamientos: \n" + aLleno;
+            aLleno = "Los siguientes aeropuertos están llenos más del " + CValidator.formatNumber(umbral * 100) + "% del tiempo:" +  "\n" + aLleno;
         }
         
         for(EnvioLite e : this.eInicial){
@@ -645,8 +650,10 @@ public class SimDialog extends javax.swing.JDialog {
             eLleno = "No se concretaron " + fallas + " envíos:\n";
 
             for (EnvioLite e : eInicial) {
-                if (!e.isCompletado()) {
-                    eLleno = eLleno + e.getOrigen() + " - " + e.getDestino() + " (" + e.getCompletados() + ")\n";
+                e.setRojo(false);
+                if (e.getCompletados() > 0) {
+                    e.setRojo(true);
+                    eLleno = eLleno + "+ " + e.getOrigen() + " - " + e.getDestino() + " (" + e.getCompletados() + ")\n";
                 }
             }
 
@@ -661,7 +668,9 @@ public class SimDialog extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
         InformationDialog.mostrarInformacion(mensaje, this);
-
+        
+        MonitoreoFrame moni = new MonitoreoFrame(aeroLites, this.vInicial, this.eInicial);
+        moni.setVisible(true);
     }//GEN-LAST:event_btn_simularActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
