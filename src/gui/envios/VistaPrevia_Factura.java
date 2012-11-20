@@ -18,8 +18,10 @@ import beans.seguridad.Usuario;
 import controllers.CValidator;
 import gui.reportes.EnvioDataSource;
 import java.awt.Component;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +35,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class VistaPrevia_Factura extends javax.swing.JDialog {
 
@@ -454,18 +458,54 @@ public void cargartabla(){
             enviods= new EnvioDataSource();
             enviods.setEnvio(this.envio);
             try {
-                JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/factura.jrxml");
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
-                JRExporter exporter = new JRPdfExporter();
-
-                //JasperExportManager.exportReportToPdfFile(jasperPrint, ruta);
-
-                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-                String nombredocFactura = "Factura" + this.envio.getNumDocVenta() + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
-                exporter.exportReport();
-
-                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Factura Nro " + this.envio.getNumDocVenta() + "\n");
+                            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/factura.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+//            Date fechaactual=new Date(); 
+//            fechaactual = Calendar.getInstance().getTime(); 
+//            String reportDate = df.format(fechaactual);
+            
+            
+            
+            String nombredocFactura = "Factura" + this.envio.getNumDocVenta() + ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
+            exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            //setModal(false);
+            jviewer.setTitle(nombredocFactura);
+            jviewer.setVisible(true);
+                        jviewer.setAlwaysOnTop(true);
+                
+//                
+//                
+//                
+//                JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/factura.jrxml");
+//                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
+//                JRExporter exporter = new JRPdfExporter();
+//
+//                //JasperExportManager.exportReportToPdfFile(jasperPrint, ruta);
+//
+//                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//                String nombredocFactura = "Factura" + this.envio.getNumDocVenta() + ".pdf";
+//                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
+//                exporter.exportReport();
+//
+//                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Factura Nro " + this.envio.getNumDocVenta() + "\n");
 
             } catch (JRException e) {
                 e.printStackTrace();
@@ -475,22 +515,56 @@ public void cargartabla(){
         if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
             enviods= new EnvioDataSource();
             enviods.setEnvio(this.envio);
-            try {
-                JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/boleta.jrxml");
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
-                JRExporter exporter = new JRPdfExporter();
-                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-                String nombredocBoleta = "Boleta" + this.envio.getNumDocVenta() + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
-                exporter.exportReport();
+            
+//                JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/boleta.jrxml");
+//                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, enviods);
+//                JRExporter exporter = new JRPdfExporter();
+//                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//                String nombredocBoleta = "Boleta" + this.envio.getNumDocVenta() + ".pdf";
+//                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+//                exporter.exportReport();
+                
+                
+                
+                try {
+                            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/boleta.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
-                CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
+            
+            
+            
+            String nombredocBoleta = "Boleta" + this.envio.getNumDocVenta() + ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+            exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            //setModal(false);
+            jviewer.setTitle(nombredocBoleta);
+            jviewer.setVisible(true);
+                        jviewer.setAlwaysOnTop(true);
+                
+
+               //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
             } catch (JRException e) {
                 e.printStackTrace();
             }
-        }  
+        } 
     }//GEN-LAST:event_btn_docPagoActionPerformed
-
+        
     /**
      * @param args the command line arguments
      */
