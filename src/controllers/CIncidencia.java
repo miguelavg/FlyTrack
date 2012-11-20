@@ -105,6 +105,68 @@ public class CIncidencia {
         return ListaIncidencia;
 
     }
+     public static List<Incidencia> BuscarIncidenciasVuelo(
+                         Vuelo vuelo,
+                         Calendar fechini,
+                         Calendar fechfin 
+                         ) {
+         
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        List<Incidencia> ListaIncidencia = null;
+        Date ini = null;
+        Date fin = null;
+        String inii = null;
+
+        try {
+
+            if (fechini != null) {
+                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-mm-dd HH:mm");
+                inii = date_format.format(fechini.getTime());
+                ini = fechini.getTime();
+            }
+
+            if (fechfin != null) {
+                fin = fechfin.getTime();
+            }
+
+
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
+            Query q = s.getNamedQuery("Incidencia");
+
+
+         
+
+            if (ini != null) {
+
+                Filter f_inisalida = s.enableFilter("IncidenciaXFechaini");
+                f_inisalida.setParameter("fechai", ini);
+            }
+
+            if (fin != null) {
+
+                Filter f_finllega = s.enableFilter("IncidenciaXFechafin");
+                f_finllega.setParameter("fechaf", fin);
+            }
+ 
+            if (vuelo !=null) {
+                Filter f_estado = s.enableFilter("IncidenciaXVuelo");
+                f_estado.setParameter("idvuelo", vuelo.getIdVuelo());
+            }
+
+            ListaIncidencia = q.list();
+
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return ListaIncidencia;
+
+    }
      
       public static String validar(
             Aeropuerto aeropuertoOrigen, 
