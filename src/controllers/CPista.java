@@ -18,7 +18,7 @@ public class CPista {
 
     public static void guardarPista(String modPrincipal, String modSecundario, 
                                     String clase, String metodo, 
-                                    String estadoAnt, String estadoAct, String descripcion){
+                                    String estadoAnt, String estadoAct, String mensaje){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -26,8 +26,13 @@ public class CPista {
             Pista pista = new Pista();
             
             Usuario user = Sesion.getUsuario();
-            pista.setUsuarioR(user);
-            pista.setUsuario(user.getLogIn());
+            if(user != null){
+                pista.setUsuarioR(user);
+                pista.setUsuario(user.getLogIn());
+            }else{
+                pista.setUsuarioR(null);
+                pista.setUsuario(null);
+            }
             pista.setModuloPrincipal(modPrincipal);
             pista.setModuloSecundario(modSecundario);
             pista.setClase(clase);
@@ -35,7 +40,7 @@ public class CPista {
             pista.setFecha(Calendar.getInstance().getTime());
             pista.setEstadoAnterior(estadoAnt);
             pista.setEstadoActual(estadoAct);
-            pista.setDescripcion(descripcion);
+            pista.setDescripcion(mensaje);
             
             s.save(pista);
             

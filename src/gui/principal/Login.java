@@ -9,6 +9,7 @@ import beans.seguridad.Contrasena;
 import beans.seguridad.Usuario;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 import controllers.CContrasena;
+import controllers.CPista;
 import controllers.CSeguridad;
 import controllers.CUsuario;
 import gui.ErrorDialog;
@@ -186,13 +187,15 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = txtUser.getText();
         char[] password = txtPass.getPassword();
-
+        
         if( !username.isEmpty()  && username.length() > 0 && 
             password != null    && password.length > 0){
             //Verificar si la constrasenia del usuario es la activa o no
             //manejar el numero de intentos fallidos aqui
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
             
+            CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Usuario ingresado: " + username);
+            CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Contraseña ingresada: " + new String(password));
             
             //- Verificar que el username exista
             //- Verificar que el username este activo
@@ -238,6 +241,9 @@ public class Login extends javax.swing.JFrame {
             
             if (existeUsuario != null && usuarioActivo &&
                 existeContrasenaActiva != null && contrasenasIguales ) {
+                
+                CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Acceso con éxito");
+                
                 //VERIFICACION EXITOSA
                 lblError.setText("");
                 
@@ -250,8 +256,14 @@ public class Login extends javax.swing.JFrame {
 
                 if(condicionCaducidad || condicionPrimerIngreso){
                     String error = "";
-                    if(condicionCaducidad) error += "Su contraseña ha caducado, es necesario cambiarla. \n";
-                    if(condicionPrimerIngreso) error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contraseña. \n";
+                    if(condicionCaducidad) {
+                        error += "Su contraseña ha caducado, es necesario cambiarla. \n";
+                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "La contrasena activa del usuario " + username + " ha caducado.");
+                    }
+                    if(condicionPrimerIngreso) {
+                        error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contraseña. \n";
+                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null,"Primer ingreso del usuario " + username);
+                    }
                     InformationDialog.mostrarInformacion(error, this);
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     CambiarContrasenaDialog cambiarContrasenia = new CambiarContrasenaDialog(this, Boolean.TRUE, existeUsuario, contrasenaActiva);
