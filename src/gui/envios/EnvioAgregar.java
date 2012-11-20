@@ -61,7 +61,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private boolean isNuevo;
     private boolean wasNuevo;
     private double iva;
-    EscalaDataSource escalads= new EscalaDataSource();
+    EscalaDataSource escalads;
     
     public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
@@ -1310,8 +1310,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void btn_bitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacoraActionPerformed
         // TODO add your handling code here:
-            escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
-    if (envio!=null){
+        escalads= new EscalaDataSource();
+        escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
+    if (escalads!=null){
         try {
             //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
             String master = System.getProperty("user.dir") +
@@ -1343,9 +1344,9 @@ public class EnvioAgregar extends javax.swing.JDialog {
             //setModal(false);
             jviewer.setTitle(nombreReporteBitacora);
             jviewer.setVisible(true);
-            setModal(false);
-            this.setAlwaysOnTop(false);
-            this.setModal(false);
+            jviewer.setAlwaysOnTop(true);
+           
+
             //this.set
             //exportar=true;
 //            JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
