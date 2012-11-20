@@ -8,6 +8,7 @@ import beans.Sesion;
 import beans.seguridad.Pista;
 import beans.seguridad.Usuario;
 import java.util.Calendar;
+import java.util.List;
 import org.hibernate.*;
 
 /**
@@ -16,8 +17,9 @@ import org.hibernate.*;
  */
 public class CPista {
 
-    public static void guardarPista(String mPrincipal, String mSecundario, String clase, String metodo, 
-            String eAnterior, String eActual, String descripcion){
+    public static void guardarPista(String modPrincipal, String modSecundario, 
+                                    String clase, String metodo, 
+                                    String estadoAnt, String estadoAct, String mensaje){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -25,22 +27,41 @@ public class CPista {
             Pista pista = new Pista();
             
             Usuario user = Sesion.getUsuario();
-            pista.setUsuarioR(user);
-            pista.setUsuario(user.getLogIn());
-            pista.setModuloPrincipal(mPrincipal);
-            pista.setModuloSecundario(mSecundario);
+            if(user != null){
+                pista.setUsuarioR(user);
+                pista.setUsuario(user.getLogIn());
+            }else{
+                pista.setUsuarioR(null);
+                pista.setUsuario(null);
+            }
+            pista.setModuloPrincipal(modPrincipal);
+            pista.setModuloSecundario(modSecundario);
             pista.setClase(clase);
             pista.setMetodo(metodo);
             pista.setFecha(Calendar.getInstance().getTime());
-            pista.setEstadoAnterior(eAnterior);
-            if(eActual != null) pista.setEstadoActual(eActual);
-            if(descripcion != null) pista.setDescripcion(descripcion);
+            pista.setEstadoAnterior(estadoAnt);
+            pista.setEstadoActual(estadoAct);
+            pista.setDescripcion(mensaje);
             
             s.save(pista);
             
             tx.commit();
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
+
+    public static List<Pista> obtenerPistas(){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Query q = s.getNamedQuery("Pistas");
+            return (List<Pista>)q.list();
+        } catch(Exception e){
+//            System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
+            return null;
         } finally{
             s.close();
             Sesion.closeSessionFactory();

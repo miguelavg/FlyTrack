@@ -40,7 +40,7 @@ public class Sesion {
         sessionFactory.close();
     }
     
-    private static Usuario usuario;
+    private static Usuario usuario = null;
     private static boolean cambioPerfil;
 
     public static Usuario getUsuario() {
