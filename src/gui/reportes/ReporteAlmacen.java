@@ -413,9 +413,6 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
     
  private void llenarGrillaAero() {
-        
-       
-        
         //Aeropuerto aeropuerto = null ;
         //Parametro ciudad = null;
         //Parametro estado = null;
