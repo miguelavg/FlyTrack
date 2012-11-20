@@ -91,12 +91,12 @@ public class CValidator {
     
     public static boolean validarSoloLetrasYEspacio( char input , JTextField caja){
         if (input!=8){
-            if (!Character.isLetter(input)|| input!=' '){
+            if (!Character.isLetter(input) && input!=' '){
 //                
                 String texto="";
                 for (int i=0; i< caja.getText().length();i++){
 
-                    if (Character.isLetter(caja.getText().charAt(i))|| input==' ' )
+                    if (Character.isLetter(caja.getText().charAt(i))|| caja.getText().charAt(i)==' ' )
                     {
                         texto +=caja.getText().charAt(i);
                     }
@@ -148,19 +148,15 @@ public class CValidator {
     
     public static boolean esAlfanumerico(String input){
         
-     
-            
-            for (Integer c=0;c<10;c++){
-               
-                if (input.contains(c.toString())){
-                    
-                    return true;
-                }
+            for (int s=0; s<input.length();s++){
+               Character c=input.charAt(s);
+               if (!Character.isLetter(c)||!Character.isDigit(c)|| c!=' ') {
+                   return false;
+               }
             }
-            
+                                            
         
-        
-        return false;
+        return true;
     }
 
     public static String formatDate(Date date) {

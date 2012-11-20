@@ -28,9 +28,9 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class CUsuario {
 
     
-    public void agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
-                                    Parametro estado,String Nombre,String Apellidos, String correo, 
-                                    String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais){
+    public Usuario agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+                                        Parametro estado,String Nombre,String Apellidos, String correo, 
+                                        String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais){
         
         Session s = Sesion.openSessionFactory();
 
@@ -58,8 +58,10 @@ public class CUsuario {
 
             int i = (Integer) s.save(CUsuario);
             tx.commit();
+            return CUsuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
         } finally {
             s.close();
             Sesion.closeSessionFactory();
@@ -194,7 +196,7 @@ public class CUsuario {
         return null;
     }
     
-    public void modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+    public Usuario modificarUsuario(Integer idUsuario,Perfil perfil, Aeropuerto aeropuerto, String LogIn,
                                 Parametro estado,String Nombre, String Apellidos, String correo, 
                                 String telefono,String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, 
                                 Parametro Pais){
@@ -204,27 +206,29 @@ public class CUsuario {
         try {
             Transaction tx = s.beginTransaction();
             
-            Usuario CUsuario = new Usuario();
+            Usuario usuario = new CUsuario().BuscarXid(idUsuario);
             
-            CUsuario.setIdUsuario(idUsuario);
-            CUsuario.setPerfil(perfil);
-            CUsuario.setIdAeropuerto(aeropuerto);
-            CUsuario.setLogIn(LogIn);
-            CUsuario.setEstado(estado);
+            usuario.setIdUsuario(idUsuario);
+            usuario.setPerfil(perfil);
+            usuario.setIdAeropuerto(aeropuerto);
+            usuario.setLogIn(LogIn);
+            usuario.setEstado(estado);
             
-            CUsuario.setTipoDoc(TipoDoc);
-            CUsuario.setApellidos(Apellidos);
-            CUsuario.setNombres(Nombre);
-            CUsuario.setNumDoc(NumeroDoc);
-            CUsuario.setTelefono(telefono);
-            CUsuario.seteMail(correo);
-            CUsuario.setCiudad(Ciudad);
-            CUsuario.setPais(Pais);
+            usuario.setTipoDoc(TipoDoc);
+            usuario.setApellidos(Apellidos);
+            usuario.setNombres(Nombre);
+            usuario.setNumDoc(NumeroDoc);
+            usuario.setTelefono(telefono);
+            usuario.seteMail(correo);
+            usuario.setCiudad(Ciudad);
+            usuario.setPais(Pais);
 
-            s.update(CUsuario);
+            s.update(usuario);
             tx.commit();
+            return usuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
         } finally {
             s.close();
             Sesion.closeSessionFactory();
@@ -237,85 +241,35 @@ public class CUsuario {
         Session s = sf.openSession();
         String error_message = "";
         Usuario U;
-        Usuario U2;
         try {
 
-            //if (idusuario==-1){
-            
-//            if (aeropuerto.isEmpty()|| logIn.isEmpty() ||  estado==null || perfil==null) {
-//                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-//            }
             if (aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null ) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             
             else {
-           Query q;
-           Query q1;
-           
-           if (!login_actual.equals(logIn) ){
-           
-           q = s.getNamedQuery("Usuario");
-           Filter f = s.enableFilter("UsuarioxLogin");
-           f.setParameter("login",logIn);
-        
-           List<Usuario> ListaUsuarios;
-           List<Usuario> ListaAuxUsuarios;
-          
-           ListaUsuarios= q.list();
-           s.disableFilter("UsuarioxLogin");
-           
-                if (ListaUsuarios.size() > 0) {
-                    U = ListaUsuarios.get(0);
-                    if (U!=null){
-                        error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
-                    }
-                }
-                
+                Query q;
 
-//                    q = s.getNamedQuery("Usuario");
-//                    Filter f = s.enableFilter("UsuarioxLogin");
-//                    f.setParameter("login", logIn);
-//
-//                    List<Usuario> ListaUsuarios;
-//                    List<Usuario> ListaAuxUsuarios;
-//
-//                    ListaUsuarios = q.list();
-//                    s.disableFilter("UsuarioxLogin");
-//
-//                    if (ListaUsuarios.size() > 0) {
-//                        U = ListaUsuarios.get(0);
-//                        if (U != null) {
-//                            error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
-//                        }
-//                    }
+                if (!login_actual.equals(logIn) ){
 
+                q = s.getNamedQuery("Usuario");
+                Filter f = s.enableFilter("UsuarioxLogin");
+                f.setParameter("login",logIn);
 
-                    //q = s.getNamedQuery("Usuario");
-//           Filter f2 = s.enableFilter("UsuarioxIdcliente");
-//           f2.setParameter("idcliente",idcliente);
+                List<Usuario> ListaUsuarios;
 
-//           q1 = s.getNamedQuery("UsuarioxIdClienteAux");
-//           q1.setParameter("idcliente",idcliente );
-//           
-//           ListaAuxUsuarios= q1.list();
-//                
-//                if (ListaAuxUsuarios.size() > 0) {
-//                    U2 = ListaAuxUsuarios.get(0);
-//                    if (U2!=null){
-//                        error_message = error_message + CValidator.buscarError("ERROR_FT007") + "\n";
-//                    }
-//                }
+                ListaUsuarios= q.list();
+                s.disableFilter("UsuarioxLogin");
+
+                     if (ListaUsuarios.size() > 0) {
+                         U = ListaUsuarios.get(0);
+                         if (U!=null){
+                             error_message = error_message + CValidator.buscarError("ERROR_FT006") + "\n";
+                         }
+                     }                
+
+                 }
             }
-            }
-            //}
-//            
-//            if (idusuario!=-1){
-//            if ( aeropuerto.isEmpty()||  logIn.isEmpty() ||  estado==null || perfil==null) {
-//                error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
-//            }
-//            }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -349,6 +303,7 @@ public class CUsuario {
 //        return null;
 //    }
     public static Usuario buscarXNombreUsuario(String username) {
+        //Si no lo encuentra te devuelve null
         Session s = Sesion.openSessionFactory();
         try {
             Query q = s.getNamedQuery("UsuarioxNombreUsuario").setMaxResults(1);
@@ -422,7 +377,7 @@ public class CUsuario {
         Session s = Sesion.openSessionFactory();
         try {
             Transaction tx = s.beginTransaction();
-            usuario.setNumAcceso(1);
+//            usuario.setNumAcceso(1);
             usuario.setPrimerAcceso(true);
             s.update(usuario);
             tx.commit();

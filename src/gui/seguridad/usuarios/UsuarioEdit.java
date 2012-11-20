@@ -11,6 +11,7 @@ import beans.Parametro;
 import beans.seguridad.Contrasena;
 import beans.seguridad.Perfil;
 import beans.seguridad.Usuario;
+import controllers.CAeropuerto;
 import controllers.CCliente;
 import controllers.CContrasena;
 import controllers.CMail;
@@ -91,31 +92,18 @@ public class UsuarioEdit extends javax.swing.JDialog {
     public UsuarioEdit(javax.swing.JDialog parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
-
-//       
-//        String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
-//        RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-//        txtNombres.setDocument(regexDocument);
-
-
         this.setLocationRelativeTo(null);
 
         idusuario = id;
         isNuevo = true;
 
-        // llenarcomboTipoDoc(); 
         llenarcomboEstado();
         llenarcomboPerfiles();
         llenarcombos();
         if (idusuario != -1) {
             cargarcampos();
             txtNumeroDoc.setEditable(false);
-//                String expresionRegular=ExpresionesRegulares.SOLO_LETRAS;
-            //RegexDocument regexDocument = new RegexDocument(ExpresionesRegulares.SOLO_LETRAS, 20);
-            //txtNombres.setDocument(regexDocument);
-            //txtNombres.setmax
-            
-             this.isNuevo = false;
+            this.isNuevo = false;
         } else {
             cboEstado.setSelectedIndex(1);
             lblContrasena.setVisible(false);
@@ -488,7 +476,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
         txtAeropuerto.setText(UsuarioBE.getIdAeropuerto().getNombre());
         }
         txtLogIn.setText(UsuarioBE.getLogIn());
-        //txtCliente.setText(UsuarioBE.getNombres()+" "+UsuarioBE.getApellidos());
 
         for (int i = 1; i < cboPerfil.getItemCount(); i++) {
             Perfil Perfil = (Perfil) cboPerfil.getItemAt(i);
@@ -535,27 +522,21 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
         }
         cboTipoDoc.setEnabled(false);        
-        //txtNumeroDoc.setEditable(false);
     }
 
     public void llenarcomboEstado() {
         ListaEstado = ParametroBL.buscar("", null, "ESTADO_USUARIO", null);
 
-        //for (Parametro p : ListaEstado)
         for (int i = 0; i < ListaEstado.size(); i++) {
             Parametro TipoDocBE = (Parametro) ListaEstado.get(i);
-
             cboEstado.addItem(TipoDocBE);
         }
     }
 
     public void llenarcomboPerfiles() {
         ListaPerfiles = PerfilBL.Buscar();
-        //int i=0;i<ListaPerfiles.size();i++
-        //Perfil p: ListaPerfiles
         for (int i = 0; i < ListaPerfiles.size(); i++) {
             Perfil CPerfil = (Perfil) ListaPerfiles.get(i);
-            //CPerfil
             cboPerfil.addItem(CPerfil);
         }
     }
@@ -569,7 +550,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         for (int i = 0; i < ListaTipoDoc.size(); i++) {
             Parametro TipoDocBE = (Parametro) ListaTipoDoc.get(i);
-
             cboTipoDoc.addItem(TipoDocBE);
         }
 
@@ -577,44 +557,14 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         for (int i = 0; i < ListaPaises.size(); i++) {
             Parametro Pais = (Parametro) ListaPaises.get(i);
-
             cboPais.addItem(Pais);
         }
 
         cboPais.setSelectedIndex(0);
         carga = true;
 
-
     }
 
-//        private void cboPaisActionPerformed(java.awt.event.ActionEvent evt) {                                        
-//        // TODO add your handling code here:
-//        if (cboPais.getSelectedIndex()!=0){
-//            cboCiudad.removeAllItems();
-//
-//
-//            cboCiudad.addItem("Seleccionar");
-//             ListaCiudades = ListaPaises.get(cboPais.getSelectedIndex()-1).getHijos();
-//                for (int i=0;i<ListaCiudades.size();i++)
-//            {
-//                Parametro TipoDocBE =(Parametro)ListaCiudades.get(i);
-//
-//                cboCiudad.addItem(TipoDocBE);
-//            }
-//
-//            if (carga && idusuario!=-1){
-//                for(int i=1;i<cboCiudad.getItemCount();i++){
-//                   Parametro ciudad = (Parametro)cboCiudad.getItemAt(i);
-//                   if (ciudad.getIdParametro()==UsuarioBE.getCiudad().getIdParametro())
-//                   {
-//                   cboCiudad.setSelectedIndex(i);
-//                   break;
-//
-//                   }
-//               }
-//            }
-//        }
-//    }  
     private String validarcampos() {
         String error_message = "";
 
@@ -626,10 +576,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         } else {
 
-            if (CValidator.esAlfanumerico(txtNombres.getText())) {
-
-                error_message = "El nombre no puede ser alfanumérico";
-            }
 
             if (idusuario == -1) {
 
@@ -648,22 +594,6 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
             }
 
-            if (!CValidator.isInteger(txtTelefono.getText())) {
-
-                error_message = "El teléfono es inválido";
-
-            }
-
-            if (!CValidator.isInteger(txtNumeroDoc.getText())) {
-
-                error_message = "El teléfono es inválido";
-            }
-            if (!CValidator.validarEmail(txtCorreo.getText())) {
-
-                error_message = "El correo es inválido";
-
-            }
-
         }
         return error_message;
     }
@@ -672,91 +602,129 @@ public class UsuarioEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         String mensaje = "";        
-
-        if (idusuario != -1) { //Estoy modificando
-            if (psswdContrasena.getPassword().length != 0)
-                mensaje += CSeguridad.validarContrasenaConMensaje(psswdContrasena.getPassword(), idusuario);
+        
+        //validar que ha elegido un perfil
+        if(cboPerfil.getSelectedIndex() == 0)
+            mensaje += "No ha seleccionado un perfil. Seleccione uno\n";
+        //validar que ha elegido un estado
+        if(cboEstado.getSelectedIndex() == 0)
+            mensaje += "No ha seleccionado un estado. Seleccione uno\n";
+        //validar que ha elegido un aeropuerto
+        if(txtAeropuerto.getText().isEmpty())
+            mensaje += "No ha seleccionado un aeropuerto. Seleccione uno\n";
+        //validar que ha puesto un login
+        if(txtLogIn.getText().isEmpty()){
+            mensaje += "No ha ingresado un LogIn.\n";
         }
-
-        if (mensaje.equals("")) {//Creando
-
-            String error_message = "";
-            String login_actual="";
-            
-            if (cboPerfil.getSelectedIndex() == 0 || cboEstado.getSelectedIndex() == 0) {
-                error_message += CValidator.buscarError("ERROR_FT001") + "\n";
-            }
-
-            if (error_message == null || error_message.isEmpty() ){
-                UsuarioBE = Usuario.BuscarXid(idusuario);
-                login_actual=UsuarioBE.getLogIn();
-                error_message += new CUsuario().validar(login_actual,idusuario, isNuevo, txtAeropuerto.getText(), txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(), (Perfil) cboPerfil.getSelectedItem());
-            }
-
-            error_message += validarcampos();
-
-            if (error_message == null || error_message.isEmpty()) {
-                
-                Perfil perfil = (Perfil) cboPerfil.getSelectedItem();
-
-                if (idusuario == -1) { //Agregar Usuario
-                    Usuario.agregarUsuarioNuevo(perfil, AeropuertoAux, txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
-                            txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
-                            txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
-                            (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
-
-                    ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
-                    //objeto usuario, objeto parametro
-                    Usuario UsuarioAux = CUsuario.buscarXNumDocumento(txtNumeroDoc.getText());
-                    char[] contrasenaAleatoria = CSeguridad.generaContraseniaAleatoria();
-                    Contrasena.agregarContrasena(contrasenaAleatoria, UsuarioAux, ListaEstado.get(0));
-
-                    new CMail().sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", UsuarioAux.geteMail(), "contrasena por defecto", 
-                            "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + new String(contrasenaAleatoria) +"\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. \n\nSoporte Flytrack.");
-
-                } else { //Modificar usuario
-                    
-                    Usuario UsuarioBE = Usuario.BuscarXid(idusuario);
-                    Aeropuerto nuevoAeropuerto;
-                    
-                    if (AeropuertoAux == null) {
-                        nuevoAeropuerto = UsuarioBE.getIdAeropuerto();
-                    } else {
-                        nuevoAeropuerto = AeropuertoAux;
-                    }
-
-                    Usuario.modificarUsuario(idusuario,
-                            perfil,
-                            nuevoAeropuerto,
-                            txtLogIn.getText(), (Parametro) cboEstado.getSelectedItem(),
-                            txtNombres.getText(), txtApellidos.getText(), txtCorreo.getText(),
-                            txtTelefono.getText(), txtNumeroDoc.getText(), (Parametro) cboTipoDoc.getSelectedItem(),
-                            (Parametro) cboCiudad.getSelectedItem(), (Parametro) cboPais.getSelectedItem());
-
-                    if (psswdContrasena.getPassword().length != 0){  
-                    
-                        Usuario UsuarioauxBE = Usuario.BuscarXid(idusuario);
-                        ContrasenaAux=Contrasena.buscarContrasenaActivaPorUsuario(UsuarioauxBE.getIdUsuario());
-
-                        ListaEstado = ParametroBL.buscar("", "INCTV", "ESTADO_CONTRASENIA", null);
-                        Contrasena.desactivarUltimaContrasena(ContrasenaAux, ListaEstado.get(0));
-                        ListaEstado = ParametroBL.buscar("", "ACTV", "ESTADO_CONTRASENIA", null);
-                        Contrasena.agregarContrasena(psswdContrasena.getPassword(), UsuarioauxBE, ListaEstado.get(0));
-                        
-                        new CMail().sendMail("flytrack.no.reply@gmail.com", "manuelmanuel", txtCorreo.getText(),
-                            "[FlyTrack] Se modificó su contraseña",
-                            "Estimado usuario.\nSu contraseña ha sido modificada: " + new String(psswdContrasena.getPassword()) + ".\nSoporte FlyTrack.");
-                    }
-                    
+        else{
+            //validar que el login puesto no exista por otro usuario
+            Usuario usuario = CUsuario.buscarXNombreUsuario(txtLogIn.getText());
+            if(usuario != null){
+                if(idusuario == -1){//Creando
+                    mensaje += "El LogIn ingresado ya existe.\n";
                 }
-                this.setVisible(false);
-                this.dispose();
-
-            } else {
-                ErrorDialog.mostrarError(error_message, this);
+                else{//Modificando
+                    if (usuario.getIdUsuario() != idusuario){ //el usuario que tiene el mismo username no es el mismo
+                        mensaje += "El LogIn ingresado ya existe.\n";
+                    }
+                }
             }
-
-        } else {
+            
+        }
+        //validar que nombres no este vacio
+        if(txtNombres.getText().isEmpty())
+            mensaje += "No ha ingresado nombres.\n";
+        //validar que apellidos no este vacio
+        if(txtApellidos.getText().isEmpty())
+            mensaje += "No ha ingresado apellidos.\n";
+        //validar que el correo no este vacio
+        if(txtCorreo.getText().isEmpty()){
+            mensaje += "No ha ingresado correo electrónico.\n";
+        }
+        else if(!CValidator.validarEmail(txtCorreo.getText())){
+            mensaje += "El correo electrónico ingresado no es válido.\n";
+        }
+        //validar que el telefonoo no este vacio
+        if(txtTelefono.getText().isEmpty()){
+            mensaje += "No ha ingresado telefono.\n";
+        }
+        else if(!CValidator.isInteger(txtTelefono.getText())){
+            mensaje += "El telefono ingresado no es valido.\n";
+        }
+        //validar que haya elegido un pais
+        if(cboPais.getSelectedIndex() == 0)
+            mensaje += "No ha elegido un pais.\n";
+        //validar que haya elegido una ciudad
+        if(cboCiudad.getSelectedIndex() == 0)
+            mensaje += "No ha elegido un pais.\n";
+        //validar que haya elegido un tipodoc
+        if(cboTipoDoc.getSelectedIndex() == 0)
+            mensaje += "No ha elegido un pais.\n";
+        //validar que haya puesto un num doc
+        if(txtNumeroDoc.getText().isEmpty()){
+            mensaje += "No ha ingresado numero de documento.\n";
+        }
+        else if(!CValidator.isInteger(txtNumeroDoc.getText())){
+            mensaje += "El numero de documento ingresado no es valido.\n";
+        }
+        //si se trata de modificar, validar que la pass cumpla los requisitos
+        if(idusuario != -1 && psswdContrasena.getPassword().length != 0)
+            mensaje += CSeguridad.validarContrasenaConMensaje(psswdContrasena.getPassword(), idusuario);
+        
+        if(mensaje.isEmpty()){ //Cumple todas las validaciones
+            if(idusuario != -1){ 
+                //Modificando usuario
+                if (AeropuertoAux==null){
+                    AeropuertoAux=CAeropuerto.BuscarNombre(txtAeropuerto.getText());
+                }                
+                
+                Usuario usuario = new CUsuario().
+                    modificarUsuario(idusuario, (Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), //cuidado con AeropuertoAux
+                                    (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
+                                    txtCorreo.getText(), txtTelefono.getText(), txtNumeroDoc.getText(), 
+                                    (Parametro) cboTipoDoc.getSelectedItem(), (Parametro) cboCiudad.getSelectedItem(), 
+                                    (Parametro) cboPais.getSelectedItem());
+                if(usuario != null && psswdContrasena.getPassword().length != 0){
+                    //Desactivar la contrasena activa del usuario
+                    Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(idusuario);
+                    CContrasena.desactivarContrasena(contrasenaActiva);
+                    //Agregar la contrasena nueva como activa al usuario
+                    CContrasena.agregarContrasenaActiva(psswdContrasena.getPassword(), usuario);
+                    //Mando el correo
+                    new CMail().sendMail("flytrack.no.reply@gmail.com",
+                                        "manuelmanuel", 
+                                        usuario.geteMail(),
+                                        "[FlyTrack] Modificar contraseña",
+                                        "Estimado usuario " + usuario.getLogIn() + " .\n\nSu contraseña ha sido modificada: " + 
+                                        new String(psswdContrasena.getPassword()) + ".\n\nSoporte FlyTrack.");
+                }
+            }
+            else{ 
+                //Creando usuario
+                Usuario usuario = new CUsuario().
+                    agregarUsuarioNuevo((Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), 
+                                        (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
+                                        txtCorreo.getText(), txtTelefono.getText(), txtNumeroDoc.getText(), 
+                                        (Parametro) cboTipoDoc.getSelectedItem(), (Parametro) cboCiudad.getSelectedItem(), 
+                                        (Parametro) cboPais.getSelectedItem());
+                if(usuario != null){
+                    //Creando contrasena
+                    char[] contrasenaNueva = CSeguridad.generaContraseniaAleatoria();
+                    CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
+                    //Mando el correo
+                    new CMail().sendMail("flytrack.no.reply@gmail.com", 
+                                        "manuelmanuel", 
+                                        usuario.geteMail(), 
+                                        "[Flytrack] Contraseña por defecto", 
+                                        "Bienvenido a FlyTrack " + usuario.getLogIn() + " . \n\nSu contraseña de acceso es la siguiente :" + 
+                                        new String(contrasenaNueva) + "\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. "+
+                                        "\n\nSoporte Flytrack.");
+                }
+            }
+            this.setVisible(false);
+            this.dispose();
+        }
+        else{
             ErrorDialog.mostrarError(mensaje, this);
         }
         

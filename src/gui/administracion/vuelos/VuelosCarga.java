@@ -436,24 +436,32 @@ public class VuelosCarga extends javax.swing.JDialog {
         
          setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (archivovalido){
+            try{
             ArrayList<xmlVueloString> xmlvuelos=CSerializer.deserializar(txtRuta.getText());
             ArrayList<Vuelo> vuelos = PasaValores(xmlvuelos);
             
             if (vuelos!=null){
             
-                try{                   //CAeropuerto.ValidarCaga(vuelos);
-                    for (int i = 0; i<vuelos.size();i++){
-                        Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
-                        CVuelo.cargarVuelo(vuelo);
+                 try{                   //CAeropuerto.ValidarCaga(vuelos);
+                        for (int i = 0; i<vuelos.size();i++){
+                            Vuelo vuelo=(beans.Vuelo)vuelos.get(i);
+                            CVuelo.cargarVuelo(vuelo);
+                        }
+                        InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
+                        this.dispose();
                     }
-                    InformationDialog.mostrarInformacion( "La operación se realizó con éxito ", this);
-                    this.dispose();
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                    ErrorDialog.mostrarError("Ocurrió un error al generar el reporte del log de auditoría.",this);
+                    catch(Exception e){
+                        e.printStackTrace();
+                        ErrorDialog.mostrarError("Ocurrió un error al hacer la carga",this);
 
+                    }
                 }
+            
+            }
+            catch(Exception e){
+                    e.printStackTrace();
+                    ErrorDialog.mostrarError("Ocurrió un error al cargar el archivo.",this);
+
             }
         }
         else{
