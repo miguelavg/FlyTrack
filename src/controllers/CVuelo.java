@@ -475,6 +475,9 @@ public class CVuelo {
             }
 
             s.saveOrUpdate(escala.getEnvio());
+            
+             CEnvio.enviarCorreos(escala.getEnvio());
+            
             tx.commit();
 
         } catch (Exception e) {
