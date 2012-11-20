@@ -15,6 +15,7 @@ import controllers.CValidator;
 import gui.administracion.aeropuertos.*;
 import java.awt.Cursor;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +47,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     
     List <Cliente> ListaCliente;
     List<beans.Aeropuerto> listaAeropuertos;
-    List<beans.Vuelo> listaVuelos=null;
+    ArrayList<beans.Vuelo> listaVuelos= new  ArrayList<beans.Vuelo>();
     Calendar fechini, fechfin;
     
     public ReporteAlmacen() {
@@ -241,7 +242,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Fecha", "Vuelo", "Aeropuerto", "Tipo", "N°Paquetes"
+                "Fecha", "Vuelo", "Aeropuerto", "Movimiento", "N°Paquetes"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -392,43 +393,51 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      
 
 
-        DefaultTableModel dtm = (DefaultTableModel) this.tblAlmacen.getModel();
-        Object[] datos = new Object[5];
+     DefaultTableModel dtm = (DefaultTableModel) this.tblAlmacen.getModel();
+     Object[] datos = new Object[5];
 
-        int rows = dtm.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            dtm.removeRow(0);
-        }
+     int rows = dtm.getRowCount();
+     for (int i = rows - 1; i >= 0; i--) {
+         dtm.removeRow(0);
+     }
+     
+     
+    
+    //listaAeropuertos.get(0).getVuelosLlegada().get(i).get`
 
+     
      for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
 
+         listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
+
+         listaAeropuertos.get(0).getVuelosLlegada().get(i).getEscalas().size();
+         
          if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
          {
-         datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
-         
-//         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor().equals(parentrada.getValor())){         
-//         datos[1] = "Llegada";
-//         }
-//         else {datos[1] = "";}
-         
-         datos[1] = "Llegada";
-         datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
-         datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
-         datos[4] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
-         dtm.addRow(datos);
-         
-//         for (int j=0;listaAeropuertos.size()>j;j++)
-//            {listaAeropuertos.get(j).getVuelosLlegada().size();
-//            listaAeropuertos.get(j).getVuelosSalida().size();
-//            };
-         //incidencias, escala, envio por almancen
-            listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
-            listaAeropuertos.get(0).getVuelosLlegada().get(i).getEscalas().size();
-            //listaAeropuertos.get(0).getVuelosLlegada().get(i).get`
-         listaVuelos.add(listaAeropuertos.get(0).getVuelosLlegada().get(i));
+            datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
+
+   //         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor().equals(parentrada.getValor())){         
+   //         datos[1] = "Llegada";
+   //         }
+   //         else {datos[1] = "";}
+
+            datos[1] = "Llegada";
+            datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
+            datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
+            datos[4] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
+            dtm.addRow(datos);
+
+   //         for (int j=0;listaAeropuertos.size()>j;j++)
+   //            {listaAeropuertos.get(j).getVuelosLlegada().size();
+   //            listaAeropuertos.get(j).getVuelosSalida().size();
+   //            };
+            //incidencias, escala, envio por almancen
+
+            listaVuelos.add(listaAeropuertos.get(0).getVuelosLlegada().get(i));
          }
      }
-
+     
+     
      for (int i = 0; i < listaAeropuertos.get(0).getVuelosSalida().size(); i++) {
 
          if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
