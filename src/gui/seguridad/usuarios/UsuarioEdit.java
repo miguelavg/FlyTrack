@@ -721,21 +721,39 @@ public class UsuarioEdit extends javax.swing.JDialog {
         if(!mensaje.isEmpty()){ //Cumple todas las validaciones
             if(idusuario != -1){ 
                 //Modificando usuario
+                new CUsuario().
+                    modificarUsuario(idusuario, (Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), 
+                                    (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
+                                    txtCorreo.getText(), txtTelefono.getText(), txtNumeroDoc.getText(), 
+                                    (Parametro) cboTipoDoc.getSelectedItem(), (Parametro) cboCiudad.getSelectedItem(), 
+                                    (Parametro) cboPais.getSelectedItem());
                 if(psswdContrasena.getPassword().length != 0){
-                    //Modifico la password de dicho usuario
+                    //Desactivar la contrasena activa del usuario
+                    //Agregar la contrasena nueva como activa al usuario
+                    //Mando el correo
                 }
-                //Mando el correo
             }
             else{ 
                 //Creando usuario
-                new CUsuario().
+                Usuario usuario = new CUsuario().
                     agregarUsuarioNuevo((Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), 
                                         (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
                                         txtCorreo.getText(), txtTelefono.getText(), txtNumeroDoc.getText(), 
                                         (Parametro) cboTipoDoc.getSelectedItem(), (Parametro) cboCiudad.getSelectedItem(), 
                                         (Parametro) cboPais.getSelectedItem());
-                //Creando contrasena
-                //Mando el correo
+                if(usuario != null){
+                    //Creando contrasena
+                    char[] contrasenaNueva = CSeguridad.generaContraseniaAleatoria();
+                    CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
+                    //Mando el correo
+                    new CMail().sendMail("flytrack.no.reply@gmail.com", 
+                                        "manuelmanuel", 
+                                        usuario.geteMail(), 
+                                        "[Flytrack] Contrasena por defecto", 
+                                        "Bienvenido a FlyTrack. \n\nSu contraseña de acceso es la siguiente :" + 
+                                        new String(contrasenaNueva) + "\n\nSi Ud. no solicitado crear una cuenta en FlyTrack, omita este mensaje. "+
+                                        "\n\nSoporte Flytrack.");
+                }
             }
         }
         else{

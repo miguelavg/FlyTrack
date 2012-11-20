@@ -28,9 +28,9 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class CUsuario {
 
     
-    public void agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
-                                    Parametro estado,String Nombre,String Apellidos, String correo, 
-                                    String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais){
+    public Usuario agregarUsuarioNuevo(Perfil perfil, Aeropuerto aeropuerto, String LogIn,
+                                        Parametro estado,String Nombre,String Apellidos, String correo, 
+                                        String telefono, String NumeroDoc, Parametro TipoDoc, Parametro Ciudad, Parametro Pais){
         
         Session s = Sesion.openSessionFactory();
 
@@ -58,8 +58,10 @@ public class CUsuario {
 
             int i = (Integer) s.save(CUsuario);
             tx.commit();
+            return CUsuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
         } finally {
             s.close();
             Sesion.closeSessionFactory();
