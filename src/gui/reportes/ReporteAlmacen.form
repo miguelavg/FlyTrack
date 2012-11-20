@@ -335,7 +335,7 @@
                     <Column editable="false" title="Fecha" type="java.lang.Object"/>
                     <Column editable="false" title="Vuelo" type="java.lang.Object"/>
                     <Column editable="false" title="Aeropuerto" type="java.lang.Object"/>
-                    <Column editable="false" title="Tipo" type="java.lang.Object"/>
+                    <Column editable="false" title="Movimiento" type="java.lang.Object"/>
                     <Column editable="false" title="N&#xb0;Paquetes" type="java.lang.Object"/>
                   </Table>
                 </Property>

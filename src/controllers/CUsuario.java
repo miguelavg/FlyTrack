@@ -206,26 +206,26 @@ public class CUsuario {
         try {
             Transaction tx = s.beginTransaction();
             
-            Usuario CUsuario = new Usuario();
+            Usuario usuario = new CUsuario().BuscarXid(idUsuario);
             
-            CUsuario.setIdUsuario(idUsuario);
-            CUsuario.setPerfil(perfil);
-            CUsuario.setIdAeropuerto(aeropuerto);
-            CUsuario.setLogIn(LogIn);
-            CUsuario.setEstado(estado);
+            usuario.setIdUsuario(idUsuario);
+            usuario.setPerfil(perfil);
+            usuario.setIdAeropuerto(aeropuerto);
+            usuario.setLogIn(LogIn);
+            usuario.setEstado(estado);
             
-            CUsuario.setTipoDoc(TipoDoc);
-            CUsuario.setApellidos(Apellidos);
-            CUsuario.setNombres(Nombre);
-            CUsuario.setNumDoc(NumeroDoc);
-            CUsuario.setTelefono(telefono);
-            CUsuario.seteMail(correo);
-            CUsuario.setCiudad(Ciudad);
-            CUsuario.setPais(Pais);
+            usuario.setTipoDoc(TipoDoc);
+            usuario.setApellidos(Apellidos);
+            usuario.setNombres(Nombre);
+            usuario.setNumDoc(NumeroDoc);
+            usuario.setTelefono(telefono);
+            usuario.seteMail(correo);
+            usuario.setCiudad(Ciudad);
+            usuario.setPais(Pais);
 
-            s.update(CUsuario);
+            s.update(usuario);
             tx.commit();
-            return CUsuario;
+            return usuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -377,7 +377,7 @@ public class CUsuario {
         Session s = Sesion.openSessionFactory();
         try {
             Transaction tx = s.beginTransaction();
-            usuario.setNumAcceso(1);
+//            usuario.setNumAcceso(1);
             usuario.setPrimerAcceso(true);
             s.update(usuario);
             tx.commit();
