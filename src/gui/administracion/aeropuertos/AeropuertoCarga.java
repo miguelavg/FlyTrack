@@ -334,7 +334,7 @@ public class AeropuertoCarga extends javax.swing.JDialog {
             //aero.setCoordY(xmlaero.getCoordY());
             beans.Aeropuerto aeropuerto=CAeropuerto.BuscarNombre(xmlaero.getNombre());
             
-            if (aeropuerto != null) {
+            if (aeropuerto == null) {
                 aero.setNombre(xmlaero.getNombre());
             } else {
                 ErrorDialog.mostrarError("Los valores del nombre del aeropuerto no son validos." + "  Error en el objeto   " + s.toString(), this);
