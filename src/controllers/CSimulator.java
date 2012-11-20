@@ -56,7 +56,7 @@ public class CSimulator {
 
             for (Aeropuerto a : aeros) {
                 int capacidadActual = (int) (rnd.nextDouble() * a.getCapacidadMax());
-                aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre(), a.getCapacidadMax(), capacidadActual));
+                aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre() + ", " + a.getPais().getValor() + ", " + a.getCiudad().getValor(), a.getCapacidadMax(), capacidadActual, a.getCoordX(), a.getCoordY()));
             }
 
         } catch (Exception e) {
