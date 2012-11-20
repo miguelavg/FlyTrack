@@ -58,10 +58,6 @@ public class RecocidoLite {
         return 0;
     }
 
-    private double boltzmann(double dEnergia, double temperatura) {
-        return Math.exp(-1 * (dEnergia / temperatura));
-    }
-
     private ArrayList<VueloLite> liteGrasp(AeroLite aOrigen, AeroLite aDestino, int evt, double alfa) {
         try {
             AeroLite aActual = aOrigen;
@@ -134,17 +130,6 @@ public class RecocidoLite {
 
                 aleatorio = rcl.get(rnd.nextInt(rcl.size()));
                 construccion.add(aleatorio);
-                
-                int vCapacidad = aleatorio.getCapacidadActual();
-                aleatorio.setCapacidadActual(vCapacidad + 1);
-                
-                int oCapacidad = aleatorio.getOrigen().getCapacidadActual();
-                aleatorio.getOrigen().setCapacidadActual(oCapacidad + 1);
-                
-                int dCapacidad = aleatorio.getDestino().getCapacidadActual();
-                aleatorio.getDestino().setCapacidadActual(dCapacidad + 1);
-                
-                
 
                 aActual = aleatorio.getDestino();
                 iActual = aActual.getId();
@@ -155,6 +140,10 @@ public class RecocidoLite {
             }
 
             if (iActual != iFinal) {
+                if (!aActual.isCongestiona()) {
+                    aActual.setNecesidad(aActual.getNecesidad() + 1);
+                    aActual.setCongestiona(true);
+                }
                 return null;
             }
 
@@ -187,6 +176,17 @@ public class RecocidoLite {
         if (this.solucion == null) {
             respuesta = 1;
         } else {
+            for (VueloLite aleatorio : solucion) {
+
+                int vCapacidad = aleatorio.getCapacidadActual();
+                aleatorio.setCapacidadActual(vCapacidad + 1);
+
+                int oCapacidad = aleatorio.getOrigen().getCapacidadActual();
+                aleatorio.getOrigen().setCapacidadActual(oCapacidad + 1);
+
+                int dCapacidad = aleatorio.getDestino().getCapacidadActual();
+                aleatorio.getDestino().setCapacidadActual(dCapacidad + 1);
+            }
             envio.setCompletado(true);
         }
 

@@ -16,13 +16,15 @@ public class EnvioLite {
     private int num;
     private boolean completado;
     private int completados;
-
+    private boolean rojo;
+    
     public EnvioLite(AeroLite origen, AeroLite destino, int num) {
         this.origen = origen;
         this.destino = destino;
         this.num = num;
         this.completado = false;
         this.completados = 0;
+        this.rojo = false;
     }
     
     public AeroLite getOrigen() {
@@ -71,6 +73,14 @@ public class EnvioLite {
 
     public void setCompletados(int completados) {
         this.completados = completados;
+    }
+
+    public boolean isRojo() {
+        return rojo;
+    }
+
+    public void setRojo(boolean rojo) {
+        this.rojo = rojo;
     }
     
     
