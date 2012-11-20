@@ -16,8 +16,9 @@ import org.hibernate.*;
  */
 public class CPista {
 
-    public static void guardarPista(String mPrincipal, String mSecundario, String clase, String metodo, 
-            String eAnterior, String eActual, String descripcion){
+    public static void guardarPista(String modPrincipal, String modSecundario, 
+                                    String clase, String metodo, 
+                                    String estadoAnt, String estadoAct, String descripcion){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -27,14 +28,14 @@ public class CPista {
             Usuario user = Sesion.getUsuario();
             pista.setUsuarioR(user);
             pista.setUsuario(user.getLogIn());
-            pista.setModuloPrincipal(mPrincipal);
-            pista.setModuloSecundario(mSecundario);
+            pista.setModuloPrincipal(modPrincipal);
+            pista.setModuloSecundario(modSecundario);
             pista.setClase(clase);
             pista.setMetodo(metodo);
             pista.setFecha(Calendar.getInstance().getTime());
-            pista.setEstadoAnterior(eAnterior);
-            if(eActual != null) pista.setEstadoActual(eActual);
-            if(descripcion != null) pista.setDescripcion(descripcion);
+            pista.setEstadoAnterior(estadoAnt);
+            pista.setEstadoActual(estadoAct);
+            pista.setDescripcion(descripcion);
             
             s.save(pista);
             
