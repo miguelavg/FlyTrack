@@ -79,7 +79,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        lbl_mapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map.png"))); // NOI18N
+        lbl_mapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582-1.PNG"))); // NOI18N
         lbl_mapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_mapaMouseClicked(evt);

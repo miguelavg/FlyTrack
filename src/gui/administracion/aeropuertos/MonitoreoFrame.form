@@ -41,7 +41,7 @@
     <Component class="javax.swing.JLabel" name="lbl_mapa">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/world-map.png"/>
+          <Image iconType="3" name="/imagenes/world-map1024x582-1.PNG"/>
         </Property>
       </Properties>
       <Events>
