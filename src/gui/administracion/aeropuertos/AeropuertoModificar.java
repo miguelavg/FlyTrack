@@ -9,7 +9,14 @@ import controllers.CAeropuerto;
 import controllers.CValidator;
 import gui.ErrorDialog;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -25,6 +32,24 @@ public class AeropuertoModificar extends javax.swing.JDialog {
     private List<Parametro> ListatipoHijo;
     private beans.Aeropuerto objAero = null;
 
+    
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(false);
+            dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
+
+        return rootPane;
+    }
+    
     public AeropuertoModificar(javax.swing.JDialog parent, boolean modal, beans.Aeropuerto obj) {
 
 
@@ -114,6 +139,9 @@ public class AeropuertoModificar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Aeropuertos - Modificar");
+        setMaximumSize(new java.awt.Dimension(725, 340));
+        setMinimumSize(new java.awt.Dimension(725, 340));
+        setPreferredSize(new java.awt.Dimension(725, 340));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

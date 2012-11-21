@@ -739,10 +739,9 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

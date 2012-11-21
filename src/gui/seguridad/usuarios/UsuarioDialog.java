@@ -169,6 +169,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
         jLabel3.setText("Aeropuerto:");
 
         txtAeropuerto.setEditable(false);
+        txtAeropuerto.setEnabled(false);
 
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
