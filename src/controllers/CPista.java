@@ -55,6 +55,9 @@ public class CPista {
     }
 
     public static List<Pista> obtenerPistas(){
+        //Esta cuestion se debe filtrar por usuario
+        //por fecha mayor y menor
+        //por accion (Control de Sesion - Insercion - Modificacion - Buscar)
         Session s = Sesion.openSessionFactory();
         try{
             Query q = s.getNamedQuery("Pistas");

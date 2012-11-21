@@ -9,7 +9,14 @@ import controllers.CAeropuerto;
 import controllers.CValidator;
 import gui.ErrorDialog;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -25,6 +32,23 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
     private List<Parametro> ListatipoEst;
     private List<Parametro> ListatipoHijo;
 
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(false);
+            dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
+
+        return rootPane;
+    }
+    
     public AeropuertoAgregar(javax.swing.JDialog parent, boolean modal) {
         super(parent, true);
         initComponents();
@@ -66,6 +90,9 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Aeropuertos - Agregar");
+        setMaximumSize(new java.awt.Dimension(725, 340));
+        setMinimumSize(new java.awt.Dimension(725, 340));
+        setPreferredSize(new java.awt.Dimension(725, 340));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -266,7 +293,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

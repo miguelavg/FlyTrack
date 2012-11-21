@@ -11,9 +11,16 @@ import controllers.CAeropuerto;
 import controllers.CPista;
 import controllers.CSeguridad;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +37,23 @@ public class Aeropuerto extends javax.swing.JDialog {
     JTextField campoTexto = new JTextField();
     Integer aeropuertolleno = 0;
 
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            setVisible(false);
+            dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
+
+        return rootPane;
+    }
+    
     /**
      * Creates new form Aeropuerto
      */
