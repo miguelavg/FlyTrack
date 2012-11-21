@@ -183,7 +183,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblParametros">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Parametros"/>
+        <Property name="text" type="java.lang.String" value="Par&#xe1;metros"/>
       </Properties>
     </Component>
   </SubComponents>

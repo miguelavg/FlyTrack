@@ -65,9 +65,8 @@
                       <Component id="btnLogAuditoria" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblLogAuditoria" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnPerfiles" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnUsuarios" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -77,9 +76,9 @@
                           <Component id="lblUsuarios" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblPerfiles" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,7 +126,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblLogAuditoria">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Logs de Auditoria"/>
+        <Property name="text" type="java.lang.String" value="Logs de Auditor&#xed;a"/>
       </Properties>
     </Component>
   </SubComponents>

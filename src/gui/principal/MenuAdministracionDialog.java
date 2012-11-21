@@ -125,7 +125,7 @@ public class MenuAdministracionDialog extends javax.swing.JDialog {
             }
         });
 
-        lblParametros.setText("Parametros");
+        lblParametros.setText("Parámetros");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -79,7 +79,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         setModal(true);
         setResizable(false);
 
-        lbl_mapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map.png"))); // NOI18N
+        lbl_mapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582-1.PNG"))); // NOI18N
         lbl_mapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_mapaMouseClicked(evt);
@@ -105,7 +105,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         bandera = true;
         Graphics c = this.getGraphics();
        // pintar();
-         c.setColor(Color.WHITE);
+         c.setColor(Color.ORANGE);
            c.fillOval(evt.getX(),evt.getY(), 10,10 );
         c.drawOval(evt.getX(),evt.getY(), 10,10 );
        
@@ -167,7 +167,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         
         for (int j = 0; j <ListaAeropuerto.size(); j++){
             
-                 c.setColor(Color.WHITE);
+                 c.setColor(Color.BLACK);
                  
                  c.drawString(ListaAeropuerto.get(j).getPais().getValor()+'-'+ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX()+15, ListaAeropuerto.get(j).getCoordY());
                  c.setColor(Color.red);

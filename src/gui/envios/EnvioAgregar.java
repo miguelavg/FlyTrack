@@ -1123,7 +1123,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             if (this.tipoCambio != null) {
                 vTipoCambio = this.tipoCambio.getTipoCambio();
             }
-            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto);
+            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto/100);
 
             this.envio.setUnitario(unitario * vTipoCambio);
             this.envio.setMonto(total);
