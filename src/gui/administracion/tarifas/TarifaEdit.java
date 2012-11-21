@@ -56,8 +56,8 @@ public class TarifaEdit extends javax.swing.JDialog {
         txtFechaDes.setText("29-11-2013");
         jLabel9.setVisible(false);
         jLabel10.setVisible(false);
-        cboEstado.setSelectedIndex(1);
-        cboMoneda.setSelectedIndex(2);
+        cboEstado.setSelectedIndex(1); //Para seleccionar el estado Activo por defecto
+        cboMoneda.setSelectedIndex(1);  //Para seleccionar la moneda Dolares por defecto
         this.isNuevo = true;
         if (idtarifa != -1) {
             cargarcampos();
@@ -374,20 +374,15 @@ public class TarifaEdit extends javax.swing.JDialog {
     }
 
     public void cargarcombos() {
-        ListaMonedas = TarifaBL.ListarMonedas();
-        ListaEstadoTarifa = TarifaBL.ListarEstadoMonedas();
-
-        for (int i = 0; i < ListaMonedas.size(); i++) {
-            Parametro Moneda = (Parametro) ListaMonedas.get(i);
-
-            cboMoneda.addItem(Moneda);
+        
+        for(Parametro param : new CTarifa().ListarMonedas()){
+            cboMoneda.addItem(param);
         }
-        for (int i = 0; i < ListaEstadoTarifa.size(); i++) {
-            Parametro EstadoTarifa = (Parametro) ListaEstadoTarifa.get(i);
-
-            cboEstado.addItem(EstadoTarifa);
+        
+        for(Parametro param : new CTarifa().ListarEstadoMonedas()){
+            cboEstado.addItem(param);
         }
-
+        
     }
     private void txtAeroOriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroOriActionPerformed
         // TODO add your handling code here:

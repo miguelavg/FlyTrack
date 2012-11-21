@@ -142,37 +142,29 @@ public class CPerfil {
     }
                 
     public static String validar(Integer idperfil, String nombre, String descripcion, Parametro estado) {
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
+        Session s = Sesion.openSessionFactory();
         String error_message = "";
-//        Perfil p;
         try {
 
-            if (nombre.isEmpty()|| descripcion.isEmpty()|| estado==null ) {
+//            if (nombre.isEmpty()|| descripcion.isEmpty()|| estado==null ) { //deberia aceptar descripcion nula
+            if (nombre.isEmpty()|| estado==null ) {
                 error_message = error_message + CValidator.buscarError("ERROR_FT001") + "\n";
             }
             
             if(!nombre.isEmpty()){
-                
-//                Query q = s.getNamedQuery("PerfilXNombre");
                 Query q = s.getNamedQuery("PerfilXNombre").setMaxResults(1);
                 q.setParameter("nombre", nombre);
-//                List<Perfil> tipos = q.list();
                 Perfil perfilEncontrado = (Perfil)q.uniqueResult();
-
                 if (perfilEncontrado != null) {
                     error_message = error_message + CValidator.buscarError("ERROR_FT005") + "\n";                    
                 }
-
             }
-
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             s.close();
+            Sesion.closeSessionFactory();
         }
-
         return error_message;
     }
     
