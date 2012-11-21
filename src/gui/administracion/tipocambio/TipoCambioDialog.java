@@ -463,13 +463,13 @@ public class TipoCambioDialog extends javax.swing.JDialog {
     private void definirPermisos() {
         List<Permiso> permisos = Sesion.getUsuario().getPerfil().getPermisos();
 
-        boolean crear = CSeguridad.validarPermiso(3, "Vuelos", "Crear", permisos);
+        boolean crear = CSeguridad.validarPermiso(3, "TipoCambio", "Crear", permisos);
         this.btn_agregar.setEnabled(crear);
 
-        boolean modificar = CSeguridad.validarPermiso(3, "Vuelos", "Modificar", permisos);
+        boolean modificar = CSeguridad.validarPermiso(3, "TipoCambio", "Modificar", permisos);
         this.btn_modificar.setEnabled(modificar);
 
-        boolean buscar = CSeguridad.validarPermiso(3, "Vuelos", "Buscar/Listar", permisos);
+        boolean buscar = CSeguridad.validarPermiso(3, "TipoCambio", "Buscar/Listar", permisos);
         this.btn_buscar.setEnabled(buscar);
 
         this.setLocationRelativeTo(null);

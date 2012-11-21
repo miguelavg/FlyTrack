@@ -43,19 +43,16 @@ public class PistasDialog extends javax.swing.JDialog {
         for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-        Object[] datos = new Object[10];
+        Object[] datos = new Object[7];
         for (int i = 0; i < pistas.size(); i++) {
 
-            datos[0] = pistas.get(i).getIdPista();
+            datos[0] = i;
             datos[1] = pistas.get(i).getUsuario();
             datos[2] = pistas.get(i).getModuloPrincipal();
             datos[3] = pistas.get(i).getModuloSecundario();
-            datos[4] = pistas.get(i).getClase();
-            datos[5] = pistas.get(i).getMetodo();
-            datos[6] = pistas.get(i).getFecha().toString();//imprimir fecha con un formato en especial
-            datos[7] = pistas.get(i).getEstadoAnterior();
-            datos[8] = pistas.get(i).getEstadoActual();
-            datos[9] = pistas.get(i).getDescripcion();
+            datos[4] = pistas.get(i).getAccion();
+            datos[5] = pistas.get(i).getFecha().toString();//imprimir fecha con un formato en especial
+            datos[6] = pistas.get(i).getMensaje();
 
             dtm.addRow(datos);
         }
@@ -286,7 +283,7 @@ public class PistasDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         List<Pista> pistas = CPista.obtenerPistas();
         llenarTabla(pistas);
-        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
+//        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cmbModPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbModPrincipalActionPerformed
