@@ -1,46 +1,13 @@
 <list>
   <xml.XmlAeropuertoString>
     <idAeropuerto>0</idAeropuerto>
-    <nombre>Alberto Gallardo</nombre>
-    <capacidadMax>300</capacidadMax>
-    <capacidadActual>0</capacidadActual>
-    <coordX>50</coordX>
-    <coordY>100</coordY>
-    <pais>PER</pais>
-    <ciudad>LIMA</ciudad>
-    <estado>ACTV</estado>
-  </xml.XmlAeropuertoString>
-  <xml.XmlAeropuertoString>
-    <idAeropuerto>0</idAeropuerto>
-    <nombre>Alfredo Quesada</nombre>
-    <capacidadMax>300</capacidadMax>
-    <capacidadActual>0</capacidadActual>
-    <coordX>300</coordX>
-    <coordY>200</coordY>
-    <pais>PER</pais>
-    <ciudad>LIMA</ciudad>
-    <estado>ACTV</estado>
-  </xml.XmlAeropuertoString>
-  <xml.XmlAeropuertoString>
-    <idAeropuerto>0</idAeropuerto>
-    <nombre>Julio Cesar Uribe</nombre>
-    <capacidadMax>200</capacidadMax>
-    <capacidadActual>0</capacidadActual>
-    <coordX>300</coordX>
-    <coordY>300</coordY>
-    <pais>PER</pais>
-    <ciudad>TRUJILLO</ciudad>
-    <estado>ACTV</estado>
-  </xml.XmlAeropuertoString>
-  <xml.XmlAeropuertoString>
-    <idAeropuerto>0</idAeropuerto>
-    <nombre>Leandro Franco</nombre>
-    <capacidadMax>200</capacidadMax>
-    <capacidadActual>0</capacidadActual>
-    <coordX>300</coordX>
-    <coordY>400</coordY>
-    <pais>BRA</pais>
-    <ciudad>SAOPAULO</ciudad>
+    <nombre>Calaf-Sallavinera</nombre>
+    <capacidadMax>450</capacidadMax>
+    <capacidadActual>266</capacidadActual>
+    <coordX>420</coordX>
+    <coordY>210</coordY>
+    <pais>ESP</pais>
+    <ciudad>BAR</ciudad>
     <estado>ACTV</estado>
   </xml.XmlAeropuertoString>
 </list>
