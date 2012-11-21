@@ -34,7 +34,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     public MonitoreoFrame(Envio envio) {
         initComponents();
         this.envio = envio;
-
+        this.setLocationRelativeTo(null);
     }
 
     @Override
@@ -130,11 +130,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Monitoreo Envio");
+        setTitle("FlyTrack - Envíos -  Monitoreo");
         setMaximumSize(new java.awt.Dimension(1024, 582));
         setMinimumSize(new java.awt.Dimension(1024, 582));
         setModal(true);
-        setPreferredSize(new java.awt.Dimension(1024, 582));
+        setPreferredSize(null);
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/world-map1024x582.PNG"))); // NOI18N
