@@ -35,7 +35,9 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "ParametrosAeropuerto",
     query = "from Parametro where tipo = :tipo"),
     @NamedQuery(name = "ParametrosSeguridad",
-    query = "from Parametro where tipo = 'SEGURIDAD' and valorUnico = :valorUnico and estado = true")
+    query = "from Parametro where tipo = 'SEGURIDAD' and valorUnico = :valorUnico and estado = true"),
+    @NamedQuery(name = "MonedasDolarTC",
+    query = "from Parametro p where p.idParametro in (select q.monedaOrigen.idParametro from TipoCambio q where q.monedaDestino.valorUnico = 'DOL')")
 })
 @FilterDefs({
     @FilterDef(name = "ParametrosXValor",
@@ -65,17 +67,14 @@ public class Parametro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idParametro;
-    
     @ManyToOne
     @JoinColumn(name = "idPadre")
     private Parametro padre;
-    
     private String valor;
     private String valorUnico;
     private String tipo;
     private boolean estado;
     //@OneToMany(mappedBy = "padre", fetch = FetchType.EAGER)
-    
     @OneToMany(mappedBy = "padre")
     @Filters({
         @Filter(name = "ParametroHijosXTipo", condition = "tipo = :tipo and estado = true")
