@@ -15,6 +15,7 @@ import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Window;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +69,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
             }
             
             objVueloo = objVuelo; 
+         
             SfechSal.setModel(new DateSpinner().getModel());
             Sfeclleg.setModel(new DateSpinner().getModel());
             
