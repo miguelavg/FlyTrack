@@ -368,7 +368,9 @@ public class TarifaFrame extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         ListaTarifa = TarifaBL.Buscar(AeroOri, AeroDes, "", "");
         llenartabla();
-//        CPista.guardarPista("Tarifa", "Buscar", "TarifaFrame", "btnBuscarActionPerformed",null, null,"Se ha realizado una busqueda de tarifas");
+        CPista.guardarPista("Administración", "Tarifa", "Buscar", 
+                            "Aeropuerto Origen: "+ AeroOri != null ? AeroOri.getNombre() : null +
+                            " Aeropuerto Destino: " + AeroDes != null ? AeroDes.getNombre() : null);
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBuscarActionPerformed
 

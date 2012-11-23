@@ -130,14 +130,14 @@ public class PistasDialog extends javax.swing.JDialog {
 
             },
             new String [] {
-                "# de Pista", "Usuario", "Modulo Principal", "Modulo Secundario", "Clase", "Metodo", "Fecha", "Estado Anterior", "Estado Actual", "Descripción"
+                "# de Pista", "Usuario", "Modulo Principal", "Modulo Secundario", "Accion", "Fecha", "Mensaje"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -148,17 +148,21 @@ public class PistasDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblPistas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblPistas);
         tblPistas.getColumnModel().getColumn(0).setResizable(false);
+        tblPistas.getColumnModel().getColumn(0).setPreferredWidth(20);
         tblPistas.getColumnModel().getColumn(1).setResizable(false);
+        tblPistas.getColumnModel().getColumn(1).setPreferredWidth(20);
         tblPistas.getColumnModel().getColumn(2).setResizable(false);
+        tblPistas.getColumnModel().getColumn(2).setPreferredWidth(30);
         tblPistas.getColumnModel().getColumn(3).setResizable(false);
+        tblPistas.getColumnModel().getColumn(3).setPreferredWidth(30);
         tblPistas.getColumnModel().getColumn(4).setResizable(false);
+        tblPistas.getColumnModel().getColumn(4).setPreferredWidth(30);
         tblPistas.getColumnModel().getColumn(5).setResizable(false);
+        tblPistas.getColumnModel().getColumn(5).setPreferredWidth(30);
         tblPistas.getColumnModel().getColumn(6).setResizable(false);
-        tblPistas.getColumnModel().getColumn(7).setResizable(false);
-        tblPistas.getColumnModel().getColumn(8).setResizable(false);
-        tblPistas.getColumnModel().getColumn(9).setResizable(false);
 
         btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
         btnExportar.setText("Exportar");
