@@ -6,7 +6,10 @@ package gui.seguridad.pistas;
 
 import beans.*;
 import beans.seguridad.*;
+import controllers.CParametro;
 import controllers.CPista;
+import gui.seguridad.usuarios.UsuarioPopup;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -24,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PistasDialog extends javax.swing.JDialog {
 
+    Usuario usuarioBuscado = null;
     /**
      * Creates new form PistasDialog
      */
@@ -34,7 +38,14 @@ public class PistasDialog extends javax.swing.JDialog {
     
     public PistasDialog(){
         initComponents();
+        llenarComboAccion();
         setLocationRelativeTo(null);
+    }
+    
+    private void llenarComboAccion(){
+        for(Parametro param : CParametro.buscar(null, null, "ACCION_LOG", null)){
+            cmbAccion.addItem(param);
+        }
     }
     
     private void llenarTabla(List<Pista> pistas){
@@ -43,19 +54,16 @@ public class PistasDialog extends javax.swing.JDialog {
         for (int i = rows - 1; i >= 0; i--) {
             dtm.removeRow(0);
         }
-        Object[] datos = new Object[10];
+        Object[] datos = new Object[7];
         for (int i = 0; i < pistas.size(); i++) {
 
-            datos[0] = pistas.get(i).getIdPista();
+            datos[0] = i;
             datos[1] = pistas.get(i).getUsuario();
             datos[2] = pistas.get(i).getModuloPrincipal();
             datos[3] = pistas.get(i).getModuloSecundario();
-            datos[4] = pistas.get(i).getClase();
-            datos[5] = pistas.get(i).getMetodo();
-            datos[6] = pistas.get(i).getFecha().toString();//imprimir fecha con un formato en especial
-            datos[7] = pistas.get(i).getEstadoAnterior();
-            datos[8] = pistas.get(i).getEstadoActual();
-            datos[9] = pistas.get(i).getDescripcion();
+            datos[4] = pistas.get(i).getAccion();
+            datos[5] = pistas.get(i).getFecha().toString();//imprimir fecha con un formato en especial
+            datos[6] = pistas.get(i).getMensaje();
 
             dtm.addRow(datos);
         }
@@ -75,16 +83,19 @@ public class PistasDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPistas = new javax.swing.JTable();
+        btnExportar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
-        lblModPrincipal = new javax.swing.JLabel();
+        lblFechaIni = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        cmbModPrincipal = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btnBuscarUsuario = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        lblModPrincipal1 = new javax.swing.JLabel();
-        cmbModPrincipal1 = new javax.swing.JComboBox();
+        btnRegresar = new javax.swing.JButton();
+        lblFechaFin = new javax.swing.JLabel();
+        dtcFechaIni = new datechooser.beans.DateChooserCombo();
+        dtcFechaFin = new datechooser.beans.DateChooserCombo();
+        lblUsuario1 = new javax.swing.JLabel();
+        cmbAccion = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -149,20 +160,27 @@ public class PistasDialog extends javax.swing.JDialog {
         tblPistas.getColumnModel().getColumn(8).setResizable(false);
         tblPistas.getColumnModel().getColumn(9).setResizable(false);
 
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
+        btnExportar.setText("Exportar");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1156, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -170,17 +188,16 @@ public class PistasDialog extends javax.swing.JDialog {
 
         lblUsuario.setText("Usuario:");
 
-        lblModPrincipal.setText("Módulo Principal");
+        lblFechaIni.setText("Fecha Inicial:");
 
         txtUsuario.setEnabled(false);
 
-        cmbModPrincipal.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbModPrincipalActionPerformed(evt);
+                btnBuscarUsuarioActionPerformed(evt);
             }
         });
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -190,16 +207,30 @@ public class PistasDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
-        jButton3.setText("Regresar");
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
+        btnRegresar.setText("Regresar");
 
-        lblModPrincipal1.setText("Módulo Secundario");
+        lblFechaFin.setText("Fecha Final:");
 
-        cmbModPrincipal1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbModPrincipal1ActionPerformed(evt);
-            }
-        });
+        dtcFechaIni.setNothingAllowed(false);
+        try {
+            dtcFechaIni.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+        dtcFechaIni.setLocale(new java.util.Locale("es", "PE", ""));
+
+        dtcFechaFin.setNothingAllowed(false);
+        try {
+            dtcFechaFin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+        dtcFechaFin.setLocale(new java.util.Locale("es", "PE", ""));
+
+        lblUsuario1.setText("Acción:");
+
+        cmbAccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -209,49 +240,58 @@ public class PistasDialog extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(149, 149, 149)
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblModPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbModPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dtcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblModPrincipal1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbModPrincipal1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(dtcFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(376, 376, 376)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblModPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbModPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtcFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblModPrincipal1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbModPrincipal1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbAccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dtcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -284,18 +324,34 @@ public class PistasDialog extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        List<Pista> pistas = CPista.obtenerPistas();
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        String accion;
+        if(cmbAccion.getSelectedIndex() != 0){
+            accion = ((Parametro)cmbAccion.getSelectedItem()).getValor();
+        }
+        else{
+            accion = null;
+        }
+        
+        List<Pista> pistas = CPista.obtenerPistas( txtUsuario.getText(), accion, 
+                                                    dtcFechaIni.getSelectedDate(), dtcFechaFin.getSelectedDate());
         llenarTabla(pistas);
-        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+//        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void cmbModPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbModPrincipalActionPerformed
+    private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbModPrincipalActionPerformed
-
-    private void cmbModPrincipal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbModPrincipal1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbModPrincipal1ActionPerformed
+        UsuarioPopup usuarioPP = new UsuarioPopup();
+        usuarioPP.setModal(true);
+        usuarioBuscado = usuarioPP.showDialog();
+        if(usuarioBuscado != null){
+            txtUsuario.setText(usuarioBuscado.getLogIn());
+        }
+        else{
+            txtUsuario.setText("");
+        }
+    }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
@@ -366,18 +422,21 @@ public class PistasDialog extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JComboBox cmbModPrincipal;
-    private javax.swing.JComboBox cmbModPrincipal1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnBuscarUsuario;
+    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox cmbAccion;
+    private datechooser.beans.DateChooserCombo dtcFechaFin;
+    private datechooser.beans.DateChooserCombo dtcFechaIni;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblModPrincipal;
-    private javax.swing.JLabel lblModPrincipal1;
+    private javax.swing.JLabel lblFechaFin;
+    private javax.swing.JLabel lblFechaIni;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblUsuario1;
     private javax.swing.JTable tblPistas;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

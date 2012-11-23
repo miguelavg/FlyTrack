@@ -169,6 +169,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
         jLabel3.setText("Aeropuerto:");
 
         txtAeropuerto.setEditable(false);
+        txtAeropuerto.setEnabled(false);
 
         btnBuscarAeropuerto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscarAeropuerto.addActionListener(new java.awt.event.ActionListener() {
@@ -477,7 +478,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
         UsuarioEdit usuarioAgregarGUI = new UsuarioEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         usuarioAgregarGUI.setVisible(true);
         cargartabla();
-        CPista.guardarPista("Usuario", "Agregar", "UsuarioDialog", "btnAgregarActionPerformed", null, null,"Ha agregado un usuario");
+//        CPista.guardarPista("Usuario", "Agregar", "UsuarioDialog", "btnAgregarActionPerformed", null, null,"Ha agregado un usuario");
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -551,7 +552,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
             dtm.addRow(datos);
         
         }
-        CPista.guardarPista("Usuario", "Buscar", "UsuarioDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda");
+//        CPista.guardarPista("Usuario", "Buscar", "UsuarioDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda");
         
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         //mostrarListaAlerta(listaAlerta);
@@ -575,7 +576,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
             cargartabla();
         }
         
-        CPista.guardarPista("Usuario", "Modificar", "UsuarioDialog", "btnModificarActionPerformed", null, null,"Ha modificar un usuario");
+//        CPista.guardarPista("Usuario", "Modificar", "UsuarioDialog", "btnModificarActionPerformed", null, null,"Ha modificar un usuario");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public void cargartabla() {

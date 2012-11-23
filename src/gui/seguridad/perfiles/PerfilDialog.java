@@ -252,7 +252,7 @@ public class PerfilDialog extends javax.swing.JDialog {
         PerfilEdit perfilAgregarGUI = new PerfilEdit(this, true, -1); //llamamos a la clase y creamos un objeto llamado MiVentana
         perfilAgregarGUI.setVisible(true);
         llenarTabla();
-        CPista.guardarPista("Perfil", "Agregar", "PerfilDialog", "btnAgregarActionPerformed", null, null,"Ha agregado un perfil");
+//        CPista.guardarPista("Perfil", "Agregar", "PerfilDialog", "btnAgregarActionPerformed", null, null,"Ha agregado un perfil");
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -272,7 +272,7 @@ public class PerfilDialog extends javax.swing.JDialog {
             }
             llenarTabla();
         }
-        CPista.guardarPista("Perfil", "Agregar", "PerfilDialog", "btnAgregarActionPerformed", null, null,"Ha modificado un perfil");
+//        CPista.guardarPista("Perfil", "Agregar", "PerfilDialog", "btnAgregarActionPerformed", null, null,"Ha modificado un perfil");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

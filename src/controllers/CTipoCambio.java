@@ -58,7 +58,7 @@ public class CTipoCambio {
         TipoCambio tipo = null;
 
         try {
-            Query q = s.getNamedQuery("TiposCambioXValosresUnicos");
+            Query q = s.getNamedQuery("TiposCambioXValosresUnicos").setMaxResults(1);
             q.setParameter("monedaOrigen", valorUnico);
             q.setParameter("monedaDestino", "DOL");
             tipo = (TipoCambio) q.uniqueResult();
@@ -166,7 +166,7 @@ public class CTipoCambio {
         }
 
         try {
-            Query q = s.getNamedQuery("TiposCambioXValosresUnicos");
+            Query q = s.getNamedQuery("TiposCambioXValosresUnicos").setMaxResults(1);
             q.setParameter("monedaOrigen", valorUnico);
             q.setParameter("monedaDestino", "DOL");
             tipo = (TipoCambio) q.uniqueResult();

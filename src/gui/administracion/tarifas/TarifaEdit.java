@@ -56,8 +56,8 @@ public class TarifaEdit extends javax.swing.JDialog {
         txtFechaDes.setText("29-11-2013");
         jLabel9.setVisible(false);
         jLabel10.setVisible(false);
-        cboEstado.setSelectedIndex(1);
-        cboMoneda.setSelectedIndex(2);
+        cboEstado.setSelectedIndex(1); //Para seleccionar el estado Activo por defecto
+        cboMoneda.setSelectedIndex(1);  //Para seleccionar la moneda Dolares por defecto
         this.isNuevo = true;
         if (idtarifa != -1) {
             cargarcampos();
@@ -136,16 +136,16 @@ public class TarifaEdit extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(254, 254, 254)
+                .addGap(288, 288, 288)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -374,20 +374,15 @@ public class TarifaEdit extends javax.swing.JDialog {
     }
 
     public void cargarcombos() {
-        ListaMonedas = TarifaBL.ListarMonedas();
-        ListaEstadoTarifa = TarifaBL.ListarEstadoMonedas();
-
-        for (int i = 0; i < ListaMonedas.size(); i++) {
-            Parametro Moneda = (Parametro) ListaMonedas.get(i);
-
-            cboMoneda.addItem(Moneda);
+        
+        for(Parametro param : new CTarifa().ListarMonedas()){
+            cboMoneda.addItem(param);
         }
-        for (int i = 0; i < ListaEstadoTarifa.size(); i++) {
-            Parametro EstadoTarifa = (Parametro) ListaEstadoTarifa.get(i);
-
-            cboEstado.addItem(EstadoTarifa);
+        
+        for(Parametro param : new CTarifa().ListarEstadoMonedas()){
+            cboEstado.addItem(param);
         }
-
+        
     }
     private void txtAeroOriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroOriActionPerformed
         // TODO add your handling code here:

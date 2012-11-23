@@ -471,7 +471,7 @@ public class Vuelos extends javax.swing.JDialog {
         listaVuelos = CVuelo.BuscarVuelo(null, null, null, null, null, null);
         llenarGrillaVuelo();
         
-        CPista.guardarPista("Vuelos", "Agregar", "Vuelos", "btnAgregarActionPerformed", null, null,"Se ha agregado un vuelo");
+//        CPista.guardarPista("Vuelos", "Agregar", "Vuelos", "btnAgregarActionPerformed", null, null,"Se ha agregado un vuelo");
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -504,7 +504,7 @@ public class Vuelos extends javax.swing.JDialog {
 
         llenarGrillaVuelo();
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        CPista.guardarPista("Vuelos", "Buscar", "Vuelos", "btn_buscarActionPerformed", null, null,"Se ha realizado una busqueda de vuelos");
+//        CPista.guardarPista("Vuelos", "Buscar", "Vuelos", "btn_buscarActionPerformed", null, null,"Se ha realizado una busqueda de vuelos");
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
@@ -582,7 +582,7 @@ public class Vuelos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Vuelo", "Advertencia", 1);
         }
         
-        CPista.guardarPista("Vuelos", "Eventos", "Vuelos", "btnEventosActionPerformed", null, null,"Se ha registrado un evento de un vuelo");
+//        CPista.guardarPista("Vuelos", "Eventos", "Vuelos", "btnEventosActionPerformed", null, null,"Se ha registrado un evento de un vuelo");
     }//GEN-LAST:event_btnEventosActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
