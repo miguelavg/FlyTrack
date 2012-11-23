@@ -239,11 +239,11 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
              * 3. La contrasena nueva debe pasar todas las validaciones del caso
              */
             if( actualContraseniasIguales && nuevasContraseniasIguales && validacionesContrasenia){
-//                CPista.guardarPista("Login", "Cambiar Contraseña", "CambiarContrasenaDialog", "btnConfirmarActionPerformed", 
-//                                    new String(contrasenia.getText()), new String(txtPassNueva.getPassword()), 
-//                                    "Se ha realizado el cambio de contraseña");
                 CContrasena.desactivarContrasena(contrasenia); //Desactivo su contrasena activa actual
                 CContrasena.agregarContrasenaActiva(txtPassNueva.getPassword(), usuario); //agrego la nueva contrasena activa
+                CPista.guardarPista(usuario, "Login", "Cambiar Contraseña", "Sesion", "Cambio de contraseña exitoso. " + 
+                        " Contraseña Ingresada: " + new String(txtPassActual.getPassword()) + 
+                        " Contraseña Nueva: "  + new String(txtPassNueva.getPassword()));
                 ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
                 usuario = new CUsuario().BuscarXid(usuario.getIdUsuario()); //actualizo el usuario, con las contrasenas
                 new CMail().sendMail("flytrack.no.reply@gmail.com",
@@ -258,9 +258,8 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                 this.dispose();
             }
             else{
-//                CPista.guardarPista("Login", "Cambiar Contraseña", "CambiarContrasenaDialog", "btnConfirmarActionPerformed", 
-//                                    new String(contrasenia.getText()), new String(txtPassNueva.getPassword()), 
-//                                    "Se intento cambiar la contraseña pero no se pudo");
+                CPista.guardarPista(usuario, "Login", "Cambiar Contraseña", "Sesion", "Cambio de contraseña fallido. " + 
+                        " Contraseña Ingresada: " + new String(txtPassActual.getPassword()));
                 if(!nuevasContraseniasIguales)
                     lblMensaje.setText("Las contraseñas nuevas ingresadas deben COINCIDIR");
                 else if(!validacionesContrasenia)
