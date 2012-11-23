@@ -7,6 +7,7 @@ package gui.reportes;
 import beans.Vuelo;
 import beans.Envio;
 import beans.Escala;
+import controllers.CEnvio;
 import controllers.CValidator;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class EscalaDataSource  implements JRDataSource {
     } 
                 else if("fechasalida".equals(jrField.getName())) 
     { 
-        valor = CValidator.formatDate(getListaEscalas().get(indiceEscala).getVuelo().getFechaSalida());
+        valor = CValidator.formatDate(CEnvio.getFechaSalidaReal(getListaEscalas().get(indiceEscala)));
     } 
                 else if("fechallegada".equals(jrField.getName())) 
     { 
