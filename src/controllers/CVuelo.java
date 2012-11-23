@@ -5,14 +5,8 @@
 package controllers;
 
 import beans.*;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
 import java.util.Calendar;
 import java.util.Date;
-
 import java.util.List;
 import org.hibernate.*;
 
@@ -352,11 +346,11 @@ public class CVuelo {
 
         try {
             Transaction tx = s.beginTransaction();
-            
-            if(objVuelo.getEstado().equals("CAN")) {
+
+            if (objVuelo.getEstado().equals("CAN")) {
                 return;
             }
-            
+
             Parametro estadoVuelo = CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", Estado);
             objVuelo.setEstado(estadoVuelo);
             s.saveOrUpdate(objVuelo);
@@ -451,11 +445,11 @@ public class CVuelo {
 
                 for (Escala escalaCancelada : escala.getEnvio().getEscalas()) {
                     if (escalaCancelada.getEstado().getValorUnico().equals("PROG")) {
-                        
-                        if(escalaCancelada.getNumEscala() < numEscala){
+
+                        if (escalaCancelada.getNumEscala() < numEscala) {
                             numEscala = escalaCancelada.getNumEscala();
                         }
-                        
+
                         escalaCancelada.setEstado(t);
                         int nVuelo = escalaCancelada.getVuelo().getCapacidadActual();
                         escalaCancelada.getVuelo().setCapacidadActual(nVuelo - escalaCancelada.getEnvio().getNumPaquetes());
@@ -475,110 +469,8 @@ public class CVuelo {
             }
 
             s.saveOrUpdate(escala.getEnvio());
-            
-             CEnvio.enviarCorreos(escala.getEnvio());
-            
-            tx.commit();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            s.close();
-        }
-    }
-
-    public static void modificarEnvios(Vuelo v) {
-        SessionFactory sf = Sesion.getSessionFactory();
-        Session s = sf.openSession();
-
-        try {
-
-            Transaction tx = s.beginTransaction();
-
-            Parametro estadoVuelo = v.getEstado();
-            Parametro t;
-            if (estadoVuelo.getValorUnico().equals("FIN")) {
-                // Si el vuelo llegó
-
-                for (Escala escala : v.getEscalas()) {
-                    String valUnico;
-                    if (v.getDestino().getIdAeropuerto() == escala.getEnvio().getDestino().getIdAeropuerto()) {
-                        valUnico = "XREC";
-                    } else {
-                        valUnico = "ESC";
-                    }
-
-                    //  Cambiarle el estado al envío
-                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", valUnico);
-                    escala.getEnvio().setActual(v.getDestino());
-                    escala.getEnvio().setEstado(t);
-
-                    //  Cambiarle el estado a la escala
-                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "FIN");
-                    escala.setEstado(t);
-
-                    //  Incrementar el almacén
-                    int cActual = escala.getEnvio().getActual().getCapacidadActual();
-                    escala.getEnvio().getActual().setCapacidadActual(cActual + escala.getEnvio().getNumPaquetes());
-                }
-            }
-
-            if (estadoVuelo.getValorUnico().equals("VUE")) {
-                // Si el vuelo despegó
-
-                for (Escala escala : v.getEscalas()) {
-
-                    //  Cambiar de estado el envío
-                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "VUE");
-                    escala.getEnvio().setEstado(t);
-
-                    //  Cambiarle el estado a la escala
-                    t = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "EFE");
-                    escala.setEstado(t);
-
-                    //  Decrementar el almacén
-                    int cActual = escala.getEnvio().getActual().getCapacidadActual();
-                    escala.getEnvio().getActual().setCapacidadActual(cActual - escala.getEnvio().getNumPaquetes());
-
-                    //  Poner nulo el aeropuerto actual
-                    escala.getEnvio().setActual(null);
-                }
-            }
-
-            if (estadoVuelo.getValorUnico().equals("CAN")) {
-                // Si el vuelo es cancelado:
-                // - cambiarle el estado a las escalas que lo usan
-                // - cambiarle el estado a las escalas posteriores del mismo envío
-                // - decrementar al capacidad del vuelo de dichas escalas posteriores
-                // - recalcular ruta
-                // - si no hay ruta, poner estado Indefinido
-                // - si hay ruta, agregar las escalas           
-
-                t = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", "CAN");
-                Date ahora = new Date();
-
-                for (Escala escala : v.getEscalas()) {
-                    int numEscala = escala.getNumEscala();
-                    escala.setEstado(t);
-
-                    for (Escala escalaCancelada : escala.getEnvio().getEscalas()) {
-                        if (escalaCancelada.getNumEscala() >= numEscala) {
-                            escalaCancelada.setEstado(t);
-                            int nVuelo = escalaCancelada.getVuelo().getCapacidadActual();
-                            escalaCancelada.getVuelo().setCapacidadActual(nVuelo - escalaCancelada.getEnvio().getNumPaquetes());
-                        }
-                    }
-
-                    CEnvio cenvio = new CEnvio();
-                    String error = cenvio.calcularRuta(escala.getEnvio(), ahora, numEscala);
-
-                    if (error != null && !error.isEmpty()) {
-                        t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
-                        escala.getEnvio().setEstado(t);
-
-                    }
-                }
-            }
+            CEnvio.enviarCorreos(escala.getEnvio());
 
             tx.commit();
 

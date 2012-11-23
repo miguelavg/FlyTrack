@@ -475,6 +475,42 @@ public class CEnvio {
         }
         return numDoc;
     }
+    
+    public static Date getFechaSalidaReal(Escala escala){
+        Vuelo v = escala.getVuelo();
+        Date d = null;
+        
+        for(Incidencia i : v.getIncidencias()){
+            if(i.getEstado().getValorUnico().equals("DES")){
+                d = i.getFecha();
+                break;
+            }
+        }
+        
+        if(d == null) {
+            d = v.getFechaSalida();
+        }
+        
+        return d;
+    }
+    
+    public static Date getFechaLlegadaReal(Escala escala){
+        Vuelo v = escala.getVuelo();
+        Date d = null;
+        
+        for(Incidencia i : v.getIncidencias()){
+            if(i.getEstado().getValorUnico().equals("ATE")){
+                d = i.getFecha();
+                break;
+            }
+        }
+        
+        if(d == null) {
+            d = v.getFechaLlegada();
+        }
+        
+        return d;
+    }
 
     
 }
