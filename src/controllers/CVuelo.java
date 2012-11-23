@@ -51,8 +51,8 @@ public class CVuelo {
     public static String validar(
             Aeropuerto aeropuertoOrigen,
             Aeropuerto aeropuertoDestino,
-            Calendar ini,
-            Calendar fin,
+            Date ini,
+            Date fin,
             Parametro Estado,
             String capacidad,
             String monto) {
@@ -212,8 +212,8 @@ public class CVuelo {
             String idVuelo,
             Aeropuerto aeropuertoOrigen,
             Aeropuerto aeropuertoDestino,
-            Calendar ini,
-            Calendar fin,
+            Date ini,
+            Date fin,
             Parametro Estado,
             String capacidad,
             String monto) {
@@ -234,8 +234,8 @@ public class CVuelo {
             objVuelo.setIdVuelo(Integer.parseInt(idVuelo));
             objVuelo.setOrigen(aeropuertoOrigen);
             objVuelo.setDestino(aeropuertoDestino);
-            objVuelo.setFechaLlegada(ini.getTime());
-            objVuelo.setFechaSalida(fin.getTime());
+            objVuelo.setFechaLlegada(ini);
+            objVuelo.setFechaSalida(fin);
             objVuelo.setEstado(Estado);
             objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
             objVuelo.setAlquiler(Double.valueOf(monto));
@@ -269,8 +269,8 @@ public class CVuelo {
     public static void agregarVuelo(
             Aeropuerto aeropuertoOrigen,
             Aeropuerto aeropuertoDestino,
-            Calendar ini,
-            Calendar fin,
+            Date ini,
+            Date fin,
             Parametro Estado,
             String capacidad,
             String monto) {
@@ -294,8 +294,8 @@ public class CVuelo {
             //       objVuelo.setIdVuelo(idVuelo); 
             objVuelo.setOrigen(aeropuertoOrigen);
             objVuelo.setDestino(aeropuertoDestino);
-            objVuelo.setFechaLlegada(ini.getTime());
-            objVuelo.setFechaSalida(fin.getTime());
+            objVuelo.setFechaLlegada(ini);
+            objVuelo.setFechaSalida(fin);
             objVuelo.setEstado(Estado);
             objVuelo.setCapacidadMax(Integer.parseInt(capacidad));
             objVuelo.setAlquiler(Double.valueOf(monto));

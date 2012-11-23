@@ -327,6 +327,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
+        CPista.guardarPista("Login", "Cerrar Sesion", "Sesion", "Cerrando sesion ...");
         Sesion.setUsuario(null);
         this.setVisible(Boolean.FALSE);
         this.dispose();
