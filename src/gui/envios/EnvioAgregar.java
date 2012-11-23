@@ -166,7 +166,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void llenarCombos(boolean isNuevo, Parametro moneda, Parametro doc, Parametro estado, Parametro estadoFactura) {
         CEnvio cenvio = new CEnvio();
-        ArrayList<Parametro> monedas = cenvio.llenarCombo("TIPO_MONEDA");
+        ArrayList<Parametro> monedas = cenvio.getMonedas();
+        Parametro dol = CParametro.buscarXValorUnicoyTipo("TIPO_MONEDA", "DOL");
+        monedas.add(dol);
+        
         ArrayList<Parametro> docs = cenvio.llenarCombo("TIPO_DOC_PAGO_ENVIO");
         ArrayList<Parametro> estados = cenvio.llenarCombo("ESTADO_ENVIO");
         ArrayList<Parametro> estadosFactura = cenvio.llenarCombo("ESTADO_FACTURA");
@@ -1118,12 +1121,12 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
             int numPaquetes = this.envio.getNumPaquetes();
             double unitario = tarifa.getMonto();
-            double impuesto = Double.parseDouble(txt_iva.getText());
+            double impuesto = this.iva;
             double vTipoCambio = 1;
             if (this.tipoCambio != null) {
                 vTipoCambio = this.tipoCambio.getTipoCambio();
             }
-            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto/100);
+            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto);
 
             this.envio.setUnitario(unitario * vTipoCambio);
             this.envio.setMonto(total);
