@@ -6,8 +6,10 @@ package gui.seguridad.pistas;
 
 import beans.*;
 import beans.seguridad.*;
+import controllers.CParametro;
 import controllers.CPista;
 import gui.seguridad.usuarios.UsuarioPopup;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -36,7 +38,14 @@ public class PistasDialog extends javax.swing.JDialog {
     
     public PistasDialog(){
         initComponents();
+        llenarComboAccion();
         setLocationRelativeTo(null);
+    }
+    
+    private void llenarComboAccion(){
+        for(Parametro param : CParametro.buscar(null, null, "ACCION_LOG", null)){
+            cmbAccion.addItem(param);
+        }
     }
     
     private void llenarTabla(List<Pista> pistas){
@@ -221,6 +230,8 @@ public class PistasDialog extends javax.swing.JDialog {
 
         lblUsuario1.setText("Acción:");
 
+        cmbAccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -313,18 +324,32 @@ public class PistasDialog extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        //<----------------------------------------------------------------falta ver la busqueda en base a los 3 criterios xD
-        List<Pista> pistas = CPista.obtenerPistas();
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        String accion;
+        if(cmbAccion.getSelectedIndex() != 0){
+            accion = ((Parametro)cmbAccion.getSelectedItem()).getValor();
+        }
+        else{
+            accion = null;
+        }
+        
+        List<Pista> pistas = CPista.obtenerPistas( txtUsuario.getText(), accion, 
+                                                    dtcFechaIni.getSelectedDate(), dtcFechaFin.getSelectedDate());
         llenarTabla(pistas);
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 //        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
         // TODO add your handling code here:
         UsuarioPopup usuarioPP = new UsuarioPopup();
+        usuarioPP.setModal(true);
         usuarioBuscado = usuarioPP.showDialog();
         if(usuarioBuscado != null){
             txtUsuario.setText(usuarioBuscado.getLogIn());
+        }
+        else{
+            txtUsuario.setText("");
         }
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
