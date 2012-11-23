@@ -65,7 +65,7 @@ public class EscalaDataSource  implements JRDataSource {
     } 
                 else if("fechallegada".equals(jrField.getName())) 
     { 
-        valor = CValidator.formatDate(getListaEscalas().get(indiceEscala).getVuelo().getFechaLlegada());
+        valor = CValidator.formatDate(CEnvio.getFechaLlegadaReal(getListaEscalas().get(indiceEscala)));
     } 
                 else if("estado".equals(jrField.getName())) 
     { 
