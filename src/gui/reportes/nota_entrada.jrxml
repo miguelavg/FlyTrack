@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8acc9963-a739-4d24-aaf0-3554cb67b859">
 	<property name="ireport.zoom" value="1.210000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="empleado" class="java.lang.String"/>
 	<parameter name="horaactual" class="java.lang.String"/>
 	<parameter name="fechaactual" class="java.lang.String"/>
@@ -47,7 +47,7 @@
 				<text><![CDATA[Nota de Entrada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a2e90f2f-c0d0-4c3d-a834-2b86ce1d2064" x="470" y="35" width="49" height="20" forecolor="#000000" backcolor="#404040"/>
+				<reportElement uuid="a2e90f2f-c0d0-4c3d-a834-2b86ce1d2064" x="431" y="35" width="49" height="20" forecolor="#000000" backcolor="#404040"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="false"/>
 				</textElement>
@@ -74,12 +74,12 @@
 			<textField>
 				<reportElement uuid="a442ebd0-d050-49f4-bf0a-f1b9752b91dd" x="112" y="129" width="100" height="18"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{destnomb}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="5595c86a-c476-4747-a4f7-7773e9e7c425" x="113" y="149" width="100" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{destapellido}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="423" y="107" width="110" height="20"/>
@@ -188,6 +188,10 @@
 			<line>
 				<reportElement uuid="a578c6a1-91a3-404d-b2bc-dc14d59272cb" x="9" y="274" width="535" height="1" forecolor="#BB0A0A"/>
 			</line>
+			<image>
+				<reportElement uuid="a684d159-5606-43d6-aaf0-00387a470913" x="497" y="24" width="52" height="43"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>
