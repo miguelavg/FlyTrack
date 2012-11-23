@@ -390,8 +390,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
          String error_message = CVuelo.validar( 
                                 aeropuertoOrigen,
                                 aeropuertoDestino,
-                                dt_fechLlega.getSelectedDate(),
-                                dt_fechSali.getSelectedDate(),
+                                 (Date)Sfeclleg.getValue(),
+                                   (Date)SfechSal.getValue(),
                                 TipoDoc,
                                 txt_capacidad.getText(),
                                 txt_monto.getText()
