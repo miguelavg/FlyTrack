@@ -8,10 +8,13 @@ import beans.*;
 import beans.seguridad.*;
 import controllers.CParametro;
 import controllers.CPista;
+import gui.ErrorDialog;
 import gui.seguridad.usuarios.UsuarioPopup;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -98,6 +101,7 @@ public class PistasDialog extends javax.swing.JDialog {
         cmbAccion = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Flytrack - Seguridad - Logs de Auditoría");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -337,9 +341,23 @@ public class PistasDialog extends javax.swing.JDialog {
             accion = null;
         }
         
-        List<Pista> pistas = CPista.obtenerPistas( txtUsuario.getText(), accion, 
-                                                    dtcFechaIni.getSelectedDate(), dtcFechaFin.getSelectedDate());
-        llenarTabla(pistas);
+        Calendar fechaIni = dtcFechaIni.getSelectedDate();
+        fechaIni.set(Calendar.HOUR_OF_DAY, 0);
+        fechaIni.set(Calendar.MINUTE, 0);
+        fechaIni.set(Calendar.SECOND, 0);
+        
+        Calendar fechaFin = dtcFechaFin.getSelectedDate();
+        fechaFin.set(Calendar.HOUR_OF_DAY, 23);
+        fechaFin.set(Calendar.MINUTE, 59);
+        fechaFin.set(Calendar.SECOND, 59);
+        
+        if(fechaIni.before(fechaFin)){
+            List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
+            llenarTabla(pistas);
+        }
+        else{
+            ErrorDialog.mostrarError("La fecha inicial debe ser menor a la fecha final", this);
+        }
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 //        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
     }//GEN-LAST:event_btnBuscarActionPerformed

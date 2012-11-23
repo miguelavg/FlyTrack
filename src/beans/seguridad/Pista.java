@@ -22,8 +22,8 @@ import org.hibernate.annotations.ParamDef;
 })
 @FilterDefs({
     @FilterDef(name = "PistasXUsuario" , parameters = @ParamDef(name = "usuario", type = "string")),
-    @FilterDef(name = "PistasXFechaIni", parameters = @ParamDef(name = "fecha"  , type = "timestamp")),
-    @FilterDef(name = "PistasXFechaFin", parameters = @ParamDef(name = "fecha"  , type = "timestamp")),
+    @FilterDef(name = "PistasXFechaIni", parameters = @ParamDef(name = "fechaIni"  , type = "timestamp")),
+    @FilterDef(name = "PistasXFechaFin", parameters = @ParamDef(name = "fechaFin"  , type = "timestamp")),
     @FilterDef(name = "PistasXAccion"  , parameters = @ParamDef(name = "accion" , type = "string")),
 })
 @Filters({
