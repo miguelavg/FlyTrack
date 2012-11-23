@@ -8,7 +8,9 @@ import beans.*;
 import beans.seguridad.*;
 import controllers.CParametro;
 import controllers.CPista;
+import controllers.CValidator;
 import gui.ErrorDialog;
+import gui.envios.EnvioAgregar;
 import gui.reportes.IncidenciaDataSource;
 import gui.reportes.PistasDataSource;
 import gui.seguridad.usuarios.UsuarioPopup;
@@ -42,19 +44,19 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author msolorzano
  */
-public class PistasDialog extends javax.swing.JDialog {
+public class PistasDialog extends javax.swing.JFrame {
 
     Usuario usuarioBuscado = null;
     ArrayList<Pista> listaPistas;
-    PistasDataSource pistads;
+    
     
     /**
      * Creates new form PistasDialog
      */
-    public PistasDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+//    public PistasDialog(java.awt.Frame parent, boolean modal) {
+//        super(parent, modal);
+//        initComponents();
+//    }
     
     public PistasDialog(){
         initComponents();
@@ -354,10 +356,9 @@ public class PistasDialog extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        listaPistas= new ArrayList<Pista>();
-        
-        
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        listaPistas = new ArrayList<Pista>();
+
         String accion;
         if(cmbAccion.getSelectedIndex() != 0){
             accion = ((Parametro)cmbAccion.getSelectedItem()).getValor();
@@ -367,22 +368,22 @@ public class PistasDialog extends javax.swing.JDialog {
         }
         
         Calendar fechaIni = dtcFechaIni.getSelectedDate();
-        fechaIni.set(Calendar.HOUR_OF_DAY, 0);
-        fechaIni.set(Calendar.MINUTE, 0);
-        fechaIni.set(Calendar.SECOND, 0);
-        
         Calendar fechaFin = dtcFechaFin.getSelectedDate();
-        fechaFin.set(Calendar.HOUR_OF_DAY, 23);
-        fechaFin.set(Calendar.MINUTE, 59);
-        fechaFin.set(Calendar.SECOND, 59);
-        
-        if(fechaIni.before(fechaFin)){
+
+        if(fechaIni != null && fechaFin != null){
+            if(fechaIni.before(fechaFin)){
+                List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
+                llenarTabla(pistas);
+                listaPistas.addAll(pistas);
+            }
+            else{
+                ErrorDialog.mostrarError("La fecha inicial debe ser antes de la fecha final", this);
+            }
+        }
+        else{
             List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
             llenarTabla(pistas);
             listaPistas.addAll(pistas);
-        }
-        else{
-            ErrorDialog.mostrarError("La fecha inicial debe ser menor a la fecha final", this);
         }
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 //        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
@@ -403,7 +404,7 @@ public class PistasDialog extends javax.swing.JDialog {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
-    pistads= new PistasDataSource();
+    PistasDataSource pistads = new PistasDataSource();
     pistads.setListaPistas(listaPistas);
     
     if (pistads!=null){
@@ -422,16 +423,13 @@ public class PistasDialog extends javax.swing.JDialog {
                 //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
                 return;
             }
-            
-            
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, pistads);
+            
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
-            Date fechaactual=new Date(); 
-            fechaactual = Calendar.getInstance().getTime(); 
+            Date fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
-            
             String nombreReporteLogs = "Reporte de Logs" +reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
             exporter.exportReport();
@@ -510,14 +508,16 @@ public class PistasDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PistasDialog dialog = new PistasDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new PistasDialog().setVisible(true);
+
+//                PistasDialog dialog = new PistasDialog(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
             }
         });
     }

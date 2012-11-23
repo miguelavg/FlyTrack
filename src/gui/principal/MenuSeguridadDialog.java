@@ -19,7 +19,7 @@ import javax.swing.*;
  *
  * @author ronald
  */
-public class MenuSeguridadDialog extends javax.swing.JDialog {
+public class MenuSeguridadDialog extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuSeguridadDialog
@@ -31,19 +31,16 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
     
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
-        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
-        Action actionListener = new AbstractAction() { 
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
             setVisible(false);
             dispose();
           } 
         } ;
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(strokeESC, "ESCAPE");
-        rootPane.getActionMap().put("ESCAPE", actionListener);
-        inputMap.put(strokeBACKSPACE, "BACKSPACE");
-        rootPane.getActionMap().put("BACKSPACE", actionListener);
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
 
         return rootPane;
     }
@@ -67,7 +64,6 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Seguridad");
         setMinimumSize(new java.awt.Dimension(450, 115));
-        setModal(true);
         setResizable(false);
 
         btnPerfiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil48x48.png"))); // NOI18N
@@ -162,7 +158,7 @@ public class MenuSeguridadDialog extends javax.swing.JDialog {
     private void btnLogAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAuditoriaActionPerformed
         // TODO add your handling code here:
         PistasDialog pistaDL = new PistasDialog();
-        pistaDL.setModal(true);
+//        pistaDL.setModal(true);
         pistaDL.setVisible(true);
     }//GEN-LAST:event_btnLogAuditoriaActionPerformed
 
