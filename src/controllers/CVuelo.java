@@ -326,6 +326,7 @@ public class CVuelo {
                     if (escalaProfunda.getIdEscala() == escala.getIdEscala()) {
                         escala.getEnvio().getEscalas().set(i, escala);
                     }
+                    escalaProfunda.getVuelo().getIncidencias().size();
                 }
 
             }
@@ -463,13 +464,11 @@ public class CVuelo {
                 if (error != null && !error.isEmpty()) {
                     t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
                     escala.getEnvio().setEstado(t);
-
                 }
 
             }
 
             s.saveOrUpdate(escala.getEnvio());
-
             CEnvio.enviarCorreos(escala.getEnvio());
 
             tx.commit();
