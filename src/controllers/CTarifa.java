@@ -282,6 +282,10 @@ public class CTarifa {
             TarifaBE.setMonto(Double.parseDouble(monto));
             TarifaBE.setFechaActivacion(fechaact);
             TarifaBE.setFechaDesactivacion(fechades);
+            
+            CPista.guardarPista("Administración", "Tarifa", "Modificar", 
+                                "ANTES: " + BuscarXid(idTarifa).aString() + 
+                                "DESPUES: " + TarifaBE.aString());
                         
             s.update(TarifaBE);
             
@@ -349,6 +353,8 @@ public class CTarifa {
             TarifaBE.setFechaDesactivacion(fechades);
                         
             int i = (Integer)s.save(TarifaBE);
+            
+            CPista.guardarPista("Administración", "Tarifa", "Crear", TarifaBE.aString());
             
             tx.commit();
             

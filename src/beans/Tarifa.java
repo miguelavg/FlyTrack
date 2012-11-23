@@ -4,6 +4,7 @@
  */
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -157,5 +158,15 @@ public class Tarifa implements Serializable {
 
     public void setDestino(Aeropuerto destino) {
         this.destino = destino;
+    }
+    
+    public String aString(){
+        return "Idtarfia = " + idTarifa + 
+                "Aeropuerto Origne = " + origen != null ? origen.getNombre() : null +
+                "Aeropuerto Destino = " + destino != null ? destino.getNombre() : null +
+                "Monto = " + monto +
+                "Estado = "+ estado != null ? estado.getValor() : null +
+                "Fecha Activacion = " + CValidator.formatDate(fechaActivacion) + 
+                "Fecha Desactivacion = " + CValidator.formatDate(fechaDesactivacion);
     }
 }
