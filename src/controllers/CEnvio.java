@@ -170,7 +170,7 @@ public class CEnvio {
             new CMail().sendMail(
                     envio.getDestinatario().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
-                    genMail(envio, true));
+                    genMail(envio, false));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
