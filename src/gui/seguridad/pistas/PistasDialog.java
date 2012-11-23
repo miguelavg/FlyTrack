@@ -8,6 +8,7 @@ import beans.*;
 import beans.seguridad.*;
 import controllers.CParametro;
 import controllers.CPista;
+import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.reportes.IncidenciaDataSource;
 import gui.reportes.PistasDataSource;
@@ -46,7 +47,7 @@ public class PistasDialog extends javax.swing.JDialog {
 
     Usuario usuarioBuscado = null;
     ArrayList<Pista> listaPistas;
-    PistasDataSource pistads;
+    
     
     /**
      * Creates new form PistasDialog
@@ -402,7 +403,7 @@ public class PistasDialog extends javax.swing.JDialog {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
-    pistads= new PistasDataSource();
+    PistasDataSource pistads = new PistasDataSource();
     pistads.setListaPistas(listaPistas);
     
     if (pistads!=null){
@@ -421,12 +422,10 @@ public class PistasDialog extends javax.swing.JDialog {
                 //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
                 return;
             }
-            
-            
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, pistads);
+            
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            
             DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
             Date fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
