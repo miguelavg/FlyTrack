@@ -225,4 +225,9 @@ public class Aeropuerto implements Serializable {
     public void setCoordY(int coordY) {
         this.coordY = coordY;
     }
+    
+    @Override
+    public String toString(){
+        return this.getNombre() + ", " + this.getCiudad() + ", " + this.getPais();
+    }
 }

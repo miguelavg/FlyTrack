@@ -1025,14 +1025,13 @@ public class EnvioAgregar extends javax.swing.JFrame {
         int cAero = this.envio.getActual().getCapacidadActual();
         this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
 
-        this.envio.getActual().setCapacidadActual(1);
-
         for (Escala e : this.envio.getEscalas()) {
             e.setEstado(estadoEscala);
             int cVuelo = e.getVuelo().getCapacidadActual();
             e.getVuelo().setCapacidadActual(cVuelo - this.envio.getNumPaquetes());
         }
 
+        this.envio.setFechaRecojo(new Date());
         llenarEscalas(this.envio);
 
         btn_anular.setEnabled(false);
@@ -1101,7 +1100,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
     private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
         MonitoreoFrame monitoreoDialog = new MonitoreoFrame(this.envio);
-        monitoreoDialog.setVisible(true);
+        monitoreoDialog.showFrame();
     }//GEN-LAST:event_btn_rutaActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
@@ -1253,9 +1252,10 @@ public class EnvioAgregar extends javax.swing.JFrame {
                     break;
                 }
             }
-            int cAero = this.envio.getActual().getCapacidadMax();
+            int cAero = this.envio.getActual().getCapacidadActual();
             this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
             this.envio.setFechaRecojo(new Date());
+            txt_fechaRec.setText(CValidator.formatDate(this.envio.getFechaRecojo()));
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
             cenvio.guardarEnvio(this.envio);
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

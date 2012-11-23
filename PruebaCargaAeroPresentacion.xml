@@ -62,7 +62,7 @@
     <coordX>458</coordX>
     <coordY>168</coordY>
     <pais>ESP</pais>
-    <ciudad>MAD</ciudad>
+    <ciudad>MADRID</ciudad>
     <estado>ACTV</estado>
   </xml.XmlAeropuertoString>
   <xml.XmlAeropuertoString>
@@ -83,7 +83,7 @@
     <capacidadActual>0</capacidadActual>
     <coordX>886</coordX>
     <coordY>158</coordY>
-    <pais>KOR</pais>
+    <pais>CORS</pais>
     <ciudad>SEUL</ciudad>
     <estado>ACTV</estado>
   </xml.XmlAeropuertoString>
