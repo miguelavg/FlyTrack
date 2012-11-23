@@ -16,6 +16,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Window;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,14 +97,17 @@ public class VuelosAgregar extends javax.swing.JDialog {
         Calendar cal2 = Calendar.getInstance();
         
         if (objVuelo.getFechaLlegada() != null ) {
-           cal1.setTime(objVuelo.getFechaLlegada()); 
-           dt_fechLlega.setSelectedDate(cal1);
+           Sfeclleg.setValue(objVuelo.getFechaLlegada()); 
+           
+          // cal1.setTime(objVuelo.getFechaLlegada()); 
+          // dt_fechLlega.setSelectedDate(cal1);
         }
        
        // cal1.setTime();
         
-        if (objVuelo.getFechaLlegada() != null ) {
-            cal2.setTime(objVuelo.getFechaLlegada());
+        if (objVuelo.getFechaSalida() != null ) {
+           SfechSal.setValue(objVuelo.getFechaSalida()); 
+            //cal2.setTime(objVuelo.getFechaLlegada());
         //    dt_fechLlega.setSelectedDate(cal2);
         }
         
@@ -376,7 +380,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
         
-       if (false) {
+     
         Parametro TipoDoc = null;
          if (cbm_estado.getSelectedIndex()>0) {
             TipoDoc = (Parametro)cbm_estado.getSelectedItem();
@@ -401,8 +405,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
                     CVuelo.agregarVuelo(
                                         aeropuertoOrigen,
                                         aeropuertoDestino,
-                                        dt_fechLlega.getSelectedDate(),
-                                        dt_fechSali.getSelectedDate(),
+                                        (Date)Sfeclleg.getValue(),
+                                        (Date)SfechSal.getValue(),
                                         TipoDoc,
                                         txt_capacidad.getText(),
                                         txt_monto.getText());
@@ -416,8 +420,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                     txt_codigo.getText(),
                                     aeropuertoOrigen,
                                     aeropuertoDestino,
-                                    dt_fechLlega.getSelectedDate(),
-                                    dt_fechSali.getSelectedDate(),
+                                    (Date)Sfeclleg.getValue(),
+                                    (Date)SfechSal.getValue(),
                                     TipoDoc,
                                     txt_capacidad.getText(),
                                     txt_monto.getText()
@@ -426,14 +430,9 @@ public class VuelosAgregar extends javax.swing.JDialog {
               this.dispose();
               
         }          
-        } else {
-            ErrorDialog.mostrarError(error_message, this);
-             
-        } 
+      
        }
-       else {
-       JOptionPane.showInputDialog(SfechSal.getValue().toString() + Sfeclleg.getValue().toString());
-       }
+      
          setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 
