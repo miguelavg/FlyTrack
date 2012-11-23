@@ -116,18 +116,15 @@ public class CEnvio {
         if (envio.getEstado().getValorUnico().equals("VUE")) {
             Aeropuerto destino = null;
             for (Escala escala : envio.getEscalasOrdenadasAsc()) {
-                if (escala.getEstado().equals("EFE")) {
+                if (escala.getEstado().getValorUnico().equals("EFE")) {
                     destino = escala.getVuelo().getDestino();
                 }
             }
             
             if (destino != null) {
-
-
-
-                ret = "Su envío ha despegado con destino al aeropuerto " + envio.getActual() + "\n";
+                ret = "Su envío ha despegado con destino al aeropuerto " + destino + ".\n";
             } else {
-                ret = "Su envío ha despegado con destino al aeropuerto " + envio.getActual() + "\n";
+                ret = "Su envío ha despegado con destino al aeropuerto " + destino + ".\n";
             }
         }
 
@@ -461,7 +458,7 @@ public class CEnvio {
             envio = (Envio) q.uniqueResult();
 
             for (Escala escala : envio.getEscalas()) {
-                escala.getVuelo().getIncidencias();
+                escala.getVuelo().getIncidencias().size();
             }
 
         } catch (Exception e) {
