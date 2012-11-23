@@ -354,10 +354,9 @@ public class PistasDialog extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        listaPistas= new ArrayList<Pista>();
-        
-        
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        listaPistas = new ArrayList<Pista>();
+
         String accion;
         if(cmbAccion.getSelectedIndex() != 0){
             accion = ((Parametro)cmbAccion.getSelectedItem()).getValor();
@@ -367,22 +366,22 @@ public class PistasDialog extends javax.swing.JDialog {
         }
         
         Calendar fechaIni = dtcFechaIni.getSelectedDate();
-        fechaIni.set(Calendar.HOUR_OF_DAY, 0);
-        fechaIni.set(Calendar.MINUTE, 0);
-        fechaIni.set(Calendar.SECOND, 0);
-        
         Calendar fechaFin = dtcFechaFin.getSelectedDate();
-        fechaFin.set(Calendar.HOUR_OF_DAY, 23);
-        fechaFin.set(Calendar.MINUTE, 59);
-        fechaFin.set(Calendar.SECOND, 59);
-        
-        if(fechaIni.before(fechaFin)){
+
+        if(fechaIni != null && fechaFin != null){
+            if(fechaIni.before(fechaFin)){
+                List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
+                llenarTabla(pistas);
+                listaPistas.addAll(pistas);
+            }
+            else{
+                ErrorDialog.mostrarError("La fecha inicial debe ser antes de la fecha final", this);
+            }
+        }
+        else{
             List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
             llenarTabla(pistas);
             listaPistas.addAll(pistas);
-        }
-        else{
-            ErrorDialog.mostrarError("La fecha inicial debe ser menor a la fecha final", this);
         }
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 //        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
@@ -427,11 +426,10 @@ public class PistasDialog extends javax.swing.JDialog {
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, pistads);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
-            Date fechaactual=new Date(); 
-            fechaactual = Calendar.getInstance().getTime(); 
-            String reportDate = df.format(fechaactual);
             
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual = Calendar.getInstance().getTime(); 
+            String reportDate = df.format(fechaactual);
             String nombreReporteLogs = "Reporte de Logs" +reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
             exporter.exportReport();

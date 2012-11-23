@@ -23,54 +23,48 @@ public class PistasDataSource implements JRDataSource{
     private List<Pista> listaPistas = new ArrayList<Pista>();
     private int indicePistas = -1;
     
-        @Override
+    @Override
     public boolean next() throws JRException {
         return ++indicePistas < getListaPistas().size();
     }
 
     @Override
-    
     public Object getFieldValue(JRField jrField) throws JRException
-{ 
-    Object valor = null;  
-
-
-    
-    if("npista".equals(jrField.getName())) 
     { 
-     //valor = getListaPistas().get(indicePistas).;    
-    } 
- 
+        Object valor = null;  
 
+        if("npista".equals(jrField.getName())) 
+        { 
+            valor = indicePistas + 1;    
+        } 
         else if("usuario".equals(jrField.getName())) 
-    { 
-        valor = getListaPistas().get(indicePistas).getUsuario();
-    } 
-    
-                else if("modprincipal".equals(jrField.getName())) 
-    { 
-        valor = getListaPistas().get(indicePistas).getModuloPrincipal();   
-    } 
-                
-                else if("modsecundario".equals(jrField.getName())) 
-    { 
-        valor = getListaPistas().get(indicePistas).getModuloSecundario(); 
-    } 
-                else if("accion".equals(jrField.getName())) 
-    { 
-        valor = getListaPistas().get(indicePistas).getAccion();
-    } 
-                else if("fecha".equals(jrField.getName())) 
-    { 
-        valor = CValidator.formatDate(getListaPistas().get(indicePistas).getFecha());
-    } 
-                else if("mensaje".equals(jrField.getName())) 
-    { 
-        valor = getListaPistas().get(indicePistas).getMensaje();
-    }     
+        { 
+            valor = getListaPistas().get(indicePistas).getUsuario();
+        } 
+        else if("modprincipal".equals(jrField.getName())) 
+        { 
+            valor = getListaPistas().get(indicePistas).getModuloPrincipal();   
+        } 
+        else if("modsecundario".equals(jrField.getName())) 
+        { 
+            valor = getListaPistas().get(indicePistas).getModuloSecundario(); 
+        } 
+        else if("accion".equals(jrField.getName())) 
+        { 
+            valor = getListaPistas().get(indicePistas).getAccion();
+        } 
+        else if("fecha".equals(jrField.getName())) 
+        { 
+            valor = CValidator.formatDate(getListaPistas().get(indicePistas).getFecha());
+        } 
+        else if("mensaje".equals(jrField.getName())) 
+        { 
+            valor = getListaPistas().get(indicePistas).getMensaje();
+        }     
     return valor; 
-}
-        public List<Pista> getListaPistas(){
+    }
+    
+    public List<Pista> getListaPistas(){
         return listaPistas;
     }
 
