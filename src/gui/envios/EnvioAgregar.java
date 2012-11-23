@@ -1165,7 +1165,6 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 llenarCombos(this.isNuevo, this.moneda, this.doc, this.estado, this.estadoFactura);
                 this.txt_numEnvio.setText(String.valueOf(this.envio.getIdEnvio()));
                 this.txt_numDoc.setText(String.valueOf(this.envio.getNumDocVenta()));
-                cenvio.guardarEnvio(this.envio);
 
                 deshabilitarCampos();
                 habilitarBotones(this.isNuevo);
