@@ -315,8 +315,10 @@ public class NotaSalida extends javax.swing.JDialog {
                 Map parametro = new HashMap();
                 String nombreempleado=Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos();
                 String horaactual=dateFormat.format(calendar.getTime()).substring(11, 16);
+                String fechaactualaux=dateFormat.format(calendar.getTime()).substring(0, 10);
                 parametro.put("empleado",nombreempleado );
                 parametro.put("horaactual",horaactual);
+                parametro.put("fechaactual",fechaactualaux);
                 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
                 JRExporter exporter = new JRPdfExporter();
