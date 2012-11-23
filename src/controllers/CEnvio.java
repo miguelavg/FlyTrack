@@ -403,7 +403,11 @@ public class CEnvio {
             Query q = s.getNamedQuery("EnvioID");
             q.setParameter("idenvio", id);
             envio = (Envio) q.uniqueResult();
-            envio.getEscalas().size();
+            
+            for(Escala escala : envio.getEscalas()){
+                escala.getVuelo().getIncidencias();
+            }
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
