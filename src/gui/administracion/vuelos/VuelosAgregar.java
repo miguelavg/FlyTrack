@@ -63,7 +63,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
              lbl_codigo.setVisible(true);
             }
             else{
-                cbm_estado.setSelectedIndex(1);
+                //cbm_estado.setSelectedIndex(1);
                 cbm_estado.setEnabled(false);
             }
             
@@ -85,6 +85,10 @@ public class VuelosAgregar extends javax.swing.JDialog {
                     Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
 
                     cbm_estado.addItem(TipoDocBE);
+                    
+                    if(TipoDocBE.getValorUnico().equals("PROG")){
+                        cbm_estado.setSelectedItem(TipoDocBE);
+                    }
                 }
             }
     
@@ -401,7 +405,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
            if (indicador != -1){
 
                     cbm_estado.setEnabled(false);
-                    cbm_estado.setSelectedIndex(1);
+                    //cbm_estado.setSelectedIndex(1);
                     CVuelo.agregarVuelo(
                                         aeropuertoOrigen,
                                         aeropuertoDestino,
