@@ -1156,7 +1156,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 llenarEscalas(this.envio);
                 this.isNuevo = false;
 
-                //cenvio.guardarEnvio(this.envio);
+                int capacidad = envio.getActual().getCapacidadActual();
+                envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
 
                 this.envio.setNumDocVenta(CEnvio.getNextNumDoc(doc.getValorUnico()));
                 cenvio.guardarEnvio(this.envio);
@@ -1281,13 +1282,14 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
                 return;
             }
+            DateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy HH_mm");
             Map parametro = new HashMap();
             String nombreempleado = Sesion.getUsuario().getNombres() + " " + Sesion.getUsuario().getApellidos();
-            //String horaactual = dateFormat.format(calendar.getTime()).substring(11, 16);
-            //String fechaactualaux = dateFormat.format(calendar.getTime()).substring(0, 10);
+            String horaactual = dateFormat.format(this.envio.getFechaRecojo()).substring(11, 16);
+            String fechaactualaux = dateFormat.format(this.envio.getFechaRecojo()).substring(0, 10);
             parametro.put("empleado", nombreempleado);
-            //parametro.put("horaactual", horaactual);
-            //parametro.put("fechaactual", fechaactualaux);
+            parametro.put("horaactual", horaactual);
+            parametro.put("fechaactual", fechaactualaux);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
             JRExporter exporter = new JRPdfExporter();

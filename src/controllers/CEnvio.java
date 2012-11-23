@@ -342,8 +342,8 @@ public class CEnvio {
                 }
             }
 
-            capacidad = envio.getActual().getCapacidadActual();
-            envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
+            //capacidad = envio.getActual().getCapacidadActual();
+            //envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {

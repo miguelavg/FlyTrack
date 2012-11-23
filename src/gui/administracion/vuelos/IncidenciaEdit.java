@@ -9,6 +9,7 @@ import beans.Parametro;
 import beans.Vuelo;
 import controllers.CIncidencia;
 import controllers.CVuelo;
+import gui.InformationDialog;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -351,16 +352,27 @@ public class IncidenciaEdit extends javax.swing.JDialog {
         String val;
         String valorPara;
         val = objInc.getEstado().getValorUnico();
+        String mensaje;
 
         if (val.compareTo("DES") == 0) //DESPEGUE -- > EN VUELO 16
         {
             valorPara = "VUE";
+            int capacidadA = objV.getOrigen().getCapacidadActual();
             cambiarEstado(objInc.getVuelo(), valorPara);
+            int capacidadD = objV.getOrigen().getCapacidadActual();
+            mensaje = "Salieron " + objV.getCapacidadActual() + " paquetes del almacén " + objV.getOrigen();
+            mensaje = mensaje + " (" + capacidadA + " -> " + capacidadD + ")";
+            InformationDialog.mostrarInformacion(mensaje, this);
         }
         if (val.compareTo("ATE") == 0)//ATERRIZAJE --> FINALIZADO 17
         {
             valorPara = "FIN";
+            int capacidadA = objV.getDestino().getCapacidadActual();
             cambiarEstado(objInc.getVuelo(), valorPara);
+            int capacidadD = objV.getDestino().getCapacidadActual();
+            mensaje = "Llegaron " + objV.getCapacidadActual() + " paquetes al almacén " + objV.getDestino();
+            mensaje = mensaje + " (" + capacidadA + " -> " + capacidadD + ")";
+            InformationDialog.mostrarInformacion(mensaje, this);
         }
         if (val.compareTo("RET") == 0) // RETRASO --> retraso 15
         {
@@ -377,6 +389,11 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void cambiarEstado(Vuelo objVuelo, String valorPara) {
         CVuelo.modificarVueloEstado(objVuelo, valorPara);
-        CVuelo.modificarEscalas(objVuelo);
+        int f = CVuelo.modificarEscalas(objVuelo);
+        
+        if(f > 0){
+            String mensaje = "No se pudieron repogramar " + f + " envíos. Pasarán a estado Indeterminado. Se deberá asignar ruta manualmente.";
+            InformationDialog.mostrarInformacion(mensaje, this);
+        }
     }
 }
