@@ -44,6 +44,23 @@ public class CEnvio {
         return p;
     }
 
+    public ArrayList<Parametro> getMonedas(){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        ArrayList<Parametro> p = null;
+        try {
+            Query q;
+            q = s.getNamedQuery("MonedasDolarTC");
+            p = (ArrayList<Parametro>) q.list();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return p;
+    }
+    
     private static String genMailRem(Envio envio) {
         String ret;
 
@@ -458,4 +475,6 @@ public class CEnvio {
         }
         return numDoc;
     }
+
+    
 }
