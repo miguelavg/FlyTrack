@@ -50,8 +50,6 @@ public class ParametroEdit extends javax.swing.JDialog {
             this.isNuevo = false;
             this.txt_tipo.setEnabled(false);
             this.txt_valorUnico.setEnabled(false);
-        } else {
-            this.parametro = new Parametro();
         }
 
         if (this.isNuevo) {
@@ -312,6 +310,10 @@ public class ParametroEdit extends javax.swing.JDialog {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         CParametro cparametro = new CParametro();
+        
+        if(this.isNuevo){
+            this.parametro = new Parametro();
+        }
         
         String error_message = cparametro.validar(this.parametro, isNuevo, this.txt_valor.getText(), this.txt_valorUnico.getText(), this.txt_tipo.getText());
         if (error_message == null || error_message.isEmpty()) {

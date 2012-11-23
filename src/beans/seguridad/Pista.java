@@ -5,6 +5,11 @@
 package beans.seguridad;
 import java.util.Date;
 import javax.persistence.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
 /**
  *
  * @author msolorzano
@@ -13,7 +18,19 @@ import javax.persistence.*;
 @Entity
 @Table(name="Pista")
 @NamedQueries({
-    @NamedQuery(name = "Pistas", query = "from Pista"),
+    @NamedQuery(name = "Pistas", query = "from Pista order by fecha desc"),
+})
+@FilterDefs({
+    @FilterDef(name = "PistasXUsuario" , parameters = @ParamDef(name = "usuario", type = "string")),
+    @FilterDef(name = "PistasXFechaIni", parameters = @ParamDef(name = "fechaIni"  , type = "timestamp")),
+    @FilterDef(name = "PistasXFechaFin", parameters = @ParamDef(name = "fechaFin"  , type = "timestamp")),
+    @FilterDef(name = "PistasXAccion"  , parameters = @ParamDef(name = "accion" , type = "string")),
+})
+@Filters({
+    @Filter(name = "PistasXUsuario" , condition = "usuario = :usuario"),
+    @Filter(name = "PistasXFechaIni", condition = "fecha >= :fechaIni"),
+    @Filter(name = "PistasXFechaFin", condition = "fecha <= :fechaFin"),
+    @Filter(name = "PistasXAccion"  , condition = "accion = :accion"),
 })
 public class Pista {
     @Id

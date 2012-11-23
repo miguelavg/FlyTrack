@@ -1,0 +1,20 @@
+<list>
+  <xml.xmlVueloString>
+    <costoAlquiler>2000.0</costoAlquiler>
+    <capacidadMax>100</capacidadMax>
+    <capacidadActual>50</capacidadActual>
+    <anosal>2013</anosal>
+    <messal>12</messal>
+    <diasal>23</diasal>
+    <horasal>10</horasal>
+    <minsal>10</minsal>
+    <anolle>2013</anolle>
+    <meslle>10</meslle>
+    <dialle>23</dialle>
+    <horalle>10</horalle>
+    <minlle>30</minlle>
+    <estado>PROG</estado>
+    <origen>Jorge Soto</origen>
+    <destino>Bolívar</destino>
+  </xml.xmlVueloString>  
+</list>

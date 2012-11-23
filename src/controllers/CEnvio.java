@@ -44,6 +44,23 @@ public class CEnvio {
         return p;
     }
 
+    public ArrayList<Parametro> getMonedas(){
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        ArrayList<Parametro> p = null;
+        try {
+            Query q;
+            q = s.getNamedQuery("MonedasDolarTC");
+            p = (ArrayList<Parametro>) q.list();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+        return p;
+    }
+    
     private static String genMailRem(Envio envio) {
         String ret;
 
@@ -97,14 +114,12 @@ public class CEnvio {
 
     public static void enviarCorreos(Envio envio) {
         try {
-            new CMail().sendMail("flytrack.no.reply@gmail.com",
-                    "manuelmanuel",
+            new CMail().sendMail(
                     envio.getRemitente().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
                     genMailRem(envio));
 
-            new CMail().sendMail("flytrack.no.reply@gmail.com",
-                    "manuelmanuel",
+            new CMail().sendMail(
                     envio.getDestinatario().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
                     genMailDest(envio));
@@ -458,4 +473,42 @@ public class CEnvio {
         }
         return numDoc;
     }
+    
+    public static Date getFechaSalidaReal(Escala escala){
+        Vuelo v = escala.getVuelo();
+        Date d = null;
+        
+        for(Incidencia i : v.getIncidencias()){
+            if(i.getEstado().getValorUnico().equals("DES")){
+                d = i.getFecha();
+                break;
+            }
+        }
+        
+        if(d == null) {
+            d = v.getFechaSalida();
+        }
+        
+        return d;
+    }
+    
+    public static Date getFechaLlegadaReal(Escala escala){
+        Vuelo v = escala.getVuelo();
+        Date d = null;
+        
+        for(Incidencia i : v.getIncidencias()){
+            if(i.getEstado().getValorUnico().equals("ATE")){
+                d = i.getFecha();
+                break;
+            }
+        }
+        
+        if(d == null) {
+            d = v.getFechaLlegada();
+        }
+        
+        return d;
+    }
+
+    
 }

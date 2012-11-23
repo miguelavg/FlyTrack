@@ -17,8 +17,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -29,37 +36,54 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     /**
      * Creates new form MonitoreoFrame
      */
-    public boolean bandera=true; 
+    public boolean bandera = true;
     beans.Aeropuerto objAero = null;
     private List<Aeropuerto> ListaAeropuerto = null;
+
     public MonitoreoFrame(beans.Aeropuerto ObjAero) {
         initComponents();
         this.setLocationRelativeTo(null);
-         ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
+        ListaAeropuerto = CAeropuerto.GenerarListaAeropuerto();
         objAero = ObjAero;
     }
-     
+
     public Aeropuerto ShowDialog() {
 
-      setVisible(true);
-       
-      return objAero;
+        pintar(this.getGraphics());
+        setVisible(true);
+
+        return objAero;
+    }
+
+    @Override
+    protected JRootPane createRootPane() {
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                setVisible(false);
+                dispose();
+            }
+        };
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
+
+        return rootPane;
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-       
-       
         pintar(g);
-        if (bandera ==false ){
-       
-        bandera =true;
-        this.update(g);  
-        
-        //this.repaint();
-        }       
-    
+        if (bandera == false) {
+            bandera = true;
+            this.update(g);
+            //this.repaint();
+        }
+
     }
 
     /**
@@ -104,25 +128,23 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         // TODO add your handling code here:
         bandera = true;
         Graphics c = this.getGraphics();
-       // pintar();
-         c.setColor(Color.ORANGE);
-           c.fillOval(evt.getX(),evt.getY(), 10,10 );
-        c.drawOval(evt.getX(),evt.getY(), 10,10 );
-       
-      int result =   JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posición?", "Advertencia", JOptionPane.YES_NO_OPTION);
-         if (JOptionPane.YES_OPTION == result) {
-             objAero.setCoordX(evt.getX());
-             
-             objAero.setCoordY(evt.getY());
-             this.dispose();
-         }
-         else {
-             bandera = false;
-             paint(c);
-         }
+        // pintar();
+        c.setColor(Color.ORANGE);
+        c.fillOval(evt.getX(), evt.getY(), 10, 10);
+        c.drawOval(evt.getX(), evt.getY(), 10, 10);
+
+        int result = JOptionPane.showConfirmDialog(this, "Desea Guardar la nueva posición?", "Advertencia", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.YES_OPTION == result) {
+            objAero.setCoordX(evt.getX());
+
+            objAero.setCoordY(evt.getY());
+            this.dispose();
+        } else {
+            bandera = false;
+            paint(c);
+        }
     }//GEN-LAST:event_lbl_mapaMouseClicked
 
-   
     /**
      * @param args the command line arguments
      */
@@ -161,27 +183,27 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_mapa;
     // End of variables declaration//GEN-END:variables
 
-    private void pintar( Graphics c) {
-        
-       
-        
-        for (int j = 0; j <ListaAeropuerto.size(); j++){
-            
-                 c.setColor(Color.BLACK);
-                 
-                 c.drawString(ListaAeropuerto.get(j).getPais().getValor()+'-'+ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX()+15, ListaAeropuerto.get(j).getCoordY());
-                 c.setColor(Color.red);
-                 c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
-              
-                 c.drawOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );
-                // c.draw3DRect(, rootPaneCheckingEnabled);
-                         
-                // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );       
-           }  
-        
+    private void pintar(Graphics c) {
+
+
+
+        for (int j = 0; j < ListaAeropuerto.size(); j++) {
+
+            c.setColor(Color.BLACK);
+
+            c.drawString(ListaAeropuerto.get(j).getPais().getValor() + '-' + ListaAeropuerto.get(j).getNombre(), ListaAeropuerto.get(j).getCoordX() + 15, ListaAeropuerto.get(j).getCoordY());
+            c.setColor(Color.red);
+            c.fillOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10, 10);
+
+            c.drawOval(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10, 10);
+            // c.draw3DRect(, rootPaneCheckingEnabled);
+
+            // c.drawRect(ListaAeropuerto.get(j).getCoordX(), ListaAeropuerto.get(j).getCoordY(), 10,10 );       
+        }
+
         c.setColor(Color.GREEN);
-        c.fillOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
-              
-        c.drawOval(objAero.getCoordX(),objAero.getCoordY(), 10,10 );
+        c.fillOval(objAero.getCoordX(), objAero.getCoordY(), 10, 10);
+
+        c.drawOval(objAero.getCoordX(), objAero.getCoordY(), 10, 10);
     }
 }

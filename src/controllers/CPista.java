@@ -8,6 +8,7 @@ import beans.Sesion;
 import beans.seguridad.Pista;
 import beans.seguridad.Usuario;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.*;
 
@@ -90,6 +91,43 @@ public class CPista {
             return (List<Pista>)q.list();
         } catch(Exception e){
 //            System.out.println("CSeguridad.verificarContrasenia - ERROR: " + e.getMessage());
+            return null;
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
+    
+    public static List<Pista> obtenerPistas(String username, String accion,
+                                            Calendar fechaIni, Calendar fechaFin){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Query q = s.getNamedQuery("Pistas");
+            Filter filter;
+            
+            if(username != null && !username.isEmpty()){
+                filter = s.enableFilter("PistasXUsuario");
+                filter.setParameter("usuario", username);
+            }
+            
+            if(accion != null && !accion.isEmpty()){
+                filter = s.enableFilter("PistasXAccion");
+                filter.setParameter("accion", accion);
+            }
+            
+            if(fechaIni != null){
+                filter = s.enableFilter("PistasXFechaIni");
+                filter.setParameter("fechaIni", fechaIni.getTime());
+            }
+            
+            if(fechaFin != null){
+                filter = s.enableFilter("PistasXFechaFin");
+                filter.setParameter("fechaFin", fechaFin.getTime());
+            }
+            
+            return (List<Pista>)q.list();
+        } catch(Exception e){
+            System.out.println("CPista.obtenerPistas - ERROR: " + e.getMessage() + accion + "/" + username + "/" + fechaIni.getTime() + "/" + fechaFin.getTime());
             return null;
         } finally{
             s.close();

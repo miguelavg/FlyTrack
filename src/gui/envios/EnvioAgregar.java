@@ -9,6 +9,7 @@ import controllers.*;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import gui.clientes.ClientesPopUp;
+import gui.reportes.EnvioDataSource;
 import gui.reportes.EscalaDataSource;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.InputMap;
@@ -41,7 +44,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author miguelavg
  */
-public class EnvioAgregar extends javax.swing.JDialog {
+public class EnvioAgregar extends javax.swing.JFrame {
 
     /**
      * Creates new form Envio
@@ -62,9 +65,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private boolean wasNuevo;
     private double iva;
     EscalaDataSource escalads;
+    EnvioDataSource enviods;
 
-    public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
-        super(parent, modal);
+    public EnvioAgregar(Envio envio, javax.swing.JFrame parent) {
+        //super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.isNuevo = true;
@@ -123,17 +127,29 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.origen = Sesion.getUsuario().getIdAeropuerto();
             } else {
                 this.origen = null;
+            }
 
+            if (this.origen != null) {
+
+                this.actual = this.origen;
+
+                this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
+                this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
+
+                Parametro pIva;
+                List<Parametro> params = CParametro.buscar(null, null, "IVA", this.origen.getCiudad());
+                if (params != null && !params.isEmpty()) {
+                    pIva = params.get(0);
+                } else {
+                    pIva = CParametro.buscarXValorUnicoyTipo("IVA", "IVA");
+                }
+
+                if (pIva != null) {
+                    this.iva = Double.parseDouble(pIva.getValor());
+                    this.lbl_iva.setText("IVA(" + CValidator.formatNumber(this.iva * 100) + "%):");
+                }
             }
-            this.actual = this.origen;
-            this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
-            this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
-            List<Parametro> params = CParametro.buscar(null, "IVA", "IVA", null);
-            if (params != null) {
-                Parametro pIva = params.get(0);
-                this.iva = Double.parseDouble(pIva.getValor());
-                this.lbl_iva.setText("IVA(" + CValidator.formatNumber(this.iva * 100) + "%):");
-            }
+
         }
 
         if (this.isNuevo) {
@@ -166,7 +182,10 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
     private void llenarCombos(boolean isNuevo, Parametro moneda, Parametro doc, Parametro estado, Parametro estadoFactura) {
         CEnvio cenvio = new CEnvio();
-        ArrayList<Parametro> monedas = cenvio.llenarCombo("TIPO_MONEDA");
+        ArrayList<Parametro> monedas = cenvio.getMonedas();
+        Parametro dol = CParametro.buscarXValorUnicoyTipo("TIPO_MONEDA", "DOL");
+        monedas.add(dol);
+
         ArrayList<Parametro> docs = cenvio.llenarCombo("TIPO_DOC_PAGO_ENVIO");
         ArrayList<Parametro> estados = cenvio.llenarCombo("ESTADO_ENVIO");
         ArrayList<Parametro> estadosFactura = cenvio.llenarCombo("ESTADO_FACTURA");
@@ -273,8 +292,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
             datos[1] = e.getVuelo().getIdVuelo();
             datos[2] = e.getVuelo().getOrigen().getNombre() + ", " + e.getVuelo().getOrigen().getCiudad() + ", " + e.getVuelo().getOrigen().getPais();
             datos[3] = e.getVuelo().getDestino().getNombre() + ", " + e.getVuelo().getDestino().getCiudad() + ", " + e.getVuelo().getDestino().getPais();
-            datos[4] = e.getVuelo().getFechaSalida();
-            datos[5] = e.getVuelo().getFechaLlegada();
+            datos[4] = CValidator.formatDate(CEnvio.getFechaSalidaReal(e));
+            datos[5] = CValidator.formatDate(CEnvio.getFechaLlegadaReal(e));
             datos[6] = e.getEstado();
 
             dtm.addRow(datos);
@@ -542,7 +561,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        lbl_iva.setText("IVA");
+        lbl_iva.setText("IVA:");
 
         jLabel13.setText("Num. paquetes:");
 
@@ -1039,29 +1058,32 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_destinoActionPerformed
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true, actual.getIdAeropuerto());
-        destino = aeropuertoPU.showDialog();
-        if (destino != null && destino.getNombre() != null) {
-            txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
 
-            CEnvio cenvio = new CEnvio();
-            String error_message = cenvio.verificarTarifa(origen, destino);
+        if (actual != null) {
+            AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true, actual.getIdAeropuerto());
+            destino = aeropuertoPU.showDialog();
+            if (destino != null && destino.getNombre() != null) {
+                txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
 
-            if (error_message == null || error_message.isEmpty()) {
-                this.tarifa = cenvio.calcularTarifa(origen, destino);
-                double vTipoCambio = 1;
-                if (this.tipoCambio != null) {
-                    vTipoCambio = this.tipoCambio.getTipoCambio();
+                CEnvio cenvio = new CEnvio();
+                String error_message = cenvio.verificarTarifa(origen, destino);
+
+                if (error_message == null || error_message.isEmpty()) {
+                    this.tarifa = cenvio.calcularTarifa(origen, destino);
+                    double vTipoCambio = 1;
+                    if (this.tipoCambio != null) {
+                        vTipoCambio = this.tipoCambio.getTipoCambio();
+                    }
+
+                    txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+                    recalcular();
+                } else {
+                    ErrorDialog.mostrarError(error_message, this);
+                    this.tarifa = null;
                 }
-
-                txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-                recalcular();
             } else {
-                ErrorDialog.mostrarError(error_message, this);
-                this.tarifa = null;
+                txt_destino.setText("");
             }
-        } else {
-            txt_destino.setText("");
         }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
@@ -1118,12 +1140,12 @@ public class EnvioAgregar extends javax.swing.JDialog {
 
             int numPaquetes = this.envio.getNumPaquetes();
             double unitario = tarifa.getMonto();
-            double impuesto = Double.parseDouble(txt_iva.getText());
+            double impuesto = this.iva;
             double vTipoCambio = 1;
             if (this.tipoCambio != null) {
                 vTipoCambio = this.tipoCambio.getTipoCambio();
             }
-            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto/100);
+            double total = vTipoCambio * numPaquetes * unitario * (1 + impuesto);
 
             this.envio.setUnitario(unitario * vTipoCambio);
             this.envio.setMonto(total);
@@ -1239,8 +1261,57 @@ public class EnvioAgregar extends javax.swing.JDialog {
             cenvio.guardarEnvio(this.envio);
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
-        NotaSalida NotaSalida = new NotaSalida(this, true, this.envio);
-        NotaSalida.setVisible(true);
+//        NotaSalida NotaSalida = new NotaSalida(this, true, this.envio);
+//        NotaSalida.setVisible(true);
+        
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        
+        enviods = new EnvioDataSource();
+        enviods.setEnvio(this.envio);
+
+        try {
+            String master = System.getProperty("user.dir")
+                    + "/src/gui/reportes/nota_salida.jasper";
+
+            JasperReport masterReport = null;
+            try {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            } catch (JRException e) {
+
+                return;
+            }
+            Map parametro = new HashMap();
+            String nombreempleado = Sesion.getUsuario().getNombres() + " " + Sesion.getUsuario().getApellidos();
+            String horaactual = dateFormat.format(calendar.getTime()).substring(11, 16);
+            String fechaactualaux = dateFormat.format(calendar.getTime()).substring(0, 10);
+            parametro.put("empleado", nombreempleado);
+            parametro.put("horaactual", horaactual);
+            parametro.put("fechaactual", fechaactualaux);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual = new Date();
+            fechaactual = Calendar.getInstance().getTime();
+            String reportDate = df.format(fechaactual);
+
+            String nombredocBoleta = "Nota de salida_" + this.envio.getNumDocVenta() + "_" + reportDate + ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+            exporter.exportReport();
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            //setModal(false);
+            jviewer.setTitle(nombredocBoleta);
+            jviewer.setVisible(true);
+            jviewer.setAlwaysOnTop(true);
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_outActionPerformed
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
@@ -1402,7 +1473,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EnvioAgregar(null, new javax.swing.JDialog(), true).setVisible(true);
+                new EnvioAgregar(null, new javax.swing.JFrame()).setVisible(true);
             }
         });
     }

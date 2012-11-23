@@ -13,7 +13,15 @@ import controllers.CPerfil;
 import controllers.CUsuario;
 import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +35,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
      */
     public UsuarioPopup() {
         initComponents();
+        setLocationRelativeTo(null);
         listaCargada = false;
     }
 
@@ -71,7 +80,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
             datos[1] = usr.getNombres();
             datos[2] = usr.getApellidos();
             datos[3] = usr.getPerfil().getNombre();
-            datos[4] = usr.getIdAeropuerto().getNombre();
+            datos[4] = usr.getIdAeropuerto() != null ? usr.getIdAeropuerto().getNombre(): null;
             datos[5] = usr.getEstado();
             datos[6] = usr.geteMail();
             datos[7] = usr.getTipoDoc();
@@ -79,6 +88,33 @@ public class UsuarioPopup extends javax.swing.JDialog {
 
             dtm.addRow(datos);
         }
+    }
+    
+    protected JRootPane createRootPane() { 
+        JRootPane rootPane = new JRootPane();
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+              usuario = null;
+              setVisible(false);
+              dispose();
+          } 
+        } ;
+        inputMap.put(stroke, "EXIT");
+        rootPane.getActionMap().put("EXIT", accion);
+        
+        stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        accion = new AbstractAction() { 
+          public void actionPerformed(ActionEvent actionEvent) { 
+            btn_buscar.doClick();
+          } 
+        } ;
+        inputMap.put(stroke, "BUSCAR");
+        rootPane.getActionMap().put("BUSCAR", accion);
+
+        return rootPane;
     }
 
     /**
