@@ -48,7 +48,7 @@ public class CEnvio {
         return p;
     }
 
-    public ArrayList<Parametro> getMonedas(){
+    public ArrayList<Parametro> getMonedas() {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         ArrayList<Parametro> p = null;
@@ -64,31 +64,79 @@ public class CEnvio {
         }
         return p;
     }
-    
-    private static String genMailRem(Envio envio) {
-        String ret;
 
-        ret = "Su envío está en estado " + envio.getEstado().getValor() + ".\n";
+    private static String genMail(Envio envio, boolean siRemitente) {
+        String ret = "";
 
-        ret = ret + "Su bitácora es la siguiente: \n";
+        if (envio.getEstado().getValorUnico().equals("PROG")) {
+            if (!siRemitente) {
+                ret = "Se ha registrado un envío para usted de " + envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos() + "\n";
+            } else {
+                ret = "Usted ha registrado un envío para " + envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos() + "\n";
+            }
 
-        for (Escala escala : envio.getEscalasOrdenadasAsc()) {
-            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen().getNombre() + ", " + escala.getVuelo().getOrigen().getCiudad() + ", " + escala.getVuelo().getOrigen().getPais()  + " - " + escala.getVuelo().getDestino().getNombre() + ", " + escala.getVuelo().getDestino().getCiudad() + ", " + escala.getVuelo().getDestino().getPais() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
         }
 
-        ret = ret + "\n" + "Soporte FlyTrack";
-        return ret;
-    }
+        if (envio.getEstado().getValorUnico().equals("XREC")) {
+            if (!siRemitente) {
+                ret = "El envío ha llegado a su destino y puede pasar a recogerlo al aeropuerto " + envio.getActual() + "\n";
+            } else {
+                ret = "Su envío ha llegado a su destino y está pendiente de ser recojido por " + envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos() + "\n";
+            }
+        }
 
-    private static String genMailDest(Envio envio) {
-        String ret;
+        if (envio.getEstado().getValorUnico().equals("REC")) {
+            if (!siRemitente) {
+                ret = "Usted ha recogido su envío. Gracias por utilizar nuestros servicios.\n";
+            } else {
+                ret = "Su envío ha sido recojido por " + envio.getDestinatario().getNombres() + " " + envio.getDestinatario().getApellidos() + "\n";
+            }
+        }
 
-        ret = "Se ha registrado un envío para usted. El estado es " + envio.getEstado().getValor() + ".\n";
+        if (envio.getEstado().getValorUnico().equals("IND")) {
+            if (!siRemitente) {
+                ret = "Se ha cancelado un vuelo en el que su envío iba a viajar y no se ha podido regenerar una ruta válida. Se le contactará en breve.\n";
+            } else {
+                ret = "Se ha cancelado un vuelo en el que su envío iba a viajar y no se ha podido regenerar una ruta válida. Se le contactará en breve.\n";
+            }
+        }
 
-        ret = ret + "Su bitácora es la siguiente: \n";
+        if (envio.getEstado().getValorUnico().equals("CAN")) {
+            if (!siRemitente) {
+                ret = "Se ha anulado su envío.\n";
+            } else {
+                ret = "Se ha anulado su envío.\n";
+            }
+        }
+
+        if (envio.getEstado().getValorUnico().equals("ESC")) {
+            if (!siRemitente) {
+                ret = "Su envío ha aterrizado en el aeropuerto " + envio.getActual() + "\n";
+            } else {
+                ret = "Su envío ha aterrizado en el aeropuerto " + envio.getActual() + "\n";
+            }
+        }
+
+        if (envio.getEstado().getValorUnico().equals("VUE")) {
+            Aeropuerto destino = null;
+            for (Escala escala : envio.getEscalasOrdenadasAsc()) {
+                if (escala.getEstado().getValorUnico().equals("EFE")) {
+                    destino = escala.getVuelo().getDestino();
+                }
+            }
+            
+            if (destino != null) {
+                ret = "Su envío ha despegado con destino al aeropuerto " + destino + ".\n";
+            } else {
+                ret = "Su envío ha despegado con destino al aeropuerto " + destino + ".\n";
+            }
+        }
+
+
+        ret = ret + "\n" + "Su bitácora es la siguiente: \n";
 
         for (Escala escala : envio.getEscalasOrdenadasAsc()) {
-            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen().getNombre() + ", " + escala.getVuelo().getOrigen().getCiudad() + ", " + escala.getVuelo().getOrigen().getPais()  + " - " + escala.getVuelo().getDestino().getNombre() + ", " + escala.getVuelo().getDestino().getCiudad() + ", " + escala.getVuelo().getDestino().getPais() + " : " + CValidator.formatDate(escala.getVuelo().getFechaSalida()) + " -> " + CValidator.formatDate(escala.getVuelo().getFechaLlegada()) + "\n";
+            ret = ret + "+ " + escala.getEstado().getValor() + " >>" + escala.getVuelo().getOrigen().getNombre() + ", " + escala.getVuelo().getOrigen().getCiudad() + ", " + escala.getVuelo().getOrigen().getPais() + " - " + escala.getVuelo().getDestino().getNombre() + ", " + escala.getVuelo().getDestino().getCiudad() + ", " + escala.getVuelo().getDestino().getPais() + " : " + CValidator.formatDate(CEnvio.getFechaSalidaReal(escala)) + " -> " + CValidator.formatDate(CEnvio.getFechaLlegadaReal(escala)) + "\n";
         }
 
         ret = ret + "\n" + "Soporte FlyTrack";
@@ -118,17 +166,15 @@ public class CEnvio {
 
     public static void enviarCorreos(Envio envio) {
         try {
-            new CMail().sendMail("flytrack.no.reply@gmail.com",
-                    "manuelmanuel",
+            new CMail().sendMail(
                     envio.getRemitente().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
-                    genMailRem(envio));
+                    genMail(envio, true));
 
-            new CMail().sendMail("flytrack.no.reply@gmail.com",
-                    "manuelmanuel",
+            new CMail().sendMail(
                     envio.getDestinatario().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
-                    genMailDest(envio));
+                    genMail(envio, false));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -228,8 +274,13 @@ public class CEnvio {
 
             for (Aeropuerto a : aeros) {
 
-                a.getVuelosSalida().size();
-                a.getVuelosLlegada().size();
+                for(Vuelo v : a.getVuelosSalida()){
+                    v.getIncidencias().size();
+                }
+                
+                for(Vuelo v : a.getVuelosLlegada()){
+                    v.getIncidencias().size();
+                }
 
                 if (a.getIdAeropuerto() == envio.getOrigen().getIdAeropuerto()) {
                     envio.setOrigen(a);
@@ -295,8 +346,8 @@ public class CEnvio {
                 }
             }
 
-            capacidad = envio.getActual().getCapacidadActual();
-            envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
+            //capacidad = envio.getActual().getCapacidadActual();
+            //envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -409,7 +460,11 @@ public class CEnvio {
             Query q = s.getNamedQuery("EnvioID");
             q.setParameter("idenvio", id);
             envio = (Envio) q.uniqueResult();
-            envio.getEscalas().size();
+
+            for (Escala escala : envio.getEscalas()) {
+                escala.getVuelo().getIncidencias().size();
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -561,7 +616,6 @@ public class CEnvio {
                 Filter f_destino = s.enableFilter("EnviosXDestino");
                 f_destino.setParameter("idAeropuerto", PaisDestino.getIdAeropuerto());
             }
-
             if (fechini != null) {
                 ini = fechini.getTime();
                 Filter f_inisalida = s.enableFilter("EnviosXFechaIni");
@@ -590,16 +644,40 @@ public class CEnvio {
         return ListaEnvio;
 
     }
-      /*
-       * @org.hibernate.annotations.Filter(name = "EnviosXOrigen", condition = "idOrigen = :idAeropuerto"),
-    @org.hibernate.annotations.Filter(name = "EnviosXDestino", condition = "idDestino = :idAeropuerto"),
-    @org.hibernate.annotations.Filter(name = "EnviosXActual", condition = "idActual = :idAeropuerto"),
-    @org.hibernate.annotations.Filter(name = "EnviosXEstado", condition = "Estado = :idEstado"),
-    @org.hibernate.annotations.Filter(name = "EnviosXCliente", condition = "idRemitente = :idCliente or idDestinatario = :idCliente"),
-    @org.hibernate.annotations.Filter(name = "EnviosXNumEnvio", condition = "idEnvio = :numEnvio"),
-    @org.hibernate.annotations.Filter(name = "EnviosXFechaIni", condition = "fecharegistro < :fecharegistro"),
-    @org.hibernate.annotations.Filter(name = "EnviosXFechaFin", condition = "fecharegistro > :fecharegistro"),
-    @org.hibernate.annotations.Filter(name = "EnviosXTipoDoc", condition = "tipodocventa = :tipodocventa"),
-       */
-    
+
+      public static Date getFechaSalidaReal(Escala escala) {
+        Vuelo v = escala.getVuelo();
+        Date d = null;
+
+        for (Incidencia i : v.getIncidencias()) {
+            if (i.getEstado().getValorUnico().equals("DES")) {
+                d = i.getFecha();
+                break;
+            }
+        }
+
+        if (d == null) {
+            d = v.getFechaSalida();
+        }
+
+        return d;
+    }
+
+    public static Date getFechaLlegadaReal(Escala escala) {
+        Vuelo v = escala.getVuelo();
+        Date d = null;
+
+        for (Incidencia i : v.getIncidencias()) {
+            if (i.getEstado().getValorUnico().equals("ATE")) {
+                d = i.getFecha();
+                break;
+            }
+        }
+
+        if (d == null) {
+            d = v.getFechaLlegada();
+        }
+
+        return d;
+    }
 }
