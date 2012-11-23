@@ -399,6 +399,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
+        
         llenarGrillaAero();
         
     }//GEN-LAST:event_btnBuscarActionPerformed
