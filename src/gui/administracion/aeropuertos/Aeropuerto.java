@@ -327,7 +327,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         llenarGrillaAero();
-        CPista.guardarPista("Aeropuerto", "Buscar", "Aeropuerto", "btn_buscarActionPerformed", null, null,"Se ha realizado una busqueda de aeropuertos");
+//        CPista.guardarPista("Aeropuerto", "Buscar", "Aeropuerto", "btn_buscarActionPerformed", null, null,"Se ha realizado una busqueda de aeropuertos");
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btn_buscarActionPerformed
@@ -384,7 +384,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         AeropuertoAgregar MiVentana = new AeropuertoAgregar(this, true); //llamamos a la clase y creamos un objeto llamado MiVentana
         MiVentana.setVisible(true);//le decimos al compilador que queremos que se vea la ventana
         llenarGrillaAero();
-        CPista.guardarPista("Aeropuerto", "Agregar", "Aeropuerto", "btn_agregarActionPerformed", null, null,"Se ha agregado un aeropuerto");        
+//        CPista.guardarPista("Aeropuerto", "Agregar", "Aeropuerto", "btn_agregarActionPerformed", null, null,"Se ha agregado un aeropuerto");        
         // MiVentana.setSize(660,415);//le damos el tamaño deseado a nuestra ventana
         // MiVentana.setDefaultCloseOperation(EXIT_ON_CLOSE);//le decimos que al dar clic en la X se cierre nuestra ventana 
 
@@ -405,7 +405,7 @@ public class Aeropuerto extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Aeropuerto", "Advertencia", 1);
         }
-        CPista.guardarPista("Aeropuerto", "Modificar", "Aeropuerto", "btn_modificarActionPerformed", null, null,"Se ha modificado un aeropuerto");        
+//        CPista.guardarPista("Aeropuerto", "Modificar", "Aeropuerto", "btn_modificarActionPerformed", null, null,"Se ha modificado un aeropuerto");        
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void cbm_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_PaisActionPerformed

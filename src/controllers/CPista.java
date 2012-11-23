@@ -18,8 +18,7 @@ import org.hibernate.*;
 public class CPista {
 
     public static void guardarPista(String modPrincipal, String modSecundario, 
-                                    String clase, String metodo, 
-                                    String estadoAnt, String estadoAct, String mensaje){
+                                    String accion, String mensaje){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -36,15 +35,42 @@ public class CPista {
             }
             pista.setModuloPrincipal(modPrincipal);
             pista.setModuloSecundario(modSecundario);
-            pista.setClase(clase);
-            pista.setMetodo(metodo);
+            pista.setAccion(accion);
             pista.setFecha(Calendar.getInstance().getTime());
-            pista.setEstadoAnterior(estadoAnt);
-            pista.setEstadoActual(estadoAct);
-            pista.setDescripcion(mensaje);
+            pista.setMensaje(mensaje);
             
-            s.save(pista);
+            s.save(pista);            
+            tx.commit();
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally{
+            s.close();
+            Sesion.closeSessionFactory();
+        }
+    }
+    
+    public static void guardarPista(Usuario user, String modPrincipal, String modSecundario, 
+                                    String accion, String mensaje){
+        Session s = Sesion.openSessionFactory();
+        try{
+            Transaction tx = s.beginTransaction();
             
+            Pista pista = new Pista();
+            
+            if(user != null){
+                pista.setUsuarioR(user);
+                pista.setUsuario(user.getLogIn());
+            }else{
+                pista.setUsuarioR(null);
+                pista.setUsuario(null);
+            }
+            pista.setModuloPrincipal(modPrincipal);
+            pista.setModuloSecundario(modSecundario);
+            pista.setAccion(accion);
+            pista.setFecha(Calendar.getInstance().getTime());
+            pista.setMensaje(mensaje);
+            
+            s.save(pista);            
             tx.commit();
         } catch(Exception e){
             System.out.println(e.getMessage());

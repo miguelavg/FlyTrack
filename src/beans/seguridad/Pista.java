@@ -30,97 +30,67 @@ public class Pista {
     
     private String moduloSecundario;
     
-    private String clase;
-    
-    private String metodo;
-    
+    private String accion;
+        
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     
-    private String estadoAnterior;
-    
-    private String estadoActual;
-    
-    private String descripcion;
+    private String mensaje;
 
-    public int getIdPista() {
-        return idPista;
+    public Usuario getUsuarioR() {
+        return usuarioR;
     }
 
     public void setUsuarioR(Usuario usuarioR) {
         this.usuarioR = usuarioR;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public void setModuloPrincipal(String moduloPrincipal) {
-        this.moduloPrincipal = moduloPrincipal;
-    }
-
-    public void setModuloSecundario(String moduloSecundario) {
-        this.moduloSecundario = moduloSecundario;
-    }
-
-    public void setClase(String clase) {
-        this.clase = clase;
-    }
-
-    public void setMetodo(String metodo) {
-        this.metodo = metodo;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setEstadoAnterior(String estadoAnterior) {
-        this.estadoAnterior = estadoAnterior;
-    }
-
-    public void setEstadoActual(String estadoActual) {
-        this.estadoActual = estadoActual;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public String getUsuario() {
         return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getModuloPrincipal() {
         return moduloPrincipal;
     }
 
+    public void setModuloPrincipal(String moduloPrincipal) {
+        this.moduloPrincipal = moduloPrincipal;
+    }
+
     public String getModuloSecundario() {
         return moduloSecundario;
     }
 
-    public String getClase() {
-        return clase;
+    public void setModuloSecundario(String moduloSecundario) {
+        this.moduloSecundario = moduloSecundario;
     }
 
-    public String getMetodo() {
-        return metodo;
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setAccion(String accion) {
+        this.accion = accion;
     }
 
     public Date getFecha() {
         return fecha;
     }
 
-    public String getEstadoAnterior() {
-        return estadoAnterior;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public String getEstadoActual() {
-        return estadoActual;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
 }

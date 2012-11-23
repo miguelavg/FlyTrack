@@ -92,7 +92,7 @@ public class AeropuertoAgregar extends javax.swing.JDialog {
         setTitle("FlyTrack - Administración - Aeropuertos - Agregar");
         setMaximumSize(new java.awt.Dimension(725, 340));
         setMinimumSize(new java.awt.Dimension(725, 340));
-        setPreferredSize(new java.awt.Dimension(725, 340));
+        setPreferredSize(null);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

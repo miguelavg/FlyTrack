@@ -239,9 +239,9 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
              * 3. La contrasena nueva debe pasar todas las validaciones del caso
              */
             if( actualContraseniasIguales && nuevasContraseniasIguales && validacionesContrasenia){
-                CPista.guardarPista("Login", "Cambiar Contraseña", "CambiarContrasenaDialog", "btnConfirmarActionPerformed", 
-                                    new String(contrasenia.getText()), new String(txtPassNueva.getPassword()), 
-                                    "Se ha realizado el cambio de contraseña");
+//                CPista.guardarPista("Login", "Cambiar Contraseña", "CambiarContrasenaDialog", "btnConfirmarActionPerformed", 
+//                                    new String(contrasenia.getText()), new String(txtPassNueva.getPassword()), 
+//                                    "Se ha realizado el cambio de contraseña");
                 CContrasena.desactivarContrasena(contrasenia); //Desactivo su contrasena activa actual
                 CContrasena.agregarContrasenaActiva(txtPassNueva.getPassword(), usuario); //agrego la nueva contrasena activa
                 ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
@@ -258,9 +258,9 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                 this.dispose();
             }
             else{
-                CPista.guardarPista("Login", "Cambiar Contraseña", "CambiarContrasenaDialog", "btnConfirmarActionPerformed", 
-                                    new String(contrasenia.getText()), new String(txtPassNueva.getPassword()), 
-                                    "Se intento cambiar la contraseña pero no se pudo");
+//                CPista.guardarPista("Login", "Cambiar Contraseña", "CambiarContrasenaDialog", "btnConfirmarActionPerformed", 
+//                                    new String(contrasenia.getText()), new String(txtPassNueva.getPassword()), 
+//                                    "Se intento cambiar la contraseña pero no se pudo");
                 if(!nuevasContraseniasIguales)
                     lblMensaje.setText("Las contraseñas nuevas ingresadas deben COINCIDIR");
                 else if(!validacionesContrasenia)
