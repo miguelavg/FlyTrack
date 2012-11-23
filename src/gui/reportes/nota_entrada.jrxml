@@ -21,8 +21,10 @@
 	<field name="idenvio" class="java.lang.String"/>
 	<field name="destnomb" class="java.lang.String"/>
 	<field name="destapellido" class="java.lang.String"/>
-	<field name="fechaactualrecojo" class="java.lang.String"/>
-	<field name="horaactualrecojo" class="java.lang.String"/>
+	<field name="remnomb" class="java.lang.String"/>
+	<field name="remape" class="java.lang.String"/>
+	<field name="fechaactualregistro" class="java.lang.String"/>
+	<field name="horaactualregistro" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -42,7 +44,7 @@
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nota de Salida]]></text>
+				<text><![CDATA[Nota de Entrada]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a2e90f2f-c0d0-4c3d-a834-2b86ce1d2064" x="470" y="35" width="49" height="20" forecolor="#000000" backcolor="#404040"/>
@@ -80,19 +82,19 @@
 				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="421" y="108" width="123" height="20"/>
+				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="423" y="107" width="110" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{empleado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="421" y="149" width="123" height="20"/>
+				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="423" y="148" width="110" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$P{horaactualrecojo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{horaactualregistro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="421" y="129" width="123" height="20"/>
+				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="423" y="128" width="110" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{fechaactualrecojo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fechaactualregistro}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="61b7377b-fa43-4495-955c-bf3b9142e5d4" x="297" y="107" width="122" height="20"/>
@@ -138,12 +140,12 @@
 			<textField>
 				<reportElement uuid="a442ebd0-d050-49f4-bf0a-f1b9752b91dd" x="118" y="283" width="100" height="18"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{destnomb}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{remnomb}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="5595c86a-c476-4747-a4f7-7773e9e7c425" x="118" y="301" width="100" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{destapellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{remape}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="aeff0e51-e946-4ede-8c4f-9c46fd3cc34d" x="15" y="281" width="100" height="20"/>
@@ -158,7 +160,7 @@
 			<staticText>
 				<reportElement uuid="aeff0e51-e946-4ede-8c4f-9c46fd3cc34d" x="16" y="259" width="137" height="20"/>
 				<textElement/>
-				<text><![CDATA[Datos del destinatario]]></text>
+				<text><![CDATA[Datos del remitente]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="b9ac2362-963a-45fd-8fc5-f18eaccb1279" x="431" y="280" width="80" height="20"/>

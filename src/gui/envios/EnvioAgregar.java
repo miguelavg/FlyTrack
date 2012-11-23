@@ -1264,8 +1264,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
 //        NotaSalida NotaSalida = new NotaSalida(this, true, this.envio);
 //        NotaSalida.setVisible(true);
         
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            //Calendar calendar = Calendar.getInstance();
+            //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         
         enviods = new EnvioDataSource();
@@ -1284,11 +1284,11 @@ public class EnvioAgregar extends javax.swing.JFrame {
             }
             Map parametro = new HashMap();
             String nombreempleado = Sesion.getUsuario().getNombres() + " " + Sesion.getUsuario().getApellidos();
-            String horaactual = dateFormat.format(calendar.getTime()).substring(11, 16);
-            String fechaactualaux = dateFormat.format(calendar.getTime()).substring(0, 10);
+            //String horaactual = dateFormat.format(calendar.getTime()).substring(11, 16);
+            //String fechaactualaux = dateFormat.format(calendar.getTime()).substring(0, 10);
             parametro.put("empleado", nombreempleado);
-            parametro.put("horaactual", horaactual);
-            parametro.put("fechaactual", fechaactualaux);
+            //parametro.put("horaactual", horaactual);
+            //parametro.put("fechaactual", fechaactualaux);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
             JRExporter exporter = new JRPdfExporter();
@@ -1299,13 +1299,13 @@ public class EnvioAgregar extends javax.swing.JFrame {
             fechaactual = Calendar.getInstance().getTime();
             String reportDate = df.format(fechaactual);
 
-            String nombredocBoleta = "Nota de salida_" + this.envio.getNumDocVenta() + "_" + reportDate + ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+            String nombreNotaSalida = "Nota de salida_" + this.envio.getNumDocVenta() + "_" + reportDate + ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreNotaSalida));
             exporter.exportReport();
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             //setModal(false);
-            jviewer.setTitle(nombredocBoleta);
+            jviewer.setTitle(nombreNotaSalida);
             jviewer.setVisible(true);
             jviewer.setAlwaysOnTop(true);
             //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
@@ -1316,9 +1316,55 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
     private void btn_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inActionPerformed
         // TODO add your handling code here:
-        NotaEntrada NotaEntradaDialog = new NotaEntrada(this.envio);
-        NotaEntradaDialog.setVisible(true);
+//        NotaEntrada NotaEntradaDialog = new NotaEntrada(this.envio);
+//        NotaEntradaDialog.setVisible(true);
 
+        enviods = new EnvioDataSource();
+        enviods.setEnvio(this.envio);
+
+        try {
+            String master = System.getProperty("user.dir")
+                    + "/src/gui/reportes/nota_entrada.jasper";
+
+            JasperReport masterReport = null;
+            try {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            } catch (JRException e) {
+
+                return;
+            }
+            Map parametro = new HashMap();
+            String nombreempleado = Sesion.getUsuario().getNombres() + " " + Sesion.getUsuario().getApellidos();
+            //String horaactual = dateFormat.format(calendar.getTime()).substring(11, 16);
+            //String fechaactualaux = dateFormat.format(calendar.getTime()).substring(0, 10);
+            parametro.put("empleado", nombreempleado);
+            //parametro.put("horaactual", horaactual);
+            //parametro.put("fechaactual", fechaactualaux);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual = new Date();
+            fechaactual = Calendar.getInstance().getTime();
+            String reportDate = df.format(fechaactual);
+
+            String nombreNotaEntrada = "Nota de Entrada_" + this.envio.getNumDocVenta() + "_" + reportDate + ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreNotaEntrada));
+            exporter.exportReport();
+
+            JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+            //setModal(false);
+            jviewer.setTitle(nombreNotaEntrada);
+            jviewer.setVisible(true);
+            jviewer.setAlwaysOnTop(true);
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
+        } catch (JRException e) {
+            e.printStackTrace();
+        }    
+        
+        
     }//GEN-LAST:event_btn_inActionPerformed
 
     private void txt_unitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_unitarioActionPerformed
