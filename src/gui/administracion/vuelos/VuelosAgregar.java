@@ -16,10 +16,13 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Window;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -33,6 +36,9 @@ public class VuelosAgregar extends javax.swing.JDialog {
     private Vuelo objVueloo = null; 
     private Aeropuerto aeropuertoOrigen = null;
     private Aeropuerto aeropuertoDestino = null;
+    
+    datechooser.beans.DateChooserCombo dt_fechLlega; 
+    datechooser.beans.DateChooserCombo dt_fechSali;
     /**
      * Creates new form VuelosModificar
      */
@@ -62,7 +68,11 @@ public class VuelosAgregar extends javax.swing.JDialog {
             }
             
             objVueloo = objVuelo; 
+            SfechSal.setModel(new DateSpinner().getModel());
+            Sfeclleg.setModel(new DateSpinner().getModel());
             
+            
+                 
       
     }
     
@@ -87,15 +97,18 @@ public class VuelosAgregar extends javax.swing.JDialog {
         Calendar cal2 = Calendar.getInstance();
         
         if (objVuelo.getFechaLlegada() != null ) {
-           cal1.setTime(objVuelo.getFechaLlegada()); 
-           dt_fechLlega.setSelectedDate(cal1);
+           Sfeclleg.setValue(objVuelo.getFechaLlegada()); 
+           
+          // cal1.setTime(objVuelo.getFechaLlegada()); 
+          // dt_fechLlega.setSelectedDate(cal1);
         }
        
        // cal1.setTime();
         
-        if (objVuelo.getFechaLlegada() != null ) {
-            cal2.setTime(objVuelo.getFechaLlegada());
-            dt_fechLlega.setSelectedDate(cal2);
+        if (objVuelo.getFechaSalida() != null ) {
+           SfechSal.setValue(objVuelo.getFechaSalida()); 
+            //cal2.setTime(objVuelo.getFechaLlegada());
+        //    dt_fechLlega.setSelectedDate(cal2);
         }
         
        
@@ -136,12 +149,12 @@ public class VuelosAgregar extends javax.swing.JDialog {
         cbm_estado = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        dt_fechLlega = new datechooser.beans.DateChooserCombo();
-        dt_fechSali = new datechooser.beans.DateChooserCombo();
         btn_origenAero = new javax.swing.JButton();
         btn_origenDest = new javax.swing.JButton();
         txt_monto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        SfechSal = new javax.swing.JSpinner();
+        Sfeclleg = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Administración - Vuelo - Agregar");
@@ -164,7 +177,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -227,22 +240,6 @@ public class VuelosAgregar extends javax.swing.JDialog {
 
         jLabel9.setText("Fecha Salida");
 
-        dt_fechLlega.setNothingAllowed(false);
-        try {
-            dt_fechLlega.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
-        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-            e1.printStackTrace();
-        }
-        dt_fechLlega.setLocale(new java.util.Locale("es", "PE", ""));
-
-        dt_fechSali.setNothingAllowed(false);
-        try {
-            dt_fechSali.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
-        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-            e1.printStackTrace();
-        }
-        dt_fechSali.setLocale(new java.util.Locale("es", "PE", ""));
-
         btn_origenAero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btn_origenAero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,45 +267,48 @@ public class VuelosAgregar extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(421, 421, 421)
-                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dt_fechSali, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_destino, javax.swing.GroupLayout.DEFAULT_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(24, 24, 24)))
+                            .addComponent(SfechSal, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_origenDest, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_capacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dt_fechLlega, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_destino, javax.swing.GroupLayout.DEFAULT_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_origenDest, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_capacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sfeclleg, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(352, 352, 352)
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +323,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
                             .addComponent(txt_monto, javax.swing.GroupLayout.DEFAULT_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,10 +334,10 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                 .addComponent(txt_destino, javax.swing.GroupLayout.DEFAULT_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dt_fechSali, javax.swing.GroupLayout.DEFAULT_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dt_fechLlega, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(SfechSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sfeclleg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -380,7 +379,9 @@ public class VuelosAgregar extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
-         Parametro TipoDoc = null;
+        
+     
+        Parametro TipoDoc = null;
          if (cbm_estado.getSelectedIndex()>0) {
             TipoDoc = (Parametro)cbm_estado.getSelectedItem();
          }
@@ -389,8 +390,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
          String error_message = CVuelo.validar( 
                                 aeropuertoOrigen,
                                 aeropuertoDestino,
-                                dt_fechLlega.getSelectedDate(),
-                                dt_fechSali.getSelectedDate(),
+                                 (Date)Sfeclleg.getValue(),
+                                   (Date)SfechSal.getValue(),
                                 TipoDoc,
                                 txt_capacidad.getText(),
                                 txt_monto.getText()
@@ -404,8 +405,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
                     CVuelo.agregarVuelo(
                                         aeropuertoOrigen,
                                         aeropuertoDestino,
-                                        dt_fechLlega.getSelectedDate(),
-                                        dt_fechSali.getSelectedDate(),
+                                        (Date)Sfeclleg.getValue(),
+                                        (Date)SfechSal.getValue(),
                                         TipoDoc,
                                         txt_capacidad.getText(),
                                         txt_monto.getText());
@@ -419,8 +420,8 @@ public class VuelosAgregar extends javax.swing.JDialog {
                                     txt_codigo.getText(),
                                     aeropuertoOrigen,
                                     aeropuertoDestino,
-                                    dt_fechLlega.getSelectedDate(),
-                                    dt_fechSali.getSelectedDate(),
+                                    (Date)Sfeclleg.getValue(),
+                                    (Date)SfechSal.getValue(),
                                     TipoDoc,
                                     txt_capacidad.getText(),
                                     txt_monto.getText()
@@ -429,10 +430,9 @@ public class VuelosAgregar extends javax.swing.JDialog {
               this.dispose();
               
         }          
-        } else {
-            ErrorDialog.mostrarError(error_message, this);
-             
-        }  
+      
+       }
+      
          setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -497,13 +497,13 @@ public class VuelosAgregar extends javax.swing.JDialog {
      */
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner SfechSal;
+    private javax.swing.JSpinner Sfeclleg;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_origenAero;
     private javax.swing.JButton btn_origenDest;
     private javax.swing.JComboBox cbm_estado;
-    private datechooser.beans.DateChooserCombo dt_fechLlega;
-    private datechooser.beans.DateChooserCombo dt_fechSali;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
