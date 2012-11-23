@@ -127,7 +127,7 @@ public class CPista {
             
             return (List<Pista>)q.list();
         } catch(Exception e){
-            System.out.println("CPista.obtenerPistas - ERROR: " + e.getMessage());
+            System.out.println("CPista.obtenerPistas - ERROR: " + e.getMessage() + accion + username + fechaIni + fechaFin);
             return null;
         } finally{
             s.close();

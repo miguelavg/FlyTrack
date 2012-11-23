@@ -21,16 +21,16 @@ import org.hibernate.annotations.ParamDef;
     @NamedQuery(name = "Pistas", query = "from Pista order by fecha desc"),
 })
 @FilterDefs({
-    @FilterDef(name = "PistasXUsuario" , parameters = @ParamDef(name = "usuario", type = "String")),
-    @FilterDef(name = "PistasXFechaIni", parameters = @ParamDef(name = "fecha"  , type = "Timestamp")),
-    @FilterDef(name = "PistasXFechaFin", parameters = @ParamDef(name = "fecha"  , type = "Timestamp")),
-    @FilterDef(name = "PistasXAccion"  , parameters = @ParamDef(name = "accion" , type = "String")),
+    @FilterDef(name = "PistasXUsuario" , parameters = @ParamDef(name = "usuario", type = "string")),
+    @FilterDef(name = "PistasXFechaIni", parameters = @ParamDef(name = "fecha"  , type = "timestamp")),
+    @FilterDef(name = "PistasXFechaFin", parameters = @ParamDef(name = "fecha"  , type = "timestamp")),
+    @FilterDef(name = "PistasXAccion"  , parameters = @ParamDef(name = "accion" , type = "string")),
 })
 @Filters({
-    @Filter(name = "PistasXUsuario" , condition = "usuario  = :usuario"),
-    @Filter(name = "PistasXFechaIni", condition = "fecha    > :fechaIni"),
-    @Filter(name = "PistasXFechaFin", condition = "fecha    < :fechaFin"),
-    @Filter(name = "PistasXAccion"  , condition = "accion   = :accion"),
+    @Filter(name = "PistasXUsuario" , condition = "usuario = :usuario"),
+    @Filter(name = "PistasXFechaIni", condition = "fecha >= :fechaIni"),
+    @Filter(name = "PistasXFechaFin", condition = "fecha <= :fechaFin"),
+    @Filter(name = "PistasXAccion"  , condition = "accion = :accion"),
 })
 public class Pista {
     @Id
