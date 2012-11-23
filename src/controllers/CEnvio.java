@@ -114,14 +114,12 @@ public class CEnvio {
 
     public static void enviarCorreos(Envio envio) {
         try {
-            new CMail().sendMail("flytrack.no.reply@gmail.com",
-                    "manuelmanuel",
+            new CMail().sendMail(
                     envio.getRemitente().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
                     genMailRem(envio));
 
-            new CMail().sendMail("flytrack.no.reply@gmail.com",
-                    "manuelmanuel",
+            new CMail().sendMail(
                     envio.getDestinatario().geteMail(),
                     "[FlyTrack] Envío #" + envio.getIdEnvio(),
                     genMailDest(envio));

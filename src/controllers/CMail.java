@@ -15,12 +15,16 @@ import javax.mail.internet.*;
 public class CMail {
     private String mailSMTPServers;
     private String mailSMTPServerPort;
+    private String from;
+    private String password;
     
-    public void sendMail(String from, String password, String to, String subject, String message){
+    public void sendMail(String to, String subject, String message){
         Properties prop = new Properties();
         
-        mailSMTPServers = "smtp.gmail.com";
-        mailSMTPServerPort = "465";
+        from = CParametro.buscarXValorUnicoyTipo("MAIL", "FROM").getValor();
+        password = CParametro.buscarXValorUnicoyTipo("MAIL", "PWD").getValor();
+        mailSMTPServers = CParametro.buscarXValorUnicoyTipo("MAIL", "SMTP_SERVER").getValor();
+        mailSMTPServerPort = CParametro.buscarXValorUnicoyTipo("MAIL", "SMTP_PORT").getValor();
         
         prop.put("mail.transport.protocol","smtp");
         prop.put("mail.smtp.starttls.enable","true");

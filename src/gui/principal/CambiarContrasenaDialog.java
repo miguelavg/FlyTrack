@@ -246,9 +246,7 @@ public class CambiarContrasenaDialog extends javax.swing.JDialog {
                         " Contraseña Nueva: "  + new String(txtPassNueva.getPassword()));
                 ejecutoCambio = true;//ya ejecuto el cambio, el objetivo de esta panatlla
                 usuario = new CUsuario().BuscarXid(usuario.getIdUsuario()); //actualizo el usuario, con las contrasenas
-                new CMail().sendMail("flytrack.no.reply@gmail.com",
-                                        "manuelmanuel", 
-                                        usuario.geteMail(),
+                new CMail().sendMail(   usuario.geteMail(),
                                         "[FlyTrack] Modificar contraseña",
                                         "Estimado usuario " + usuario.getLogIn() + " .\n\nSu contraseña ha sido modificada: " + 
                                         new String(txtPassNueva.getPassword()) + ".\n\nSoporte FlyTrack.");

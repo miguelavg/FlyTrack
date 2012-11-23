@@ -692,8 +692,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     //Agregar la contrasena nueva como activa al usuario
                     CContrasena.agregarContrasenaActiva(psswdContrasena.getPassword(), usuario);
                     //Mando el correo
-                    new CMail().sendMail("flytrack.no.reply@gmail.com",
-                                        "manuelmanuel", 
+                    new CMail().sendMail( 
                                         usuario.geteMail(),
                                         "[FlyTrack] Modificar contraseña",
                                         "Estimado usuario " + usuario.getLogIn() + " .\n\nSu contraseña ha sido modificada: " + 
@@ -713,8 +712,7 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     char[] contrasenaNueva = CSeguridad.generaContraseniaAleatoria();
                     CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
                     //Mando el correo
-                    new CMail().sendMail("flytrack.no.reply@gmail.com", 
-                                        "manuelmanuel", 
+                    new CMail().sendMail(
                                         usuario.geteMail(), 
                                         "[Flytrack] Contraseña por defecto", 
                                         "Bienvenido a FlyTrack " + usuario.getLogIn() + " . \n\nSu contraseña de acceso es la siguiente :" + 

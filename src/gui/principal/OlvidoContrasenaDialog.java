@@ -174,8 +174,7 @@ public class OlvidoContrasenaDialog extends javax.swing.JDialog {
                         "Se ha generado una nueva contraseña: \""+ new String(contrasenaNueva) +"\". Ha sido enviada a su correo");
                 
                 //6. Envio la nueva contrasena por correo
-                new CMail().sendMail("flytrack.no.reply@gmail.com", 
-                                    "manuelmanuel", 
+                new CMail().sendMail(
                                     usuarioBuscado.geteMail(),
                                     "[Flytrack] Nueva Contraseña", 
                                     "Estimado usuario " + usuarioBuscado.getLogIn() + " : \n\nLa nueva contraseña para el ingreso será \"" 

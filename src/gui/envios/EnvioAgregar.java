@@ -292,8 +292,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
             datos[1] = e.getVuelo().getIdVuelo();
             datos[2] = e.getVuelo().getOrigen().getNombre() + ", " + e.getVuelo().getOrigen().getCiudad() + ", " + e.getVuelo().getOrigen().getPais();
             datos[3] = e.getVuelo().getDestino().getNombre() + ", " + e.getVuelo().getDestino().getCiudad() + ", " + e.getVuelo().getDestino().getPais();
-            datos[4] = e.getVuelo().getFechaSalida();
-            datos[5] = e.getVuelo().getFechaLlegada();
+            datos[4] = CValidator.formatDate(CEnvio.getFechaSalidaReal(e));
+            datos[5] = CValidator.formatDate(CEnvio.getFechaLlegadaReal(e));
             datos[6] = e.getEstado();
 
             dtm.addRow(datos);
