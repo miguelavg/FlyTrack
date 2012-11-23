@@ -327,6 +327,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // TODO add your handling code here:
+        CPista.guardarPista("Login", "Cerrar Sesion", "Sesion", "Cerrando sesion ...");
         Sesion.setUsuario(null);
         this.setVisible(Boolean.FALSE);
         this.dispose();
@@ -358,18 +359,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
-        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        KeyStroke strokeBACKSPACE = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0);        
-        Action actionListener = new AbstractAction() { 
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() { 
           public void actionPerformed(ActionEvent actionEvent) { 
             btnCerrarSesion.doClick();
           } 
         } ;
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(strokeESC, "ESCAPE");
-        rootPane.getActionMap().put("ESCAPE", actionListener);
-        inputMap.put(strokeBACKSPACE, "BACKSPACE");
-        rootPane.getActionMap().put("BACKSPACE", actionListener);
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
 
         return rootPane;
     }

@@ -7,10 +7,23 @@ package gui.envios;
 import beans.Envio;
 import beans.Sesion;
 import controllers.CReportes;
+import gui.reportes.EnvioDataSource;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFileChooser;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -22,7 +35,8 @@ public class NotaSalida extends javax.swing.JDialog {
      * Creates new form NotaSalida
      */
     Envio envio;
-    public NotaSalida(javax.swing.JDialog parent, boolean modal, Envio e) {
+    EnvioDataSource enviods;
+    public NotaSalida(javax.swing.JFrame parent, boolean modal, Envio e) {
         super(parent, modal);
         initComponents();
         this.envio=e;
@@ -250,37 +264,84 @@ public class NotaSalida extends javax.swing.JDialog {
     
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
         
-        JFileChooser jfc = new JFileChooser();
-        int rslt = jfc.showSaveDialog(this);
-        if (rslt == JFileChooser.APPROVE_OPTION) {
-            String strArch = jfc.getSelectedFile().getName();
-            if (!strArch.trim().isEmpty()) {
-                String ruta = jfc.getSelectedFile().getPath().trim();
-               if (!ruta.isEmpty()) {
-                    try {
-                        //beAlmacen alma = (new blHelper()).obtenerDatosAlmacen();
-                        if (!ruta.endsWith(".pdf")) {
-                                ruta += ".pdf";
-                        }
-                                 
-                        
-                        CReportes.crearPDF_Trazabilidad_NotaSalida(ruta, this.envio);
-                        CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
-                        
-                        
-                
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        CReportes.mostrarMensajeError("Ocurrió un error al generar la nota de salida.");
-                    }
-                } else {
-                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo de la factura.");
+//        JFileChooser jfc = new JFileChooser();
+//        int rslt = jfc.showSaveDialog(this);
+//        if (rslt == JFileChooser.APPROVE_OPTION) {
+//            String strArch = jfc.getSelectedFile().getName();
+//            if (!strArch.trim().isEmpty()) {
+//                String ruta = jfc.getSelectedFile().getPath().trim();
+//               if (!ruta.isEmpty()) {
+//                    try {
+//                        //beAlmacen alma = (new blHelper()).obtenerDatosAlmacen();
+//                        if (!ruta.endsWith(".pdf")) {
+//                                ruta += ".pdf";
+//                        }
+//                                 
+//                        
+//                        CReportes.crearPDF_Trazabilidad_NotaSalida(ruta, this.envio);
+//                        CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la factura en la ruta\n" + ruta);
+//                        
+//                        
+//                
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        CReportes.mostrarMensajeError("Ocurrió un error al generar la nota de salida.");
+//                    }
+//                } else {
+//                    CReportes.mostrarMensajeError("Especifique una ruta válida para guardar el archivo de la factura.");
+//                }
+//            } else {
+//                CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+//            }
+//        }
+         Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        
+            enviods = new EnvioDataSource();
+            enviods.setEnvio(this.envio);
+
+            try {
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/nota_salida.jasper";
+
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    
+                    return;
                 }
-            } else {
-                CReportes.mostrarMensajeError("Especifique un nombre al archivo que va a imprimir.");
+                Map parametro = new HashMap();
+                String nombreempleado=Sesion.getUsuario().getNombres()+" "+Sesion.getUsuario().getApellidos();
+                String horaactual=dateFormat.format(calendar.getTime()).substring(11, 16);
+                String fechaactualaux=dateFormat.format(calendar.getTime()).substring(0, 10);
+                parametro.put("empleado",nombreempleado );
+                parametro.put("horaactual",horaactual);
+                parametro.put("fechaactual",fechaactualaux);
+                
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+                DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+                Date fechaactual = new Date();
+                fechaactual = Calendar.getInstance().getTime();
+                String reportDate = df.format(fechaactual);
+
+                String nombredocBoleta = "Nota de salida_" + this.envio.getNumDocVenta() +"_"+ reportDate+ ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+                jviewer.setTitle(nombredocBoleta);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+                //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
+            } catch (JRException e) {
+                e.printStackTrace();
             }
-        }
-         
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     /**
@@ -313,7 +374,7 @@ public class NotaSalida extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NotaSalida dialog = new NotaSalida(new javax.swing.JDialog(), true,null);
+                NotaSalida dialog = new NotaSalida(new javax.swing.JFrame(), true,null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -37,6 +37,11 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
 
+    public void showFrame() {
+        this.paint(this.getGraphics());
+        setVisible(true);
+    }
+
     @Override
     protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
@@ -67,7 +72,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         if (envio.getEscalas() == null) {
             return;
         }
-        
+
         for (Escala e : envio.getEscalasOrdenadasDesc()) {
             Vuelo v = e.getVuelo();
 

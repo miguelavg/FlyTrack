@@ -4,8 +4,11 @@
  */
 package gui.reportes;
 
+import java.util.HashMap;
+import java.util.Map;
 import beans.Envio;
 import controllers.CValidator;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -21,6 +24,8 @@ public class EnvioDataSource  implements JRDataSource {
     //private List<Cliente> listaClientes = new ArrayList<Cliente>();
     private Envio envio= new Envio();
     private int indiceClienteActual = -1;
+    private Map parametro= new HashMap();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     
     @Override
     public boolean next() throws JRException {
@@ -81,7 +86,42 @@ public class EnvioDataSource  implements JRDataSource {
     { 
         valor = CValidator.formatNumber((getEnvio().getMonto())+(getEnvio().getImpuesto()/100*getEnvio().getMonto())); 
     } 
-    
+                else if("idenvio".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getIdEnvio(); 
+    } 
+                    else if("destnomb".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getDestinatario().getNombres(); 
+    } 
+                    else if("destapellido".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getDestinatario().getApellidos(); 
+    } 
+                        else if("remnomb".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getRemitente().getNombres(); 
+    } 
+                        else if("remape".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getRemitente().getApellidos(); 
+    }                         
+                        else if("fechaactualrecojo".equals(jrField.getName())) 
+    { 
+        valor = dateFormat.format(getEnvio().getFechaRecojo()).substring(0, 10); 
+    } 
+                        else if("horaactualrecojo".equals(jrField.getName())) 
+    { 
+        valor = dateFormat.format(getEnvio().getFechaRecojo()).substring(11, 16); 
+    } 
+                        else if("fechaactualregistro".equals(jrField.getName())) 
+    { 
+        valor = dateFormat.format(getEnvio().getFechaRegistro()).substring(0, 10); 
+    } 
+                        else if("horaactualregistro".equals(jrField.getName())) 
+    { 
+        valor = dateFormat.format(getEnvio().getFechaRegistro()).substring(11, 16); 
+    }     
      
     return valor; 
 }
@@ -95,11 +135,22 @@ public class EnvioDataSource  implements JRDataSource {
 
     /**
      * @param listaClientes the listaClientes to set
-     */
+     *///Map parametro
     public void setEnvio(Envio envio) {
         this.envio = envio;
     }
 
+    public Map getParametro() {
+        return parametro;
+    }
+
+    /**
+     * @param listaClientes the listaClientes to set
+     */
+    public void setParametro(Map parametro) {
+        this.parametro = parametro;
+    }
+    
     
     
 }

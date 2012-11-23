@@ -54,7 +54,7 @@ public class CIncidencia {
         List<Incidencia> ListaIncidencia = null;
         Date ini = null;
         Date fin = null;
-        String inii = null;
+        String inii;
 
         try {
 
@@ -69,7 +69,6 @@ public class CIncidencia {
             }
 
 
-            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
             Query q = s.getNamedQuery("Incidencia");
 
 

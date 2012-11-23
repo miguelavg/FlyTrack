@@ -45,7 +45,6 @@ public class TipoCambioEdit extends javax.swing.JDialog {
             this.tipoCambio = tipoCambio;
             this.isNuevo = false;
         } else {
-            this.tipoCambio = new TipoCambio();
             llenarCombos(null, null);
         }
 
@@ -307,6 +306,10 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         if (cmb_destino.getSelectedIndex() > 0) {
             monedaDestino = (Parametro) cmb_destino.getSelectedItem();
         }
+        if(this.isNuevo){
+            this.tipoCambio = new TipoCambio();
+        }
+        
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         CTipoCambio ctipocambio = new CTipoCambio();
         String error_message = ctipocambio.validar(this.tipoCambio, isNuevo, this.txt_tipocambio.getText(), this.monedaOrigen, this.monedaDestino);

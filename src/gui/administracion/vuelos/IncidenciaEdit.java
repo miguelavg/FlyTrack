@@ -9,6 +9,7 @@ import beans.Parametro;
 import beans.Vuelo;
 import controllers.CIncidencia;
 import controllers.CVuelo;
+import gui.InformationDialog;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -243,7 +244,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here: 
-          setCursor(new Cursor (Cursor.WAIT_CURSOR));
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
         Parametro p = null;
         boolean bandera = false;
         if (cbm_incidencia.getSelectedIndex() > 0) {
@@ -259,8 +260,7 @@ public class IncidenciaEdit extends javax.swing.JDialog {
             }
 
             if (objV.getEstado().getValorUnico().compareTo("VUE") == 0) {
-                if ((p.getValorUnico().compareTo("CAN") == 0) || (p.getValorUnico().compareTo("RET") == 0)
-                        || (p.getValorUnico().compareTo("ATE")) == 0) {
+                if ((p.getValorUnico().compareTo("ATE")) == 0) {
                     bandera = true;
                 }
             }
@@ -269,12 +269,6 @@ public class IncidenciaEdit extends javax.swing.JDialog {
                 bandera = false;
             }
 
-
-            if (objV.getEstado().getValorUnico().compareTo("RET") == 0) {
-                if ((p.getValorUnico().compareTo("CAN") == 0) || (p.getValorUnico().compareTo("RET") == 0)) {
-                    bandera = true;
-                }
-            }
 
             if (objV.getEstado().getValorUnico().compareTo("CAN") == 0) {
                 bandera = false;
@@ -287,17 +281,14 @@ public class IncidenciaEdit extends javax.swing.JDialog {
                 objInc.setFecha(new Date());
                 objInc.setVuelo(objV);
 
-
-
                 if (indicador != -1) {
-
                     CIncidencia.cargarIncidencia(objInc);
                     if (objV.getIncidencias() == null) {
                         objV.setIncidencias(new ArrayList<Incidencia>());
                     }
                     objV.getIncidencias().add(objInc);
                     cambioEstadoVuelo();
-                    
+
                 }
             } else {
                 objInc = null;
@@ -315,10 +306,10 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 //                    txt_capacidad.getText());
 //
 //        }
-            
+
             this.dispose();
         }
-          setCursor(new Cursor (Cursor.DEFAULT_CURSOR));
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
    }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
@@ -356,21 +347,32 @@ public class IncidenciaEdit extends javax.swing.JDialog {
     private void llenarComponentes() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
-        private void cambioEstadoVuelo() {
+
+    private void cambioEstadoVuelo() {
         String val;
         String valorPara;
         val = objInc.getEstado().getValorUnico();
+        String mensaje;
 
         if (val.compareTo("DES") == 0) //DESPEGUE -- > EN VUELO 16
         {
             valorPara = "VUE";
+            int capacidadA = objV.getOrigen().getCapacidadActual();
             cambiarEstado(objInc.getVuelo(), valorPara);
+            int capacidadD = objV.getOrigen().getCapacidadActual();
+            mensaje = "Salieron " + objV.getCapacidadActual() + " paquetes del almacén " + objV.getOrigen();
+            mensaje = mensaje + " (" + capacidadA + " -> " + capacidadD + ")";
+            InformationDialog.mostrarInformacion(mensaje, this);
         }
         if (val.compareTo("ATE") == 0)//ATERRIZAJE --> FINALIZADO 17
         {
             valorPara = "FIN";
+            int capacidadA = objV.getDestino().getCapacidadActual();
             cambiarEstado(objInc.getVuelo(), valorPara);
+            int capacidadD = objV.getDestino().getCapacidadActual();
+            mensaje = "Llegaron " + objV.getCapacidadActual() + " paquetes al almacén " + objV.getDestino();
+            mensaje = mensaje + " (" + capacidadA + " -> " + capacidadD + ")";
+            InformationDialog.mostrarInformacion(mensaje, this);
         }
         if (val.compareTo("RET") == 0) // RETRASO --> retraso 15
         {
@@ -387,6 +389,11 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void cambiarEstado(Vuelo objVuelo, String valorPara) {
         CVuelo.modificarVueloEstado(objVuelo, valorPara);
-        CVuelo.modificarEscalas(objVuelo);
+        int f = CVuelo.modificarEscalas(objVuelo);
+        
+        if(f > 0){
+            String mensaje = "No se pudieron repogramar " + f + " envíos. Pasarán a estado Indeterminado. Se deberá asignar ruta manualmente.";
+            InformationDialog.mostrarInformacion(mensaje, this);
+        }
     }
 }

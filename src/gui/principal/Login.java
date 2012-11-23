@@ -12,6 +12,7 @@ import controllers.CContrasena;
 import controllers.CPista;
 import controllers.CSeguridad;
 import controllers.CUsuario;
+import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.InformationDialog;
 import java.awt.Cursor;
@@ -194,9 +195,6 @@ public class Login extends javax.swing.JFrame {
             //manejar el numero de intentos fallidos aqui
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
             
-//            CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Usuario ingresado: " + username);
-//            CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Contraseña ingresada: " + new String(password));
-            
             //- Verificar que el username exista
             //- Verificar que el username este activo
             //- Verificar que el username tenga contrasena activa
@@ -242,7 +240,7 @@ public class Login extends javax.swing.JFrame {
             if (existeUsuario != null && usuarioActivo &&
                 existeContrasenaActiva != null && contrasenasIguales ) {
                 
-                
+                CPista.guardarPista(existeUsuario, "Login", "Login", "Sesion", "Inicio de sesión satisfactorio");
                 
                 //VERIFICACION EXITOSA
                 lblError.setText("");
@@ -258,11 +256,12 @@ public class Login extends javax.swing.JFrame {
                     String error = "";
                     if(condicionCaducidad) {
                         error += "Su contraseña ha caducado, es necesario cambiarla. \n";
-//                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "La contrasena activa del usuario " + username + " ha caducado.");
+                        CPista.guardarPista(existeUsuario, "Login", "Login", "Sesion", "Contraseña caducida. Fecha Caducida: " + 
+                                            CValidator.formatDate(contrasenaActiva.getFechaCaducidad()));
                     }
                     if(condicionPrimerIngreso) {
                         error += "Es la primera vez que ingresa al sistema, es necesario cambiar su contraseña. \n";
-//                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null,"Primer ingreso del usuario " + username);
+                        CPista.guardarPista(existeUsuario, "Login", "Login", "Sesion", "Primer Ingreso al sistema");
                     }
                     InformationDialog.mostrarInformacion(error, this);
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -279,7 +278,7 @@ public class Login extends javax.swing.JFrame {
                     Sesion.setUsuario(CUsuario.actualizarUsuario(existeUsuario));
                     Sesion.setCambioPerfil(false);//Cuando se inicia Sesion no se ha modificado el perfil que tiene este usuario asignado
 
-//                    CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed", null, null, "Acceso con éxito");
+                    CPista.guardarPista("Login", "Login", "Sesion", "Accediendo al sistema ...");
                     
                     PrincipalFrame pf = new PrincipalFrame();
                     pf.setVisible(Boolean.TRUE);
@@ -292,12 +291,15 @@ public class Login extends javax.swing.JFrame {
                 //VERIFICACION FALLO
                 if(existeUsuario == null){
                     lblError.setText("El nombre de usuario ingresado no existe");
+                    CPista.guardarPista(existeUsuario, "Login", "Login", "Sesion", "El usuario ingresado no existe");
                 }
                 else if(!usuarioActivo){
                     lblError.setText("El usuario se encuentra bloqueado");
+                    CPista.guardarPista(existeUsuario, "Login", "Login", "Sesion", "El usuario se encuentra bloqueado");
                 }
                 else{
                     lblError.setText("Usuario y/o Contraseña Inválidos");
+                    CPista.guardarPista(existeUsuario, "Login", "Login", "Sesion", "Usuario y/o Contraseña Inválidos");
                 }
                 
                 if(existeUsuario != null){// Si el nombre de usuario existe
@@ -316,8 +318,7 @@ public class Login extends javax.swing.JFrame {
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         ErrorDialog.mostrarError("Usuario: " + username + 
                                 " Cuenta bloqueada: Supero el numero maximo de intentos fallidos", this);
-//                        CPista.guardarPista("Login", null, "Login", "btnLoginActionPerformed",
-//                                            null, null,"Se ha bloqueado la cuenta del usuario " + username);
+                        CPista.guardarPista(existeUsuario, "Login", "Bloqueo de Usuario", "Sesion", "Cuenta bloqueada");
                     }
                 }
             }
