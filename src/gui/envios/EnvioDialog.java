@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author miguelavg
  */
-public class EnvioDialog extends javax.swing.JDialog {
+public class EnvioDialog extends javax.swing.JFrame {
 
     /**
      * Creates new form Envio
@@ -156,7 +156,6 @@ public class EnvioDialog extends javax.swing.JDialog {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         setMinimumSize(new java.awt.Dimension(770, 601));
-        setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         setName("envioDialog"); // NOI18N
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -553,7 +552,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         /*EnvioAgregar envioAgregar = new EnvioAgregar();
          envioAgregar.setVisible(true);*/
 
-        EnvioAgregar envioAgregar = new EnvioAgregar(null, this, true);
+        EnvioAgregar envioAgregar = new EnvioAgregar(null, this);
         Envio envio = envioAgregar.showDialog();
 
         if (envio != null) {
@@ -569,7 +568,7 @@ public class EnvioDialog extends javax.swing.JDialog {
         if (fila > -1) {
             int id = (Integer) tbl_envios.getValueAt(fila, 0);
             Envio envio = cenvio.buscarId(id);
-            EnvioAgregar envioAgregar = new EnvioAgregar(envio, this, true);
+            EnvioAgregar envioAgregar = new EnvioAgregar(envio, this);
             envioAgregar.showDialog();
 
             tbl_envios.setValueAt(envio.getRemitente().getNombres() + " " + envio.getRemitente().getApellidos(), fila, 1);

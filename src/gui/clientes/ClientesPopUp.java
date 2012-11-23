@@ -25,7 +25,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
     CCliente ClienteBL = new CCliente();
     Cliente cliente = null;
 
-    public ClientesPopUp(javax.swing.JDialog parent, boolean modal) {
+    public ClientesPopUp(javax.swing.JFrame parent, boolean modal) {
         super(parent, modal);
 
         initComponents();
@@ -390,7 +390,7 @@ public class ClientesPopUp extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ClientesPopUp dialog = new ClientesPopUp(new javax.swing.JDialog(), true);
+                ClientesPopUp dialog = new ClientesPopUp(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

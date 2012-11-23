@@ -4,6 +4,8 @@
  */
 package gui.reportes;
 
+import java.util.HashMap;
+import java.util.Map;
 import beans.Envio;
 import controllers.CValidator;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class EnvioDataSource  implements JRDataSource {
     //private List<Cliente> listaClientes = new ArrayList<Cliente>();
     private Envio envio= new Envio();
     private int indiceClienteActual = -1;
+    private Map parametro= new HashMap();
     
     @Override
     public boolean next() throws JRException {
@@ -81,6 +84,18 @@ public class EnvioDataSource  implements JRDataSource {
     { 
         valor = CValidator.formatNumber((getEnvio().getMonto())+(getEnvio().getImpuesto()/100*getEnvio().getMonto())); 
     } 
+                else if("idenvio".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getIdEnvio(); 
+    } 
+                    else if("destnomb".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getDestinatario().getNombres(); 
+    } 
+                    else if("destapellido".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getDestinatario().getApellidos(); 
+    } 
     
      
     return valor; 
@@ -95,11 +110,22 @@ public class EnvioDataSource  implements JRDataSource {
 
     /**
      * @param listaClientes the listaClientes to set
-     */
+     *///Map parametro
     public void setEnvio(Envio envio) {
         this.envio = envio;
     }
 
+    public Map getParametro() {
+        return parametro;
+    }
+
+    /**
+     * @param listaClientes the listaClientes to set
+     */
+    public void setParametro(Map parametro) {
+        this.parametro = parametro;
+    }
+    
     
     
 }
