@@ -10,6 +10,7 @@ import controllers.CParametro;
 import controllers.CPista;
 import controllers.CValidator;
 import gui.ErrorDialog;
+import gui.envios.EnvioAgregar;
 import gui.reportes.IncidenciaDataSource;
 import gui.reportes.PistasDataSource;
 import gui.seguridad.usuarios.UsuarioPopup;
@@ -43,7 +44,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author msolorzano
  */
-public class PistasDialog extends javax.swing.JDialog {
+public class PistasDialog extends javax.swing.JFrame {
 
     Usuario usuarioBuscado = null;
     ArrayList<Pista> listaPistas;
@@ -52,10 +53,10 @@ public class PistasDialog extends javax.swing.JDialog {
     /**
      * Creates new form PistasDialog
      */
-    public PistasDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+//    public PistasDialog(java.awt.Frame parent, boolean modal) {
+//        super(parent, modal);
+//        initComponents();
+//    }
     
     public PistasDialog(){
         initComponents();
@@ -507,14 +508,16 @@ public class PistasDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PistasDialog dialog = new PistasDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new PistasDialog().setVisible(true);
+
+//                PistasDialog dialog = new PistasDialog(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
             }
         });
     }
