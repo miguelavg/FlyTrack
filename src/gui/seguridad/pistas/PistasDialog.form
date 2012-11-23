@@ -106,16 +106,21 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="1156" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnExportar" min="-2" pref="157" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="1156" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="536" max="32767" attributes="0"/>
+                  <Component id="btnExportar" min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="493" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -206,6 +211,14 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btnExportar">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/reporte.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Exportar"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
@@ -224,22 +237,31 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
-                          <Component id="lblUsuario" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="txtUsuario" min="-2" pref="200" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lblUsuario" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtUsuario" min="-2" pref="203" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="lblUsuario1" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmbAccion" min="-2" pref="203" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnBuscarUsuario" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblModPrincipal" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="lblFechaFin" min="-2" pref="140" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmbModPrincipal" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="dtcFechaFin" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblModPrincipal1" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="lblFechaIni" min="-2" pref="140" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmbModPrincipal1" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="dtcFechaIni" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -247,10 +269,10 @@
                           <EmptySpace min="-2" pref="376" max="-2" attributes="0"/>
                           <Component id="btnBuscar" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="btnRegresar" min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -259,27 +281,31 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btnBuscarUsuario" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="lblUsuario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="txtUsuario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblModPrincipal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="cmbModPrincipal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblFechaIni" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="dtcFechaIni" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblModPrincipal1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="cmbModPrincipal1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblFechaFin" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="lblUsuario1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="cmbAccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="dtcFechaFin" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnBuscar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btnRegresar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
@@ -292,9 +318,9 @@
             <Property name="text" type="java.lang.String" value="Usuario:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblModPrincipal">
+        <Component class="javax.swing.JLabel" name="lblFechaIni">
           <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xf3;dulo Principal"/>
+            <Property name="text" type="java.lang.String" value="Fecha Inicial:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtUsuario">
@@ -302,22 +328,15 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbModPrincipal">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbModPrincipalActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnBuscarUsuario">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/buscar.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarUsuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
@@ -330,7 +349,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnRegresar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/cancel.png"/>
@@ -338,20 +357,44 @@
             <Property name="text" type="java.lang.String" value="Regresar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblModPrincipal1">
+        <Component class="javax.swing.JLabel" name="lblFechaFin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xf3;dulo Secundario"/>
+            <Property name="text" type="java.lang.String" value="Fecha Final:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbModPrincipal1">
+        <Component class="datechooser.beans.DateChooserCombo" name="dtcFechaIni">
+          <Properties>
+            <Property name="dch_nothingAllowed" type="boolean" value="false"/>
+            <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,36,100,97,116,101,99,104,111,111,115,101,114,46,109,111,100,101,108,46,109,117,108,116,105,112,108,101,46,80,101,114,105,111,100,83,101,116,-104,-44,-96,42,-91,51,-90,42,2,0,3,76,0,4,100,97,116,97,116,0,22,76,106,97,118,97,47,117,116,105,108,47,76,105,110,107,101,100,76,105,115,116,59,76,0,9,108,97,115,116,65,100,100,101,100,116,0,35,76,100,97,116,101,99,104,111,111,115,101,114,47,109,111,100,101,108,47,109,117,108,116,105,112,108,101,47,80,101,114,105,111,100,59,76,0,10,112,101,114,105,111,100,67,97,115,104,113,0,126,0,2,120,112,115,114,0,20,106,97,118,97,46,117,116,105,108,46,76,105,110,107,101,100,76,105,115,116,12,41,83,93,74,96,-120,34,3,0,0,120,112,119,4,0,0,0,0,120,112,112"/>
+            </Property>
+            <Property name="dch_locale" type="java.util.Locale" editor="datechooser.beans.editor.locale.LocaleEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,16,106,97,118,97,46,117,116,105,108,46,76,111,99,97,108,101,126,-8,17,96,-100,48,-7,-20,2,0,4,73,0,8,104,97,115,104,99,111,100,101,76,0,7,99,111,117,110,116,114,121,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,76,0,8,108,97,110,103,117,97,103,101,113,0,126,0,1,76,0,7,118,97,114,105,97,110,116,113,0,126,0,1,120,112,-1,-1,-1,-1,116,0,2,80,69,116,0,2,101,115,116,0,0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="datechooser.beans.DateChooserCombo" name="dtcFechaFin">
+          <Properties>
+            <Property name="dch_nothingAllowed" type="boolean" value="false"/>
+            <Property name="dch_defaultDates" type="datechooser.model.multiple.PeriodSet" editor="datechooser.beans.editor.dates.PeriodsEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,36,100,97,116,101,99,104,111,111,115,101,114,46,109,111,100,101,108,46,109,117,108,116,105,112,108,101,46,80,101,114,105,111,100,83,101,116,-104,-44,-96,42,-91,51,-90,42,2,0,3,76,0,4,100,97,116,97,116,0,22,76,106,97,118,97,47,117,116,105,108,47,76,105,110,107,101,100,76,105,115,116,59,76,0,9,108,97,115,116,65,100,100,101,100,116,0,35,76,100,97,116,101,99,104,111,111,115,101,114,47,109,111,100,101,108,47,109,117,108,116,105,112,108,101,47,80,101,114,105,111,100,59,76,0,10,112,101,114,105,111,100,67,97,115,104,113,0,126,0,2,120,112,115,114,0,20,106,97,118,97,46,117,116,105,108,46,76,105,110,107,101,100,76,105,115,116,12,41,83,93,74,96,-120,34,3,0,0,120,112,119,4,0,0,0,0,120,112,112"/>
+            </Property>
+            <Property name="dch_locale" type="java.util.Locale" editor="datechooser.beans.editor.locale.LocaleEditor">
+              <SerializedValue value="-84,-19,0,5,115,114,0,16,106,97,118,97,46,117,116,105,108,46,76,111,99,97,108,101,126,-8,17,96,-100,48,-7,-20,2,0,4,73,0,8,104,97,115,104,99,111,100,101,76,0,7,99,111,117,110,116,114,121,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,76,0,8,108,97,110,103,117,97,103,101,113,0,126,0,1,76,0,7,118,97,114,105,97,110,116,113,0,126,0,1,120,112,-1,-1,-1,-1,116,0,2,80,69,116,0,2,101,115,116,0,0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblUsuario1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Acci&#xf3;n:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbAccion">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbModPrincipal1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
