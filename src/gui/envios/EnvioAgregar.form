@@ -571,7 +571,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_iva">
           <Properties>
-            <Property name="text" type="java.lang.String" value="IVA"/>
+            <Property name="text" type="java.lang.String" value="IVA:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">

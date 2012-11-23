@@ -41,7 +41,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author miguelavg
  */
-public class EnvioAgregar extends javax.swing.JDialog {
+public class EnvioAgregar extends javax.swing.JFrame {
 
     /**
      * Creates new form Envio
@@ -63,8 +63,8 @@ public class EnvioAgregar extends javax.swing.JDialog {
     private double iva;
     EscalaDataSource escalads;
 
-    public EnvioAgregar(Envio envio, javax.swing.JDialog parent, boolean modal) {
-        super(parent, modal);
+    public EnvioAgregar(Envio envio, javax.swing.JFrame parent) {
+        //super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.isNuevo = true;
@@ -123,17 +123,29 @@ public class EnvioAgregar extends javax.swing.JDialog {
                 this.origen = Sesion.getUsuario().getIdAeropuerto();
             } else {
                 this.origen = null;
+            }
 
+            if (this.origen != null) {
+
+                this.actual = this.origen;
+
+                this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
+                this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
+
+                Parametro pIva;
+                List<Parametro> params = CParametro.buscar(null, null, "IVA", this.origen.getCiudad());
+                if (params != null && !params.isEmpty()) {
+                    pIva = params.get(0);
+                } else {
+                    pIva = CParametro.buscarXValorUnicoyTipo("IVA", "IVA");
+                }
+
+                if (pIva != null) {
+                    this.iva = Double.parseDouble(pIva.getValor());
+                    this.lbl_iva.setText("IVA(" + CValidator.formatNumber(this.iva * 100) + "%):");
+                }
             }
-            this.actual = this.origen;
-            this.txt_origen.setText(this.origen.getNombre() + ", " + this.origen.getCiudad() + ", " + this.origen.getPais());
-            this.txt_actual.setText(this.actual.getNombre() + ", " + this.actual.getCiudad() + ", " + this.actual.getPais());
-            List<Parametro> params = CParametro.buscar(null, "IVA", "IVA", null);
-            if (params != null) {
-                Parametro pIva = params.get(0);
-                this.iva = Double.parseDouble(pIva.getValor());
-                this.lbl_iva.setText("IVA(" + CValidator.formatNumber(this.iva * 100) + "%):");
-            }
+
         }
 
         if (this.isNuevo) {
@@ -169,7 +181,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         ArrayList<Parametro> monedas = cenvio.getMonedas();
         Parametro dol = CParametro.buscarXValorUnicoyTipo("TIPO_MONEDA", "DOL");
         monedas.add(dol);
-        
+
         ArrayList<Parametro> docs = cenvio.llenarCombo("TIPO_DOC_PAGO_ENVIO");
         ArrayList<Parametro> estados = cenvio.llenarCombo("ESTADO_ENVIO");
         ArrayList<Parametro> estadosFactura = cenvio.llenarCombo("ESTADO_FACTURA");
@@ -545,7 +557,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
             }
         });
 
-        lbl_iva.setText("IVA");
+        lbl_iva.setText("IVA:");
 
         jLabel13.setText("Num. paquetes:");
 
@@ -1042,29 +1054,32 @@ public class EnvioAgregar extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_destinoActionPerformed
 
     private void btn_destinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_destinoActionPerformed
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true, actual.getIdAeropuerto());
-        destino = aeropuertoPU.showDialog();
-        if (destino != null && destino.getNombre() != null) {
-            txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
 
-            CEnvio cenvio = new CEnvio();
-            String error_message = cenvio.verificarTarifa(origen, destino);
+        if (actual != null) {
+            AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true, actual.getIdAeropuerto());
+            destino = aeropuertoPU.showDialog();
+            if (destino != null && destino.getNombre() != null) {
+                txt_destino.setText(destino.getNombre() + ", " + destino.getCiudad() + ", " + destino.getPais());
 
-            if (error_message == null || error_message.isEmpty()) {
-                this.tarifa = cenvio.calcularTarifa(origen, destino);
-                double vTipoCambio = 1;
-                if (this.tipoCambio != null) {
-                    vTipoCambio = this.tipoCambio.getTipoCambio();
+                CEnvio cenvio = new CEnvio();
+                String error_message = cenvio.verificarTarifa(origen, destino);
+
+                if (error_message == null || error_message.isEmpty()) {
+                    this.tarifa = cenvio.calcularTarifa(origen, destino);
+                    double vTipoCambio = 1;
+                    if (this.tipoCambio != null) {
+                        vTipoCambio = this.tipoCambio.getTipoCambio();
+                    }
+
+                    txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
+                    recalcular();
+                } else {
+                    ErrorDialog.mostrarError(error_message, this);
+                    this.tarifa = null;
                 }
-
-                txt_unitario.setText(CValidator.formatNumber(tarifa.getMonto() * vTipoCambio));
-                recalcular();
             } else {
-                ErrorDialog.mostrarError(error_message, this);
-                this.tarifa = null;
+                txt_destino.setText("");
             }
-        } else {
-            txt_destino.setText("");
         }
     }//GEN-LAST:event_btn_destinoActionPerformed
 
@@ -1405,7 +1420,7 @@ public class EnvioAgregar extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EnvioAgregar(null, new javax.swing.JDialog(), true).setVisible(true);
+                new EnvioAgregar(null, new javax.swing.JFrame()).setVisible(true);
             }
         });
     }
