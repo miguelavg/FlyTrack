@@ -17,7 +17,7 @@ import net.sf.jasperreports.engine.JRField;
  *
  * @author joao
  */
-public class ListaEnvios implements JRDataSource {
+public class ListaEnviosDataSource implements JRDataSource {
     
     private List<Envio> listaEnvios = new ArrayList<Envio>();
     private int indiceEnvios = -1;
@@ -40,18 +40,22 @@ public class ListaEnvios implements JRDataSource {
      valor = CValidator.formatDate(getListaEnvios().get(indiceEnvios).getFechaRecojo());    
     } 
 
-        else if("origenDestino".equals(jrField.getName())) 
+        else if("cliente".equals(jrField.getName())) 
     { 
         valor = getListaEnvios().get(indiceEnvios).getRemitente().getApellidos()+getListaEnvios().get(indiceEnvios).getRemitente().getNombres();
     } 
     
+                else if("origenDestino".equals(jrField.getName())) 
+    { 
+        valor = getListaEnvios().get(indiceEnvios).getOrigen().getNombre();
+    } 
         
                 else if("importe".equals(jrField.getName())) 
     { 
-        //valor = getListaEnvios().get(indiceEnvios);   
+        valor = getListaEnvios().get(indiceEnvios).getMonto()/ (1 + getListaEnvios().get(indiceEnvios).getIva());   
     } 
                 
-                else if("igv".equals(jrField.getName())) 
+                else if("iva".equals(jrField.getName())) 
     { 
         valor = getListaEnvios().get(indiceEnvios).getImpuesto(); 
     } 

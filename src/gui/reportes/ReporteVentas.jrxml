@@ -7,12 +7,12 @@
 	<style name="SubTitle" forecolor="#666666" fontName="SansSerif" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="SansSerif" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="SansSerif" fontSize="12"/>
-	<field name="escala" class="java.lang.String"/>
-	<field name="codvuelo" class="java.lang.String"/>
-	<field name="origen" class="java.lang.String"/>
-	<field name="destino" class="java.lang.String"/>
-	<field name="fechasalida" class="java.lang.String"/>
-	<field name="fechallegada" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="origenDestino" class="java.lang.String"/>
+	<field name="importe" class="java.lang.String"/>
+	<field name="iva" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -68,21 +68,21 @@
 				<text><![CDATA[Origen-Destino]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="242" y="15" width="105" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="261" y="15" width="105" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Importe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="355" y="13" width="88" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="354" y="14" width="88" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[IVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="455" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="434" y="14" width="99" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -94,33 +94,33 @@
 		<band height="26" splitType="Stretch">
 			<textField>
 				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="0" y="2" width="41" height="20"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{escala}]]></textFieldExpression>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="149" y="4" width="110" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="136" y="3" width="110" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{origenDestino}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="60" y="1" width="49" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{codvuelo}]]></textFieldExpression>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="269" y="4" width="101" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="268" y="3" width="101" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="385" y="1" width="39" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{fechasalida}]]></textFieldExpression>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="387" y="1" width="39" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="473" y="2" width="39" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{fechallegada}]]></textFieldExpression>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="471" y="2" width="39" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

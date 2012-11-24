@@ -7,15 +7,30 @@ package gui.reportes;
 import beans.Aeropuerto;
 import beans.Envio;
 import beans.Parametro;
+import beans.seguridad.Pista;
 import controllers.CAeropuerto;
 import controllers.CEnvio;
 import controllers.CValidator;
 import controllers.CVuelo;
+import gui.ErrorDialog;
     import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Cursor;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -28,6 +43,10 @@ public class ReporteVentas extends javax.swing.JFrame {
     private List<Parametro> ListaTipoEstado;
     private List<Envio> listaEnvios = null;
     private Object dt_fechini;
+    
+    ArrayList<Envio> listaEnviosaux;
+    
+    
 
     /**
      * Creates new form ReporteVentas
@@ -80,7 +99,7 @@ where fecharegistro < ''
         btnBuscar1 = new javax.swing.JButton();
         btnRegresar1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_ventas = new javax.swing.JTable();
 
@@ -279,11 +298,11 @@ where fecharegistro < ''
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
-        jButton3.setText("Exportar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnExportarActionPerformed(evt);
             }
         });
 
@@ -292,7 +311,7 @@ where fecharegistro < ''
 
             },
             new String [] {
-                "Fecha", "Cliente", "Origen - Destino", "Importe", "IGV", "Total"
+                "Fecha", "Cliente", "Origen - Destino", "Importe", "IVA", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -319,7 +338,7 @@ where fecharegistro < ''
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -328,7 +347,7 @@ where fecharegistro < ''
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(107, Short.MAX_VALUE))
@@ -361,9 +380,54 @@ where fecharegistro < ''
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        ListaEnviosDataSource listaenviosds= new ListaEnviosDataSource();
+        listaenviosds.setListaEnvios(listaEnvios);
+        
+    if (listaenviosds!=null){
+        try {
+            //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/ReporteVentas.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, listaenviosds);
+            
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual = Calendar.getInstance().getTime(); 
+            String reportDate = df.format(fechaactual);
+            String nombreReporteLogs = "Reporte de Ventas" +reportDate+ ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
+            exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle(nombreReporteLogs);
+            jviewer.setVisible(true);
+            //exportar=true;
+            
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+        } catch (JRException e) {
+            e.printStackTrace();
+            ErrorDialog.mostrarError("Ocurrió un error ", this);
+            
+        }
+    }
+    else {
+    ErrorDialog.mostrarError("No se han seleccionado datos validos.", this);
+    }            
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar1ActionPerformed
         // TODO add your handling code here:
@@ -403,6 +467,8 @@ where fecharegistro < ''
 
        public void llenarGrillaEnvio() {
         Parametro TipoDoc;
+        listaEnviosaux = new ArrayList<Envio>();
+        
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_ventas.getModel();
         int rows = dtm.getRowCount();
         for (int i = rows - 1; i >= 0; i--) {
@@ -424,6 +490,8 @@ where fecharegistro < ''
             dtm.addRow(datos);
 
         }
+        
+        listaEnviosaux.addAll(listaEnvios);
 
     }
     
@@ -490,6 +558,7 @@ where fecharegistro < ''
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btn_origenAero;
@@ -498,7 +567,6 @@ where fecharegistro < ''
     private javax.swing.JComboBox cbm_estado;
     private datechooser.beans.DateChooserCombo dtFechaFin;
     private datechooser.beans.DateChooserCombo dtFechaIni;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
