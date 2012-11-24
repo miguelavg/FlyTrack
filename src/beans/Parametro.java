@@ -159,10 +159,10 @@ public class Parametro implements Serializable {
     
     public String aString(){
         return "IdParametro = " + idParametro + 
-                "Padre = " + (padre != null ? padre.getValor() : null) +
-                "Valor  = " + valor +
-                "Valor Unico = " + valorUnico +
-                "Tipo = "+ tipo +
-                "Estado = " + estado;
+                " Padre = " + (padre != null ? padre.getValor() : null) +
+                " Valor  = " + valor +
+                " Valor Unico = " + valorUnico +
+                " Tipo = "+ tipo +
+                " Estado = " + estado;
     }
 }

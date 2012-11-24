@@ -333,7 +333,7 @@ public class ParametroEdit extends javax.swing.JDialog {
             if(objAux != null){ // modificar
                 CPista.guardarPista("Administración", "Parametro", "Modificar", 
                                 "ANTES: " + objAux.aString() + 
-                                "DESPUES: " + parametro.aString());
+                                " DESPUES: " + parametro.aString());
             }
             else{ // crear
                 CPista.guardarPista("Administración", "Parametro", "Crear", parametro.aString());

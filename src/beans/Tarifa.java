@@ -162,11 +162,11 @@ public class Tarifa implements Serializable {
     
     public String aString(){
         return "Idtarfia = " + idTarifa + 
-                "Aeropuerto Origne = " + origen != null ? origen.getNombre() : null +
-                "Aeropuerto Destino = " + destino != null ? destino.getNombre() : null +
-                "Monto = " + monto +
-                "Estado = "+ estado != null ? estado.getValor() : null +
-                "Fecha Activacion = " + CValidator.formatDate(fechaActivacion) + 
-                "Fecha Desactivacion = " + CValidator.formatDate(fechaDesactivacion);
+                " Aeropuerto Origen = " + origen != null ? origen.getNombre() : null +
+                " Aeropuerto Destino = " + destino != null ? destino.getNombre() : null +
+                " Monto = " + monto +
+                " Estado = "+ estado != null ? estado.getValor() : null +
+                " Fecha Activacion = " + CValidator.formatDate(fechaActivacion) + 
+                " Fecha Desactivacion = " + CValidator.formatDate(fechaDesactivacion);
     }
 }
