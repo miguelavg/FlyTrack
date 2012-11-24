@@ -308,7 +308,7 @@ public class ReporteIncidencias extends javax.swing.JFrame {
             fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
             
-            String nombreReporteAlmacen = "Reporte de incidencias" +reportDate+ ".pdf";
+            String nombreReporteAlmacen = "Reporte de incidencias_" +reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
             exporter.exportReport();
             

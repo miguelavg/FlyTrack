@@ -55,21 +55,21 @@
 				<text><![CDATA[Nro ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="45" y="13" width="59" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="42" y="13" width="59" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Usuario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="91" y="14" width="101" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="87" y="14" width="101" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Modulo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="172" y="14" width="126" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="167" y="14" width="126" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -111,14 +111,14 @@
 				<text><![CDATA[Pista]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="92" y="25" width="101" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="88" y="25" width="101" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Principal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="174" y="26" width="126" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="169" y="26" width="126" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -139,7 +139,7 @@
 				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="112" y="4" width="101" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="109" y="4" width="101" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{modprincipal}]]></textFieldExpression>
 			</textField>
@@ -159,7 +159,7 @@
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="414" y="3" width="82" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="414" y="3" width="141" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{mensaje}]]></textFieldExpression>
 			</textField>
