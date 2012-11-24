@@ -409,15 +409,16 @@ where fecharegistro < ''
             dtm.removeRow(0);
         }
 
-        Object[] datos = new Object[5];
+        Object[] datos = new Object[6];
 
         for (int i = 0; i < listaEnvios.size(); i++) {
 
             datos[0] = CValidator.formatDate(listaEnvios.get(i).getFechaRecojo());
             datos[1] = listaEnvios.get(i).getRemitente().getApellidos()+listaEnvios.get(i).getRemitente().getNombres();
             datos[2] = listaEnvios.get(i).getOrigen().getNombre();
-            datos[3] = listaEnvios.get(i).getImpuesto();
-            datos[4] = listaEnvios.get(i).getMonto();
+            datos[3] = listaEnvios.get(i).getMonto() / (1 + listaEnvios.get(i).getIva());
+            datos[4] = listaEnvios.get(i).getImpuesto();
+            datos[5] = listaEnvios.get(i).getMonto();
           
 
             dtm.addRow(datos);
