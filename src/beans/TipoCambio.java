@@ -128,9 +128,9 @@ public class TipoCambio implements Serializable {
     
     public String aString(){
     return "IdTipoCambio = " + idTipoCambio + 
-            "Moneda Origen = " + (monedaOrigen != null ? monedaOrigen.getValor() : null ) +
-            "Moneda Destino = " + (monedaDestino != null ? monedaDestino.getValor() : null )+
-            "Tipo de Cambio = " + tipoCambio +
-            "Fecha Actualización = " + CValidator.formatDate(fechaActualizacion);
+            " Moneda Origen = " + (monedaOrigen != null ? monedaOrigen.getValor() : null ) +
+            " Moneda Destino = " + (monedaDestino != null ? monedaDestino.getValor() : null )+
+            " Tipo de Cambio = " + tipoCambio +
+            " Fecha Actualización = " + CValidator.formatDate(fechaActualizacion);
     }
 }
