@@ -7,6 +7,7 @@ package gui.administracion.tipocambio;
 import beans.Parametro;
 import beans.TipoCambio;
 import controllers.CParametro;
+import controllers.CPista;
 import controllers.CTipoCambio;
 import controllers.CValidator;
 import gui.ErrorDialog;
@@ -308,6 +309,11 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         }
         if(this.isNuevo){
             this.tipoCambio = new TipoCambio();
+        }
+        else{
+            CPista.guardarPista("Administración", "Tipo de Cambio", "Modificar", 
+                                "ANTES: " + tipoCambio.aString() + 
+                                "DESPUES: " + tipoCambio.aString());
         }
         
         setCursor(new Cursor(Cursor.WAIT_CURSOR));

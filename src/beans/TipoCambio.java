@@ -4,6 +4,7 @@
  */
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -108,5 +109,13 @@ public class TipoCambio implements Serializable {
 
     public void setMonedaDestino(Parametro monedaDestino) {
         this.monedaDestino = monedaDestino;
+    }
+    
+    public String aString(){
+    return "IdTipoCambio = " + idTipoCambio + 
+            "Moneda Origen = " + monedaOrigen != null ? monedaOrigen.getValor() : null +
+            "Moneda Destino = " + monedaDestino != null ? monedaDestino.getValor() : null +
+            "Tipo de Cambio = " + tipoCambio +
+            "Fecha Actualización = " + CValidator.formatDate(fechaActualizacion);
     }
 }
