@@ -408,7 +408,7 @@ where fecharegistro < ''
             DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
             Date fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
-            String nombreReporteLogs = "Reporte de Ventas" +reportDate+ ".pdf";
+            String nombreReporteLogs = "Reporte de Ventas_" +reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
             exporter.exportReport();
             

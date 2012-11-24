@@ -102,7 +102,7 @@
 		<band height="26" splitType="Stretch">
 			<textField>
 				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="0" y="2" width="41" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{escala}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -112,7 +112,7 @@
 			</textField>
 			<textField>
 				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="60" y="1" width="49" height="20"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{codvuelo}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -121,18 +121,18 @@
 				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="350" y="1" width="39" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="333" y="1" width="63" height="20"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fechasalida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="414" y="2" width="39" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="409" y="2" width="78" height="20"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fechallegada}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="489" y="0" width="57" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="487" y="0" width="67" height="20"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
 			</textField>
 		</band>
