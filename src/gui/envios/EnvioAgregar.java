@@ -1025,14 +1025,13 @@ public class EnvioAgregar extends javax.swing.JFrame {
         int cAero = this.envio.getActual().getCapacidadActual();
         this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
 
-        this.envio.getActual().setCapacidadActual(1);
-
         for (Escala e : this.envio.getEscalas()) {
             e.setEstado(estadoEscala);
             int cVuelo = e.getVuelo().getCapacidadActual();
             e.getVuelo().setCapacidadActual(cVuelo - this.envio.getNumPaquetes());
         }
 
+        this.envio.setFechaRecojo(new Date());
         llenarEscalas(this.envio);
 
         btn_anular.setEnabled(false);
@@ -1101,7 +1100,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
     private void btn_rutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rutaActionPerformed
         MonitoreoFrame monitoreoDialog = new MonitoreoFrame(this.envio);
-        monitoreoDialog.setVisible(true);
+        monitoreoDialog.showFrame();
     }//GEN-LAST:event_btn_rutaActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
@@ -1157,7 +1156,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 llenarEscalas(this.envio);
                 this.isNuevo = false;
 
-                //cenvio.guardarEnvio(this.envio);
+                int capacidad = envio.getActual().getCapacidadActual();
+                envio.getActual().setCapacidadActual(capacidad + envio.getNumPaquetes());
 
                 this.envio.setNumDocVenta(CEnvio.getNextNumDoc(doc.getValorUnico()));
                 cenvio.guardarEnvio(this.envio);
@@ -1253,9 +1253,10 @@ public class EnvioAgregar extends javax.swing.JFrame {
                     break;
                 }
             }
-            int cAero = this.envio.getActual().getCapacidadMax();
+            int cAero = this.envio.getActual().getCapacidadActual();
             this.envio.getActual().setCapacidadActual(cAero - this.envio.getNumPaquetes());
             this.envio.setFechaRecojo(new Date());
+            txt_fechaRec.setText(CValidator.formatDate(this.envio.getFechaRecojo()));
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
             cenvio.guardarEnvio(this.envio);
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -1281,13 +1282,14 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
                 return;
             }
+            DateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy HH_mm");
             Map parametro = new HashMap();
             String nombreempleado = Sesion.getUsuario().getNombres() + " " + Sesion.getUsuario().getApellidos();
-            //String horaactual = dateFormat.format(calendar.getTime()).substring(11, 16);
-            //String fechaactualaux = dateFormat.format(calendar.getTime()).substring(0, 10);
+            String horaactual = dateFormat.format(this.envio.getFechaRecojo()).substring(11, 16);
+            String fechaactualaux = dateFormat.format(this.envio.getFechaRecojo()).substring(0, 10);
             parametro.put("empleado", nombreempleado);
-            //parametro.put("horaactual", horaactual);
-            //parametro.put("fechaactual", fechaactualaux);
+            parametro.put("horaactual", horaactual);
+            parametro.put("fechaactual", fechaactualaux);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, parametro, enviods);
             JRExporter exporter = new JRPdfExporter();

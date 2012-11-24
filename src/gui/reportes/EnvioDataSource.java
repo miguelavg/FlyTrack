@@ -102,6 +102,10 @@ public class EnvioDataSource  implements JRDataSource {
     { 
         valor = getEnvio().getRemitente().getNombres(); 
     } 
+                        else if("remape".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getRemitente().getApellidos(); 
+    }                         
                         else if("fechaactualrecojo".equals(jrField.getName())) 
     { 
         valor = dateFormat.format(getEnvio().getFechaRecojo()).substring(0, 10); 

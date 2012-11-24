@@ -53,8 +53,13 @@ import org.hibernate.annotations.ParamDef;
     @ParamDef(name = "idCliente", type = "integer")),
     @FilterDef(name = "EnviosXNumEnvio", parameters =
     @ParamDef(name = "numEnvio", type = "integer")),
-    @FilterDef(name = "EnviosXFecha", parameters =
-    @ParamDef(name = "fecharegistro", type = "timestamp"))
+    @FilterDef(name = "EnviosXFechaIni", parameters =
+    @ParamDef(name = "fecharegistro", type = "timestamp")),
+    @FilterDef(name = "EnviosXFechaFin", parameters =
+    @ParamDef(name = "fecharegistro", type = "timestamp")),
+    @FilterDef(name = "EnviosXTipoDoc", parameters =
+    @ParamDef(name = "tipoDoc", type = "integer"))
+    
 })
 @Filters({
     @Filter(name = "EnviosXOrigen", condition = "idOrigen = :idAeropuerto"),
@@ -62,7 +67,13 @@ import org.hibernate.annotations.ParamDef;
     @Filter(name = "EnviosXActual", condition = "idActual = :idAeropuerto"),
     @Filter(name = "EnviosXEstado", condition = "Estado = :idEstado"),
     @Filter(name = "EnviosXCliente", condition = "idRemitente = :idCliente or idDestinatario = :idCliente"),
-    @Filter(name = "EnviosXNumEnvio", condition = "idEnvio = :numEnvio")
+    @Filter(name = "EnviosXNumEnvio", condition = "idEnvio = :numEnvio"),
+    @Filter(name = "EnviosXFechaIni", condition = "fecharegistro > :fecharegistro"),
+    @Filter(name = "EnviosXFechaFin", condition = "fecharegistro < :fecharegistro"),
+    @Filter(name = "EnviosXTipoDoc", condition = "tipodocventa = :tipodocventa"),
+    
+            
+      
 })
 public class Envio implements Serializable {
 

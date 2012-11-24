@@ -115,12 +115,20 @@ public class CPista {
                 filter.setParameter("accion", accion);
             }
             
-            if(fechaIni != null){
+            if(fechaIni != null){            
+                fechaIni.set(Calendar.HOUR_OF_DAY, 0);
+                fechaIni.set(Calendar.MINUTE, 0);
+                fechaIni.set(Calendar.SECOND, 0);
+                
                 filter = s.enableFilter("PistasXFechaIni");
                 filter.setParameter("fechaIni", fechaIni.getTime());
             }
             
             if(fechaFin != null){
+                fechaFin.set(Calendar.HOUR_OF_DAY, 0);
+                fechaFin.set(Calendar.MINUTE, 0);
+                fechaFin.set(Calendar.SECOND, 0);
+                
                 filter = s.enableFilter("PistasXFechaFin");
                 filter.setParameter("fechaFin", fechaFin.getTime());
             }

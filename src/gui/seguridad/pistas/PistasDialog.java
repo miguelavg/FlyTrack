@@ -8,11 +8,18 @@ import beans.*;
 import beans.seguridad.*;
 import controllers.CParametro;
 import controllers.CPista;
+import controllers.CValidator;
 import gui.ErrorDialog;
+import gui.envios.EnvioAgregar;
+import gui.reportes.IncidenciaDataSource;
+import gui.reportes.PistasDataSource;
 import gui.seguridad.usuarios.UsuarioPopup;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,21 +30,33 @@ import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author msolorzano
  */
-public class PistasDialog extends javax.swing.JDialog {
+public class PistasDialog extends javax.swing.JFrame {
 
     Usuario usuarioBuscado = null;
+    ArrayList<Pista> listaPistas;
+    
+    
     /**
      * Creates new form PistasDialog
      */
-    public PistasDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+//    public PistasDialog(java.awt.Frame parent, boolean modal) {
+//        super(parent, modal);
+//        initComponents();
+//    }
     
     public PistasDialog(){
         initComponents();
@@ -170,6 +189,11 @@ public class PistasDialog extends javax.swing.JDialog {
 
         btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
         btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -333,6 +357,8 @@ public class PistasDialog extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        listaPistas = new ArrayList<Pista>();
+
         String accion;
         if(cmbAccion.getSelectedIndex() != 0){
             accion = ((Parametro)cmbAccion.getSelectedItem()).getValor();
@@ -342,21 +368,22 @@ public class PistasDialog extends javax.swing.JDialog {
         }
         
         Calendar fechaIni = dtcFechaIni.getSelectedDate();
-        fechaIni.set(Calendar.HOUR_OF_DAY, 0);
-        fechaIni.set(Calendar.MINUTE, 0);
-        fechaIni.set(Calendar.SECOND, 0);
-        
         Calendar fechaFin = dtcFechaFin.getSelectedDate();
-        fechaFin.set(Calendar.HOUR_OF_DAY, 23);
-        fechaFin.set(Calendar.MINUTE, 59);
-        fechaFin.set(Calendar.SECOND, 59);
-        
-        if(fechaIni.before(fechaFin)){
-            List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
-            llenarTabla(pistas);
+
+        if(fechaIni != null && fechaFin != null){
+            if(fechaIni.before(fechaFin)){
+                List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
+                llenarTabla(pistas);
+                listaPistas.addAll(pistas);
+            }
+            else{
+                ErrorDialog.mostrarError("La fecha inicial debe ser antes de la fecha final", this);
+            }
         }
         else{
-            ErrorDialog.mostrarError("La fecha inicial debe ser menor a la fecha final", this);
+            List<Pista> pistas = CPista.obtenerPistas(txtUsuario.getText(), accion, fechaIni, fechaFin);
+            llenarTabla(pistas);
+            listaPistas.addAll(pistas);
         }
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 //        CPista.guardarPista("Pistas", "Buscar", "PistasDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda de las pistas");
@@ -374,6 +401,56 @@ public class PistasDialog extends javax.swing.JDialog {
             txtUsuario.setText("");
         }
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+    PistasDataSource pistads = new PistasDataSource();
+    pistads.setListaPistas(listaPistas);
+    
+    if (pistads!=null){
+        try {
+            //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+            String master = System.getProperty("user.dir") +
+                                "/src/gui/reportes/ReporteLogsPistas.jasper";
+            
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, pistads);
+            
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+            Date fechaactual = Calendar.getInstance().getTime(); 
+            String reportDate = df.format(fechaactual);
+            String nombreReporteLogs = "Reporte de Logs" +reportDate+ ".pdf";
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
+            exporter.exportReport();
+            
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle(nombreReporteLogs);
+            jviewer.setVisible(true);
+            //exportar=true;
+            
+            //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
+        } catch (JRException e) {
+            e.printStackTrace();
+            ErrorDialog.mostrarError("Ocurrió un error ", this);
+            
+        }
+    }
+    else {
+    ErrorDialog.mostrarError("No se han seleccionado datos validos.", this);
+    }        
+        
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     protected JRootPane createRootPane() { 
         JRootPane rootPane = new JRootPane();
@@ -431,14 +508,16 @@ public class PistasDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PistasDialog dialog = new PistasDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new PistasDialog().setVisible(true);
+
+//                PistasDialog dialog = new PistasDialog(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
             }
         });
     }

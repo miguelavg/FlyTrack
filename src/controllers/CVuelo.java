@@ -326,6 +326,7 @@ public class CVuelo {
                     if (escalaProfunda.getIdEscala() == escala.getIdEscala()) {
                         escala.getEnvio().getEscalas().set(i, escala);
                     }
+                    escalaProfunda.getVuelo().getIncidencias().size();
                 }
 
             }
@@ -362,17 +363,21 @@ public class CVuelo {
         }
     }
 
-    public static void modificarEscalas(Vuelo v) {
+    public static int modificarEscalas(Vuelo v) {
+        int fallos = 0;
         if (v.getEscalas() != null) {
             for (Escala escala : v.getEscalas()) {
-                modificarEnvio(escala);
+                fallos = fallos + modificarEnvio(escala);
             }
         }
+        
+        return fallos;
     }
 
-    public static void modificarEnvio(Escala escala) {
+    public static int modificarEnvio(Escala escala) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
+        int fallos = 0;
 
         try {
 
@@ -381,7 +386,7 @@ public class CVuelo {
             String estadoVuelo = escala.getVuelo().getEstado().getValorUnico();
 
             if (escala.getEstado().getValorUnico().equals("CAN")) {
-                return;
+                return 0;
             }
 
             if (estadoVuelo.equals("FIN")) {
@@ -462,14 +467,17 @@ public class CVuelo {
 
                 if (error != null && !error.isEmpty()) {
                     t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
+                    fallos++;
                     escala.getEnvio().setEstado(t);
-
                 }
 
             }
 
             s.saveOrUpdate(escala.getEnvio());
-
+            
+            for(Escala e : escala.getEnvio().getEscalas()){
+                s.saveOrUpdate(e.getVuelo());
+            }
             CEnvio.enviarCorreos(escala.getEnvio());
 
             tx.commit();
@@ -479,5 +487,7 @@ public class CVuelo {
         } finally {
             s.close();
         }
+        
+        return fallos;
     }
 }

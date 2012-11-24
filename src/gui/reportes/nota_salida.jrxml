@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8acc9963-a739-4d24-aaf0-3554cb67b859">
 	<property name="ireport.zoom" value="1.210000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="empleado" class="java.lang.String"/>
 	<parameter name="horaactual" class="java.lang.String"/>
 	<parameter name="fechaactual" class="java.lang.String"/>
@@ -45,7 +45,7 @@
 				<text><![CDATA[Nota de Salida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a2e90f2f-c0d0-4c3d-a834-2b86ce1d2064" x="470" y="35" width="49" height="20" forecolor="#000000" backcolor="#404040"/>
+				<reportElement uuid="a2e90f2f-c0d0-4c3d-a834-2b86ce1d2064" x="434" y="33" width="49" height="20" forecolor="#000000" backcolor="#404040"/>
 				<textElement textAlignment="Right">
 					<font size="14" isBold="false"/>
 				</textElement>
@@ -186,6 +186,10 @@
 			<line>
 				<reportElement uuid="a578c6a1-91a3-404d-b2bc-dc14d59272cb" x="9" y="274" width="535" height="1" forecolor="#BB0A0A"/>
 			</line>
+			<image>
+				<reportElement uuid="a684d159-5606-43d6-aaf0-00387a470913" x="500" y="23" width="52" height="43"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>
