@@ -58,12 +58,16 @@ public class TipoCambio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTipoCambio;
+    
     private double tipoCambio;
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
+    
     @ManyToOne
     @JoinColumn(name = "MonedaOrigen")
     private Parametro monedaOrigen;
+    
     @ManyToOne
     @JoinColumn(name = "MonedaDestino")
     private Parametro monedaDestino;
@@ -113,8 +117,8 @@ public class TipoCambio implements Serializable {
     
     public String aString(){
     return "IdTipoCambio = " + idTipoCambio + 
-            "Moneda Origen = " + monedaOrigen != null ? monedaOrigen.getValor() : null +
-            "Moneda Destino = " + monedaDestino != null ? monedaDestino.getValor() : null +
+            "Moneda Origen = " + (monedaOrigen != null ? monedaOrigen.getValor() : null ) +
+            "Moneda Destino = " + (monedaDestino != null ? monedaDestino.getValor() : null )+
             "Tipo de Cambio = " + tipoCambio +
             "Fecha Actualización = " + CValidator.formatDate(fechaActualizacion);
     }
