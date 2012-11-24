@@ -15,6 +15,7 @@ import gui.administracion.aeropuertos.AeropuertoPopup;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Window;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -63,11 +64,12 @@ public class VuelosAgregar extends javax.swing.JDialog {
              lbl_codigo.setVisible(true);
             }
             else{
-                cbm_estado.setSelectedIndex(1);
+                //cbm_estado.setSelectedIndex(1);
                 cbm_estado.setEnabled(false);
             }
             
             objVueloo = objVuelo; 
+         
             SfechSal.setModel(new DateSpinner().getModel());
             Sfeclleg.setModel(new DateSpinner().getModel());
             
@@ -85,6 +87,10 @@ public class VuelosAgregar extends javax.swing.JDialog {
                     Parametro TipoDocBE =(Parametro)ListatipoEst.get(i);
 
                     cbm_estado.addItem(TipoDocBE);
+                    
+                    if(TipoDocBE.getValorUnico().equals("PROG")){
+                        cbm_estado.setSelectedItem(TipoDocBE);
+                    }
                 }
             }
     
@@ -401,7 +407,7 @@ public class VuelosAgregar extends javax.swing.JDialog {
            if (indicador != -1){
 
                     cbm_estado.setEnabled(false);
-                    cbm_estado.setSelectedIndex(1);
+                    //cbm_estado.setSelectedIndex(1);
                     CVuelo.agregarVuelo(
                                         aeropuertoOrigen,
                                         aeropuertoDestino,
