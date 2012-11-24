@@ -73,7 +73,18 @@ public class TipoCambio implements Serializable {
     private Parametro monedaDestino;
 
     public TipoCambio() {
+    
     }
+
+    public TipoCambio(TipoCambio tipocambio) {
+        this.idTipoCambio = tipocambio.idTipoCambio;
+        this.tipoCambio = tipocambio.tipoCambio;
+        this.fechaActualizacion = tipocambio.fechaActualizacion;
+        this.monedaOrigen = tipocambio.monedaOrigen;
+        this.monedaDestino = tipocambio.monedaDestino;
+    }
+    
+    
 
     public int getIdTipoCambio() {
         return idTipoCambio;
