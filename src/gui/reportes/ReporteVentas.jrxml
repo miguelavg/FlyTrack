@@ -13,7 +13,6 @@
 	<field name="destino" class="java.lang.String"/>
 	<field name="fechasalida" class="java.lang.String"/>
 	<field name="fechallegada" class="java.lang.String"/>
-	<field name="estado" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
