@@ -6,6 +6,7 @@ package gui.administracion.parametros;
 
 import beans.Parametro;
 import controllers.CParametro;
+import controllers.CPista;
 import gui.ErrorDialog;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
@@ -311,8 +312,13 @@ public class ParametroEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
         CParametro cparametro = new CParametro();
         
+        
+        Parametro objAux = null;
         if(this.isNuevo){
             this.parametro = new Parametro();
+        }
+        else{
+            objAux = new Parametro(parametro);
         }
         
         String error_message = cparametro.validar(this.parametro, isNuevo, this.txt_valor.getText(), this.txt_valorUnico.getText(), this.txt_tipo.getText());
@@ -323,6 +329,16 @@ public class ParametroEdit extends javax.swing.JDialog {
             this.parametro.setEstado(cb_estado.isSelected());
             this.parametro.setPadre(this.padre);
             cparametro.guardar(this.parametro);
+            
+            if(objAux != null){ // modificar
+                CPista.guardarPista("Administración", "Parametro", "Modificar", 
+                                "ANTES: " + objAux.aString() + 
+                                "DESPUES: " + parametro.aString());
+            }
+            else{ // crear
+                CPista.guardarPista("Administración", "Parametro", "Crear", parametro.aString());
+            }
+            
             this.setVisible(false);
             this.dispose();
         } else {

@@ -8,6 +8,7 @@ import beans.Parametro;
 import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CParametro;
+import controllers.CPista;
 import controllers.CSeguridad;
 import java.awt.Cursor;
 import java.awt.Rectangle;
@@ -347,6 +348,12 @@ public class ParametroDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         List<Parametro> parametros = CParametro.buscar(txt_valor.getText(), txt_valorUnico.getText(), txt_tipo.getText(), this.padre);
+        CPista.guardarPista("Administración", "Parametro", "Buscar", 
+                            "Valor: " + txt_valor.getText() +
+                            " Valor Unico: " + txt_valorUnico.getText() +
+                            " Tipo: " + txt_tipo.getText() +
+                            " Padre: " + txt_padre.getText() );
+
         llenarTablaParametro(parametros);
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_buscarActionPerformed

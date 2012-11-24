@@ -551,6 +551,7 @@ public class TarifaEdit extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+    
     public int showDialog() {
         setVisible(true);
         return 1;
