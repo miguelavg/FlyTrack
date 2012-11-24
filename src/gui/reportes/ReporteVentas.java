@@ -510,6 +510,17 @@ where fecharegistro < ''
        if (cbm_Tipodoc.getSelectedIndex() > 0) {
             TipoDoc = (Parametro) cbm_Tipodoc.getSelectedItem();           
        }
+       
+        if (txt_origen.getText().trim().equals("")) {
+            aeropuertoOrigen = null;
+        }
+
+        if (txt_destino.getText().trim().equals("")) {
+            aeropuertoDestino = null;
+        }              
+       
+       
+       
             listaEnvios =  CEnvio.BuscarRepoEnviar(
                         Estado, 
                         aeropuertoOrigen, 
@@ -519,6 +530,8 @@ where fecharegistro < ''
                         TipoDoc);
       //  }
        llenarGrillaEnvio();
+       
+       setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
     /**
