@@ -150,6 +150,8 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
+            ArrayList<Envio> listaenvio= new ArrayList<Envio>();
+            listaenvio.add(envio);            
             for (Escala e : envio.getEscalas()) {
                 s.saveOrUpdate(e.getVuelo());
             }
