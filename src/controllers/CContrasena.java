@@ -132,7 +132,7 @@ public class CContrasena {
     }
     
     //Manolin
-    public static boolean agregarContrasenaActiva(char[] contrasenaNueva, Usuario usuario){
+    public static Contrasena agregarContrasenaActiva(char[] contrasenaNueva, Usuario usuario){
         Session s = Sesion.openSessionFactory();
         try{
             Transaction tx = s.beginTransaction();
@@ -151,13 +151,14 @@ public class CContrasena {
             s.save(contrasena);
             tx.commit();
             
+            return contrasena;
+            
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return false;
+            return null;
         } finally {
             s.close();
             Sesion.closeSessionFactory();
-            return true;
         }
     }
     

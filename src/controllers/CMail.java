@@ -21,7 +21,7 @@ public class CMail {
     public void sendMail(String to, String subject, String message){
         Properties prop = new Properties();
         
-        from = CParametro.buscarXValorUnicoyTipo("MAIL", "FROM").getValor();
+            from = CParametro.buscarXValorUnicoyTipo("MAIL", "FROM").getValor();
         password = CParametro.buscarXValorUnicoyTipo("MAIL", "PWD").getValor();
         mailSMTPServers = CParametro.buscarXValorUnicoyTipo("MAIL", "SMTP_SERVER").getValor();
         mailSMTPServerPort = CParametro.buscarXValorUnicoyTipo("MAIL", "SMTP_PORT").getValor();
@@ -37,6 +37,8 @@ public class CMail {
         prop.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
         prop.setProperty("mail.user", from);
         prop.setProperty("mail.password",password);
+        prop.put("mail.smtp.timeout", "15000");
+        prop.put("mail.smtp.connectiontimeout", "15000");
         
         Session session = Session.getDefaultInstance(prop);
         session.setDebug(true);
@@ -58,6 +60,7 @@ public class CMail {
         try{
             tr = session.getTransport("smtp");
             tr.connect(mailSMTPServers,from,password);
+            
             msg.saveChanges();
             tr.sendMessage(msg, msg.getAllRecipients());
             tr.close();

@@ -4,6 +4,7 @@
  */
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -52,28 +53,48 @@ public class Vuelo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVuelo;
+    
     private double costoAlquiler;
     private int capacidadMax;
     private int capacidadActual;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaSalida;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaLlegada;
+    
     @ManyToOne
     @JoinColumn(name = "Estado")
     private Parametro estado;
+    
     @ManyToOne
     @JoinColumn(name = "idOrigen")
     private Aeropuerto origen;
+    
     @ManyToOne
     @JoinColumn(name = "idDestino")
     private Aeropuerto destino;
+    
     @OneToMany(mappedBy = "vuelo")
     @Cascade(CascadeType.ALL)
     private List<Incidencia> incidencias;
+    
     @OneToMany(mappedBy = "vuelo")
     private List<Escala> escalas;
 
+    public String aString(){
+        return "IdVuelo = " + idVuelo + 
+                " Origen = " + (origen != null ? origen.getNombre() : null) + 
+                " Destino = " + (destino != null ? destino.getNombre() : null) +
+                " Fecha de Salida = "+ (fechaSalida != null ? CValidator.formatDate(fechaSalida) : null) +
+                " Fecha de Llegada = " + (fechaLlegada != null ? CValidator.formatDate(fechaLlegada) : null) + 
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Capacidad Máxima = " + capacidadMax +
+                " Capacidad Actual = " + capacidadActual +
+                " Costo del Alquiler = " + costoAlquiler;
+    }
+    
     public Vuelo() {
     }
 

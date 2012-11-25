@@ -327,7 +327,10 @@ public class Aeropuerto extends javax.swing.JDialog {
         // TODO add your handling code here:
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
         llenarGrillaAero();
-//        CPista.guardarPista("Aeropuerto", "Buscar", "Aeropuerto", "btn_buscarActionPerformed", null, null,"Se ha realizado una busqueda de aeropuertos");
+        CPista.guardarPista("Administración", "Aeropuerto", "Buscar", 
+                            "Pais: " + (cbm_Pais.getSelectedIndex() > 0 ? ((Parametro)cbm_Pais.getSelectedItem()).getValor() : null) +
+                            " Ciudad: " + (cbm_ciudad.getSelectedIndex() > 0 ? ((Parametro)cbm_ciudad.getSelectedItem()).getValor() : null) +
+                            " Estado: " + (cbm_estado.getSelectedIndex() > 0 ? ((Parametro)cbm_estado.getSelectedItem()).getValor() : null) );
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
     }//GEN-LAST:event_btn_buscarActionPerformed

@@ -384,6 +384,7 @@ public class TarifaEdit extends javax.swing.JDialog {
         }
         
     }
+    
     private void txtAeroOriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAeroOriActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAeroOriActionPerformed
@@ -467,6 +468,7 @@ public class TarifaEdit extends javax.swing.JDialog {
         //TarifaBL.agregarTarifa(AeroOri, AeroDes, txtMonto.getText(), (Parametro)cboMoneda.getSelectedItem(),(Parametro)cboMoneda.getSelectedItem() , txtFechaAct.getText(),txtFechaDes.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed
+    
     private String validarcampos() {
 
         String error_message = "";
@@ -544,10 +546,12 @@ public class TarifaEdit extends javax.swing.JDialog {
 
 
     }
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+    
     public int showDialog() {
         setVisible(true);
         return 1;

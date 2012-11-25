@@ -5,6 +5,7 @@
 package controllers;
 
 import beans.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -112,6 +113,7 @@ public class CVuelo {
             int i = (Integer) s.save(v);
 
             tx.commit();
+            CPista.guardarPista("Administración", "Vuelo", "Crear", v.aString());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -247,6 +249,11 @@ public class CVuelo {
              Parametro Estado,
              String capacidad
              */
+            
+            CPista.guardarPista("Administración", "Vuelo", "Modificar", 
+                                "ANTES: " + buscarVueloId(Integer.parseInt(idVuelo)).aString() + 
+                                " DESPUES: " + objVuelo.aString());
+
             s.update(objVuelo);
 
             tx.commit();
@@ -298,6 +305,8 @@ public class CVuelo {
             int i = (Integer) s.save(objVuelo);
 
             tx.commit();
+            
+            CPista.guardarPista("Administración", "Vuelo", "Crear", objVuelo.aString());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -363,30 +372,51 @@ public class CVuelo {
         }
     }
 
-    public static int modificarEscalas(Vuelo v) {
-        int fallos = 0;
-        if (v.getEscalas() != null) {
-            for (Escala escala : v.getEscalas()) {
-                fallos = fallos + modificarEnvio(escala);
-            }
-        }
-        
-        return fallos;
-    }
-
-    public static int modificarEnvio(Escala escala) {
+    private static void guardar(Vuelo v) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
-        int fallos = 0;
+
+        try {
+            Transaction tx = s.beginTransaction();
+            s.saveOrUpdate(v);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+    }
+
+    public static Help modificarEscalas(Vuelo v) {
+        Help h = new Help();
+
+        if (v.getEscalas() != null) {
+            for (Escala escala : v.getEscalas()) {
+                ArrayList<Vuelo> vuelos = modificarEnvio(escala, h);
+                for (Vuelo vuelo : vuelos) {
+                    guardar(vuelo);
+                }
+                CEnvio.enviarCorreos(escala.getEnvio());
+            }
+        }
+
+        return h;
+
+    }
+
+    public static ArrayList<Vuelo> modificarEnvio(Escala escala, Help h) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        ArrayList<Vuelo> v = new ArrayList<Vuelo>();
 
         try {
 
-            Transaction tx = s.beginTransaction();
+            Transaction tx;
             Parametro t;
             String estadoVuelo = escala.getVuelo().getEstado().getValorUnico();
 
             if (escala.getEstado().getValorUnico().equals("CAN")) {
-                return 0;
+                return null;
             }
 
             if (estadoVuelo.equals("FIN")) {
@@ -448,6 +478,8 @@ public class CVuelo {
                 int numEscala = escala.getNumEscala();
                 escala.setEstado(t);
 
+                tx = s.beginTransaction();
+
                 for (Escala escalaCancelada : escala.getEnvio().getEscalas()) {
                     if (escalaCancelada.getEstado().getValorUnico().equals("PROG")) {
 
@@ -462,32 +494,36 @@ public class CVuelo {
                     }
                 }
 
+                tx.commit();
+
                 CEnvio cenvio = new CEnvio();
                 String error = cenvio.calcularRuta(escala.getEnvio(), ahora, numEscala);
 
                 if (error != null && !error.isEmpty()) {
                     t = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "IND");
-                    fallos++;
+                    h.sumaFallo();
                     escala.getEnvio().setEstado(t);
+                } else {
+                    h.sumaExito();
                 }
 
             }
 
-            s.saveOrUpdate(escala.getEnvio());
-            
-            for(Escala e : escala.getEnvio().getEscalas()){
-                s.saveOrUpdate(e.getVuelo());
-            }
-            CEnvio.enviarCorreos(escala.getEnvio());
 
+            tx = s.beginTransaction();
+            s.saveOrUpdate(escala.getEnvio());
             tx.commit();
+
+            for (Escala e : escala.getEnvio().getEscalas()) {
+                v.add(e.getVuelo());
+            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             s.close();
         }
-        
-        return fallos;
+
+        return v;
     }
 }

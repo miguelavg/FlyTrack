@@ -4,6 +4,7 @@
  */
 package gui.administracion.vuelos;
 
+import beans.Help;
 import beans.Incidencia;
 import beans.Parametro;
 import beans.Vuelo;
@@ -389,10 +390,17 @@ public class IncidenciaEdit extends javax.swing.JDialog {
 
     private void cambiarEstado(Vuelo objVuelo, String valorPara) {
         CVuelo.modificarVueloEstado(objVuelo, valorPara);
-        int f = CVuelo.modificarEscalas(objVuelo);
+        Help r = CVuelo.modificarEscalas(objVuelo);
         
-        if(f > 0){
-            String mensaje = "No se pudieron repogramar " + f + " envíos. Pasarán a estado Indeterminado. Se deberá asignar ruta manualmente.";
+        String mensaje = "";
+        
+        if(r.getExitos() > 0){
+            mensaje = mensaje + "Se reprogramaron " + r.getExitos() + " envíos.";
+        }
+        if(r.getFallos() > 0){
+            mensaje = mensaje + "No se pudieron repogramar " + r.getFallos() + " envíos. Pasarán a estado Indeterminado. Se deberá asignar ruta manualmente.\n"; 
+        }
+        if(!mensaje.isEmpty()){
             InformationDialog.mostrarInformacion(mensaje, this);
         }
     }

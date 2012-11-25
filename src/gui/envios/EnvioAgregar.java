@@ -989,8 +989,9 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
             llenarEscalas(this.envio);
             llenarCombos(this.isNuevo, this.moneda, this.doc, this.estado, this.estadoFactura);
+            btn_recalcular.setEnabled(false);
         } else {
-            this.envio = null;
+            
             ErrorDialog.mostrarError(error_message, this);
         }
 
@@ -1454,7 +1455,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 fechaactual = Calendar.getInstance().getTime();
                 String reportDate = df.format(fechaactual);
 
-                String nombreReporteBitacora = "Bitacora" + this.envio.getIdEnvio() + reportDate + ".pdf";
+                String nombreReporteBitacora = "Bitacora_" + this.envio.getIdEnvio() +"_"+reportDate + ".pdf";
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
                 exporter.exportReport();
 

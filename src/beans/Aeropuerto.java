@@ -63,8 +63,8 @@ import org.hibernate.annotations.ParamDef;
     parameters =
     @ParamDef(name = "Ciudad", type = "integer")),
     @FilterDef(name = "VuelosXAeropuertoSalida", parameters = {
-        @ParamDef(name = "upper", type = "date"),
-        @ParamDef(name = "lower", type = "date"),
+        @ParamDef(name = "upper", type = "timestamp"),
+        @ParamDef(name = "lower", type = "timestamp"),
         @ParamDef(name = "idEstado", type = "integer")
     }),
         @FilterDef(name = "VuelosXAeropuertoSalidaAux", parameters = {
@@ -229,5 +229,17 @@ public class Aeropuerto implements Serializable {
     @Override
     public String toString(){
         return this.getNombre() + ", " + this.getCiudad() + ", " + this.getPais();
+    }
+    
+    public String aString(){
+        return "IdAeropuerto = " + idAeropuerto + 
+                " Nombre = " + nombre +
+                " Ciudad = " + (ciudad != null ? ciudad.getValor() : null) +
+                " País = " + (pais != null ? pais.getValor() : null) +
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Capacidad Máxima = " + capacidadMax +
+                " Capacidad Actual = " + capacidadActual +
+                " Coordenada X = " + coordX +
+                " Coordenada Y = " + coordY ;
     }
 }

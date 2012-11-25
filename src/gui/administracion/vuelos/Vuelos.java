@@ -500,7 +500,14 @@ public class Vuelos extends javax.swing.JDialog {
         } else {
             listaVuelos = CVuelo.BuscarVuelo(codVuelo, aeropuertoOrigen, aeropuertoDestino, fechini, fechfin, null);
         }
-
+        
+        CPista.guardarPista("Administración", "Vuelos", "Buscar", 
+                            " Aeropuerto Origen: "  + (aeropuertoOrigen != null ? aeropuertoOrigen.getNombre() : null) +
+                            " Aeropuerto Destino: " + (aeropuertoDestino != null ? aeropuertoDestino.getNombre() : null) +
+                            " Fecha Inicial: " + (dt_fechini.getSelectedDate() != null ? CValidator.formatDate(dt_fechini.getSelectedDate().getTime()) : null) +
+                            " Fecha Final: " + (dt_fechfin.getSelectedDate() != null ? CValidator.formatDate(dt_fechfin.getSelectedDate().getTime()) : null) +
+                            " Estado: " + (cbm_estado.getSelectedIndex() > 0 ? ((Parametro)cbm_estado.getSelectedItem()).getValor() : null) +
+                            " Codigo: " + (txt_cod.getText().isEmpty() ? null : txt_cod.getText()) );
 
         llenarGrillaVuelo();
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

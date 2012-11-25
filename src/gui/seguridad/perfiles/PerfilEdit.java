@@ -12,6 +12,7 @@ import beans.seguridad.Usuario;
 import controllers.CParametro;
 import controllers.CPerfil;
 import controllers.CPermiso;
+import controllers.CPista;
 import controllers.CUsuario;
 import gui.ErrorDialog;
 import java.awt.Cursor;
@@ -1656,12 +1657,19 @@ public class PerfilEdit extends javax.swing.JDialog {
             if (idperfil == -1){//Nuevo Perfil
                 Perfil perfilNuevo = CPerfil.agregarPerfil(txtNombre.getText(), txtDescripcion.getText(), (Parametro)cboEstado.getSelectedItem());
                 crearPermisos(perfilNuevo);
+                perfilNuevo = CPerfil.BuscarXid(perfilNuevo.getIdPerfil());
+                CPista.guardarPista("Seguridad", "Perfiles", "Crear", perfilNuevo.aString());
                 
             }
 
             else{//Modificar Perfil
+                Perfil perfilAnterior = CPerfil.BuscarXid(idperfil);
                 Perfil perfilModificado = CPerfil.modificarPerfil(idperfil, txtNombre.getText(),txtDescripcion.getText() ,(Parametro)cboEstado.getSelectedItem());
                 String huboCambios = modificarPermisos(perfilModificado);
+                if(!huboCambios.isEmpty()){
+                    perfilModificado = CPerfil.BuscarXid(perfilModificado.getIdPerfil());
+                    CPista.guardarPista("Seguridad", "Perfiles", "Modificar", perfilAnterior.aString(), perfilModificado.aString());
+                }
                 if( idperfil == Sesion.getUsuario().getPerfil().getIdPerfil() && //Si el perfil que modifico es del usuario que esta en la sesion
                     !huboCambios.isEmpty()){ //y ademas se nota que hubo cambios
                     Sesion.setUsuario(CUsuario.actualizarUsuario(Sesion.getUsuario())); //debo actualizar el usuario y por ende sus permisos porque han cambiado

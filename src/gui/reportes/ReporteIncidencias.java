@@ -76,7 +76,7 @@ public class ReporteIncidencias extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblIncidencias = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -129,6 +129,11 @@ public class ReporteIncidencias extends javax.swing.JFrame {
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancel.png"))); // NOI18N
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btn_origen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btn_origen.addActionListener(new java.awt.event.ActionListener() {
@@ -303,7 +308,7 @@ public class ReporteIncidencias extends javax.swing.JFrame {
             fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
             
-            String nombreReporteAlmacen = "Reporte de incidencias" +reportDate+ ".pdf";
+            String nombreReporteAlmacen = "Reporte de incidencias_" +reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
             exporter.exportReport();
             
@@ -382,6 +387,11 @@ public class ReporteIncidencias extends javax.swing.JFrame {
         llenarGrillaIncidencias();       
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+                this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
