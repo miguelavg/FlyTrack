@@ -257,4 +257,22 @@ public class Usuario implements Serializable {
     public String toString() {
         return logIn;
     }
+    
+    public String aString(){
+        return "IdUsuario = " + idUsuario + 
+                " Perfil = " + (perfil != null ? perfil.getNombre() : null) +
+                " Aeropuerto = " + (aeropuerto != null ? aeropuerto.getNombre() : null) +
+                " Login = " + logIn +
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Numero de accesos = " + numAcceso +
+                " Primer Acceso = " + (primerAcceso ? "Realizado" : "Por realizar") +
+                " Nombres = " + Nombres +
+                " Apellidos = " + Apellidos +
+                " Tipo de Documento = " + (tipoDoc != null ? tipoDoc.getValor() : null) +
+                " Numero del Documento = " + NumDoc +
+                " Email = " + CorreoElectronico +
+                " Telefono = " + Telefono +
+                " Ciudad = " + (ciudad != null ? ciudad.getValor() : null) +
+                " Pais = " + (pais != null ? pais.getValor() : null);
+    }
 }

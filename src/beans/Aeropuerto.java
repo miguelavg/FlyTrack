@@ -230,4 +230,16 @@ public class Aeropuerto implements Serializable {
     public String toString(){
         return this.getNombre() + ", " + this.getCiudad() + ", " + this.getPais();
     }
+    
+    public String aString(){
+        return "IdAeropuerto = " + idAeropuerto + 
+                " Nombre = " + nombre +
+                " Ciudad = " + (ciudad != null ? ciudad.getValor() : null) +
+                " País = " + (pais != null ? pais.getValor() : null) +
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Capacidad Máxima = " + capacidadMax +
+                " Capacidad Actual = " + capacidadActual +
+                " Coordenada X = " + coordX +
+                " Coordenada Y = " + coordY ;
+    }
 }

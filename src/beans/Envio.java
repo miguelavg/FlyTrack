@@ -4,6 +4,7 @@
  */
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
@@ -314,5 +315,26 @@ public class Envio implements Serializable {
     public List<Escala> getEscalasOrdenadasDesc() {
         Collections.sort(escalas, new EscalasOrdenadasDesc());
         return escalas;
+    }
+    
+    public String aString(){
+        return "IdEnvio = " + idEnvio + 
+                " Origen = " + (origen != null ? origen.getNombre() : null) +
+                " Destino = " + (destino != null ? destino.getNombre() : null) +
+                " Actual = " + (actual != null ? actual.getNombre() : null) +
+                " Remitente = " + (remitente != null ? (remitente.getApellidos() + "," + remitente.getNombres()) : null) +
+                " Destinatario = " + (destinatario != null ? (destinatario.getApellidos() + "," + destinatario.getNombres()) : null) +
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Numero de Paquetes = " + numPaquetes +
+                " Monto = " + monto +
+                " Moneda = " + (moneda != null ? moneda.getValor() : null) +
+                " Fecha Registro = " + (fechaRegistro != null ? CValidator.formatDate(fechaRegistro) : null) +
+                " Fecha Recojo = " + (fechaRecojo != null ? CValidator.formatDate(fechaRecojo) : null) +
+                " Tipo de Documento de Venta = " + (tipoDocVenta != null ? tipoDocVenta.getValor() : null) +
+                " Numero de Documento de Venta = " + numDocVenta +
+                " Impuesto = " + impuesto +
+                " IVA = " + iva +
+                " Precio Unitario = " + unitario +
+                " Estado de la Factura = " + (estadoFactura != null ? estadoFactura.getValor() : null) ;
     }
 }
