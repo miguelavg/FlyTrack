@@ -75,20 +75,27 @@ public class Tarifa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTarifa;
+    
     private double monto;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActivacion;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDesactivacion;
+    
     @ManyToOne
     @JoinColumn(name = "Moneda")
     private Parametro moneda;
+    
     @ManyToOne
     @JoinColumn(name = "Estado")
     private Parametro estado;
+    
     @ManyToOne
     @JoinColumn(name = "idOrigen")
     private Aeropuerto origen;
+    
     @ManyToOne
     @JoinColumn(name = "idDestino")
     private Aeropuerto destino;
@@ -162,10 +169,11 @@ public class Tarifa implements Serializable {
     
     public String aString(){
         return "Idtarfia = " + idTarifa + 
-                " Aeropuerto Origen = " + origen != null ? origen.getNombre() : null +
-                " Aeropuerto Destino = " + destino != null ? destino.getNombre() : null +
+                " Aeropuerto Origen = " + (origen != null ? origen.getNombre() : null) +
+                " Aeropuerto Destino = " + (destino != null ? destino.getNombre() : null) +
                 " Monto = " + monto +
-                " Estado = "+ estado != null ? estado.getValor() : null +
+                " Moneda = " + (moneda != null ? moneda.getValor() : null) +
+                " Estado = "+ (estado != null ? estado.getValor() : null) +
                 " Fecha Activacion = " + CValidator.formatDate(fechaActivacion) + 
                 " Fecha Desactivacion = " + CValidator.formatDate(fechaDesactivacion);
     }
