@@ -122,8 +122,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
     @Override
     protected JRootPane createRootPane() {
         JRootPane rootPane = new JRootPane();
-        KeyStroke strokeESC = KeyStroke.getKeyStroke("ESCAPE");
-        Action actionListener = new AbstractAction() {
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action accion = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 setVisible(Boolean.FALSE);
@@ -131,8 +131,8 @@ public class UsuarioEdit extends javax.swing.JDialog {
             }
         };
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(strokeESC, "ESCAPE");
-        rootPane.getActionMap().put("ESCAPE", actionListener);
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", accion);
 
         return rootPane;
     }

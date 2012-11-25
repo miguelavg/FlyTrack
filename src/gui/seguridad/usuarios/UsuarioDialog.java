@@ -554,7 +554,7 @@ public class UsuarioDialog extends javax.swing.JDialog {
         }
         
         CPista.guardarPista("Seguridad", "Usuarios", "Buscar", 
-                            "Perfil: " + (cboPerfil.getSelectedIndex() > 0 ? ((Parametro)cboPerfil.getSelectedItem()).getValor() : null) +
+                            "Perfil: " + (cboPerfil.getSelectedIndex() > 0 ? ((Perfil)cboPerfil.getSelectedItem()).getNombre() : null) +
                             " Estado: " + (cboEstado.getSelectedIndex() > 0 ? ((Parametro)cboEstado.getSelectedItem()).getValor() : null) +
                             " Aeropuerto: " + txtAeropuerto.getText() +
                             " Nombres: " + txt_nombre.getText() +
