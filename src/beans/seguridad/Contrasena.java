@@ -5,6 +5,7 @@
 package beans.seguridad;
 
 import beans.Parametro;
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -115,4 +116,13 @@ public class Contrasena implements Serializable {
     this.usuario = usuario;
     }
   
+    public String aString(String pass){
+        return "IdContraseña = " + idContrasena + 
+                " Usuario = " + (usuario != null ? (usuario.getApellidos() + "," + usuario.getNombres()) : null) +
+                " Contraseña = " + pass +
+                " Estado = "+ (estado != null ? estado.getValor() : null) +
+                " Fecha de Activacion = " + (fechaActivacion != null ? CValidator.formatDate(fechaActivacion) : null) + 
+                " Fecha de Ultimo Uso = " + (fechaUltimoUso != null ? CValidator.formatDate(fechaUltimoUso) : null) + 
+                " Fecha de Caducidad = " + (fechaCaducidad != null ? CValidator.formatDate(fechaCaducidad) : null);
+    }
 }

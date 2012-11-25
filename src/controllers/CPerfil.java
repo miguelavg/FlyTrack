@@ -129,7 +129,9 @@ public class CPerfil {
             Transaction tx = s.beginTransaction();
             Query q = s.getNamedQuery("PerfilxId").setMaxResults(1);
             q.setParameter("idperfil", id);
-            return (Perfil)q.uniqueResult();
+            Perfil perfilAux = (Perfil)q.uniqueResult();
+            perfilAux.getPermisos().size();
+            return  perfilAux;
             }
         catch(Exception e){
             System.out.println(e.getMessage());

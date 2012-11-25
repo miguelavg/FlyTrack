@@ -17,6 +17,7 @@ import controllers.CContrasena;
 import controllers.CMail;
 import controllers.CParametro;
 import controllers.CPerfil;
+import controllers.CPista;
 import controllers.CUsuario;
 import controllers.CValidator;
 import controllers.CSeguridad;
@@ -679,18 +680,24 @@ public class UsuarioEdit extends javax.swing.JDialog {
                     AeropuertoAux=CAeropuerto.BuscarNombre(txtAeropuerto.getText());
                 }                
                 
+                Usuario usuarioPreModif = new CUsuario().BuscarXid(idusuario);
                 Usuario usuario = new CUsuario().
                     modificarUsuario(idusuario, (Perfil) cboPerfil.getSelectedItem(), AeropuertoAux, txtLogIn.getText(), //cuidado con AeropuertoAux
                                     (Parametro) cboEstado.getSelectedItem(), txtNombres.getText(), txtApellidos.getText(), 
                                     txtCorreo.getText(), txtTelefono.getText(), txtNumeroDoc.getText(), 
                                     (Parametro) cboTipoDoc.getSelectedItem(), (Parametro) cboCiudad.getSelectedItem(), 
                                     (Parametro) cboPais.getSelectedItem());
+                CPista.guardarPista("Seguridad", "Usuarios", "Modificar", usuarioPreModif.aString(), usuario.aString());
+                
                 if(usuario != null && psswdContrasena.getPassword().length != 0){
                     //Desactivar la contrasena activa del usuario
                     Contrasena contrasenaActiva = CSeguridad.getContrasenaActiva(idusuario);
                     CContrasena.desactivarContrasena(contrasenaActiva);
                     //Agregar la contrasena nueva como activa al usuario
-                    CContrasena.agregarContrasenaActiva(psswdContrasena.getPassword(), usuario);
+                    Contrasena contrasenaNueva = CContrasena.agregarContrasenaActiva(psswdContrasena.getPassword(), usuario);
+                    
+                    CPista.guardarPista("Seguridad", "Usuarios", "Modificar", contrasenaNueva.aString(new String(psswdContrasena.getPassword())));
+                    
                     //Mando el correo
                     new CMail().sendMail( 
                                         usuario.geteMail(),
@@ -710,7 +717,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
                 if(usuario != null){
                     //Creando contrasena
                     char[] contrasenaNueva = CSeguridad.generaContraseniaAleatoria();
-                    CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
+                    Contrasena contrasenaNuevaAux = CContrasena.agregarContrasenaActiva(contrasenaNueva, usuario);
+                    
+                    CPista.guardarPista("Seguridad", "Usuarios", "Crear", contrasenaNuevaAux.aString(new String(contrasenaNueva)));
+                    
                     //Mando el correo
                     new CMail().sendMail(
                                         usuario.geteMail(), 

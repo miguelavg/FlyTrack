@@ -552,7 +552,17 @@ public class UsuarioDialog extends javax.swing.JDialog {
             dtm.addRow(datos);
         
         }
-//        CPista.guardarPista("Usuario", "Buscar", "UsuarioDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda");
+        
+        CPista.guardarPista("Seguridad", "Usuarios", "Buscar", 
+                            "Perfil: " + (cboPerfil.getSelectedIndex() > 0 ? ((Parametro)cboPerfil.getSelectedItem()).getValor() : null) +
+                            " Estado: " + (cboEstado.getSelectedIndex() > 0 ? ((Parametro)cboEstado.getSelectedItem()).getValor() : null) +
+                            " Aeropuerto: " + txtAeropuerto.getText() +
+                            " Nombres: " + txt_nombre.getText() +
+                            " Apellidos: " + txt_apellido.getText() +
+                            " Tipo de Documento: " + (cmb_tipodoc.getSelectedIndex() > 0 ? ((Parametro)cmb_tipodoc.getSelectedItem()).getValor() : null) +
+                            " Numero de Documento: " + txt_numdoc.getText() +
+                            " Login: " + txt_login.getText()) ;
+
         
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         //mostrarListaAlerta(listaAlerta);

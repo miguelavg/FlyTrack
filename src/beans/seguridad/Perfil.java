@@ -130,7 +130,9 @@ public class Perfil implements Serializable  {
         String permisoAux = "";
         for(Permiso permiso : permisos){
             Accion accion = permiso.getAccion();
-            permisoAux += "Permiso: " + (accion != null ? ("" + accion.getPadre() + "|" + accion.getNivel() + "|" + accion.getNombre()) :  null) + " ";
+            permisoAux += "Permiso: " + (accion != null ? 
+                    ("" + (accion.getPadre() != null ? accion.getPadre().getNombre() : null) + 
+                    "|" + accion.getNivel() + "|" + accion.getNombre()) :  null) + " ";
         }
         
         return "IdPerfil = " + idPerfil + 
