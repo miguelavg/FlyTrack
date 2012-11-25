@@ -85,14 +85,14 @@ public class Vuelo implements Serializable {
 
     public String aString(){
         return "IdVuelo = " + idVuelo + 
-                " Costo del Alquiler = " + costoAlquiler +
-                " Capacidad Maxima = " + capacidadMax +
-                " Capacidad Actual = " + capacidadActual +
+                " Origen = " + (origen != null ? origen.getNombre() : null) + 
+                " Destino = " + (destino != null ? destino.getNombre() : null) +
                 " Fecha de Salida = "+ (fechaSalida != null ? CValidator.formatDate(fechaSalida) : null) +
                 " Fecha de Llegada = " + (fechaLlegada != null ? CValidator.formatDate(fechaLlegada) : null) + 
-                " Estado = " + (estado != null ? estado.getValor() : null) + 
-                " Origen = " + (origen != null ? origen.getNombre() : null) + 
-                " Destino = " + (destino != null ? destino.getNombre() : null);
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Capacidad Máxima = " + capacidadMax +
+                " Capacidad Actual = " + capacidadActual +
+                " Costo del Alquiler = " + costoAlquiler;
     }
     
     public Vuelo() {

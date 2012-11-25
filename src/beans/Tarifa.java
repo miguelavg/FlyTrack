@@ -174,7 +174,7 @@ public class Tarifa implements Serializable {
                 " Monto = " + monto +
                 " Moneda = " + (moneda != null ? moneda.getValor() : null) +
                 " Estado = "+ (estado != null ? estado.getValor() : null) +
-                " Fecha Activacion = " + CValidator.formatDate(fechaActivacion) + 
-                " Fecha Desactivacion = " + CValidator.formatDate(fechaDesactivacion);
+                " Fecha Activacion = " + (fechaActivacion != null ? CValidator.formatDate(fechaActivacion) : null) + 
+                " Fecha Desactivacion = " + (fechaDesactivacion != null ? CValidator.formatDate(fechaDesactivacion) : null);
     }
 }
