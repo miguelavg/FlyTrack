@@ -112,6 +112,7 @@ public class CVuelo {
             int i = (Integer) s.save(v);
 
             tx.commit();
+            CPista.guardarPista("Administración", "Vuelo", "Crear", v.aString());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

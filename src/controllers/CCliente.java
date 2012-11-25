@@ -47,6 +47,8 @@ public class CCliente {
             ClienteBE.setCiudad(Ciudad);
             ClienteBE.setPais(Pais);
             
+            CPista.guardarPista("Clientes", null, "Modificar", new CCliente().BuscarXid(idCliente).aString(), ClienteBE.aString());
+            
             s.update(ClienteBE);
             
             tx.commit();
@@ -103,7 +105,7 @@ public class CCliente {
             int i = (Integer)s.save(ClienteBE);
             
             tx.commit();
-            
+            CPista.guardarPista("Clientes", null, "Crear", ClienteBE.aString());
         }
         catch(Exception e){
             System.out.println(e.getMessage());
