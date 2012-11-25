@@ -247,6 +247,11 @@ public class CVuelo {
              Parametro Estado,
              String capacidad
              */
+            
+            CPista.guardarPista("Administración", "Vuelo", "Modificar", 
+                                "ANTES: " + buscarVueloId(Integer.parseInt(idVuelo)).aString() + 
+                                " DESPUES: " + objVuelo.aString());
+
             s.update(objVuelo);
 
             tx.commit();
@@ -298,6 +303,8 @@ public class CVuelo {
             int i = (Integer) s.save(objVuelo);
 
             tx.commit();
+            
+            CPista.guardarPista("Administración", "Vuelo", "Crear", objVuelo.aString());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
