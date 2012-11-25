@@ -91,6 +91,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtOrigen = new javax.swing.JTextPane();
         btn_origen = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cboMovimientos = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         btnExportar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -186,6 +188,10 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Movimientos");
+
+        cboMovimientos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Salida", "Llegada" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -203,18 +209,20 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dt_fechfin, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
+                    .addComponent(dt_fechini, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btn_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dt_fechfin, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +242,10 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_origen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cboMovimientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -258,11 +269,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Fecha", "Vuelo", "Aeropuerto", "Movimiento", "N°Paquetes"
+                "Fecha", "Motivo", "Movimiento", "N°Paquetes"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -461,53 +472,56 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 //     }
     
     //listaAeropuertos.get(0).getVuelosLlegada().get(i).get
+        if (cboMovimientos.getSelectedIndex()==2 || cboMovimientos.getSelectedIndex()==0){
+            for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
+                if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
+                {
+                   datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
 
-     for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
-         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
-         {
-            datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
+          //         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor().equals(parentrada.getValor())){         
+          //         datos[1] = "Llegada";
+          //         }
+          //         else {datos[1] = "";}
 
-   //         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor().equals(parentrada.getValor())){         
-   //         datos[1] = "Llegada";
-   //         }
-   //         else {datos[1] = "";}
+                   //datos[1] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
+                   //datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
+                   //datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
+                   
+                   datos[1] = "Llegada";
+                   datos[2] = "Arribo de vuelo"+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
+                   datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
+                   dtm.addRow(datos);
 
-            datos[1] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
-            datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
-            //datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
-            datos[3] = "Llegada";
-            datos[4] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
-            dtm.addRow(datos);
+          //         for (int j=0;listaAeropuertos.size()>j;j++)
+          //            {listaAeropuertos.get(j).getVuelosLlegada().size();
+          //            listaAeropuertos.get(j).getVuelosSalida().size();
+          //            };
+                   //incidencias, escala, envio por almancen
 
-   //         for (int j=0;listaAeropuertos.size()>j;j++)
-   //            {listaAeropuertos.get(j).getVuelosLlegada().size();
-   //            listaAeropuertos.get(j).getVuelosSalida().size();
-   //            };
-            //incidencias, escala, envio por almancen
+                   listaVuelos.add(listaAeropuertos.get(0).getVuelosLlegada().get(i));
+                }
+            }
+        }
+        if (cboMovimientos.getSelectedIndex()==1 || cboMovimientos.getSelectedIndex()==0){
+           for (int i = 0; i < listaAeropuertos.get(0).getVuelosSalida().size(); i++) {
 
-            listaVuelos.add(listaAeropuertos.get(0).getVuelosLlegada().get(i));
-         }
-     }
-     
-     
-     for (int i = 0; i < listaAeropuertos.get(0).getVuelosSalida().size(); i++) {
+               if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
+               datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
 
-         if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
-         datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
-         
-//         if (!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida1.getValor())&&!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida2.getValor())){         
-//         datos[1] = "Salida";
-//         }
-//         else {datos[1] = "";}
-         datos[1] = listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
-         datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
-         //datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
-         datos[3]= "Salida";
-         datos[4] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
-         dtm.addRow(datos);
-         listaVuelos.add(listaAeropuertos.get(0).getVuelosSalida().get(i));
-         }
-     }
+      //         if (!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida1.getValor())&&!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida2.getValor())){         
+      //         datos[1] = "Salida";
+      //         }
+      //         else {datos[1] = "";}
+               datos[1] = listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
+               datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
+               //datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
+               datos[3]= "Salida";
+               datos[4] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
+               dtm.addRow(datos);
+               listaVuelos.add(listaAeropuertos.get(0).getVuelosSalida().get(i));
+               }
+           }
+        }   
      }
      else {
      ErrorDialog.mostrarError("Debe ingresar un aeropuerto.", this);
@@ -555,10 +569,12 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btn_origen;
+    private javax.swing.JComboBox cboMovimientos;
     private datechooser.beans.DateChooserCombo dt_fechfin;
     private datechooser.beans.DateChooserCombo dt_fechini;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
