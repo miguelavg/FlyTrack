@@ -1,0 +1,26 @@
+<list>
+  <xml.XmlEnvio>
+    <fecharegis>2012-11-20 04:00</fecharegis>
+    <fechaRecojo>2012-11-20 04:00</fechaRecojo>
+    <numPaquetes>50</numPaquetes>
+    <monto>550.00</monto>
+    <iva>1.00</iva>
+    <impuesto>0.3</impuesto>
+    <unitario>10</unitario>
+    <numDocVenta>1</numDocVenta>
+
+    <moneda>ValorUnicoMoneda</anolle>
+    <tipodoc>ValorUnicotipodoc</tipodoc>
+    <estado>ValorUnicoestado</estado>
+    <estadofac>ValorUnicoEstadofactura</estadofac>
+
+    <origen>NombreAeropuertoOrigen</origen>
+    <destino>NombreAeropuertoOrigen</destino>
+    <actual>NombreAeropuertoActual</actual>
+
+    <estadoescala>ValorUnicoestadoescala</estadoescala>
+    <vuelo>Iddelvuelo</vuelo>
+    
+  </xml.xmlVueloString>  
+  
+</list>

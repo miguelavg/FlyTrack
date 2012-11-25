@@ -1,0 +1,762 @@
+<list>
+  <beans.Envio>
+    <idEnvio>130</idEnvio>
+    <fechaRegistro>2012-11-24 16:12:40.723 UTC</fechaRegistro>
+    <numPaquetes>3</numPaquetes>
+    <monto>360.0</monto>
+    <iva>0.2</iva>
+    <impuesto>60.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>65</numDocVenta>
+    <moneda>
+      <idParametro>74</idParametro>
+      <valor>Dólares</valor>
+      <valorUnico>DOL</valorUnico>
+      <tipo>TIPO_MONEDA</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">74</key>
+        <dirty>false</dirty>
+      </hijos>
+    </moneda>
+    <tipoDocVenta>
+      <idParametro>77</idParametro>
+      <valor>Boleta</valor>
+      <valorUnico>BOL</valorUnico>
+      <tipo>TIPO_DOC_PAGO_ENVIO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">77</key>
+        <dirty>false</dirty>
+      </hijos>
+    </tipoDocVenta>
+    <estado>
+      <idParametro>140</idParametro>
+      <valor>Programado</valor>
+      <valorUnico>PROG</valorUnico>
+      <tipo>ESTADO_ENVIO</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">140</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estado>
+    <estadoFactura>
+      <idParametro>135</idParametro>
+      <valor>Emitida</valor>
+      <valorUnico>EM</valorUnico>
+      <tipo>ESTADO_FACTURA</tipo>
+      <estado>true</estado>
+      <hijos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Parametro" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Parametro.hijos</role>
+        <key class="int">135</key>
+        <dirty>false</dirty>
+      </hijos>
+    </estadoFactura>
+    <origen>
+      <idAeropuerto>2</idAeropuerto>
+      <nombre>JORGE CHAVEZ</nombre>
+      <capacidadMax>500</capacidadMax>
+      <capacidadActual>42</capacidadActual>
+      <coordX>205</coordX>
+      <coordY>371</coordY>
+      <pais>
+        <idParametro>39</idParametro>
+        <valor>Perú</valor>
+        <valorUnico>PER</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">39</key>
+          <dirty>false</dirty>
+        </hijos>
+      </pais>
+      <ciudad>
+        <idParametro>41</idParametro>
+        <padre reference="../../pais"/>
+        <valor>Lima</valor>
+        <valorUnico>LIMA</valorUnico>
+        <tipo>CIUDAD</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">41</key>
+          <dirty>false</dirty>
+        </hijos>
+      </ciudad>
+      <estado>
+        <idParametro>27</idParametro>
+        <valor>Activo</valor>
+        <valorUnico>ACTV</valorUnico>
+        <tipo>ESTADO_AEROPUERTO</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">27</key>
+          <dirty>false</dirty>
+        </hijos>
+      </estado>
+      <vuelosSalida class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="beans.Aeropuerto" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Aeropuerto.vuelosSalida</role>
+        <key class="int">2</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <beans.Vuelo>
+            <idVuelo>66</idVuelo>
+            <costoAlquiler>100.0</costoAlquiler>
+            <capacidadMax>300</capacidadMax>
+            <capacidadActual>6</capacidadActual>
+            <fechaSalida class="sql-timestamp">2012-11-24 11:08:18.019</fechaSalida>
+            <fechaLlegada class="sql-timestamp">2012-11-24 11:08:18.043</fechaLlegada>
+            <estado>
+              <idParametro>14</idParametro>
+              <valor>Programado</valor>
+              <valorUnico>PROG</valorUnico>
+              <tipo>ESTADO_VUELO</tipo>
+              <estado>true</estado>
+              <hijos class="org.hibernate.collection.PersistentBag">
+                <initialized>false</initialized>
+                <owner class="beans.Parametro" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Parametro.hijos</role>
+                <key class="int">14</key>
+                <dirty>false</dirty>
+              </hijos>
+            </estado>
+            <origen reference="../../../.."/>
+            <destino>
+              <idAeropuerto>23</idAeropuerto>
+              <nombre>Julinho</nombre>
+              <capacidadMax>200</capacidadMax>
+              <capacidadActual>0</capacidadActual>
+              <coordX>284</coordX>
+              <coordY>350</coordY>
+              <pais>
+                <idParametro>29</idParametro>
+                <valor>Brasil</valor>
+                <valorUnico>BRA</valorUnico>
+                <tipo>PAIS</tipo>
+                <estado>true</estado>
+                <hijos class="org.hibernate.collection.PersistentBag">
+                  <initialized>false</initialized>
+                  <owner class="beans.Parametro" reference="../.."/>
+                  <cachedSize>-1</cachedSize>
+                  <role>beans.Parametro.hijos</role>
+                  <key class="int">29</key>
+                  <dirty>false</dirty>
+                </hijos>
+              </pais>
+              <ciudad>
+                <idParametro>45</idParametro>
+                <padre reference="../../pais"/>
+                <valor>Sao Paulo</valor>
+                <valorUnico>SAOPAULO</valorUnico>
+                <tipo>CIUDAD</tipo>
+                <estado>true</estado>
+                <hijos class="org.hibernate.collection.PersistentBag">
+                  <initialized>false</initialized>
+                  <owner class="beans.Parametro" reference="../.."/>
+                  <cachedSize>-1</cachedSize>
+                  <role>beans.Parametro.hijos</role>
+                  <key class="int">45</key>
+                  <dirty>false</dirty>
+                </hijos>
+              </ciudad>
+              <estado reference="../../../../../estado"/>
+              <vuelosSalida class="org.hibernate.collection.PersistentBag">
+                <initialized>true</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.vuelosSalida</role>
+                <key class="int">23</key>
+                <dirty>false</dirty>
+                <storedSnapshot class="list"/>
+                <bag/>
+              </vuelosSalida>
+              <vuelosLlegada class="org.hibernate.collection.PersistentBag">
+                <initialized>true</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.vuelosLlegada</role>
+                <key class="int">23</key>
+                <dirty>false</dirty>
+                <storedSnapshot class="list">
+                  <beans.Vuelo>
+                    <idVuelo>55</idVuelo>
+                    <costoAlquiler>700.0</costoAlquiler>
+                    <capacidadMax>850</capacidadMax>
+                    <capacidadActual>2</capacidadActual>
+                    <fechaSalida class="sql-timestamp">2012-11-29 04:10:52.998</fechaSalida>
+                    <fechaLlegada class="sql-timestamp">2012-11-30 04:10:52.964</fechaLlegada>
+                    <estado reference="../../../../../estado"/>
+                    <origen>
+                      <idAeropuerto>35</idAeropuerto>
+                      <nombre>Aeropuerto Internacional de Johannesburgo-Oliver Reginald Tambo</nombre>
+                      <capacidadMax>1000</capacidadMax>
+                      <capacidadActual>0</capacidadActual>
+                      <coordX>508</coordX>
+                      <coordY>475</coordY>
+                      <pais>
+                        <idParametro>160</idParametro>
+                        <valor>Sudáfrica</valor>
+                        <valorUnico>SUDA</valorUnico>
+                        <tipo>PAIS</tipo>
+                        <estado>true</estado>
+                        <hijos class="org.hibernate.collection.PersistentBag">
+                          <initialized>false</initialized>
+                          <owner class="beans.Parametro" reference="../.."/>
+                          <cachedSize>-1</cachedSize>
+                          <role>beans.Parametro.hijos</role>
+                          <key class="int">160</key>
+                          <dirty>false</dirty>
+                        </hijos>
+                      </pais>
+                      <ciudad>
+                        <idParametro>161</idParametro>
+                        <padre reference="../../pais"/>
+                        <valor>Johannesburgo</valor>
+                        <valorUnico>JOHN</valorUnico>
+                        <tipo>CIUDAD</tipo>
+                        <estado>true</estado>
+                        <hijos class="org.hibernate.collection.PersistentBag">
+                          <initialized>false</initialized>
+                          <owner class="beans.Parametro" reference="../.."/>
+                          <cachedSize>-1</cachedSize>
+                          <role>beans.Parametro.hijos</role>
+                          <key class="int">161</key>
+                          <dirty>false</dirty>
+                        </hijos>
+                      </ciudad>
+                      <estado reference="../../../../../../../../../estado"/>
+                      <vuelosSalida class="org.hibernate.collection.PersistentBag">
+                        <initialized>true</initialized>
+                        <owner class="beans.Aeropuerto" reference="../.."/>
+                        <cachedSize>-1</cachedSize>
+                        <role>beans.Aeropuerto.vuelosSalida</role>
+                        <key class="int">35</key>
+                        <dirty>false</dirty>
+                        <storedSnapshot class="list">
+                          <beans.Vuelo reference="../../../.."/>
+                        </storedSnapshot>
+                        <bag>
+                          <beans.Vuelo reference="../../../.."/>
+                        </bag>
+                      </vuelosSalida>
+                      <vuelosLlegada class="org.hibernate.collection.PersistentBag">
+                        <initialized>true</initialized>
+                        <owner class="beans.Aeropuerto" reference="../.."/>
+                        <cachedSize>-1</cachedSize>
+                        <role>beans.Aeropuerto.vuelosLlegada</role>
+                        <key class="int">35</key>
+                        <dirty>false</dirty>
+                        <storedSnapshot class="list">
+                          <beans.Vuelo>
+                            <idVuelo>54</idVuelo>
+                            <costoAlquiler>300.0</costoAlquiler>
+                            <capacidadMax>800</capacidadMax>
+                            <capacidadActual>2</capacidadActual>
+                            <fechaSalida class="sql-timestamp">2012-11-27 04:09:20.561</fechaSalida>
+                            <fechaLlegada class="sql-timestamp">2012-11-28 04:09:20.525</fechaLlegada>
+                            <estado reference="../../../../../../../../../estado"/>
+                            <origen>
+                              <idAeropuerto>4</idAeropuerto>
+                              <nombre>CAYETANO</nombre>
+                              <capacidadMax>500</capacidadMax>
+                              <capacidadActual>2</capacidadActual>
+                              <coordX>900</coordX>
+                              <coordY>100</coordY>
+                              <pais reference="../../../../../../../../../../../../../pais"/>
+                              <ciudad reference="../../../../../../../../../../../../../ciudad"/>
+                              <estado reference="../../../../../../../../../../../../../estado"/>
+                              <vuelosSalida class="org.hibernate.collection.PersistentBag">
+                                <initialized>true</initialized>
+                                <owner class="beans.Aeropuerto" reference="../.."/>
+                                <cachedSize>-1</cachedSize>
+                                <role>beans.Aeropuerto.vuelosSalida</role>
+                                <key class="int">4</key>
+                                <dirty>false</dirty>
+                                <storedSnapshot class="list">
+                                  <beans.Vuelo reference="../../../.."/>
+                                </storedSnapshot>
+                                <bag>
+                                  <beans.Vuelo reference="../../../.."/>
+                                </bag>
+                              </vuelosSalida>
+                              <vuelosLlegada class="org.hibernate.collection.PersistentBag">
+                                <initialized>true</initialized>
+                                <owner class="beans.Aeropuerto" reference="../.."/>
+                                <cachedSize>-1</cachedSize>
+                                <role>beans.Aeropuerto.vuelosLlegada</role>
+                                <key class="int">4</key>
+                                <dirty>false</dirty>
+                                <storedSnapshot class="list"/>
+                                <bag/>
+                              </vuelosLlegada>
+                              <enviosAlmacen class="org.hibernate.collection.PersistentBag">
+                                <initialized>false</initialized>
+                                <owner class="beans.Aeropuerto" reference="../.."/>
+                                <cachedSize>-1</cachedSize>
+                                <role>beans.Aeropuerto.enviosAlmacen</role>
+                                <key class="int">4</key>
+                                <dirty>false</dirty>
+                              </enviosAlmacen>
+                              <tarifas class="org.hibernate.collection.PersistentBag">
+                                <initialized>false</initialized>
+                                <owner class="beans.Aeropuerto" reference="../.."/>
+                                <cachedSize>-1</cachedSize>
+                                <role>beans.Aeropuerto.tarifas</role>
+                                <key class="int">4</key>
+                                <dirty>false</dirty>
+                              </tarifas>
+                            </origen>
+                            <destino reference="../../../.."/>
+                            <incidencias class="org.hibernate.collection.PersistentBag">
+                              <initialized>true</initialized>
+                              <owner class="beans.Vuelo" reference="../.."/>
+                              <cachedSize>-1</cachedSize>
+                              <role>beans.Vuelo.incidencias</role>
+                              <key class="int">54</key>
+                              <dirty>false</dirty>
+                              <storedSnapshot class="list"/>
+                              <bag/>
+                            </incidencias>
+                            <escalas class="org.hibernate.collection.PersistentBag">
+                              <initialized>false</initialized>
+                              <owner class="beans.Vuelo" reference="../.."/>
+                              <cachedSize>-1</cachedSize>
+                              <role>beans.Vuelo.escalas</role>
+                              <key class="int">54</key>
+                              <dirty>false</dirty>
+                            </escalas>
+                          </beans.Vuelo>
+                        </storedSnapshot>
+                        <bag>
+                          <beans.Vuelo reference="../../storedSnapshot/beans.Vuelo"/>
+                        </bag>
+                      </vuelosLlegada>
+                      <enviosAlmacen class="org.hibernate.collection.PersistentBag">
+                        <initialized>false</initialized>
+                        <owner class="beans.Aeropuerto" reference="../.."/>
+                        <cachedSize>-1</cachedSize>
+                        <role>beans.Aeropuerto.enviosAlmacen</role>
+                        <key class="int">35</key>
+                        <dirty>false</dirty>
+                      </enviosAlmacen>
+                      <tarifas class="org.hibernate.collection.PersistentBag">
+                        <initialized>false</initialized>
+                        <owner class="beans.Aeropuerto" reference="../.."/>
+                        <cachedSize>-1</cachedSize>
+                        <role>beans.Aeropuerto.tarifas</role>
+                        <key class="int">35</key>
+                        <dirty>false</dirty>
+                      </tarifas>
+                    </origen>
+                    <destino reference="../../../.."/>
+                    <incidencias class="org.hibernate.collection.PersistentBag">
+                      <initialized>true</initialized>
+                      <owner class="beans.Vuelo" reference="../.."/>
+                      <cachedSize>-1</cachedSize>
+                      <role>beans.Vuelo.incidencias</role>
+                      <key class="int">55</key>
+                      <dirty>false</dirty>
+                      <storedSnapshot class="list"/>
+                      <bag/>
+                    </incidencias>
+                    <escalas class="org.hibernate.collection.PersistentBag">
+                      <initialized>false</initialized>
+                      <owner class="beans.Vuelo" reference="../.."/>
+                      <cachedSize>-1</cachedSize>
+                      <role>beans.Vuelo.escalas</role>
+                      <key class="int">55</key>
+                      <dirty>false</dirty>
+                    </escalas>
+                  </beans.Vuelo>
+                </storedSnapshot>
+                <bag>
+                  <beans.Vuelo reference="../../storedSnapshot/beans.Vuelo"/>
+                </bag>
+              </vuelosLlegada>
+              <enviosAlmacen class="org.hibernate.collection.PersistentBag">
+                <initialized>false</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.enviosAlmacen</role>
+                <key class="int">23</key>
+                <dirty>false</dirty>
+              </enviosAlmacen>
+              <tarifas class="org.hibernate.collection.PersistentBag">
+                <initialized>false</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.tarifas</role>
+                <key class="int">23</key>
+                <dirty>false</dirty>
+              </tarifas>
+            </destino>
+            <incidencias class="org.hibernate.collection.PersistentBag">
+              <initialized>true</initialized>
+              <owner class="beans.Vuelo" reference="../.."/>
+              <cachedSize>-1</cachedSize>
+              <role>beans.Vuelo.incidencias</role>
+              <key class="int">66</key>
+              <dirty>false</dirty>
+              <storedSnapshot class="list"/>
+              <bag/>
+            </incidencias>
+            <escalas class="org.hibernate.collection.PersistentBag">
+              <initialized>false</initialized>
+              <owner class="beans.Vuelo" reference="../.."/>
+              <cachedSize>-1</cachedSize>
+              <role>beans.Vuelo.escalas</role>
+              <key class="int">66</key>
+              <dirty>false</dirty>
+            </escalas>
+          </beans.Vuelo>
+        </storedSnapshot>
+        <bag>
+          <beans.Vuelo reference="../../storedSnapshot/beans.Vuelo"/>
+        </bag>
+      </vuelosSalida>
+      <vuelosLlegada class="org.hibernate.collection.PersistentBag">
+        <initialized>true</initialized>
+        <owner class="beans.Aeropuerto" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Aeropuerto.vuelosLlegada</role>
+        <key class="int">2</key>
+        <dirty>false</dirty>
+        <storedSnapshot class="list">
+          <beans.Vuelo>
+            <idVuelo>63</idVuelo>
+            <costoAlquiler>234.0</costoAlquiler>
+            <capacidadMax>324</capacidadMax>
+            <capacidadActual>0</capacidadActual>
+            <fechaSalida class="sql-timestamp">2012-11-26 01:50:00.0</fechaSalida>
+            <fechaLlegada class="sql-timestamp">2012-11-26 01:50:00.0</fechaLlegada>
+            <estado reference="../../../../vuelosSalida/storedSnapshot/beans.Vuelo/estado"/>
+            <origen>
+              <idAeropuerto>3</idAeropuerto>
+              <nombre>MANCO CAPAC</nombre>
+              <capacidadMax>500</capacidadMax>
+              <capacidadActual>0</capacidadActual>
+              <coordX>227</coordX>
+              <coordY>386</coordY>
+              <pais reference="../../../../../pais"/>
+              <ciudad>
+                <idParametro>72</idParametro>
+                <padre reference="../../../../../../pais"/>
+                <valor>Juliaca</valor>
+                <valorUnico>JULIACA</valorUnico>
+                <tipo>CIUDAD</tipo>
+                <estado>true</estado>
+                <hijos class="org.hibernate.collection.PersistentBag">
+                  <initialized>false</initialized>
+                  <owner class="beans.Parametro" reference="../.."/>
+                  <cachedSize>-1</cachedSize>
+                  <role>beans.Parametro.hijos</role>
+                  <key class="int">72</key>
+                  <dirty>false</dirty>
+                </hijos>
+              </ciudad>
+              <estado reference="../../../../../estado"/>
+              <vuelosSalida class="org.hibernate.collection.PersistentBag">
+                <initialized>true</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.vuelosSalida</role>
+                <key class="int">3</key>
+                <dirty>false</dirty>
+                <storedSnapshot class="list">
+                  <beans.Vuelo reference="../../../.."/>
+                </storedSnapshot>
+                <bag>
+                  <beans.Vuelo reference="../../../.."/>
+                </bag>
+              </vuelosSalida>
+              <vuelosLlegada class="org.hibernate.collection.PersistentBag">
+                <initialized>true</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.vuelosLlegada</role>
+                <key class="int">3</key>
+                <dirty>false</dirty>
+                <storedSnapshot class="list"/>
+                <bag/>
+              </vuelosLlegada>
+              <enviosAlmacen class="org.hibernate.collection.PersistentBag">
+                <initialized>false</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.enviosAlmacen</role>
+                <key class="int">3</key>
+                <dirty>false</dirty>
+              </enviosAlmacen>
+              <tarifas class="org.hibernate.collection.PersistentBag">
+                <initialized>false</initialized>
+                <owner class="beans.Aeropuerto" reference="../.."/>
+                <cachedSize>-1</cachedSize>
+                <role>beans.Aeropuerto.tarifas</role>
+                <key class="int">3</key>
+                <dirty>false</dirty>
+              </tarifas>
+            </origen>
+            <destino reference="../../../.."/>
+            <incidencias class="org.hibernate.collection.PersistentBag">
+              <initialized>true</initialized>
+              <owner class="beans.Vuelo" reference="../.."/>
+              <cachedSize>-1</cachedSize>
+              <role>beans.Vuelo.incidencias</role>
+              <key class="int">63</key>
+              <dirty>false</dirty>
+              <storedSnapshot class="list"/>
+              <bag/>
+            </incidencias>
+            <escalas class="org.hibernate.collection.PersistentBag">
+              <initialized>false</initialized>
+              <owner class="beans.Vuelo" reference="../.."/>
+              <cachedSize>-1</cachedSize>
+              <role>beans.Vuelo.escalas</role>
+              <key class="int">63</key>
+              <dirty>false</dirty>
+            </escalas>
+          </beans.Vuelo>
+        </storedSnapshot>
+        <bag>
+          <beans.Vuelo reference="../../storedSnapshot/beans.Vuelo"/>
+        </bag>
+      </vuelosLlegada>
+      <enviosAlmacen class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Aeropuerto" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Aeropuerto.enviosAlmacen</role>
+        <key class="int">2</key>
+        <dirty>false</dirty>
+      </enviosAlmacen>
+      <tarifas class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Aeropuerto" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Aeropuerto.tarifas</role>
+        <key class="int">2</key>
+        <dirty>false</dirty>
+      </tarifas>
+    </origen>
+    <destino reference="../origen/vuelosSalida/storedSnapshot/beans.Vuelo/destino"/>
+    <actual reference="../origen"/>
+    <remitente>
+      <idCliente>6</idCliente>
+      <Nombres>Claudio </Nombres>
+      <Apellidos>Pizarro Tupia</Apellidos>
+      <NumDoc>66</NumDoc>
+      <Telefono>6666666</Telefono>
+      <CorreoElectronico>elcapi@apoyame.com</CorreoElectronico>
+      <tipoDoc>
+        <idParametro>67</idParametro>
+        <valor>PASAPORTE</valor>
+        <valorUnico>PASAPORTE</valorUnico>
+        <tipo>TIPO_DOC</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">67</key>
+          <dirty>false</dirty>
+        </hijos>
+      </tipoDoc>
+      <ciudad>
+        <idParametro>72</idParametro>
+        <padre>
+          <idParametro>39</idParametro>
+          <valor>Perú</valor>
+          <valorUnico>PER</valorUnico>
+          <tipo>PAIS</tipo>
+          <estado>true</estado>
+          <hijos class="org.hibernate.collection.PersistentBag">
+            <initialized>false</initialized>
+            <owner class="beans.Parametro" reference="../.."/>
+            <cachedSize>-1</cachedSize>
+            <role>beans.Parametro.hijos</role>
+            <key class="int">39</key>
+            <dirty>false</dirty>
+          </hijos>
+        </padre>
+        <valor>Juliaca</valor>
+        <valorUnico>JULIACA</valorUnico>
+        <tipo>CIUDAD</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">72</key>
+          <dirty>false</dirty>
+        </hijos>
+      </ciudad>
+      <pais>
+        <idParametro>3</idParametro>
+        <valor>Argentina</valor>
+        <valorUnico>ARG</valorUnico>
+        <tipo>PAIS</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">3</key>
+          <dirty>false</dirty>
+        </hijos>
+      </pais>
+      <enviosRecibidos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Cliente" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Cliente.enviosRecibidos</role>
+        <key class="int">6</key>
+        <dirty>false</dirty>
+      </enviosRecibidos>
+      <enviosRemitidos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Cliente" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Cliente.enviosRemitidos</role>
+        <key class="int">6</key>
+        <dirty>false</dirty>
+      </enviosRemitidos>
+    </remitente>
+    <destinatario>
+      <idCliente>12</idCliente>
+      <Nombres>Miguel</Nombres>
+      <Apellidos>Angel</Apellidos>
+      <NumDoc>33342342</NumDoc>
+      <Telefono>456425</Telefono>
+      <CorreoElectronico>miguel@chevere.com</CorreoElectronico>
+      <tipoDoc>
+        <idParametro>66</idParametro>
+        <valor>DNI</valor>
+        <valorUnico>DNI</valorUnico>
+        <tipo>TIPO_DOC</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">66</key>
+          <dirty>false</dirty>
+        </hijos>
+      </tipoDoc>
+      <ciudad>
+        <idParametro>43</idParametro>
+        <padre>
+          <idParametro>39</idParametro>
+          <valor>Perú</valor>
+          <valorUnico>PER</valorUnico>
+          <tipo>PAIS</tipo>
+          <estado>true</estado>
+          <hijos class="org.hibernate.collection.PersistentBag">
+            <initialized>false</initialized>
+            <owner class="beans.Parametro" reference="../.."/>
+            <cachedSize>-1</cachedSize>
+            <role>beans.Parametro.hijos</role>
+            <key class="int">39</key>
+            <dirty>false</dirty>
+          </hijos>
+        </padre>
+        <valor>Trujillo</valor>
+        <valorUnico>TRUJILLO</valorUnico>
+        <tipo>CIUDAD</tipo>
+        <estado>true</estado>
+        <hijos class="org.hibernate.collection.PersistentBag">
+          <initialized>false</initialized>
+          <owner class="beans.Parametro" reference="../.."/>
+          <cachedSize>-1</cachedSize>
+          <role>beans.Parametro.hijos</role>
+          <key class="int">43</key>
+          <dirty>false</dirty>
+        </hijos>
+      </ciudad>
+      <pais reference="../ciudad/padre"/>
+      <enviosRecibidos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Cliente" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Cliente.enviosRecibidos</role>
+        <key class="int">12</key>
+        <dirty>false</dirty>
+      </enviosRecibidos>
+      <enviosRemitidos class="org.hibernate.collection.PersistentBag">
+        <initialized>false</initialized>
+        <owner class="beans.Cliente" reference="../.."/>
+        <cachedSize>-1</cachedSize>
+        <role>beans.Cliente.enviosRemitidos</role>
+        <key class="int">12</key>
+        <dirty>false</dirty>
+      </enviosRemitidos>
+    </destinatario>
+    <escalas class="org.hibernate.collection.PersistentBag">
+      <initialized>true</initialized>
+      <cachedSize>-1</cachedSize>
+      <dirty>false</dirty>
+      <storedSnapshot class="list">
+        <beans.Escala>
+          <idEscala>120</idEscala>
+          <numEscala>1</numEscala>
+          <original>true</original>
+          <fechaInicio reference="../../../../fechaRegistro"/>
+          <estado>
+            <idParametro>149</idParametro>
+            <valor>Programada</valor>
+            <valorUnico>PROG</valorUnico>
+            <tipo>ESTADO_ESCALA</tipo>
+            <estado>true</estado>
+            <hijos class="org.hibernate.collection.PersistentBag">
+              <initialized>false</initialized>
+              <owner class="beans.Parametro" reference="../.."/>
+              <cachedSize>-1</cachedSize>
+              <role>beans.Parametro.hijos</role>
+              <key class="int">149</key>
+              <dirty>false</dirty>
+            </hijos>
+          </estado>
+          <vuelo reference="../../../../origen/vuelosSalida/storedSnapshot/beans.Vuelo"/>
+          <envio reference="../../../.."/>
+        </beans.Escala>
+      </storedSnapshot>
+      <bag>
+        <beans.Escala reference="../../storedSnapshot/beans.Escala"/>
+      </bag>
+    </escalas>
+  </beans.Envio>
+</list>
