@@ -14,6 +14,7 @@ import beans.Sesion;
 import beans.seguridad.Permiso;
 import controllers.CCliente;
 import controllers.CParametro;
+import controllers.CPista;
 import controllers.CSeguridad;
 import java.awt.Cursor;
 import java.util.List;
@@ -367,6 +368,14 @@ public class Clientes extends javax.swing.JDialog {
 
             dtm.addRow(datos);
         }
+        
+        CPista.guardarPista("Clientes", null, "Buscar", 
+                            "Nombres: " + txtNombre.getText() +
+                            " Apellidos: " + txtApellido.getText() +
+                            " Tipo de Documento: " + (cboTipoDoc.getSelectedIndex() > 0 ? ((Parametro)cboTipoDoc.getSelectedItem()).getValor() : null) +
+                            " Numero de Documento: " + txtNumDoc.getText() );
+
+        
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
 

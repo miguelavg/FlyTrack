@@ -7,6 +7,7 @@ package gui.administracion.tipocambio;
 import beans.Parametro;
 import beans.TipoCambio;
 import controllers.CParametro;
+import controllers.CPista;
 import controllers.CTipoCambio;
 import controllers.CValidator;
 import gui.ErrorDialog;
@@ -312,8 +313,17 @@ public class TipoCambioEdit extends javax.swing.JDialog {
         if (cmb_destino.getSelectedIndex() > 0) {
             monedaDestino = (Parametro) cmb_destino.getSelectedItem();
         }
+        
+        TipoCambio objAux = null;
+        
         if(this.isNuevo){
             this.tipoCambio = new TipoCambio();
+        }
+        else{
+            objAux = new TipoCambio(tipoCambio);
+//            CPista.guardarPista("Administración", "Tipo de Cambio", "Modificar", 
+//                                "ANTES: " + tipoCambio.aString() + 
+//                                "DESPUES: " + tipoCambio.aString());
         }
         
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
@@ -325,6 +335,16 @@ public class TipoCambioEdit extends javax.swing.JDialog {
             this.tipoCambio.setMonedaDestino(this.monedaDestino);
             this.tipoCambio.setFechaActualizacion(new Date());
             ctipocambio.guardar(this.tipoCambio);
+            
+            if(objAux != null){ //modificar
+                CPista.guardarPista("Administración", "Tipo de Cambio", "Modificar", 
+                                "ANTES: " + objAux.aString() + 
+                                "DESPUES: " + tipoCambio.aString());
+            }
+            else{ //crear
+                CPista.guardarPista("Administración", "Tipo de Cambio", "Crear", tipoCambio.aString());
+            }
+            
             this.setVisible(false);
             this.dispose();
         } else {

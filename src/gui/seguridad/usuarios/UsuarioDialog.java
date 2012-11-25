@@ -541,8 +541,8 @@ public class UsuarioDialog extends javax.swing.JDialog {
             datos[0] = listaUsuarios.get(i).getLogIn();
             datos[1] = listaUsuarios.get(i).getNombres();
             datos[2] = listaUsuarios.get(i).getApellidos();
-            datos[3] = listaUsuarios.get(i).getPerfil().getNombre();
-            datos[4] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
+            datos[3] = listaUsuarios.get(i).getPerfil() != null ? listaUsuarios.get(i).getPerfil().getNombre() : null;
+            datos[4] = listaUsuarios.get(i).getIdAeropuerto() != null ? listaUsuarios.get(i).getIdAeropuerto().getNombre() : null;
             datos[5] = listaUsuarios.get(i).geteMail();
             datos[6] = listaUsuarios.get(i).getEstado();
             datos[7] = listaUsuarios.get(i).getTipoDoc();
@@ -552,7 +552,17 @@ public class UsuarioDialog extends javax.swing.JDialog {
             dtm.addRow(datos);
         
         }
-//        CPista.guardarPista("Usuario", "Buscar", "UsuarioDialog", "btnBuscarActionPerformed", null, null,"Ha realizado una búsqueda");
+        
+        CPista.guardarPista("Seguridad", "Usuarios", "Buscar", 
+                            "Perfil: " + (cboPerfil.getSelectedIndex() > 0 ? ((Perfil)cboPerfil.getSelectedItem()).getNombre() : null) +
+                            " Estado: " + (cboEstado.getSelectedIndex() > 0 ? ((Parametro)cboEstado.getSelectedItem()).getValor() : null) +
+                            " Aeropuerto: " + txtAeropuerto.getText() +
+                            " Nombres: " + txt_nombre.getText() +
+                            " Apellidos: " + txt_apellido.getText() +
+                            " Tipo de Documento: " + (cmb_tipodoc.getSelectedIndex() > 0 ? ((Parametro)cmb_tipodoc.getSelectedItem()).getValor() : null) +
+                            " Numero de Documento: " + txt_numdoc.getText() +
+                            " Login: " + txt_login.getText()) ;
+
         
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         //mostrarListaAlerta(listaAlerta);

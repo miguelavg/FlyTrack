@@ -9,6 +9,7 @@ import beans.Sesion;
 import beans.TipoCambio;
 import beans.seguridad.Permiso;
 import controllers.CParametro;
+import controllers.CPista;
 import controllers.CSeguridad;
 import controllers.CTipoCambio;
 import controllers.CValidator;
@@ -347,6 +348,9 @@ public class TipoCambioDialog extends javax.swing.JDialog {
         CTipoCambio ctipocambio = new CTipoCambio();
         List<TipoCambio> tipos = ctipocambio.buscar(this.origen, this.destino);
         llenarTablaParametro(tipos);
+        CPista.guardarPista("Administración", "Tipo de Cambio", "Buscar", 
+                            "Moneda Origen: " + (origen != null ? origen.getValor() : null) +
+                            " Moneda Destino: " + (destino != null ? destino.getValor() : null) );
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btn_buscarActionPerformed
 

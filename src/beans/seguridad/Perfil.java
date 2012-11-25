@@ -126,4 +126,19 @@ public class Perfil implements Serializable  {
         return permisos;
     }
     
+    public String aString(){
+        String permisoAux = "";
+        for(Permiso permiso : permisos){
+            Accion accion = permiso.getAccion();
+            permisoAux += "Permiso: " + (accion != null ? 
+                    ("" + (accion.getPadre() != null ? accion.getPadre().getNombre() : null) + 
+                    "|" + accion.getNivel() + "|" + accion.getNombre()) :  null) + " ";
+        }
+        
+        return "IdPerfil = " + idPerfil + 
+                " Nombre = " + nombre +
+                " Descripcion = " + descripcion +
+                " Estado = " + (estado != null ? estado.getValor() : null) +
+                " Permisos = [" + permisoAux + "]";
+    }
 }

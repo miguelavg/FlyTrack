@@ -1,5 +1,6 @@
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -67,14 +68,17 @@ public class Parametro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idParametro;
+    
     @ManyToOne
     @JoinColumn(name = "idPadre")
     private Parametro padre;
+    
     private String valor;
     private String valorUnico;
     private String tipo;
     private boolean estado;
     //@OneToMany(mappedBy = "padre", fetch = FetchType.EAGER)
+    
     @OneToMany(mappedBy = "padre")
     @Filters({
         @Filter(name = "ParametroHijosXTipo", condition = "tipo = :tipo and estado = true")
@@ -83,6 +87,18 @@ public class Parametro implements Serializable {
 
     public Parametro() {
     }
+
+    public Parametro(Parametro param) {
+        this.idParametro = param.idParametro;
+        this.padre = param.padre;
+        this.valor = param.valor;
+        this.valorUnico = param.valorUnico;
+        this.tipo = param.tipo;
+        this.estado = param.estado;
+        this.hijos = param.hijos;
+    }
+    
+    
 
     public int getIdParametro() {
         return idParametro;
@@ -139,5 +155,14 @@ public class Parametro implements Serializable {
     @Override
     public String toString() {
         return valor;
+    }
+    
+    public String aString(){
+        return "IdParametro = " + idParametro + 
+                " Padre = " + (padre != null ? padre.getValor() : null) +
+                " Valor  = " + valor +
+                " Valor Unico = " + valorUnico +
+                " Tipo = "+ tipo +
+                " Estado = " + estado;
     }
 }

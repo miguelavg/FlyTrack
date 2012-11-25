@@ -21,7 +21,7 @@ public class CMail {
     public void sendMail(String to, String subject, String message){
         Properties prop = new Properties();
         
-        from = CParametro.buscarXValorUnicoyTipo("MAIL", "FROM").getValor();
+            from = CParametro.buscarXValorUnicoyTipo("MAIL", "FROM").getValor();
         password = CParametro.buscarXValorUnicoyTipo("MAIL", "PWD").getValor();
         mailSMTPServers = CParametro.buscarXValorUnicoyTipo("MAIL", "SMTP_SERVER").getValor();
         mailSMTPServerPort = CParametro.buscarXValorUnicoyTipo("MAIL", "SMTP_PORT").getValor();

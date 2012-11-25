@@ -62,6 +62,9 @@ public class CAeropuerto {
             objAeropuerto.setPais(Pais);
             objAeropuerto.setIdAeropuerto(idAeropuerto);
 
+            
+            CPista.guardarPista("Administración", "Tarifa", "Modificar", new CAeropuerto().BuscarId(idAeropuerto).aString(), objAeropuerto.aString());
+
             s.update(objAeropuerto);
 
             tx.commit();
@@ -111,6 +114,8 @@ public class CAeropuerto {
             int i = (Integer) s.save(objAeropuerto);
 
             tx.commit();
+            
+            CPista.guardarPista("Administración", "Aeropuerto", "Crear", objAeropuerto.aString());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -135,6 +140,8 @@ public class CAeropuerto {
             int i = (Integer) s.save(a);
 
             tx.commit();
+            
+            CPista.guardarPista("Administración", "Aeropuerto", "Crear", a.aString());
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

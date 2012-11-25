@@ -17,12 +17,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.ParamDef;
 
 /**
  *
  * @author ronald
  */
 public class CEnvio {
+
+   
+    
 
     public ArrayList<Parametro> llenarCombo(String tipo) {
 
@@ -146,6 +150,8 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
+            ArrayList<Envio> listaenvio= new ArrayList<Envio>();
+            listaenvio.add(envio);            
             for (Escala e : envio.getEscalas()) {
                 s.saveOrUpdate(e.getVuelo());
             }
@@ -530,8 +536,118 @@ public class CEnvio {
         }
         return numDoc;
     }
+    
+     public static List<Parametro> llenarComboEst() {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        List<Parametro> ListaTipoEst = null;
+                
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
 
-    public static Date getFechaSalidaReal(Escala escala) {
+            q = s.getNamedQuery("ParametrosAeropuerto");
+            q.setParameter("tipo", "ESTADO_ENVIO");
+            ListaTipoEst = q.list();
+
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            s.close();
+        }
+
+        return ListaTipoEst;
+    }
+     
+      public static List<Parametro> llenarTipoDoc() {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        List<Parametro> ListaTipoEst = null;
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
+
+            q = s.getNamedQuery("ParametrosAeropuerto");
+            q.setParameter("tipo", "TIPO_DOC");
+            ListaTipoEst = q.list();
+
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            s.close();
+        }
+
+        return ListaTipoEst;
+    }
+
+      public static List<Envio> BuscarRepoEnviar
+                (Parametro Estado, 
+                 Aeropuerto 
+                 PaisOrigen, 
+                 Aeropuerto PaisDestino, 
+                 Calendar fechini, 
+                 Calendar fechfinal, 
+                 Parametro TipoDoc) {
+
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        List<Envio> ListaEnvio = null;
+        Date ini = null;
+        Date fin = null;
+        String inii = null;
+
+        try {
+                Transaction tx = s.beginTransaction();
+                Query q;
+
+            
+           q = s.getNamedQuery("Envios");
+
+            if (PaisOrigen != null) {
+                Filter f_origen = s.enableFilter("EnviosXOrigen");
+                f_origen.setParameter("idAeropuerto", PaisOrigen.getIdAeropuerto());
+            }
+
+            if (PaisDestino != null) {
+                Filter f_destino = s.enableFilter("EnviosXDestino");
+                f_destino.setParameter("idAeropuerto", PaisDestino.getIdAeropuerto());
+            }
+            if (fechini != null) {
+                ini = fechini.getTime();
+                Filter f_inisalida = s.enableFilter("EnviosXFechaIni");
+                f_inisalida.setParameter("fecharegistro", ini);
+            }
+
+            if (fechfinal != null) {
+                fin = fechfinal.getTime();
+                Filter f_finllega = s.enableFilter("EnviosXFechaFin");
+                f_finllega.setParameter("fecharegistro", fin);
+            }
+
+            if (Estado != null) {
+                Filter f_estado = s.enableFilter("EnviosXEstado");
+                f_estado.setParameter("Estado", Estado.getIdParametro());
+            }
+
+            ListaEnvio = q.list();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return ListaEnvio;
+
+    }
+
+      public static Date getFechaSalidaReal(Escala escala) {
         Vuelo v = escala.getVuelo();
         Date d = null;
 

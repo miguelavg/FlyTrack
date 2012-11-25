@@ -481,7 +481,7 @@ public void cargartabla(){
             
             
             
-            String nombredocFactura = "Factura" + this.envio.getNumDocVenta() + ".pdf";
+            String nombredocFactura = "Factura_" + this.envio.getNumDocVenta() + ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
             exporter.exportReport();
             
@@ -547,7 +547,7 @@ public void cargartabla(){
             
             
             
-            String nombredocBoleta = "Boleta" + this.envio.getNumDocVenta() + ".pdf";
+            String nombredocBoleta = "Boleta_" + this.envio.getNumDocVenta()+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
             exporter.exportReport();
             

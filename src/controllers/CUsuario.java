@@ -58,6 +58,9 @@ public class CUsuario {
 
             int i = (Integer) s.save(CUsuario);
             tx.commit();
+            
+            CPista.guardarPista("Seguridad", "Usuario", "Crear", CUsuario.aString());
+            
             return CUsuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -285,7 +285,7 @@ public class CTarifa {
             
             CPista.guardarPista("Administración", "Tarifa", "Modificar", 
                                 "ANTES: " + BuscarXid(idTarifa).aString() + 
-                                "DESPUES: " + TarifaBE.aString());
+                                " DESPUES: " + TarifaBE.aString());
                         
             s.update(TarifaBE);
             

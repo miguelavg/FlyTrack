@@ -367,7 +367,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
             
-            String nombreReporteAlmacen = "Reporte" + this.aeroori.getNombre() +reportDate+ ".pdf";
+            String nombreReporteAlmacen = "Reporte_" + this.aeroori.getNombre() +"_"+reportDate+ ".pdf";
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
             exporter.exportReport();
             
@@ -398,6 +398,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        
         
         llenarGrillaAero();
         
