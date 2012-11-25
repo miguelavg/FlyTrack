@@ -989,8 +989,9 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
             llenarEscalas(this.envio);
             llenarCombos(this.isNuevo, this.moneda, this.doc, this.estado, this.estadoFactura);
+            btn_recalcular.setEnabled(false);
         } else {
-            this.envio = null;
+            
             ErrorDialog.mostrarError(error_message, this);
         }
 

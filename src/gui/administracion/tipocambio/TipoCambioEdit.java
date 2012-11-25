@@ -182,6 +182,12 @@ public class TipoCambioEdit extends javax.swing.JDialog {
 
         lbl_monedaOrigen.setText("Moneda origen:");
 
+        txt_tipocambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_tipocambioActionPerformed(evt);
+            }
+        });
+
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.png"))); // NOI18N
         btn_guardar.setText("Guardar");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -330,6 +336,10 @@ public class TipoCambioEdit extends javax.swing.JDialog {
     private void cmb_origenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_origenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_origenActionPerformed
+
+    private void txt_tipocambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tipocambioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tipocambioActionPerformed
 
     /**
      * @param args the command line arguments

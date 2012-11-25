@@ -177,7 +177,8 @@ public class Recocido {
                 for (Vuelo vuelo : aActual.getVuelosSalida()) {
 
                     if (vuelo.getCapacidadMax() >= vuelo.getCapacidadActual() + numPaquetes
-                            && getMax(aOrigen, dActual, vuelo.getFechaSalida()) + numPaquetes <= aOrigen.getCapacidadMax()) {
+                            && getMax(aOrigen, dActual, vuelo.getFechaSalida()) + numPaquetes <= aOrigen.getCapacidadMax()
+                            && dActual.before(vuelo.getFechaSalida())) {
                         posibles.add(vuelo);
                         ArrayList<Vuelo> wrap = new ArrayList<Vuelo>();
                         wrap.add(vuelo);
