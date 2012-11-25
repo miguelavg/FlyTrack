@@ -183,7 +183,18 @@ public class Cliente implements Serializable {
     public void setEnviosRemitidos(List<Envio> enviosRemitidos) {
         this.enviosRemitidos = enviosRemitidos;
     }
-    
+
+    public String aString(){
+        return "IdCliente = " + idCliente + 
+                " Nombres = " + Nombres +
+                " Apellidos = " + Apellidos +
+                " Tipo de Documento = " + (tipoDoc != null ? tipoDoc.getValor() : null) +
+                " Numero del Documento = " + NumDoc +
+                " Email = " + CorreoElectronico +
+                " Telefono = " + Telefono +
+                " Ciudad = " + (ciudad != null ? ciudad.getValor() : null) +
+                " Pais = " + (pais != null ? pais.getValor() : null);
+    }
    
 }
 
