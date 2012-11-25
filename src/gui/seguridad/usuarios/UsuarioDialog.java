@@ -541,8 +541,8 @@ public class UsuarioDialog extends javax.swing.JDialog {
             datos[0] = listaUsuarios.get(i).getLogIn();
             datos[1] = listaUsuarios.get(i).getNombres();
             datos[2] = listaUsuarios.get(i).getApellidos();
-            datos[3] = listaUsuarios.get(i).getPerfil().getNombre();
-            datos[4] = listaUsuarios.get(i).getIdAeropuerto().getNombre();
+            datos[3] = listaUsuarios.get(i).getPerfil() != null ? listaUsuarios.get(i).getPerfil().getNombre() : null;
+            datos[4] = listaUsuarios.get(i).getIdAeropuerto() != null ? listaUsuarios.get(i).getIdAeropuerto().getNombre() : null;
             datos[5] = listaUsuarios.get(i).geteMail();
             datos[6] = listaUsuarios.get(i).getEstado();
             datos[7] = listaUsuarios.get(i).getTipoDoc();
