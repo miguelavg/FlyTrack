@@ -10,7 +10,7 @@
 <!--<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/flytrack</property>
     <property name="hibernate.connection.username">ronald</property>
     <property name="hibernate.connection.password">ronald</property>>-->
- <!--    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/flytrack</property>
+<!--     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/flytrack</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">postgres</property>-->
     <property name="connection.autocommit">false</property> 
