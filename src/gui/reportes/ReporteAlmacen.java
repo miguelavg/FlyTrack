@@ -8,6 +8,7 @@ package gui.reportes;
 import gui.reportes.*;
 import beans.Aeropuerto;
 import beans.Cliente;
+import beans.Envio;
 import beans.Parametro;
 import controllers.CAeropuerto;
 import controllers.CCliente;
@@ -16,6 +17,7 @@ import controllers.CReportes;
 import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.*;
+import controllers.CEnvio;
 import java.awt.Cursor;
 import java.io.File;
 import java.text.DateFormat;
@@ -47,6 +49,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      */
     beans.Aeropuerto aeroori;
     CCliente cliente= new CCliente(); 
+    CEnvio cenvio= new CEnvio();
     //ClienteDataSource clienteds= new ClienteDataSource();
     
     AlmacenDataSource vuelods;//= new AlmacenDataSource();
@@ -464,6 +467,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
          dtm.removeRow(0);
      }
      
+     List<Envio> listaenvios = cenvio.buscar(null, null, null, null, null, null);
+     
      listaAeropuertos.get(0).getVuelosLlegada().size();
      
      
@@ -475,6 +480,13 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     
     //listaAeropuertos.get(0).getVuelosLlegada().get(i).get
         if (cboMovimientos.getSelectedIndex()==2 || cboMovimientos.getSelectedIndex()==0){
+            
+            for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
+            
+                
+                
+            }
+            
             for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
                 if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
                 {
@@ -514,11 +526,12 @@ public class ReporteAlmacen extends javax.swing.JFrame {
       //         datos[1] = "Salida";
       //         }
       //         else {datos[1] = "";}
-               datos[1] = listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
-               datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
+              // datos[1] = listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
+               //datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
                //datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
-               datos[3]= "Salida";
-               datos[4] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
+               datos[1]= "Salida";
+               datos[2]= "Salida de vuelos "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
+               datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
                dtm.addRow(datos);
                listaVuelos.add(listaAeropuertos.get(0).getVuelosSalida().get(i));
                }
