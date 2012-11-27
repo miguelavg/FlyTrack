@@ -979,7 +979,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-        String error_message = cenvio.calcularRuta(this.envio, this.envio.getFechaRegistro(), 1);
+        String error_message = cenvio.calcularRuta(this.envio, new Date(), 1);
 
         if (error_message == null || error_message.isEmpty()) {
             this.estado = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "PROG");
