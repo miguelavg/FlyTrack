@@ -7,13 +7,19 @@ package controllers;
 import beans.Aeropuerto;
 import beans.Parametro;
 import beans.Sesion;
+import beans.Vuelo;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import logic.AeroLite;
 import logic.EnvioLite;
+import logic.MovimientoAlmacen;
 import logic.RecocidoLite;
 import logic.VueloLite;
+import org.hibernate.Filter;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,7 +48,7 @@ public class CSimulator {
         return null;
     }
 
-    public static ArrayList<AeroLite> calcularAeropuertos() {
+    public ArrayList<AeroLite> calcularAeropuertos(Date futuro, Date pasado) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         ArrayList<AeroLite> aeroLites = null;
@@ -51,11 +57,21 @@ public class CSimulator {
         try {
 
             Query q = s.getNamedQuery("Aero");
+
+            Filter f_vuelos_s = s.enableFilter("VuelosSalidaSim");
+            f_vuelos_s.setParameter("lower", pasado);
+            f_vuelos_s.setParameter("upper", futuro);
+
+            Filter f_vuelos_l = s.enableFilter("VuelosLlegadaSim");
+            f_vuelos_l.setParameter("lower", pasado);
+            f_vuelos_l.setParameter("upper", futuro);
+
             List<Aeropuerto> aeros = q.list();
             aeroLites = new ArrayList<AeroLite>();
 
+
             for (Aeropuerto a : aeros) {
-                int capacidadActual = (int) (rnd.nextDouble() * a.getCapacidadMax());
+                int capacidadActual = calcularActual(a);
                 aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre() + ", " + a.getPais().getValor() + ", " + a.getCiudad().getValor(), a.getCapacidadMax(), capacidadActual, a.getCoordX(), a.getCoordY()));
             }
 
@@ -66,24 +82,71 @@ public class CSimulator {
         }
         return aeroLites;
     }
+    
+    public class CustomComparator implements Comparator<MovimientoAlmacen> {
+        @Override
+        public int compare(MovimientoAlmacen m1, MovimientoAlmacen m2) {
+            if (m1.getFecha().before(m2.getFecha())) {
+                return -1;
+            }
+            if (m1.getFecha().after(m2.getFecha())) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+    
+    private int calcularActual(Aeropuerto aeropuerto){
+        int actual = aeropuerto.getCapacidadActual();
+        int suma = actual;
+        int movimientos = 1;
 
-    public static ArrayList<VueloLite> calcularVuelos(ArrayList<AeroLite> aeroLites) {
+        ArrayList<MovimientoAlmacen> moves = new ArrayList<MovimientoAlmacen>();
+        for (Vuelo v : aeropuerto.getVuelosSalida()) {
+            moves.add(new MovimientoAlmacen(v.getFechaSalida(), "I", v.getCapacidadActual()));
+        }
+        for (Vuelo v : aeropuerto.getVuelosLlegada()) {
+            moves.add(new MovimientoAlmacen(v.getFechaLlegada(), "O", v.getCapacidadActual()));
+        }
+        
+        Collections.sort(moves, new CustomComparator());
+
+        for (MovimientoAlmacen m : moves) {
+            if (m.getTipo().equals("I")) {
+                actual = actual + m.getCantidad();
+            }
+            if (m.getTipo().equals("O")) {
+                actual = actual - m.getCantidad();
+            }
+            
+            suma = suma + actual;
+            movimientos++;
+        }
+        
+        int prom = suma /  movimientos;
+
+        return prom;
+    }
+
+    public static ArrayList<VueloLite> calcularVuelos(Date ahora, Date pasado, int num_vuelos, ArrayList<AeroLite> aeroLites) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         ArrayList<VueloLite> vueloLites = null;
 
         try {
-            Query q = s.createQuery("select v.origen.idAeropuerto, v.destino.idAeropuerto,  count(v),  avg(v.capacidadMax), avg(v.costoAlquiler), avg(v.capacidadActual/v.capacidadMax) from Vuelo v group by v.origen, v.destino order by 1, 2");
+            Query q = s.createQuery("select v.origen.idAeropuerto, v.destino.idAeropuerto,  count(v),  avg(v.capacidadMax), avg(v.costoAlquiler), avg(v.capacidadActual/cast(v.capacidadMax as float)) from Vuelo v where v.fechaLlegada <= :upper AND v.fechaSalida >= :lower group by v.origen, v.destino order by 1, 2");
+            q.setParameter("upper", ahora);
+            q.setParameter("lower", pasado);
             List<Object[]> objVuelos = q.list();
             vueloLites = new ArrayList<VueloLite>();
 
-            q = s.createQuery("select count(v) from Vuelo v");
+            q = s.createQuery("select count(v) from Vuelo v where v.fechaLlegada <= :upper AND v.fechaSalida >= :lower");
+            q.setParameter("upper", ahora);
+            q.setParameter("lower", pasado);
             int aVuelos = ((Long) q.uniqueResult()).intValue();
 
-            Parametro pNumVuelos = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "num_vuelos");
-            int numVuelos = Integer.parseInt(pNumVuelos.getValor());
 
-            double regla = numVuelos / ((double) aVuelos);
+            double regla = num_vuelos / ((double) aVuelos);
 
             for (Object[] obj : objVuelos) {
                 AeroLite origen = buscarAeroLite((Integer) obj[0], aeroLites);
@@ -104,22 +167,24 @@ public class CSimulator {
         return vueloLites;
     }
 
-    public static ArrayList<EnvioLite> calcularEnvios(ArrayList<AeroLite> aeroLites) {
+    public static ArrayList<EnvioLite> calcularEnvios(Date ahora, Date pasado, int num_envios, ArrayList<AeroLite> aeroLites) {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
         ArrayList<EnvioLite> envioLites = null;
 
         try {
-            Query q = s.createQuery("select e.origen.idAeropuerto, e.destino.idAeropuerto,  count(e) from Envio e group by e.origen, e.destino order by 1, 2");
+            Query q = s.createQuery("select e.origen.idAeropuerto, e.destino.idAeropuerto,  sum(e.numPaquetes) from Envio e where e.fechaRegistro <= :upper AND e.fechaRegistro >= :lower  group by e.origen, e.destino order by 1, 2");
+            q.setParameter("upper", ahora);
+            q.setParameter("lower", pasado);
             List<Object[]> objVuelos = q.list();
             envioLites = new ArrayList<EnvioLite>();
 
-            q = s.createQuery("select count(e) from Envio e");
+            q = s.createQuery("select sum(e.numPaquetes) from Envio e where e.fechaRegistro <= :upper AND e.fechaRegistro >= :lower");
+            q.setParameter("upper", ahora);
+            q.setParameter("lower", pasado);
             int aEnvios = ((Long) q.uniqueResult()).intValue();
-            Parametro pNumEnvios = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "num_envios");
-            int numVuelos = Integer.parseInt(pNumEnvios.getValor());
 
-            double regla = numVuelos / ((double) aEnvios);
+            double regla = num_envios / ((double) aEnvios);
 
             for (Object[] obj : objVuelos) {
                 AeroLite origen = buscarAeroLite((Integer) obj[0], aeroLites);

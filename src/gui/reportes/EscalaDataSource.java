@@ -59,18 +59,28 @@ public class EscalaDataSource  implements JRDataSource {
     { 
         valor = getListaEscalas().get(indiceEscala).getVuelo().getDestino().getNombre() + ", " + getListaEscalas().get(indiceEscala).getVuelo().getDestino().getCiudad() + ", " + getListaEscalas().get(indiceEscala).getVuelo().getDestino().getPais(); 
     } 
-                else if("fechasalida".equals(jrField.getName())) 
+                else if("fechasalidareal".equals(jrField.getName())) 
     { 
         valor = CValidator.formatDate(CEnvio.getFechaSalidaReal(getListaEscalas().get(indiceEscala)));
     } 
-                else if("fechallegada".equals(jrField.getName())) 
+                else if("fechallegadareal".equals(jrField.getName())) 
     { 
         valor = CValidator.formatDate(CEnvio.getFechaLlegadaReal(getListaEscalas().get(indiceEscala)));
     } 
                 else if("estado".equals(jrField.getName())) 
     { 
         valor = getListaEscalas().get(indiceEscala).getEstado();
+    }
+                else if("fechasalidateorica".equals(jrField.getName())) 
+    { 
+        valor = CValidator.formatDate(getListaEscalas().get(indiceEscala).getVuelo().getFechaSalida());
     } 
+                else if("fechallegadateorica".equals(jrField.getName())) 
+    { 
+        valor = CValidator.formatDate(getListaEscalas().get(indiceEscala).getVuelo().getFechaLlegada());
+    }     
+    
+    
     
     
     

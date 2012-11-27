@@ -138,23 +138,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="btn_factura" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_in" min="-2" pref="160" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_almacen" min="-2" pref="160" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_ruta" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_bitacora" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_anular" min="-2" pref="120" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_out" min="-2" pref="160" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btn_recalcular" min="-2" pref="160" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel15" min="-2" pref="120" max="-2" attributes="0"/>
@@ -264,6 +247,28 @@
                               </Group>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btn_factura" min="-2" pref="120" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btn_in" min="-2" pref="160" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btn_almacen" min="-2" pref="160" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btn_ruta" min="-2" pref="120" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btn_bitacorareal" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btn_anular" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btn_out" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btn_recalcular" min="-2" pref="160" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="btn_bitacorateorica" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -285,12 +290,14 @@
                       <Component id="btn_in" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_almacen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_ruta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="btn_bitacora" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btn_bitacorareal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_anular" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_out" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="btn_recalcular" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btn_bitacorateorica" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -750,15 +757,15 @@
             <Property name="text" type="java.lang.String" value="Mov. almac&#xe9;n"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_bitacora">
+        <Component class="javax.swing.JButton" name="btn_bitacorareal">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/lists.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Bit&#xe1;cora"/>
+            <Property name="text" type="java.lang.String" value="Bit&#xe1;cora Real"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_bitacoraActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_bitacorarealActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_recalcular">
@@ -770,6 +777,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_recalcularActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_bitacorateorica">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/lists.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Bit&#xe1;cora Te&#xf3;rica"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_bitacorateoricaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -797,7 +815,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="132" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="126" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>

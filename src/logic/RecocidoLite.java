@@ -25,6 +25,14 @@ public class RecocidoLite {
         this.intentos = intentos;
         this.vCostoAlmacen = vCostoAlmacen;
         this.envios = envios;
+        
+//        this.kSA = kSA;
+//        this.temperaturaInicial = temperaturaInicial;
+//        this.temperatura = temperaturaInicial; 
+//        this.temperaturaFinal = temperaturaFinal;
+//        this.alfaSA = alfaSA;
+//        this.alfaGrasp = alfaGrasp;
+//        this.pParada = pParada;
     }
 
     private int estadoEnergia(ArrayList<VueloLite> vuelos, int evt) {

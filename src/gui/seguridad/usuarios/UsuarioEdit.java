@@ -246,6 +246,11 @@ public class UsuarioEdit extends javax.swing.JDialog {
 
         jLabel4.setText("Nombres:");
 
+        txtNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombresActionPerformed(evt);
+            }
+        });
         txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombrestxtNomKeyRel(evt);
@@ -840,6 +845,10 @@ public class UsuarioEdit extends javax.swing.JDialog {
     private void txtNumeroDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDocActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroDocActionPerformed
+
+    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombresActionPerformed
     public int showDialog() {
         setVisible(true);
         return 1;
