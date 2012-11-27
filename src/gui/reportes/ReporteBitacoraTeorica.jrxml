@@ -126,12 +126,12 @@
 				<textFieldExpression><![CDATA[$F{fechasalidateorica}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="409" y="1" width="86" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="414" y="1" width="86" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fechallegadateorica}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="487" y="0" width="83" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="503" y="0" width="83" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
 			</textField>

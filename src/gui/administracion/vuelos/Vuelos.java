@@ -205,7 +205,6 @@ public class Vuelos extends javax.swing.JDialog {
         }
         dt_fechini.setLocale(new java.util.Locale("es", "PE", ""));
 
-        dt_fechfin.setNothingAllowed(false);
         try {
             dt_fechfin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
         } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
