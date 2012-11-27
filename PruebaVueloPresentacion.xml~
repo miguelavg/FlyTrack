@@ -1,0 +1,19 @@
+<list>
+  <xml.XmlEnvio>
+    <costoAlquiler>2000.0</costoAlquiler>
+    <capacidadMax>100</capacidadMax>
+    <capacidadActual>50</capacidadActual>
+    <anosal>2012</anosal>
+    <messal>10</messal>
+    <diasal>21</diasal>
+    <horasal>6</horasal>
+    <minsal>10</minsal>
+    <anolle>2012</anolle>
+    <meslle>10</meslle>
+    <dialle>21</dialle>
+    <horalle>12</horalle>
+    <minlle>30</minlle>
+    <estado>PROG</estado>
+    <origen>AeropuertoA</origen>
+    <destino>AeropuertoB</destino>
+</list>
