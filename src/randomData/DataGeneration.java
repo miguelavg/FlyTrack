@@ -16,6 +16,7 @@ import controllers.CSerializer;
 import controllers.CTarifa;
 import controllers.CValidator;
 import gui.ErrorDialog;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -194,23 +195,25 @@ public class DataGeneration {
     public static ArrayList<XmlEnvio> conversionAXML(List<Envio> envios){
         
         ArrayList<XmlEnvio> xmlenvios = new ArrayList<XmlEnvio>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         
         for (Envio envio : envios){
             
             XmlEnvio xmlenvio = new XmlEnvio();
             
-            xmlenvio.setFecharegis(CValidator.formatDate(envio.getFechaRegistro()));
-            xmlenvio.setFechaRecojo(CValidator.formatDate(envio.getFechaRecojo()));
+            xmlenvio.setFecharegis(sdf.format(envio.getFechaRegistro()));
+            xmlenvio.setFechaRecojo(sdf.format(envio.getFechaRecojo()));
             xmlenvio.setNumPaquetes(envio.getNumPaquetes());
             xmlenvio.setMonto(envio.getMonto());
             xmlenvio.setIva(envio.getIva());
             xmlenvio.setImpuesto(envio.getImpuesto());
             xmlenvio.setUnitario(envio.getUnitario());
             xmlenvio.setNumDocVenta(envio.getNumDocVenta());
-            xmlenvio.setMoneda(envio.getMoneda() != null ? envio.getMoneda().getValor() : null);
-            xmlenvio.setTipodoc(envio.getTipoDocVenta() != null ? envio.getTipoDocVenta().getValor() : null);
-            xmlenvio.setEstado(envio.getEstado() != null ? envio.getEstado().getValor() : null);
-            xmlenvio.setEstadofac(envio.getEstadoFactura() != null ? envio.getEstadoFactura().getValor() : null);
+            xmlenvio.setMoneda(envio.getMoneda() != null ? envio.getMoneda().getValorUnico() : null);
+//            xmlenvio.setMoneda(null);
+            xmlenvio.setTipodoc(envio.getTipoDocVenta() != null ? envio.getTipoDocVenta().getValorUnico() : null);
+            xmlenvio.setEstado(envio.getEstado() != null ? envio.getEstado().getValorUnico() : null);
+            xmlenvio.setEstadofac(envio.getEstadoFactura() != null ? envio.getEstadoFactura().getValorUnico() : null);
             xmlenvio.setOrigen(envio.getOrigen() != null ? envio.getOrigen().getNombre() : null);
             xmlenvio.setDestino(envio.getDestino() != null ? envio.getDestino().getNombre() : null);
             xmlenvio.setActual(envio.getActual() != null ? envio.getActual().getNombre() : null);

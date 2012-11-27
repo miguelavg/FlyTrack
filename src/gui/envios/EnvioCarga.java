@@ -4,6 +4,7 @@
  */
 package gui.envios;
 
+import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Envio;
 import beans.Escala;
@@ -228,10 +229,7 @@ public class EnvioCarga extends javax.swing.JDialog {
             listaenvios = new ArrayList<Envio>();
 
             for (Integer s=0; s<xmlenvios.size();s++){
-
-
                 XmlEnvio xmlenvioaux=(XmlEnvio)xmlenvios.get(s);
-
 
                 Envio envio  = new Envio();
                 
@@ -290,24 +288,37 @@ public class EnvioCarga extends javax.swing.JDialog {
                 }
                 else envio.setEstadoFactura(estadofactura);
                 
-                beans.Aeropuerto aerodes= CAeropuerto.BuscarNombre(xmlenvios.get(s).getDestino());
+             
+                
+                
+                
+                Aeropuerto aerodes= CAeropuerto.BuscarNombre(xmlenvios.get(s).getDestino());
                 if (aerodes==null) {
                     ErrorDialog.mostrarError("Aeropuerto destino inválido en registro "+ s.toString(), this);
                     return null;
                 }
-                else envio.setDestino(aerodes);
-                beans.Aeropuerto aeroori= CAeropuerto.BuscarNombre(xmlenvios.get(s).getOrigen());
+                else {
+                    envio.setDestino(aerodes);
+                }
+                
+                Aeropuerto aeroori= CAeropuerto.BuscarNombre(xmlenvios.get(s).getOrigen());
                 if (aeroori==null) {
                     ErrorDialog.mostrarError("Aeropuerto origen inválido en registro "+ s.toString(), this);
                     return null;
                 }
-                else envio.setOrigen(aeroori);
-                beans.Aeropuerto aeroact= CAeropuerto.BuscarNombre(xmlenvios.get(s).getActual());
+                else {
+                    if(aeroori.getNombre().equals(aerodes.getNombre())){
+                        envio.setOrigen(aerodes);
+                    }
+                    else envio.setOrigen(aeroori);
+                }
+                
+                Aeropuerto aeroact= CAeropuerto.BuscarNombre(xmlenvios.get(s).getActual());
                 if (aeroact==null) {
                     ErrorDialog.mostrarError("Aeropuerto actual inválido en registro "+ s.toString(), this);
                     return null;
                 }
-                else envio.setActual(aeroact);
+                else envio.setActual(aerodes);
                 
                 Cliente clienterem = ccliente.BuscarXid(1);
                 Cliente clientedes = ccliente.BuscarXid(2);
@@ -315,23 +326,33 @@ public class EnvioCarga extends javax.swing.JDialog {
                 envio.setRemitente(clienterem);
                 envio.setDestinatario(clientedes);
                 
-                
+//                System.out.println(xmlenvioaux.getEstadoescala());
+//                System.out.println(xmlenvioaux.getVuelo());
                 // Datos de escala
-                Escala e=new Escala();
-                e.setNumEscala(1);
-                e.setOriginal(true);
-                Parametro estadoescala= CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", xmlenvios.get(s).getEstado());
-                if (estadoescala==null) {
-                    ErrorDialog.mostrarError("Estado inválido en registro "+ s.toString(), this);
-                    return null;
-                }
-                else e.setEstado(estadoescala);
+                if(xmlenvioaux.getEstadoescala() != null && xmlenvioaux.getVuelo() != 0){
                 
-                Vuelo v = CVuelo.buscarVueloId(xmlenvioaux.getVuelo());
-                e.setVuelo(v);
-                e.setEnvio(envio);
-                                
-                envio.getEscalas().add(e);
+                    Escala e = new Escala();
+                    e.setNumEscala(1);
+                    e.setOriginal(true);
+
+                    Parametro estadoescala = CParametro.buscarXValorUnicoyTipo("ESTADO_ESCALA", xmlenvios.get(s).getEstadoescala());
+                    if (estadoescala==null) {
+                        ErrorDialog.mostrarError("Estado de escala inválido en el registro "+ s.toString(), this);
+                        return null;
+                    }
+                    else e.setEstado(estadoescala);
+
+                    Vuelo vuelo = CVuelo.buscarVueloId(xmlenvioaux.getVuelo());
+                    if(vuelo == null){
+                        ErrorDialog.mostrarError("Vuelo de escala inválido en el registro "+ s.toString(), this);
+                        return null;
+                    }
+                    else e.setVuelo(vuelo);
+
+                    e.setEnvio(envio);
+
+                    envio.getEscalas().add(e);
+                }
                 
                 listaenvios.add(envio);
                               
@@ -340,7 +361,7 @@ public class EnvioCarga extends javax.swing.JDialog {
         
         }
             catch(ClassCastException e){
-                    
+                    e.printStackTrace();
                     ErrorDialog.mostrarError("Ocurrió un error al cargar el archivo.",this);
                     return null;    
             
@@ -365,19 +386,18 @@ public class EnvioCarga extends javax.swing.JDialog {
                         
                         for (int i = 0; i < envios.size(); i++) {
                             Envio envio = (Envio) envios.get(i);
-                            cenvio.guardarEnvio(envio);
-                         
+                            cenvio.guardarEnvio2(envio);
                         }
                         //setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         InformationDialog.mostrarInformacion("La operación se realizó con éxito ", this);
                         this.dispose();
                     } catch (Exception e) {
-                        //e.printStackTrace();
+//                        e.printStackTrace();
                         ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
                     }
                 }
             } catch (Exception e) {
-                //e.printStackTrace();
+//                e.printStackTrace();
                 ErrorDialog.mostrarError("Ocurrió un error al cargar los archivos xml.", this);
             }
         }else {
