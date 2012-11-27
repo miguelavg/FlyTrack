@@ -30,21 +30,20 @@ public class VentaDataSource implements JRDataSource {
 { 
     Object valor = null;  
 
-
     
     if("aeropuerto".equals(jrField.getName())) 
     { 
-     //valor = |;    
+     valor = getListaVentas().get(indiceVentas).getAero().getNombre();    
     } 
 
         else if("mes".equals(jrField.getName())) 
     { 
-        valor = getListaVentas().get(indiceVentas);
+        valor = getListaVentas().get(indiceVentas).getMes();
     } 
     
                 else if("monto".equals(jrField.getName())) 
     { 
-        valor = getListaVentas().get(indiceVentas);
+        valor = getListaVentas().get(indiceVentas).getMonto();
     } 
         
      
@@ -61,6 +60,4 @@ public class VentaDataSource implements JRDataSource {
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
     }
-        
-    
 }

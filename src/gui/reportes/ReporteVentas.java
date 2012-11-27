@@ -318,10 +318,13 @@ where fecharegistro < ''
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
-        ListaEnviosDataSource listaenviosds= new ListaEnviosDataSource();
-        listaenviosds.setListaEnvios(listaEnvios);
+//        ListaEnviosDataSource listaenviosds= new ListaEnviosDataSource();
+//        listaenviosds.setListaEnvios(listaEnvios);
         
-    if (listaenviosds!=null){
+        VentaDataSource listaventasds= new VentaDataSource();
+        listaventasds.setListaVentas(listaventas);
+        
+    if (listaventasds!=null){
         try {
             //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
             String master = System.getProperty("user.dir") +
@@ -337,7 +340,7 @@ where fecharegistro < ''
                 //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
                 return;
             }
-            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, listaenviosds);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, listaventasds);
             
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
