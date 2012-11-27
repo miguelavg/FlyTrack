@@ -245,7 +245,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
         btn_in.setEnabled(!siNuevo);
         btn_ruta.setEnabled(!siNuevo);
-        btn_bitacora.setEnabled(!siNuevo);
+        btn_bitacorareal.setEnabled(!siNuevo);
         btn_almacen.setEnabled(!siNuevo);
 
         if (this.actual != null && this.actual.getIdAeropuerto() == this.origen.getIdAeropuerto() && !this.isNuevo && !this.envio.getEstado().getValorUnico().equals("CAN")) {
@@ -378,8 +378,9 @@ public class EnvioAgregar extends javax.swing.JFrame {
         btn_anular = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btn_almacen = new javax.swing.JButton();
-        btn_bitacora = new javax.swing.JButton();
+        btn_bitacorareal = new javax.swing.JButton();
         btn_recalcular = new javax.swing.JButton();
+        btn_bitacorateorica = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_escalas = new javax.swing.JTable() {
@@ -689,11 +690,11 @@ public class EnvioAgregar extends javax.swing.JFrame {
         btn_almacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/storage.png"))); // NOI18N
         btn_almacen.setText("Mov. almacén");
 
-        btn_bitacora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lists.png"))); // NOI18N
-        btn_bitacora.setText("Bitácora");
-        btn_bitacora.addActionListener(new java.awt.event.ActionListener() {
+        btn_bitacorareal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lists.png"))); // NOI18N
+        btn_bitacorareal.setText("Bitácora Real");
+        btn_bitacorareal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_bitacoraActionPerformed(evt);
+                btn_bitacorarealActionPerformed(evt);
             }
         });
 
@@ -705,6 +706,14 @@ public class EnvioAgregar extends javax.swing.JFrame {
             }
         });
 
+        btn_bitacorateorica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lists.png"))); // NOI18N
+        btn_bitacorateorica.setText("Bitácora Teórica");
+        btn_bitacorateorica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bitacorateoricaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -712,22 +721,6 @@ public class EnvioAgregar extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_in, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_almacen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_anular, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_out, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_recalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -811,7 +804,26 @@ public class EnvioAgregar extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lbl_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lbl_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_in, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_almacen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btn_bitacorareal, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_anular, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_out, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_recalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_bitacorateorica))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -829,11 +841,13 @@ public class EnvioAgregar extends javax.swing.JFrame {
                     .addComponent(btn_in, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_almacen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_bitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_bitacorareal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_anular, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_out, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_recalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_bitacorateorica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -934,7 +948,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -979,7 +993,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
 
         setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-        String error_message = cenvio.calcularRuta(this.envio, this.envio.getFechaRegistro(), 1);
+        String error_message = cenvio.calcularRuta(this.envio, new Date(), 1);
 
         if (error_message == null || error_message.isEmpty()) {
             this.estado = CParametro.buscarXValorUnicoyTipo("ESTADO_ENVIO", "PROG");
@@ -1388,8 +1402,76 @@ public class EnvioAgregar extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_destinatarioActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        VistaPrevia_Factura VistaPrevia_FacturaDialog = new VistaPrevia_Factura(this.envio);
-        VistaPrevia_FacturaDialog.setVisible(true);
+//        VistaPrevia_Factura VistaPrevia_FacturaDialog = new VistaPrevia_Factura(this.envio);
+//        VistaPrevia_FacturaDialog.setVisible(true);
+        if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
+            enviods = new EnvioDataSource();
+            enviods.setEnvio(this.envio);
+            try {
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/factura.jasper";
+
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                    return;
+                }
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+                String nombredocFactura = "Factura_" + this.envio.getNumDocVenta() + ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+                jviewer.setTitle(nombredocFactura);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+                
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
+            enviods = new EnvioDataSource();
+            enviods.setEnvio(this.envio);
+            try {
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/boleta.jasper";
+
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                    return;
+                }
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+                String nombredocBoleta = "Boleta_" + this.envio.getNumDocVenta() + ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+                jviewer.setTitle(nombredocBoleta);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+                //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void txt_actualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_actualActionPerformed
@@ -1430,7 +1512,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_origenActionPerformed
 
-    private void btn_bitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacoraActionPerformed
+    private void btn_bitacorarealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacorarealActionPerformed
         // TODO add your handling code here:
         escalads = new EscalaDataSource();
         escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
@@ -1438,7 +1520,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
             try {
                 //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
                 String master = System.getProperty("user.dir")
-                        + "/src/gui/reportes/ReporteBitacora.jasper";
+                        + "/src/gui/reportes/ReporteBitacoraReal.jasper";
 
                 JasperReport masterReport = null;
                 try {
@@ -1455,7 +1537,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 fechaactual = Calendar.getInstance().getTime();
                 String reportDate = df.format(fechaactual);
 
-                String nombreReporteBitacora = "Bitacora_" + this.envio.getIdEnvio() +"_"+reportDate + ".pdf";
+                String nombreReporteBitacora = "Bitacora_Real_" + this.envio.getIdEnvio() +"_"+reportDate + ".pdf";
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
                 exporter.exportReport();
 
@@ -1466,19 +1548,6 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 jviewer.setVisible(true);
                 jviewer.setAlwaysOnTop(true);
 
-
-                //this.set
-                //exportar=true;
-//            JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
-//            viewer.setSize(800,600); 
-//            viewer.setLocationRelativeTo(null); 
-//            
-//           
-//
-//            viewer.getContentPane().add(jviewer);
-                //viewer.show();
-
-                //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente el reporte Nro " + nombreReporteAlmacen + "\n");
             } catch (JRException e) {
                 e.printStackTrace();
                 ErrorDialog.mostrarError("Ocurrió un error ", this);
@@ -1489,7 +1558,74 @@ public class EnvioAgregar extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_btn_bitacoraActionPerformed
+    }//GEN-LAST:event_btn_bitacorarealActionPerformed
+
+    private void btn_bitacorateoricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacorateoricaActionPerformed
+        // TODO add your handling code here:
+        escalads = new EscalaDataSource();
+        
+        //escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
+        
+        List<Escala> listaEscalas = new ArrayList<Escala>();
+        listaEscalas=envio.getEscalasOrdenadasAsc();
+        
+        List<Escala> listaEscalasaux = new ArrayList<Escala>();
+        
+        Escala auxescala;
+        
+       for (int i=0;i<listaEscalas.size();i++) {
+            auxescala=listaEscalas.get(i);
+            if (auxescala.isOriginal()) {
+            listaEscalasaux.add(auxescala);
+            }
+        }
+        
+       escalads.setListaEscalas(listaEscalasaux); 
+       
+        if (escalads != null) {
+            try {
+                //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/ReporteBitacoraTeorica.jasper";
+
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                    return;
+                }
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, escalads);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
+                Date fechaactual = new Date();
+                fechaactual = Calendar.getInstance().getTime();
+                String reportDate = df.format(fechaactual);
+
+                String nombreReporteBitacora = "Bitacora_Teorica_" + this.envio.getIdEnvio() +"_"+reportDate + ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+
+                jviewer.setTitle(nombreReporteBitacora);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+
+            } catch (JRException e) {
+                e.printStackTrace();
+                ErrorDialog.mostrarError("Ocurrió un error ", this);
+
+            }
+        } else {
+            ErrorDialog.mostrarError("Debe registrar un envio.", this);
+        }
+        
+        
+        
+    }//GEN-LAST:event_btn_bitacorateoricaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1528,7 +1664,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_almacen;
     private javax.swing.JButton btn_anular;
-    private javax.swing.JButton btn_bitacora;
+    private javax.swing.JButton btn_bitacorareal;
+    private javax.swing.JButton btn_bitacorateorica;
     private javax.swing.JButton btn_destinatario;
     private javax.swing.JButton btn_destino;
     private javax.swing.JButton btn_factura;

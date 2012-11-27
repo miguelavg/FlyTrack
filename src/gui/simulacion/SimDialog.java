@@ -9,10 +9,11 @@ import controllers.CParametro;
 import controllers.CSimulator;
 import controllers.CValidator;
 import gui.InformationDialog;
-import gui.envios.*;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.swing.AbstractAction;
@@ -79,10 +80,11 @@ public class SimDialog extends javax.swing.JDialog {
     }
 
     private void llenarLineaTablaAeroLite(AeroLite a, DefaultTableModel dtm) {
-        Object[] datos = new Object[3];
+        Object[] datos = new Object[4];
         datos[0] = a;
-        datos[1] = a.getCapacidadActual();
+        datos[1] = a.getCapacidadMax();
         datos[2] = a.getCapacidadMax();
+        datos[3] = a.getCapacidadActual();
         dtm.addRow(datos);
     }
 
@@ -103,13 +105,14 @@ public class SimDialog extends javax.swing.JDialog {
     }
 
     private void llenarLineaTablaVueloLite(VueloLite v, DefaultTableModel dtm) {
-        Object[] datos = new Object[6];
+        Object[] datos = new Object[7];
         datos[0] = v.getNum();
-        datos[1] = v.getOrigen();
-        datos[2] = v.getDestino();
-        datos[3] = v.getCapacidadMax();
-        datos[4] = v.getAlquiler();
-        datos[5] = v.getPlleno();
+        datos[1] = v.getNum();
+        datos[2] = v.getOrigen();
+        datos[3] = v.getDestino();
+        datos[4] = v.getCapacidadMax();
+        datos[5] = v.getCapacidadMax();
+        datos[6] = v.getPlleno();
         dtm.addRow(datos);
     }
 
@@ -130,20 +133,22 @@ public class SimDialog extends javax.swing.JDialog {
     }
 
     private void llenarLineaTablaEnvioLite(EnvioLite e, DefaultTableModel dtm) {
-        Object[] datos = new Object[3];
+        Object[] datos = new Object[4];
         datos[0] = e.getNum();
-        datos[1] = e.getOrigen();
-        datos[2] = e.getDestino();
+        datos[1] = e.getNum();
+        datos[2] = e.getOrigen();
+        datos[3] = e.getDestino();
         dtm.addRow(datos);
     }
 
-    private void llenarTablas() {
-        ArrayList<AeroLite> aeroLites = CSimulator.calcularAeropuertos();
+    private void llenarTablas(Date ahora, Date pasado, int num_envios, int num_vuelos) {
+        CSimulator csim = new CSimulator();
+        ArrayList<AeroLite> aeroLites = csim.calcularAeropuertos(ahora, pasado);
         if (aeroLites != null) {
             llenarTablaAeroLites(aeroLites);
-            ArrayList<VueloLite> vueloLites = CSimulator.calcularVuelos(aeroLites);
+            ArrayList<VueloLite> vueloLites = CSimulator.calcularVuelos(ahora, pasado, num_vuelos, aeroLites);
             llenarTablaVueloLites(vueloLites);
-            ArrayList<EnvioLite> envioLites = CSimulator.calcularEnvios(aeroLites);
+            ArrayList<EnvioLite> envioLites = CSimulator.calcularEnvios(ahora, pasado, num_envios, aeroLites);
             llenarTablaEnvioLites(envioLites);
             this.vInicial = vueloLites;
             this.eInicial = envioLites;
@@ -272,12 +277,21 @@ public class SimDialog extends javax.swing.JDialog {
         btn_actualizar = new javax.swing.JButton();
         btn_simular = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        dt_inicio = new datechooser.beans.DateChooserCombo();
+        dt_fin = new datechooser.beans.DateChooserCombo();
+        txt_envios = new javax.swing.JTextField();
+        txt_vuelos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FlyTrack - Simulación");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(770, 601));
+        setMaximumSize(null);
+        setMinimumSize(null);
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         setName("envioDialog"); // NOI18N
         setResizable(false);
@@ -302,7 +316,7 @@ public class SimDialog extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(463, 463, 463)
+                .addGap(405, 405, 405)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -324,14 +338,14 @@ public class SimDialog extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Origen", "Destino"
+                "#", "# Nuevo", "Origen", "Destino"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false
+                false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -346,6 +360,9 @@ public class SimDialog extends javax.swing.JDialog {
         tbl_envios.getColumnModel().getColumn(0).setMinWidth(40);
         tbl_envios.getColumnModel().getColumn(0).setPreferredWidth(10);
         tbl_envios.getColumnModel().getColumn(0).setMaxWidth(40);
+        tbl_envios.getColumnModel().getColumn(1).setMinWidth(80);
+        tbl_envios.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tbl_envios.getColumnModel().getColumn(1).setMaxWidth(80);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -353,19 +370,19 @@ public class SimDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addGap(233, 233, 233))
+                .addGap(190, 190, 190))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -380,14 +397,14 @@ public class SimDialog extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "#paq", "Max. paq."
+                "Nombre", "Max. paq.", "Max. paq. Nuevo", "# paq"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -399,22 +416,19 @@ public class SimDialog extends javax.swing.JDialog {
             }
         });
         jScrollPane4.setViewportView(tbl_aeropuertos);
-        tbl_aeropuertos.getColumnModel().getColumn(1).setMinWidth(0);
-        tbl_aeropuertos.getColumnModel().getColumn(1).setPreferredWidth(0);
-        tbl_aeropuertos.getColumnModel().getColumn(1).setMaxWidth(0);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addGap(198, 198, 198))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(176, 176, 176))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,7 +437,7 @@ public class SimDialog extends javax.swing.JDialog {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -433,14 +447,14 @@ public class SimDialog extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Origen", "Destino", "Max. paq.", "Alquiler", "% lleno"
+                "#", "# Nuevo", "Origen", "Destino", "Max. paq.", "Max. Nuevo", "%"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true, true
+                false, true, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -454,12 +468,9 @@ public class SimDialog extends javax.swing.JDialog {
         jScrollPane5.setViewportView(tbl_vuelos);
         tbl_vuelos.getColumnModel().getColumn(0).setMinWidth(40);
         tbl_vuelos.getColumnModel().getColumn(0).setMaxWidth(40);
-        tbl_vuelos.getColumnModel().getColumn(4).setMinWidth(0);
-        tbl_vuelos.getColumnModel().getColumn(4).setPreferredWidth(0);
-        tbl_vuelos.getColumnModel().getColumn(4).setMaxWidth(0);
-        tbl_vuelos.getColumnModel().getColumn(5).setMinWidth(0);
-        tbl_vuelos.getColumnModel().getColumn(5).setPreferredWidth(0);
-        tbl_vuelos.getColumnModel().getColumn(5).setMaxWidth(0);
+        tbl_vuelos.getColumnModel().getColumn(1).setMinWidth(80);
+        tbl_vuelos.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tbl_vuelos.getColumnModel().getColumn(1).setMaxWidth(80);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vuelo48x48.png"))); // NOI18N
         jLabel9.setText("Vuelos");
@@ -470,12 +481,12 @@ public class SimDialog extends javax.swing.JDialog {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                .addComponent(jScrollPane5)
                 .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(230, 230, 230)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(185, 185, 185))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,13 +494,14 @@ public class SimDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btn_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/actualizar_sim.png"))); // NOI18N
+        btn_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/sim_actualizar.png"))); // NOI18N
+        btn_actualizar.setText("Recalcular");
         btn_actualizar.setToolTipText("Actualizar");
         btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,7 +509,8 @@ public class SimDialog extends javax.swing.JDialog {
             }
         });
 
-        btn_simular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/play_sim.png"))); // NOI18N
+        btn_simular.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        btn_simular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/sim_simular.png"))); // NOI18N
         btn_simular.setToolTipText("Simular");
         btn_simular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,11 +518,43 @@ public class SimDialog extends javax.swing.JDialog {
             }
         });
 
-        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/regresar_sim.png"))); // NOI18N
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/sim_regresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
         btn_regresar.setToolTipText("Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_regresarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Fecha inicio:");
+
+        jLabel3.setText("Fecha fin:");
+
+        jLabel4.setText("Núm. envíos:");
+
+        jLabel6.setText("Núm. vuelos:");
+
+        dt_inicio.setNothingAllowed(false);
+        try {
+            dt_inicio.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+        dt_inicio.setLocale(new java.util.Locale("es", "PE", ""));
+
+        dt_fin.setNothingAllowed(false);
+        try {
+            dt_fin.setDefaultPeriods(new datechooser.model.multiple.PeriodSet());
+        } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
+            e1.printStackTrace();
+        }
+        dt_fin.setEnabled(false);
+        dt_fin.setLocale(new java.util.Locale("es", "PE", ""));
+
+        txt_envios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_enviosActionPerformed(evt);
             }
         });
 
@@ -518,23 +563,58 @@ public class SimDialog extends javax.swing.JDialog {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(btn_actualizar)
-                .addGap(18, 18, 18)
-                .addComponent(btn_simular, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_regresar)
-                .addGap(30, 30, 30))
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dt_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_vuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dt_fin, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_envios, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_simular)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_regresar)
-                    .addComponent(btn_simular)
-                    .addComponent(btn_actualizar))
-                .addGap(46, 46, 46))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dt_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dt_fin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_envios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_vuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btn_simular, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -543,17 +623,17 @@ public class SimDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,12 +642,12 @@ public class SimDialog extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -576,7 +656,15 @@ public class SimDialog extends javax.swing.JDialog {
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // TODO add your handling code here:
-        llenarTablas();
+        try {
+            Date ahora = dt_fin.getSelectedDate().getTime();
+            Date pasado = dt_inicio.getSelectedDate().getTime();
+            int num_envios = Integer.parseInt(txt_envios.getText());
+            int num_vuelos = Integer.parseInt(txt_vuelos.getText());
+            llenarTablas(ahora, pasado, num_envios, num_vuelos);
+        } catch (Exception e) {
+            InformationDialog.mostrarInformacion("Datos incorrectos", this);
+        }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_simularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simularActionPerformed
@@ -639,13 +727,13 @@ public class SimDialog extends javax.swing.JDialog {
         }
 
         if (!aLleno.isEmpty()) {
-            aLleno = "Los siguientes aeropuertos están llenos más del " + CValidator.formatNumber(umbral * 100) + "% del tiempo:" +  "\n" + aLleno;
+            aLleno = "Los siguientes aeropuertos están llenos más del " + CValidator.formatNumber(umbral * 100) + "% del tiempo:" + "\n" + aLleno;
         }
-        
-        for(EnvioLite e : this.eInicial){
+
+        for (EnvioLite e : this.eInicial) {
             e.setCompletados(0);
         }
-                
+
 
         for (EnvioLite eI : this.eInicial) {
             for (EnvioLite e : envioLites) {
@@ -677,7 +765,7 @@ public class SimDialog extends javax.swing.JDialog {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
         InformationDialog.mostrarInformacion(mensaje, this);
-        
+
         MonitoreoFrame moni = new MonitoreoFrame(aeroLites, this.vInicial, this.eInicial);
         moni.setVisible(true);
     }//GEN-LAST:event_btn_simularActionPerformed
@@ -692,11 +780,35 @@ public class SimDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (!listaCargada) {
             setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            llenarTablas();
+
+            Parametro pDias = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "dias_historia");
+            Parametro pNumEnvios = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "num_envios");
+            Parametro pNumVuelos = CParametro.buscarXValorUnicoyTipo("SIM_PARAM", "num_vuelos");
+            int dias_historia = Integer.parseInt(pDias.getValor());
+            int num_envios = Integer.parseInt(pNumEnvios.getValor());
+            int num_vuelos = Integer.parseInt(pNumVuelos.getValor());
+
+            Calendar cal = Calendar.getInstance();
+            dt_fin.setSelectedDate(cal);
+            cal.add(Calendar.DATE, -dias_historia);
+            dt_inicio.setSelectedDate(cal);
+
+            txt_envios.setText(String.valueOf(num_envios));
+            txt_vuelos.setText(String.valueOf(num_vuelos));
+
+            Date ahora = dt_fin.getSelectedDate().getTime();
+            Date pasado = dt_inicio.getSelectedDate().getTime();
+
+            llenarTablas(ahora, pasado, num_envios, num_vuelos);
+
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             listaCargada = true;
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void txt_enviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_enviosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_enviosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -736,8 +848,14 @@ public class SimDialog extends javax.swing.JDialog {
     private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JButton btn_simular;
+    private datechooser.beans.DateChooserCombo dt_fin;
+    private datechooser.beans.DateChooserCombo dt_inicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -751,5 +869,7 @@ public class SimDialog extends javax.swing.JDialog {
     private javax.swing.JTable tbl_aeropuertos;
     private javax.swing.JTable tbl_envios;
     private javax.swing.JTable tbl_vuelos;
+    private javax.swing.JTextField txt_envios;
+    private javax.swing.JTextField txt_vuelos;
     // End of variables declaration//GEN-END:variables
 }

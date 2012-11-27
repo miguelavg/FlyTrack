@@ -40,7 +40,7 @@ public class EnvioDataSource  implements JRDataSource {
 
     if("numdocpago".equals(jrField.getName())) 
     { 
-        valor = getEnvio().getNumDocVenta(); 
+        valor = String.valueOf(getEnvio().getNumDocVenta()); 
     } 
     else if("moneda".equals(jrField.getName())) 
     { 
@@ -76,15 +76,15 @@ public class EnvioDataSource  implements JRDataSource {
     } 
             else if("vtotal".equals(jrField.getName())) 
     { 
-        valor = CValidator.formatNumber(getEnvio().getMonto()); 
+        valor = CValidator.formatNumber(getEnvio().getUnitario()*getEnvio().getNumPaquetes()); 
     } 
             else if("iva".equals(jrField.getName())) 
     { 
-        valor = CValidator.formatNumber(getEnvio().getImpuesto()*getEnvio().getMonto()/100 );
+        valor = CValidator.formatNumber(getEnvio().getImpuesto());
     } 
             else if("total".equals(jrField.getName())) 
     { 
-        valor = CValidator.formatNumber((getEnvio().getMonto())+(getEnvio().getImpuesto()/100*getEnvio().getMonto())); 
+        valor = CValidator.formatNumber(getEnvio().getMonto()); 
     } 
                 else if("idenvio".equals(jrField.getName())) 
     { 
@@ -121,8 +121,16 @@ public class EnvioDataSource  implements JRDataSource {
                         else if("horaactualregistro".equals(jrField.getName())) 
     { 
         valor = dateFormat.format(getEnvio().getFechaRegistro()).substring(11, 16); 
-    }     
+    }    
+                        else if("ciudad".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getOrigen().getCiudad().getValor(); 
+    }    
      
+                      else if("paisciudad".equals(jrField.getName())) 
+    { 
+        valor = getEnvio().getOrigen().getPais().getValor() + " - " + getEnvio().getOrigen().getCiudad().getValor() + " - " + getEnvio().getOrigen().getNombre(); 
+    } 
     return valor; 
 }
 

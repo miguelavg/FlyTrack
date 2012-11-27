@@ -8,8 +8,7 @@
 	<style name="Column header" forecolor="#666666" fontName="SansSerif" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="SansSerif" fontSize="12"/>
 	<field name="fecha" class="java.lang.String"/>
-	<field name="vuelo" class="java.lang.String"/>
-	<field name="aeropuerto" class="java.lang.String"/>
+	<field name="motivo" class="java.lang.String"/>
 	<field name="movimiento" class="java.lang.String"/>
 	<field name="nropaquetes" class="java.lang.String"/>
 	<background>
@@ -46,35 +45,28 @@
 				<reportElement uuid="25d9951d-5a00-4a84-8627-68b864a73fe4" x="0" y="5" width="553" height="35" backcolor="#4E404E"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="96817d62-a47b-4e20-b9f2-63a0831b3b67" x="5" y="13" width="100" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="96817d62-a47b-4e20-b9f2-63a0831b3b67" x="-20" y="13" width="100" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="105" y="13" width="100" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="99" y="13" width="100" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vuelo]]></text>
+				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="220" y="13" width="100" height="20" forecolor="#FEFEFE"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Aeropuerto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="336" y="13" width="100" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="301" y="13" width="100" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Movimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="445" y="13" width="100" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="436" y="13" width="100" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -85,28 +77,23 @@
 	<detail>
 		<band height="26" splitType="Stretch">
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="2" y="3" width="123" height="20"/>
-				<textElement textAlignment="Center"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="11" y="4" width="123" height="20"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="229" y="2" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{aeropuerto}]]></textFieldExpression>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="126" y="3" width="142" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="126" y="3" width="54" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{vuelo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="345" y="3" width="100" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="309" y="3" width="119" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{movimiento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="499" y="3" width="33" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="446" y="3" width="90" height="20"/>
+				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{nropaquetes}]]></textFieldExpression>
 			</textField>
 		</band>

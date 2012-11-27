@@ -7,12 +7,13 @@
 	<style name="SubTitle" forecolor="#666666" fontName="SansSerif" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="SansSerif" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="SansSerif" fontSize="12"/>
-	<field name="aeropuerto" class="java.lang.String"/>
-	<field name="mes" class="java.lang.String"/>
-	<field name="monto" class="java.lang.Double"/>
-	<variable name="totalcount" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{monto}]]></variableExpression>
-	</variable>
+	<field name="escala" class="java.lang.String"/>
+	<field name="codvuelo" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="destino" class="java.lang.String"/>
+	<field name="fechasalidateorica" class="java.lang.String"/>
+	<field name="fechallegadateorica" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -25,7 +26,7 @@
 			<staticText>
 				<reportElement uuid="1ae3f557-3495-418f-ab7e-b2528b54cf82" style="Title" x="0" y="5" width="315" height="33" forecolor="#FEFEFE" backcolor="#FFFAFA"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Reporte de Ventas]]></text>
+				<text><![CDATA[Bitácora Teórica]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9a35e2cb-53c2-485b-870e-27ebfdb41604" style="SubTitle" x="413" y="37" width="82" height="22" forecolor="#FFFFFF"/>
@@ -47,57 +48,97 @@
 				<reportElement uuid="25d9951d-5a00-4a84-8627-68b864a73fe4" x="0" y="4" width="553" height="35" backcolor="#4E404E"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="96817d62-a47b-4e20-b9f2-63a0831b3b67" x="-7" y="13" width="120" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="96817d62-a47b-4e20-b9f2-63a0831b3b67" x="-5" y="13" width="55" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Aeropuerto]]></text>
+				<text><![CDATA[Escala]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="145" y="13" width="94" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="46" y="14" width="75" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Mes]]></text>
+				<text><![CDATA[Cod Vuelo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="338" y="13" width="119" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="94" y="14" width="101" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Monto]]></text>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="208" y="13" width="105" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="316" y="13" width="88" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="402" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Llegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="471" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="26" splitType="Stretch">
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="23" y="2" width="130" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="6" y="1" width="41" height="20"/>
 				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{aeropuerto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{escala}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="384" y="2" width="129" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="125" y="1" width="117" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
 			</textField>
-			<elementGroup>
-				<textField>
-					<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="179" y="1" width="127" height="20"/>
-					<textElement textAlignment="Left"/>
-					<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
-				</textField>
-			</elementGroup>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="52" y="1" width="49" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{codvuelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="241" y="1" width="110" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="328" y="0" width="76" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{fechasalidateorica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="409" y="1" width="86" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{fechallegadateorica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="487" y="0" width="83" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement uuid="1e798fea-2f50-4e31-8cf4-9dda2c7c8268" x="384" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$V{totalcount}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="10" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="30" splitType="Stretch">

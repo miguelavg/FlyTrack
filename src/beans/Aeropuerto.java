@@ -77,7 +77,16 @@ import org.hibernate.annotations.ParamDef;
         @ParamDef(name = "upper", type = "timestamp"),
         @ParamDef(name = "lower", type = "timestamp"),
         @ParamDef(name = "idEstado", type = "integer")
+    }),
+    @FilterDef(name = "VuelosLlegadaSim", parameters = {
+        @ParamDef(name = "upper", type = "timestamp"),
+        @ParamDef(name = "lower", type = "timestamp")
+    }),
+    @FilterDef(name = "VuelosSalidaSim", parameters = {
+        @ParamDef(name = "upper", type = "timestamp"),
+        @ParamDef(name = "lower", type = "timestamp")
     })
+        
    
 })
 @Filters({
@@ -105,12 +114,14 @@ public class Aeropuerto implements Serializable {
     private Parametro estado;
     @OneToMany(mappedBy = "origen")
     @Filters({
+        @Filter(name = "VuelosSalidaSim", condition = ":lower < fechaSalida AND fechaSalida < :upper"),
         @Filter(name = "VuelosXAeropuertoSalida", condition = ":lower < fechaSalida AND fechaSalida < :upper AND estado = :idEstado"),
         @Filter(name = "VuelosXAeropuertoSalidaAux", condition = ":lower < fechaSalida AND fechaSalida < :upper AND (estado <> :idEstado1 AND estado <> :idEstado2 )")
     })
     private List<Vuelo> vuelosSalida;
     @OneToMany(mappedBy = "destino")
     @Filters({
+        @Filter(name = "VuelosLlegadaSim", condition = ":lower < fechaSalida AND fechaSalida < :upper"),
         @Filter(name = "VuelosXAeropuertoLlegada", condition = ":lower < fechaSalida AND fechaSalida < :upper AND estado = :idEstado")
     })
     private List<Vuelo> vuelosLlegada;
