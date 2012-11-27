@@ -1,0 +1,1902 @@
+<list>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>1</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Concepción</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>2</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>José María Córdova</destino>
+    <actual>José María Córdova</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>3</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>INCHEON</destino>
+    <actual>INCHEON</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>4</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>5</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Bahía Blanca</origen>
+    <destino>Toronto city Centre</destino>
+    <actual>Toronto city Centre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>6</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>7</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Concepción</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>8</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Linate</origen>
+    <destino>DALAMAN</destino>
+    <actual>DALAMAN</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>9</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>10</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Manco Capac</origen>
+    <destino>Jorge Chavez</destino>
+    <actual>Jorge Chavez</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>11</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Manco Capac</origen>
+    <destino>Concepción</destino>
+    <actual>Concepción</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>12</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>El dorado</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>13</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>El dorado</origen>
+    <destino>Concepción</destino>
+    <actual>Concepción</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>14</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>INCHEON</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>15</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>Kuwait Airways</destino>
+    <actual>Kuwait Airways</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>16</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Saint Pierre</origen>
+    <destino>Bahía Blanca</destino>
+    <actual>Bahía Blanca</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>17</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Kaduna</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>18</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Manco Capac</origen>
+    <destino>INCHEON</destino>
+    <actual>INCHEON</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>19</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Kaduna</origen>
+    <destino>El dorado</destino>
+    <actual>El dorado</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>20</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>INCHEON</origen>
+    <destino>Cerro Largo</destino>
+    <actual>Cerro Largo</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>21</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Jorge Chavez</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>22</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Oliver Reginald</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>23</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Bahía Blanca</origen>
+    <destino>Linate</destino>
+    <actual>Linate</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>24</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Oliver Reginald</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>25</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>26</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Toronto city Centre</destino>
+    <actual>Toronto city Centre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>27</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Bahía Blanca</destino>
+    <actual>Bahía Blanca</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>28</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>El dorado</origen>
+    <destino>Jorge Chavez</destino>
+    <actual>Jorge Chavez</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>29</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Jorge Chavez</origen>
+    <destino>INCHEON</destino>
+    <actual>INCHEON</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>30</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>31</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>INCHEON</origen>
+    <destino>Kaduna</destino>
+    <actual>Kaduna</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>32</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Oliver Reginald</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>33</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Boom</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>34</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Toronto city Centre</origen>
+    <destino>Cerro Largo</destino>
+    <actual>Cerro Largo</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>35</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>Las Palmas</destino>
+    <actual>Las Palmas</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>36</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>37</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Kuwait Airways</origen>
+    <destino>Las Palmas</destino>
+    <actual>Las Palmas</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>38</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Kaduna</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>39</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>DALAMAN</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>40</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>Bahía Blanca</destino>
+    <actual>Bahía Blanca</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>41</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>El dorado</origen>
+    <destino>INCHEON</destino>
+    <actual>INCHEON</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>42</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Las Palmas</destino>
+    <actual>Las Palmas</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>43</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>44</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Kaduna</destino>
+    <actual>Kaduna</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>45</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Toronto city Centre</destino>
+    <actual>Toronto city Centre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>46</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Oliver Reginald</origen>
+    <destino>Kaduna</destino>
+    <actual>Kaduna</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>47</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>INCHEON</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>48</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Oliver Reginald</origen>
+    <destino>Toronto city Centre</destino>
+    <actual>Toronto city Centre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>49</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Bahía Blanca</origen>
+    <destino>Cuatro Vientos</destino>
+    <actual>Cuatro Vientos</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>50</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>Concepción</destino>
+    <actual>Concepción</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>51</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>52</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Boom</origen>
+    <destino>Bahía Blanca</destino>
+    <actual>Bahía Blanca</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>53</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>Newark</destino>
+    <actual>Newark</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>54</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cuatro Vientos</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>55</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Dortmund</origen>
+    <destino>Jorge Chavez</destino>
+    <actual>Jorge Chavez</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>56</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Linate</destino>
+    <actual>Linate</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>57</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>58</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Oliver Reginald</origen>
+    <destino>Las Palmas</destino>
+    <actual>Las Palmas</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>59</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Linate</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>60</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Manco Capac</origen>
+    <destino>Las Palmas</destino>
+    <actual>Las Palmas</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>61</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>El dorado</destino>
+    <actual>El dorado</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>62</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>63</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Saint Pierre</origen>
+    <destino>Las Palmas</destino>
+    <actual>Las Palmas</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>64</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Linate</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>65</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Manco Capac</origen>
+    <destino>Cuatro Vientos</destino>
+    <actual>Cuatro Vientos</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>66</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>67</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Boom</origen>
+    <destino>Linate</destino>
+    <actual>Linate</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>68</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Concepción</origen>
+    <destino>Kuwait Airways</destino>
+    <actual>Kuwait Airways</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>69</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Boom</origen>
+    <destino>Bahía Blanca</destino>
+    <actual>Bahía Blanca</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>70</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Tokio</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>71</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>DALAMAN</origen>
+    <destino>Concepción</destino>
+    <actual>Concepción</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>72</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Bahía Blanca</origen>
+    <destino>DALAMAN</destino>
+    <actual>DALAMAN</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>73</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Dortmund</origen>
+    <destino>Kuwait Airways</destino>
+    <actual>Kuwait Airways</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>74</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>75</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Concepción</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>76</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>José María Córdova</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>77</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Jorge Chavez</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>78</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Dortmund</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>79</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Bahía Blanca</origen>
+    <destino>Oliver Reginald</destino>
+    <actual>Oliver Reginald</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>80</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>INCHEON</origen>
+    <destino>Concepción</destino>
+    <actual>Concepción</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>81</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Jorge Chavez</origen>
+    <destino>Toronto city Centre</destino>
+    <actual>Toronto city Centre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>82</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Linate</origen>
+    <destino>Newark</destino>
+    <actual>Newark</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>83</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>84</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>El dorado</origen>
+    <destino>Cuatro Vientos</destino>
+    <actual>Cuatro Vientos</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>85</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cuatro Vientos</origen>
+    <destino>DALAMAN</destino>
+    <actual>DALAMAN</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>86</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>Boom</destino>
+    <actual>Boom</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>87</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Boom</origen>
+    <destino>José María Córdova</destino>
+    <actual>José María Córdova</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>88</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cuatro Vientos</origen>
+    <destino>Linate</destino>
+    <actual>Linate</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>89</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>INCHEON</origen>
+    <destino>Cerro Largo</destino>
+    <actual>Cerro Largo</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>90</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Concepción</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>10</numPaquetes>
+    <monto>1200.0</monto>
+    <iva>0.2</iva>
+    <impuesto>200.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>91</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>El dorado</destino>
+    <actual>El dorado</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>92</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cuatro Vientos</origen>
+    <destino>INCHEON</destino>
+    <actual>INCHEON</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>6</numPaquetes>
+    <monto>719.9999999999999</monto>
+    <iva>0.2</iva>
+    <impuesto>120.00000000000001</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>93</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Toronto city Centre</origen>
+    <destino>Manco Capac</destino>
+    <actual>Manco Capac</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>94</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>DALAMAN</destino>
+    <actual>DALAMAN</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>95</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Mariscal Sucre</destino>
+    <actual>Mariscal Sucre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>9</numPaquetes>
+    <monto>1080.0</monto>
+    <iva>0.2</iva>
+    <impuesto>180.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>96</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>El dorado</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>97</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Kaduna</origen>
+    <destino>José María Córdova</destino>
+    <actual>José María Córdova</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>7</numPaquetes>
+    <monto>840.0</monto>
+    <iva>0.2</iva>
+    <impuesto>140.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>98</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Mariscal Sucre</origen>
+    <destino>Saint Pierre</destino>
+    <actual>Saint Pierre</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>8</numPaquetes>
+    <monto>960.0</monto>
+    <iva>0.2</iva>
+    <impuesto>160.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>99</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Las Palmas</origen>
+    <destino>Dortmund</destino>
+    <actual>Dortmund</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+  <xml.XmlEnvio>
+    <fecharegis>2012/11/25 08:09:35</fecharegis>
+    <fechaRecojo>2012/11/26 03:29:13</fechaRecojo>
+    <numPaquetes>5</numPaquetes>
+    <monto>600.0</monto>
+    <iva>0.2</iva>
+    <impuesto>100.0</impuesto>
+    <unitario>100.0</unitario>
+    <numDocVenta>100</numDocVenta>
+    <moneda>DOL</moneda>
+    <tipodoc>BOL</tipodoc>
+    <estado>REC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Cerro Largo</origen>
+    <destino>Cuatro Vientos</destino>
+    <actual>Cuatro Vientos</actual>
+    <vuelo>0</vuelo>
+    <envio>0</envio>
+  </xml.XmlEnvio>
+</list>
