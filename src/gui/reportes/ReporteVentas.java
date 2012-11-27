@@ -45,6 +45,7 @@ public class ReporteVentas extends javax.swing.JFrame {
     private Object dt_fechini;
     
     ArrayList<Envio> listaEnviosaux;
+        List<Venta>  listaventas ;
     
     
 
@@ -63,8 +64,8 @@ where fecharegistro < ''
          */
     public ReporteVentas() {
         initComponents();
-        llenarComboEstado();
-        llenarTipoDoc();
+      
+
         this.setLocationRelativeTo(null);
     }
 
@@ -88,14 +89,7 @@ where fecharegistro < ''
         jLabel5 = new javax.swing.JLabel();
         txt_origen = new javax.swing.JTextField();
         btn_origenAero = new javax.swing.JButton();
-        txt_destino = new javax.swing.JTextField();
-        btn_origenDest = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cbm_estado = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        cbm_Tipodoc = new javax.swing.JComboBox();
-        jLabel9 = new javax.swing.JLabel();
         btnBuscar1 = new javax.swing.JButton();
         btnRegresar1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -168,37 +162,7 @@ where fecharegistro < ''
             }
         });
 
-        txt_destino.setEnabled(false);
-
-        btn_origenDest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        btn_origenDest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_origenDestActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Destino");
-
         jLabel4.setText("Origen");
-
-        cbm_estado.setMaximumRowCount(10);
-        cbm_estado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
-        cbm_estado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbm_estadoActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Estado");
-
-        cbm_Tipodoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
-        cbm_Tipodoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbm_TipodocActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setText("Tipo Documento");
 
         btnBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.png"))); // NOI18N
         btnBuscar1.setText("Buscar");
@@ -224,37 +188,26 @@ where fecharegistro < ''
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(136, 136, 136)
                         .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(172, 172, 172)
+                        .addGap(43, 43, 43)
                         .addComponent(btnRegresar1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dtFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txt_destino, javax.swing.GroupLayout.DEFAULT_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_origenDest, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbm_Tipodoc, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(jLabel5)
+                        .addGap(71, 71, 71)
+                        .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,35 +218,19 @@ where fecharegistro < ''
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dtFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbm_Tipodoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_origenDest, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_destino, javax.swing.GroupLayout.DEFAULT_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_origen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbm_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar1)
-                    .addComponent(btnRegresar1))
-                .addContainerGap(23, Short.MAX_VALUE))
+                            .addComponent(btn_origenAero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar1)
+                    .addComponent(btnBuscar1))
+                .addGap(27, 27, 27))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -311,11 +248,11 @@ where fecharegistro < ''
 
             },
             new String [] {
-                "Fecha", "Cliente", "Origen - Destino", "Importe", "IVA", "Total"
+                "Aeropuerto", "Mes", "Monto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -326,9 +263,6 @@ where fecharegistro < ''
         tbl_ventas.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbl_ventas.getColumnModel().getColumn(1).setPreferredWidth(100);
         tbl_ventas.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tbl_ventas.getColumnModel().getColumn(3).setPreferredWidth(70);
-        tbl_ventas.getColumnModel().getColumn(4).setPreferredWidth(70);
-        tbl_ventas.getColumnModel().getColumn(5).setPreferredWidth(70);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -359,11 +293,13 @@ where fecharegistro < ''
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +308,7 @@ where fecharegistro < ''
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -382,10 +318,13 @@ where fecharegistro < ''
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
-        ListaEnviosDataSource listaenviosds= new ListaEnviosDataSource();
-        listaenviosds.setListaEnvios(listaEnvios);
+//        ListaEnviosDataSource listaenviosds= new ListaEnviosDataSource();
+//        listaenviosds.setListaEnvios(listaEnvios);
         
-    if (listaenviosds!=null){
+        VentaDataSource listaventasds= new VentaDataSource();
+        listaventasds.setListaVentas(listaventas);
+        
+    if (listaventasds!=null){
         try {
             //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
             String master = System.getProperty("user.dir") +
@@ -401,7 +340,7 @@ where fecharegistro < ''
                 //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
                 return;
             }
-            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, listaenviosds);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, listaventasds);
             
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -434,6 +373,33 @@ where fecharegistro < ''
         this.dispose();
     }//GEN-LAST:event_btnRegresar1ActionPerformed
 
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        // TODO add your handling code here:
+
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        Parametro TipoDoc = null;
+        Parametro Estado = null;
+        Calendar fechini = dtFechaIni.getSelectedDate();
+        Calendar fechfin = dtFechaFin.getSelectedDate();
+
+        if (txt_origen.getText().trim().equals("")) {
+            aeropuertoOrigen = null;
+        }
+
+        listaEnvios =  CEnvio.BuscarRepoEnviar(
+            null,
+            aeropuertoOrigen,
+            null,
+            fechini,
+            fechfin,
+            null);
+        //  }
+
+        llenarGrillaEnvio();
+
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
     private void btn_origenAeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenAeroActionPerformed
         // TODO add your handling code here:
         AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
@@ -445,29 +411,61 @@ where fecharegistro < ''
         }
     }//GEN-LAST:event_btn_origenAeroActionPerformed
 
-    private void btn_origenDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_origenDestActionPerformed
-        // TODO add your handling code here:
-        AeropuertoPopup aeropuertoPU = new AeropuertoPopup(this, true);
-        aeropuertoDestino = aeropuertoPU.showDialog();
-        if (aeropuertoDestino != null) {
-            txt_destino.setText(aeropuertoDestino.getNombre());
+    public int BuscarAeropuertoxMes(Envio e){
+       
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
+        int indiceaeropuerto=-1;
+        
+        for (int s=0; s<listaventas.size();s++){
+            Venta v = listaventas.get(s);
+            if (v.getAero().getNombre()==e.getOrigen().getNombre()){
+               
+                if (v.getMes()!=null && v.getMes().equals(dateFormat.format(e.getFechaRegistro()))){                    
+                    v.setMonto(v.getMonto()+e.getMonto());
+                    return 0;
+                }
+                
+                indiceaeropuerto=s;
 
-        } else {
-            txt_destino.setText("");
-        }
-    }//GEN-LAST:event_btn_origenDestActionPerformed
-
-    private void cbm_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_estadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbm_estadoActionPerformed
-
-    private void cbm_TipodocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbm_TipodocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbm_TipodocActionPerformed
-
+            }
+                    
+         }
+         if (indiceaeropuerto!=-1){
+             Venta venta = new Venta();
+             venta.setAero(e.getOrigen());
+             venta.setMes(dateFormat.format(e.getFechaRegistro()));
+             venta.setMonto(e.getMonto());
+             return 0;
+         }
+         return -1;
+        
+    }
+    
        public void llenarGrillaEnvio() {
-        Parametro TipoDoc;
-        listaEnviosaux = new ArrayList<Envio>();
+           
+           
+    
+        List<Aeropuerto> listaaeropuertos= null;
+           
+        if (!txt_origen.getText().equals(""))  listaaeropuertos = CAeropuerto.GenerarListaAeropuerto();
+        else{
+            Aeropuerto aero= CAeropuerto.BuscarNombre(aeropuertoOrigen.getNombre());
+            listaaeropuertos.add(aero);
+        }
+        
+        for (int s=0; s<listaaeropuertos.size();s++){
+            Venta venta= new Venta();
+            venta.setAero(listaaeropuertos.get(s));
+            venta.setMonto(0);
+            listaventas.add(venta);
+        }
+               
+        for (Envio e : listaEnvios){
+            
+            int i=BuscarAeropuertoxMes(e);           
+            
+        }
+        
         
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_ventas.getModel();
         int rows = dtm.getRowCount();
@@ -475,17 +473,16 @@ where fecharegistro < ''
             dtm.removeRow(0);
         }
 
-        Object[] datos = new Object[6];
+        Object[] datos = new Object[3];
 
-        for (int i = 0; i < listaEnvios.size(); i++) {
+        for (int i = 0; i < listaventas.size(); i++) {
 
-            datos[0] = CValidator.formatDate(listaEnvios.get(i).getFechaRecojo());
-            datos[1] = listaEnvios.get(i).getRemitente().getApellidos()+listaEnvios.get(i).getRemitente().getNombres();
-            datos[2] = listaEnvios.get(i).getOrigen().getNombre();
-            datos[3] = listaEnvios.get(i).getMonto() / (1 + listaEnvios.get(i).getIva());
-            datos[4] = listaEnvios.get(i).getImpuesto();
-            datos[5] = listaEnvios.get(i).getMonto();
-          
+
+            datos[0] = listaventas.get(i).getAero();
+            datos[1] = listaventas.get(i).getMes();
+            datos[2] = listaventas.get(i).getMonto();
+
+       
 
             dtm.addRow(datos);
 
@@ -495,45 +492,6 @@ where fecharegistro < ''
 
     }
     
-    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
-        
-       setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        Parametro TipoDoc = null;
-        Parametro Estado = null;
-        Calendar fechini = dtFechaIni.getSelectedDate();
-        Calendar fechfin = dtFechaFin.getSelectedDate();
-      
-       if (cbm_estado.getSelectedIndex() > 0) {
-            Estado = (Parametro) cbm_estado.getSelectedItem();
-       }
-       if (cbm_Tipodoc.getSelectedIndex() > 0) {
-            TipoDoc = (Parametro) cbm_Tipodoc.getSelectedItem();           
-       }
-       
-        if (txt_origen.getText().trim().equals("")) {
-            aeropuertoOrigen = null;
-        }
-
-        if (txt_destino.getText().trim().equals("")) {
-            aeropuertoDestino = null;
-        }              
-       
-       
-       
-            listaEnvios =  CEnvio.BuscarRepoEnviar(
-                        Estado, 
-                        aeropuertoOrigen, 
-                        aeropuertoDestino, 
-                        fechini, 
-                        fechfin, 
-                        TipoDoc);
-      //  }
-       llenarGrillaEnvio();
-       
-       setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_btnBuscar1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -575,46 +533,20 @@ where fecharegistro < ''
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btn_origenAero;
-    private javax.swing.JButton btn_origenDest;
-    private javax.swing.JComboBox cbm_Tipodoc;
-    private javax.swing.JComboBox cbm_estado;
     private datechooser.beans.DateChooserCombo dtFechaFin;
     private datechooser.beans.DateChooserCombo dtFechaIni;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_ventas;
-    private javax.swing.JTextField txt_destino;
     private javax.swing.JTextField txt_origen;
     // End of variables declaration//GEN-END:variables
 
-    private void llenarComboEstado() {
-          
-       ListaTipoEstado = CEnvio.llenarComboEst();
-
-        for (int i = 0; i < ListaTipoEstado.size(); i++) {
-            Parametro TipoDocBE = (Parametro) ListaTipoEstado.get(i);
-
-            cbm_estado.addItem(TipoDocBE);
-        }
-      
-    }
-
-    private void llenarTipoDoc() {
-         ListaTipoDoc = CEnvio.llenarTipoDoc();
-
-        for (int i = 0; i < ListaTipoDoc.size(); i++) {
-            Parametro TipoDocBE = (Parametro) ListaTipoDoc.get(i);
-
-            cbm_Tipodoc.addItem(TipoDocBE);
-        }
-    }
+   
+    
 }
