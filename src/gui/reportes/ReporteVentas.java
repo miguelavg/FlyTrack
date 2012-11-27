@@ -419,9 +419,9 @@ where fecharegistro < ''
         
         for (int s=0; s<listaventas.size();s++){
             Venta v = listaventas.get(s);
-            if (v.getAero().getNombre()==e.getOrigen().getNombre()){
+            if (v.getAero().getNombre().equals(e.getOrigen().getNombre())){
                
-                if (v.getMes()!=null && v.getMes()!="" && v.getMes().equals(dateFormat.format(e.getFechaRegistro()))){                    
+                if (v.getMes()!=null && !v.getMes().equals("") && v.getMes().equals(dateFormat.format(e.getFechaRegistro()))){                    
                     v.setMonto(v.getMonto()+e.getMonto());
                     return 0;
                 }
@@ -447,9 +447,10 @@ where fecharegistro < ''
            
            
     
-        List<Aeropuerto> listaaeropuertos= null;
+        ArrayList<Aeropuerto> listaaeropuertos= new ArrayList<Aeropuerto>();
            
-        if (!txt_origen.getText().equals(""))  listaaeropuertos = CAeropuerto.GenerarListaAeropuerto();
+        if (txt_origen.getText().equals("")) 
+            listaaeropuertos = CAeropuerto.GenerarListaAeropuerto2();
         else{
             Aeropuerto aero= CAeropuerto.BuscarNombre(aeropuertoOrigen.getNombre());
             listaaeropuertos.add(aero);

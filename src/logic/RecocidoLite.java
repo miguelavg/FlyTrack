@@ -52,7 +52,7 @@ public class RecocidoLite {
                 iCostoAlmacen = this.vCostoAlmacen * (vuelo.getEvt() - evt);
                 costoAlmacen = costoAlmacen + iCostoAlmacen;
 
-                pCapacidad = Math.max(0.8 * vuelo.getCapacidadMax(), vuelo.getCapacidadActual() + 1);
+                pCapacidad = Math.max(0.8 * vuelo.getCapacidad_maxima(), vuelo.getCapacidad_actual() + 1);
 
                 iCostoEnvio = (double) vuelo.getAlquiler() / pCapacidad;
                 costoEnvio = costoEnvio + iCostoEnvio;
@@ -86,15 +86,15 @@ public class RecocidoLite {
 
             // Mientras no hayamos llegado al final...
 
-            while (iActual != iFinal && aActual.getCapacidadMax() > aActual.getCapacidadActual()) {
+            while (iActual != iFinal && aActual.getCapacidad_maxima() > aActual.getCapacidad_actual()) {
                 posibles = new ArrayList<VueloLite>();
 
                 // Calcular los vuelos posibles, el beta y el tau
 
-                for (VueloLite vuelo : aActual.getVuelosSalida()) {
+                for (VueloLite vuelo : aActual.getVuelos_salida()) {
 
-                    if (vuelo.getCapacidadMax() >= vuelo.getCapacidadActual()
-                            && aActual.getCapacidadActual() <= aActual.getCapacidadMax()) {
+                    if (vuelo.getCapacidad_maxima() >= vuelo.getCapacidad_actual()
+                            && aActual.getCapacidad_actual() <= aActual.getCapacidad_maxima()) {
                         posibles.add(vuelo);
                         ArrayList<VueloLite> wrap = new ArrayList<VueloLite>();
                         wrap.add(vuelo);
@@ -108,12 +108,12 @@ public class RecocidoLite {
                         }
 
                     } else {
-                        if (vuelo.getCapacidadMax() < vuelo.getCapacidadActual() && !vuelo.isCongestiona()) {
-                            vuelo.setNecesidad(vuelo.getNecesidad() + 1);
+                        if (vuelo.getCapacidad_maxima() < vuelo.getCapacidad_actual() && !vuelo.isCongestiona()) {
+                            vuelo.setTiempo_congestiona(vuelo.getTiempo_congestiona() + 1);
                             vuelo.setCongestiona(true);
                         } else {
                             if (!aActual.isCongestiona()) {
-                                aActual.setNecesidad(aActual.getNecesidad() + 1);
+                                aActual.setTiempo_congestiona(aActual.getTiempo_congestiona() + 1);
                                 aActual.setCongestiona(true);
                             }
                         }
@@ -149,7 +149,7 @@ public class RecocidoLite {
 
             if (iActual != iFinal) {
                 if (!aActual.isCongestiona()) {
-                    aActual.setNecesidad(aActual.getNecesidad() + 1);
+                    aActual.setTiempo_congestiona(aActual.getTiempo_congestiona() + 1);
                     aActual.setCongestiona(true);
                 }
                 return null;
@@ -186,14 +186,14 @@ public class RecocidoLite {
         } else {
             for (VueloLite aleatorio : solucion) {
 
-                int vCapacidad = aleatorio.getCapacidadActual();
-                aleatorio.setCapacidadActual(vCapacidad + 1);
+                int vCapacidad = aleatorio.getCapacidad_actual();
+                aleatorio.setCapacidad_actual(vCapacidad + 1);
 
-                int oCapacidad = aleatorio.getOrigen().getCapacidadActual();
-                aleatorio.getOrigen().setCapacidadActual(oCapacidad + 1);
+                int oCapacidad = aleatorio.getOrigen().getCapacidad_actual();
+                aleatorio.getOrigen().setCapacidad_actual(oCapacidad + 1);
 
-                int dCapacidad = aleatorio.getDestino().getCapacidadActual();
-                aleatorio.getDestino().setCapacidadActual(dCapacidad + 1);
+                int dCapacidad = aleatorio.getDestino().getCapacidad_actual();
+                aleatorio.getDestino().setCapacidad_actual(dCapacidad + 1);
             }
             envio.setCompletado(true);
         }

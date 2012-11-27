@@ -65,7 +65,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
     }
 
     public Aeropuerto ShowDialog() {
-
+        pintar(this.getGraphics());
         setVisible(true);
         dispose();
         return null;
@@ -117,6 +117,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
 
     private void lbl_mapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_mapaMouseClicked
         // TODO add your handling code here:
+        pintar(this.getGraphics());
     }//GEN-LAST:event_lbl_mapaMouseClicked
 
     /**
@@ -165,17 +166,17 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         c.setStroke(stroke);
 
         for (VueloLite v : vuelolites) {
-            if (v.isRojo()) {
+            if (v.isPintar_rojo()) {
                 c.setColor(Color.RED);
                 c.drawLine(v.getOrigen().getX(), v.getOrigen().getY(), v.getDestino().getX(), v.getDestino().getY());
             }
         }
 
         for (EnvioLite e : enviolites) {
-            if (e.isRojo()) {
+            if (e.isPintar_rojo()) {
                 c.setColor(Color.RED);
                 c.drawLine(e.getOrigen().getX(), e.getOrigen().getY(), e.getDestino().getX(), e.getDestino().getY());
-                if (!e.getOrigen().isRojo()) {
+                if (!e.getOrigen().isPintar_rojo()) {
                     c.setColor(Color.GREEN);
                 } else {
                     c.setColor(Color.RED);
@@ -185,7 +186,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
                 c.fillOval(e.getOrigen().getX() - 5, e.getOrigen().getY() - 5, 10, 10);
                 c.drawOval(e.getOrigen().getX() - 5, e.getOrigen().getY() - 5, 10, 10);
 
-                if (!e.getDestino().isRojo()) {
+                if (!e.getDestino().isPintar_rojo()) {
                     c.setColor(Color.GREEN);
                 } else {
                     c.setColor(Color.RED);
@@ -199,7 +200,7 @@ public class MonitoreoFrame extends javax.swing.JDialog {
         }
 
         for (AeroLite a : aerolites) {
-            if (a.isRojo()) {
+            if (a.isPintar_rojo()) {
                 c.setColor(Color.RED);
                 c.drawString(a.getNombre(), a.getX() + 15, a.getY());
                 c.fillOval(a.getX() - 5, a.getY() - 5, 10, 10);
