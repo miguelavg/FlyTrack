@@ -69,28 +69,28 @@
 				<text><![CDATA[Origen]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="208" y="13" width="105" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="200" y="13" width="105" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Destino]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="316" y="13" width="88" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="311" y="13" width="88" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha Salida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="402" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="395" y="13" width="99" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha Llegada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="471" y="13" width="99" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="12e650de-5976-41f5-8f65-b6eb35363f06" x="465" y="13" width="99" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -106,7 +106,7 @@
 				<textFieldExpression><![CDATA[$F{escala}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="125" y="1" width="117" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="127" y="1" width="117" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
 			</textField>
@@ -116,22 +116,22 @@
 				<textFieldExpression><![CDATA[$F{codvuelo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="241" y="1" width="110" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="231" y="1" width="110" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="328" y="0" width="76" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="323" y="0" width="76" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fechasalidareal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="409" y="1" width="86" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="402" y="1" width="86" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fechallegadareal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="487" y="0" width="83" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="495" y="0" width="83" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
 			</textField>

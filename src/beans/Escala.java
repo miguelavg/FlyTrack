@@ -4,6 +4,7 @@
  */
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -100,5 +101,15 @@ public class Escala implements Serializable {
 
     public void setOriginal(boolean original) {
         this.original = original;
+    }
+    
+    public String aString(){
+        return "IdEscala: " + idEscala +
+                " Numero de Escala: " + numEscala +
+                " Original: " + (original ? "Si" : "No") + 
+                " Fecha de Inicio: " + CValidator.formatDate(fechaInicio) +
+                " Estado: " + (estado != null ? estado.getValor() : null) +
+                " Vuelo: " + (vuelo != null ? vuelo.getIdVuelo() : null) + 
+                " Envio: " + (envio != null ? envio.getIdEnvio() : null);
     }
 }

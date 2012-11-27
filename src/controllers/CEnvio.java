@@ -150,18 +150,36 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
+            CPista.guardarPista("Envio", "Venta", "Crear", envio.aString());
 //            ArrayList<Envio> listaenvio= new ArrayList<Envio>();
 //            listaenvio.add(envio);   
             //CSerializer.serializar(listaenvio, "PruebaEnvio");
             for (Escala e : envio.getEscalas()) {
                 s.saveOrUpdate(e.getVuelo());
+                CPista.guardarPista("Envio", "Venta", "Crear", "Escalas ->" + e.aString());
             }
 
             tx.commit();
 
             enviarCorreos(envio);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("cualquier mierda");
+        } finally {
+            s.close();
+        }
+    }
+        
+    public void guardarEnvio2(Envio envio) {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        try {
+            Transaction tx = s.beginTransaction();
+            s.save(envio);
+//            System.out.println("Antes del commit");
+            tx.commit();
+//            System.out.println("Despues del commit");
+        } catch (Exception e) {
+            System.out.println("La excepcion" + e.getMessage() + e.toString());
         } finally {
             s.close();
         }
