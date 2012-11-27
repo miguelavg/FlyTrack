@@ -465,6 +465,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      }
      
      listaAeropuertos.get(0).getVuelosLlegada().size();
+     
+     
 //     for (int i=0; i < listaAeropuertos.get(0).getVuelosLlegada().size();i++){
 //         listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
 //
