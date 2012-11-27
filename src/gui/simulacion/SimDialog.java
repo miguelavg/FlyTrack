@@ -832,11 +832,11 @@ public class SimDialog extends javax.swing.JDialog {
 
         for (AeroLite a : aeroLitesNuevo) {
             a.setPintar_rojo(false);
-            if (a.getEnvios_congestiona() > 0) {
+            if (a.getEnvios_congestiona_nuevo() > 0) {
                 aNecesidad = aNecesidad + "+ El aeropuerto " + a.getNombre() + " congestiona a " + a.getEnvios_congestiona_nuevo() + "envíos.\n";
                 a.setPintar_rojo(true);
             }
-            if (a.getTiempo_congestiona() > 0) {
+            if (a.getTiempo_congestiona_nuevo() > 0) {
                 double tLleno = a.getTiempo_congestiona_nuevo() / ((double) envioLitesNuevo.size());
                 aLleno = aLleno + "+ " + a.getNombre() + " - " + CValidator.formatNumber(tLleno * 100) + "% del tiempo.\n";
                 a.setPintar_rojo(true);

@@ -71,7 +71,7 @@ public class CSimulator {
 
 
             for (Aeropuerto a : aeros) {
-                int capacidadActual = calcularActual(a);
+                int capacidadActual = a.getCapacidadActual();
                 aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre() + ", " + a.getPais().getValor() + ", " + a.getCiudad().getValor(), a.getCapacidadMax(), a.getCapacidadMax(), capacidadActual, a.getCoordX(), a.getCoordY()));
             }
 
@@ -195,7 +195,11 @@ public class CSimulator {
                 AeroLite destino = buscarAeroLite((Integer) obj[1], aeroLites);
 
                 Long numPre = (Long) obj[2];
-                int num = (int) (numPre.doubleValue() * regla);
+                double dnum = (numPre.doubleValue() * regla);
+                if (dnum > 0.5 && dnum < 1) {
+                    dnum = 1;
+                }
+                int num = (int) dnum;
 
                 envioLites.add(new EnvioLite(origen, destino, num, num));
             }
