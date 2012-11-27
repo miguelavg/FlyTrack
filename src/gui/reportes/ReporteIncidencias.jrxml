@@ -53,14 +53,14 @@
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="138" y="13" width="75" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="131" y="13" width="75" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vuelo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="221" y="13" width="101" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="22592e04-9d3d-4ed7-b40b-7d3dcad274c6" x="210" y="13" width="101" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -95,7 +95,7 @@
 				<textFieldExpression><![CDATA[$F{vuelo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="238" y="2" width="136" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="241" y="2" width="136" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
 			</textField>
@@ -105,7 +105,7 @@
 				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="462" y="0" width="88" height="20"/>
+				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="462" y="0" width="94" height="20"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{incidencia}]]></textFieldExpression>
 			</textField>

@@ -52,14 +52,14 @@
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="99" y="13" width="100" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f629b023-c565-4547-b1f9-65be1317c7d5" x="95" y="13" width="100" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="301" y="13" width="100" height="20" forecolor="#FEFEFE"/>
+				<reportElement uuid="f0146b95-c2ce-44db-854b-c6886c1443ad" x="289" y="13" width="100" height="20" forecolor="#FEFEFE"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
