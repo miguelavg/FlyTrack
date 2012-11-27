@@ -32,7 +32,6 @@ public class XmlEnvio implements Serializable {
     private String origen;
     private String destino;
     private String actual;
-
     
     
     // datos escala
