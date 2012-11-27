@@ -435,7 +435,7 @@ public class PerfilEdit extends javax.swing.JDialog {
         
         permisoAux = CPermiso.encontrarPermiso(permisos, "Incidencias", 2, "Reportes");
         if(this.chkReportes_Incidencias.isSelected() && permisoAux == null){
-            resultado += CPermiso.crearPermiso(perfilBuscado, "Incidencias", 2, "Envios");
+            resultado += CPermiso.crearPermiso(perfilBuscado, "Incidencias", 2, "Reportes");
         }
         else if(!this.chkReportes_Incidencias.isSelected() && permisoAux != null){
             resultado += CPermiso.eliminarPermiso(permisoAux);
@@ -1302,9 +1302,8 @@ public class PerfilEdit extends javax.swing.JDialog {
                                 .addGap(41, 41, 41)
                                 .addGroup(panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(chkSeguridad_Perfiles_Modificar)
-                                    .addComponent(chkSeguridad_Perfiles_Crear))))
-                        .addGap(25, 25, 25)))
-                .addGap(224, 224, 224))
+                                    .addComponent(chkSeguridad_Perfiles_Crear))))))
+                .addGap(249, 249, 249))
         );
         panelSeguridadLayout.setVerticalGroup(
             panelSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1425,6 +1424,11 @@ public class PerfilEdit extends javax.swing.JDialog {
 
         chkReportes_Incidencias.setText("Incidencias");
         chkReportes_Incidencias.setEnabled(false);
+        chkReportes_Incidencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkReportes_IncidenciasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelReportesLayout = new javax.swing.GroupLayout(panelReportes);
         panelReportes.setLayout(panelReportesLayout);
@@ -2073,6 +2077,10 @@ public class PerfilEdit extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_chkAdministracion_Parametros_BuscarActionPerformed
+
+    private void chkReportes_IncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkReportes_IncidenciasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkReportes_IncidenciasActionPerformed
 
     /**
      * @param args the command line arguments
