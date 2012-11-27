@@ -60,7 +60,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     List <Cliente> ListaCliente;
     List<beans.Aeropuerto> listaAeropuertos;
     ArrayList<beans.Vuelo> listaVuelos= new  ArrayList<beans.Vuelo>();
-    Calendar fechini, fechfin;
+    Calendar fechini=null, fechfin=null;
     ArrayList<Movimientoalmacen> listamovalmacen = new ArrayList<Movimientoalmacen>();
     
     //boolean exportar=false;
@@ -446,8 +446,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
 //            estado = ((Parametro) cbm_estado.getSelectedItem());
 //        }
      if (aeroori!=null){
-     fechini = dt_fechini.getSelectedDate();
-     fechfin = dt_fechfin.getSelectedDate();
+     if (dt_fechini.getSelectedDate()!=null)fechini = dt_fechini.getSelectedDate();
+     if (dt_fechfin.getSelectedDate()!=null)fechfin = dt_fechfin.getSelectedDate();
      
      Parametro parentrada;
      Parametro parsalida1;
@@ -471,14 +471,14 @@ public class ReporteAlmacen extends javax.swing.JFrame {
          dtm.removeRow(0);
      }
      
-     List<Envio> listaenvios = cenvio.buscar(null, null, null, null, null, null);
+     List<Envio> listaenvios = cenvio.buscar(null, aeroori, null, null, null, null);
      
      listaAeropuertos.get(0).getVuelosLlegada().size();
    
      for (Envio e : listaenvios) {
             
-                if ((fechini.after(e.getFechaRegistro()) || fechini.equals(e.getFechaRegistro()))  &&
-                     (fechfin.before(e.getFechaRegistro()) ||fechfin.equals(e.getFechaRegistro())) ){
+                if ((fechini==null||(fechini.getTime().before(e.getFechaRegistro()) || fechini.getTime().equals(e.getFechaRegistro()))) &&
+                     (fechfin==null||(fechfin.getTime().after(e.getFechaRegistro()) ||fechfin.getTime().equals(e.getFechaRegistro()))) ){
                     
                     datos[0] = CValidator.formatDate(e.getFechaRegistro());
                     datos[1] = "Llegada";
@@ -493,22 +493,24 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                     movimiento.setNumpaq(e.getNumPaquetes());
                     listamovalmacen.add(movimiento);
                 }
-            
-                if ((fechfin.after(e.getFechaRecojo()) || fechfin.equals(e.getFechaRecojo()))  &&
-                     (fechfin.before(e.getFechaRecojo()) ||fechfin.equals(e.getFechaRecojo())) ){
-                    
-                    datos[0] = CValidator.formatDate(e.getFechaRecojo());
-                    datos[1] = "Salida";
-                    datos[2] = "Recojo de paquetes de cliente "+ e.getDestinatario().getNombres()+ " "+ e.getDestinatario().getApellidos();
-                    datos[3] = e.getNumPaquetes();
-                    dtm.addRow(datos);
-                    
-                    Movimientoalmacen movimiento= new Movimientoalmacen();
-                    movimiento.setFecha(e.getFechaRegistro());
-                    movimiento.setMotivo("Recojo de paquetes de cliente "+ e.getDestinatario().getNombres()+ " "+ e.getDestinatario().getApellidos());
-                    movimiento.setMovimiento("Salida");
-                    movimiento.setNumpaq(e.getNumPaquetes());
-                    listamovalmacen.add(movimiento);
+                if (e.getFechaRecojo()!=null){
+                if ((fechfin==null ||fechfin.getTime().after(e.getFechaRecojo()) || fechfin.getTime().equals(e.getFechaRecojo()))  &&
+                     (fechini==null||fechini.getTime().before(e.getFechaRecojo()) ||fechini.getTime().equals(e.getFechaRecojo())) ){
+                    if (e.getFechaRecojo()!=null){
+                        datos[0] = CValidator.formatDate(e.getFechaRecojo());
+                        datos[1] = "Salida";
+                        datos[2] = "Recojo de paquetes de cliente "+ e.getDestinatario().getNombres()+ " "+ e.getDestinatario().getApellidos();
+                        datos[3] = e.getNumPaquetes();
+                        dtm.addRow(datos);
+
+                        Movimientoalmacen movimiento= new Movimientoalmacen();
+                        movimiento.setFecha(e.getFechaRegistro());
+                        movimiento.setMotivo("Recojo de paquetes de cliente "+ e.getDestinatario().getNombres()+ " "+ e.getDestinatario().getApellidos());
+                        movimiento.setMovimiento("Salida");
+                        movimiento.setNumpaq(e.getNumPaquetes());
+                        listamovalmacen.add(movimiento);
+                    }
+                }
                 }
                 
       }
@@ -519,6 +521,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             
             
             for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
+               
+                if (!listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValorUnico().equals("FIN")){
                 if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
                 {
                    datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
@@ -536,6 +540,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                    listamovalmacen.add(movimiento);
 
                 }
+                }
             }
         }
         if (cboMovimientos.getSelectedIndex()==1 || cboMovimientos.getSelectedIndex()==0){
@@ -543,22 +548,25 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             
             
            for (int i = 0; i < listaAeropuertos.get(0).getVuelosSalida().size(); i++) {
-
-               if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
-               datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
-
-               datos[1]= "Salida";
-               datos[2]= "Salida de vuelos "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
-               datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
-               dtm.addRow(datos);
                
-                Movimientoalmacen movimiento= new Movimientoalmacen();
-               movimiento.setFecha(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
-               movimiento.setMotivo("Despegue de vuelo"+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo());
-               movimiento.setMovimiento("Salida");
-               movimiento.setNumpaq(listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual());
-               listamovalmacen.add(movimiento);
-              
+               if (!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValorUnico().equals("PROG")
+                   && !listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValorUnico().equals("CAN")
+                       ){
+                if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
+                datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
+
+                datos[1]= "Salida";
+                datos[2]= "Salida de vuelos "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
+                datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
+                dtm.addRow(datos);
+
+                    Movimientoalmacen movimiento= new Movimientoalmacen();
+                movimiento.setFecha(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
+                movimiento.setMotivo("Despegue de vuelo"+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo());
+                movimiento.setMovimiento("Salida");
+                movimiento.setNumpaq(listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual());
+                listamovalmacen.add(movimiento);
+                }
                }
            }
         }

@@ -72,7 +72,7 @@ public class CSimulator {
 
             for (Aeropuerto a : aeros) {
                 int capacidadActual = calcularActual(a);
-                aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre() + ", " + a.getPais().getValor() + ", " + a.getCiudad().getValor(), a.getCapacidadMax(), capacidadActual, a.getCoordX(), a.getCoordY()));
+                aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre() + ", " + a.getPais().getValor() + ", " + a.getCiudad().getValor(), a.getCapacidadMax(), a.getCapacidadMax(), capacidadActual, a.getCoordX(), a.getCoordY()));
             }
 
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class CSimulator {
                 int cap = ((Double) obj[3]).intValue();
                 double alq = (Double) obj[4];
                 double plleno = (Double) obj[5];
-                vueloLites.add(new VueloLite(origen, destino, num, cap, alq, plleno));
+                vueloLites.add(new VueloLite(origen, destino, num, num, cap, cap, alq, plleno));
             }
 
         } catch (Exception e) {
@@ -193,7 +193,7 @@ public class CSimulator {
                 Long numPre = (Long) obj[2];
                 int num = (int) (numPre.doubleValue() * regla);
 
-                envioLites.add(new EnvioLite(origen, destino, num));
+                envioLites.add(new EnvioLite(origen, destino, num, num));
             }
 
         } catch (Exception e) {
@@ -248,21 +248,21 @@ public class CSimulator {
             for (EnvioLite e : envioLites) {
                 for (AeroLite a : aeroLites) {
                     a.setCongestiona(false);
-                    plleno = a.getCapacidadActual() / ((double) a.getCapacidadMax());
+                    plleno = a.getCapacidad_actual() / ((double) a.getCapacidad_maxima());
 
                     if (plleno > ulleno) {
-                        int tCongestiona = a.gettCongestiona();
-                        a.settCongestiona(tCongestiona + 1);
+                        int tCongestiona = a.getTiempo_congestiona();
+                        a.setTiempo_congestiona(tCongestiona + 1);
                     }
                 }
 
                 for (VueloLite v : vueloLites) {
                     v.setCongestiona(false);
-                    plleno = v.getCapacidadActual() / ((double) v.getCapacidadMax());
+                    plleno = v.getCapacidad_actual() / ((double) v.getCapacidad_maxima());
 
                     if (plleno > ulleno) {
-                        int tCongestiona = v.gettCongestiona();
-                        v.settCongestiona(tCongestiona + 1);
+                        int tCongestiona = v.getTiempo_congestiona();
+                        v.setTiempo_congestiona(tCongestiona + 1);
                     }
                 }
 

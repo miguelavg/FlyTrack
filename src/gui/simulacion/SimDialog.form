@@ -375,7 +375,7 @@
                     <Column editable="false" title="Destino" type="java.lang.Object"/>
                     <Column editable="false" title="Max. paq." type="java.lang.Integer"/>
                     <Column editable="true" title="Max. Nuevo" type="java.lang.Integer"/>
-                    <Column editable="true" title="%" type="java.lang.Double"/>
+                    <Column editable="false" title="%" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -410,7 +410,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="40" minWidth="40" prefWidth="40" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
