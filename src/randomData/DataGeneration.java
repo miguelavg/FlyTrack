@@ -9,6 +9,7 @@ import beans.Cliente;
 import beans.Envio;
 import beans.Parametro;
 import beans.Tarifa;
+import beans.Vuelo;
 import controllers.CAeropuerto;
 import controllers.CCliente;
 import controllers.CParametro;
@@ -16,6 +17,7 @@ import controllers.CSerializer;
 import controllers.CTarifa;
 import controllers.CValidator;
 import gui.ErrorDialog;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +26,8 @@ import java.util.List;
 import java.util.Random;
 import xml.XmlAeropuertoString;
 import xml.XmlEnvio;
+import xml.XmlVuelo;
+import xml.xmlVueloString;
 
 /**
  *
@@ -52,10 +56,11 @@ public class DataGeneration {
     
     private static int numeroCasosAProbar = 40;
     
+    private static ArrayList<Vuelo> vuelos;
+    
     public static ArrayList<Aeropuerto> cargarAeropuertos(){
         try{
             ArrayList<XmlAeropuertoString> xmlAeropuertos = CSerializer.deserializar("./cargaMasiva/CargaAeropuertos.xml");
-            System.out.println("fsioghsiog");
             return pasaValores(xmlAeropuertos);
         }
         catch(Exception e){
@@ -68,9 +73,13 @@ public class DataGeneration {
         
         ArrayList<Aeropuerto> aeropuertos = new ArrayList<Aeropuerto>();
         
-        for (XmlAeropuertoString xmlaero : xmlAeropuertos){
+//        for (XmlAeropuertoString xmlaero : xmlAeropuertos){
+        for (int i=0; i<xmlAeropuertos.size(); i++){
+            
+            XmlAeropuertoString xmlaero = xmlAeropuertos.get(i);
             
             Aeropuerto aero = new Aeropuerto();
+            aero.setIdAeropuerto(i+1);
 
             if (CValidator.isInteger(xmlaero.getCapacidadActual())&&(Integer.parseInt(xmlaero.getCapacidadActual())>=0)){
                 aero.setCapacidadActual(Integer.parseInt(xmlaero.getCapacidadActual()));
@@ -139,6 +148,25 @@ public class DataGeneration {
         
     }
 
+//    private static List<Vuelo> generarVuelos(int posAeroIni, int posAeroFin, ArrayList<Aeropuerto> aeropuertos){
+//        Random rnd =  new Random();
+//        int cantVuelos = rnd.nextInt(10) + 1;
+//        
+//        if(cantVuelos == 1){
+//            Vuelo vuelo = new Vuelo();
+//            vuelo.setAlquiler(500.0);
+//            vuelo.setCapacidadActual(200);
+//            vuelo.setCapacidadMax(500);
+//            vuelo.setFechaSalida(null);
+//        }
+//        else{
+//            
+//        }
+//        
+//        
+//        return null;
+//    }
+    
     public static List<Envio> generarEnvios(int numEnvios){
         
         ArrayList<Aeropuerto> aeropuertos  = cargarAeropuertos();
@@ -153,13 +181,23 @@ public class DataGeneration {
         Parametro estadoFactura = CParametro.buscarXValorUnicoyTipo("ESTADO_FACTURA", "EM");
 
         ArrayList<Envio> envios = new ArrayList<Envio>();
+        vuelos = new ArrayList<Vuelo>();
         
         for (int i=0 ; i < numEnvios; i++){
             Envio envio = new Envio();
             
-            Aeropuerto aInicial = aeropuertos.get(rnd.nextInt(cantAeropuertos));
+            
+            
+            int posAeroInicial = rnd.nextInt(cantAeropuertos);
+            Aeropuerto aInicial = aeropuertos.get(posAeroInicial);
             envio.setOrigen(aInicial);
-            Aeropuerto aFinal = aeropuertos.get(rnd.nextInt(cantAeropuertos));
+            
+            int posAeroFinal;
+            while( (posAeroFinal = rnd.nextInt(cantAeropuertos)) == posAeroInicial) ;
+            Aeropuerto aFinal = aeropuertos.get(posAeroFinal);
+            
+//            Lista<Vuelo> vuelosDelEnvio = generarVuelos(posAeroInicial, posAeroFinal, aeropuertos);
+            
             envio.setDestino(aFinal);
             envio.setActual(aFinal);
             envio.setRemitente(remit);
@@ -168,15 +206,22 @@ public class DataGeneration {
             envio.setEstado(estado);
             int numPaquetes = 5 + rnd.nextInt(6);
             envio.setNumPaquetes(numPaquetes);
-            envio.setMonto(1.2*numPaquetes*100*0);
+            envio.setMonto(1.2*numPaquetes*100.0);
             envio.setMoneda(moneda);
 
             Calendar cal = Calendar.getInstance();
-            cal.roll(Calendar.DAY_OF_YEAR, -1);
-            envio.setFechaRecojo(cal.getTime());
-            cal.roll(Calendar.DAY_OF_YEAR, -3);            
-            envio.setFechaRegistro(cal.getTime());
+            cal.roll(Calendar.MILLISECOND, -90000000);
+            Date fecharecojo = cal.getTime();
+            cal.roll(Calendar.MILLISECOND, -10564894);
+            Date fechavuelollegada = cal.getTime();
+            cal.roll(Calendar.MILLISECOND, -90561616);
+            Date fechavuelosalida = cal.getTime();
+            cal.roll(Calendar.MILLISECOND, -11651665);            
+            Date fecharegistro = cal.getTime();
             
+            
+            envio.setFechaRecojo(fecharecojo);
+            envio.setFechaRegistro(fecharegistro);
             envio.setTipoDocVenta(tipoDocVenta);
             envio.setNumDocVenta(i+1);
             envio.setImpuesto(numPaquetes*0.20*100.0);
@@ -185,11 +230,26 @@ public class DataGeneration {
             envio.setUnitario(100.00);
             envio.setEstadoFactura(estadoFactura);
             
+            Vuelo vuelo = new Vuelo();
+            vuelo.setAlquiler(500);
+            vuelo.setCapacidadActual(200);
+            vuelo.setCapacidadMax(500);
+            vuelo.setDestino(aFinal);
+            vuelo.setEstado(CParametro.buscarXValorUnicoyTipo("ESTADO_VUELO", "FIN"));
+            vuelo.setFechaLlegada(fechavuelollegada);
+            vuelo.setFechaSalida(fechavuelosalida);
+            vuelo.setOrigen(aInicial);
+            
+            vuelos.add(vuelo);
             
             envios.add(envio);
         }
         
         return envios;
+    }
+    
+    public static List<Vuelo> generarVuelos(){
+        return vuelos;
     }
 
     public static ArrayList<XmlEnvio> conversionAXML(List<Envio> envios){
@@ -228,6 +288,67 @@ public class DataGeneration {
         }
         
         return xmlenvios;
+    }
+    
+    public static ArrayList<xmlVueloString> conversionAXML2(List<Vuelo> vuelos){
+        
+        ArrayList<xmlVueloString> xmlvuelos = new ArrayList<xmlVueloString>();
+        
+        for (Vuelo vuelo : vuelos){
+            
+            xmlVueloString xmlvuelo = new xmlVueloString();
+            
+            xmlvuelo.setAlquiler(""+vuelo.getAlquiler());
+            xmlvuelo.setCapacidadMax(""+vuelo.getCapacidadMax());
+            xmlvuelo.setCapacidadActual(""+vuelo.getCapacidadActual());
+            
+//            Calendar cal = Calendar.getInstance().setTime(vuelo.getFechaSalida());
+            
+//            if(vuelo.getFechaLlegada() == null || vuelo.getFechaSalida() == null){
+//                System.out.println("fdfsgsfgsfg");
+//            }
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            sdf = new SimpleDateFormat("yyyy");
+            xmlvuelo.setAnoSal(sdf.format(vuelo.getFechaSalida()));
+            sdf = new SimpleDateFormat("MM");
+            xmlvuelo.setMesSal(sdf.format(vuelo.getFechaSalida()));
+            sdf = new SimpleDateFormat("dd");
+            xmlvuelo.setDiaSal(sdf.format(vuelo.getFechaSalida()));
+            sdf = new SimpleDateFormat("HH");
+            xmlvuelo.setHoraSal(sdf.format(vuelo.getFechaSalida()));
+            sdf = new SimpleDateFormat("mm");
+            xmlvuelo.setMinSal(sdf.format(vuelo.getFechaSalida()));
+            sdf = new SimpleDateFormat("yyyy");
+            xmlvuelo.setAnoLle(sdf.format(vuelo.getFechaLlegada()));
+            sdf = new SimpleDateFormat("MM");
+            xmlvuelo.setMesLle(sdf.format(vuelo.getFechaLlegada()));
+            sdf = new SimpleDateFormat("dd");
+            xmlvuelo.setDiaLle(sdf.format(vuelo.getFechaLlegada()));
+            sdf = new SimpleDateFormat("HH");
+            xmlvuelo.setHoraLle(sdf.format(vuelo.getFechaLlegada()));
+            sdf = new SimpleDateFormat("mm");
+            xmlvuelo.setMinLle(sdf.format(vuelo.getFechaLlegada()));
+            
+            
+            xmlvuelo.setEstado(vuelo.getEstado() != null ? vuelo.getEstado().getValorUnico() : null);
+            xmlvuelo.setOrigen(vuelo.getOrigen() != null ? vuelo.getOrigen().getNombre() : null);
+            xmlvuelo.setDestino(vuelo.getDestino() != null ? vuelo.getDestino().getNombre() : null);
+            
+//            xmlvuelo.setAlquiler(vuelo.getAlquiler());
+//            xmlvuelo.setCapacidadActual(vuelo.getCapacidadActual());
+//            xmlvuelo.setCapacidadMax(vuelo.getCapacidadMax());
+//            xmlvuelo.setDestino(vuelo.getDestino() != null ? vuelo.getDestino().getIdAeropuerto() : null);
+//            xmlvuelo.setEstado(vuelo.getEstado() != null ? vuelo.getEstado().getIdParametro() : null);
+//            xmlvuelo.setFechaLlegada(vuelo.getFechaLlegada());
+//            xmlvuelo.setFechaSalida(vuelo.getFechaSalida());
+//            xmlvuelo.setIdVuelo(vuelo.getIdVuelo());
+//            xmlvuelo.setOrigen(vuelo.getOrigen() != null ? vuelo.getOrigen().getIdAeropuerto() : null);
+            
+            xmlvuelos.add(xmlvuelo);
+        }
+        
+        return xmlvuelos;
     }
     
 }

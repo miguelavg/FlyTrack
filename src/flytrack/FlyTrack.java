@@ -6,6 +6,7 @@ package flytrack;
 
 import beans.Aeropuerto;
 import beans.Envio;
+import beans.Vuelo;
 import controllers.CSerializer;
 import gui.principal.Login;
 import java.io.File;
@@ -18,6 +19,8 @@ import java.util.Random;
 import java.util.Scanner;
 import randomData.DataGeneration;
 import xml.XmlEnvio;
+import xml.XmlVuelo;
+import xml.xmlVueloString;
 
 /**
  *
@@ -52,16 +55,19 @@ public class FlyTrack {
             wf0.setVisible(true);
         }*/
 
-//        List<Envio> envios = DataGeneration.generarEnvios(60);
-//        ArrayList<XmlEnvio> xmlEnvios = DataGeneration.conversionAXML(envios);
-//        CSerializer.serializar(xmlEnvios, "envios.xml");
+        List<Envio> envios = DataGeneration.generarEnvios(60);
+        ArrayList<XmlEnvio> xmlEnvios = DataGeneration.conversionAXML(envios);
+        CSerializer.serializar(xmlEnvios, "envios.xml");
+        List<Vuelo> vuelos = DataGeneration.generarVuelos();
+        ArrayList<xmlVueloString> xmlVuelos = DataGeneration.conversionAXML2(vuelos);
+        CSerializer.serializar(xmlVuelos, "vuelos.xml");
 //        
 //        for(Envio envio : envios){
 //            System.out.println(envio.aString());
 //        }
         
-        Login login = new Login();
-        login.setVisible(true);
+//        Login login = new Login();
+//        login.setVisible(true);
     }
 
   
