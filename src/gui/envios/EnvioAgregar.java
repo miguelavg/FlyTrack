@@ -1402,8 +1402,76 @@ public class EnvioAgregar extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_destinatarioActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        VistaPrevia_Factura VistaPrevia_FacturaDialog = new VistaPrevia_Factura(this.envio);
-        VistaPrevia_FacturaDialog.setVisible(true);
+//        VistaPrevia_Factura VistaPrevia_FacturaDialog = new VistaPrevia_Factura(this.envio);
+//        VistaPrevia_FacturaDialog.setVisible(true);
+        if (this.envio.getTipoDocVenta().getValor().equals("Factura")) {
+            enviods = new EnvioDataSource();
+            enviods.setEnvio(this.envio);
+            try {
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/factura.jasper";
+
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                    return;
+                }
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+                String nombredocFactura = "Factura_" + this.envio.getNumDocVenta() + ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+                jviewer.setTitle(nombredocFactura);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+                
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (this.envio.getTipoDocVenta().getValor().equals("Boleta")) {
+            enviods = new EnvioDataSource();
+            enviods.setEnvio(this.envio);
+            try {
+                String master = System.getProperty("user.dir")
+                        + "/src/gui/reportes/boleta.jasper";
+
+                JasperReport masterReport = null;
+                try {
+                    masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+                } catch (JRException e) {
+                    //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                    return;
+                }
+                JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+                String nombredocBoleta = "Boleta_" + this.envio.getNumDocVenta() + ".pdf";
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+                exporter.exportReport();
+
+                JasperViewer jviewer = new JasperViewer(jasperPrint, false);
+                //setModal(false);
+                jviewer.setTitle(nombredocBoleta);
+                jviewer.setVisible(true);
+                jviewer.setAlwaysOnTop(true);
+                //CReportes.mostrarMensajeSatisfaccion("Se guardó satisfactoriamente la Boleta Nro" + this.envio.getNumDocVenta() + "\n");
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void txt_actualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_actualActionPerformed
