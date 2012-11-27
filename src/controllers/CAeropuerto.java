@@ -199,7 +199,29 @@ public class CAeropuerto {
 //            s.close();
 //        }
 //    }
+    public static ArrayList<Aeropuerto> GenerarListaAeropuerto2() {
+        SessionFactory sf = Sesion.getSessionFactory();
+        Session s = sf.openSession();
+        ArrayList<Aeropuerto> listafinal = new ArrayList<Aeropuerto>();
+        try {
+            Transaction tx = s.beginTransaction();
+            Query q;
 
+            q = s.getNamedQuery("Aero");
+
+            ListaAeropuerto = q.list();
+            listafinal.addAll(ListaAeropuerto);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+
+            s.close();
+        }
+
+        return listafinal;
+
+    }
     public static List<Aeropuerto> GenerarListaAeropuerto() {
         SessionFactory sf = Sesion.getSessionFactory();
         Session s = sf.openSession();
