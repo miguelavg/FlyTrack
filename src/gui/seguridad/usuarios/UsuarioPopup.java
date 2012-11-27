@@ -410,7 +410,7 @@ public class UsuarioPopup extends javax.swing.JDialog {
     private void btn_seleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_seleccionarActionPerformed
         // TODO add your handling code here:
         int fila = tbl_usuarios.getSelectedRow();
-        if (fila > 0) {
+        if (fila >= 0) {
             usuario = (Usuario) tbl_usuarios.getValueAt(fila, 0);
             setVisible(false);
             dispose();

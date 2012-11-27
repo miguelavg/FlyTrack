@@ -4,11 +4,14 @@
  */
 package flytrack;
 
+import beans.Aeropuerto;
 import gui.principal.Login;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import randomData.DataGeneration;
 
 /**
  *
@@ -42,8 +45,13 @@ public class FlyTrack {
             wizardbd.WizardFrame0 wf0 = new wizardbd.WizardFrame0();
             wf0.setVisible(true);
         }*/
-        Login login = new Login();
-            login.setVisible(true);
+        
+        for(Aeropuerto aero : DataGeneration.cargarAeropuertos()){
+            System.out.println(aero.aString());
+        }
+        
+//        Login login = new Login();
+//        login.setVisible(true);
     }
 
   
