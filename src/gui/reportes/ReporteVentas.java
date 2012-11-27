@@ -474,10 +474,12 @@ where fecharegistro < ''
 
         for (int i = 0; i < listaventas.size(); i++) {
 
+
             datos[0] = listaventas.get(i).getAero();
             datos[1] = listaventas.get(i).getMes();
             datos[2] = listaventas.get(i).getMonto();
-            
+
+       
 
             dtm.addRow(datos);
 

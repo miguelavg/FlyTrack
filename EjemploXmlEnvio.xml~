@@ -1,5 +1,25 @@
 <list>
   <xml.XmlEnvio>
+<<<<<<< HEAD
+    <fecharegis>2012-11-22 04:00</fecharegis>
+    <fechaRecojo>2012-11-26 04:00</fechaRecojo>
+    <numPaquetes>50</numPaquetes>
+    <monto>100.00</monto>
+    <iva>1.00</iva>
+    <impuesto>0.3</impuesto>
+    <unitario>10</unitario>
+    <numDocVenta>1</numDocVenta>
+    <moneda>DOL</anolle>
+    <tipodoc>FAC</tipodoc>
+    <estado>XREC</estado>
+    <estadofac>EM</estadofac>
+    <origen>Jorge Chavez</origen>
+    <destino>Boom</destino>
+    <actual>Jorge Chavez</actual>
+    <estadoescala>ACTV</estadoescala>
+    <vuelo>3</vuelo>
+  </xml.xmlVueloString>  
+  <xml.XmlEnvio>
     <fecharegis>2012-11-20 04:00</fecharegis>
     <fechaRecojo>2012-11-20 04:00</fechaRecojo>
     <numPaquetes>50</numPaquetes>
@@ -8,6 +28,58 @@
     <impuesto>0.3</impuesto>
     <unitario>10</unitario>
     <numDocVenta>1</numDocVenta>
+    <moneda>DOL</anolle>
+    <tipodoc>FAC</tipodoc>
+    <estado>XREC</estado>
+    <estadofac>EM</estadofac>
+    <origen>NombreAeropuertoOrigen</origen>
+    <destino>NombreAeropuertoOrigen</destino>
+    <actual>NombreAeropuertoActual</actual>
+    <estadoescala>ACTV</estadoescala>
+    <vuelo>Iddelvuelo</vuelo>
+  </xml.xmlVueloString>  
+  <xml.XmlEnvio>
+    <fecharegis>2012-11-20 04:00</fecharegis>
+    <fechaRecojo>2012-11-20 04:00</fechaRecojo>
+    <numPaquetes>50</numPaquetes>
+    <monto>550.00</monto>
+    <iva>1.00</iva>
+    <impuesto>0.3</impuesto>
+    <unitario>10</unitario>
+    <numDocVenta>1</numDocVenta>
+    <moneda>DOL</anolle>
+    <tipodoc>FAC</tipodoc>
+    <estado>XREC</estado>
+    <estadofac>EM</estadofac>
+    <origen>NombreAeropuertoOrigen</origen>
+    <destino>NombreAeropuertoOrigen</destino>
+    <actual>NombreAeropuertoActual</actual>
+    <estadoescala>ACTV</estadoescala>
+    <vuelo>Iddelvuelo</vuelo>
+  </xml.xmlVueloString>  
+  <xml.XmlEnvio>
+=======
+>>>>>>> 76181b90166ec487bce4f626856e647ab44ed657
+    <fecharegis>2012-11-20 04:00</fecharegis>
+    <fechaRecojo>2012-11-20 04:00</fechaRecojo>
+    <numPaquetes>50</numPaquetes>
+    <monto>550.00</monto>
+    <iva>1.00</iva>
+    <impuesto>0.3</impuesto>
+    <unitario>10</unitario>
+    <numDocVenta>1</numDocVenta>
+<<<<<<< HEAD
+    <moneda>DOL</anolle>
+    <tipodoc>BOL</tipodoc>
+    <estado>XREC</estado>
+    <estadofac>EM</estadofac>
+    <origen>NombreAeropuertoOrigen</origen>
+    <destino>NombreAeropuertoOrigen</destino>
+    <actual>NombreAeropuertoActual</actual>
+    <estadoescala>ACTV</estadoescala>
+    <vuelo>Iddelvuelo</vuelo>
+  </xml.xmlVueloString>  
+=======
 
     <moneda>ValorUnicoMoneda</anolle>
     <tipodoc>ValorUnicotipodoc</tipodoc>
@@ -23,4 +95,5 @@
     
   </xml.xmlVueloString>  
   
+>>>>>>> 76181b90166ec487bce4f626856e647ab44ed657
 </list>

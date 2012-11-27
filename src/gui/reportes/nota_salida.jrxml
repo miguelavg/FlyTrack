@@ -2,10 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8acc9963-a739-4d24-aaf0-3554cb67b859">
 	<property name="ireport.zoom" value="1.210000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="empleado" class="java.lang.String"/>
-	<parameter name="horaactual" class="java.lang.String"/>
-	<parameter name="fechaactual" class="java.lang.String"/>
 	<field name="numdocpago" class="java.lang.String"/>
 	<field name="moneda" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -87,7 +85,7 @@
 			<textField>
 				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="421" y="149" width="123" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$P{horaactualrecojo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{horaactualrecojo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="1107ad0c-09b9-44d1-9a47-e6f03d482e0d" x="421" y="129" width="123" height="20"/>
