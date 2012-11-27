@@ -52,8 +52,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     CEnvio cenvio= new CEnvio();
     //ClienteDataSource clienteds= new ClienteDataSource();
     
-    AlmacenDataSource vuelods;//= new AlmacenDataSource();
-    
+    //AlmacenDataSource vuelods;//= new AlmacenDataSource();
+    MovimientoalmacenDataSource movalds;
     List<Parametro> ListaEstado;
     CParametro ParametroBL = new CParametro();
     
@@ -354,8 +354,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
         //File jasper=new File();
-    vuelods= new AlmacenDataSource();
-    vuelods.setListaVuelos(listaVuelos);
+//    vuelods= new AlmacenDataSource();
+//    vuelods.setListaVuelos(listaVuelos);
+      movalds= new MovimientoalmacenDataSource();
+      movalds.setListaMovimientos(listamovalmacen);
+        
     if (aeroori!=null){
         try {
             //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
@@ -374,7 +377,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             }
             
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, vuelods);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, movalds);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
