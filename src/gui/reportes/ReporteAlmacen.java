@@ -558,7 +558,10 @@ public class ReporteAlmacen extends javax.swing.JFrame {
               
                }
            }
-        }   
+        }
+        
+        CAeropuerto caero= new CAeropuerto(); 
+        caero.OrdenadasAsc(listamovalmacen);
      }
      else {
      ErrorDialog.mostrarError("Debe ingresar un aeropuerto.", this);

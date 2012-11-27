@@ -4,7 +4,13 @@
  */
 package gui.reportes;
 
+import beans.Envio;
+import beans.Escala;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,6 +25,12 @@ public class Movimientoalmacen {
     /**
      * @return the fecha
      */
+    
+    
+    
+    
+    
+    
     public Date getFecha() {
         return fecha;
     }
@@ -71,4 +83,8 @@ public class Movimientoalmacen {
     public void setNumpaq(int numpaq) {
         this.numpaq = numpaq;
     }
+    
+    
+    
+    
 }

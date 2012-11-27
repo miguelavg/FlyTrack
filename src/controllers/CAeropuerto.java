@@ -8,11 +8,15 @@ import beans.Aeropuerto;
 import beans.Cliente;
 import beans.Parametro;
 import beans.Sesion;
+import gui.reportes.Movimientoalmacen;
 import java.awt.Cursor;
 import java.util.List;
 import org.hibernate.*;
 import java.awt.Cursor;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -467,5 +471,42 @@ public class CAeropuerto {
 
         return ListaTipoEst;
 
+    }
+    
+    public class MovimientosOrdenadosAsc implements Comparator<Movimientoalmacen> {
+
+        @Override
+        public int compare(Movimientoalmacen e1, Movimientoalmacen e2) {
+            if (e1.getFecha().after(e2.getFecha())){
+                return -1;
+            }
+            if (e1.getFecha().before(e2.getFecha())|| e1.getFecha().equals(e2.getFecha())) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+    public class MovimientosOrdenadosDesc implements Comparator<Movimientoalmacen> {
+
+        @Override
+        public int compare(Movimientoalmacen e1, Movimientoalmacen e2) {
+            if (e1.getFecha().before(e2.getFecha())|| e1.getFecha().equals(e2.getFecha())) {
+                return 1;
+            }
+            if (e1.getFecha().after(e2.getFecha())) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+    
+    public List<Movimientoalmacen> OrdenadasAsc(ArrayList<Movimientoalmacen> movimientos) {
+        Collections.sort(movimientos, new MovimientosOrdenadosAsc());
+        return movimientos;
+    }
+    
+    public List<Movimientoalmacen> OrdenadasDesc(ArrayList<Movimientoalmacen> movimientos) {
+        Collections.sort(movimientos, new MovimientosOrdenadosDesc());
+        return movimientos;
     }
 }
