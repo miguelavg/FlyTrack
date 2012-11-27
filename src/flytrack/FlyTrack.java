@@ -32,7 +32,8 @@ public class FlyTrack {
     }
     
     public static void main(String[] args) {
-        String content = leerSentencias("/home/gg/gg.txt");
+        String content = "no";
+        content = leerSentencias("/home/gg/gg.txt");
         if (content.contains("no")){
             Login login = new Login();
             login.setVisible(true);
