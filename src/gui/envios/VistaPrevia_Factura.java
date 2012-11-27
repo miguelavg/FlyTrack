@@ -20,9 +20,7 @@ import gui.reportes.EnvioDataSource;
 import java.awt.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -471,6 +469,8 @@ public void cargartabla(){
                 //JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
                 return;
             }
+
+            
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, enviods);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
