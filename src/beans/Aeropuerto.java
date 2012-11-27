@@ -81,9 +81,9 @@ import org.hibernate.annotations.ParamDef;
    
 })
 @Filters({
-    @Filter(name = "AeropuertoxPais", condition = "pais = :Pais"),
+    @Filter(name = "AeropuertoxPais", condition = "UPPER(pais) = UPPER(:Pais)"),
     @Filter(name = "AeropuertoxEstado", condition = "estado = :Estado"),
-    @Filter(name = "AeropuertoxCiudad", condition = "ciudad = :Ciudad")})
+    @Filter(name = "AeropuertoxCiudad", condition = "UPPER(ciudad) = UPPER(:Ciudad)"),})
 public class Aeropuerto implements Serializable {
 
     @Id

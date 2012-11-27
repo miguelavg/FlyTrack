@@ -46,10 +46,12 @@ public class FlyTrack {
             wf0.setVisible(true);
         }*/
         
-
+        for(Aeropuerto aero : DataGeneration.cargarAeropuertos()){
+            System.out.println(aero.aString());
+        }
         
-        Login login = new Login();
-       login.setVisible(true);
+//        Login login = new Login();
+//        login.setVisible(true);
     }
 
   

@@ -473,10 +473,10 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      
      List<Envio> listaenvios = cenvio.buscar(null, null, null, null, null, null);
      
-     
+     listaAeropuertos.get(0).getVuelosLlegada().size();
    
      for (Envio e : listaenvios) {
-//            
+            
                 if ((fechini.after(e.getFechaRegistro()) || fechini.equals(e.getFechaRegistro()))  &&
                      (fechfin.before(e.getFechaRegistro()) ||fechfin.equals(e.getFechaRegistro())) ){
                     
@@ -516,7 +516,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      
         if (cboMovimientos.getSelectedIndex()==2 || cboMovimientos.getSelectedIndex()==0){
             
-            listaAeropuertos.get(0).getVuelosLlegada().size();
+            
             
             for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
                 if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
@@ -524,13 +524,13 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                    datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
 
                    datos[1] = "Llegada";
-                   datos[2] = "Arribo de vuelo "+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
+                   datos[2] = "Arribo de vuelo"+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
                    datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
                    dtm.addRow(datos);
                    
                    Movimientoalmacen movimiento= new Movimientoalmacen();
                    movimiento.setFecha(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
-                   movimiento.setMotivo("Arribo de vuelo "+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo());
+                   movimiento.setMotivo("Arribo de vuelo"+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo());
                    movimiento.setMovimiento("Llegada");
                    movimiento.setNumpaq(listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual());
                    listamovalmacen.add(movimiento);
@@ -548,13 +548,13 @@ public class ReporteAlmacen extends javax.swing.JFrame {
                datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
 
                datos[1]= "Salida";
-               datos[2]= "Salida de vuelo "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
+               datos[2]= "Salida de vuelos "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
                datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
                dtm.addRow(datos);
                
                 Movimientoalmacen movimiento= new Movimientoalmacen();
                movimiento.setFecha(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
-               movimiento.setMotivo("Despegue de vuelo "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo());
+               movimiento.setMotivo("Despegue de vuelo"+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo());
                movimiento.setMovimiento("Salida");
                movimiento.setNumpaq(listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual());
                listamovalmacen.add(movimiento);
