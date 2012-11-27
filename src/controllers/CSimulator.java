@@ -82,8 +82,9 @@ public class CSimulator {
         }
         return aeroLites;
     }
-    
+
     public class CustomComparator implements Comparator<MovimientoAlmacen> {
+
         @Override
         public int compare(MovimientoAlmacen m1, MovimientoAlmacen m2) {
             if (m1.getFecha().before(m2.getFecha())) {
@@ -95,8 +96,8 @@ public class CSimulator {
             return 0;
         }
     }
-    
-    private int calcularActual(Aeropuerto aeropuerto){
+
+    private int calcularActual(Aeropuerto aeropuerto) {
         int actual = aeropuerto.getCapacidadActual();
         int suma = actual;
         int movimientos = 1;
@@ -108,7 +109,7 @@ public class CSimulator {
         for (Vuelo v : aeropuerto.getVuelosLlegada()) {
             moves.add(new MovimientoAlmacen(v.getFechaLlegada(), "O", v.getCapacidadActual()));
         }
-        
+
         Collections.sort(moves, new CustomComparator());
 
         for (MovimientoAlmacen m : moves) {
@@ -118,13 +119,16 @@ public class CSimulator {
             if (m.getTipo().equals("O")) {
                 actual = actual - m.getCantidad();
             }
-            
+
             suma = suma + actual;
             movimientos++;
         }
-        
-        int prom = suma /  movimientos;
 
+        int prom = suma / movimientos;
+
+        if (prom < 0) {
+            return 0;
+        }
         return prom;
     }
 
