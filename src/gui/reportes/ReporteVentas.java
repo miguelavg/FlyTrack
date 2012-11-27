@@ -45,7 +45,8 @@ public class ReporteVentas extends javax.swing.JFrame {
     private Object dt_fechini;
     
     ArrayList<Envio> listaEnviosaux;
-        List<Venta>  listaventas ;
+    ArrayList<Venta>  listaventas = new  ArrayList<Venta>() ;
+    ArrayList<Venta>  listaventasoficial= new ArrayList<Venta>() ;
     
     
 
@@ -322,7 +323,7 @@ where fecharegistro < ''
 //        listaenviosds.setListaEnvios(listaEnvios);
         
         VentaDataSource listaventasds= new VentaDataSource();
-        listaventasds.setListaVentas(listaventas);
+        listaventasds.setListaVentas(listaventasoficial);
         
     if (listaventasds!=null){
         try {
@@ -420,7 +421,7 @@ where fecharegistro < ''
             Venta v = listaventas.get(s);
             if (v.getAero().getNombre()==e.getOrigen().getNombre()){
                
-                if (v.getMes()!=null && v.getMes().equals(dateFormat.format(e.getFechaRegistro()))){                    
+                if (v.getMes()!=null && v.getMes()!="" && v.getMes().equals(dateFormat.format(e.getFechaRegistro()))){                    
                     v.setMonto(v.getMonto()+e.getMonto());
                     return 0;
                 }
@@ -435,6 +436,7 @@ where fecharegistro < ''
              venta.setAero(e.getOrigen());
              venta.setMes(dateFormat.format(e.getFechaRegistro()));
              venta.setMonto(e.getMonto());
+             listaventas.add(indiceaeropuerto, venta);
              return 0;
          }
          return -1;
@@ -456,6 +458,7 @@ where fecharegistro < ''
         for (int s=0; s<listaaeropuertos.size();s++){
             Venta venta= new Venta();
             venta.setAero(listaaeropuertos.get(s));
+            venta.setMes("");
             venta.setMonto(0);
             listaventas.add(venta);
         }
@@ -466,6 +469,12 @@ where fecharegistro < ''
             
         }
         
+        for(Venta v :listaventas){
+            if (v.getMes()!=""){
+                listaventasoficial.add(v);
+            }
+        }
+          
         
         DefaultTableModel dtm = (DefaultTableModel) this.tbl_ventas.getModel();
         int rows = dtm.getRowCount();
@@ -475,12 +484,12 @@ where fecharegistro < ''
 
         Object[] datos = new Object[3];
 
-        for (int i = 0; i < listaventas.size(); i++) {
+        for (int i = 0; i < listaventasoficial.size(); i++) {
 
 
-            datos[0] = listaventas.get(i).getAero();
-            datos[1] = listaventas.get(i).getMes();
-            datos[2] = listaventas.get(i).getMonto();
+            datos[0] = listaventasoficial.get(i).getAero();
+            datos[1] = listaventasoficial.get(i).getMes();
+            datos[2] = listaventasoficial.get(i).getMonto();
 
        
 
@@ -488,7 +497,8 @@ where fecharegistro < ''
 
         }
         
-        listaEnviosaux.addAll(listaEnvios);
+        
+        //listaEnviosaux.addAll(listaEnvios);
 
     }
     
