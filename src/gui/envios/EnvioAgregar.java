@@ -1515,7 +1515,14 @@ public class EnvioAgregar extends javax.swing.JFrame {
     private void btn_bitacorarealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bitacorarealActionPerformed
         // TODO add your handling code here:
         escalads = new EscalaDataSource();
-        escalads.setListaEscalas(envio.getEscalasOrdenadasAsc());
+        
+        List<Escala> lstEscalas = envio.getEscalasOrdenadasAsc();
+        
+        for(Escala escala : lstEscalas){
+           CPista.guardarPista("Envio", "Bitacora Real", "Crear", escala.aString());
+       }
+        
+        escalads.setListaEscalas(lstEscalas);
         if (escalads != null) {
             try {
                 //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
@@ -1579,7 +1586,11 @@ public class EnvioAgregar extends javax.swing.JFrame {
             listaEscalasaux.add(auxescala);
             }
         }
-        
+
+       for(Escala escala : listaEscalasaux){
+           CPista.guardarPista("Envio", "Bitacora Teorica", "Crear", escala.aString());
+       }
+       
        escalads.setListaEscalas(listaEscalasaux); 
        
         if (escalads != null) {

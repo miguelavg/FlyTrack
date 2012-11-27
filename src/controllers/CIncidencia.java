@@ -214,7 +214,7 @@ public class CIncidencia {
             int i = (Integer)s.save(Inc);
             
             tx.commit();
-            
+            CPista.guardarPista("Administración", "Vuelos - Incidencias", "Crear", Inc.aString());
         }
         catch(Exception e){
             System.out.println(e.getMessage());
