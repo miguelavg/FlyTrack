@@ -32,7 +32,7 @@ public class FlyTrack {
     }
     
     public static void main(String[] args) {
-        String content = "no";
+        /*String content = "no";
         content = leerSentencias("/home/gg/gg.txt");
         if (content.contains("no")){
             Login login = new Login();
@@ -41,7 +41,9 @@ public class FlyTrack {
         else if (content.contains("si")) {
             wizardbd.WizardFrame0 wf0 = new wizardbd.WizardFrame0();
             wf0.setVisible(true);
-        }
+        }*/
+        Login login = new Login();
+            login.setVisible(true);
     }
 
   
