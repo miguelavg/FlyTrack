@@ -210,13 +210,15 @@ public class DataGeneration {
             envio.setMoneda(moneda);
 
             Calendar cal = Calendar.getInstance();
-            cal.roll(Calendar.MILLISECOND, -90000000);
+            cal.add(Calendar.MILLISECOND, -90000000);
             Date fecharecojo = cal.getTime();
-            cal.roll(Calendar.MILLISECOND, -10564894);
+            cal.add(Calendar.MILLISECOND, -10564894);
             Date fechavuelollegada = cal.getTime();
-            cal.roll(Calendar.MILLISECOND, -90561616);
+//            System.out.println(fechavuelollegada);
+            cal.add(Calendar.MILLISECOND, -90561616);
             Date fechavuelosalida = cal.getTime();
-            cal.roll(Calendar.MILLISECOND, -11651665);            
+//            System.out.println(fechavuelosalida);
+            cal.add(Calendar.MILLISECOND, -11651665);            
             Date fecharegistro = cal.getTime();
             
             
@@ -308,25 +310,39 @@ public class DataGeneration {
 //                System.out.println("fdfsgsfgsfg");
 //            }
             
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            System.out.println(vuelo.getFechaSalida());
+            System.out.println(vuelo.getFechaLlegada());
+            
+            
+            SimpleDateFormat sdf;
+            
             sdf = new SimpleDateFormat("yyyy");
             xmlvuelo.setAnoSal(sdf.format(vuelo.getFechaSalida()));
+            
             sdf = new SimpleDateFormat("MM");
             xmlvuelo.setMesSal(sdf.format(vuelo.getFechaSalida()));
+            
             sdf = new SimpleDateFormat("dd");
             xmlvuelo.setDiaSal(sdf.format(vuelo.getFechaSalida()));
+            
             sdf = new SimpleDateFormat("HH");
             xmlvuelo.setHoraSal(sdf.format(vuelo.getFechaSalida()));
+            
             sdf = new SimpleDateFormat("mm");
             xmlvuelo.setMinSal(sdf.format(vuelo.getFechaSalida()));
+            
             sdf = new SimpleDateFormat("yyyy");
             xmlvuelo.setAnoLle(sdf.format(vuelo.getFechaLlegada()));
+            
             sdf = new SimpleDateFormat("MM");
             xmlvuelo.setMesLle(sdf.format(vuelo.getFechaLlegada()));
+            
             sdf = new SimpleDateFormat("dd");
             xmlvuelo.setDiaLle(sdf.format(vuelo.getFechaLlegada()));
+            
             sdf = new SimpleDateFormat("HH");
             xmlvuelo.setHoraLle(sdf.format(vuelo.getFechaLlegada()));
+            
             sdf = new SimpleDateFormat("mm");
             xmlvuelo.setMinLle(sdf.format(vuelo.getFechaLlegada()));
             

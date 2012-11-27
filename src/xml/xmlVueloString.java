@@ -103,23 +103,23 @@ public class xmlVueloString implements Serializable{
     
     
     public void setHoraSal(String estado) {
-        this.horasal = horasal;
+        this.horasal = estado;
     }
     
     public void setMinSal(String estado) {
-        this.minsal = minsal;
+        this.minsal = estado;
     }
     
     public void setAnoSal(String estado) {
-        this.anosal = anosal;
+        this.anosal = estado;
     }
     
     public void setMesSal(String estado) {
-        this.messal = messal;
+        this.messal = estado;
     }
     
     public void setDiaSal(String estado) {
-        this.diasal = diasal;
+        this.diasal = estado;
     }
     
     
@@ -145,23 +145,23 @@ public class xmlVueloString implements Serializable{
     
     
     public void setHoraLle(String estado) {
-        this.horalle = horalle;
+        this.horalle = estado;
     }
     
     public void setMinLle(String estado) {
-        this.minlle = minlle;
+        this.minlle = estado;
     }
     
     public void setAnoLle(String estado) {
-        this.anolle = anolle;
+        this.anolle = estado;
     }
     
     public void setMesLle(String estado) {
-        this.meslle = meslle;
+        this.meslle = estado;
     }
     
     public void setDiaLle(String estado) {
-        this.dialle = dialle;
+        this.dialle = estado;
     }
     
     
