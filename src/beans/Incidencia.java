@@ -4,6 +4,7 @@
  */
 package beans;
 
+import controllers.CValidator;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -122,5 +123,13 @@ public class Incidencia implements Serializable {
 
     public void setVuelo(Vuelo vuelo) {
         this.vuelo = vuelo;
+    }
+    
+    public String aString(){
+        return "IdIncidencia " + idIncidencia +
+                " Descripcion: " + descripcion +
+                " Fecha: " + CValidator.formatDate(fecha) +
+                " Estado: " + (estado != null ? estado.getValor() : null) +
+                " Vuelo Asociado: " + (vuelo != null ? vuelo.getIdVuelo() : null);
     }
 }
