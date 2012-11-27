@@ -8,6 +8,7 @@ package gui.reportes;
 import gui.reportes.*;
 import beans.Aeropuerto;
 import beans.Cliente;
+import beans.Envio;
 import beans.Parametro;
 import controllers.CAeropuerto;
 import controllers.CCliente;
@@ -16,6 +17,7 @@ import controllers.CReportes;
 import controllers.CValidator;
 import gui.ErrorDialog;
 import gui.administracion.aeropuertos.*;
+import controllers.CEnvio;
 import java.awt.Cursor;
 import java.io.File;
 import java.text.DateFormat;
@@ -47,10 +49,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
      */
     beans.Aeropuerto aeroori;
     CCliente cliente= new CCliente(); 
+    CEnvio cenvio= new CEnvio();
     //ClienteDataSource clienteds= new ClienteDataSource();
     
-    AlmacenDataSource vuelods;//= new AlmacenDataSource();
-    
+    //AlmacenDataSource vuelods;//= new AlmacenDataSource();
+    MovimientoalmacenDataSource movalds;
     List<Parametro> ListaEstado;
     CParametro ParametroBL = new CParametro();
     
@@ -58,6 +61,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     List<beans.Aeropuerto> listaAeropuertos;
     ArrayList<beans.Vuelo> listaVuelos= new  ArrayList<beans.Vuelo>();
     Calendar fechini, fechfin;
+    ArrayList<Movimientoalmacen> listamovalmacen = new ArrayList<Movimientoalmacen>();
     
     //boolean exportar=false;
     
@@ -350,8 +354,11 @@ public class ReporteAlmacen extends javax.swing.JFrame {
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         // TODO add your handling code here:
         //File jasper=new File();
-    vuelods= new AlmacenDataSource();
-    vuelods.setListaVuelos(listaVuelos);
+//    vuelods= new AlmacenDataSource();
+//    vuelods.setListaVuelos(listaVuelos);
+      movalds= new MovimientoalmacenDataSource();
+      movalds.setListaMovimientos(listamovalmacen);
+        
     if (aeroori!=null){
         try {
             //JasperReport reporte = JasperCompileManager.compileReport("NetBeansProjects/FlyTrack/src/gui/reportes/ReporteAlmacen.jrxml");
@@ -370,7 +377,7 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             }
             
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, vuelods);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, movalds);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
@@ -464,64 +471,100 @@ public class ReporteAlmacen extends javax.swing.JFrame {
          dtm.removeRow(0);
      }
      
+     List<Envio> listaenvios = cenvio.buscar(null, null, null, null, null, null);
+     
      listaAeropuertos.get(0).getVuelosLlegada().size();
-//     for (int i=0; i < listaAeropuertos.get(0).getVuelosLlegada().size();i++){
-//         listaAeropuertos.get(0).getVuelosLlegada().get(i).getIncidencias().size();
-//
-//         listaAeropuertos.get(0).getVuelosLlegada().get(i).getEscalas().size();
-//     }
-    
-    //listaAeropuertos.get(0).getVuelosLlegada().get(i).get
+   
+     for (Envio e : listaenvios) {
+            
+                if ((fechini.after(e.getFechaRegistro()) || fechini.equals(e.getFechaRegistro()))  &&
+                     (fechfin.before(e.getFechaRegistro()) ||fechfin.equals(e.getFechaRegistro())) ){
+                    
+                    datos[0] = CValidator.formatDate(e.getFechaRegistro());
+                    datos[1] = "Llegada";
+                    datos[2] = "Recepción de paquetes de cliente "+ e.getRemitente().getNombres()+ " "+ e.getRemitente().getApellidos();
+                    datos[3] = e.getNumPaquetes();
+                    dtm.addRow(datos);
+                    
+                    Movimientoalmacen movimiento= new Movimientoalmacen();
+                    movimiento.setFecha(e.getFechaRegistro());
+                    movimiento.setMotivo("Recepción de paquetes de cliente "+ e.getRemitente().getNombres()+ " "+ e.getRemitente().getApellidos());
+                    movimiento.setMovimiento("Llegada");
+                    movimiento.setNumpaq(e.getNumPaquetes());
+                    listamovalmacen.add(movimiento);
+                }
+            
+                if ((fechfin.after(e.getFechaRecojo()) || fechfin.equals(e.getFechaRecojo()))  &&
+                     (fechfin.before(e.getFechaRecojo()) ||fechfin.equals(e.getFechaRecojo())) ){
+                    
+                    datos[0] = CValidator.formatDate(e.getFechaRecojo());
+                    datos[1] = "Salida";
+                    datos[2] = "Recojo de paquetes de cliente "+ e.getDestinatario().getNombres()+ " "+ e.getDestinatario().getApellidos();
+                    datos[3] = e.getNumPaquetes();
+                    dtm.addRow(datos);
+                    
+                    Movimientoalmacen movimiento= new Movimientoalmacen();
+                    movimiento.setFecha(e.getFechaRegistro());
+                    movimiento.setMotivo("Recojo de paquetes de cliente "+ e.getDestinatario().getNombres()+ " "+ e.getDestinatario().getApellidos());
+                    movimiento.setMovimiento("Salida");
+                    movimiento.setNumpaq(e.getNumPaquetes());
+                    listamovalmacen.add(movimiento);
+                }
+                
+      }
+     
+     
         if (cboMovimientos.getSelectedIndex()==2 || cboMovimientos.getSelectedIndex()==0){
+            
+            
+            
             for (int i = 0; i < listaAeropuertos.get(0).getVuelosLlegada().size(); i++) {
                 if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual()>0)
                 {
                    datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
 
-          //         if (listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor().equals(parentrada.getValor())){         
-          //         datos[1] = "Llegada";
-          //         }
-          //         else {datos[1] = "";}
-
-                   //datos[1] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
-                   //datos[2] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getOrigen().getNombre();
-                   //datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getEstado().getValor();
-                   
                    datos[1] = "Llegada";
                    datos[2] = "Arribo de vuelo"+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo();
                    datos[3] = listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual();
                    dtm.addRow(datos);
+                   
+                   Movimientoalmacen movimiento= new Movimientoalmacen();
+                   movimiento.setFecha(listaAeropuertos.get(0).getVuelosLlegada().get(i).getFechaLlegada());
+                   movimiento.setMotivo("Arribo de vuelo"+listaAeropuertos.get(0).getVuelosLlegada().get(i).getIdVuelo());
+                   movimiento.setMovimiento("Llegada");
+                   movimiento.setNumpaq(listaAeropuertos.get(0).getVuelosLlegada().get(i).getCapacidadActual());
+                   listamovalmacen.add(movimiento);
 
-          //         for (int j=0;listaAeropuertos.size()>j;j++)
-          //            {listaAeropuertos.get(j).getVuelosLlegada().size();
-          //            listaAeropuertos.get(j).getVuelosSalida().size();
-          //            };
-                   //incidencias, escala, envio por almancen
-
-                   listaVuelos.add(listaAeropuertos.get(0).getVuelosLlegada().get(i));
                 }
             }
         }
         if (cboMovimientos.getSelectedIndex()==1 || cboMovimientos.getSelectedIndex()==0){
+            
+            
+            
            for (int i = 0; i < listaAeropuertos.get(0).getVuelosSalida().size(); i++) {
 
                if (listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual()>0){
                datos[0] = CValidator.formatDate(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
 
-      //         if (!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida1.getValor())&&!listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor().equals(parsalida2.getValor())){         
-      //         datos[1] = "Salida";
-      //         }
-      //         else {datos[1] = "";}
-               datos[1] = listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
-               datos[2] = listaAeropuertos.get(0).getVuelosSalida().get(i).getDestino().getNombre();
-               //datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getEstado().getValor();
-               datos[3]= "Salida";
-               datos[4] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
+               datos[1]= "Salida";
+               datos[2]= "Salida de vuelos "+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo();
+               datos[3] = listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual();
                dtm.addRow(datos);
-               listaVuelos.add(listaAeropuertos.get(0).getVuelosSalida().get(i));
+               
+                Movimientoalmacen movimiento= new Movimientoalmacen();
+               movimiento.setFecha(listaAeropuertos.get(0).getVuelosSalida().get(i).getFechaSalida());
+               movimiento.setMotivo("Despegue de vuelo"+listaAeropuertos.get(0).getVuelosSalida().get(i).getIdVuelo());
+               movimiento.setMovimiento("Salida");
+               movimiento.setNumpaq(listaAeropuertos.get(0).getVuelosSalida().get(i).getCapacidadActual());
+               listamovalmacen.add(movimiento);
+              
                }
            }
-        }   
+        }
+        
+        CAeropuerto caero= new CAeropuerto(); 
+        caero.OrdenadasAsc(listamovalmacen);
      }
      else {
      ErrorDialog.mostrarError("Debe ingresar un aeropuerto.", this);

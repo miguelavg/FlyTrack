@@ -346,11 +346,6 @@ public class EnvioCarga extends javax.swing.JDialog {
             
         }
         return listaenvios;
-        
-        
-        
-        
-       // return listaenvios;
     }
     
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed

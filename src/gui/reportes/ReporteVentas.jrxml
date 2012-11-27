@@ -103,11 +103,6 @@
 				<textFieldExpression><![CDATA[$F{origenDestino}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="60" y="1" width="49" height="20"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="268" y="3" width="101" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
@@ -122,6 +117,13 @@
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
+			<elementGroup>
+				<textField>
+					<reportElement uuid="441bd4cb-8fa1-49c7-8448-5dbcc5ad780c" x="60" y="1" width="49" height="20"/>
+					<textElement textAlignment="Left"/>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
 		</band>
 	</detail>
 	<columnFooter>
