@@ -150,11 +150,13 @@ public class CEnvio {
             Transaction tx = s.beginTransaction();
             s.saveOrUpdate(envio.getActual());
             s.saveOrUpdate(envio);
+            CPista.guardarPista("Envio", "Venta", "Crear", envio.aString());
 //            ArrayList<Envio> listaenvio= new ArrayList<Envio>();
 //            listaenvio.add(envio);   
             //CSerializer.serializar(listaenvio, "PruebaEnvio");
             for (Escala e : envio.getEscalas()) {
                 s.saveOrUpdate(e.getVuelo());
+                CPista.guardarPista("Envio", "Venta", "Crear", "Escalas ->" + e.aString());
             }
 
             tx.commit();
