@@ -349,8 +349,8 @@ where fecharegistro < ''
             Date fechaactual = Calendar.getInstance().getTime(); 
             String reportDate = df.format(fechaactual);
             String nombreReporteLogs = "Reporte_Ventas_" +reportDate+ ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
-            exporter.exportReport();
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteLogs));
+//            exporter.exportReport();
             
             JasperViewer jviewer = new JasperViewer(jasperPrint,false);
             jviewer.setTitle(nombreReporteLogs);

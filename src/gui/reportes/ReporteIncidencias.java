@@ -302,6 +302,7 @@ public class ReporteIncidencias extends javax.swing.JFrame {
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport, null, incidenciads);
             JRExporter exporter = new JRPdfExporter();
+            
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             DateFormat df = new SimpleDateFormat("MM_dd_yyyy HH_mm");
             Date fechaactual=new Date(); 
@@ -309,8 +310,8 @@ public class ReporteIncidencias extends javax.swing.JFrame {
             String reportDate = df.format(fechaactual);
             
             String nombreReporteAlmacen = "Reporte de incidencias_" +reportDate+ ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
-            exporter.exportReport();
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
+//            exporter.exportReport();
             
             JasperViewer jviewer = new JasperViewer(jasperPrint,false);
             jviewer.setTitle(nombreReporteAlmacen);
