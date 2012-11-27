@@ -40,7 +40,7 @@ public class EnvioDataSource  implements JRDataSource {
 
     if("numdocpago".equals(jrField.getName())) 
     { 
-        valor = "00000" + String.valueOf(getEnvio().getNumDocVenta()); 
+        valor = String.valueOf(getEnvio().getNumDocVenta()); 
     } 
     else if("moneda".equals(jrField.getName())) 
     { 
