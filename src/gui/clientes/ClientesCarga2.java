@@ -62,6 +62,11 @@ public class ClientesCarga2 extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnElegir.setText("Elegir archivo");
+        btnElegir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElegirActionPerformed(evt);
+            }
+        });
 
         btnCargar.setText("Cargar");
 
@@ -127,6 +132,10 @@ public class ClientesCarga2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElegirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnElegirActionPerformed
 
     /**
      * @param args the command line arguments

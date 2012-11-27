@@ -1317,8 +1317,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
             String reportDate = df.format(fechaactual);
 
             String nombreNotaSalida = "Nota de salida_" + this.envio.getNumDocVenta() + "_" + reportDate + ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreNotaSalida));
-            exporter.exportReport();
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreNotaSalida));
+//            exporter.exportReport();
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             //setModal(false);
@@ -1368,8 +1368,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
             String reportDate = df.format(fechaactual);
 
             String nombreNotaEntrada = "Nota de Entrada_" + this.envio.getNumDocVenta() + "_" + reportDate + ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreNotaEntrada));
-            exporter.exportReport();
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreNotaEntrada));
+//            exporter.exportReport();
 
             JasperViewer jviewer = new JasperViewer(jasperPrint, false);
             //setModal(false);
@@ -1425,8 +1425,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
                 String nombredocFactura = "Factura_" + this.envio.getNumDocVenta() + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
-                exporter.exportReport();
+//                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocFactura));
+//                exporter.exportReport();
 
                 JasperViewer jviewer = new JasperViewer(jasperPrint, false);
                 //setModal(false);
@@ -1458,8 +1458,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
                 String nombredocBoleta = "Boleta_" + this.envio.getNumDocVenta() + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
-                exporter.exportReport();
+//                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombredocBoleta));
+//                exporter.exportReport();
 
                 JasperViewer jviewer = new JasperViewer(jasperPrint, false);
                 //setModal(false);
@@ -1546,8 +1546,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 String reportDate = df.format(fechaactual);
 
                 String nombreReporteBitacora = "Bitacora_Real_" + this.envio.getIdEnvio() +"_"+reportDate + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
-                exporter.exportReport();
+//                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
+//                exporter.exportReport();
 
                 JasperViewer jviewer = new JasperViewer(jasperPrint, false);
                 //setModal(false);
@@ -1616,8 +1616,8 @@ public class EnvioAgregar extends javax.swing.JFrame {
                 String reportDate = df.format(fechaactual);
 
                 String nombreReporteBitacora = "Bitacora_Teorica_" + this.envio.getIdEnvio() +"_"+reportDate + ".pdf";
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
-                exporter.exportReport();
+//                exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteBitacora));
+//                exporter.exportReport();
 
                 JasperViewer jviewer = new JasperViewer(jasperPrint, false);
                 //setModal(false);
