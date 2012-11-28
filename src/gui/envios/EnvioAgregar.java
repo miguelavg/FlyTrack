@@ -247,7 +247,7 @@ public class EnvioAgregar extends javax.swing.JFrame {
         btn_ruta.setEnabled(!siNuevo);
         btn_bitacorareal.setEnabled(!siNuevo);
         btn_bitacorateorica.setEnabled(!siNuevo);
-        btn_almacen.setEnabled(!siNuevo);
+      //  btn_almacen.setEnabled(!siNuevo);
 
         if (this.actual != null && this.actual.getIdAeropuerto() == this.origen.getIdAeropuerto() && !this.isNuevo && !this.envio.getEstado().getValorUnico().equals("CAN")) {
             btn_anular.setEnabled(true);
