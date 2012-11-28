@@ -67,7 +67,7 @@
 				</staticText>
 				<image>
 					<reportElement x="25" y="1" width="83" height="62"/>
-					<imageExpression><![CDATA["/home/jorge/NetBeansProjects/FlyTrackFinal/src/imagenes/logo.png"]]></imageExpression>
+					<imageExpression><![CDATA["logo.png"]]></imageExpression>
 				</image>
 				<textField>
 					<reportElement x="129" y="43" width="148" height="21"/>
