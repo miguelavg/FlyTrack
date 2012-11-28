@@ -91,8 +91,8 @@ public class EnvioDialog extends javax.swing.JFrame {
     private void llenarLineaTabla(Envio e, DefaultTableModel dtm) {
         Object[] datos = new Object[7];
         datos[0] = e.getIdEnvio();
-        datos[1] = e.getRemitente().getNombres() + " " + e.getRemitente().getApellidos();
-        datos[2] = e.getDestinatario().getNombres() + " " + e.getDestinatario().getApellidos();
+        datos[1] = e.getRemitente() != null ? e.getRemitente().getNombres() + " " + e.getRemitente().getApellidos() : null;
+        datos[2] = e.getDestinatario() != null ? e.getDestinatario().getNombres() + " " + e.getDestinatario().getApellidos() : null;
         datos[3] = e.getOrigen().getNombre() + ", " + e.getOrigen().getCiudad() + ", " + e.getOrigen().getPais();
         if (e.getActual() != null) {
             datos[4] = e.getActual().getNombre() + ", " + e.getActual().getCiudad() + ", " + e.getActual().getPais();

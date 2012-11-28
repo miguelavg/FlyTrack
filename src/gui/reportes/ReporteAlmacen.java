@@ -386,8 +386,8 @@ public class ReporteAlmacen extends javax.swing.JFrame {
             String reportDate = df.format(fechaactual);
             
             String nombreReporteAlmacen = "Reporte_" + this.aeroori.getNombre() +"_"+reportDate+ ".pdf";
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
-            exporter.exportReport();
+//            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombreReporteAlmacen));
+//            exporter.exportReport();
             
             JasperViewer jviewer = new JasperViewer(jasperPrint,false);
             jviewer.setTitle(nombreReporteAlmacen);

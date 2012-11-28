@@ -71,7 +71,7 @@ public class CSimulator {
 
 
             for (Aeropuerto a : aeros) {
-                int capacidadActual = calcularActual(a);
+                int capacidadActual = a.getCapacidadActual();
                 aeroLites.add(new AeroLite(a.getIdAeropuerto(), a.getNombre() + ", " + a.getPais().getValor() + ", " + a.getCiudad().getValor(), a.getCapacidadMax(), a.getCapacidadMax(), capacidadActual, a.getCoordX(), a.getCoordY()));
             }
 
@@ -82,8 +82,9 @@ public class CSimulator {
         }
         return aeroLites;
     }
-    
+
     public class CustomComparator implements Comparator<MovimientoAlmacen> {
+
         @Override
         public int compare(MovimientoAlmacen m1, MovimientoAlmacen m2) {
             if (m1.getFecha().before(m2.getFecha())) {
@@ -95,8 +96,8 @@ public class CSimulator {
             return 0;
         }
     }
-    
-    private int calcularActual(Aeropuerto aeropuerto){
+
+    private int calcularActual(Aeropuerto aeropuerto) {
         int actual = aeropuerto.getCapacidadActual();
         int suma = actual;
         int movimientos = 1;
@@ -108,7 +109,7 @@ public class CSimulator {
         for (Vuelo v : aeropuerto.getVuelosLlegada()) {
             moves.add(new MovimientoAlmacen(v.getFechaLlegada(), "O", v.getCapacidadActual()));
         }
-        
+
         Collections.sort(moves, new CustomComparator());
 
         for (MovimientoAlmacen m : moves) {
@@ -118,13 +119,16 @@ public class CSimulator {
             if (m.getTipo().equals("O")) {
                 actual = actual - m.getCantidad();
             }
-            
+
             suma = suma + actual;
             movimientos++;
         }
-        
-        int prom = suma /  movimientos;
 
+        int prom = suma / movimientos;
+
+        if (prom < 0) {
+            return 0;
+        }
         return prom;
     }
 
@@ -191,7 +195,11 @@ public class CSimulator {
                 AeroLite destino = buscarAeroLite((Integer) obj[1], aeroLites);
 
                 Long numPre = (Long) obj[2];
-                int num = (int) (numPre.doubleValue() * regla);
+                double dnum = (numPre.doubleValue() * regla);
+                if (dnum > 0.5 && dnum < 1) {
+                    dnum = 1;
+                }
+                int num = (int) dnum;
 
                 envioLites.add(new EnvioLite(origen, destino, num, num));
             }
