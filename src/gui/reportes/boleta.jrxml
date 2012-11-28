@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<field name="numdocpago" class="java.lang.String"/>
 	<field name="moneda" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -61,10 +61,6 @@
 					<textElement/>
 					<textFieldExpression><![CDATA[$F{numdocpago}]]></textFieldExpression>
 				</textField>
-				<image>
-					<reportElement x="33" y="24" width="68" height="52"/>
-					<imageExpression><![CDATA["logo.png"]]></imageExpression>
-				</image>
 				<staticText>
 					<reportElement x="120" y="25" width="150" height="37"/>
 					<textElement textAlignment="Center">
